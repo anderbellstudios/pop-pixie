@@ -223,8 +223,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!61 &113302648
-BoxCollider2D:
+--- !u!60 &113302648
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
@@ -245,9 +245,20 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.24, y: 0.41}
+      - {x: -0.22, y: 0.41}
+      - {x: -0.25, y: 0.39}
+      - {x: -0.42999998, y: 0.08}
+      - {x: -0.47, y: -0.01}
+      - {x: -0.28, y: -0.35}
+      - {x: -0.25, y: -0.39999998}
+      - {x: -0.24, y: -0.42}
+      - {x: 0.28, y: -0.42}
+      - {x: 0.48, y: -0.02}
+      - {x: 0.48, y: 0.02}
+      - {x: 0.38, y: 0.19999999}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
