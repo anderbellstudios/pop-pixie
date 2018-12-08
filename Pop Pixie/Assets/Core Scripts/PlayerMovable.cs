@@ -16,8 +16,8 @@ public class PlayerMovable : MonoBehaviour {
     float moveHorizontal = Input.GetAxis("Horizontal");
     float moveVertical = Input.GetAxis("Vertical");
 
-    Vector2 movement = new Vector2(moveHorizontal, moveVertical);
+    Vector2 movement = speed * new Vector2(moveHorizontal, moveVertical);
 
-    rb.velocity = movement * speed;
+    rb.MovePosition(rb.position + movement * Time.fixedDeltaTime);
   }
 }
