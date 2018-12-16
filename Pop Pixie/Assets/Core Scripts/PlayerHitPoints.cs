@@ -20,6 +20,7 @@ public class PlayerHitPoints : MonoBehaviour {
 
   public float Increase (float val) {
     Current += val;
+    Cap();
     return Current;
   }
 
