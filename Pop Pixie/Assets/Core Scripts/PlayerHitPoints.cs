@@ -5,25 +5,25 @@ using UnityEngine;
 public class PlayerHitPoints : MonoBehaviour {
 
   public float Maximum; 
-  private float Current; 
+  public float Current; 
 
-  void Cap () {
+  public void Cap () {
     // Make sure HP is between 0 and max
     Current = Mathf.Clamp( Current, 0, Maximum );
   }
 
-  float Set (float val) {
+  public float Set (float val) {
     Current = val;
     Cap();
     return Current;
   }
 
-  float Increase (float val) {
+  public float Increase (float val) {
     Current += val;
     return Current;
   }
 
-  float Decrease (float val) {
+  public float Decrease (float val) {
     return Increase(-val);
   }
 
