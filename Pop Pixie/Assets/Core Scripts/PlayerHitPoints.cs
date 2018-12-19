@@ -7,6 +7,8 @@ public class PlayerHitPoints : MonoBehaviour {
   public float Maximum; 
   public float Current; 
 
+  private HUDBar HealthBar;
+
   public void Cap () {
     // Make sure HP is between 0 and max
     Current = Mathf.Clamp( Current, 0, Maximum );
@@ -31,10 +33,11 @@ public class PlayerHitPoints : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
     Current = Maximum;
+    HealthBar = gameObject.GetComponent<HUDBar>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+    HealthBar.Progress = Current / Maximum;
 	}
 }
