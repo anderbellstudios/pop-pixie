@@ -126,6 +126,7 @@ GameObject:
   - component: {fileID: 113302646}
   - component: {fileID: 113302647}
   - component: {fileID: 113302648}
+  - component: {fileID: 113302650}
   m_Layer: 0
   m_Name: Pixie
   m_TagString: Untagged
@@ -272,6 +273,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Maximum: 30
+  Current: 0
+--- !u!114 &113302650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 113302643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da12b954f460e4413808eb78618261b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Position: {x: 10, y: 10}
+  Size: {x: 500, y: 20}
+  BackgroundColour: {r: 0.2784314, g: 0.2784314, b: 0.2784314, a: 1}
+  ForegroundColour: {r: 1, g: 0, b: 0.1137255, a: 1}
+  Progress: 0.75
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
