@@ -28,7 +28,11 @@ public class EnemyAI : MonoBehaviour {
     if ( Engaged ) {
       Debug.Log("I am Engaged");
     } else {
-      Debug.Log( DistanceToTarget() );
+      if ( DistanceToTarget() < ActivationRadius ) {
+        Engaged = true;
+      } else {
+        Debug.Log( DistanceToTarget() );
+      }
     }
 	}
 
