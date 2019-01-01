@@ -17,7 +17,7 @@ public class EnemyAI : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
     Engaged = false;
-    LastActive = DateTime.Now;
+    ResetCoolDownTimer();
 	}
 	
 	// Update is called once per frame
@@ -30,6 +30,7 @@ public class EnemyAI : MonoBehaviour {
     } else {
       if ( DistanceToTarget() < ActivationRadius ) {
         Engaged = true;
+        ResetCoolDownTimer();
       } else {
         Debug.Log( DistanceToTarget() );
       }
@@ -39,6 +40,10 @@ public class EnemyAI : MonoBehaviour {
   private double CoolDownTimer() {
     // Seconds since last active
     return DateTime.Now.Subtract( LastActive ).TotalSeconds;
+  }
+
+  private void ResetCoolDownTimer() {
+    LastActive = DateTime.Now;
   }
 
   private float DistanceToTarget() {
