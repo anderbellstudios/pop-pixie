@@ -6,6 +6,9 @@ using UnityEngine;
 public class EnemyAI : MonoBehaviour {
 
   public float ActivationRadius;
+  public double CoolDownDuration;
+  public double GiveUpTime;
+
   // Making all attributes public for debugging purposes;
   // Should be changed later to avoid clutter in the inspector
   public bool Engaged;
@@ -26,14 +29,24 @@ public class EnemyAI : MonoBehaviour {
     DebugCoolDownTimer = CoolDownTimer();
 
     if ( Engaged ) {
-      Debug.Log("I am Engaged");
+      var t = CoolDownTimer(); // Avoid repeat calls
+      
+      if (t < CoolDownDuration)
+        Debug.Log("I am cooling down");
+      if (t >= CoolDownDuration && t < GiveUpTime)
+        Debug.Log("I am attacking");
+      if (t >= GiveUpTime)
+        ResetCoolDownTimer();
+
     } else {
+
       if ( DistanceToTarget() < ActivationRadius ) {
         Engaged = true;
         ResetCoolDownTimer();
       } else {
         Debug.Log( DistanceToTarget() );
       }
+
     }
 	}
 
