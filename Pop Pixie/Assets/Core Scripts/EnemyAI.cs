@@ -11,13 +11,23 @@ public class EnemyAI : MonoBehaviour {
   public bool Engaged;
   public DateTime LastActive;
 
+  // Solely for debugging
+  public double DebugCoolDownTimer;
+
 	// Use this for initialization
 	void Start () {
     Engaged = false;
+    LastActive = DateTime.Now;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-    Debug.Log("Clever AI procedure goes here!");
+    // Make the cool down appear in the inspector
+    DebugCoolDownTimer = CoolDownTimer();
 	}
+
+  private double CoolDownTimer() {
+    // Seconds since last active
+    return DateTime.Now.Subtract( LastActive ).TotalSeconds;
+  }
 }
