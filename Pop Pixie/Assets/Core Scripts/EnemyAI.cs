@@ -32,9 +32,9 @@ public class EnemyAI : MonoBehaviour {
       var t = CoolDownTimer(); // Avoid repeat calls
       
       if (t < CoolDownDuration)
-        Debug.Log("I am cooling down");
+        // Debug.Log("I am cooling down");
       if (t >= CoolDownDuration && t < GiveUpTime)
-        Debug.Log("I am attacking");
+        // Debug.Log("I am attacking");
       if (t >= GiveUpTime)
         ResetCoolDownTimer();
 
@@ -44,7 +44,7 @@ public class EnemyAI : MonoBehaviour {
         Engaged = true;
         ResetCoolDownTimer();
       } else {
-        Debug.Log( DistanceToTarget() );
+        // Debug.Log( DistanceToTarget() );
       }
 
     }
