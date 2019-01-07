@@ -10,10 +10,16 @@ class AndersonsAlgorithmTester : Editor {
    DrawDefaultInspector();
 
    if ( GUILayout.Button("Test Pathfinding") ) {
+     var enemy  = GameObject.FindGameObjectWithTag("Enemy");
+     var player = GameObject.FindGameObjectWithTag("Player");
+     var start       = enemy.transform.position;
+     var destination = player.transform.position;
+     var radius = enemy.GetComponent<CircleCollider2D>().radius;
+
      var pathfinder = new AndersonsAlgorithm(
-       start:       new Vector2( 0.0f, 7.5f ),
-       destination: new Vector2( 0.0f, 0.0f ),
-       radius: 0.5f
+       start:       start,
+       destination: destination,
+       radius: radius
      );
 
      pathfinder.Vertices();
