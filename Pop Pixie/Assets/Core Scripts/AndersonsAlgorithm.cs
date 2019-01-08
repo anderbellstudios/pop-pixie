@@ -30,10 +30,7 @@ public class AndersonsAlgorithm {
   }
 
   public Vector3[] Vertices() {
-    // Cast a circle from the start to the destination
-    RaycastHit2D[] hits = Physics2D.CircleCastAll( 
-      Start, Radius, ToDestination()
-    );
+    var hits = ObstaclesInDirection( ToDestination() );
 
     if ( DirectPath(hits) ) {
       Debug.Log("There is a direct path");
@@ -47,6 +44,13 @@ public class AndersonsAlgorithm {
     }
 
     return new Vector3[0];
+  }
+
+  private RaycastHit2D[] ObstaclesInDirection(Vector3 direction) {
+    // Cast a circle from the start to the destination
+    return Physics2D.CircleCastAll( 
+      Start, Radius, direction
+    );
   }
 
   private bool DirectPath(RaycastHit2D[] hits) {
