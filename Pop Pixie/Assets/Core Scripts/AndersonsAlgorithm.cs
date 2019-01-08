@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 // Anderson’s Heuristic Pathfinding Algorithm:
@@ -34,12 +35,15 @@ public class AndersonsAlgorithm {
       Start, Radius, ToDestination()
     );
 
-    Debug.DrawRay(Start, ToDestination(10), Color.blue, 5.0f);
-
     if ( DirectPath(hits) ) {
       Debug.Log("There is a direct path");
     } else {
       Debug.Log("There is no direct path");
+
+      foreach ( float angle in Angles() ) {
+        Debug.DrawRay(Start, ToDestination(angle), Color.green, 5.0f);
+      }
+
     }
 
     return new Vector3[0];
@@ -60,6 +64,25 @@ public class AndersonsAlgorithm {
     } else {
       return true;
     }
+  }
+
+  static float[] CacheAngles = null;
+
+  static private float[] Angles() {
+    if (CacheAngles == null) {
+      // Simplicity outweighs efficiency. Anyone who disagrees can rewrite this themselves. 
+      float[] pveAngles = Enumerable.Range(1, 9).Select( a => a *  10.0f ).ToArray(); //  10 to  90 deg
+      float[] nveAngles = Enumerable.Range(1, 9).Select( a => a * -10.0f ).ToArray(); // -10 to -90 deg
+
+      // Interleave angle arrays: 10, -10, 20, -20, etc.
+      CacheAngles = new float[18];
+      for (int i = 0; i < 9; i++) {
+        CacheAngles[2 * i]     = pveAngles[i];
+        CacheAngles[2 * i + 1] = nveAngles[i];
+      }
+    }
+
+    return CacheAngles;
   }
 
   private Vector3 ToDestination(float angle = 0.0f) {
