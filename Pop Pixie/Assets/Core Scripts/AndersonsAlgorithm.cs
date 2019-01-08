@@ -34,25 +34,35 @@ public class AndersonsAlgorithm {
       Start, Radius, ToDestination()
     );
 
-    // Debug.Log( hits.Length );
+    Debug.DrawRay(Start, ToDestination(10), Color.blue, 5.0f);
 
-    // If it hit anything other than itself
-    if ( hits.Length > 1 ) {
-
-      if ( ToDestination().magnitude - hits[1].distance > Radius * 2 ) {
-        Debug.Log( "Hit something before destination" );
-      } else {
-        Debug.Log( "Hit an object at or after the destination." );
-      }
-
+    if ( DirectPath(hits) ) {
+      Debug.Log("There is a direct path");
     } else {
-      Debug.Log( "Didn't hit anything interesting." );
+      Debug.Log("There is no direct path");
     }
 
     return new Vector3[0];
   }
 
-  private Vector3 ToDestination() {
-    return Destination - Start;
+  private bool DirectPath(RaycastHit2D[] hits) {
+    // If it hit anything other than itself
+    if ( hits.Length > 1 ) {
+
+      if ( ToDestination().magnitude - hits[1].distance > Radius * 2 ) {
+        // Hit something before destination
+        return false;
+      } else {
+        // Hit something at or after destination
+        return true;
+      }
+
+    } else {
+      return true;
+    }
+  }
+
+  private Vector3 ToDestination(float angle = 0.0f) {
+    return Quaternion.Euler(0, 0, angle) * (Destination - Start);
   }
 }
