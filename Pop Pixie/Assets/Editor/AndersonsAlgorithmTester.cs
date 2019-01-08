@@ -22,7 +22,13 @@ class AndersonsAlgorithmTester : Editor {
        radius: radius
      );
 
-     pathfinder.Vertices();
+     Debug.Log("Found a route:");
+     Vector3[] vertices = pathfinder.Vertices();
+     foreach (Vector3 v in vertices) {
+       Debug.Log(v);
+     }
+
+     enemy.GetComponent<Rigidbody2D>().velocity = ( vertices[0] - start );
    }
  }
 
