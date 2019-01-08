@@ -38,10 +38,8 @@ public class AndersonsAlgorithm {
 
     // If it hit anything other than itself
     if ( hits.Length > 1 ) {
-      var firstInterestingHitPos = hits[1].transform.position;
-      var firstInterestingHitDist = hits[1].distance;
 
-      if ( ToDestination().magnitude - firstInterestingHitDist > Radius * 2 ) {
+      if ( ToDestination().magnitude - hits[1].distance > Radius * 2 ) {
         Debug.Log( "Hit something before destination" );
       } else {
         Debug.Log( "Hit an object at or after the destination." );
