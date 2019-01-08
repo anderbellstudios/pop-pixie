@@ -22,42 +22,90 @@ public class AndersonsAlgorithm {
 
   Vector3 Start, Destination;
   float Radius; 
+  int RemainingSteps;
 
-  public AndersonsAlgorithm(Vector3 start, Vector2 destination, float radius) {
+  public AndersonsAlgorithm(Vector3 start, Vector2 destination, float radius, int remainingSteps=1) {
     Start = start;
     Destination = destination;
     Radius = radius;
+    RemainingSteps = remainingSteps;
   }
 
   public Vector3[] Vertices() {
-    var hits = ObstaclesInDirection( ToDestination() );
+    var hit = ObstacleInDirection( ToDestination() );
+    Debug.DrawRay(Start, ToDestination(), Color.blue, 5.0f);
 
-    if ( DirectPath(hits) ) {
-      Debug.Log("There is a direct path");
+    if ( DirectPath(hit) ) {
+      return new Vector3[] { Destination };
     } else {
-      Debug.Log("There is no direct path");
+      return TryThroughElbow();
+    }
+    
+  }
 
-      foreach ( float angle in Angles() ) {
-        Debug.DrawRay(Start, ToDestination(angle), Color.green, 5.0f);
+  private Vector3[] TryThroughElbow() {
+    // Stop if out of steps
+    if ( RemainingSteps == 0 )
+      return null;
+
+    foreach ( float angle in Angles() ) {
+
+      var direction = ToDestination(angle);
+      Debug.DrawRay(Start, direction, Color.red, 5.0f);
+
+      // Get distance to nearest obstacle in this direction
+      var hit = ObstacleInDirection(direction);
+      float maxDist = (hit.collider != null) ? hit.distance : 20.0f;
+
+      float dist = 1.0f;
+
+      while( dist < maxDist ) {
+        // Find elbow position dist from start in direction
+        var elbow = Start + ( dist * Vector3.Normalize(direction) );
+
+        // In order to understand recursion...
+        var pathfinder = new AndersonsAlgorithm( elbow, Destination, Radius, RemainingSteps-1 );
+        Vector3[] vertices = pathfinder.Vertices();
+
+        if ( vertices != null ) {
+          // It really shouldn't be this hard to prepend elbow to vertices!
+          var list = vertices.ToList();
+          list.Insert(0, elbow);
+          vertices = list.ToArray();
+
+          // Found a route through the elbow. 
+          // Bubble back up thorugh call stack.
+          return vertices;
+        }
+
+        // No route found thorugh this elbow.
+        // Increment distance and try again.
+        dist += 1.0f;
       }
 
     }
 
-    return new Vector3[0];
+    // No route found through any elbow. 
+    // Give up.
+    return null;
   }
 
-  private RaycastHit2D[] ObstaclesInDirection(Vector3 direction) {
+  private RaycastHit2D ObstacleInDirection(Vector3 direction) {
     // Cast a circle from the start to the destination
-    return Physics2D.CircleCastAll( 
-      Start, Radius, direction
+    return Physics2D.CircleCast( 
+      Start, 
+      Radius, 
+      direction,
+      Mathf.Infinity,
+      ~( 1 << 8 )
     );
   }
 
-  private bool DirectPath(RaycastHit2D[] hits) {
+  private bool DirectPath(RaycastHit2D hit) {
     // If it hit anything other than itself
-    if ( hits.Length > 1 ) {
+    if (hit.collider) {
 
-      if ( ToDestination().magnitude - hits[1].distance > Radius * 2 ) {
+      if ( ToDestination().magnitude - hit.distance > Radius * 2 ) {
         // Hit something before destination
         return false;
       } else {
@@ -66,6 +114,7 @@ public class AndersonsAlgorithm {
       }
 
     } else {
+      // Nothing was hit
       return true;
     }
   }
