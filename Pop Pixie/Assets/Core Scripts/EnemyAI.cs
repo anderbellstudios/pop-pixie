@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class EnemyAI : MonoBehaviour {
 
+  public MonoBehaviour CoolingDown;
+
   public float ActivationRadius;
   public double CoolDownDuration;
   public double GiveUpTime;
@@ -21,6 +23,7 @@ public class EnemyAI : MonoBehaviour {
 	void Start () {
     Engaged = false;
     ResetCoolDownTimer();
+    DisableAllAIs();
 	}
 	
 	// Update is called once per frame
@@ -32,19 +35,19 @@ public class EnemyAI : MonoBehaviour {
       var t = CoolDownTimer(); // Avoid repeat calls
       
       if (t < CoolDownDuration)
-        // Debug.Log("I am cooling down");
+        SetSubAI( CoolingDown );
       if (t >= CoolDownDuration && t < GiveUpTime)
-        // Debug.Log("I am attacking");
+        DisableAllAIs(); // Attacking
       if (t >= GiveUpTime)
         ResetCoolDownTimer();
 
     } else {
 
+      DisableAllAIs(); // Unengaged
+
       if ( DistanceToTarget() < ActivationRadius ) {
         Engaged = true;
         ResetCoolDownTimer();
-      } else {
-        // Debug.Log( DistanceToTarget() );
       }
 
     }
@@ -71,5 +74,35 @@ public class EnemyAI : MonoBehaviour {
       this.transform.position,
       target.transform.position
     );
+  }
+
+  private MonoBehaviour[] SubAIs() {
+    // Array of all sub-AIs
+    return new MonoBehaviour[] { 
+      CoolingDown
+    };
+  }
+
+  private MonoBehaviour CurrentAI;
+
+  private void SetSubAI(MonoBehaviour ai) {
+    if ( ai == CurrentAI ) 
+      return;
+    
+    Debug.Log("Starting new AI");
+    Debug.Log(ai);
+
+    DisableAllAIs();
+
+    CurrentAI = ai;
+    ai.enabled = true;
+  }
+
+  private void DisableAllAIs() {
+    CurrentAI = null;
+
+    foreach ( MonoBehaviour ai in SubAIs() ) {
+      ai.enabled = false;
+    }
   }
 }
