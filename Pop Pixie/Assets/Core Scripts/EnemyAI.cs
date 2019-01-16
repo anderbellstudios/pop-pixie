@@ -6,6 +6,7 @@ using UnityEngine;
 public class EnemyAI : MonoBehaviour {
 
   public MonoBehaviour CoolingDown;
+  public MonoBehaviour Attacking;
 
   public float ActivationRadius;
   public double CoolDownDuration;
@@ -37,7 +38,7 @@ public class EnemyAI : MonoBehaviour {
       if (t < CoolDownDuration)
         SetSubAI( CoolingDown );
       if (t >= CoolDownDuration && t < GiveUpTime)
-        DisableAllAIs(); // Attacking
+        SetSubAI( Attacking );
       if (t >= GiveUpTime)
         ResetCoolDownTimer();
 
@@ -79,7 +80,8 @@ public class EnemyAI : MonoBehaviour {
   private MonoBehaviour[] SubAIs() {
     // Array of all sub-AIs
     return new MonoBehaviour[] { 
-      CoolingDown
+      CoolingDown,
+      Attacking
     };
   }
 

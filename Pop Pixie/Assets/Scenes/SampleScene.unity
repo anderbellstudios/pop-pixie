@@ -593,6 +593,7 @@ GameObject:
   - component: {fileID: 1510131419}
   - component: {fileID: 1510131423}
   - component: {fileID: 1510131424}
+  - component: {fileID: 1510131425}
   m_Layer: 8
   m_Name: Enemy
   m_TagString: Enemy
@@ -706,6 +707,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CoolingDown: {fileID: 1510131424}
+  Attacking: {fileID: 1510131425}
   ActivationRadius: 3
   CoolDownDuration: 3
   GiveUpTime: 5
@@ -724,3 +726,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Speed: 5
   ApproachDistance: 2
+--- !u!114 &1510131425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1510131418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 949bc49a5b9204f35a846bf3b47f24bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Speed: 6
