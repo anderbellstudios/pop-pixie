@@ -54,11 +54,16 @@ public class CoolingDownAI : MonoBehaviour {
 
     bool lineOfSight = false;
 
-    RaycastHit2D[] hits = new RaycastHit2D[1];
-    gameObject.GetComponent<CircleCollider2D>().Raycast(heading, hits);
+    var hit = Physics2D.CircleCast( 
+      transform.position, 
+      ColliderRadius(), 
+      heading,
+      Mathf.Infinity,
+      ~( 1 << 8 )
+    );
 
-    if (hits.Length > 0) {
-      if (hits[0].transform == target.transform) {
+    if ( hit != null ) {
+      if (hit.transform == target.transform) {
         lineOfSight = true;
       }
     }
@@ -67,13 +72,15 @@ public class CoolingDownAI : MonoBehaviour {
     return (distance > ApproachDistance) || !lineOfSight;
   }
 
-  private void CalculatePath() {
-    var radius = gameObject.GetComponent<CircleCollider2D>().radius;
+  private float ColliderRadius() {
+    return gameObject.GetComponent<CircleCollider2D>().radius;
+  }
 
+  private void CalculatePath() {
     var pathfinder = new AndersonsAlgorithm(
       start:       transform.position,
       destination: target.transform.position,
-      radius: radius
+      radius: ColliderRadius()
     );
 
     Path = pathfinder.Vertices();
