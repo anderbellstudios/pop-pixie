@@ -23,15 +23,19 @@ public class AttackingAI : MonoBehaviour {
 	}
 
   void OnCollisionStay2D (Collision2D col) {
+    // Make sure AI is enabled
+    if ( !this.enabled )
+      return;
+
+    // Clear cooldown timer, ending Attacking AI
+    gameObject.GetComponent<EnemyAI>().ResetCoolDownTimer();
+
     var obj = col.gameObject;
 
-    // On valid collisions with player,
-    if ( obj.name == "Pixie" && this.enabled ) {
+    // If body is player,
+    if ( obj.name == "Pixie" ) {
       // Do damage
       obj.GetComponent<PlayerHitPoints>().Decrease( Damage );
-
-      // And clear cooldown timer, ending Attacking AI
-      gameObject.GetComponent<EnemyAI>().ResetCoolDownTimer();
     }
   }
 }
