@@ -7,6 +7,7 @@ public class EnemyAI : MonoBehaviour {
 
   public MonoBehaviour CoolingDown;
   public MonoBehaviour Attacking;
+  public MonoBehaviour Unengaged;
 
   public float ActivationRadius;
   public double CoolDownDuration;
@@ -44,7 +45,7 @@ public class EnemyAI : MonoBehaviour {
 
     } else {
 
-      DisableAllAIs(); // Unengaged
+      SetSubAI( Unengaged );
 
       if ( DistanceToTarget() < ActivationRadius ) {
         Engaged = true;
@@ -81,7 +82,8 @@ public class EnemyAI : MonoBehaviour {
     // Array of all sub-AIs
     return new MonoBehaviour[] { 
       CoolingDown,
-      Attacking
+      Attacking,
+      Unengaged
     };
   }
 
