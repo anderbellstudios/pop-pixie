@@ -54,13 +54,13 @@ public class EnemyAI : MonoBehaviour {
     }
 	}
 
+  public void ResetCoolDownTimer() {
+    LastActive = DateTime.Now;
+  }
+
   private double CoolDownTimer() {
     // Seconds since last active
     return DateTime.Now.Subtract( LastActive ).TotalSeconds;
-  }
-
-  private void ResetCoolDownTimer() {
-    LastActive = DateTime.Now;
   }
 
   private float DistanceToTarget() {
