@@ -13,7 +13,7 @@ using UnityEngine;
 //    player.
 // 5. If no intermediate points result in a valid path, then try 10˚ the 
 //    other way.
-// 6. And then try again with 20˚, 30˚, ..., 90˚.
+// 6. And then try again with 20˚, 30˚, ..., 180˚.
 // 7. Give up. There’s no simple two-step path to reach the player.
 //
 // One day, this will have its own Wikipedia article. I'm sure of it. 
@@ -124,12 +124,12 @@ public class AndersonsAlgorithm {
   static private float[] Angles() {
     if (CacheAngles == null) {
       // Simplicity outweighs efficiency. Anyone who disagrees can rewrite this themselves. 
-      float[] pveAngles = Enumerable.Range(1, 9).Select( a => a *  10.0f ).ToArray(); //  10 to  90 deg
-      float[] nveAngles = Enumerable.Range(1, 9).Select( a => a * -10.0f ).ToArray(); // -10 to -90 deg
+      float[] pveAngles = Enumerable.Range(1, 18).Select( a => a *  10.0f ).ToArray(); //  10 to  180 deg
+      float[] nveAngles = Enumerable.Range(1, 18).Select( a => a * -10.0f ).ToArray(); // -10 to -180 deg
 
       // Interleave angle arrays: 10, -10, 20, -20, etc.
-      CacheAngles = new float[18];
-      for (int i = 0; i < 9; i++) {
+      CacheAngles = new float[36];
+      for (int i = 0; i < 18; i++) {
         CacheAngles[2 * i]     = pveAngles[i];
         CacheAngles[2 * i + 1] = nveAngles[i];
       }
