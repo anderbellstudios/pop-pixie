@@ -23,7 +23,14 @@ public class CoolingDownAI : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-    if ( Path != null && ShouldApproach() ) {
+    if ( !ShouldApproach() ) {
+      // Stay still
+      rb.velocity = Vector3.zero;
+      return;
+    }
+
+    if ( Path != null ) {
+
       Vector3 heading = Path[0] - transform.position;
       rb.MovePosition(transform.position + heading.normalized * Speed * Time.deltaTime);
 
@@ -31,7 +38,13 @@ public class CoolingDownAI : MonoBehaviour {
         CalculatePath();
 
     } else {
-      rb.velocity = Vector3.zero;
+
+      // Move away from player
+      Vector3 direction = -1 * ( target.transform.position - transform.position ).normalized;
+      rb.MovePosition(transform.position + direction * Speed * Time.deltaTime);
+
+      CalculatePath();
+
     }
 	}
 
