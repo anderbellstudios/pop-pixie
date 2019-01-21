@@ -8,11 +8,5 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 [Serializable]
 public class GameData {
-  public static GameData Current;
-
   public int LevelId;
-
-  public void MakeCurrent() {
-    Current = this;
-  }
 }

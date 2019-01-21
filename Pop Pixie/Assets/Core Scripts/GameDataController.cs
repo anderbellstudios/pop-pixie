@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class GameDataController : MonoBehaviour {
   public static GameDataController Current;
+  public GameData CurrentGame;
 
   void Awake () {
     DontDestroyOnLoad( gameObject );
@@ -16,9 +17,8 @@ public class GameDataController : MonoBehaviour {
   public void NewGame () {
     Debug.Log("Starting a new game");
 
-    var gameData = new GameData();
-    gameData.LevelId = 1;
-    gameData.MakeCurrent();
+    CurrentGame = new GameData();
+    CurrentGame.LevelId = 1;
 
     Save();
   }
@@ -27,10 +27,9 @@ public class GameDataController : MonoBehaviour {
     Debug.Log("Attempting to save");
     Debug.Log( GameDataPath() );
 
-    var gameData = GameData.Current;
     var bf = new BinaryFormatter();
     var file = File.Open( GameDataPath(), FileMode.OpenOrCreate );
-    bf.Serialize(file, gameData);
+    bf.Serialize(file, CurrentGame);
     file.Close();
   }
 
