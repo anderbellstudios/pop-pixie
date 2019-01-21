@@ -9,7 +9,7 @@ public class MainMenuEvents : MonoBehaviour {
   }
 
   public void Continue() {
-    Debug.Log("You pressed Continue");
+    GameDataController.Current.Load();
   }
 
 }
