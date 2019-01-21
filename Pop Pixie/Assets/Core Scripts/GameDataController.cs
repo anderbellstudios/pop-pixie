@@ -4,6 +4,7 @@ using System;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameDataController : MonoBehaviour {
   public static GameDataController Current;
@@ -21,6 +22,8 @@ public class GameDataController : MonoBehaviour {
     CurrentGame.LevelId = 1;
 
     Save();
+
+    SceneManager.LoadScene( CurrentGame.LevelId );
   }
 
   public void Save () {
