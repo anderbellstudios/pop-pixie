@@ -5,7 +5,7 @@ using UnityEngine;
 public class MainMenuEvents : MonoBehaviour {
 
   public void NewGame() {
-    Debug.Log("You pressed New Game");
+    GameDataController.Current.NewGame();
   }
 
   public void Continue() {
