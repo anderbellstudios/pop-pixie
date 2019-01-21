@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class PlayerHitPointEvents : MonoBehaviour, IHitPointEvents {
   public void Decreased (HitPoints hp) {
-    Debug.Log("HitPoints changed to");
-    Debug.Log(hp.Current);
+    var highlight = GameObject.Find("RedHighlight");
+    var highlighter = highlight.GetComponent<RedHighlight>();
+
+    highlighter.Flash();
   }
 
   public void BecameZero (HitPoints hp) {
