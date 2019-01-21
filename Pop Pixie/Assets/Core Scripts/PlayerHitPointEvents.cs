@@ -11,6 +11,6 @@ public class PlayerHitPointEvents : MonoBehaviour, IHitPointEvents {
   }
 
   public void BecameZero (HitPoints hp) {
-    Debug.Log("You died!");
+    GameDataController.Current.Load();
   }
 }
