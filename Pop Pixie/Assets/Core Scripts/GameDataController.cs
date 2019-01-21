@@ -12,8 +12,13 @@ public class GameDataController : MonoBehaviour {
   public GameData CurrentGame;
 
   void Awake () {
+    if ( Current == null ) {
+      Current = this;
+    } else {
+      Destroy( gameObject );
+    }
+
     DontDestroyOnLoad( gameObject );
-    Current = this;
   }
 
   public void NewGame () {
