@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerHitPointEvents : MonoBehaviour, IHitPointEvents {
   public void Decreased (HitPoints hp) {
@@ -11,6 +12,6 @@ public class PlayerHitPointEvents : MonoBehaviour, IHitPointEvents {
   }
 
   public void BecameZero (HitPoints hp) {
-    GameDataController.Current.Load();
+    SceneManager.LoadScene("Game Over");
   }
 }
