@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-[CustomEditor( typeof(PlayerHitPoints) )]
+[CustomEditor( typeof(HitPoints) )]
 class PlayerHitPointsTester : Editor {
 
  public override void OnInspectorGUI() {
    DrawDefaultInspector();
 
-   var hp = (PlayerHitPoints) target;
+   var hp = (HitPoints) target;
 
    if ( GUILayout.Button("Do damage") ) {
      Debug.Log( hp.Decrease(5.0f) );

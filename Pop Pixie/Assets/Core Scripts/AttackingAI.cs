@@ -35,7 +35,7 @@ public class AttackingAI : MonoBehaviour {
     // If body is player,
     if ( obj.name == "Pixie" ) {
       // Do damage
-      obj.GetComponent<PlayerHitPoints>().Decrease( Damage );
+      obj.GetComponent<HitPoints>().Decrease( Damage );
     }
   }
 }
