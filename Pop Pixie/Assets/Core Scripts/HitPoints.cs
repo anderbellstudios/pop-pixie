@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerHitPoints : MonoBehaviour {
+public class HitPoints : MonoBehaviour {
 
   public float Maximum; 
   public float Current; 
