@@ -1,18 +1,30 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BulletEmitter : MonoBehaviour {
 
   public GameObject prefab;
+  public float CoolDownDuration;
   public float Speed;
 
-	// Use this for initialization
-	void Start () {
-    InvokeRepeating("Shoot", 0.0f, 0.5f);
+  private DateTime LastShot;
+
+	void Update () {
+    if ( Input.GetButton("Fire1") && CanShoot() ) {
+      Shoot();
+    }
 	}
+
+  bool CanShoot () {
+    var since = DateTime.Now.Subtract( LastShot ).TotalSeconds;
+    return since > CoolDownDuration;
+  }
 	
 	void Shoot () {
+    LastShot = DateTime.Now;
+
     var direction = new Vector3( 0, 1, 0 ).normalized;
     var origin = gameObject.transform.position + ( 1 * direction );
 
