@@ -7,7 +7,6 @@ public class HitPoints : MonoBehaviour {
   public float Maximum; 
   public float Current; 
 
-  private HUDBar HealthBar;
   private IHitPointEvents EventHandler;
 
   public void Cap () {
@@ -40,12 +39,11 @@ public class HitPoints : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
     Current = Maximum;
-    HealthBar = gameObject.GetComponent<HUDBar>();
     EventHandler = gameObject.GetComponent<IHitPointEvents>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-    HealthBar.Progress = Current / Maximum;
+    EventHandler.Updated(this);
 	}
 }
