@@ -25,13 +25,21 @@ public class BulletEmitter : MonoBehaviour {
 	void Shoot () {
     LastShot = DateTime.Now;
 
-    var direction = new Vector3( 0, 1, 0 ).normalized;
-    var origin = gameObject.transform.position + ( 1 * direction );
+    float x_component = Input.GetAxis("Fire X");
+    float y_component = Input.GetAxis("Fire Y");
+
+    var direction = new Vector3(
+      x_component, 
+      y_component, 
+      0
+    ).normalized;
+
+    var origin = gameObject.transform.position + direction;
 
     var bullet = Instantiate(
       prefab, 
       origin,
-      Quaternion.identity
+      transform.rotation
     );
 
     bullet.GetComponent<Rigidbody2D>().velocity = Speed * direction;
