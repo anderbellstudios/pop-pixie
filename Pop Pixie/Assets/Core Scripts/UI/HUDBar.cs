@@ -12,7 +12,12 @@ public class HUDBar : MonoBehaviour {
 
 	void OnGUI () {
     GUI.BeginGroup(
-      new Rect( Position.x, Position.y, Size.x, Size.y )
+      new Rect( 
+        Screen.width  * Position.x, 
+        Screen.height * Position.y, 
+        Screen.width  * Size.x, 
+        Screen.height * Size.y 
+      )
     );
 
     DrawBar(BackgroundColour);
@@ -29,7 +34,12 @@ public class HUDBar : MonoBehaviour {
     GUI.skin.box.normal.background = texture;
 
     GUI.Box(
-      new Rect( 0, 0, Size.x * scaleX, Size.y ),
+      new Rect( 
+        0, 
+        0, 
+        Screen.width  * Size.x * scaleX, 
+        Screen.height * Size.y 
+      ),
       GUIContent.none
     );
   }
