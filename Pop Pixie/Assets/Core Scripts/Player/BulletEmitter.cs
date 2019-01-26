@@ -6,6 +6,7 @@ using UnityEngine;
 public class BulletEmitter : MonoBehaviour {
 
   public GameObject prefab;
+  public MonoBehaviour DirectionManager;
   public float CoolDownDuration;
   public float Speed;
 
@@ -25,14 +26,8 @@ public class BulletEmitter : MonoBehaviour {
 	void Shoot () {
     LastShot = DateTime.Now;
 
-    float x_component = Input.GetAxis("Fire X");
-    float y_component = Input.GetAxis("Fire Y");
-
-    var direction = new Vector3(
-      x_component, 
-      y_component, 
-      0
-    ).normalized;
+    var dm = (WeaponDirectionManager) DirectionManager;
+    var direction = dm.Direction;
 
     var origin = gameObject.transform.position + direction;
 
