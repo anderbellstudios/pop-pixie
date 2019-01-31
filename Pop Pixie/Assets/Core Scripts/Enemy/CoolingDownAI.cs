@@ -6,6 +6,7 @@ public class CoolingDownAI : MonoBehaviour {
 
   public float Speed;
   public float ApproachDistance;
+  public float BackOffDistance;
 
   private Vector3[] Path;
   private Rigidbody2D rb;
@@ -24,8 +25,12 @@ public class CoolingDownAI : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
     if ( !ShouldApproach() ) {
-      // Stay still
-      rb.velocity = Vector3.zero;
+      if ( DistanceToTarget() < BackOffDistance ) {
+        MoveAwayFromPlayer();
+      } else {
+        rb.velocity = Vector3.zero;
+      }
+
       return;
     }
 
@@ -39,25 +44,33 @@ public class CoolingDownAI : MonoBehaviour {
 
     } else {
 
-      // Move away from player
-      Vector3 direction = -1 * ( target.transform.position - transform.position ).normalized;
-      rb.MovePosition(transform.position + direction * Speed * Time.deltaTime);
-
+      MoveAwayFromPlayer();
       CalculatePath();
 
     }
 	}
 
+  private void MoveAwayFromPlayer() {
+    Vector3 direction = -1 * ( target.transform.position - transform.position ).normalized;
+    rb.MovePosition(transform.position + direction * Speed * Time.deltaTime);
+  }
+
+  private Vector3 TargetHeading() {
+    return target.transform.position - transform.position;
+  }
+
+  private float DistanceToTarget() {
+    return TargetHeading().magnitude;
+  }
+
   private bool ShouldApproach() {
-    Vector3 heading = target.transform.position - transform.position;
-    float distance = heading.magnitude;
 
     bool lineOfSight = false;
 
     var hit = Physics2D.CircleCast( 
       transform.position, 
       ColliderRadius(), 
-      heading,
+      TargetHeading(),
       Mathf.Infinity,
       ~( 1 << 8 )
     );
@@ -69,7 +82,7 @@ public class CoolingDownAI : MonoBehaviour {
     }
 
     // Approach if too far away or cannot see target
-    return (distance > ApproachDistance) || !lineOfSight;
+    return (DistanceToTarget() > ApproachDistance) || !lineOfSight;
   }
 
   private float ColliderRadius() {
