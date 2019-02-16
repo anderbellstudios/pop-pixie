@@ -9,8 +9,13 @@ public class BulletEmitter : MonoBehaviour {
   public MonoBehaviour DirectionManager;
   public float CoolDownDuration;
   public float Speed;
+  public Weapon EquippedWeapon;
 
   private DateTime LastShot;
+
+  void Start () {
+    EquippedWeapon = Weapon.PopPistol();
+  }
 
 	void Update () {
     if ( Input.GetButton("Fire1") && CanShoot() ) {
