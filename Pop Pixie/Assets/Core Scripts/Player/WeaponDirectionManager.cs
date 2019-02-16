@@ -5,7 +5,8 @@ using UnityEngine;
 public class WeaponDirectionManager : MonoBehaviour {
 
   public Vector3 Direction;
-  public float Threshold;
+  public float JoystickThreshold;
+  public float MouseThreshold;
   public GameObject Arrow;
   public Camera camera;
 
@@ -46,7 +47,7 @@ public class WeaponDirectionManager : MonoBehaviour {
       0
     );
 
-    if ( inputDirection.magnitude >= Threshold ) {
+    if ( inputDirection.magnitude >= JoystickThreshold ) {
       return inputDirection.normalized;
     } else {
       return null;
@@ -60,8 +61,14 @@ public class WeaponDirectionManager : MonoBehaviour {
       mousePosition.x - transform.position.x, 
       mousePosition.y - transform.position.y, 
       0
-    );
+    ).normalized;
 
-    return inputDirection.normalized;
+    float speed = (Direction - inputDirection).magnitude;
+
+    if (speed >= MouseThreshold) {
+      return inputDirection;
+    } else {
+      return null;
+    }
   }
 }
