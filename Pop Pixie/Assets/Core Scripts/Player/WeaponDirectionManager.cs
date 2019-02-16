@@ -8,7 +8,7 @@ public class WeaponDirectionManager : MonoBehaviour {
   public float JoystickThreshold;
   public float MouseThreshold;
   public GameObject Arrow;
-  public Camera camera;
+  public Camera Cam;
 
   // Use this for initialization
   void Start () {
@@ -55,7 +55,7 @@ public class WeaponDirectionManager : MonoBehaviour {
   }
 
   Vector3? MouseDirection() {
-    Vector3 mousePosition = camera.ScreenToWorldPoint(Input.mousePosition);
+    Vector3 mousePosition = Cam.ScreenToWorldPoint(Input.mousePosition);
     
     var inputDirection = new Vector3(
       mousePosition.x - transform.position.x, 
