@@ -7,6 +7,7 @@ public class WeaponDirectionManager : MonoBehaviour {
   public Vector3 Direction;
   public float Threshold;
   public GameObject Arrow;
+  public Camera camera;
 
   // Use this for initialization
   void Start () {
@@ -15,7 +16,7 @@ public class WeaponDirectionManager : MonoBehaviour {
   
   // Update is called once per frame
   void Update () {
-    Vector3? inputDirection = JoystickDirection();
+    Vector3? inputDirection = JoystickDirection() ?? MouseDirection();
 
     if (inputDirection == null) {
       return;
@@ -50,5 +51,17 @@ public class WeaponDirectionManager : MonoBehaviour {
     } else {
       return null;
     }
+  }
+
+  Vector3? MouseDirection() {
+    Vector3 mousePosition = camera.ScreenToWorldPoint(Input.mousePosition);
+    
+    var inputDirection = new Vector3(
+      mousePosition.x - transform.position.x, 
+      mousePosition.y - transform.position.y, 
+      0
+    );
+
+    return inputDirection.normalized;
   }
 }
