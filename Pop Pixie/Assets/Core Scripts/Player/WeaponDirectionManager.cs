@@ -15,17 +15,12 @@ public class WeaponDirectionManager : MonoBehaviour {
   
   // Update is called once per frame
   void Update () {
-    float x_component = Input.GetAxis("Fire X");
-    float y_component = Input.GetAxis("Fire Y");
+    Vector3? inputDirection = JoystickDirection();
 
-    var inputDirection = new Vector3(
-      x_component, 
-      y_component, 
-      0
-    );
-
-    if ( inputDirection.magnitude >= Threshold ) {
-      Direction = inputDirection.normalized;
+    if (inputDirection == null) {
+      return;
+    } else {
+      Direction = (Vector3)inputDirection;
     }
 
     var rotation = Quaternion.FromToRotation(
@@ -38,5 +33,22 @@ public class WeaponDirectionManager : MonoBehaviour {
       rotation,
       0.3f
     );
+  }
+
+  Vector3? JoystickDirection() {
+    float x_component = Input.GetAxis("Fire X");
+    float y_component = Input.GetAxis("Fire Y");
+
+    var inputDirection = new Vector3(
+      x_component, 
+      y_component, 
+      0
+    );
+
+    if ( inputDirection.magnitude >= Threshold ) {
+      return inputDirection.normalized;
+    } else {
+      return null;
+    }
   }
 }
