@@ -10,7 +10,7 @@ public class CrosshairCursor : MonoBehaviour {
 	void Update () {
     Cursor.SetCursor(
       CrosshairTexture, 
-      Vector2.zero, 
+      new Vector2( 16, 16 ),
       CursorMode.Auto
     );
 	}
