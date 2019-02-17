@@ -22,11 +22,19 @@ public class BulletEmitter : MonoBehaviour {
 
   bool CanShoot () {
     var since = DateTime.Now.Subtract( LastShot ).TotalSeconds;
-    return since > CoolDownDuration();
+    if ( since <= CoolDownDuration() )
+      return false;
+
+    if ( !EquippedWeapon.HasBullets() )
+      return false;
+
+    return true;
   }
 	
 	void Shoot () {
     LastShot = DateTime.Now;
+
+    EquippedWeapon.ExpendBullet();
 
     var dm = (WeaponDirectionManager) DirectionManager;
     var direction = dm.Direction;

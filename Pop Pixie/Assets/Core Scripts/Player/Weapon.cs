@@ -24,4 +24,12 @@ public class Weapon {
 
     return w;
   }
+
+  public bool HasBullets() {
+    return Ammunition > 0;
+  }
+
+  public void ExpendBullet() {
+    Ammunition = Mathf.Max(0, Ammunition - 1);
+  }
 }
