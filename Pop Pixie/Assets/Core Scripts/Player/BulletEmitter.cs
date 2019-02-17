@@ -5,10 +5,7 @@ using UnityEngine;
 
 public class BulletEmitter : MonoBehaviour {
 
-  public GameObject prefab;
   public MonoBehaviour DirectionManager;
-  public float CoolDownDuration;
-  public float Speed;
   public Weapon EquippedWeapon;
 
   private DateTime LastShot;
@@ -25,7 +22,7 @@ public class BulletEmitter : MonoBehaviour {
 
   bool CanShoot () {
     var since = DateTime.Now.Subtract( LastShot ).TotalSeconds;
-    return since > CoolDownDuration;
+    return since > CoolDownDuration();
   }
 	
 	void Shoot () {
@@ -37,11 +34,23 @@ public class BulletEmitter : MonoBehaviour {
     var origin = gameObject.transform.position + direction;
 
     var bullet = Instantiate(
-      prefab, 
+      Prefab(), 
       origin,
       transform.rotation
     );
 
-    bullet.GetComponent<Rigidbody2D>().velocity = Speed * direction;
+    bullet.GetComponent<Rigidbody2D>().velocity = Speed() * direction;
 	}
+
+  float Speed() {
+    return EquippedWeapon.BulletSpeed;
+  }
+
+  float CoolDownDuration() {
+    return 1.0f / EquippedWeapon.FireRate;
+  }
+  
+  GameObject Prefab() {
+    return EquippedWeapon.BulletPrefab;
+  }
 }

@@ -13,7 +13,7 @@ public class Weapon {
 
   public static Weapon PopPistol(){
     var w = new Weapon();
-    w.FireRate = 0.5f;
+    w.FireRate = 2.0f;
     w.Capacity = 50;
     w.Ammunition = 50;
     w.BulletSpeed = 8.0f;
