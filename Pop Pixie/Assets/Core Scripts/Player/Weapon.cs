@@ -9,7 +9,6 @@ public class Weapon {
   public int Capacity;
   public int Ammunition;
   public float BulletSpeed;
-  public float Damage;
   public GameObject BulletPrefab;
 
   public static Weapon PopPistol(){
@@ -18,7 +17,6 @@ public class Weapon {
     w.Capacity = 50;
     w.Ammunition = 50;
     w.BulletSpeed = 8.0f;
-    w.Damage = 10.0f;
     w.BulletPrefab = (GameObject)Resources.Load(
       "Bullets/Pop Pellet", 
       typeof(GameObject)
