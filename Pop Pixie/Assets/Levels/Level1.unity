@@ -129,6 +129,7 @@ GameObject:
   - component: {fileID: 113302648}
   - component: {fileID: 113302650}
   - component: {fileID: 113302653}
+  - component: {fileID: 113302654}
   - component: {fileID: 113302652}
   m_Layer: 0
   m_Name: Pixie
@@ -317,17 +318,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22cdc26fbfa9f4e27af75d658b31deff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 1122145563382620, guid: 4f133c207442b40298bcf1a1c464fb47, type: 2}
   DirectionManager: {fileID: 113302653}
-  CoolDownDuration: 0.5
-  Speed: 8
-  EquippedWeapon:
-    FireRate: 0
-    Capacity: 0
-    Ammunition: 0
-    BulletSpeed: 0
-    Damage: 0
-    BulletPrefab: {fileID: 0}
 --- !u!114 &113302653
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -344,6 +335,23 @@ MonoBehaviour:
   MouseThreshold: 0.01
   Arrow: {fileID: 1861756620}
   Cam: {fileID: 519420031}
+--- !u!114 &113302654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 113302643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fa01befd688b4b7890184d47589ce6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CurrentWeapon:
+    FireRate: 0
+    Capacity: 0
+    Ammunition: 0
+    BulletSpeed: 0
+    BulletPrefab: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0

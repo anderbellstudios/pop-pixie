@@ -6,13 +6,8 @@ using UnityEngine;
 public class BulletEmitter : MonoBehaviour {
 
   public MonoBehaviour DirectionManager;
-  public Weapon EquippedWeapon;
 
   private DateTime LastShot;
-
-  void Start () {
-    EquippedWeapon = Weapon.PopPistol();
-  }
 
 	void Update () {
     if ( Input.GetButton("Fire1") && CanShoot() ) {
@@ -25,7 +20,7 @@ public class BulletEmitter : MonoBehaviour {
     if ( since <= CoolDownDuration() )
       return false;
 
-    if ( !EquippedWeapon.HasBullets() )
+    if ( !CurrentWeapon().HasBullets() )
       return false;
 
     return true;
@@ -34,7 +29,7 @@ public class BulletEmitter : MonoBehaviour {
 	void Shoot () {
     LastShot = DateTime.Now;
 
-    EquippedWeapon.ExpendBullet();
+    CurrentWeapon().ExpendBullet();
 
     var dm = (WeaponDirectionManager) DirectionManager;
     var direction = dm.Direction;
@@ -51,14 +46,18 @@ public class BulletEmitter : MonoBehaviour {
 	}
 
   float Speed() {
-    return EquippedWeapon.BulletSpeed;
+    return CurrentWeapon().BulletSpeed;
   }
 
   float CoolDownDuration() {
-    return 1.0f / EquippedWeapon.FireRate;
+    return 1.0f / CurrentWeapon().FireRate;
   }
   
   GameObject Prefab() {
-    return EquippedWeapon.BulletPrefab;
+    return CurrentWeapon().BulletPrefab;
+  }
+
+  Weapon CurrentWeapon() {
+    return gameObject.GetComponent<EquippedWeapon>().CurrentWeapon;
   }
 }
