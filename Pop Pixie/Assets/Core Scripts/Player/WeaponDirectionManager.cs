@@ -52,21 +52,29 @@ public class WeaponDirectionManager : MonoBehaviour {
     }
   }
 
+  private Vector3 previousMousePosition = Vector3.zero;
+
   Vector3? MouseDirection() {
-    Vector3 mousePosition = Cam.ScreenToWorldPoint(Input.mousePosition);
-    
-    var inputDirection = new Vector3(
-      mousePosition.x - transform.position.x, 
-      mousePosition.y - transform.position.y, 
-      0
-    ).normalized;
+    var mousePosition = Input.mousePosition;
 
-    float speed = (Direction - inputDirection).magnitude;
+    float movementFactor = (previousMousePosition - mousePosition).magnitude;
 
-    if (speed >= MouseThreshold) {
-      return inputDirection;
+    previousMousePosition = mousePosition;
+
+    if ( movementFactor >= MouseThreshold ) {
+      var onscreenMousePosition = Cam.ScreenToWorldPoint(mousePosition);
+
+      var inputDirection = new Vector3(
+        onscreenMousePosition.x - transform.position.x, 
+        onscreenMousePosition.y - transform.position.y, 
+        0
+      );
+
+      return inputDirection.normalized;
+
     } else {
       return null;
     }
+
   }
 }
