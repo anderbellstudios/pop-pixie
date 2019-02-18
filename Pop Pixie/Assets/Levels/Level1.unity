@@ -124,13 +124,15 @@ GameObject:
   - component: {fileID: 113302644}
   - component: {fileID: 113302649}
   - component: {fileID: 113302651}
+  - component: {fileID: 113302650}
   - component: {fileID: 113302646}
   - component: {fileID: 113302647}
   - component: {fileID: 113302648}
-  - component: {fileID: 113302650}
   - component: {fileID: 113302653}
   - component: {fileID: 113302654}
   - component: {fileID: 113302652}
+  - component: {fileID: 113302656}
+  - component: {fileID: 113302655}
   m_Layer: 0
   m_Name: Pixie
   m_TagString: Player
@@ -295,6 +297,7 @@ MonoBehaviour:
   BackgroundColour: {r: 0.2784314, g: 0.2784314, b: 0.2784314, a: 1}
   ForegroundColour: {r: 1, g: 0, b: 0.1137255, a: 1}
   Progress: 0.75
+  Visible: 1
 --- !u!114 &113302651
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -352,6 +355,37 @@ MonoBehaviour:
     Ammunition: 0
     BulletSpeed: 0
     BulletPrefab: {fileID: 0}
+--- !u!114 &113302655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 113302643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da12b954f460e4413808eb78618261b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Position: {x: 0.01, y: 0.05}
+  Size: {x: 0.4, y: 0.03}
+  BackgroundColour: {r: 0.2784314, g: 0.2784314, b: 0.2784314, a: 1}
+  ForegroundColour: {r: 0, g: 0.5471698, b: 0.12781554, a: 1}
+  Progress: 0
+  Visible: 0
+--- !u!114 &113302656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 113302643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a71ed221072ca41b2bcf72997ed2c7a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Duration: 5
+  ReloadBar: {fileID: 113302655}
+  InProgress: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0

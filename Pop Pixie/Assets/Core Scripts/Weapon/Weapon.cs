@@ -32,4 +32,12 @@ public class Weapon {
   public void ExpendBullet() {
     Ammunition = Mathf.Max(0, Ammunition - 1);
   }
+
+  public bool Full() {
+    return Ammunition == Capacity;
+  }
+
+  public void Reload() {
+    Ammunition = Capacity;
+  }
 }

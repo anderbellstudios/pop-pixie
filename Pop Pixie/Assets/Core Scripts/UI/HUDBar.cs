@@ -9,8 +9,12 @@ public class HUDBar : MonoBehaviour {
   public Color BackgroundColour;
   public Color ForegroundColour;
   public float Progress;
+  public bool Visible;
 
 	void OnGUI () {
+    if ( !Visible )
+      return;
+
     GUI.BeginGroup(
       new Rect( 
         Screen.width  * Position.x, 
