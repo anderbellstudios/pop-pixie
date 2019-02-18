@@ -19,9 +19,7 @@ public class WeaponDirectionManager : MonoBehaviour {
   void Update () {
     Vector3? inputDirection = JoystickDirection() ?? MouseDirection();
 
-    if (inputDirection == null) {
-      return;
-    } else {
+    if (inputDirection != null) {
       Direction = (Vector3)inputDirection;
     }
 
