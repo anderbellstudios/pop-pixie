@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EquippedWeapon : MonoBehaviour {
 
+  public MonoBehaviour AmmunitionCircle;
+
   // Can't think of a good name for this property.
   // Both "EquippedWeapon" and "Weapon" are taken.
   // anEquippedWeapon.CurrentWeapon looks ugly,
@@ -14,5 +16,11 @@ public class EquippedWeapon : MonoBehaviour {
 	void Start () {
     CurrentWeapon = Weapon.PopPistol();
 	}
+
+  void Update () {
+    var hc = (HUDCircle) AmmunitionCircle;
+    hc.Progress = (float) CurrentWeapon.Ammunition / 
+                  (float) CurrentWeapon.Capacity;
+  }
 
 }
