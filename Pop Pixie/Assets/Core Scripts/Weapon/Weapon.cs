@@ -14,8 +14,8 @@ public class Weapon {
   public static Weapon PopPistol(){
     var w = new Weapon();
     w.FireRate = 2.0f;
-    w.Capacity = 50;
-    w.Ammunition = 50;
+    w.Capacity = 12;
+    w.Ammunition = 12;
     w.BulletSpeed = 8.0f;
     w.BulletPrefab = (GameObject)Resources.Load(
       "Bullets/Pop Pellet", 
