@@ -8,6 +8,7 @@ public class DialogueBoxController : MonoBehaviour {
   public Text TextBox;
   public float InitialDelay;
   public float WriteDelay;
+  public IDialogueEventHandler EventHandler;
 
   private string FullText;
   private int WriteProgress;
@@ -28,6 +29,7 @@ public class DialogueBoxController : MonoBehaviour {
   void WriteNextLetter () {
     if ( WriteProgress == FullText.Length ) {
       Interrupt();
+      EventHandler.PageFinished();
       return;
     }
 
@@ -55,6 +57,5 @@ public class DialogueBoxController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
 	}
 }
