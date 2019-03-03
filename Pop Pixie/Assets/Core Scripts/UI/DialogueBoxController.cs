@@ -9,9 +9,6 @@ public class DialogueBoxController : MonoBehaviour {
   public float InitialDelay;
   public float WriteDelay;
 
-  [Multiline]
-  public string DebugText;
-
   private string FullText;
   private int WriteProgress;
 
@@ -20,6 +17,7 @@ public class DialogueBoxController : MonoBehaviour {
     WriteProgress = 0;
     DirectWrite("");
 
+    Interrupt();
     InvokeRepeating(
       "WriteNextLetter",
       InitialDelay,
@@ -29,7 +27,7 @@ public class DialogueBoxController : MonoBehaviour {
 
   void WriteNextLetter () {
     if ( WriteProgress == FullText.Length ) {
-      CancelInvoke();
+      Interrupt();
       return;
     }
 
@@ -47,9 +45,12 @@ public class DialogueBoxController : MonoBehaviour {
     TextBox.text = text;
   }
 
+  public void Interrupt () {
+    CancelInvoke();
+  }
+
 	// Use this for initialization
 	void Start () {
-    Write(DebugText);
 	}
 	
 	// Update is called once per frame
