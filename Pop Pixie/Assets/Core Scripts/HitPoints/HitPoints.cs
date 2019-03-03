@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,6 +7,9 @@ public class HitPoints : MonoBehaviour {
 
   public float Maximum; 
   public float Current; 
+  public float DamageCooldown;
+
+  private DateTime LastDamaged;
 
   private IHitPointEvents EventHandler;
 
@@ -34,6 +38,20 @@ public class HitPoints : MonoBehaviour {
       EventHandler.BecameZero(this);
 
     return Current;
+  }
+
+  bool CanBeDamaged () {
+    var since = DateTime.Now.Subtract( LastDamaged ).TotalSeconds;
+    return since > DamageCooldown;
+  }
+
+  public float Damage (float val) {
+    if ( CanBeDamaged() ) {
+      LastDamaged = DateTime.Now;
+      return Decrease(val);
+    }
+
+    return -1.0f;
   }
 
 	// Use this for initialization

@@ -14,7 +14,7 @@ public class EnemyHitPointEvents : MonoBehaviour, IHitPointEvents {
   private IEnumerator Flash() {
     var renderer = gameObject.GetComponent<SpriteRenderer>();
 
-    for(var n = 0; n < 5; n++) {
+    for(var n = 0; n < 10; n++) {
       renderer.enabled = true;
       yield return new WaitForSeconds(0.1f);
       renderer.enabled = false;

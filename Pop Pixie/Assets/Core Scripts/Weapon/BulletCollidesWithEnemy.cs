@@ -11,7 +11,7 @@ public class BulletCollidesWithEnemy : MonoBehaviour {
 
     var obj = col.gameObject;
     if ( obj.tag == "Enemy" ) {
-      obj.GetComponent<HitPoints>().Decrease( Damage );
+      obj.GetComponent<HitPoints>().Damage( Damage );
     }
   }
 
