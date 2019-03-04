@@ -24,6 +24,11 @@ public class CoolingDownAI : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+    if ( StateManager.Isnt( State.Playing ) ) {
+      rb.velocity = Vector3.zero;
+      return;
+    }
+
     if ( !ShouldApproach() ) {
       if ( DistanceToTarget() < BackOffDistance ) {
         MoveAwayFromPlayer();

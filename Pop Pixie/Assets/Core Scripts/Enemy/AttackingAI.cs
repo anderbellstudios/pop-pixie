@@ -18,6 +18,11 @@ public class AttackingAI : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+    if ( StateManager.Isnt( State.Playing ) ) {
+      rb.velocity = Vector3.zero;
+      return;
+    }
+
     Vector3 direction = ( target.transform.position - transform.position ).normalized;
     rb.MovePosition(transform.position + direction * Speed * Time.deltaTime);
 	}
