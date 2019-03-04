@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DialogueManager : MonoBehaviour, IDialogueEventHandler {
+public class DialogueManager : MonoBehaviour, IDialoguePageEventHandler {
 
   public DialogueBoxController DialogueBox;
   public float InterruptCooldown;
@@ -11,6 +11,7 @@ public class DialogueManager : MonoBehaviour, IDialogueEventHandler {
   private DialogueSequence Sequence;
   private int SequenceProgress;
   private bool DialogueBoxInProgress;
+  private IDialogueSequenceEventHandler EventHandler;
 
   void ReadPage (DialoguePage page) {
     DialogueBoxInProgress = true;
@@ -28,11 +29,12 @@ public class DialogueManager : MonoBehaviour, IDialogueEventHandler {
 
       SequenceProgress += 1;
     } else {
+      EventHandler.SequenceFinished();
       DialogueBox.Hide();
     }
   }
 
-	public void Play (string sequence_name) {
+	public void Play (string sequence_name, IDialogueSequenceEventHandler event_handler) {
     DialogueBox.EventHandler = this;
     DialogueBoxInProgress = false;
     DialogueBox.Show();
@@ -40,6 +42,8 @@ public class DialogueManager : MonoBehaviour, IDialogueEventHandler {
     string json = Resources.Load<TextAsset>(sequence_name).text;
     Sequence = DialogueSequence.ParseJSON(json);
     SequenceProgress = 0;
+
+    EventHandler = event_handler;
 
     ReadNextPage();
 	}

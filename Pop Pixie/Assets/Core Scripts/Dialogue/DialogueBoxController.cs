@@ -8,7 +8,7 @@ public class DialogueBoxController : MonoBehaviour {
   public Text TextBox;
   public float InitialDelay;
   public float WriteDelay;
-  public IDialogueEventHandler EventHandler;
+  public IDialoguePageEventHandler EventHandler;
   public GameObject DialogueBox;
 
   private string FullText;
