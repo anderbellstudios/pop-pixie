@@ -16,6 +16,7 @@ public class DialogueManager : MonoBehaviour, IDialoguePageEventHandler {
   void ReadPage (DialoguePage page) {
     DialogueBoxInProgress = true;
     DialogueBox.Write( page.Text );
+    DialogueBox.SetFace( page.Face() );
   }
 
   public void PageFinished () {

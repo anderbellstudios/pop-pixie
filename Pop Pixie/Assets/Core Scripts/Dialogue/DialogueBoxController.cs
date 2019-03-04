@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class DialogueBoxController : MonoBehaviour {
 
   public Text TextBox;
+  public Image FaceImage;
   public float InitialDelay;
   public float WriteDelay;
   public IDialoguePageEventHandler EventHandler;
@@ -45,6 +46,10 @@ public class DialogueBoxController : MonoBehaviour {
 
   void DirectWrite (string text) {
     TextBox.text = text;
+  }
+
+  public void SetFace (Sprite face) {
+    FaceImage.sprite = face;
   }
 
   public void FinishPage () {
