@@ -28,18 +28,16 @@ public class DialogueManager : MonoBehaviour, IDialogueEventHandler {
 
       SequenceProgress += 1;
     } else {
-      Debug.Log("Hiding");
       DialogueBox.Hide();
     }
   }
 
-	// Use this for initialization
-	void Start () {
+	public void Play (string sequence_name) {
     DialogueBox.EventHandler = this;
     DialogueBoxInProgress = false;
     DialogueBox.Show();
 
-    string json = Resources.Load<TextAsset>("Dialogue/l1d1").text;
+    string json = Resources.Load<TextAsset>(sequence_name).text;
     Sequence = DialogueSequence.ParseJSON(json);
     SequenceProgress = 0;
 
