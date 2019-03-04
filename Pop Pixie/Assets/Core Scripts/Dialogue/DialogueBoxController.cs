@@ -18,7 +18,7 @@ public class DialogueBoxController : MonoBehaviour {
     WriteProgress = 0;
     DirectWrite("");
 
-    Interrupt();
+    CancelInvoke();
     InvokeRepeating(
       "WriteNextLetter",
       InitialDelay,
@@ -28,8 +28,7 @@ public class DialogueBoxController : MonoBehaviour {
 
   void WriteNextLetter () {
     if ( WriteProgress == FullText.Length ) {
-      Interrupt();
-      EventHandler.PageFinished();
+      FinishPage();
       return;
     }
 
@@ -47,8 +46,10 @@ public class DialogueBoxController : MonoBehaviour {
     TextBox.text = text;
   }
 
-  public void Interrupt () {
+  public void FinishPage () {
     CancelInvoke();
+    DirectWrite(FullText);
+    EventHandler.PageFinished();
   }
 
 	// Use this for initialization
