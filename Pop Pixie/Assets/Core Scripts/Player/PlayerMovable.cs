@@ -17,6 +17,9 @@ public class PlayerMovable : MonoBehaviour {
   }
 
   void FixedUpdate() {
+    if ( StateManager.Isnt( State.Playing ) )
+      return;
+
     float moveHorizontal = Input.GetAxis("Horizontal");
     float moveVertical = Input.GetAxis("Vertical");
 

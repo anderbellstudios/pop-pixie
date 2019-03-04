@@ -10,6 +10,9 @@ public class BulletEmitter : MonoBehaviour {
   private DateTime LastShot;
 
 	void Update () {
+    if ( StateManager.Isnt( State.Playing ) )
+      return;
+
     if ( Input.GetButton("Fire1") && CanShoot() ) {
       Shoot();
     }

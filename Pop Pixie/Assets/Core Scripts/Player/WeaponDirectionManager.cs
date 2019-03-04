@@ -17,6 +17,9 @@ public class WeaponDirectionManager : MonoBehaviour {
   
   // Update is called once per frame
   void Update () {
+    if ( StateManager.Isnt( State.Playing ) )
+      return;
+
     Vector3? inputDirection = JoystickDirection() ?? MouseDirection();
 
     if (inputDirection != null) {
