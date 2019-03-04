@@ -27,6 +27,9 @@ public class DialogueManager : MonoBehaviour, IDialogueEventHandler {
       ReadPage(page);
 
       SequenceProgress += 1;
+    } else {
+      Debug.Log("Hiding");
+      DialogueBox.Hide();
     }
   }
 
@@ -34,6 +37,7 @@ public class DialogueManager : MonoBehaviour, IDialogueEventHandler {
 	void Start () {
     DialogueBox.EventHandler = this;
     DialogueBoxInProgress = false;
+    DialogueBox.Show();
 
     string json = Resources.Load<TextAsset>("Dialogue/l1d1").text;
     Sequence = DialogueSequence.ParseJSON(json);

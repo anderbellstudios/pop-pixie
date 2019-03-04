@@ -9,6 +9,7 @@ public class DialogueBoxController : MonoBehaviour {
   public float InitialDelay;
   public float WriteDelay;
   public IDialogueEventHandler EventHandler;
+  public GameObject DialogueBox;
 
   private string FullText;
   private int WriteProgress;
@@ -50,6 +51,18 @@ public class DialogueBoxController : MonoBehaviour {
     CancelInvoke();
     DirectWrite(FullText);
     EventHandler.PageFinished();
+  }
+
+  public void Show () {
+    SetEnabled(true);
+  }
+
+  public void Hide () {
+    SetEnabled(false);
+  }
+
+  void SetEnabled (bool state) {
+    DialogueBox.SetActive(state);
   }
 
 	// Use this for initialization
