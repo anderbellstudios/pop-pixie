@@ -8,6 +8,7 @@ public class HitPoints : MonoBehaviour {
   public float Maximum; 
   public float Current; 
   public float DamageCooldown;
+  public float RegenerateRate;
 
   private DateTime LastDamaged;
 
@@ -63,5 +64,8 @@ public class HitPoints : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
     EventHandler.Updated(this);
+
+    if ( StateManager.Is( State.Playing ) )
+      Increase( RegenerateRate * Time.deltaTime );
 	}
 }
