@@ -123,8 +123,9 @@ GameObject:
   - component: {fileID: 217444}
   - component: {fileID: 217443}
   - component: {fileID: 217445}
+  - component: {fileID: 217446}
   m_Layer: 0
-  m_Name: LevelDialogueEvents
+  m_Name: LevelEvents
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -171,6 +172,21 @@ MonoBehaviour:
   Enemy: {fileID: 1510131418}
   Pixie: {fileID: 113302643}
   ActivationRadius: 3
+--- !u!114 &217446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 217442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f708a61de3bc4a79ae9f2e760387713, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Enemies:
+  - {fileID: 1510131418}
+  Triggered: 0
+  ElevatorBarrier: {fileID: 842217062}
 --- !u!1 &113302643
 GameObject:
   m_ObjectHideFlags: 0
@@ -917,6 +933,7 @@ GameObject:
   - component: {fileID: 842217060}
   - component: {fileID: 842217059}
   - component: {fileID: 842217061}
+  - component: {fileID: 842217062}
   m_Layer: 0
   m_Name: Level 1 Background
   m_TagString: Untagged
@@ -1007,6 +1024,23 @@ EdgeCollider2D:
   - {x: 1.1238488, y: 9.59679}
   - {x: 10.526109, y: 9.510729}
   - {x: 10.55321, y: -8.310757}
+--- !u!68 &842217062
+EdgeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 842217058}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_EdgeRadius: 0
+  m_Points:
+  - {x: -1.1392546, y: 9.597214}
+  - {x: 1.176609, y: 9.595596}
 --- !u!1 &1072132033
 GameObject:
   m_ObjectHideFlags: 0
