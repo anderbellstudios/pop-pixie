@@ -6,10 +6,12 @@ public class LoreItemSprite : MonoBehaviour {
 
   public LoreManager Lore;
   public string LoreItemResourceName;
+  public DialoguePromptManager PromptManager;
 
   void OnTriggerEnter2D (Collider2D other) {
     if ( other.tag == "Player" ) {
-      Lore.Open("Lore/" + LoreItemResourceName);
+      PromptManager.Display();
+      // Lore.Open("Lore/" + LoreItemResourceName);
     }
   }
 }

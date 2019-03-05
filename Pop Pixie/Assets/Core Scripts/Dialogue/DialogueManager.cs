@@ -15,7 +15,7 @@ public class DialogueManager : MonoBehaviour, IDialoguePageEventHandler {
 
   void ReadPage (DialoguePage page) {
     DialogueBoxInProgress = true;
-    DialogueBox.Write( page.Text );
+    DialogueBox.Write( page.Text, this );
     DialogueBox.SetFace( page.Face() );
   }
 
@@ -41,7 +41,6 @@ public class DialogueManager : MonoBehaviour, IDialoguePageEventHandler {
   }
 
 	public void Play (string sequence_name, IDialogueSequenceEventHandler event_handler) {
-    DialogueBox.EventHandler = this;
     DialogueBoxInProgress = false;
     DialogueBox.Show();
     StateManager.SetState( State.Dialogue );
@@ -59,9 +58,6 @@ public class DialogueManager : MonoBehaviour, IDialoguePageEventHandler {
 
   void Awake () {
     DialogueBox.Hide();
-    DialogueBox.PromptButtons.Hide();
-    DialogueBox.PromptButtons.Write("Hello", "World");
-    DialogueBox.PromptButtons.Show();
   }
 	
 	// Update is called once per frame

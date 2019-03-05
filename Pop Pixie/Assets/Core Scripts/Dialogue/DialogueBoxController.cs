@@ -9,17 +9,18 @@ public class DialogueBoxController : MonoBehaviour {
   public Image FaceImage;
   public float InitialDelay;
   public float WriteDelay;
-  public IDialoguePageEventHandler EventHandler;
   public GameObject DialogueBox;
   public PromptButtonController PromptButtons;
 
   private string FullText;
   private int WriteProgress;
+  private IDialoguePageEventHandler EventHandler;
 
-  public void Write (string text) {
+  public void Write (string text, IDialoguePageEventHandler event_handler) {
     FullText = text;
     WriteProgress = 0;
     DirectWrite("");
+    EventHandler = event_handler;
 
     CancelInvoke();
     InvokeRepeating(
