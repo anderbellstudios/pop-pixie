@@ -16,11 +16,12 @@ public class LoreItemSprite : MonoBehaviour, IPromptButtonEventHandler {
         "Do not",
         this
       );
-      // Lore.Open("Lore/" + LoreItemResourceName);
     }
   }
 
   public void ButtonPressed (string button) {
-    Debug.Log("You pressed " + button);
+    if ( button == "positive" ) {
+      Lore.Open("Lore/" + LoreItemResourceName);
+    }
   }
 }
