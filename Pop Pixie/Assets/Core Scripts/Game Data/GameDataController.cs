@@ -32,6 +32,12 @@ public class GameDataController : MonoBehaviour {
     SceneManager.LoadScene( CurrentGame.LevelId );
   }
 
+  public void NextLevel () {
+    CurrentGame.LevelId += 1;
+    Save();
+    SceneManager.LoadScene( CurrentGame.LevelId );
+  }
+
   public bool GameDataExists () {
     return File.Exists( GameDataPath() );
   }

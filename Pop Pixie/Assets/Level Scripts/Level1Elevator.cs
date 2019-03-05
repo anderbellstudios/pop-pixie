@@ -13,6 +13,6 @@ public class Level1Elevator : MonoBehaviour, IDialogueSequenceEventHandler {
   }
 
   public void SequenceFinished () {
-    Debug.Log("And now, elevator happens.");
+    GameDataController.Current.NextLevel();
   }
 }
