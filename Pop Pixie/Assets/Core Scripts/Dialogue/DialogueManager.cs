@@ -60,6 +60,8 @@ public class DialogueManager : MonoBehaviour, IDialoguePageEventHandler {
   void Awake () {
     DialogueBox.Hide();
     DialogueBox.PromptButtons.Hide();
+    DialogueBox.PromptButtons.Write("Hello", "World");
+    DialogueBox.PromptButtons.Show();
   }
 	
 	// Update is called once per frame
