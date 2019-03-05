@@ -1042,6 +1042,7 @@ GameObject:
   m_Component:
   - component: {fileID: 919606192}
   - component: {fileID: 919606193}
+  - component: {fileID: 919606194}
   m_Layer: 5
   m_Name: PromptButtons
   m_TagString: Untagged
@@ -1076,6 +1077,18 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 919606191}
   m_CullTransparentMesh: 0
+--- !u!114 &919606194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 919606191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0aca3a66bea414bd58e9959e67308af9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PromptButtonPanel: {fileID: 919606191}
 --- !u!1001 &1127895532
 Prefab:
   m_ObjectHideFlags: 0
@@ -1234,6 +1247,11 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114518587581835158, guid: 185784beef2224b11a285ffa14ebe05e,
+        type: 2}
+      propertyPath: PromptButtons
+      value: 
+      objectReference: {fileID: 919606194}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 185784beef2224b11a285ffa14ebe05e, type: 2}
   m_IsPrefabAsset: 0

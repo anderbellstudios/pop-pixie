@@ -11,6 +11,7 @@ public class DialogueBoxController : MonoBehaviour {
   public float WriteDelay;
   public IDialoguePageEventHandler EventHandler;
   public GameObject DialogueBox;
+  public PromptButtonController PromptButtons;
 
   private string FullText;
   private int WriteProgress;
