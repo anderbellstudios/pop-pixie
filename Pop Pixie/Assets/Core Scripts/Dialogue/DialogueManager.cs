@@ -35,9 +35,9 @@ public class DialogueManager : MonoBehaviour, IDialoguePageEventHandler {
   }
 
   void Exit () {
-    EventHandler.SequenceFinished();
     DialogueBox.Hide();
     StateManager.SetState( State.Playing );
+    EventHandler.SequenceFinished();
   }
 
 	public void Play (string sequence_name, IDialogueSequenceEventHandler event_handler) {
