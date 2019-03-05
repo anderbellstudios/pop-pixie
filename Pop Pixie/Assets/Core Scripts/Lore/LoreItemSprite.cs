@@ -6,12 +6,13 @@ public class LoreItemSprite : MonoBehaviour, IPromptButtonEventHandler {
 
   public LoreManager Lore;
   public string LoreItemResourceName;
+  public string PromptText;
   public DialoguePromptManager PromptManager;
 
   void OnTriggerEnter2D (Collider2D other) {
     if ( other.tag == "Player" ) {
       PromptManager.Display(
-        "(You see a lore item of some description.)\n(Do you read it?)",
+        PromptText + "\n(Do you read it?)",
         "Read it",
         "Do not",
         this
