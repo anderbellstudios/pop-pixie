@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class PromptButtonController : MonoBehaviour {
 
   public GameObject PromptButtonPanel;
+  public GameObject DefaultButton;
   public Text PveLabel, NveLabel;
 
   private IPromptButtonEventHandler EventHandler;
@@ -18,6 +20,7 @@ public class PromptButtonController : MonoBehaviour {
 
   public void Show () {
     SetEnabled(true);
+    EventSystem.current.SetSelectedGameObject( DefaultButton );
   }
 
   public void Hide () {
