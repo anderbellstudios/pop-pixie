@@ -3,24 +3,33 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DialoguePromptManager : MonoBehaviour, IDialoguePageEventHandler {
+public class DialoguePromptManager : MonoBehaviour, IDialoguePageEventHandler, IPromptButtonEventHandler {
 
   public DialogueBoxController DialogueBox;
   public PromptButtonController PromptButtons;
   public Sprite PromptFace;
 
-  public void Display () {
+  private IPromptButtonEventHandler EventHandler;
+
+  public void Display (string question, string pveAns, string nveAns, IPromptButtonEventHandler event_handler) {
     StateManager.SetState( State.DialoguePrompt );
+
+    EventHandler = event_handler;
     DialogueBox.Show();
-    DialogueBox.Write("(This is a question?)", this);
+    DialogueBox.Write(question, this);
     DialogueBox.SetFace( PromptFace );
 
-    PromptButtons.Write("Hello", "World");
+    PromptButtons.Write(pveAns, nveAns, this);
     PromptButtons.Hide();
   }
 
   public void PageFinished () {
     PromptButtons.Show();
+  }
+
+  public void ButtonPressed (string button) {
+    Exit();
+    EventHandler.ButtonPressed(button);
   }
 
   void Exit () {

@@ -8,9 +8,12 @@ public class PromptButtonController : MonoBehaviour {
   public GameObject PromptButtonPanel;
   public Text PveLabel, NveLabel;
 
-  public void Write (string pve, string nve) {
+  private IPromptButtonEventHandler EventHandler;
+
+  public void Write (string pve, string nve, IPromptButtonEventHandler event_handler) {
     PveLabel.text = pve;
     NveLabel.text = nve;
+    EventHandler = event_handler;
   }
 
   public void Show () {
@@ -23,5 +26,17 @@ public class PromptButtonController : MonoBehaviour {
 
   void SetEnabled (bool state) {
     PromptButtonPanel.SetActive(state);
+  }
+
+  public void PveButtonPressed () {
+    SendButtonEvent("positive");
+  }
+
+  public void NveButtonPressed () {
+    SendButtonEvent("negative");
+  }
+
+  void SendButtonEvent (string button) {
+    EventHandler.ButtonPressed(button);
   }
 }
