@@ -30,10 +30,14 @@ public class DialogueManager : MonoBehaviour, IDialoguePageEventHandler {
 
       SequenceProgress += 1;
     } else {
-      EventHandler.SequenceFinished();
-      DialogueBox.Hide();
-      StateManager.SetState( State.Playing );
+      Exit();
     }
+  }
+
+  void Exit () {
+    EventHandler.SequenceFinished();
+    DialogueBox.Hide();
+    StateManager.SetState( State.Playing );
   }
 
 	public void Play (string sequence_name, IDialogueSequenceEventHandler event_handler) {
@@ -70,6 +74,10 @@ public class DialogueManager : MonoBehaviour, IDialoguePageEventHandler {
       }
     } else {
       ButtonDown = false;
+    }
+
+    if ( Input.GetButton("AbortDialogue") ) {
+      Exit();
     }
 	}
 }
