@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class LoreWindowController : MonoBehaviour {
 
   public Text TextBox;
   public GameObject LoreWindow;
-  public Scrollbar Scroll;
+  public GameObject ScrollBar;
 
   public void Write (string text) {
     TextBox.text = text;
@@ -15,7 +16,8 @@ public class LoreWindowController : MonoBehaviour {
 
   public void Show () {
     SetEnabled(true);
-    Scroll.value = 1f;
+    ScrollBar.GetComponent<Scrollbar>().value = 1f;
+    EventSystem.current.SetSelectedGameObject( ScrollBar );
   }
 
   public void Hide () {
