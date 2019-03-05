@@ -21,12 +21,10 @@ public class Level1EnemyClose : MonoBehaviour, IDialogueSequenceEventHandler {
 
     if ( dist < ActivationRadius ) {
       Triggered = true;
-      StateManager.SetState( State.Dialogue );
       Dialogue.Play("Dialogue/l1d2", this);
     }
 	}
 
   public void SequenceFinished () {
-    StateManager.SetState( State.Playing );
   }
 }

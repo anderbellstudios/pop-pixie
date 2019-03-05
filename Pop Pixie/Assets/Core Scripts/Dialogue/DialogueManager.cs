@@ -32,6 +32,7 @@ public class DialogueManager : MonoBehaviour, IDialoguePageEventHandler {
     } else {
       EventHandler.SequenceFinished();
       DialogueBox.Hide();
+      StateManager.SetState( State.Playing );
     }
   }
 
@@ -39,6 +40,7 @@ public class DialogueManager : MonoBehaviour, IDialoguePageEventHandler {
     DialogueBox.EventHandler = this;
     DialogueBoxInProgress = false;
     DialogueBox.Show();
+    StateManager.SetState( State.Dialogue );
 
     string json = Resources.Load<TextAsset>(sequence_name).text;
     Sequence = DialogueSequence.ParseJSON(json);

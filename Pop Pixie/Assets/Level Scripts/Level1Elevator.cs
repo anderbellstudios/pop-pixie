@@ -8,7 +8,6 @@ public class Level1Elevator : MonoBehaviour, IDialogueSequenceEventHandler {
 
   void OnTriggerEnter2D (Collider2D other) {
     if ( other.tag == "Player" ) {
-      StateManager.SetState( State.Dialogue );
       Dialogue.Play("Dialogue/l1d3", this);
     }
   }
