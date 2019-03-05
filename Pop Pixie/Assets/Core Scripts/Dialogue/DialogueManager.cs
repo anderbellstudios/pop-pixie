@@ -56,6 +56,10 @@ public class DialogueManager : MonoBehaviour, IDialoguePageEventHandler {
 	}
 
   private bool ButtonDown;
+
+  void Awake () {
+    DialogueBox.Hide();
+  }
 	
 	// Update is called once per frame
 	void Update () {
