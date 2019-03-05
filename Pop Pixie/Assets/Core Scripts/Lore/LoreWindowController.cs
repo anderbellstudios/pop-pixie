@@ -23,13 +23,4 @@ public class LoreWindowController : MonoBehaviour {
   void SetEnabled (bool state) {
     LoreWindow.SetActive(state);
   }
-	// Use this for initialization
-	void Start () {
-    Hide();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }
