@@ -487,6 +487,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 144757974}
+  - component: {fileID: 144757975}
   m_Layer: 5
   m_Name: LoreManager
   m_TagString: Untagged
@@ -512,6 +513,18 @@ RectTransform:
   m_AnchoredPosition: {x: 352.275, y: -219.83997}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &144757975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 144757973}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c3bae07f5e5c4bd49de8930fb563f3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LoreWindow: {fileID: 1759972577}
 --- !u!1 &413174162
 GameObject:
   m_ObjectHideFlags: 0
@@ -613,7 +626,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -40, y: 2.7099915}
+  m_AnchoredPosition: {x: -40, y: 2.709961}
   m_SizeDelta: {x: 10, y: -75.41}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &509998243
@@ -1069,6 +1082,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7174e5eba63644cbb7f240714404111, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Lore: {fileID: 0}
 --- !u!1 &796640972
 GameObject:
   m_ObjectHideFlags: 0
@@ -1851,6 +1865,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7174e5eba63644cbb7f240714404111, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Lore: {fileID: 144757975}
 --- !u!60 &1361027665
 PolygonCollider2D:
   m_ObjectHideFlags: 0

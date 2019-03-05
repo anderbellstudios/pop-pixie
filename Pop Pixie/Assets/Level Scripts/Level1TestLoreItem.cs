@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class Level1TestLoreItem : MonoBehaviour {
 
+  public LoreManager Lore;
+
   void OnTriggerEnter2D (Collider2D other) {
     if ( other.tag == "Player" ) {
-      Debug.Log("And now, lore happens!");
+      Lore.Open("Lore/l1l1");
     }
   }
 }

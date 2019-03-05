@@ -6,7 +6,7 @@ public class LoreManager : MonoBehaviour {
 
   public LoreWindowController LoreWindow;
 
-  void Open (string item_name) {
+  public void Open (string item_name) {
     string json = Resources.Load<TextAsset>(item_name).text;
     var item = LoreItem.ParseJSON(json);
 
@@ -17,7 +17,6 @@ public class LoreManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
     LoreWindow.Hide();
-    Open("Lore/l1l1");
 	}
 	
 	// Update is called once per frame
