@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Level1TestLoreItem : MonoBehaviour {
+public class LoreItemSprite : MonoBehaviour {
 
   public LoreManager Lore;
+  public string LoreItemResourceName;
 
   void OnTriggerEnter2D (Collider2D other) {
     if ( other.tag == "Player" ) {
-      Lore.Open("Lore/l1l1");
+      Lore.Open("Lore/" + LoreItemResourceName);
     }
   }
 }
