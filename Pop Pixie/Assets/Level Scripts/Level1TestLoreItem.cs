@@ -8,7 +8,6 @@ public class Level1TestLoreItem : MonoBehaviour {
 
   void OnTriggerEnter2D (Collider2D other) {
     if ( other.tag == "Player" ) {
-      StateManager.SetState( State.Lore );
       Lore.Open("Lore/l1l1");
     }
   }

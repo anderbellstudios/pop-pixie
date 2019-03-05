@@ -10,6 +10,7 @@ public class LoreManager : MonoBehaviour {
     string json = Resources.Load<TextAsset>(item_name).text;
     var item = LoreItem.ParseJSON(json);
 
+    StateManager.SetState( State.Lore );
     LoreWindow.Write( item.Text );
     LoreWindow.Show();
   }
@@ -21,6 +22,12 @@ public class LoreManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+    if ( StateManager.Isnt( State.Lore ) )
+      return;
+
+    if ( Input.GetButton("Cancel") ) {
+      LoreWindow.Hide();
+      StateManager.SetState( State.Playing );
+    }
 	}
 }
