@@ -53,6 +53,9 @@ public class DialogueManager : MonoBehaviour, IDialoguePageEventHandler {
 	
 	// Update is called once per frame
 	void Update () {
+    if ( StateManager.Isnt( State.Dialogue ) )
+      return;
+
     if ( Input.GetButton("Submit") ) {
       if ( ButtonDown != true ) {
         ButtonDown = true;
