@@ -621,8 +621,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1442487077}
   m_HandleRect: {fileID: 1442487076}
   m_Direction: 2
-  m_Value: 0.9999999
-  m_Size: 0.3124181
+  m_Value: 0.99999994
+  m_Size: 0.25218666
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2308,6 +2308,7 @@ GameObject:
   - component: {fileID: 1759972576}
   - component: {fileID: 1759972580}
   - component: {fileID: 1759972579}
+  - component: {fileID: 1759972577}
   m_Layer: 5
   m_Name: LoreWindow
   m_TagString: Untagged
@@ -2335,6 +2336,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -40, y: -40}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1759972577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1759972575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f24bc4830832e4eddb8c7bb89dc8f9f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TextBox: {fileID: 2087730798}
+  LoreWindow: {fileID: 1759972575}
 --- !u!114 &1759972579
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2511,28 +2525,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "Dear Mr Mentoe,\n\nI regret to inform you that we can no longer allow your
-    children to be enrolled at our school. There have been too many instances where
-    the staff and I have come to worry about the safety of your children and the other
-    students.\n\nUnfortunately, we do not have the staff or the facilities available
-    to maintain order amongst the other children and yours. As you already know, there
-    have been many instances of prejudice-related conflicts arising amongst the children.\n\nWe
-    have tried many approaches towards resolving the problem by educating the children
-    about the importance of equality and acceptance to enforcing sanctions and detentions
-    upon discriminatory action taking place on and off school grounds, however it
-    has come to my attention that the prejudices have been evoked by word of mouth
-    of the parents amongst each other and the students.\n\nIt has even come to my
-    knowledge that other members of staff are also \u201Cpicking favourites\u201D
-    among the children: Some members of staff are ignoring your children's merits,
-    gossiping with other students during detention, avoiding protocol when issuing
-    punishments in favour of other students, and there have even been a few instances
-    physical bullying.\n\nI fully understand if you would like to press charges against
-    the school under misconduct\u2014I for one will back you the whole way\u2014however,
-    certain diplomatic rules may rule against your favour.\n\nI do however have the
-    contact information of many commendable private tutors, whose services might suit
-    your needs better.\n\nI wish it didn\u2019t have to come to this but under much
-    deliberation and fruitless trials, this was the last course of action I had to
-    take.\n\nYour's sincerely,"
+  m_Text: 
 --- !u!222 &2087730799
 CanvasRenderer:
   m_ObjectHideFlags: 0
