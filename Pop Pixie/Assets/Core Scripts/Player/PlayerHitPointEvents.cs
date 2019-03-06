@@ -15,12 +15,12 @@ public class PlayerHitPointEvents : MonoBehaviour, IHitPointEvents {
   }
 
   public void Decreased (HitPoints hp) {
-    Fader.Flash("red");
+    Fader.Flash("red", 2.0f);
   }
 
   public void BecameZero (HitPoints hp) {
     StateManager.SetState( State.Dying );
-    Fader.Fade("to black");
+    Fader.Fade("to black", 3.0f);
     Invoke("GameOverScreen", TimeToDie);
   }
 
