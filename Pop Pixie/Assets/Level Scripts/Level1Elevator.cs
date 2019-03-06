@@ -6,6 +6,7 @@ public class Level1Elevator : MonoBehaviour, IDialogueSequenceEventHandler, IPro
 
   public DialogueManager Dialogue;
   public DialoguePromptManager PromptManager;
+  public ScreenFade Fader;
   public bool Triggered;
 
   void OnTriggerEnter2D (Collider2D other) {
@@ -35,7 +36,13 @@ public class Level1Elevator : MonoBehaviour, IDialogueSequenceEventHandler, IPro
 
   public void ButtonPressed (string button) {
     if ( button == "positive" ) {
-      GameDataController.Current.NextLevel();
+      StateManager.SetState( State.LoadingLevel );
+      Fader.Fade("to black", 2.0f);
+      Invoke("NextLevel", 3.0f);
     }
+  }
+
+  void NextLevel () {
+    GameDataController.Current.NextLevel();
   }
 }
