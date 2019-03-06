@@ -7,6 +7,7 @@ public class PlayerHitPointEvents : MonoBehaviour, IHitPointEvents {
 
   public MonoBehaviour HealthBar;
   public ScreenFade Fader;
+  public float TimeToDie;
 
   public void Updated (HitPoints hp) {
     var hb = (HUDBar) HealthBar;
@@ -20,6 +21,10 @@ public class PlayerHitPointEvents : MonoBehaviour, IHitPointEvents {
   public void BecameZero (HitPoints hp) {
     StateManager.SetState( State.Dying );
     Fader.Fade("to black");
-    // SceneManager.LoadScene("Game Over");
+    Invoke("GameOverScreen", TimeToDie);
+  }
+
+  void GameOverScreen () {
+    SceneManager.LoadScene("Game Over");
   }
 }
