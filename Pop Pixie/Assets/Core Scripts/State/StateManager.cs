@@ -2,7 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum State : int { Playing, Dialogue, Lore, DialoguePrompt };
+public enum State : int { 
+  Playing, 
+  Dialogue, 
+  Lore, 
+  DialoguePrompt, 
+  Dying 
+};
 
 public class StateManager : MonoBehaviour {
   public static int State;

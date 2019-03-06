@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class PlayerHitPointEvents : MonoBehaviour, IHitPointEvents {
 
   public MonoBehaviour HealthBar;
+  public ScreenFade Fader;
 
   public void Updated (HitPoints hp) {
     var hb = (HUDBar) HealthBar;
@@ -13,13 +14,12 @@ public class PlayerHitPointEvents : MonoBehaviour, IHitPointEvents {
   }
 
   public void Decreased (HitPoints hp) {
-    var highlight = GameObject.Find("RedHighlight");
-    var highlighter = highlight.GetComponent<RedHighlight>();
-
-    highlighter.Flash();
+    Fader.Flash("red");
   }
 
   public void BecameZero (HitPoints hp) {
-    SceneManager.LoadScene("Game Over");
+    StateManager.SetState( State.Dying );
+    Fader.Fade("to black");
+    // SceneManager.LoadScene("Game Over");
   }
 }
