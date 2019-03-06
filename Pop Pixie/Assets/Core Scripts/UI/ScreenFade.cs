@@ -8,7 +8,7 @@ public class ScreenFade : MonoBehaviour {
   private Image image;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
     image = gameObject.GetComponent<Image>();
 	}
 
