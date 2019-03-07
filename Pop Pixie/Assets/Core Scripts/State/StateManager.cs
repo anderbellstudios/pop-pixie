@@ -8,7 +8,8 @@ public enum State : int {
   Lore, 
   DialoguePrompt, 
   Dying,
-  LoadingLevel
+  LoadingLevel,
+  Cutscene
 };
 
 public class StateManager : MonoBehaviour {
