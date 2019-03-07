@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Level2Started : MonoBehaviour, IDialogueSequenceEventHandler {
 
+  public DialogueManager Dialogue;
   public ScreenFade Fader;
   public AudioClip Music;
 
@@ -11,7 +12,7 @@ public class Level2Started : MonoBehaviour, IDialogueSequenceEventHandler {
 	void Start () {
     Fader.Fade("from black", 2.0f);
     MusicController.Current.Play(Music, "level 1");
-    StateManager.SetState( State.Playing );
+    Dialogue.Play("Dialogue/l2d1", this);
 	}
 
   public void SequenceFinished () {
