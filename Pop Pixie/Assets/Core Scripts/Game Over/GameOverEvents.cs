@@ -10,10 +10,12 @@ public class GameOverEvents : MonoBehaviour {
   public void Start () {
     Fader.Fade("from black", 1.0f);
     MusicController.Current.Play(Music, "game over");
+    MusicController.Current.Fade(0.0f, 1.0f, 1.0f);
   }
 
   public void TryAgain() {
     Fader.Fade("to black", 2.0f);
+    MusicController.Current.Fade(1.0f, 0.0f, 2.0f);
     Invoke("ReloadLevel", 2.5f);
   }
 
