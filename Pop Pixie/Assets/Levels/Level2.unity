@@ -122,6 +122,7 @@ GameObject:
   m_Component:
   - component: {fileID: 62384833}
   - component: {fileID: 62384832}
+  - component: {fileID: 62384834}
   m_Layer: 0
   m_Name: Mentoe
   m_TagString: Untagged
@@ -185,12 +186,30 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 62384831}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 13.699189, y: 8.997524, z: 0}
+  m_LocalPosition: {x: 13.699189, y: 8.92, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &62384834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 62384831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d8660e5bf4d140df9632a23f009250b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Speed: 7
+  Points:
+  - {x: 11.09, y: 10.41, z: 0}
+  - {x: 11, y: 15.08, z: 0}
+  - {x: 12.6, y: 16.54, z: 0}
+  - {x: 13.58, y: 21.48, z: 0}
 --- !u!1001 &189220183
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -387,6 +406,7 @@ MonoBehaviour:
   Music: {fileID: 8300000, guid: 5c9ade24152404202ba3532a23edacfc, type: 3}
   MainCamera: {fileID: 612035769}
   CutsceneCamera: {fileID: 1836240087}
+  MentoeAnimation: {fileID: 62384834}
 --- !u!4 &405272548
 Transform:
   m_ObjectHideFlags: 0

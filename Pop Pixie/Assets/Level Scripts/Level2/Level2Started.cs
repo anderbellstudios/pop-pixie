@@ -8,6 +8,7 @@ public class Level2Started : MonoBehaviour, IDialogueSequenceEventHandler {
   public ScreenFade Fader;
   public AudioClip Music;
   public Camera MainCamera, CutsceneCamera;
+  public MentoeRunToElevator MentoeAnimation;
 
   private int DialogueCount;
 
@@ -26,7 +27,8 @@ public class Level2Started : MonoBehaviour, IDialogueSequenceEventHandler {
   public void SequenceFinished () {
     switch (DialogueCount) {
       case 0:
-        DoMentoeRun();
+        StateManager.SetState( State.Cutscene );
+        MentoeAnimation.Run();
         Invoke("PlaySecondDialogue", 3.0f);
         break;
 
@@ -35,10 +37,6 @@ public class Level2Started : MonoBehaviour, IDialogueSequenceEventHandler {
         Invoke("SwitchToMainCamera", 2.0f);
         break;
     }
-  }
-
-  void DoMentoeRun () {
-    StateManager.SetState( State.Cutscene );
   }
 
   void PlaySecondDialogue () {
