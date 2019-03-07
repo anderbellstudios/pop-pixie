@@ -5,9 +5,11 @@ using UnityEngine;
 public class GameOverEvents : MonoBehaviour {
 
   public ScreenFade Fader;
+  public AudioClip Music;
 
   public void Start () {
     Fader.Fade("from black", 1.0f);
+    MusicController.Current.Play(Music, "game over");
   }
 
   public void TryAgain() {
