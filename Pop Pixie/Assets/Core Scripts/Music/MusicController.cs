@@ -23,7 +23,7 @@ public class MusicController : MonoBehaviour {
     SetVolume(0.0f);
   }
 
-  void SetVolume (float volume) {
+  public void SetVolume (float volume) {
     FadeFrom = volume;
     FadeTo = volume;
     FadeDuration = 1.0f;
