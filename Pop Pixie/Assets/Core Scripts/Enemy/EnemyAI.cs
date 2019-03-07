@@ -21,8 +21,11 @@ public class EnemyAI : MonoBehaviour {
   // Solely for debugging
   public double DebugCoolDownTimer;
 
+  private GameObject target;
+
 	// Use this for initialization
 	void Start () {
+    target = GameObject.FindGameObjectWithTag("Player");
     Engaged = false;
     ResetCoolDownTimer();
     DisableAllAIs();
@@ -47,13 +50,32 @@ public class EnemyAI : MonoBehaviour {
 
       SetSubAI( Unengaged );
 
-      if ( DistanceToTarget() < ActivationRadius ) {
+      bool lineOfSight = false;
+
+      var hit = Physics2D.Raycast( 
+        transform.position, 
+        TargetHeading(),
+        Mathf.Infinity,
+        ~( 1 << 8 )
+      );
+
+      if ( hit != null ) {
+        if (hit.transform == target.transform) {
+          lineOfSight = true;
+        }
+      }
+
+      if ( DistanceToTarget() < ActivationRadius && lineOfSight ) {
         Engaged = true;
         ResetCoolDownTimer();
       }
 
     }
 	}
+
+  private Vector3 TargetHeading() {
+    return target.transform.position - transform.position;
+  }
 
   public void ResetCoolDownTimer() {
     LastActive = DateTime.Now;
@@ -65,17 +87,7 @@ public class EnemyAI : MonoBehaviour {
   }
 
   private float DistanceToTarget() {
-    var target = GameObject.FindGameObjectWithTag("Player");
-
-    if (target == null) {
-      Debug.Log("Target not found!");
-      return float.PositiveInfinity;
-    }
-
-    return Vector2.Distance(
-      this.transform.position,
-      target.transform.position
-    );
+    return TargetHeading().magnitude;
   }
 
   private MonoBehaviour[] SubAIs() {
