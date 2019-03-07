@@ -4,7 +4,18 @@ using UnityEngine;
 
 public class GameOverEvents : MonoBehaviour {
 
+  public ScreenFade Fader;
+
+  public void Start () {
+    Fader.Fade("from black", 1.0f);
+  }
+
   public void TryAgain() {
+    Fader.Fade("to black", 2.0f);
+    Invoke("ReloadLevel", 2.5f);
+  }
+
+  void ReloadLevel () {
     GameDataController.Current.Load();
   }
 
