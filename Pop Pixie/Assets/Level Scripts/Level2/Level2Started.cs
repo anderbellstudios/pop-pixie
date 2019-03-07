@@ -7,6 +7,7 @@ public class Level2Started : MonoBehaviour, IDialogueSequenceEventHandler {
   public DialogueManager Dialogue;
   public ScreenFade Fader;
   public AudioClip Music;
+  public Camera MainCamera, CutsceneCamera;
 
   private int DialogueCount;
 
@@ -14,6 +15,10 @@ public class Level2Started : MonoBehaviour, IDialogueSequenceEventHandler {
 	void Start () {
     Fader.Fade("from black", 2.0f);
     MusicController.Current.Play(Music, "level 1");
+
+    MainCamera.enabled = false;
+    CutsceneCamera.enabled = true;
+
     DialogueCount = 0;
     Dialogue.Play("Dialogue/l2d1", this);
 	}
@@ -23,6 +28,11 @@ public class Level2Started : MonoBehaviour, IDialogueSequenceEventHandler {
       case 0:
         DoMentoeRun();
         Invoke("PlaySecondDialogue", 3.0f);
+        break;
+
+      case 1:
+        Fader.Fade("to black", 1.0f);
+        Invoke("SwitchToMainCamera", 2.0f);
         break;
     }
   }
@@ -34,5 +44,12 @@ public class Level2Started : MonoBehaviour, IDialogueSequenceEventHandler {
   void PlaySecondDialogue () {
     DialogueCount = 1;
     Dialogue.Play("Dialogue/l2d2", this);
+  }
+
+  void SwitchToMainCamera () {
+    MainCamera.enabled = true;
+    CutsceneCamera.enabled = false;
+
+    Fader.Fade("from black", 1.0f);
   }
 }
