@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Level1EnemiesKilled : MonoBehaviour {
+public class EnemiesKilled : MonoBehaviour {
 
   public List<GameObject> Enemies;
   public bool Triggered;
