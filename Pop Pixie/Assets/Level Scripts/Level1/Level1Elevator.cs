@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Level1Elevator : MonoBehaviour, IDialogueSequenceEventHandler, IPromptButtonEventHandler {
 
@@ -43,6 +44,6 @@ public class Level1Elevator : MonoBehaviour, IDialogueSequenceEventHandler, IPro
   }
 
   void NextLevel () {
-    GameDataController.Current.NextLevel();
+    SceneManager.LoadScene("Elevator");
   }
 }
