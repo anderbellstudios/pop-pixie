@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Level2Elevator : MonoBehaviour, IDialogueSequenceEventHandler, IPromptButtonEventHandler {
 
@@ -29,8 +30,15 @@ public class Level2Elevator : MonoBehaviour, IDialogueSequenceEventHandler, IPro
 
   public void ButtonPressed (string button) {
     if ( button == "positive" ) {
+      StateManager.SetState( State.LoadingLevel );
       Fader.Fade("to black", 2.0f);
+      MusicController.Current.Fade(1.0f, 0.0f, 2.0f);
+      Invoke("EndOfGameScene", 2.5f);
     }
+  }
+
+  void EndOfGameScene () {
+    SceneManager.LoadScene("End of Game");
   }
 
 }
