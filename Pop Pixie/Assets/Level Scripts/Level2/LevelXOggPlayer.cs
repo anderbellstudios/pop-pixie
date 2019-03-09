@@ -7,7 +7,7 @@ public class LevelXOggPlayer : MonoBehaviour, IDialogueSequenceEventHandler, IPr
   public LoreManager Lore;
   public DialogueManager Dialogue;
   public DialoguePromptManager PromptManager;
-  public AudioSource MainMusic, SpecialMusic;
+  public AudioSource Player;
 
   void OnTriggerEnter2D (Collider2D other) {
     if ( other.tag == "Player" ) {
@@ -32,16 +32,20 @@ public class LevelXOggPlayer : MonoBehaviour, IDialogueSequenceEventHandler, IPr
     if ( button == "positive" ) {
       Lore.Open("Lore/Blank", this);
 
-      MainMusic.enabled = false;
-      SpecialMusic.enabled = true;
-      SpecialMusic.Play();
+      MainMusicPlayer().enabled = false;
+      Player.enabled = true;
+      Player.Play();
     }
   }
 
   public void Closed () {
-    MainMusic.enabled = true;
-    MainMusic.Play();
-    SpecialMusic.enabled = false;
-    SpecialMusic.Stop();
+    MainMusicPlayer().enabled = true;
+    MainMusicPlayer().Play();
+    Player.enabled = false;
+    Player.Stop();
+  }
+
+  AudioSource MainMusicPlayer () {
+    return MusicController.Current.Player;
   }
 }
