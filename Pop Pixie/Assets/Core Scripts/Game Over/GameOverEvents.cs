@@ -10,7 +10,6 @@ public class GameOverEvents : MonoBehaviour {
   public void Start () {
     Fader.Fade("from black", 1.0f);
     MusicController.Current.Play(Music, "game over");
-    MusicController.Current.Fade(0.0f, 1.0f, 1.0f);
   }
 
   public void TryAgain() {
