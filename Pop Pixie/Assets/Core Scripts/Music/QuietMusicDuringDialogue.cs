@@ -13,11 +13,11 @@ public class QuietMusicDuringDialogue : MonoBehaviour {
       case State.DialoguePrompt:
       case State.Lore:
       case State.Cutscene:
+      case State.LoadingLevel:
         MusicController.Current.SetVolume(0.25f);
         break;
 
       case State.Playing:
-      case State.LoadingLevel:
         MusicController.Current.SetVolume(1.0f);
         break;
     }
