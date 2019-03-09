@@ -32,7 +32,7 @@ public class Level2Elevator : MonoBehaviour, IDialogueSequenceEventHandler, IPro
     if ( button == "positive" ) {
       StateManager.SetState( State.LoadingLevel );
       Fader.Fade("to black", 2.0f);
-      MusicController.Current.Fade(1.0f, 0.0f, 2.0f);
+      MusicController.Current.Fade(0.25f, 0.0f, 2.0f);
       Invoke("EndOfGameScene", 2.5f);
     }
   }

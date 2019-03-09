@@ -13,6 +13,7 @@ public class DialoguePromptManager : MonoBehaviour, IDialoguePageEventHandler, I
 
   public void Display (string question, string pveAns, string nveAns, IPromptButtonEventHandler event_handler) {
     StateManager.SetState( State.DialoguePrompt );
+    MusicController.Current.SetVolume(0.25f);
 
     EventHandler = event_handler;
     DialogueBox.Show();
@@ -36,6 +37,7 @@ public class DialoguePromptManager : MonoBehaviour, IDialoguePageEventHandler, I
     PromptButtons.Hide();
     DialogueBox.Hide();
     StateManager.SetState( State.Playing );
+    MusicController.Current.SetVolume(1.0f);
   }
 
   void Awake () {

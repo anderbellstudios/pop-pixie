@@ -10,6 +10,7 @@ public class LoreManager : MonoBehaviour {
     string json = Resources.Load<TextAsset>(item_name).text;
     var item = LoreItem.ParseJSON(json);
 
+    MusicController.Current.SetVolume(0.25f);
     StateManager.SetState( State.Lore );
     LoreWindow.Write( item.Text );
     LoreWindow.Show();
@@ -28,6 +29,7 @@ public class LoreManager : MonoBehaviour {
     if ( Input.GetButton("Cancel") ) {
       LoreWindow.Hide();
       StateManager.SetState( State.Playing );
+      MusicController.Current.SetVolume(1.0f);
     }
 	}
 }

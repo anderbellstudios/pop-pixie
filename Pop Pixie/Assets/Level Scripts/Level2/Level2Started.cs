@@ -28,6 +28,7 @@ public class Level2Started : MonoBehaviour, IDialogueSequenceEventHandler {
     switch (DialogueCount) {
       case 0:
         StateManager.SetState( State.Cutscene );
+        MusicController.Current.SetVolume(0.25f);
         MentoeAnimation.Run();
         Invoke("PlaySecondDialogue", 3.0f);
         break;
