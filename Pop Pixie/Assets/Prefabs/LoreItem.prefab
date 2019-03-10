@@ -1,27 +1,17 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &100100000
-Prefab:
-  m_ObjectHideFlags: 1
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications: []
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1709468480004594}
-  m_IsPrefabAsset: 1
 --- !u!1 &1709468480004594
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4609533300229276}
   - component: {fileID: 212231983100808098}
-  - component: {fileID: 60590180412108114}
   - component: {fileID: 114692458749416858}
+  - component: {fileID: 7572273704325297745}
   m_Layer: 0
   m_Name: LoreItem
   m_TagString: Untagged
@@ -31,9 +21,10 @@ GameObject:
   m_IsActive: 1
 --- !u!4 &4609533300229276
 Transform:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1709468480004594}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 20, y: 10, z: 0}
@@ -42,62 +33,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!60 &60590180412108114
-PolygonCollider2D:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1709468480004594}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.24, y: 0.41}
-      - {x: -0.22, y: 0.41}
-      - {x: -0.25, y: 0.39}
-      - {x: -0.42999998, y: 0.08}
-      - {x: -0.47, y: -0.01}
-      - {x: -0.28, y: -0.35}
-      - {x: -0.25, y: -0.39999998}
-      - {x: -0.24, y: -0.42}
-      - {x: 0.28, y: -0.42}
-      - {x: 0.48, y: -0.02}
-      - {x: 0.48, y: 0.02}
-      - {x: 0.38, y: 0.19999999}
---- !u!114 &114692458749416858
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1709468480004594}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7174e5eba63644cbb7f240714404111, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Lore: {fileID: 0}
-  LoreItemResourceName: l1l1
-  PromptText: (You see a dark hexagon on the floor.)
-  PromptManager: {fileID: 0}
 --- !u!212 &212231983100808098
 SpriteRenderer:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1709468480004594}
   m_Enabled: 1
   m_CastShadows: 0
@@ -107,6 +48,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
+  m_RendererPriority: 0
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
@@ -128,8 +70,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 21300000, guid: e343f09cc77ce4b90a8355289ce52733, type: 3}
-  m_Color: {r: 0.25530398, g: 0.50697356, b: 0.77599996, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 0447f1bf4334545119c1b7e969ad8c6b, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -139,3 +81,74 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &114692458749416858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1709468480004594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7174e5eba63644cbb7f240714404111, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Lore: {fileID: 0}
+  LoreItemResourceName: l1l1
+  PromptText: (You see a dark hexagon on the floor.)
+  PromptManager: {fileID: 0}
+--- !u!60 &7572273704325297745
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1709468480004594}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.304, y: 1.292}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.356, y: -0.27400002}
+      - {x: 0.372, y: -0.19800001}
+      - {x: 0.46800002, y: -0.062000003}
+      - {x: 0.532, y: 0.022000002}
+      - {x: 0.568, y: 0.106000006}
+      - {x: 0.57600003, y: 0.14600001}
+      - {x: 0.57600003, y: 0.33400002}
+      - {x: 0.568, y: 0.39000002}
+      - {x: 0.544, y: 0.54200006}
+      - {x: 0.54, y: 0.56200004}
+      - {x: 0.528, y: 0.578}
+      - {x: -0.40800002, y: 0.578}
+      - {x: -0.416, y: 0.57000005}
+      - {x: -0.40800002, y: 0.53800005}
+      - {x: -0.35200003, y: 0.37}
+      - {x: -0.324, y: 0.24200001}
+      - {x: -0.32000002, y: 0.18200001}
+      - {x: -0.33600003, y: 0.12200001}
+      - {x: -0.38000003, y: 0.05}
+      - {x: -0.476, y: -0.066}
+      - {x: -0.5, y: -0.094000004}
+      - {x: -0.54800004, y: -0.186}
+      - {x: -0.568, y: -0.266}
+      - {x: -0.57600003, y: -0.33}
+      - {x: -0.57600003, y: -0.558}
+      - {x: -0.568, y: -0.56200004}
+      - {x: 0.36800003, y: -0.56200004}
+      - {x: 0.38000003, y: -0.558}
+      - {x: 0.37600002, y: -0.50600004}
+      - {x: 0.356, y: -0.386}
