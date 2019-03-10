@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelXOggPlayer : MonoBehaviour, IDialogueSequenceEventHandler, IPromptButtonEventHandler, ILoreEventHandler {
+public class Level2OggPlayer : MonoBehaviour, IDialogueSequenceEventHandler, IPromptButtonEventHandler, ILoreEventHandler {
 
   public LoreManager Lore;
   public DialogueManager Dialogue;
