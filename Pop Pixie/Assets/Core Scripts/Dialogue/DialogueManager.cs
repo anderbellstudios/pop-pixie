@@ -14,6 +14,7 @@ public class DialogueManager : MonoBehaviour, IDialoguePageEventHandler {
   private IDialogueSequenceEventHandler EventHandler;
 
   void ReadPage (DialoguePage page) {
+    Debug.Log(page.HasVoiceLine());
     DialogueBoxInProgress = true;
     DialogueBox.Write( page.Text, this );
     DialogueBox.SetFace( page.Face() );
