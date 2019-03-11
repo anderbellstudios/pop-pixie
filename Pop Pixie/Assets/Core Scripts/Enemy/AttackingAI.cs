@@ -6,6 +6,8 @@ public class AttackingAI : MonoBehaviour {
 
   public float Speed;
   public float Damage;
+  public SoundController SoundPlayer;
+  public List<AudioClip> Sounds;
 
   private Rigidbody2D rb;
   private GameObject target;
@@ -38,6 +40,11 @@ public class AttackingAI : MonoBehaviour {
     if ( obj.name == "Pixie" ) {
       // Do damage
       obj.GetComponent<HitPoints>().Damage( Damage );
+
+      // Play attack sound
+      int i = UnityEngine.Random.Range(0, Sounds.Count);
+      var sound = Sounds[i];
+      SoundPlayer.Play(sound);
 
       // Clear cooldown timer, ending Attacking AI
       gameObject.GetComponent<EnemyAI>().ResetCoolDownTimer();

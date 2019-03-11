@@ -4,11 +4,19 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class EnemyHitPointEvents : MonoBehaviour, IHitPointEvents {
+  public SoundController SoundPlayer;
+  public List<AudioClip> Sounds;
+
   public void Updated (HitPoints hp) {
   }
 
   public void Decreased (HitPoints hp) {
     StartCoroutine( Flash() );
+
+    // Play hurt sound
+    int i = UnityEngine.Random.Range(0, Sounds.Count);
+    var sound = Sounds[i];
+    SoundPlayer.Play(sound);
   }
 
   private IEnumerator Flash() {
