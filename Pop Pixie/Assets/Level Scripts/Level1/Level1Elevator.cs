@@ -11,12 +11,12 @@ public class Level1Elevator : MonoBehaviour, IDialogueSequenceEventHandler, IPro
   public bool Triggered;
 
   void OnTriggerEnter2D (Collider2D other) {
-    if ( Triggered ) {
-      ShowPrompt();
-      return;
-    }
-
     if ( other.tag == "Player" ) {
+      if ( Triggered ) {
+        ShowPrompt();
+        return;
+      }
+
       Dialogue.Play("Dialogue/l1d3", this);
     }
   }
