@@ -6,6 +6,7 @@ using UnityEngine;
 public class DialogueManager : MonoBehaviour, IDialoguePageEventHandler {
 
   public DialogueBoxController DialogueBox;
+  public AudioSource Player;
   public float InterruptCooldown;
 
   private DialogueSequence Sequence;
@@ -14,10 +15,16 @@ public class DialogueManager : MonoBehaviour, IDialoguePageEventHandler {
   private IDialogueSequenceEventHandler EventHandler;
 
   void ReadPage (DialoguePage page) {
-    Debug.Log(page.HasVoiceLine());
     DialogueBoxInProgress = true;
     DialogueBox.Write( page.Text, this );
     DialogueBox.SetFace( page.Face() );
+
+    if ( page.HasVoiceLine() ) {
+      Player.clip = page.VoiceLine();
+      Player.Play();
+    } else {
+      Player.Stop();
+    }
   }
 
   public void PageFinished () {
@@ -40,6 +47,7 @@ public class DialogueManager : MonoBehaviour, IDialoguePageEventHandler {
     StateManager.SetState( State.Playing );
     MusicController.Current.SetVolume(1.0f);
     EventHandler.SequenceFinished();
+    Player.Stop();
   }
 
 	public void Play (string sequence_name, IDialogueSequenceEventHandler event_handler) {
