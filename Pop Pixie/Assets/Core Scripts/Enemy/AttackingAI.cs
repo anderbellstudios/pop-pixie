@@ -32,9 +32,6 @@ public class AttackingAI : MonoBehaviour {
     if ( !this.enabled )
       return;
 
-    // Clear cooldown timer, ending Attacking AI
-    gameObject.GetComponent<EnemyAI>().ResetCoolDownTimer();
-
     var obj = col.gameObject;
 
     // If body is player,
