@@ -11,7 +11,8 @@ public class EnemyHitPointEvents : MonoBehaviour, IHitPointEvents {
   }
 
   public void Decreased (HitPoints hp) {
-    StartCoroutine( Flash() );
+    float duration = hp.DamageCooldown;
+    StartCoroutine( Flash(duration) );
 
     // Play hurt sound
     int i = UnityEngine.Random.Range(0, Sounds.Count);
@@ -19,10 +20,12 @@ public class EnemyHitPointEvents : MonoBehaviour, IHitPointEvents {
     SoundPlayer.Play(sound);
   }
 
-  private IEnumerator Flash() {
+  private IEnumerator Flash(float duration) {
     var renderer = gameObject.GetComponent<SpriteRenderer>();
 
-    for(var n = 0; n < 10; n++) {
+    int flashes = (int)( duration / 0.2f );
+
+    for(var n = 0; n < flashes; n++) {
       renderer.enabled = true;
       yield return new WaitForSeconds(0.1f);
       renderer.enabled = false;
