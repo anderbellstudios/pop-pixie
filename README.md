@@ -4,7 +4,11 @@ Pop Pixie is the successor to our BAFTA-nominated online game, [Mouse Trapped](h
 
 The game revolves around the adventures of the Pop Pixie, a vigilante corner shop owner whose mission it is to infiltrate the evil Menotes corporation, discover its secrets and take down the Mentoes' Man. 
 
-## Getting Started
+## Installing
+
+Because Unity is magic, we can provide builds of Pop Pixie for Linux, Mac and Windows. Download the [latest release](https://github.com/12joan/pop-pixie/releases/latest) for your operating system and have fun!
+
+## Building
 
 Pop Pixie is written in [Unity 2018.3.7](https://unity3d.com/pt/unity/whats-new/2018.3.7). While it's entirely possible that the game will work with a later version, I can't guarantee it. Earlier versions? No chance. 
 
