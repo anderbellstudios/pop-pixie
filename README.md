@@ -1,6 +1,6 @@
 # Pop Pixie
 
-Pop Pixie is the successor to our BAFTA-nominated online game, [Mouse Trapped](https://github.com/12joan/mouse_trapped). Like we did with Mouse Trapped, we are entering Pop Pixie into the BAFTA Young Game Designers competition. 
+Pop Pixie is the successor to our BAFTA-nominated online game, [Mouse Trapped](https://github.com/12joan/mouse_trapped). Like Mouse Trapped, we entered Pop Pixie into the BAFTA Young Game Designers competition. 
 
 The game revolves around the adventures of the Pop Pixie, a vigilante corner shop owner whose mission it is to infiltrate the evil Menotes corporation, discover its secrets and take down the Mentoes' Man. 
 
