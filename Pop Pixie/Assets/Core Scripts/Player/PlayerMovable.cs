@@ -9,6 +9,8 @@ public class PlayerMovable : MonoBehaviour {
   public float Speed;
   public List<SpeedModifier> SpeedModifiers;
 
+  public Vector2 Movement;
+
   private Rigidbody2D rb;
 
   void Awake () {
@@ -23,9 +25,10 @@ public class PlayerMovable : MonoBehaviour {
     float moveHorizontal = Input.GetAxis("Horizontal");
     float moveVertical = Input.GetAxis("Vertical");
 
-    Vector2 movement = ModifiedSpeed() * new Vector2(moveHorizontal, moveVertical);
+    Movement += ModifiedSpeed() * new Vector2(moveHorizontal, moveVertical);
 
-    rb.MovePosition(rb.position + movement * Time.fixedDeltaTime);
+    rb.MovePosition(rb.position + Movement * Time.fixedDeltaTime);
+    Movement = Vector2.zero;
   }
 
   float ModifiedSpeed() {

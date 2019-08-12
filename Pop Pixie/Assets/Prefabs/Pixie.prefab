@@ -93,6 +93,8 @@ GameObject:
   - component: {fileID: 114713038835468652}
   - component: {fileID: 114212325264381170}
   - component: {fileID: 114081501603769606}
+  - component: {fileID: 8646166208578633107}
+  - component: {fileID: 433535405577736701}
   - component: {fileID: 50770596489405938}
   - component: {fileID: 114416280350640038}
   - component: {fileID: 114255718929856854}
@@ -233,6 +235,39 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 7
+  Movement: {x: 0, y: 0}
+--- !u!114 &8646166208578633107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1276747056135348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc0f03db9f11c4f54a107293b0e4af48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 50770596489405938}
+  RollAllowed: {fileID: 433535405577736701}
+  DirectionManager: {fileID: 114416280350640038}
+  PlayerMovable: {fileID: 114081501603769606}
+  Speed: 40
+  Duration: 0.2
+  Rolling: 0
+--- !u!114 &433535405577736701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1276747056135348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52433c407fafa4d5eb682e7eb06c2859, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Cooldown: 0.5
 --- !u!50 &50770596489405938
 Rigidbody2D:
   serializedVersion: 4
@@ -266,7 +301,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a80be76f8ddb3463a8f5fc17404f4839, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Direction: {x: 0, y: 1, z: 0}
   JoystickThreshold: 0.1
   MouseThreshold: 0.01
   Arrow: {fileID: 1214155085074384}

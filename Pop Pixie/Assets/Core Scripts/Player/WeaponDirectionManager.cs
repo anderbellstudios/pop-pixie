@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponDirectionManager : MonoBehaviour {
+public class WeaponDirectionManager : MonoBehaviour, IDirectionManager {
 
-  public Vector3 Direction;
+  public Vector3 Direction { get; set; }
+
   public float JoystickThreshold;
   public float MouseThreshold;
   public GameObject Arrow;
