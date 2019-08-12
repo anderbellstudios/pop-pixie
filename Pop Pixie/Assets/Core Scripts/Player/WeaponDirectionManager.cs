@@ -24,7 +24,7 @@ public class WeaponDirectionManager : MonoBehaviour, IDirectionManager {
     Vector3? inputDirection = JoystickDirection() ?? MouseDirection();
 
     if (inputDirection != null) {
-      Direction = (Vector3)inputDirection;
+      Direction = ( (Vector3) inputDirection ).normalized;
     }
 
     var rotation = Quaternion.FromToRotation(

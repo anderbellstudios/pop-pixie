@@ -4,31 +4,24 @@ using UnityEngine;
 
 public delegate float SpeedModifier(float s);
 
-public class PlayerMovable : MonoBehaviour {
+public class PlayerMovable : MonoBehaviour, IDirectionManager {
 
+  public MovementManager MovementManager;
   public float Speed;
   public List<SpeedModifier> SpeedModifiers;
-
-  public Vector2 Movement;
-
-  private Rigidbody2D rb;
+  public Vector3 Direction { get; set; }
 
   void Awake () {
-    rb = GetComponent<Rigidbody2D>();
     SpeedModifiers = new List<SpeedModifier>();
   }
 
   void FixedUpdate() {
-    if ( StateManager.Isnt( State.Playing ) )
-      return;
+    Direction = new Vector2(
+      Input.GetAxis("Horizontal"),
+      Input.GetAxis("Vertical")
+    ).normalized;
 
-    float moveHorizontal = Input.GetAxis("Horizontal");
-    float moveVertical = Input.GetAxis("Vertical");
-
-    Movement += ModifiedSpeed() * new Vector2(moveHorizontal, moveVertical);
-
-    rb.MovePosition(rb.position + Movement * Time.fixedDeltaTime);
-    Movement = Vector2.zero;
+    MovementManager.Movement += ModifiedSpeed() * (Vector2) Direction;
   }
 
   float ModifiedSpeed() {
