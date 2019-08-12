@@ -43,7 +43,7 @@ public class Roll : MonoBehaviour {
   }
 
   Vector2 Direction() {
-    return ( (IDirectionManager) DirectionManager ).Direction;
+    return ( (IDirectionManager) DirectionManager ).Direction.normalized;
   }
 
 }

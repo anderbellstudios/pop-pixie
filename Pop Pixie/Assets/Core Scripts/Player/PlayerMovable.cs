@@ -19,7 +19,7 @@ public class PlayerMovable : MonoBehaviour, IDirectionManager {
     Direction = new Vector2(
       Input.GetAxis("Horizontal"),
       Input.GetAxis("Vertical")
-    ).normalized;
+    );
 
     MovementManager.Movement += ModifiedSpeed() * (Vector2) Direction;
   }
