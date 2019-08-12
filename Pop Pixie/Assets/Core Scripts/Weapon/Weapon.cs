@@ -16,7 +16,7 @@ public class Weapon {
     w.FireRate = 2.0f;
     w.Capacity = 12;
     w.Ammunition = 12;
-    w.BulletSpeed = 8.0f;
+    w.BulletSpeed = 60.0f;
     w.BulletPrefab = (GameObject)Resources.Load(
       "Bullets/Pop Pellet", 
       typeof(GameObject)
