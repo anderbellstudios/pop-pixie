@@ -92,6 +92,7 @@ GameObject:
   - component: {fileID: 114203618625845968}
   - component: {fileID: 114713038835468652}
   - component: {fileID: 114212325264381170}
+  - component: {fileID: 8156467750406196158}
   - component: {fileID: 114081501603769606}
   - component: {fileID: 8646166208578633107}
   - component: {fileID: 433535405577736701}
@@ -222,6 +223,20 @@ MonoBehaviour:
   ForegroundColour: {r: 1, g: 0, b: 0.1137255, a: 1}
   Progress: 0.75
   Visible: 1
+--- !u!114 &8156467750406196158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1276747056135348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28c2380e41ff24ba585f2350f56b8e03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 50770596489405938}
+  Movement: {x: 0, y: 0}
 --- !u!114 &114081501603769606
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -234,8 +249,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83de205d6308b4aa0b8ea86df5d3ed23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MovementManager: {fileID: 8156467750406196158}
   Speed: 7
-  Movement: {x: 0, y: 0}
 --- !u!114 &8646166208578633107
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -248,11 +263,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc0f03db9f11c4f54a107293b0e4af48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 50770596489405938}
   RollAllowed: {fileID: 433535405577736701}
-  DirectionManager: {fileID: 114416280350640038}
-  PlayerMovable: {fileID: 114081501603769606}
-  Speed: 40
+  DirectionManager: {fileID: 114081501603769606}
+  MovementManager: {fileID: 8156467750406196158}
+  Speed: 20
   Duration: 0.2
   Rolling: 0
 --- !u!114 &433535405577736701
@@ -267,7 +281,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52433c407fafa4d5eb682e7eb06c2859, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Cooldown: 0.5
+  Cooldown: 1
 --- !u!50 &50770596489405938
 Rigidbody2D:
   serializedVersion: 4

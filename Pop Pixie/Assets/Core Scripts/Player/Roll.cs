@@ -5,10 +5,9 @@ using UnityEngine;
 
 public class Roll : MonoBehaviour {
 
-  public Rigidbody2D rb;
   public RollAllowed RollAllowed;
   public MonoBehaviour DirectionManager; 
-  public PlayerMovable PlayerMovable;
+  public MovementManager MovementManager;
 
   public float Speed;
   public float Duration;
@@ -22,7 +21,7 @@ public class Roll : MonoBehaviour {
     InitateOpportunity();
 
     if ( Rolling ) {
-      PlayerMovable.Movement += Speed * Direction();
+      MovementManager.Movement += Speed * Direction();
     }
 
   }
@@ -44,7 +43,7 @@ public class Roll : MonoBehaviour {
   }
 
   Vector2 Direction() {
-    return ( (IDirectionManager) DirectionManager ).Direction.normalized;
+    return ( (IDirectionManager) DirectionManager ).Direction;
   }
 
 }
