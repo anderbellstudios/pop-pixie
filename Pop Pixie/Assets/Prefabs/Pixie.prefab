@@ -91,6 +91,7 @@ GameObject:
   - component: {fileID: 212185924236186630}
   - component: {fileID: 114203618625845968}
   - component: {fileID: 114713038835468652}
+  - component: {fileID: 8199610652695165348}
   - component: {fileID: 114212325264381170}
   - component: {fileID: 8156467750406196158}
   - component: {fileID: 114081501603769606}
@@ -188,8 +189,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Maximum: 30
   Current: 0
-  DamageCooldown: 1
   RegenerateRate: 1
+  CanBeDamagedArbiters:
+  - {fileID: 8199610652695165348}
 --- !u!114 &114713038835468652
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -205,6 +207,19 @@ MonoBehaviour:
   HealthBar: {fileID: 114212325264381170}
   Fader: {fileID: 0}
   TimeToDie: 5
+--- !u!114 &8199610652695165348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1276747056135348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ce6d2b595e49412a8b07d3135cf1bbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Roll: {fileID: 8646166208578633107}
 --- !u!114 &114212325264381170
 MonoBehaviour:
   m_ObjectHideFlags: 0
