@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class HitPoints : MonoBehaviour {
 
   public float Maximum; 
   public float Current; 
-  public float DamageCooldown;
   public float RegenerateRate;
+  public List<ACanBeDamagedArbiter> CanBeDamagedArbiters;
 
-  private DateTime LastDamaged;
+  public DateTime LastDamaged;
 
   private IHitPointEvents EventHandler;
 
@@ -42,8 +43,9 @@ public class HitPoints : MonoBehaviour {
   }
 
   bool CanBeDamaged () {
-    var since = DateTime.Now.Subtract( LastDamaged ).TotalSeconds;
-    return since > DamageCooldown;
+    return CanBeDamagedArbiters.ToArray().All(
+      arbiter => arbiter.CanBeDamaged(this)
+    );
   }
 
   public float Damage (float val) {

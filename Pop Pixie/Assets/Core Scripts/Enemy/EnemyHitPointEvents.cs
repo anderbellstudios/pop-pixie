@@ -5,13 +5,14 @@ using UnityEngine.UI;
 
 public class EnemyHitPointEvents : MonoBehaviour, IHitPointEvents {
   public SoundController SoundPlayer;
+  public float FlashDuration; 
   public List<AudioClip> Sounds;
 
   public void Updated (HitPoints hp) {
   }
 
   public void Decreased (HitPoints hp) {
-    float duration = hp.DamageCooldown;
+    float duration = FlashDuration;
     StartCoroutine( Flash(duration) );
 
     // Play hurt sound
