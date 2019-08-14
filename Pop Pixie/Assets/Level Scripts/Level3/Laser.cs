@@ -6,6 +6,7 @@ using UnityEngine;
 public class Laser : MonoBehaviour {
 
   public LaserBeam LaserBeam;
+  public LineRenderer LineRenderer;
   public float InitialDelay;
   public float FireInterval;
   public float SweepDuration;
@@ -45,6 +46,8 @@ public class Laser : MonoBehaviour {
     SweepTimer.UnlessElapsed(
       () => FireBeam()
     );
+
+    LineRenderer.enabled = !SweepTimer.Elapsed();
   }
 
   void BeginFiring() {
@@ -52,9 +55,16 @@ public class Laser : MonoBehaviour {
   }
 
   void FireBeam() {
-    LaserBeam.Fire(
+    var heading = LaserBeam.Fire(
       BeamAngle()
     );
+
+    DrawBeam(heading);
+  }
+
+  void DrawBeam( Vector3 heading ) {
+    LineRenderer.SetPosition( 0, transform.position );
+    LineRenderer.SetPosition( 1, transform.position + heading );
   }
 
   float BeamAngle() {
