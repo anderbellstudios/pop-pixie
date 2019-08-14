@@ -6,9 +6,11 @@ using UnityEngine;
 public class Laser : MonoBehaviour {
 
   public LaserBeam LaserBeam;
+  public float InitialDelay;
   public float FireInterval;
   public float SweepDuration;
   public float InitialAngle, FinalAngle;
+  public bool Running;
 
   private IntervalTimer FireTimer;
   private IntervalTimer SweepTimer;
@@ -18,16 +20,23 @@ public class Laser : MonoBehaviour {
       Interval = FireInterval
     };
 
-    FireTimer.Start();
-
     SweepTimer = new IntervalTimer() {
       Interval = SweepDuration
     };
   }
 
+  void StartFireTimer() {
+    FireTimer.Start();
+  }
+
   void Update() {
     if ( StateManager.Isnt( State.Playing ) )
       return;
+
+    if ( !Running ) {
+      Invoke("StartFireTimer", InitialDelay);
+      Running = true;
+    }
 
     FireTimer.IfElapsed(
       () => BeginFiring()
