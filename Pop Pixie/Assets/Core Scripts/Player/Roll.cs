@@ -8,6 +8,7 @@ public class Roll : MonoBehaviour {
   public RollAllowed RollAllowed;
   public MonoBehaviour DirectionManager; 
   public MovementManager MovementManager;
+  public TrailRenderer TrailRenderer;
 
   public float Speed;
   public float Duration;
@@ -15,6 +16,8 @@ public class Roll : MonoBehaviour {
   public bool Rolling;
 
   void FixedUpdate() {
+    TrailRenderer.emitting = Rolling;
+
     if ( StateManager.Isnt( State.Playing ) )
       return;
 
