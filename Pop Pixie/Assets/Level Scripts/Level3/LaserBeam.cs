@@ -9,14 +9,15 @@ public class LaserBeam : MonoBehaviour {
   private float Angle; 
   private RaycastHit2D CachedHitData;
 
-  public void Fire( float angle ) {
+  public Vector3 Fire( float angle ) {
     Angle = angle;
     CachedHitData = HitData();
-    DrawDebugRay();
 
     if ( HitGameObjectIsPlayer() ) {
       HitGameObject().GetComponent<HitPoints>().Damage(Damage);
     }
+
+    return Heading();
   }
 
   public RaycastHit2D HitData() {
@@ -32,14 +33,6 @@ public class LaserBeam : MonoBehaviour {
 
   bool HitGameObjectIsPlayer() {
     return HitGameObject().tag == "Player";
-  }
-
-  void DrawDebugRay() {
-    Debug.DrawRay(
-      transform.position,
-      Heading(),
-      Color.red
-    );
   }
 
   Vector3 Heading() {
