@@ -11,6 +11,7 @@ public class Level3Started : MonoBehaviour, IDialogueSequenceEventHandler {
   public CameraPan Pan2;
   public float DelayBeforePan1;
   public float DelayBeforePan2;
+  public LaserScheduler LaserScheduler;
 
 	// Use this for initialization
 	void Start () {
@@ -34,6 +35,7 @@ public class Level3Started : MonoBehaviour, IDialogueSequenceEventHandler {
 
   void Pan2Finished() {
     StateManager.SetState( State.Playing );
+    LaserScheduler.enabled = true;
   }
 
   public void SequenceFinished () {

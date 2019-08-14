@@ -7,19 +7,19 @@ public class Laser : MonoBehaviour {
 
   public LaserBeam LaserBeam;
   public LineRenderer LineRenderer;
-  public float InitialDelay;
-  public float FireInterval;
+  // public float InitialDelay;
+  // public float FireInterval;
   public float SweepDuration;
   public float InitialAngle, FinalAngle;
   public bool Running;
 
-  private IntervalTimer FireTimer;
+  // private IntervalTimer FireTimer;
   private IntervalTimer SweepTimer;
 
   void Start() {
-    FireTimer = new IntervalTimer() {
-      Interval = FireInterval
-    };
+    // FireTimer = new IntervalTimer() {
+    //   Interval = FireInterval
+    // };
 
     SweepTimer = new IntervalTimer() {
       Interval = SweepDuration
@@ -27,21 +27,21 @@ public class Laser : MonoBehaviour {
   }
 
   void StartFireTimer() {
-    FireTimer.Start();
+    // FireTimer.Start();
   }
 
   void Update() {
     if ( StateManager.Isnt( State.Playing ) )
       return;
 
-    if ( !Running ) {
-      Invoke("StartFireTimer", InitialDelay);
-      Running = true;
-    }
+    // if ( !Running ) {
+    //   Invoke("StartFireTimer", InitialDelay);
+    //   Running = true;
+    // }
 
-    FireTimer.IfElapsed(
-      () => BeginFiring()
-    );
+    // FireTimer.IfElapsed(
+    //   () => BeginFiring()
+    // );
 
     SweepTimer.UnlessElapsed(
       () => FireBeam()
@@ -50,7 +50,7 @@ public class Laser : MonoBehaviour {
     LineRenderer.enabled = !SweepTimer.Elapsed();
   }
 
-  void BeginFiring() {
+  public void BeginFiring() {
     SweepTimer.Reset();
   }
 
