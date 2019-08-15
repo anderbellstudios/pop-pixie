@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2395565714013297016}
   - component: {fileID: 2395565714013297019}
   - component: {fileID: 2395565714013297015}
+  - component: {fileID: 8297279390652918566}
   m_Layer: 2
   m_Name: Generator
   m_TagString: Untagged
@@ -195,9 +196,26 @@ MonoBehaviour:
   LaserScheduler: {fileID: 0}
   Laser: {fileID: 0}
   Collider: {fileID: 2395565714013297016}
+  Oscillate: {fileID: 8297279390652918566}
   SpriteRenderer: {fileID: 2395565714013297017}
   WorkingFrames:
   - {fileID: 21300000, guid: b049abbcb8d0743d786294a6f6aee606, type: 3}
   - {fileID: 21300002, guid: b049abbcb8d0743d786294a6f6aee606, type: 3}
   - {fileID: 21300004, guid: b049abbcb8d0743d786294a6f6aee606, type: 3}
   DestroyedFrame: {fileID: 21300006, guid: b049abbcb8d0743d786294a6f6aee606, type: 3}
+--- !u!114 &8297279390652918566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2395565714013297018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68a817e8c6bf94c38be7b0ea3a19cc6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Transform: {fileID: 2395565714013297014}
+  BaseScale: 1
+  OscillationSpeed: 3
+  OscillationScale: 0.1

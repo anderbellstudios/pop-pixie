@@ -8,6 +8,7 @@ public class GeneratorHitPointEvents : MonoBehaviour, IHitPointEvents {
   public LaserScheduler LaserScheduler;
   public Laser Laser;
   public PolygonCollider2D Collider;
+  public Oscillate Oscillate;
 
   public SpriteRenderer SpriteRenderer;
   public Sprite[] WorkingFrames;
@@ -34,5 +35,6 @@ public class GeneratorHitPointEvents : MonoBehaviour, IHitPointEvents {
   public void BecameZero (HitPoints hp) {
     LaserScheduler.RemoveLaser( Laser );
     Collider.enabled = false;
+    Oscillate.enabled = false;
   }
 }
