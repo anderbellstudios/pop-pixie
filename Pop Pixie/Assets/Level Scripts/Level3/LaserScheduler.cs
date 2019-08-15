@@ -15,6 +15,10 @@ public class LaserScheduler : MonoBehaviour {
   // -1 is the respite phase; anything else corresponds to an index of Lasers
   private int Phase = -1;
 
+  public void RemoveLaser( Laser laser ) {
+    Lasers.Remove(laser);
+  }
+
   void OnEnable() {
     Timer = new IntervalTimer();
 
