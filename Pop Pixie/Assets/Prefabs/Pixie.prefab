@@ -103,6 +103,7 @@ GameObject:
   - component: {fileID: 114416280350640038}
   - component: {fileID: 114255718929856854}
   - component: {fileID: 114007357892525228}
+  - component: {fileID: 2635195268556778807}
   - component: {fileID: 114153154460385952}
   - component: {fileID: 114176230308344078}
   - component: {fileID: 114231682955495740}
@@ -468,6 +469,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AmmunitionCircle: {fileID: 114153154460385952}
+  ReloadIndicator: {fileID: 2635195268556778807}
   CurrentWeapon:
     FireRate: 0
     Capacity: 0
@@ -487,6 +489,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DirectionManager: {fileID: 114416280350640038}
+--- !u!114 &2635195268556778807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1276747056135348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebdecb37071904ed7bf8785ad564294d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IndicatorImage: {fileID: 0}
+  Visible: 0
+  BaseScale: 0.9
+  OscillationSpeed: 3
+  OscillationScale: 0.1
 --- !u!114 &114153154460385952
 MonoBehaviour:
   m_ObjectHideFlags: 0

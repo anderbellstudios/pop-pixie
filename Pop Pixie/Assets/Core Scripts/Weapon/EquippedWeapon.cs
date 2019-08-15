@@ -5,6 +5,7 @@ using UnityEngine;
 public class EquippedWeapon : MonoBehaviour {
 
   public MonoBehaviour AmmunitionCircle;
+  public ReloadIndicator ReloadIndicator;
 
   // Can't think of a good name for this property.
   // Both "EquippedWeapon" and "Weapon" are taken.
@@ -21,6 +22,8 @@ public class EquippedWeapon : MonoBehaviour {
     var hc = (HUDCircle) AmmunitionCircle;
     hc.Progress = (float) CurrentWeapon.Ammunition / 
                   (float) CurrentWeapon.Capacity;
+
+    ReloadIndicator.Visible = CurrentWeapon.Ammunition == 0;
   }
 
 }
