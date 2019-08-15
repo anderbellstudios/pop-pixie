@@ -27,7 +27,7 @@ To play the game, download Unity, download the project, open the project in Unit
 | Move              | WASD or arrow keys | Left joystick  |
 | Aim               | Mouse              | Right joystick |
 | Shoot             | Left click         | R1             |
-| Reload            | Right click        | Square         |
+| Reload            | R                  | Square         |
 | Advance dialogue  | Space or return    | X              |
 | Close lore window | Escape             | Circle         |
 
