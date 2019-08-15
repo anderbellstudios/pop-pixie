@@ -17,6 +17,7 @@ public class LaserScheduler : MonoBehaviour {
 
   public void RemoveLaser( Laser laser ) {
     Lasers.Remove(laser);
+    Phase = -1;
   }
 
   void OnEnable() {
@@ -39,19 +40,15 @@ public class LaserScheduler : MonoBehaviour {
   }
 
   void RunPhase() {
+    if ( Phase == Lasers.Count )
+      Phase = -1;
+
     if ( !RespitePhase() ) {
       var laser = Lasers[Phase];
       laser.BeginFiring();
     }
 
-    IncrementPhase();
-  }
-
-  void IncrementPhase() {
     Phase += 1;
-
-    if ( Phase == Lasers.Count )
-      Phase = -1;
   }
 
   bool RespitePhase() {
