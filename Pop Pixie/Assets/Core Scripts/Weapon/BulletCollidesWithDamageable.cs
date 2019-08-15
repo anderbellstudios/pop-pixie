@@ -2,16 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletCollidesWithEnemy : MonoBehaviour {
+public class BulletCollidesWithDamageable : MonoBehaviour {
 
   public float Damage;
 
   void OnCollisionEnter2D (Collision2D col) {
     Destroy(gameObject);
 
-    var obj = col.gameObject;
-    if ( obj.tag == "Enemy" ) {
-      obj.GetComponent<HitPoints>().Damage( Damage );
+    var hp = col.gameObject.GetComponent<HitPoints>();
+
+    if ( hp != null ) {
+      hp.Damage( Damage );
     }
   }
 
