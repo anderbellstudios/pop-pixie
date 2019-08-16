@@ -35,7 +35,7 @@ public class Level3Started : MonoBehaviour, IDialogueSequenceEventHandler {
 
   void Pan2Finished() {
     StateManager.SetState( State.Playing );
-    LaserScheduler.enabled = true;
+    // LaserScheduler.enabled = true;
   }
 
   public void SequenceFinished () {
