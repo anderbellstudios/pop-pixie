@@ -150,7 +150,7 @@ MonoBehaviour:
   DelayBeforePan1: 1.5
   DelayBeforePan2: 3
   LaserScheduler: {fileID: 1291007940}
-  SpawnGremlin: {fileID: 80808770}
+  GremlinSpawnScheduler: {fileID: 80808771}
 --- !u!4 &217444
 Transform:
   m_ObjectHideFlags: 0
@@ -245,6 +245,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 80808767}
+  - component: {fileID: 80808771}
   - component: {fileID: 80808770}
   - component: {fileID: 80808768}
   - component: {fileID: 80808769}
@@ -357,6 +358,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prefab: {fileID: 1275608053360840, guid: c7a6fb2a901e745688004b827bd595a2, type: 3}
+--- !u!114 &80808771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 80808766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6994a0c0a69842b09d05b826cb83b8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpawnGremlin: {fileID: 80808770}
+  SpawnInterval: 10
+  MaxGremlins: 2
+  Spawning: 0
+  SpawnedGremlins: []
 --- !u!1 &113302643 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1276747056135348, guid: 93988d4f18b94407e9c5cd99704a5630,

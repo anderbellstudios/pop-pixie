@@ -7,10 +7,13 @@ public class SpawnGremlin : MonoBehaviour {
 
   public GameObject Prefab;
 
-  public void Spawn() {
+  public GameObject Spawn() {
     var gremlin = Instantiate( Prefab );
+
     gremlin.transform.position = transform.position;
     gremlin.GetComponent<EnemyAI>().Engaged = true;
+
+    return gremlin;
   }
 
 }
