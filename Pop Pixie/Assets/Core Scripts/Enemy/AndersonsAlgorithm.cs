@@ -97,7 +97,7 @@ public class AndersonsAlgorithm {
       Radius, 
       direction,
       Mathf.Infinity,
-      ~( 1 << 8 )
+      ~( ( 1 << 8 ) | ( 1 << 9 ) ) // <-- neither 8 nor 9
     );
   }
 

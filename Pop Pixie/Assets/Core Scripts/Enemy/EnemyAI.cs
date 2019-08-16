@@ -15,7 +15,7 @@ public class EnemyAI : MonoBehaviour {
 
   // Making all attributes public for debugging purposes;
   // Should be changed later to avoid clutter in the inspector
-  public bool Engaged;
+  public bool Engaged = false;
   public DateTime LastActive;
 
   // Solely for debugging
@@ -26,7 +26,6 @@ public class EnemyAI : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
     target = GameObject.FindGameObjectWithTag("Player");
-    Engaged = false;
     ResetCoolDownTimer();
     DisableAllAIs();
 	}

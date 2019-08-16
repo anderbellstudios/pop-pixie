@@ -7,6 +7,7 @@ public class CoolingDownAI : MonoBehaviour {
   public float Speed;
   public float ApproachDistance;
   public float BackOffDistance;
+  public int PathfindingComplexity = 2;
 
   private Vector3[] Path;
   private Rigidbody2D rb;
@@ -98,7 +99,8 @@ public class CoolingDownAI : MonoBehaviour {
     var pathfinder = new AndersonsAlgorithm(
       start:       transform.position,
       destination: target.transform.position,
-      radius: ColliderRadius()
+      radius: ColliderRadius(),
+      remainingSteps: PathfindingComplexity - 1
     );
 
     Path = pathfinder.Vertices();

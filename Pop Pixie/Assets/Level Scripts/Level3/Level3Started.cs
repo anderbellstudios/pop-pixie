@@ -12,6 +12,7 @@ public class Level3Started : MonoBehaviour, IDialogueSequenceEventHandler {
   public float DelayBeforePan1;
   public float DelayBeforePan2;
   public LaserScheduler LaserScheduler;
+  public SpawnGremlin SpawnGremlin;
 
 	// Use this for initialization
 	void Start () {
@@ -36,6 +37,7 @@ public class Level3Started : MonoBehaviour, IDialogueSequenceEventHandler {
   void Pan2Finished() {
     StateManager.SetState( State.Playing );
     // LaserScheduler.enabled = true;
+    SpawnGremlin.Spawn();
   }
 
   public void SequenceFinished () {
