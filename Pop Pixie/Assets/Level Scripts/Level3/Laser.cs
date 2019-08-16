@@ -9,7 +9,7 @@ public class Laser : MonoBehaviour {
   public LineRenderer LineRenderer;
   public float SweepDuration;
   public float InitialAngle, FinalAngle;
-  public bool Running;
+  public bool Firing;
 
   private IntervalTimer SweepTimer;
 
@@ -23,15 +23,22 @@ public class Laser : MonoBehaviour {
     if ( StateManager.Isnt( State.Playing ) )
       return;
 
-    SweepTimer.UnlessElapsed(
-      () => FireBeam()
-    );
+    if ( SweepTimer.Elapsed() )
+      Firing = false;
 
-    LineRenderer.enabled = !SweepTimer.Elapsed();
+    if ( Firing )
+      FireBeam();
+
+    LineRenderer.enabled = Firing;
   }
 
   public void BeginFiring() {
+    Firing = true;
     SweepTimer.Reset();
+  }
+
+  public void StopFiring() {
+    Firing = false;
   }
 
   void FireBeam() {

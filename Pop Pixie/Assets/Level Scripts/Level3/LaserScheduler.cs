@@ -23,6 +23,7 @@ public class LaserScheduler : MonoBehaviour {
       Phase -= 1;
 
     Lasers.Remove(laser);
+    laser.StopFiring();
   }
 
   void OnEnable() {
