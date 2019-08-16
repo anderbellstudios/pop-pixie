@@ -10,14 +10,13 @@ public class GremlinSpawnScheduler : MonoBehaviour {
   public float SpawnInterval;
   public int MaxGremlins;
 
-  private bool Spawning;
-  private List<GameObject> SpawnedGremlins;
+  public bool Spawning;
+  public List<GameObject> SpawnedGremlins;
 
   private IntervalTimer SpawnTimer;
 
   public void BeginSpawning() {
     Spawning = true;
-    SpawnedGremlins.Clear();
 
     SpawnTimer = new IntervalTimer() {
       Interval = SpawnInterval
@@ -32,6 +31,9 @@ public class GremlinSpawnScheduler : MonoBehaviour {
 
     if ( DestroyedLastGremlin() || SpawnTimer.Elapsed() )
       TentativeSpawnNextGremlin();
+
+    if ( SpawnedGremlins.Count == MaxGremlins && DestroyedLastGremlin() )
+      Spawning = false;
   }
 
   void TentativeSpawnNextGremlin() {
