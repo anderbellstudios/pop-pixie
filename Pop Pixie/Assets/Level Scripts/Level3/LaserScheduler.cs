@@ -16,8 +16,13 @@ public class LaserScheduler : MonoBehaviour {
   private int Phase = -1;
 
   public void RemoveLaser( Laser laser ) {
+    int laser_index = Lasers.FindIndex( l => l == laser );
+
+    // Make sure that the laser about to be fired next remains the same
+    if ( laser_index < Phase )
+      Phase -= 1;
+
     Lasers.Remove(laser);
-    Phase = -1;
   }
 
   void OnEnable() {
@@ -40,7 +45,7 @@ public class LaserScheduler : MonoBehaviour {
   }
 
   void RunPhase() {
-    if ( Phase == Lasers.Count )
+    if ( Phase >= Lasers.Count )
       Phase = -1;
 
     if ( !RespitePhase() ) {
