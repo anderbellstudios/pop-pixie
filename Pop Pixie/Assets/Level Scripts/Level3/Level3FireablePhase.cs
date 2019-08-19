@@ -15,4 +15,8 @@ public class Level3FireablePhase : APhase {
       PhaseFinished();
   }
 
+  public override void AfterFinished() {
+    FireableScheduler.enabled = false;
+  }
+
 }

@@ -28,6 +28,10 @@ public abstract class APhase : MonoBehaviour {
 
   public void PhaseFinished() {
     PhaseRunning = false;
+    AfterFinished();
     _FinishedCallback();
+  }
+
+  public virtual void AfterFinished() {
   }
 }
