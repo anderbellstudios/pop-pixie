@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Level3LaserPhase : APhase {
+public class Level3FireablePhase : APhase {
 
   public FireableScheduler FireableScheduler;
 

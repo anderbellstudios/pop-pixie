@@ -150,7 +150,6 @@ MonoBehaviour:
   Fader: {fileID: 887239019}
   Phases:
   - {fileID: 217449}
-  - {fileID: 217447}
   PhaseId: 0
 --- !u!4 &217444
 Transform:
@@ -1727,8 +1726,10 @@ GameObject:
   - component: {fileID: 1345876652}
   - component: {fileID: 1345876651}
   - component: {fileID: 1345876650}
-  - component: {fileID: 1345876649}
   - component: {fileID: 1345876653}
+  - component: {fileID: 1345876655}
+  - component: {fileID: 1345876654}
+  - component: {fileID: 1345876649}
   m_Layer: 0
   m_Name: Turret
   m_TagString: Untagged
@@ -1867,6 +1868,40 @@ MonoBehaviour:
   k: 2
   w_squared: 1200
   Velocity: 0
+--- !u!114 &1345876654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1345876648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8538966f9f284f789bf9c660ea84e4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpriteRenderer: {fileID: 1345876651}
+  WorkingFrames:
+  - {fileID: 21300000, guid: e343f09cc77ce4b90a8355289ce52733, type: 3}
+  - {fileID: 21300002, guid: e343f09cc77ce4b90a8355289ce52733, type: 3}
+  - {fileID: 21300004, guid: e343f09cc77ce4b90a8355289ce52733, type: 3}
+  DestroyedFrame: {fileID: 21300006, guid: e343f09cc77ce4b90a8355289ce52733, type: 3}
+--- !u!114 &1345876655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1345876648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c902b98affab42d5b6d979f55dd91f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Maximum: 30
+  Current: 0
+  RegenerateRate: 0
+  CanBeDamagedArbiters: []
 --- !u!1001 &1359230826
 PrefabInstance:
   m_ObjectHideFlags: 0
