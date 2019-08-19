@@ -7,11 +7,11 @@ public delegate void PhaseFinishedDelegate();
 public abstract class APhase : MonoBehaviour {
 
   private PhaseFinishedDelegate _FinishedCallback;
-  public bool PhaseRunning = false;
+  public bool Running = false;
 
   public void Begin( PhaseFinishedDelegate finishedCallback ) {
     _FinishedCallback = finishedCallback;
-    PhaseRunning = true;
+    Running = true;
     LocalBegin();
   }
 
@@ -19,7 +19,7 @@ public abstract class APhase : MonoBehaviour {
   }
 
   public virtual void Update() {
-    if ( PhaseRunning )
+    if ( Running )
       WhilePhaseRunning();
   }
 
@@ -27,7 +27,7 @@ public abstract class APhase : MonoBehaviour {
   }
 
   public void PhaseFinished() {
-    PhaseRunning = false;
+    Running = false;
     AfterFinished();
     _FinishedCallback();
   }

@@ -150,6 +150,7 @@ MonoBehaviour:
   Fader: {fileID: 887239019}
   Phases:
   - {fileID: 217449}
+  - {fileID: 217447}
   - {fileID: 217450}
   PhaseId: 0
 --- !u!4 &217444
@@ -208,7 +209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56ec101a896964547a4fb0981d1cc71d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PhaseRunning: 0
+  Running: 0
   FireableScheduler: {fileID: 1291007940}
 --- !u!114 &217448
 MonoBehaviour:
@@ -222,7 +223,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dac9524eb4b404610ae46d3c3cab8b0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PhaseRunning: 0
+  Running: 0
   GremlinSpawnSchedulers:
   - {fileID: 80808771}
   - {fileID: 483523753}
@@ -238,7 +239,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7f1e16ed01564043b9585cec5fdeae0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PhaseRunning: 0
+  Running: 0
   Pan1: {fileID: 217445}
   Pan2: {fileID: 217446}
   DelayBeforePan1: 1.5
@@ -255,7 +256,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56ec101a896964547a4fb0981d1cc71d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PhaseRunning: 0
+  Running: 0
   FireableScheduler: {fileID: 1591850907}
 --- !u!1001 &74660121
 PrefabInstance:
@@ -1731,6 +1732,7 @@ GameObject:
   - component: {fileID: 1345876653}
   - component: {fileID: 1345876656}
   - component: {fileID: 1345876655}
+  - component: {fileID: 1345876658}
   - component: {fileID: 1345876657}
   - component: {fileID: 1345876654}
   - component: {fileID: 1345876649}
@@ -1905,7 +1907,8 @@ MonoBehaviour:
   Maximum: 30
   Current: 0
   RegenerateRate: 0
-  CanBeDamagedArbiters: []
+  CanBeDamagedArbiters:
+  - {fileID: 1345876658}
 --- !u!114 &1345876656
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1936,6 +1939,19 @@ MonoBehaviour:
   - {fileID: 1345876649}
   - {fileID: 1345876653}
   - {fileID: 1345876650}
+--- !u!114 &1345876658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1345876648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e863e138e79c045eaa85785bc4cdaee9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Phase: {fileID: 217450}
 --- !u!1001 &1359230826
 PrefabInstance:
   m_ObjectHideFlags: 0
