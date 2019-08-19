@@ -194,16 +194,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e959051f71124d268a9ed420b86a1d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LaserScheduler: {fileID: 0}
-  Laser: {fileID: 0}
+  FireableScheduler: {fileID: 0}
+  Fireable: {fileID: 0}
   Collider: {fileID: 2395565714013297016}
   Oscillate: {fileID: 8297279390652918566}
-  SpriteRenderer: {fileID: 2395565714013297017}
-  WorkingFrames:
-  - {fileID: 21300000, guid: b049abbcb8d0743d786294a6f6aee606, type: 3}
-  - {fileID: 21300002, guid: b049abbcb8d0743d786294a6f6aee606, type: 3}
-  - {fileID: 21300004, guid: b049abbcb8d0743d786294a6f6aee606, type: 3}
-  DestroyedFrame: {fileID: 21300006, guid: b049abbcb8d0743d786294a6f6aee606, type: 3}
+  DisableComponents:
+  - {fileID: 2395565714013297016}
+  - {fileID: 8297279390652918566}
 --- !u!114 &3536825772689701167
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Level3StopWorkingWhenDestroyed : MonoBehaviour, IHitPointEvents {
   public FireableScheduler FireableScheduler;
   public AFireable Fireable;
-  public PolygonCollider2D Collider;
-  public Oscillate Oscillate;
+  public List<Behaviour> DisableComponents;
 
   public void Updated (HitPoints hp) {
   }
@@ -18,7 +18,6 @@ public class Level3StopWorkingWhenDestroyed : MonoBehaviour, IHitPointEvents {
 
   public void BecameZero (HitPoints hp) {
     FireableScheduler.RemoveFireable( Fireable );
-    Collider.enabled = false;
-    Oscillate.enabled = false;
+    DisableComponents.ForEach( comp => comp.enabled = false );
   }
 }
