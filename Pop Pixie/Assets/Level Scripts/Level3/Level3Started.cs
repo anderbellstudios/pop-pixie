@@ -1,8 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Level3Started : MonoBehaviour {
+  public HUDBar BossProgressBar;
 
   public ScreenFade Fader;
   // public AudioClip Music;
@@ -23,6 +25,18 @@ public class Level3Started : MonoBehaviour {
       var phase = Phases[PhaseId];
       phase.Begin( () => NextPhase() );
     }
+  }
+
+  void Update() {
+    BossProgressBar.Progress = TotalBarProgress() / TotalProgressBarAllotment();
+  }
+
+  float TotalProgressBarAllotment() {
+    return Phases.Sum( phase => phase.ProgressBarAllotment() );
+  }
+
+  float TotalBarProgress() {
+    return Phases.Sum( phase => phase.ProgressBarValue() );
   }
 
 }

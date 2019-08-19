@@ -34,4 +34,12 @@ public abstract class APhase : MonoBehaviour {
 
   public virtual void AfterFinished() {
   }
+
+  public virtual float ProgressBarAllotment() {
+    return 0f;
+  }
+
+  public virtual float ProgressBarValue() {
+    return 0f;
+  }
 }

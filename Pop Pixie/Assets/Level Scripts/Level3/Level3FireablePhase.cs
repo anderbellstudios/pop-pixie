@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Level3FireablePhase : APhase {
 
   public FireableScheduler FireableScheduler;
+  public List<HitPoints> FireableHitPoints;
 
 	public override void LocalBegin () {
     FireableScheduler.enabled = true;
@@ -17,6 +19,14 @@ public class Level3FireablePhase : APhase {
 
   public override void AfterFinished() {
     FireableScheduler.enabled = false;
+  }
+
+  public override float ProgressBarAllotment() {
+    return FireableHitPoints.Sum( hp => hp.Maximum );
+  }
+
+  public override float ProgressBarValue() {
+    return FireableHitPoints.Sum( hp => hp.Current );
   }
 
 }
