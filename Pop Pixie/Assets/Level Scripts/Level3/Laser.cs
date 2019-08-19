@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Laser : MonoBehaviour {
+public class Laser : AFireable {
 
   public LaserBeam LaserBeam;
   public LineRenderer LineRenderer;
@@ -32,12 +32,12 @@ public class Laser : MonoBehaviour {
     LineRenderer.enabled = Firing;
   }
 
-  public void BeginFiring() {
+  public override void BeginFiring() {
     Firing = true;
     SweepTimer.Reset();
   }
 
-  public void StopFiring() {
+  public override void StopFiring() {
     Firing = false;
   }
 

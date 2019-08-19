@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Linq;
 using UnityEngine;
 
@@ -13,7 +14,7 @@ public class HitPoints : MonoBehaviour {
 
   public DateTime LastDamaged;
 
-  private IHitPointEvents EventHandler;
+  private IHitPointEvents[] EventHandlers;
 
   public void Cap () {
     // Make sure HP is between 0 and max
@@ -35,9 +36,9 @@ public class HitPoints : MonoBehaviour {
   public float Decrease (float val) {
     Increase(-val);
 
-    EventHandler.Decreased(this);
+    SendEventHandlerMessage("Decreased");
     if ( Current == 0 )
-      EventHandler.BecameZero(this);
+      SendEventHandlerMessage("BecameZero");
 
     return Current;
   }
@@ -60,14 +61,22 @@ public class HitPoints : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
     Current = Maximum;
-    EventHandler = gameObject.GetComponent<IHitPointEvents>();
+    EventHandlers = gameObject.GetComponents<IHitPointEvents>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-    EventHandler.Updated(this);
+    SendEventHandlerMessage("Updated");
 
     if ( StateManager.Is( State.Playing ) )
       Increase( RegenerateRate * Time.deltaTime );
 	}
+
+  void SendEventHandlerMessage(string message) {
+    foreach (IHitPointEvents eventHandler in EventHandlers) {
+      MethodInfo method = eventHandler.GetType().GetMethod(message);
+      method.Invoke(eventHandler, new object[] { this } );
+    }
+  }
+
 }

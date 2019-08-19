@@ -150,7 +150,7 @@ MonoBehaviour:
   Fader: {fileID: 887239019}
   Phases:
   - {fileID: 217449}
-  - {fileID: 217450}
+  - {fileID: 217447}
   PhaseId: 0
 --- !u!4 &217444
 Transform:
@@ -209,7 +209,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PhaseRunning: 0
-  LaserScheduler: {fileID: 1291007940}
+  FireableScheduler: {fileID: 1291007940}
 --- !u!114 &217448
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -535,6 +535,16 @@ PrefabInstance:
       propertyPath: LaserScheduler
       value: 
       objectReference: {fileID: 1291007940}
+    - target: {fileID: 2395565714013297015, guid: f20834a2c37574c78b1b7331fd03cd8e,
+        type: 3}
+      propertyPath: FireableScheduler
+      value: 
+      objectReference: {fileID: 1291007940}
+    - target: {fileID: 2395565714013297015, guid: f20834a2c37574c78b1b7331fd03cd8e,
+        type: 3}
+      propertyPath: Fireable
+      value: 
+      objectReference: {fileID: 593209875}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f20834a2c37574c78b1b7331fd03cd8e, type: 3}
 --- !u!114 &483523753 stripped
@@ -1222,6 +1232,16 @@ PrefabInstance:
       propertyPath: LaserScheduler
       value: 
       objectReference: {fileID: 1291007940}
+    - target: {fileID: 2395565714013297015, guid: f20834a2c37574c78b1b7331fd03cd8e,
+        type: 3}
+      propertyPath: FireableScheduler
+      value: 
+      objectReference: {fileID: 1291007940}
+    - target: {fileID: 2395565714013297015, guid: f20834a2c37574c78b1b7331fd03cd8e,
+        type: 3}
+      propertyPath: Fireable
+      value: 
+      objectReference: {fileID: 596725577}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f20834a2c37574c78b1b7331fd03cd8e, type: 3}
 --- !u!20 &1063378207 stripped
@@ -1665,7 +1685,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FireInterval: 2.5
   RespiteInterval: 5
-  Lasers:
+  Fireables:
   - {fileID: 404568242}
   - {fileID: 1942326704}
   - {fileID: 593209875}
@@ -1682,7 +1702,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1342318147 stripped
 MonoBehaviour:
@@ -2111,6 +2131,16 @@ PrefabInstance:
       propertyPath: Laser
       value: 
       objectReference: {fileID: 1942326704}
+    - target: {fileID: 2395565714013297015, guid: f20834a2c37574c78b1b7331fd03cd8e,
+        type: 3}
+      propertyPath: FireableScheduler
+      value: 
+      objectReference: {fileID: 1291007940}
+    - target: {fileID: 2395565714013297015, guid: f20834a2c37574c78b1b7331fd03cd8e,
+        type: 3}
+      propertyPath: Fireable
+      value: 
+      objectReference: {fileID: 1942326704}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f20834a2c37574c78b1b7331fd03cd8e, type: 3}
 --- !u!1001 &2082320541
@@ -2264,6 +2294,16 @@ PrefabInstance:
       propertyPath: Laser
       value: 
       objectReference: {fileID: 404568242}
+    - target: {fileID: 2395565714013297015, guid: f20834a2c37574c78b1b7331fd03cd8e,
+        type: 3}
+      propertyPath: FireableScheduler
+      value: 
+      objectReference: {fileID: 1291007940}
+    - target: {fileID: 2395565714013297015, guid: f20834a2c37574c78b1b7331fd03cd8e,
+        type: 3}
+      propertyPath: Fireable
+      value: 
+      objectReference: {fileID: 404568242}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f20834a2c37574c78b1b7331fd03cd8e, type: 3}
 --- !u!1001 &5057346206903725943
@@ -2341,7 +2381,7 @@ PrefabInstance:
     - target: {fileID: 5057346207728447408, guid: c5c9ec372af9543c2af304ad438aefb7,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5057346207728447408, guid: c5c9ec372af9543c2af304ad438aefb7,
         type: 3}

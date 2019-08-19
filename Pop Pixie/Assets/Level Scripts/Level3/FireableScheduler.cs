@@ -3,27 +3,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LaserScheduler : MonoBehaviour {
+public class FireableScheduler : MonoBehaviour {
 
   public float FireInterval;
   public float RespiteInterval;
 
-  public List<Laser> Lasers;
+  public List<AFireable> Fireables;
 
   private IntervalTimer Timer;
 
-  // -1 is the respite phase; anything else corresponds to an index of Lasers
+  // -1 is the respite phase; anything else corresponds to an index of Fireables
   private int Phase = -1;
 
-  public void RemoveLaser( Laser laser ) {
-    int laser_index = Lasers.FindIndex( l => l == laser );
+  public void RemoveFireable( AFireable fireable ) {
+    int fireable_index = Fireables.FindIndex( l => l == fireable );
 
-    // Make sure that the laser about to be fired next remains the same
-    if ( laser_index < Phase )
+    // Make sure that the fireable about to be fired next remains the same
+    if ( fireable_index < Phase )
       Phase -= 1;
 
-    Lasers.Remove(laser);
-    laser.StopFiring();
+    Fireables.Remove(fireable);
+    fireable.StopFiring();
   }
 
   void OnEnable() {
@@ -46,12 +46,12 @@ public class LaserScheduler : MonoBehaviour {
   }
 
   void RunPhase() {
-    if ( Phase >= Lasers.Count )
+    if ( Phase >= Fireables.Count )
       Phase = -1;
 
     if ( !RespitePhase() ) {
-      var laser = Lasers[Phase];
-      laser.BeginFiring();
+      var fireable = Fireables[Phase];
+      fireable.BeginFiring();
     }
 
     Phase += 1;

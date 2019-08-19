@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class Level3LaserPhase : APhase {
 
-  public LaserScheduler LaserScheduler;
+  public FireableScheduler FireableScheduler;
 
 	public override void LocalBegin () {
-    LaserScheduler.enabled = true;
+    FireableScheduler.enabled = true;
   }
 
   public override void WhilePhaseRunning() {
-    if ( LaserScheduler.Lasers.Count == 0 )
+    if ( FireableScheduler.Fireables.Count == 0 )
       PhaseFinished();
   }
 
