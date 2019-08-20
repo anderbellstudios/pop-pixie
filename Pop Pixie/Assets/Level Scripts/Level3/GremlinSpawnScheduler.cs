@@ -16,6 +16,7 @@ public class GremlinSpawnScheduler : MonoBehaviour {
   private IntervalTimer SpawnTimer;
 
   public void BeginSpawning() {
+    SpawnedGremlins.Clear();
     Spawning = true;
 
     SpawnTimer = new IntervalTimer() {
