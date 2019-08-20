@@ -17,11 +17,9 @@ public class BulletEmitter : MonoBehaviour {
     var dm = (IDirectionManager) DirectionManager;
     var direction = dm.Direction;
 
-    var origin = gameObject.transform.position + direction;
-
     var bullet = Instantiate(
       Prefab(), 
-      origin,
+      transform.position,
       transform.rotation
     );
 
