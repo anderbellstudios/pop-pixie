@@ -102,6 +102,7 @@ GameObject:
   - component: {fileID: 50770596489405938}
   - component: {fileID: 114416280350640038}
   - component: {fileID: 114255718929856854}
+  - component: {fileID: 3970238083396131980}
   - component: {fileID: 114007357892525228}
   - component: {fileID: 2635195268556778807}
   - component: {fileID: 114153154460385952}
@@ -476,6 +477,19 @@ MonoBehaviour:
     Ammunition: 0
     BulletSpeed: 0
     BulletPrefab: {fileID: 0}
+--- !u!114 &3970238083396131980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1276747056135348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99ae424709bcb46fb8109e7885509d7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BulletEmitter: {fileID: 114007357892525228}
 --- !u!114 &114007357892525228
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -503,9 +517,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IndicatorImage: {fileID: 0}
   Visible: 0
-  BaseScale: 0.9
-  OscillationSpeed: 3
-  OscillationScale: 0.1
 --- !u!114 &114153154460385952
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -152,7 +152,6 @@ MonoBehaviour:
   Fader: {fileID: 887239019}
   Phases:
   - {fileID: 217449}
-  - {fileID: 217447}
   - {fileID: 217450}
   PhaseId: 0
 --- !u!4 &217444
@@ -1782,6 +1781,7 @@ GameObject:
   - component: {fileID: 1345876650}
   - component: {fileID: 1345876653}
   - component: {fileID: 1345876656}
+  - component: {fileID: 1345876659}
   - component: {fileID: 1345876655}
   - component: {fileID: 1345876658}
   - component: {fileID: 1345876657}
@@ -1903,7 +1903,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1345876648}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.56, y: 15.13, z: 0}
+  m_LocalPosition: {x: 13.6, y: 28.8, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2003,6 +2003,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Phase: {fileID: 217450}
+--- !u!114 &1345876659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1345876648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22cdc26fbfa9f4e27af75d658b31deff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DirectionManager: {fileID: 0}
 --- !u!1001 &1359230826
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2207,8 +2220,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de41e853566474591a97b5f88636d582, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FireInterval: 3
-  RespiteInterval: 5
+  FireInterval: 0
+  RespiteInterval: 3
   Fireables:
   - {fileID: 1345876656}
 --- !u!4 &1591850908

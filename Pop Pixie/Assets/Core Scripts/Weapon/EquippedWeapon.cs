@@ -14,7 +14,7 @@ public class EquippedWeapon : MonoBehaviour {
   public Weapon CurrentWeapon;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
     CurrentWeapon = Weapon.PopPistol();
 	}
 

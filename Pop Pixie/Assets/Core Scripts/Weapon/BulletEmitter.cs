@@ -7,34 +7,14 @@ public class BulletEmitter : MonoBehaviour {
 
   public MonoBehaviour DirectionManager;
 
-  private DateTime LastShot;
+  private Weapon Weapon;
 
-	void Update () {
-    if ( StateManager.Isnt( State.Playing ) )
-      return;
+	public void Shoot( Weapon weapon ) {
+    Weapon = weapon;
 
-    if ( Input.GetButton("Fire1") && CanShoot() ) {
-      Shoot();
-    }
-	}
+    Weapon.ExpendBullet();
 
-  bool CanShoot () {
-    var since = DateTime.Now.Subtract( LastShot ).TotalSeconds;
-    if ( since <= CoolDownDuration() )
-      return false;
-
-    if ( !CurrentWeapon().HasBullets() )
-      return false;
-
-    return true;
-  }
-	
-	void Shoot () {
-    LastShot = DateTime.Now;
-
-    CurrentWeapon().ExpendBullet();
-
-    var dm = (WeaponDirectionManager) DirectionManager;
+    var dm = (IDirectionManager) DirectionManager;
     var direction = dm.Direction;
 
     var origin = gameObject.transform.position + direction;
@@ -49,18 +29,10 @@ public class BulletEmitter : MonoBehaviour {
 	}
 
   float Speed() {
-    return CurrentWeapon().BulletSpeed;
-  }
-
-  float CoolDownDuration() {
-    return 1.0f / CurrentWeapon().FireRate;
+    return Weapon.BulletSpeed;
   }
   
   GameObject Prefab() {
-    return CurrentWeapon().BulletPrefab;
-  }
-
-  Weapon CurrentWeapon() {
-    return gameObject.GetComponent<EquippedWeapon>().CurrentWeapon;
+    return Weapon.BulletPrefab;
   }
 }
