@@ -11,7 +11,7 @@ public class PlayerShoot : MonoBehaviour {
 
   void Start () {
     FireTimer = new IntervalTimer() {
-      Interval = 1.0f / CurrentWeapon().FireRate
+      Interval = CurrentWeapon().CooldownInterval()
     };
 
     FireTimer.Start();

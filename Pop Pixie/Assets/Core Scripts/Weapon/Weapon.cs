@@ -12,18 +12,34 @@ public class Weapon {
   public GameObject BulletPrefab;
 
   public static Weapon PopPistol(){
-    var w = new Weapon();
-    w.FireRate = 2.0f;
-    w.Capacity = 12;
-    w.Ammunition = 12;
-    w.BulletSpeed = 60.0f;
-    w.BulletPrefab = (GameObject)Resources.Load(
-      "Bullets/Pop Pellet", 
-      typeof(GameObject)
-    );
-
-    return w;
+    return new Weapon() {
+      FireRate = 2.0f,
+      Capacity = 12,
+      Ammunition = 12,
+      BulletSpeed = 60.0f,
+      BulletPrefab = (GameObject)Resources.Load(
+        "Bullets/Pop Pellet", 
+        typeof(GameObject)
+      )
+    };
   }
+
+  public static Weapon Turret(){
+    return new Weapon() {
+      FireRate = 5.0f,
+      Capacity = 0,
+      Ammunition = 0,
+      BulletSpeed = 10.0f,
+      BulletPrefab = (GameObject)Resources.Load(
+        "Bullets/Turret Bullet", 
+        typeof(GameObject)
+      )
+    };
+  }
+
+  public float CooldownInterval() {
+    return 1.0f / FireRate;
+  } 
 
   public bool HasBullets() {
     return Ammunition > 0;

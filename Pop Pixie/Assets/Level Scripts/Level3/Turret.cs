@@ -4,12 +4,37 @@ using UnityEngine;
 
 public class Turret : AFireable {
 
+  public BulletEmitter BulletEmitter;
+
+  public bool Firing;
+  private IntervalTimer FireTimer;
+
+  void Start() {
+    FireTimer = new IntervalTimer() {
+      Interval = CurrentWeapon().CooldownInterval()
+    };
+  }
+
   public override void BeginFiring() {
-    Debug.Log("So what am I, uh, supposed to do here?");
+    Firing = true;
+    FireTimer.Start();
   }
 
   public override void StopFiring() {
-    Debug.Log("Well, I gave it everything I could. Can't ask for more than that.");
+    Firing = false;
+  }
+
+  void Update() {
+    if ( Firing )
+      FireTimer.IfElapsed( () => ShootBullet() );
+  }
+
+  void ShootBullet() {
+    BulletEmitter.Shoot( CurrentWeapon() );
+  }
+
+  Weapon CurrentWeapon() {
+    return Weapon.Turret();
   }
 
 }

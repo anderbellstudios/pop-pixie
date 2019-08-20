@@ -3,17 +3,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LooksAtPlayer : MonoBehaviour {
+public class LooksAtPlayer : MonoBehaviour, IDirectionManager {
 
   public GameObject player;
   public float k, w_squared;
   public float Velocity;
+
+  public Vector3 Direction { get; set; }
 
 	void Update () {
     Accelerate( w_squared * RelativeAngle() );
     Accelerate( -k * Velocity );
 
     VelocityTick();
+
+    Direction = transform.right;
 	}
 
   void Accelerate( float amount ) {
