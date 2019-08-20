@@ -1782,6 +1782,7 @@ GameObject:
   - component: {fileID: 1345876653}
   - component: {fileID: 1345876656}
   - component: {fileID: 1345876659}
+  - component: {fileID: 1345876660}
   - component: {fileID: 1345876655}
   - component: {fileID: 1345876658}
   - component: {fileID: 1345876657}
@@ -1973,6 +1974,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BulletEmitter: {fileID: 1345876659}
+  Firing: 0
 --- !u!114 &1345876657
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2016,7 +2018,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22cdc26fbfa9f4e27af75d658b31deff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DirectionManager: {fileID: 1345876653}
+  DirectionManager: {fileID: 1345876660}
+--- !u!114 &1345876660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1345876648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13863c3103d49429c9dc4a0576a8e9ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OriginalDirectionManager: {fileID: 1345876653}
+  Angle: 60
 --- !u!1001 &1359230826
 PrefabInstance:
   m_ObjectHideFlags: 0

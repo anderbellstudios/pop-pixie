@@ -26,10 +26,10 @@ public class Weapon {
 
   public static Weapon Turret(){
     return new Weapon() {
-      FireRate = 5.0f,
+      FireRate = 20.0f,
       Capacity = 0,
       Ammunition = 0,
-      BulletSpeed = 10.0f,
+      BulletSpeed = 12.0f,
       BulletPrefab = (GameObject)Resources.Load(
         "Bullets/Turret Bullet", 
         typeof(GameObject)
