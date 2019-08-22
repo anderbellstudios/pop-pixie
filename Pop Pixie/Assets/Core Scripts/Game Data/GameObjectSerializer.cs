@@ -17,21 +17,23 @@ public class GameObjectSerializer {
     if ( guidComponent == null )
       return null;
 
-    foreach ( var component in SerializableComponents() ) {
-      if ( component is ISaveCallbacks ) {
-        ( (ISaveCallbacks) component ).BeforeSave();
-      }
-    }
-
     return new SerializedGameObject() {
       Guid = guidComponent.GetGuid(),
-      Components = SerializableComponents()
+      Components = SerializedComponents()
     };
   }
 
-  Component[] SerializableComponents() {
+  SerializedComponent[] SerializedComponents() {
+    return SerializableComponents().ToList().Select(
+      component => new ComponentSerializer(component).Serialize()
+    ).ToArray();
+  }
+
+  ISerializableComponent[] SerializableComponents() {
     return GameObject.GetComponents<Component>().ToList().Where(
       component => component is ISerializableComponent
+    ).ToList().Select(
+      component => (ISerializableComponent) component
     ).ToArray();
   }
 }

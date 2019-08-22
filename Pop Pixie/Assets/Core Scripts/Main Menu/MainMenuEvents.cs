@@ -17,7 +17,7 @@ public class MainMenuEvents : MonoBehaviour {
   }
 
   void NewGameInstant () {
-    GameDataController.Current.NewGame();
+    Debug.Log("Need to load first scene");
   }
 
   public void Continue () {
@@ -25,7 +25,8 @@ public class MainMenuEvents : MonoBehaviour {
   }
 
   public void ContinueInstant () {
-    GameDataController.Current.Load();
+    GameData.Read();
+    GameData.Load();
   }
 
   void FadeOutAndRun (string callback) {

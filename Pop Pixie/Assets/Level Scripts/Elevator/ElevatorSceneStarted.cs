@@ -20,7 +20,7 @@ public class ElevatorSceneStarted : MonoBehaviour {
   }
 
   void NextLevel () {
-    GameDataController.Current.NextLevel();
+    Debug.Log("Need to load next level");
   }
 
 }

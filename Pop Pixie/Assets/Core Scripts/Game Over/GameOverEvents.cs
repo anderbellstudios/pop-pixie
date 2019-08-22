@@ -19,7 +19,7 @@ public class GameOverEvents : MonoBehaviour {
   }
 
   void ReloadLevel () {
-    GameDataController.Current.Load();
+    GameData.Load();
   }
 
   public void QuitGame() {

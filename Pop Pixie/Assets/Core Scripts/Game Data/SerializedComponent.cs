@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class SerializedGameObject {
-  public Guid Guid;
-  public SerializedComponent[] Components;
+public class SerializedComponent {
+  public Type Type;
+  public Dictionary<string, dynamic> Fields;
 }
