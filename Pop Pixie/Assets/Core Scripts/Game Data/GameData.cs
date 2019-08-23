@@ -19,6 +19,7 @@ public class GameData {
   }
 
   public static void Load() {
+    GDCall.ExpectLoad();
     new SceneDeserializer( Current.Dictionary["scene"] ).Deserialize();
   }
 

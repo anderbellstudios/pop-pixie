@@ -5,7 +5,9 @@ using System.Reflection;
 using System.Linq;
 using UnityEngine;
 
-public class HitPoints : MonoBehaviour {
+public class HitPoints : MonoBehaviour, ISerializableComponent {
+
+  public string[] SerializableFields { get; } = { "Current" };
 
   public float Maximum; 
   public float Current; 
@@ -60,9 +62,13 @@ public class HitPoints : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-    Current = Maximum;
+    GDCall.UnlessLoad( InitHitPoints );
     EventHandlers = gameObject.GetComponents<IHitPointEvents>();
 	}
+
+  public void InitHitPoints() {
+    Current = Maximum;
+  }
 	
 	// Update is called once per frame
 	void Update () {

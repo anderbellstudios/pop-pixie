@@ -23,8 +23,15 @@ public class Level3Started : MonoBehaviour {
     
     if ( PhaseId < Phases.Count ) {
       var phase = Phases[PhaseId];
-      phase.Begin( () => NextPhase() );
+      phase.Begin( () => PhaseFinished() );
     }
+  }
+
+  void PhaseFinished() {
+    NextPhase();
+
+    GameData.Save();
+    GameData.Write();
   }
 
   void Update() {

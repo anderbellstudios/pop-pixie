@@ -21,6 +21,8 @@ public class ElevatorSceneStarted : MonoBehaviour {
   }
 
   void NextLevel () {
+    GDCall.ExpectFirstTime();
+
     SceneManager.LoadScene(
       ElevatorData.NextLevel
     );
