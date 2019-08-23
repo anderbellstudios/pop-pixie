@@ -30,7 +30,16 @@ public class BulletEmitter : MonoBehaviour {
     return Weapon.BulletSpeed;
   }
   
+  GameObject _Prefab = null;
+
   GameObject Prefab() {
-    return Weapon.BulletPrefab;
+    if ( _Prefab == null ) {
+      _Prefab = (GameObject) Resources.Load(
+        Weapon.BulletPrefab, 
+        typeof(GameObject)
+      );
+    }
+
+    return _Prefab;
   }
 }

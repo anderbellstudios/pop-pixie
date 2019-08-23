@@ -9,7 +9,7 @@ public class Weapon {
   public int Capacity;
   public int Ammunition;
   public float BulletSpeed;
-  public GameObject BulletPrefab;
+  public string BulletPrefab;
 
   public static Weapon PopPistol(){
     return new Weapon() {
@@ -17,10 +17,7 @@ public class Weapon {
       Capacity = 12,
       Ammunition = 12,
       BulletSpeed = 60.0f,
-      BulletPrefab = (GameObject)Resources.Load(
-        "Bullets/Pop Pellet", 
-        typeof(GameObject)
-      )
+      BulletPrefab = "Bullets/Pop Pellet"
     };
   }
 
@@ -30,10 +27,7 @@ public class Weapon {
       Capacity = 0,
       Ammunition = 0,
       BulletSpeed = 16.0f,
-      BulletPrefab = (GameObject)Resources.Load(
-        "Bullets/Turret Bullet", 
-        typeof(GameObject)
-      )
+      BulletPrefab = "Bullets/Turret Bullet"
     };
   }
 
