@@ -10,9 +10,6 @@ public class Damageable : MonoBehaviour, IHitPointEvents {
   public Sprite DestroyedFrame;
 
   public void Updated (HitPoints hp) {
-  }
-
-  public void Decreased (HitPoints hp) {
     if ( hp.Current == 0 ) {
       SetSprite( DestroyedFrame );
     } else {
@@ -25,6 +22,9 @@ public class Damageable : MonoBehaviour, IHitPointEvents {
 
   void SetSprite( Sprite sprite ) {
     SpriteRenderer.sprite = sprite;
+  }
+
+  public void Decreased (HitPoints hp) {
   }
 
   public void BecameZero (HitPoints hp) {
