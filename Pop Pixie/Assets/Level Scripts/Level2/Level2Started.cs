@@ -16,7 +16,13 @@ public class Level2Started : MonoBehaviour, IDialogueSequenceEventHandler {
 	void Start () {
     Fader.Fade("from black", 2.0f);
     MusicController.Current.Play(Music, "level 1");
+    StateManager.SetState( State.Playing );
 
+    GDCall.UnlessLoad( StartCutscene );
+    GDCall.IfLoad( MentoeAnimation.Skip );
+  }
+
+  public void StartCutscene() {
     MainCamera.enabled = false;
     CutsceneCamera.enabled = true;
 
