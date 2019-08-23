@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MainMenuEvents : MonoBehaviour {
 
@@ -17,7 +18,7 @@ public class MainMenuEvents : MonoBehaviour {
   }
 
   void NewGameInstant () {
-    Debug.Log("Need to load first scene");
+    SceneManager.LoadScene("Level1");
   }
 
   public void Continue () {

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ElevatorSceneStarted : MonoBehaviour {
 
@@ -20,7 +21,9 @@ public class ElevatorSceneStarted : MonoBehaviour {
   }
 
   void NextLevel () {
-    Debug.Log("Need to load next level");
+    SceneManager.LoadScene(
+      ElevatorData.NextLevel
+    );
   }
 
 }
