@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Level3Started : MonoBehaviour {
+public class Level3Started : MonoBehaviour, ISerializableComponent {
+
+  public string[] SerializableFields { get; } = { "PhaseId" };
+
   public HUDBar BossProgressBar;
 
   public ScreenFade Fader;
@@ -14,6 +17,13 @@ public class Level3Started : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
     Fader.Fade("from black", 2.0f);
+    StateManager.SetState( State.Playing );
+
+    GDCall.UnlessLoad( InitPhases );
+    GDCall.IfLoad( BeginPhase );
+  }
+
+  public void InitPhases() {
     PhaseId = -1;
     NextPhase();
 	}
@@ -22,9 +32,13 @@ public class Level3Started : MonoBehaviour {
     PhaseId += 1;
     
     if ( PhaseId < Phases.Count ) {
-      var phase = Phases[PhaseId];
-      phase.Begin( () => PhaseFinished() );
+      BeginPhase();
     }
+  }
+
+  void BeginPhase() {
+    var phase = Phases[PhaseId];
+    phase.Begin( () => PhaseFinished() );
   }
 
   void PhaseFinished() {
