@@ -23,15 +23,32 @@ public class GameData {
     new SceneDeserializer( Current.Dictionary["scene"] ).Deserialize();
   }
 
-  public static void Write() {
+  public static void WriteSave() {
+    Write("file0");
+    Write("file1");
+  }
+
+  public static void WriteAutoSave() {
+    Write("file1");
+  }
+
+  public static void ReadSave() {
+    Read("file0");
+  }
+
+  public static void ReadAutoSave() {
+    Read("file1");
+  }
+
+  public static void Write( string fileName ) {
     var bf = new BinaryFormatter();
-    var file = File.Open( Path(), FileMode.OpenOrCreate );
+    var file = File.Open( Path(fileName), FileMode.OpenOrCreate );
     bf.Serialize(file, Current.Dictionary);
     file.Close();
   }
 
-  public static void Read() {
-    var file = File.Open( Path(), FileMode.Open );
+  public static void Read( string fileName ) {
+    var file = File.Open( Path(fileName), FileMode.Open );
     var bf = new BinaryFormatter();
 
     try {
@@ -50,11 +67,11 @@ public class GameData {
   }
 
   public static bool Exists() {
-    return File.Exists( Path() );
+    return File.Exists( Path("file1") );
   }
 
-  static string Path () {
-    return Application.persistentDataPath + "/file0";
+  static string Path( string fileName ) {
+    return Application.persistentDataPath + fileName;
   }
 
 }

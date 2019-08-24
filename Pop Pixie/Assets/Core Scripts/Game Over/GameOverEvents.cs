@@ -19,6 +19,7 @@ public class GameOverEvents : MonoBehaviour {
   }
 
   void ReloadLevel () {
+    GameData.ReadSave();
     GameData.Load();
   }
 

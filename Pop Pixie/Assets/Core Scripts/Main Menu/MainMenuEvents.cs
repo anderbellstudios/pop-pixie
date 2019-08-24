@@ -26,7 +26,7 @@ public class MainMenuEvents : MonoBehaviour {
   }
 
   public void ContinueInstant () {
-    GameData.Read();
+    GameData.ReadAutoSave();
     GameData.Load();
   }
 

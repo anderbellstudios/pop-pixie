@@ -20,8 +20,18 @@ public class SaveHopper : MonoBehaviour {
       AboutToSave = false;
 
       GameData.Save();
-      GameData.Write();
+      GameData.WriteSave();
+
+      InvokeRepeating( "AutoSave", 5.0f, 5.0f );
     }
+  }
+
+  void AutoSave() {
+    if ( StateManager.Isnt( State.Playing ) )
+      return;
+
+    GameData.Save();
+    GameData.WriteAutoSave();
   }
 
 }

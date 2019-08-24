@@ -45,7 +45,7 @@ public class Level3Started : MonoBehaviour, ISerializableComponent {
     NextPhase();
 
     GameData.Save();
-    GameData.Write();
+    GameData.WriteSave();
   }
 
   void Update() {
