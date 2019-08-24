@@ -36,6 +36,9 @@ public class HitPoints : MonoBehaviour, ISerializableComponent {
   }
 
   public float Decrease (float val) {
+    if ( Current == 0 )
+      return 0.0f; // <-- Bypass callbacks
+
     Increase(-val);
 
     SendEventHandlerMessage("Decreased");
