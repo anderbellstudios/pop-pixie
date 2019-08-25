@@ -9,24 +9,26 @@ public class LandingMenuEvents : MonoBehaviour {
   public ScreenFade Fader;
   public MonoBehaviour Button;
 
+  public float FadeInDelay, FadeInDuration, FadeOutDuration, NextSceneDelay;
+
   void Start () {
     DisableButton();
     Fader.Fade("to black", 0.0f);
     MusicController.Current.Play(Music, "landing menu");
-    Invoke("FadeIn", 4.0f);
+    Invoke("FadeIn", FadeInDelay);
   }
 
   void FadeIn () {
-    Fader.Fade("from black", 8.0f);
-    Invoke("EnableButton", 8.0f);
+    Fader.Fade("from black", FadeInDuration);
+    Invoke("EnableButton", FadeInDuration);
   }
 
 
   public void Begin() {
     DisableButton();
-    MusicController.Current.Fade(1.0f, 0.0f, 4.0f);
-    Fader.Fade("to black", 4.0f);
-    Invoke("MainMenu", 5.0f);
+    MusicController.Current.Fade(1.0f, 0.0f, FadeOutDuration);
+    Fader.Fade("to black", FadeOutDuration);
+    Invoke("MainMenu", FadeOutDuration + NextSceneDelay);
   }
 
   void MainMenu () {
