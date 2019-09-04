@@ -11,7 +11,7 @@ public class SpawnGremlin : MonoBehaviour {
     var gremlin = Instantiate( Prefab );
 
     gremlin.transform.position = transform.position;
-    gremlin.GetComponent<EnemyAI>().Engaged = true;
+    gremlin.GetComponent<DummyActivator>().Activated = true;
 
     return gremlin;
   }
