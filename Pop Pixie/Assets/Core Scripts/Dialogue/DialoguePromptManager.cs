@@ -49,8 +49,9 @@ public class DialoguePromptManager : MonoBehaviour, IDialoguePageEventHandler, I
     if ( StateManager.Isnt( State.DialoguePrompt ) )
       return;
 
-    if ( Input.GetButton("AbortDialogue") ) {
-      Exit();
-    }
+    // Need to implement proper dialogue skipping
+    // if ( Input.GetButton("AbortDialogue") ) {
+    //   Exit();
+    // }
 	}
 }

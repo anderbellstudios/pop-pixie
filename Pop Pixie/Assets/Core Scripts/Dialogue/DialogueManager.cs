@@ -76,7 +76,7 @@ public class DialogueManager : MonoBehaviour, IDialoguePageEventHandler {
     if ( StateManager.Isnt( State.Dialogue ) )
       return;
 
-    if ( Input.GetButton("Submit") ) {
+    if ( WrappedInput.GetButton("Confirm") ) {
       if ( ButtonDown != true ) {
         ButtonDown = true;
 
@@ -90,8 +90,9 @@ public class DialogueManager : MonoBehaviour, IDialoguePageEventHandler {
       ButtonDown = false;
     }
 
-    if ( Input.GetButton("AbortDialogue") ) {
-      Exit();
-    }
+    // Need to implement proper dialogue skipping
+    // if ( Input.GetButton("AbortDialogue") ) {
+    //   Exit();
+    // }
 	}
 }

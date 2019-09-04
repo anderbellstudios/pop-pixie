@@ -21,7 +21,7 @@ public class PlayerShoot : MonoBehaviour {
     if ( StateManager.Isnt( State.Playing ) )
       return;
 
-    if ( Input.GetButton("Fire1") && CanShoot() ) {
+    if ( WrappedInput.GetButton("Fire") && CanShoot() ) {
       FireTimer.Reset();
       BulletEmitter.Shoot( CurrentWeapon() );
     }
