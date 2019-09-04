@@ -30,10 +30,10 @@ public class GremlinSpawnScheduler : MonoBehaviour {
     if ( !Spawning )
       return;
 
-    if ( DestroyedLastGremlin() || SpawnTimer.Elapsed() )
+    if ( DestroyedAllGremlins() || SpawnTimer.Elapsed() )
       TentativeSpawnNextGremlin();
 
-    if ( SpawnedGremlins.Count == MaxGremlins && DestroyedLastGremlin() )
+    if ( SpawnedGremlins.Count == MaxGremlins && DestroyedAllGremlins() )
       Spawning = false;
   }
 
@@ -45,8 +45,8 @@ public class GremlinSpawnScheduler : MonoBehaviour {
     }
   }
 
-  bool DestroyedLastGremlin() {
-    return SpawnedGremlins.Last() == null;
+  bool DestroyedAllGremlins() {
+    return SpawnedGremlins.All( x => x == null);
   }
 
 }
