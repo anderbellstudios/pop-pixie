@@ -7,8 +7,10 @@ public class DialogueBoxController : MonoBehaviour {
 
   public Text TextBox;
   public Image FaceImage;
-  public float InitialDelay;
-  public float WriteDelay;
+  public float NormalInitialDelay;
+  public float FastInitialDelay;
+  public float NormalWriteDelay;
+  public float FastWriteDelay;
   public GameObject DialogueBox;
   public PromptButtonController PromptButtons;
 
@@ -23,10 +25,9 @@ public class DialogueBoxController : MonoBehaviour {
     EventHandler = event_handler;
 
     CancelInvoke();
-    InvokeRepeating(
+    Invoke(
       "WriteNextLetter",
-      InitialDelay,
-      WriteDelay
+      InitialDelay()
     );
   }
 
@@ -44,6 +45,27 @@ public class DialogueBoxController : MonoBehaviour {
         WriteProgress
       )
     );
+
+    Invoke(
+      "WriteNextLetter",
+      WriteDelay()
+    );
+  }
+
+  float InitialDelay() {
+    if ( WrappedInput.GetButton("Cancel") ) {
+      return FastInitialDelay;
+    } else {
+      return NormalInitialDelay;
+    }
+  }
+
+  float WriteDelay() {
+    if ( WrappedInput.GetButton("Cancel") ) {
+      return FastWriteDelay;
+    } else {
+      return NormalWriteDelay;
+    }
   }
 
   void DirectWrite (string text) {
@@ -71,12 +93,4 @@ public class DialogueBoxController : MonoBehaviour {
   void SetEnabled (bool state) {
     DialogueBox.SetActive(state);
   }
-
-	// Use this for initialization
-	void Start () {
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	}
 }

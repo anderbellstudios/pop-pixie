@@ -8,11 +8,14 @@ public class DialogueManager : MonoBehaviour, IDialoguePageEventHandler {
   public DialogueBoxController DialogueBox;
   public AudioSource Player;
   public float InterruptCooldown;
+  public float SkipCooldown;
 
   private DialogueSequence Sequence;
   private int SequenceProgress;
   private bool DialogueBoxInProgress;
   private IDialogueSequenceEventHandler EventHandler;
+
+  IntervalTimer SkipCooldownTimer; 
 
   void ReadPage (DialoguePage page) {
     DialogueBoxInProgress = true;
@@ -70,6 +73,14 @@ public class DialogueManager : MonoBehaviour, IDialoguePageEventHandler {
   void Awake () {
     DialogueBox.Hide();
   }
+
+  void Start () {
+    SkipCooldownTimer = new IntervalTimer() {
+      Interval = SkipCooldown
+    };
+
+    SkipCooldownTimer.Start();
+  }
 	
 	// Update is called once per frame
 	void Update () {
@@ -90,9 +101,14 @@ public class DialogueManager : MonoBehaviour, IDialoguePageEventHandler {
       ButtonDown = false;
     }
 
-    // Need to implement proper dialogue skipping
-    // if ( Input.GetButton("AbortDialogue") ) {
-    //   Exit();
-    // }
+    if ( WrappedInput.GetButton("Cancel") && !DialogueBoxInProgress ) {
+      ReadNextPage();
+    }
+
+    if ( WrappedInput.GetButton("Skip") && SkipCooldownTimer.Elapsed() ) {
+      SkipCooldownTimer.Reset();
+      ReadNextPage();
+      DialogueBox.FinishPage();
+    }
 	}
 }
