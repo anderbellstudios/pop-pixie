@@ -1,18 +1,22 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
+using System.Linq;
 using UnityEngine;
 
-public class HitPoints : MonoBehaviour {
+public class HitPoints : MonoBehaviour, ISerializableComponent {
+
+  public string[] SerializableFields { get; } = { "Current" };
 
   public float Maximum; 
   public float Current; 
-  public float DamageCooldown;
   public float RegenerateRate;
+  public List<ACanBeDamagedArbiter> CanBeDamagedArbiters;
 
-  private DateTime LastDamaged;
+  public DateTime LastDamaged;
 
-  private IHitPointEvents EventHandler;
+  private IHitPointEvents[] EventHandlers;
 
   public void Cap () {
     // Make sure HP is between 0 and max
@@ -32,18 +36,22 @@ public class HitPoints : MonoBehaviour {
   }
 
   public float Decrease (float val) {
+    if ( Current == 0 )
+      return 0.0f; // <-- Bypass callbacks
+
     Increase(-val);
 
-    EventHandler.Decreased(this);
+    SendEventHandlerMessage("Decreased");
     if ( Current == 0 )
-      EventHandler.BecameZero(this);
+      SendEventHandlerMessage("BecameZero");
 
     return Current;
   }
 
   bool CanBeDamaged () {
-    var since = DateTime.Now.Subtract( LastDamaged ).TotalSeconds;
-    return since > DamageCooldown;
+    return CanBeDamagedArbiters.ToArray().All(
+      arbiter => arbiter.CanBeDamaged(this)
+    );
   }
 
   public float Damage (float val) {
@@ -57,15 +65,27 @@ public class HitPoints : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-    Current = Maximum;
-    EventHandler = gameObject.GetComponent<IHitPointEvents>();
+    GDCall.UnlessLoad( InitHitPoints );
+    EventHandlers = gameObject.GetComponents<IHitPointEvents>();
 	}
+
+  public void InitHitPoints() {
+    Current = Maximum;
+  }
 	
 	// Update is called once per frame
 	void Update () {
-    EventHandler.Updated(this);
+    SendEventHandlerMessage("Updated");
 
     if ( StateManager.Is( State.Playing ) )
       Increase( RegenerateRate * Time.deltaTime );
 	}
+
+  void SendEventHandlerMessage(string message) {
+    foreach (IHitPointEvents eventHandler in EventHandlers) {
+      MethodInfo method = eventHandler.GetType().GetMethod(message);
+      method.Invoke(eventHandler, new object[] { this } );
+    }
+  }
+
 }

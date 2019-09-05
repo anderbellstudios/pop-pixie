@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MainMenuEvents : GenericMenuEvents {
 
@@ -13,11 +14,12 @@ public class MainMenuEvents : GenericMenuEvents {
   }
 
   void _NewGame () {
-    GameDataController.Current.NewGame();
+    SceneManager.LoadScene("Level1");
   }
 
   void _Continue () {
-    GameDataController.Current.Load();
+    GameData.ReadAutoSave();
+    GameData.Load();
   }
 
 }

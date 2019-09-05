@@ -17,6 +17,10 @@ public class MentoeRunToElevator : MonoBehaviour {
     Running = true;
   }
 
+  public void Skip () {
+    Destroy( gameObject );
+  }
+
   void Update () {
     if ( !Running )
       return;

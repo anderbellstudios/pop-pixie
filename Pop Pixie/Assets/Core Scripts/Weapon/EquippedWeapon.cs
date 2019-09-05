@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EquippedWeapon : MonoBehaviour {
+public class EquippedWeapon : MonoBehaviour, ISerializableComponent {
+
+  public string[] SerializableFields { get; } = { "CurrentWeapon" };
 
   public MonoBehaviour AmmunitionCircle;
   public ReloadIndicator ReloadIndicator;
@@ -14,7 +16,7 @@ public class EquippedWeapon : MonoBehaviour {
   public Weapon CurrentWeapon;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
     CurrentWeapon = Weapon.PopPistol();
 	}
 

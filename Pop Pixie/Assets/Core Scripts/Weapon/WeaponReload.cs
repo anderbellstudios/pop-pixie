@@ -27,7 +27,7 @@ public class WeaponReload : MonoBehaviour {
 	void Update () {
     var rb = (HUDBar) ReloadBar;
 
-    if ( Input.GetButton("Reload") && CanReload() ) {
+    if ( WrappedInput.GetButton("Reload") && CanReload() ) {
       if ( !InProgress ) {
         InProgress = true;
         StartedAt = DateTime.Now;

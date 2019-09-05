@@ -43,14 +43,5 @@ public class DialoguePromptManager : MonoBehaviour, IDialoguePageEventHandler, I
   void Awake () {
     PromptButtons.Hide();
   }
-	
-	// Update is called once per frame
-	void Update () {
-    if ( StateManager.Isnt( State.DialoguePrompt ) )
-      return;
 
-    if ( Input.GetButton("AbortDialogue") ) {
-      Exit();
-    }
-	}
 }

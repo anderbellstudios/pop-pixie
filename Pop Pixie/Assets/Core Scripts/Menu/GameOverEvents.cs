@@ -13,7 +13,8 @@ public class GameOverEvents : GenericMenuEvents {
   }
 
   void _TryAgain () {
-    GameDataController.Current.Load();
+    GameData.ReadSave();
+    GameData.Load();
   }
 
   void _QuitGame() {

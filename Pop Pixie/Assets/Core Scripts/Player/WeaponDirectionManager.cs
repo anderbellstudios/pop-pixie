@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponDirectionManager : MonoBehaviour {
+public class WeaponDirectionManager : MonoBehaviour, IDirectionManager {
 
-  public Vector3 Direction;
+  public Vector3 Direction { get; set; }
+
   public float JoystickThreshold;
   public float MouseThreshold;
   public GameObject Arrow;
@@ -23,7 +24,7 @@ public class WeaponDirectionManager : MonoBehaviour {
     Vector3? inputDirection = JoystickDirection() ?? MouseDirection();
 
     if (inputDirection != null) {
-      Direction = (Vector3)inputDirection;
+      Direction = ( (Vector3) inputDirection ).normalized;
     }
 
     var rotation = Quaternion.FromToRotation(
