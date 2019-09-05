@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerShoot : MonoBehaviour {
 
   public BulletEmitter BulletEmitter;
+  public ShootPulse ShootPulse;
 
   private IntervalTimer FireTimer;
 
@@ -24,6 +25,7 @@ public class PlayerShoot : MonoBehaviour {
     if ( WrappedInput.GetButton("Fire") && CanShoot() ) {
       FireTimer.Reset();
       BulletEmitter.Shoot( CurrentWeapon() );
+      ShootPulse.Pulse();
     }
 	}
 
