@@ -51,6 +51,10 @@ public class WrappedInput : MonoBehaviour {
         return "PS3";
       }
 
+      if ( Regex.Match( joystick, @"Interactive Entertainment", RegexOptions.IgnoreCase ).Success ) {
+        return "PS4";
+      }
+
       if ( Regex.Match( joystick, @"Xbox", RegexOptions.IgnoreCase ).Success ) {
         return "XboxOneS";
       }
