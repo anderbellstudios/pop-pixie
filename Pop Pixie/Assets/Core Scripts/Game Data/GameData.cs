@@ -71,7 +71,7 @@ public class GameData {
   }
 
   static string Path( string fileName ) {
-    return Application.persistentDataPath + fileName;
+    return System.IO.Path.Combine(Application.persistentDataPath, fileName);
   }
 
 }
