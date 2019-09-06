@@ -95,7 +95,6 @@ GameObject:
   - component: {fileID: 114713038835468652}
   - component: {fileID: 8199610652695165348}
   - component: {fileID: 3633734644977408093}
-  - component: {fileID: 114212325264381170}
   - component: {fileID: 8156467750406196158}
   - component: {fileID: 114081501603769606}
   - component: {fileID: 8646166208578633107}
@@ -108,7 +107,6 @@ GameObject:
   - component: {fileID: 2635195268556778807}
   - component: {fileID: 114153154460385952}
   - component: {fileID: 114176230308344078}
-  - component: {fileID: 114231682955495740}
   - component: {fileID: 58994815713915488}
   - component: {fileID: 7969404203038904401}
   m_Layer: 12
@@ -332,7 +330,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40bcf2f16b3bc47aaad710faa4cea60e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HealthBar: {fileID: 114212325264381170}
+  HealthBar: {fileID: 0}
   Fader: {fileID: 0}
   TimeToDie: 5
 --- !u!114 &8199610652695165348
@@ -361,24 +359,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DamageCooldown: 0.5
---- !u!114 &114212325264381170
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1276747056135348}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da12b954f460e4413808eb78618261b5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Position: {x: 0.01, y: 0.01}
-  Size: {x: 0.4, y: 0.03}
-  BackgroundColour: {r: 0.2784314, g: 0.2784314, b: 0.2784314, a: 1}
-  ForegroundColour: {r: 1, g: 0, b: 0.1137255, a: 1}
-  Progress: 0.75
-  Visible: 1
 --- !u!114 &8156467750406196158
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -565,27 +545,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Duration: 2
-  ReloadBar: {fileID: 114231682955495740}
+  ReloadBar: {fileID: 0}
   SpeedManager: {fileID: 114081501603769606}
   InProgress: 0
---- !u!114 &114231682955495740
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1276747056135348}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da12b954f460e4413808eb78618261b5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Position: {x: 0.01, y: 0.05}
-  Size: {x: 0.4, y: 0.03}
-  BackgroundColour: {r: 0.2784314, g: 0.2784314, b: 0.2784314, a: 1}
-  ForegroundColour: {r: 0, g: 0.5471698, b: 0.12781554, a: 1}
-  Progress: 0
-  Visible: 0
 --- !u!58 &58994815713915488
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -614,7 +576,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98bbc2c1e63e98543830eec78d976795, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serializedGuid: eb6953d5c7023f419c10dec6a5de0592
+  serializedGuid: 903bcdc8bdaa7d40af8bae1f447d4c8c
 --- !u!1 &3288697003462225770
 GameObject:
   m_ObjectHideFlags: 0
