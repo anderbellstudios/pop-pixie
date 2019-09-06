@@ -59,6 +59,12 @@ public class WrappedInput : MonoBehaviour {
         return "XboxOneS";
       }
 
+      if ( Regex.Match( joystick, @"Unknown Wireless Controller", RegexOptions.IgnoreCase ).Success ) {
+        return "PS4";
+      }
+
+      Debug.Log( joystick );
+
     }
 
     return null;
