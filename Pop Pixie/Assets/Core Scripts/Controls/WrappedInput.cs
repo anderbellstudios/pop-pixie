@@ -40,7 +40,7 @@ public class WrappedInput : MonoBehaviour {
     return "Kb+M " + button;
   }
 
-  static string ControllerPrefix() {
+  public static string ControllerPrefix() {
     var joysticks = Input.GetJoystickNames();
 
     if ( joysticks.Length > 0 ) {
