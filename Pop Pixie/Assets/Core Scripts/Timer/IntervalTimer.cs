@@ -7,12 +7,16 @@ public delegate void TimerDelegate();
 public class IntervalTimer {
 
   public float Interval;
+  public bool Started;
 
   private DateTime LastElapsed;
-  private bool Started;
 
   public void Start() {
     Started = true;
+  }
+
+  public void Stop() {
+    Started = false;
   }
 
   public bool Elapsed() {

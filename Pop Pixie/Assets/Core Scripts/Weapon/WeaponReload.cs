@@ -8,16 +8,17 @@ public class WeaponReload : MonoBehaviour {
   public float Duration;
   public MonoBehaviour ReloadBar;
   public MonoBehaviour SpeedManager;
-  public bool InProgress;
 
-  private DateTime StartedAt;
+  IntervalTimer ReloadTimer;
 
 	// Use this for initialization
 	void Start () {
-    InProgress = false;
+    ReloadTimer = new IntervalTimer() {
+      Interval = Duration
+    };
 
     // Reduce speed by half when reload is InProgress
-    SpeedModifier modifier = s => InProgress ? 0.5f * s : s;
+    SpeedModifier modifier = s => InProgress() ? 0.5f * s : s;
 
     var sm = (PlayerMovable) SpeedManager;
     sm.SpeedModifiers.Add(modifier);
@@ -27,31 +28,34 @@ public class WeaponReload : MonoBehaviour {
 	void Update () {
     var rb = (HUDBar) ReloadBar;
 
-    if ( WrappedInput.GetButton("Reload") && CanReload() ) {
-      if ( !InProgress ) {
-        InProgress = true;
-        StartedAt = DateTime.Now;
-      }
+    ReloadTimer.IfElapsed( CurrentWeapon().Reload );
 
+    if ( WrappedInput.GetButton("Reload") && !InProgress() && CanReload() )
+      ReloadTimer.Reset();
+
+    if ( InProgress() && CanReload() ) {
       rb.Progress = Progress();
-
-      if ( Progress() == 1.0f )
-        CurrentWeapon().Reload();
-
     } else {
-      InProgress = false;
+      ReloadTimer.Stop();
     }
 
-    rb.Visible = InProgress;
+    rb.Visible = InProgress();
 	}
+
+  bool InProgress() {
+    return ReloadTimer.Started && !ReloadTimer.Elapsed();
+  }
 
   bool CanReload() {
     return !CurrentWeapon().Full() && StateManager.Is( State.Playing );
   }
 
   float Progress() {
-    float since = (float) DateTime.Now.Subtract( StartedAt ).TotalSeconds;
-    return Mathf.Min( since / Duration, 1.0f );
+    return Mathf.Clamp(
+      ReloadTimer.TimeSinceElapsed() / Duration,
+      0f,
+      1f
+    );
   }
 
   Weapon CurrentWeapon() {
