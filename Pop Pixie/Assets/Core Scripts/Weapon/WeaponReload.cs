@@ -7,7 +7,7 @@ public class WeaponReload : MonoBehaviour {
 
   public float Duration;
   public MonoBehaviour ReloadBar;
-  public MonoBehaviour SpeedManager;
+  public MovementManager MovementManager;
 
   IntervalTimer ReloadTimer;
 
@@ -18,10 +18,10 @@ public class WeaponReload : MonoBehaviour {
     };
 
     // Reduce speed by half when reload is InProgress
-    SpeedModifier modifier = s => InProgress() ? 0.5f * s : s;
+    MovementManager.SpeedModifiers.Add(
+      s => InProgress() ? 0.5f * s : s
+    );
 
-    var sm = (PlayerMovable) SpeedManager;
-    sm.SpeedModifiers.Add(modifier);
 	}
 	
 	// Update is called once per frame
