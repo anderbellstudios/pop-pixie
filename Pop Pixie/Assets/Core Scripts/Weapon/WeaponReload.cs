@@ -46,7 +46,7 @@ public class WeaponReload : MonoBehaviour {
 	}
 
   bool CanReload() {
-    return !CurrentWeapon().Full();
+    return !CurrentWeapon().Full() && StateManager.Is( State.Playing );
   }
 
   float Progress() {
