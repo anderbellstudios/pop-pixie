@@ -5,7 +5,18 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuEvents : GenericMenuEvents {
 
+  public MainMenuConfirmWindow MainMenuConfirmWindow;
+
+  public void TentativeNewGame () {
+    if ( GameData.Exists() ) {
+      MainMenuConfirmWindow.Show();
+    } else {
+      NewGame();
+    }
+  }
+
   public void NewGame () {
+    MainMenuConfirmWindow.Hide();
     FadeOut(_NewGame);
   }
 

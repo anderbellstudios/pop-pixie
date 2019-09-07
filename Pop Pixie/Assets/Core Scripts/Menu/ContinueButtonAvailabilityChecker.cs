@@ -5,9 +5,11 @@ using UnityEngine.UI;
 
 public class ContinueButtonAvailabilityChecker : MonoBehaviour {
 
-	// Update is called once per frame
-	void Update () {
-    var button = gameObject.GetComponent<Button>();
-    button.interactable = GameData.Exists();
-	}
+  public GameObject Button;
+
+  void Awake() {
+    if ( !GameData.Exists() )
+      Destroy(Button);
+  }
+
 }
