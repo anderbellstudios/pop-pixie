@@ -23,7 +23,7 @@ public class ShootPulse : MonoBehaviour {
   }
 
   public void Pulse() {
-    PulseTimer.Reset();
+    // PulseTimer.Reset();
 
     var dm = (IDirectionManager) DirectionManager;
     Direction = dm.Direction;
