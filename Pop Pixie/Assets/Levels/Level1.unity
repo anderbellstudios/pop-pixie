@@ -595,6 +595,49 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e8e1138f3dd2249f5a5c6c44f29a69bd, type: 3}
+--- !u!1 &410487356
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 410487358}
+  - component: {fileID: 410487357}
+  m_Layer: 0
+  m_Name: PauseHopper
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &410487357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 410487356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e0d62b4753d04fd995054608638487a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &410487358
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 410487356}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 975.8291, y: 895.4052, z: -30.364424}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 18
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &413174162
 GameObject:
   m_ObjectHideFlags: 0
@@ -1531,21 +1574,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 20682073832733502, guid: db7b40b7e04a74afa95cc6e82a722496,
-        type: 3}
-      propertyPath: m_BackGroundColor.r
-      value: 0.08627451
-      objectReference: {fileID: 0}
-    - target: {fileID: 20682073832733502, guid: db7b40b7e04a74afa95cc6e82a722496,
-        type: 3}
-      propertyPath: m_BackGroundColor.g
-      value: 0.227451
-      objectReference: {fileID: 0}
-    - target: {fileID: 20682073832733502, guid: db7b40b7e04a74afa95cc6e82a722496,
-        type: 3}
-      propertyPath: m_BackGroundColor.b
-      value: 0.0627451
-      objectReference: {fileID: 0}
     - target: {fileID: 4198617257405980, guid: db7b40b7e04a74afa95cc6e82a722496, type: 3}
       propertyPath: m_LocalPosition.x
       value: 13.8
@@ -1667,6 +1695,21 @@ PrefabInstance:
         type: 3}
       propertyPath: serializedGuid.Array.data[15]
       value: 29
+      objectReference: {fileID: 0}
+    - target: {fileID: 20682073832733502, guid: db7b40b7e04a74afa95cc6e82a722496,
+        type: 3}
+      propertyPath: m_BackGroundColor.r
+      value: 0.08627451
+      objectReference: {fileID: 0}
+    - target: {fileID: 20682073832733502, guid: db7b40b7e04a74afa95cc6e82a722496,
+        type: 3}
+      propertyPath: m_BackGroundColor.g
+      value: 0.227451
+      objectReference: {fileID: 0}
+    - target: {fileID: 20682073832733502, guid: db7b40b7e04a74afa95cc6e82a722496,
+        type: 3}
+      propertyPath: m_BackGroundColor.b
+      value: 0.0627451
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: db7b40b7e04a74afa95cc6e82a722496, type: 3}

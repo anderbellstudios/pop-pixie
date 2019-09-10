@@ -4,6 +4,7 @@ using UnityEngine;
 
 public enum State : int { 
   Playing, 
+  Paused,
   Dialogue, 
   Lore, 
   DialoguePrompt, 
