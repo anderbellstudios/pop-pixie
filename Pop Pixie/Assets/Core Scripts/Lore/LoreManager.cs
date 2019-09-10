@@ -29,7 +29,7 @@ public class LoreManager : MonoBehaviour {
     if ( StateManager.Isnt( State.Lore ) )
       return;
 
-    if ( WrappedInput.GetButton("Cancel") ) {
+    if ( WrappedInput.GetButtonDown("Cancel") ) {
       LoreWindow.Hide();
 
       if ( EventHandler != null )

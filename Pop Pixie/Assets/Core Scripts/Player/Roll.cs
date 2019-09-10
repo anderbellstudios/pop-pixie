@@ -30,7 +30,7 @@ public class Roll : MonoBehaviour {
   }
 
   void InitateOpportunity() {
-    if ( !WrappedInput.GetButton("Roll") )
+    if ( !WrappedInput.GetButtonDown("Roll") )
       return; // Since the player isn't trying to roll
 
     if ( !Rolling && RollAllowed.CanRoll() ) {

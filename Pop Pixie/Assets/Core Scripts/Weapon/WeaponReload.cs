@@ -30,7 +30,7 @@ public class WeaponReload : MonoBehaviour {
 
     ReloadTimer.IfElapsed( CurrentWeapon().Reload );
 
-    if ( WrappedInput.GetButton("Reload") && !InProgress() && CanReload() )
+    if ( WrappedInput.GetButtonDown("Reload") && !InProgress() && CanReload() )
       ReloadTimer.Reset();
 
     if ( InProgress() && CanReload() ) {
