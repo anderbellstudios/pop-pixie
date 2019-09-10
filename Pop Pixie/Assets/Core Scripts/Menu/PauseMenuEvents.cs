@@ -16,4 +16,8 @@ public class PauseMenuEvents : MonoBehaviour {
     }
   }
 
+  public void QuitGame() {
+    WrappedApplication.Quit();
+  }
+
 }
