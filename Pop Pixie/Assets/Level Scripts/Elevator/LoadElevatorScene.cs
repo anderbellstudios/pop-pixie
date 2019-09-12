@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LoadElevatorScene : MonoBehaviour, IDialogueSequenceEventHandler, IPromptButtonEventHandler {
+public class LoadElevatorScene : AInspectable, IDialogueSequenceEventHandler, IPromptButtonEventHandler {
 
   public DialogueManager Dialogue;
   public DialoguePromptManager PromptManager;
@@ -15,15 +15,11 @@ public class LoadElevatorScene : MonoBehaviour, IDialogueSequenceEventHandler, I
 
   public bool Triggered;
 
-  void OnTriggerEnter2D (Collider2D other) {
-    if ( other.tag == "Player" ) {
-
-      if ( ShouldPlayDialogue() ) {
-        Dialogue.Play("Dialogue/l1d3", this);
-      } else {
-        ShowPrompt();
-      }
-
+  public override void OnInspect() {
+    if ( ShouldPlayDialogue() ) {
+      Dialogue.Play("Dialogue/l1d3", this);
+    } else {
+      ShowPrompt();
     }
   }
 

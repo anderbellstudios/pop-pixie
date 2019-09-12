@@ -24,8 +24,12 @@ public class GameData {
   }
 
   public static void WriteSave() {
+    WriteTrueSave();
+    WriteAutoSave();
+  }
+
+  public static void WriteTrueSave() {
     Write("file0");
-    Write("file1");
   }
 
   public static void WriteAutoSave() {
