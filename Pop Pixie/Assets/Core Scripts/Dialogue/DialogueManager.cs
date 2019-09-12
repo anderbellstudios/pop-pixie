@@ -16,6 +16,7 @@ public class DialogueManager : MonoBehaviour, IDialoguePageEventHandler {
   private IDialogueSequenceEventHandler EventHandler;
 
   IntervalTimer SkipCooldownTimer; 
+  bool ButtonReleased;
 
   void ReadPage (DialoguePage page) {
     DialogueBoxInProgress = true;
@@ -54,6 +55,7 @@ public class DialogueManager : MonoBehaviour, IDialoguePageEventHandler {
   }
 
 	public void Play (string sequence_name, IDialogueSequenceEventHandler event_handler) {
+    ButtonReleased = false;
     DialogueBoxInProgress = false;
     DialogueBox.Show();
     StateManager.SetState( State.Dialogue );
@@ -67,8 +69,6 @@ public class DialogueManager : MonoBehaviour, IDialoguePageEventHandler {
 
     ReadNextPage();
 	}
-
-  private bool ButtonDown;
 
   void Awake () {
     DialogueBox.Hide();
@@ -87,19 +87,17 @@ public class DialogueManager : MonoBehaviour, IDialoguePageEventHandler {
     if ( StateManager.Isnt( State.Dialogue ) )
       return;
 
-    if ( WrappedInput.GetButtonDown("Confirm") ) {
-      if ( ButtonDown != true ) {
-        ButtonDown = true;
+    if ( ButtonReleased && WrappedInput.GetButton("Confirm") ) {
+      ButtonReleased = false;
 
-        if (DialogueBoxInProgress) {
-          DialogueBox.FinishPage();
-        } else {
-          ReadNextPage();
-        }
+      if (DialogueBoxInProgress) {
+        DialogueBox.FinishPage();
+      } else {
+        ReadNextPage();
       }
-    } else {
-      ButtonDown = false;
     }
+
+    ButtonReleased = ! WrappedInput.GetButton("Confirm");
 
     if ( WrappedInput.GetButton("Cancel") && !DialogueBoxInProgress ) {
       ReadNextPage();
