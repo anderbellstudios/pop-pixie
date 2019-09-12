@@ -25,6 +25,9 @@ public class Turret : AFireable {
   }
 
   void Update() {
+    if ( StateManager.Isnt( State.Playing ) )
+      return;
+
     if ( Firing )
       FireTimer.IfElapsed( () => ShootBullet() );
   }
