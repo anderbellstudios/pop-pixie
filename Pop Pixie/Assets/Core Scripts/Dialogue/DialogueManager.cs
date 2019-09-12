@@ -68,6 +68,7 @@ public class DialogueManager : MonoBehaviour, IDialoguePageEventHandler {
     ReadNextPage();
 	}
 
+  private bool ButtonDown;
 
   void Awake () {
     DialogueBox.Hide();
@@ -86,12 +87,18 @@ public class DialogueManager : MonoBehaviour, IDialoguePageEventHandler {
     if ( StateManager.Isnt( State.Dialogue ) )
       return;
 
-    if ( WrappedInput.GetButtonDown("Confirm") ) {
-      if (DialogueBoxInProgress) {
-        DialogueBox.FinishPage();
-      } else {
-        ReadNextPage();
+    if ( WrappedInput.GetButton("Confirm") ) {
+      if ( ButtonDown != true ) {
+        ButtonDown = true;
+
+        if (DialogueBoxInProgress) {
+          DialogueBox.FinishPage();
+        } else {
+          ReadNextPage();
+        }
       }
+    } else {
+      ButtonDown = false;
     }
 
     if ( WrappedInput.GetButton("Cancel") && !DialogueBoxInProgress ) {
