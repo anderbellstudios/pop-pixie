@@ -87,7 +87,7 @@ public class DialogueManager : MonoBehaviour, IDialoguePageEventHandler {
     if ( StateManager.Isnt( State.Dialogue ) )
       return;
 
-    if ( WrappedInput.GetButton("Confirm") ) {
+    if ( WrappedInput.GetButtonDown("Confirm") ) {
       if ( ButtonDown != true ) {
         ButtonDown = true;
 
