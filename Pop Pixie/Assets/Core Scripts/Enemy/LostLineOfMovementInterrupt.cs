@@ -5,14 +5,29 @@ using UnityEngine;
 
 public class LostLineOfMovementInterrupt : AInterrupt {
 
+  public float Delay;
   public AEnemyAI WhenLostLineOfMovement;
+
+  IntervalTimer Timer;
 
   public override Type OnlyAIsMatching() {
     return typeof( IRequiresLineOfMovementAI );
   }
 
+  public override void LocalStart() {
+    Timer = new IntervalTimer() {
+      Interval = Delay,
+      TimeClass = "PlayingTime"
+    };
+
+    Timer.Start();
+  }
+
   public override bool ShouldInterrupt( AEnemyAI ai ) {
-    return !ai.LineOfMovement();
+    if ( ai.LineOfMovement() )
+      Timer.Reset();
+
+    return Timer.Elapsed();
   }
 
   public override AEnemyAI InterruptAI() {
