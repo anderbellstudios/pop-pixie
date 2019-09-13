@@ -15,7 +15,8 @@ public class Laser : AFireable {
 
   void Start() {
     SweepTimer = new IntervalTimer() {
-      Interval = SweepDuration
+      Interval = SweepDuration,
+      TimeClass = "PlayingTime"
     };
   }
 

@@ -27,7 +27,9 @@ public class FireableScheduler : MonoBehaviour {
   }
 
   void OnEnable() {
-    Timer = new IntervalTimer();
+    Timer = new IntervalTimer() {
+      TimeClass = "PlayingTime"
+    };
 
     Timer.Start();
   }
