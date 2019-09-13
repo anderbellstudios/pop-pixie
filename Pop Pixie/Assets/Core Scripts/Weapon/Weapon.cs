@@ -26,7 +26,7 @@ public class Weapon {
       FireRate = 30.0f,
       Capacity = 0,
       Ammunition = 0,
-      BulletSpeed = 16.0f,
+      BulletSpeed = 30.0f,
       BulletPrefab = "Bullets/Turret Bullet"
     };
   }
