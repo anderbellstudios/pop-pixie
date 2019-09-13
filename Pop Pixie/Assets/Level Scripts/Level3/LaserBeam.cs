@@ -23,7 +23,9 @@ public class LaserBeam : MonoBehaviour {
   public RaycastHit2D HitData() {
     return Physics2D.Raycast(
       transform.position,
-      Direction()
+      Direction(),
+      Mathf.Infinity,
+      Physics2D.DefaultRaycastLayers & ~( 1 << 8 ) // exclude the enemy layer
     );
   }
 
