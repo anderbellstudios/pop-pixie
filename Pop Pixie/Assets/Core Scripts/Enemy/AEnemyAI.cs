@@ -21,7 +21,7 @@ public abstract class AEnemyAI : MonoBehaviour {
     ControlGained();
   }
 
-  void Update() {
+  void FixedUpdate() {
     if ( StateManager.Isnt( State.Playing ) ) 
       return;
 
