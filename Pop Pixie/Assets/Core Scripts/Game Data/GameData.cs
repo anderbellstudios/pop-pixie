@@ -14,6 +14,16 @@ public class GameData {
     { "VERSION", "1.1" }
   };
 
+  public static dynamic Fetch( string key, dynamic orSetEqualTo = null ) {
+    if ( Current.Dictionary.ContainsKey(key) )
+      return Current.Dictionary[key];
+
+    if ( orSetEqualTo != null )
+      return Current.Dictionary[key] = orSetEqualTo;
+
+    return null;
+  }
+
   public static void Save() {
     Current.Dictionary["scene"] = new SceneSerializer().Serialize();
   }

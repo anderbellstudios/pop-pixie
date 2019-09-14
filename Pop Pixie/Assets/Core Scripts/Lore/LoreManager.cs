@@ -11,6 +11,8 @@ public class LoreManager : MonoBehaviour {
     string json = Resources.Load<TextAsset>(item_name).text;
     var item = LoreItem.ParseJSON(json);
 
+    LoreItemData.RecordRead(item);
+
     MusicController.Current.SetVolume(0.25f);
     StateManager.SetState( State.Lore );
     EventHandler = event_handler;
