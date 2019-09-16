@@ -16,6 +16,10 @@ public class DiscoveredItemsMenuEvents : MonoBehaviour {
     foreach ( var loreItem in LoreItemData.ReadLoreItems() ) {
       GameObject button = Instantiate( ButtonPrefab, ButtonGroup );
       button.transform.Find("Text").GetComponent<Text>().text = loreItem.Name;
+
+      var buttonHandler = button.GetComponent<DiscoveredItemButton>();
+      buttonHandler.LoreItem = loreItem;
+      buttonHandler.ClickCallback = LoreItemButtonClicked;
     }
   }
 
@@ -28,6 +32,10 @@ public class DiscoveredItemsMenuEvents : MonoBehaviour {
   public void ResumeParent() {
     SceneManager.UnloadSceneAsync("Discovered Items Menu");
     ParentMenu.Focus();
+  }
+
+  public void LoreItemButtonClicked( LoreItem loreItem ) {
+    Debug.Log( "Clicked " + loreItem.UniqueId );
   }
 
 }
