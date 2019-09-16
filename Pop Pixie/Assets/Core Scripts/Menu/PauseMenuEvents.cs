@@ -8,9 +8,14 @@ using UnityEngine.UI;
 public class PauseMenuEvents : MonoBehaviour {
 
   public List<Button> Buttons;
+  bool InFocus;
+
+  void Start() {
+    InFocus = true;
+  }
 
   void Update() {
-    if ( WrappedInput.GetButtonDown("Pause") ) {
+    if ( InFocus && WrappedInput.GetButtonDown("Pause") ) {
       Resume();
     }
   }
@@ -19,6 +24,7 @@ public class PauseMenuEvents : MonoBehaviour {
     Buttons.ForEach( button => button.interactable = true );
     Buttons[0].Select();
     Buttons[0].OnSelect(null);
+    InFocus = true;
   }
 
   public void Resume() {
@@ -30,6 +36,7 @@ public class PauseMenuEvents : MonoBehaviour {
     Buttons.ForEach( button => button.interactable = false );
     DiscoveredItemsMenuEvents.ParentMenu = this;
     SceneManager.LoadScene( "Discovered Items Menu", LoadSceneMode.Additive );
+    InFocus = false;
   }
 
   public void QuitGame() {
