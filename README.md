@@ -22,6 +22,8 @@ To play the game, download Unity, download the project, open the project in Unit
 
 ## Controls
 
+The game is compatible with PS3, PS4 and Xbox One S controllers. 
+
 | Control | Keyboard and mouse | Playstation Controller   | Xbox Controller |
 | ------- | ------------------ | :----------------------- | --------------- |
 | Confirm | Space or return    | X                        | A               |
@@ -33,8 +35,6 @@ To play the game, download Unity, download the project, open the project in Unit
 | Roll    | Space              | Circle                   | B               |
 | Reload  | R                  | Square                   | X               |
 | Pause   | Escape             | Start / Touch pad button | Menu button     |
-
-The game is designed to be compatible with a PlayStation 3 controller, which you can connect to your device through USB or Bluetooth. I have absolutely no idea what might happen if you try to use an Xbox controller, but it would be fun to find out!
 
 After the project is built, you can change the input settings using the Input tab in the launch window. 
 
