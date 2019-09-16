@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Level2OggPlayer : AInspectable, IDialogueSequenceEventHandler, IPromptButtonEventHandler, ILoreEventHandler {
 
-  public LoreManager Lore;
   public DialogueManager Dialogue;
   public DialoguePromptManager PromptManager;
   public AudioSource Player;
@@ -28,7 +27,7 @@ public class Level2OggPlayer : AInspectable, IDialogueSequenceEventHandler, IPro
 
   public void ButtonPressed (string button) {
     if ( button == "positive" ) {
-      Lore.Open("Lore/Blank", this);
+      LevelLoreManager.Current.Open("Lore/Blank", this);
 
       MainMusicPlayer().enabled = false;
       Player.enabled = true;

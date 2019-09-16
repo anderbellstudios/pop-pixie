@@ -5,30 +5,27 @@ using UnityEngine;
 public class LoreManager : MonoBehaviour {
 
   public LoreWindowController LoreWindow;
+
   private ILoreEventHandler EventHandler;
+  private bool IsOpen;
 
-  public void Open (string item_name, ILoreEventHandler event_handler=null) {
-    string json = Resources.Load<TextAsset>(item_name).text;
-    var item = LoreItem.ParseJSON(json);
-
-    LoreItemData.RecordRead(item);
-
-    MusicController.Current.SetVolume(0.25f);
-    StateManager.SetState( State.Lore );
+  public void Open (LoreItem item, ILoreEventHandler event_handler=null) {
     EventHandler = event_handler;
 
+    IsOpen = true;
     LoreWindow.Write( item.Text );
     LoreWindow.Show();
   }
 
 	// Use this for initialization
 	void Start () {
+    IsOpen = false;
     LoreWindow.Hide();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-    if ( StateManager.Isnt( State.Lore ) )
+    if ( !IsOpen )
       return;
 
     if ( WrappedInput.GetButtonDown("Cancel") ) {
@@ -37,8 +34,7 @@ public class LoreManager : MonoBehaviour {
       if ( EventHandler != null )
         EventHandler.Closed();
 
-      StateManager.SetState( State.Playing );
-      MusicController.Current.SetVolume(1.0f);
+      IsOpen = false;
     }
 	}
 
