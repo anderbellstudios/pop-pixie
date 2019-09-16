@@ -14,7 +14,8 @@ public class DiscoveredItemsMenuEvents : MonoBehaviour {
 
   void Start() {
     foreach ( var loreItem in LoreItemData.ReadLoreItems() ) {
-      Instantiate( ButtonPrefab, ButtonGroup );
+      GameObject button = Instantiate( ButtonPrefab, ButtonGroup );
+      button.transform.Find("Text").GetComponent<Text>().text = loreItem.Name;
     }
   }
 
