@@ -21,7 +21,7 @@ public class PauseMenuEvents : MonoBehaviour {
   }
 
   public void Focus() {
-    Buttons.ForEach( button => button.interactable = true );
+    SetButtonsEnabled(true);
     Buttons[0].Select();
     Buttons[0].OnSelect(null);
     InFocus = true;
@@ -33,7 +33,7 @@ public class PauseMenuEvents : MonoBehaviour {
   }
 
   public void DiscoveredItems() {
-    Buttons.ForEach( button => button.interactable = false );
+    SetButtonsEnabled(false);
     DiscoveredItemsMenuEvents.ParentMenu = this;
     SceneManager.LoadScene( "Discovered Items Menu", LoadSceneMode.Additive );
     InFocus = false;
@@ -41,6 +41,10 @@ public class PauseMenuEvents : MonoBehaviour {
 
   public void QuitGame() {
     WrappedApplication.Quit();
+  }
+
+  void SetButtonsEnabled( bool enabled ) {
+    Buttons.ForEach( button => button.interactable = enabled );
   }
 
 }
