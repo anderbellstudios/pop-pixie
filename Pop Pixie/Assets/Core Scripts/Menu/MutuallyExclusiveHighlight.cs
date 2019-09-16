@@ -6,8 +6,12 @@ using UnityEngine.EventSystems;
 
 public class MutuallyExclusiveHighlight : MonoBehaviour, IDeselectHandler {
   public void OnPointerEnter() {
-    Button().Select();
-    Button().OnSelect(null);
+    var button = Button();
+
+    if ( button.interactable ) {
+      button.Select();
+      button.OnSelect(null);
+    }
   }
 
   public void OnDeselect( BaseEventData eventData ) {
