@@ -22,14 +22,17 @@ To play the game, download Unity, download the project, open the project in Unit
 
 ## Controls
 
-| Control           | Keyboard and mouse | PS3 Controller |
-| ----------------- | ------------------ | -------------- |
-| Move              | WASD or arrow keys | Left joystick  |
-| Aim               | Mouse              | Right joystick |
-| Shoot             | Left click         | R1             |
-| Reload            | R                  | Square         |
-| Advance dialogue  | Space or return    | X              |
-| Close lore window | Escape             | Circle         |
+| Control | Keyboard and mouse | Playstation Controller   | Xbox Controller |
+| ------- | ------------------ | :----------------------- | --------------- |
+| Confirm | Space or return    | X                        | A               |
+| Cancel  | Escape             | Circle                   | B               |
+| Move    | WASD or arrow keys | Left joystick            | Left joystick   |
+| Aim     | Mouse              | Right joystick           | Right joystick  |
+| Inspect | Z                  | X                        | A               |
+| Shoot   | Left click         | R1                       | RB              |
+| Roll    | Space              | Circle                   | B               |
+| Reload  | R                  | Square                   | X               |
+| Pause   | Escape             | Start / Touch pad button | Menu button     |
 
 The game is designed to be compatible with a PlayStation 3 controller, which you can connect to your device through USB or Bluetooth. I have absolutely no idea what might happen if you try to use an Xbox controller, but it would be fun to find out!
 
