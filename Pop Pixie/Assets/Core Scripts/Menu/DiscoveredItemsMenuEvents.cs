@@ -9,6 +9,15 @@ public class DiscoveredItemsMenuEvents : MonoBehaviour {
 
   public static PauseMenuEvents ParentMenu; // Must be set by object that calls LoadScene
 
+  public GameObject ButtonPrefab;
+  public Transform ButtonGroup;
+
+  void Start() {
+    foreach ( var loreItem in LoreItemData.ReadLoreItems() ) {
+      Instantiate( ButtonPrefab, ButtonGroup );
+    }
+  }
+
   void Update() {
     if ( WrappedInput.GetButtonDown("Cancel") ) {
       ResumeParent();
