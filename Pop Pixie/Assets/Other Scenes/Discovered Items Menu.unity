@@ -187,7 +187,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 2
   m_TargetDisplay: 0
@@ -218,15 +218,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 136608897}
     m_Modifications:
+    - target: {fileID: 7304220828509639110, guid: 88b312d3ed3c646a6bdfd60b468bb6cc,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7304220828509639110, guid: 88b312d3ed3c646a6bdfd60b468bb6cc,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7065807153473217541, guid: 88b312d3ed3c646a6bdfd60b468bb6cc,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 198.09131
+      objectReference: {fileID: 0}
     - target: {fileID: 8698131087135368483, guid: 88b312d3ed3c646a6bdfd60b468bb6cc,
         type: 3}
       propertyPath: m_Name
       value: LoreWindow
-      objectReference: {fileID: 0}
-    - target: {fileID: 8698131087135368483, guid: 88b312d3ed3c646a6bdfd60b468bb6cc,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8912304697400698121, guid: 88b312d3ed3c646a6bdfd60b468bb6cc,
         type: 3}
@@ -333,35 +343,20 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 8912304697400698121, guid: 88b312d3ed3c646a6bdfd60b468bb6cc,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.0166667
-      objectReference: {fileID: 0}
-    - target: {fileID: 8912304697400698121, guid: 88b312d3ed3c646a6bdfd60b468bb6cc,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.0166667
-      objectReference: {fileID: 0}
-    - target: {fileID: 8912304697400698121, guid: 88b312d3ed3c646a6bdfd60b468bb6cc,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.0166667
-      objectReference: {fileID: 0}
     - target: {fileID: 8912527588421011473, guid: 88b312d3ed3c646a6bdfd60b468bb6cc,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0.8020291
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8912527588421011473, guid: 88b312d3ed3c646a6bdfd60b468bb6cc,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8912527588421011473, guid: 88b312d3ed3c646a6bdfd60b468bb6cc,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 88b312d3ed3c646a6bdfd60b468bb6cc, type: 3}
@@ -807,6 +802,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Close Button
       objectReference: {fileID: 0}
+    - target: {fileID: 79127098101864018, guid: f39274dbed248405f97e004671ef51a8,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1323967388}
+    - target: {fileID: 79127098101864018, guid: f39274dbed248405f97e004671ef51a8,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ResumeParent
+      objectReference: {fileID: 0}
     - target: {fileID: 79127098101864019, guid: f39274dbed248405f97e004671ef51a8,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -911,16 +916,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 79127098101864018, guid: f39274dbed248405f97e004671ef51a8,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1323967388}
-    - target: {fileID: 79127098101864018, guid: f39274dbed248405f97e004671ef51a8,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ResumeParent
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f39274dbed248405f97e004671ef51a8, type: 3}
