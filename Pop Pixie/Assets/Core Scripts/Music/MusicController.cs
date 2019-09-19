@@ -45,7 +45,7 @@ public class MusicController : MonoBehaviour {
   }
 
   void Update () {
-    Player.volume = FadeFactor() * StateFactor();
+    Player.volume = FadeFactor() * StateFactor() * (float) OptionsData.MusicVolume;
   }
 
   float FadeFactor() {
