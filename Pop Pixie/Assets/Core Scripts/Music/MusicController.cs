@@ -7,9 +7,8 @@ public class MusicController : MonoBehaviour {
   public static MusicController Current;
   public AudioSource Player;
 
-  private float BaseVolume;
-  private float FadeFrom, FadeTo, FadeDuration, FadeProgress, FadeFactor;
-  private float StateFactor;
+  IntervalTimer FadeTimer;
+  float FadeFrom, FadeTo;
 
   private string SongName;
 
@@ -22,14 +21,13 @@ public class MusicController : MonoBehaviour {
 
     DontDestroyOnLoad( gameObject );
 
-    BaseVolume = 0f;
+    FadeTimer = new IntervalTimer();
   }
 
   public void Play (AudioClip clip, string songName) { 
     if ( songName == SongName )
       return;
 
-    BaseVolume = 1f;
     FadeFrom = 1f;
     FadeTo = 1f;
 
@@ -41,36 +39,31 @@ public class MusicController : MonoBehaviour {
   public void Fade(float fadeFrom, float fadeTo, float fadeDuration) {
     FadeFrom = fadeFrom;
     FadeTo = fadeTo;
-    FadeDuration = fadeDuration;
-    FadeProgress = 0.0f;
+
+    FadeTimer.Interval = fadeDuration;
+    FadeTimer.Reset();
   }
 
   void Update () {
-    FadeFactor = Mathf.Lerp(
-      FadeFrom,
-      FadeTo,
-      FadeProgress / FadeDuration
-    );
-
-    SetStateFactor();
-
-    Debug.Log("they're");
-    Debug.Log(BaseVolume);
-    Debug.Log(FadeFactor);
-    Debug.Log(StateFactor );
-    Player.volume = BaseVolume * FadeFactor * StateFactor;
-
-    FadeProgress += Time.deltaTime;
+    Player.volume = FadeFactor() * StateFactor();
   }
 
-  void SetStateFactor() {
-    StateFactor = 1f;
+  float FadeFactor() {
+    if ( FadeTimer.Started ) {
+      return Mathf.Lerp( FadeFrom, FadeTo, FadeTimer.Progress() );
+    } 
 
+    return 1f;
+  }
+
+  float StateFactor() {
     if ( GameObject.Find("StateManager") != null ) {
       if ( StateManager.Isnt( State.Playing ) ) {
-        StateFactor = 0.25f;
+        return 0.25f;
       }
     }
+
+    return 1f;
   }
 
 }

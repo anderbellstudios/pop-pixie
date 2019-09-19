@@ -48,6 +48,10 @@ public class IntervalTimer {
     return CurrentTime() - LastElapsed;
   }
 
+  public float Progress() {
+    return TimeSinceElapsed() / Interval;
+  }
+
   float CurrentTime() {
     switch ( TimeClass ) {
       case "Time":
