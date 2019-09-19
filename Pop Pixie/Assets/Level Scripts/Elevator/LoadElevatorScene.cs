@@ -44,7 +44,6 @@ public class LoadElevatorScene : AInspectable, IDialogueSequenceEventHandler, IP
   public void ButtonPressed (string button) {
     if ( button == "positive" ) {
       StateManager.SetState( State.LoadingLevel );
-      MusicController.Current.SetVolume(0.25f);
       Fader.Fade("to black", 2.0f);
       Invoke("LoadScene", 3.0f);
     }

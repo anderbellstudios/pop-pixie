@@ -49,7 +49,6 @@ public class DialogueManager : MonoBehaviour, IDialoguePageEventHandler {
   void Exit () {
     DialogueBox.Hide();
     StateManager.SetState( State.Playing );
-    MusicController.Current.SetVolume(1.0f);
     EventHandler.SequenceFinished();
     Player.Stop();
   }
@@ -59,7 +58,6 @@ public class DialogueManager : MonoBehaviour, IDialoguePageEventHandler {
     DialogueBoxInProgress = false;
     DialogueBox.Show();
     StateManager.SetState( State.Dialogue );
-    MusicController.Current.SetVolume(0.25f);
 
     string json = Resources.Load<TextAsset>(sequence_name).text;
     Sequence = DialogueSequence.ParseJSON(json);

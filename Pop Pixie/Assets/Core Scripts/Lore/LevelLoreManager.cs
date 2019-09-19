@@ -19,7 +19,6 @@ public class LevelLoreManager : MonoBehaviour, ILoreEventHandler {
 
     LoreItemData.RecordRead(item);
 
-    MusicController.Current.SetVolume(0.25f);
     StateManager.SetState( State.Lore );
     EventHandler = event_handler;
 
@@ -31,7 +30,6 @@ public class LevelLoreManager : MonoBehaviour, ILoreEventHandler {
       EventHandler.Closed();
 
     StateManager.SetState( State.Playing );
-    MusicController.Current.SetVolume(1.0f);
 	}
 
 }

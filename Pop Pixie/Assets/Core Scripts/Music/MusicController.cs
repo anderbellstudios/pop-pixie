@@ -7,7 +7,9 @@ public class MusicController : MonoBehaviour {
   public static MusicController Current;
   public AudioSource Player;
 
-  private float FadeFrom, FadeTo, FadeDuration, FadeProgress;
+  private float BaseVolume;
+  private float FadeFrom, FadeTo, FadeDuration, FadeProgress, FadeFactor;
+  private float StateFactor;
 
   private string SongName;
 
@@ -20,21 +22,17 @@ public class MusicController : MonoBehaviour {
 
     DontDestroyOnLoad( gameObject );
 
-    SetVolume(0.0f);
-  }
-
-  public void SetVolume (float volume) {
-    FadeFrom = volume;
-    FadeTo = volume;
-    FadeDuration = 1.0f;
-    FadeProgress = 1.0f;
+    BaseVolume = 0f;
   }
 
   public void Play (AudioClip clip, string songName) { 
     if ( songName == SongName )
       return;
 
-    SetVolume(1.0f);
+    BaseVolume = 1f;
+    FadeFrom = 1f;
+    FadeTo = 1f;
+
     Player.clip = clip;
     Player.Play();
     SongName = songName;
@@ -48,13 +46,31 @@ public class MusicController : MonoBehaviour {
   }
 
   void Update () {
-    Player.volume = Mathf.Lerp(
+    FadeFactor = Mathf.Lerp(
       FadeFrom,
       FadeTo,
       FadeProgress / FadeDuration
     );
 
+    SetStateFactor();
+
+    Debug.Log("they're");
+    Debug.Log(BaseVolume);
+    Debug.Log(FadeFactor);
+    Debug.Log(StateFactor );
+    Player.volume = BaseVolume * FadeFactor * StateFactor;
+
     FadeProgress += Time.deltaTime;
+  }
+
+  void SetStateFactor() {
+    StateFactor = 1f;
+
+    if ( GameObject.Find("StateManager") != null ) {
+      if ( StateManager.Isnt( State.Playing ) ) {
+        StateFactor = 0.25f;
+      }
+    }
   }
 
 }

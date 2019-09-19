@@ -10,7 +10,6 @@ public class ElevatorSceneStarted : MonoBehaviour {
   // Start is called before the first frame update
   void Start() {
     Fader.Fade("from black", 2.0f);
-    MusicController.Current.SetVolume(0.25f);
 
     Invoke("FadeToNextLevel", 8.0f);
   }
