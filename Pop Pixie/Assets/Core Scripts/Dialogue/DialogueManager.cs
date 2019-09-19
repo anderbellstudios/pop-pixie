@@ -6,7 +6,7 @@ using UnityEngine;
 public class DialogueManager : MonoBehaviour, IDialoguePageEventHandler {
 
   public DialogueBoxController DialogueBox;
-  public AudioSource Player;
+  public SoundController SoundController;
   public float InterruptCooldown;
   public float SkipCooldown;
 
@@ -24,10 +24,9 @@ public class DialogueManager : MonoBehaviour, IDialoguePageEventHandler {
     DialogueBox.SetFace( page.Face() );
 
     if ( page.HasVoiceLine() ) {
-      Player.clip = page.VoiceLine();
-      Player.Play();
+      SoundController.Play( page.VoiceLine() );
     } else {
-      Player.Stop();
+      SoundController.Stop();
     }
   }
 
@@ -50,7 +49,7 @@ public class DialogueManager : MonoBehaviour, IDialoguePageEventHandler {
     DialogueBox.Hide();
     StateManager.SetState( State.Playing );
     EventHandler.SequenceFinished();
-    Player.Stop();
+    SoundController.Stop();
   }
 
 	public void Play (string sequence_name, IDialogueSequenceEventHandler event_handler) {

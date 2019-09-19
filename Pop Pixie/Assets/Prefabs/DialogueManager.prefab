@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4012062176293362}
   - component: {fileID: 114511246203841084}
+  - component: {fileID: 314764770}
   - component: {fileID: 2502998628826354574}
   m_Layer: 0
   m_Name: DialogueManager
@@ -45,9 +46,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DialogueBox: {fileID: 0}
-  Player: {fileID: 2502998628826354574}
+  SoundController: {fileID: 314764770}
   InterruptCooldown: 1
   SkipCooldown: 0.1
+--- !u!114 &314764770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1733039153806840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f095d145693aa465db99b6491442db38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Player: {fileID: 2502998628826354574}
 --- !u!82 &2502998628826354574
 AudioSource:
   m_ObjectHideFlags: 0

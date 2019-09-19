@@ -9,4 +9,8 @@ public class SoundController : MonoBehaviour {
     Player.clip = sound;
     Player.Play();
   }
+
+  public void Stop() {
+    Player.Stop();
+  }
 }
