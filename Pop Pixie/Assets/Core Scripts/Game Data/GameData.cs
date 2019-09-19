@@ -24,6 +24,10 @@ public class GameData {
     return null;
   }
 
+  public static void Set( string key, dynamic val ) {
+    Current.Dictionary[key] = val;
+  }
+
   public static void Save() {
     Current.Dictionary["scene"] = new SceneSerializer().Serialize();
   }

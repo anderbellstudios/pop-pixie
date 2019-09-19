@@ -8,10 +8,15 @@ using UnityEngine.UI;
 public class PauseMenuEvents : MonoBehaviour {
 
   public List<Button> Buttons;
+  public PercentageButton MusicVolumeButton;
+
   bool InFocus;
 
   void Start() {
     InFocus = true;
+
+    MusicVolumeButton.Value = OptionsData.MusicVolume;
+    MusicVolumeButton.UpdateValue();
   }
 
   void Update() {
@@ -37,6 +42,10 @@ public class PauseMenuEvents : MonoBehaviour {
     DiscoveredItemsMenuEvents.ParentMenu = this;
     SceneManager.LoadScene( "Discovered Items Menu", LoadSceneMode.Additive );
     InFocus = false;
+  }
+
+  public void MusicVolumeChanged( decimal volume ) {
+    OptionsData.MusicVolume = volume;
   }
 
   public void QuitGame() {
