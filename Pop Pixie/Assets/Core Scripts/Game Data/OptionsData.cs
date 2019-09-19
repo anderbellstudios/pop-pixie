@@ -15,4 +15,14 @@ public class OptionsData {
     }
   }
 
+  public static decimal SoundsVolume {
+    get {
+      return GameData.Fetch("options-sounds-volume", orSetEqualTo: 1M);
+    }
+
+    set {
+      GameData.Set("options-sounds-volume", value);
+    }
+  }
+
 }
