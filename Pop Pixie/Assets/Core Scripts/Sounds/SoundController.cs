@@ -13,4 +13,8 @@ public class SoundController : MonoBehaviour {
   public void Stop() {
     Player.Stop();
   }
+
+  void Update() {
+    Player.volume = (float) OptionsData.SoundsVolume;
+  }
 }
