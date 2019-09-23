@@ -7,6 +7,7 @@ public class Level3JumpDownAnimation : MonoBehaviour {
 
   public float Duration;
   public float JumpDistance;
+  public ParticleSystem ParticleSystem;
 
   Action Callback;
   Vector3 InitialPosition;
@@ -56,6 +57,7 @@ public class Level3JumpDownAnimation : MonoBehaviour {
 
   void FinishedJump() {
     Timer.Stop();
+    ParticleSystem.Play();
     Callback();
   }
 
