@@ -53,7 +53,7 @@ public class ChargingAttackAI : AEnemyAI, IRequiresLineOfMovementAI {
   }
 
   void PerformAttack() {
-    Target.GetComponent<HitPoints>().Damage( Damage );
+    DamageTarget( Damage );
 
     // Play attack sound
     int i = Random.Range(0, Sounds.Count);

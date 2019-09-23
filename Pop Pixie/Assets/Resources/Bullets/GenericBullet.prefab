@@ -118,6 +118,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 8884931971228052092}
+  WasPlayingLastFrame: 0
+  saveVelocity: {x: 0, y: 0}
+  saveAngularVelocity: 0
 --- !u!58 &8876649700796538210
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -147,6 +150,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Damage: 0
+  Explosion: {fileID: 5909980808810194523, guid: 9a75ea4552b8c43029b9cf003f9ec909,
+    type: 3}
 --- !u!96 &8838713438586547750
 TrailRenderer:
   serializedVersion: 2

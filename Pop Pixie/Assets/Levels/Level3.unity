@@ -2844,12 +2844,16 @@ GameObject:
   - component: {fileID: 1624602153}
   - component: {fileID: 1624602156}
   - component: {fileID: 1624602158}
+  - component: {fileID: 1624602161}
+  - component: {fileID: 1624602159}
+  - component: {fileID: 1624602162}
+  - component: {fileID: 1624602160}
   - component: {fileID: 1624602151}
   - component: {fileID: 1624602150}
   - component: {fileID: 1624602149}
   - component: {fileID: 1624602154}
   - component: {fileID: 1624602157}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Security Boss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2868,10 +2872,10 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 5
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -2929,7 +2933,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 12
   m_Sprite: {fileID: 21300000, guid: 72135650fab9b4e9d942a36674d7e026, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -2969,6 +2973,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Running: 0
   JumpAnimation: {fileID: 1624602156}
+  rb: {fileID: 1624602149}
+  InitialAI: {fileID: 1624602161}
 --- !u!114 &1624602154
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7737,6 +7743,75 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!114 &1624602159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1624602148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da3c28ca9071f43bbb06a225dc291975, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StartsInControl: 0
+  InControl: 0
+  Speed: 13
+  Distance: 2
+  WhenNextToTarget: {fileID: 1624602162}
+--- !u!114 &1624602160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1624602148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28c2380e41ff24ba585f2350f56b8e03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 1624602149}
+  Movement: {x: 0, y: 0}
+--- !u!114 &1624602161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1624602148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46b64dd49b2a94ecfaf5090a816bf8d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StartsInControl: 0
+  InControl: 0
+  Speed: 2
+  AttackInterval: 7
+  AttackIntervalRandomness: 2
+  WhenAttacking: {fileID: 1624602159}
+--- !u!114 &1624602162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1624602148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 779d4e1ba55474f28883338c795095d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StartsInControl: 0
+  InControl: 0
+  ChargeUpDuration: 1
+  DamageRadius: 8
+  Damage: 20
+  Explosion: {fileID: 7389867378484595371, guid: 82357f309a82c45678e0c048f1c3cc45,
+    type: 3}
+  AfterAtack: {fileID: 1624602161}
 --- !u!114 &1759972577 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114931417503075184, guid: 185784beef2224b11a285ffa14ebe05e,

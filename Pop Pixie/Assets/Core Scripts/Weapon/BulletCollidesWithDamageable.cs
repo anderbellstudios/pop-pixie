@@ -5,6 +5,7 @@ using UnityEngine;
 public class BulletCollidesWithDamageable : MonoBehaviour {
 
   public float Damage;
+  public GameObject Explosion;
 
   void OnCollisionEnter2D (Collision2D col) {
     ImmoboliseBullet();
@@ -26,12 +27,7 @@ public class BulletCollidesWithDamageable : MonoBehaviour {
   }
 
   void SpawnExplosion() {
-    var explosion = (GameObject) Resources.Load(
-      "Bullets/Explosion", 
-      typeof(GameObject)
-    );
-
-    Instantiate(explosion, transform);
+    Instantiate(Explosion, transform);
   }
 
   void DestroyBullet() {

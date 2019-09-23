@@ -5,13 +5,20 @@ using UnityEngine;
 public class Level3BossPhase : APhase {
 
   public Level3JumpDownAnimation JumpAnimation;
+  public Rigidbody2D rb;
+  public AEnemyAI InitialAI;
 
 	public override void LocalBegin () {
     JumpAnimation.Perform( JumpFinished );
   }
 
   void JumpFinished() {
-    Debug.Log("I done jumping");
+    Invoke( "StartAI", 0.5f );
+  }
+
+  void StartAI() {
+    rb.isKinematic = false;
+    InitialAI.GainControl();
   }
 
 }

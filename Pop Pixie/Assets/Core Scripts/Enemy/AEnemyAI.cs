@@ -66,6 +66,10 @@ public abstract class AEnemyAI : MonoBehaviour {
     get { return GameObject.FindGameObjectWithTag("Player"); }
   }
 
+  public void DamageTarget( float damage ) {
+    Target.GetComponent<HitPoints>().Damage( damage );
+  }
+
   public Vector2 TargetHeading() {
     return Target.transform.position - transform.position;
   }
