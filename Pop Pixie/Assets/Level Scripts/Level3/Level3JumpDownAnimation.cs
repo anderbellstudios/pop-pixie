@@ -13,7 +13,7 @@ public class Level3JumpDownAnimation : MonoBehaviour {
   Vector3 InitialPosition;
   IntervalTimer Timer;
 
-  void Start() {
+  void Awake() {
     Timer = new IntervalTimer() {
       Interval = Duration,
       TimeClass = "PlayingTime"

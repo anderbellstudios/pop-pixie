@@ -5,6 +5,7 @@ using UnityEngine;
 public class BossGorillaSmashAI : AEnemyAI {
 
   public float ChargeUpDuration;
+  public ParticleSystem ParticleSystem;
   public float DamageRadius;
   public float Damage;
   public GameObject Explosion;
@@ -18,6 +19,8 @@ public class BossGorillaSmashAI : AEnemyAI {
     };
 
     AttackTimer.Reset();
+
+    ParticleSystem.Play();
   }
 
   public override void WhileInControl() {
