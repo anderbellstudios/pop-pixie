@@ -22,11 +22,15 @@ public class Level3FireablePhase : APhase {
   }
 
   public override float ProgressBarAllotment() {
+    return 1f;
+  }
+
+  public float TotalMaxHP() {
     return FireableHitPoints.Sum( hp => hp.Maximum );
   }
 
   public override float ProgressBarValue() {
-    return FireableHitPoints.Sum( hp => hp.Current );
+    return FireableHitPoints.Sum( hp => hp.Current ) / TotalMaxHP();
   }
 
 }

@@ -153,6 +153,7 @@ MonoBehaviour:
   Phases:
   - {fileID: 217449}
   - {fileID: 1624602153}
+  - {fileID: 217447}
   PhaseId: 0
 --- !u!4 &217444
 Transform:
@@ -12789,6 +12790,7 @@ GameObject:
   - component: {fileID: 1624602152}
   - component: {fileID: 1624602155}
   - component: {fileID: 1624602153}
+  - component: {fileID: 1624602157}
   - component: {fileID: 1624602156}
   - component: {fileID: 1624602161}
   - component: {fileID: 1624602159}
@@ -12920,6 +12922,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Running: 0
   JumpAnimation: {fileID: 1624602156}
+  HitPoints: {fileID: 1624602157}
   rb: {fileID: 1624602149}
   InitialAI: {fileID: 1624602161}
   JumpedDown: 0
@@ -12967,6 +12970,22 @@ MonoBehaviour:
   Duration: 0.5
   JumpDistance: 4
   ParticleSystem: {fileID: 712119629}
+--- !u!114 &1624602157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1624602148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c902b98affab42d5b6d979f55dd91f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Maximum: 500
+  Current: 0
+  RegenerateRate: 0
+  CanBeDamagedArbiters: []
 --- !u!114 &1624602159
 MonoBehaviour:
   m_ObjectHideFlags: 0

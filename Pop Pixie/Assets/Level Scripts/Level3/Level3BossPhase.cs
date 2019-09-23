@@ -7,6 +7,7 @@ public class Level3BossPhase : APhase, ISerializableComponent {
   public string[] SerializableFields { get; } = { "JumpedDown" };
 
   public Level3JumpDownAnimation JumpAnimation;
+  public HitPoints HitPoints;
   public Rigidbody2D rb;
   public AEnemyAI InitialAI;
 
@@ -15,10 +16,8 @@ public class Level3BossPhase : APhase, ISerializableComponent {
 	public override void LocalBegin () {
     if ( JumpedDown ) {
       // Loaded autosave after jump
-      Debug.Log("Skipping jump");
       StartAI();
     } else {
-      Debug.Log("Jumping down");
       JumpAnimation.Perform( JumpFinished );
     }
   }
@@ -31,6 +30,14 @@ public class Level3BossPhase : APhase, ISerializableComponent {
   void StartAI() {
     rb.isKinematic = false;
     InitialAI.GainControl();
+  }
+
+  public override float ProgressBarAllotment() {
+    return 1f;
+  }
+
+  public override float ProgressBarValue() {
+    return HitPoints.Current / HitPoints.Maximum;
   }
 
 }
