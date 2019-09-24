@@ -49,7 +49,7 @@ public class IntervalTimer {
   }
 
   public float Progress() {
-    return TimeSinceElapsed() / Interval;
+    return Mathf.Clamp( TimeSinceElapsed() / Interval, 0f, 1f );
   }
 
   float CurrentTime() {

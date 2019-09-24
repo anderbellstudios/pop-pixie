@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BossGorillaSmashAI : AEnemyAI {
 
+  public float RadiusExpandDuration;
+  public Transform RadiusIndicator;
   public float ChargeUpDuration;
   public ParticleSystem ParticleSystem;
   public float DamageRadius;
@@ -11,9 +13,16 @@ public class BossGorillaSmashAI : AEnemyAI {
   public GameObject Explosion;
   public AEnemyAI AfterAtack;
 
+  IntervalTimer RadiusExpandTimer;
   IntervalTimer AttackTimer;
 
   public override void ControlGained() {
+    RadiusExpandTimer = new IntervalTimer() {
+      Interval = RadiusExpandDuration
+    };
+
+    RadiusExpandTimer.Reset();
+
     AttackTimer = new IntervalTimer() {
       Interval = ChargeUpDuration
     };
@@ -24,6 +33,7 @@ public class BossGorillaSmashAI : AEnemyAI {
   }
 
   public override void WhileInControl() {
+    SetRadiusIndicatorScale( RadiusExpandTimer.Progress() );
     AttackTimer.IfElapsed( DoAttack );
   }
 
@@ -34,6 +44,14 @@ public class BossGorillaSmashAI : AEnemyAI {
       DamageTarget( Damage );
 
     RelinquishControlTo( AfterAtack );
+  }
+
+  public override void ControlRelinquished() {
+    SetRadiusIndicatorScale(0f);
+  }
+
+  void SetRadiusIndicatorScale( float scale ) {
+    RadiusIndicator.localScale = new Vector3( scale, scale, scale );
   }
 
 }
