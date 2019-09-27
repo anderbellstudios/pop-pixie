@@ -30,25 +30,29 @@ public class BossThunderClapAI : AEnemyAI {
     ChargingUpTimer.Reset();
 
     ParticleSystem.Play();
+
+    LineRenderer.enabled = true;
+    LineRenderer.SetWidth(0.075f, 0.075f);
   }
 
   public override void WhileInControl() {
     if ( ChargingUpTimer.Started && ChargingUpTimer.Progress() < StopAimingThreshold )
       Direction = TargetDirection();
 
+    LineRenderer.SetPosition( 0, transform.position );
+    LineRenderer.SetPosition( 1, 1000000 * Direction );
+
     ChargingUpTimer.IfElapsed( FireLaser );
+    FiringTimer.UnlessElapsed( AnimateLaser );
     FiringTimer.IfElapsed( StopFiring );
+  }
 
-    LineRenderer.enabled = FiringTimer.Started && !FiringTimer.Elapsed();
-
+  void AnimateLaser() {
     float w = LineWidth * ( 1 - FiringTimer.Progress() );
     LineRenderer.SetWidth(w, w);
   }
 
   void FireLaser() {
-    LineRenderer.SetPosition( 0, transform.position );
-    LineRenderer.SetPosition( 1, 1000000 * Direction );
-
     ChargingUpTimer.Stop();
     FiringTimer.Reset();
 
@@ -66,6 +70,7 @@ public class BossThunderClapAI : AEnemyAI {
 
   void StopFiring() {
     FiringTimer.Stop();
+    LineRenderer.enabled = false;
     RelinquishControlTo( AfterAtack );
   }
 
