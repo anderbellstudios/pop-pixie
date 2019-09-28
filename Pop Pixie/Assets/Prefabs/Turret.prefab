@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5732314681490263955}
   - component: {fileID: 5732314681490263956}
   - component: {fileID: 5732314681490263945}
+  - component: {fileID: 5097866351977819503}
   - component: {fileID: 5732314681490263946}
   - component: {fileID: 5732314681490263949}
   - component: {fileID: 5732314681490263958}
@@ -155,8 +156,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8104c282ee59c40c795ee2cb0747c564, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Weapon: {fileID: 5097866351977819503}
   BulletEmitter: {fileID: 5732314681490263946}
   Firing: 0
+--- !u!114 &5097866351977819503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5732314681490263953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5aa0a22babcab431ea13b3823163fd63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FireRate: 30
+  Capacity: 0
+  Ammunition: 0
+  BulletSpeed: 30
+  BulletPrefab: {fileID: 2944136184898451382, guid: 6d37e8fd9e8e84c4684dc8dc447e3b58,
+    type: 3}
 --- !u!114 &5732314681490263946
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -279,4 +299,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98bbc2c1e63e98543830eec78d976795, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serializedGuid: b077a81a5825c2468d5fdf74c2c9e491
+  serializedGuid: aa1f764be985934498a8c6c42de2fbc5

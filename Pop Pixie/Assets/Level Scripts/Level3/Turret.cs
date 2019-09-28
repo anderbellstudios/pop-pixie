@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Turret : AFireable {
 
+  public Weapon Weapon;
   public BulletEmitter BulletEmitter;
 
   public bool Firing;
@@ -11,7 +12,7 @@ public class Turret : AFireable {
 
   void Start() {
     FireTimer = new IntervalTimer() {
-      Interval = CurrentWeapon().CooldownInterval()
+      Interval = Weapon.CooldownInterval()
     };
   }
 
@@ -33,11 +34,7 @@ public class Turret : AFireable {
   }
 
   void ShootBullet() {
-    BulletEmitter.Shoot( CurrentWeapon() );
-  }
-
-  Weapon CurrentWeapon() {
-    return Weapon.Turret();
+    BulletEmitter.Shoot( Weapon );
   }
 
 }

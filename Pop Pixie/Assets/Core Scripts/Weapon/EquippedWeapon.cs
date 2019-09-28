@@ -2,23 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EquippedWeapon : MonoBehaviour, ISerializableComponent {
-
-  public string[] SerializableFields { get; } = { "CurrentWeapon" };
+public class EquippedWeapon : MonoBehaviour {
 
   public MonoBehaviour AmmunitionCircle;
   public ReloadIndicator ReloadIndicator;
 
-  // Can't think of a good name for this property.
-  // Both "EquippedWeapon" and "Weapon" are taken.
-  // anEquippedWeapon.CurrentWeapon looks ugly,
-  // but it's better than breaking naming conventions.
   public Weapon CurrentWeapon;
-
-	// Use this for initialization
-	void Awake () {
-    CurrentWeapon = Weapon.PopPistol();
-	}
 
   void Update () {
     var hc = (HUDCircle) AmmunitionCircle;

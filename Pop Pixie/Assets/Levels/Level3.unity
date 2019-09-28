@@ -5532,6 +5532,55 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!1 &265453158
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 265453160}
+  - component: {fileID: 265453159}
+  m_Layer: 0
+  m_Name: Pop Pistol
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &265453159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 265453158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5aa0a22babcab431ea13b3823163fd63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FireRate: 2
+  Capacity: 12
+  Ammunition: 12
+  BulletSpeed: 12
+  BulletPrefab: {fileID: 1122145563382620, guid: 4f133c207442b40298bcf1a1c464fb47,
+    type: 3}
+--- !u!4 &265453160
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 265453158}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 8.972095, y: 16.405193, z: -1.5051125}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 32
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &314764767
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11914,6 +11963,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9040651828474951566, guid: 185784beef2224b11a285ffa14ebe05e,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -4.999939
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 185784beef2224b11a285ffa14ebe05e, type: 3}
 --- !u!114 &1137098742 stripped
@@ -12946,6 +13000,11 @@ GameObject:
   - component: {fileID: 1624602162}
   - component: {fileID: 1624602158}
   - component: {fileID: 1624602163}
+  - component: {fileID: 1624602168}
+  - component: {fileID: 1624602167}
+  - component: {fileID: 1624602169}
+  - component: {fileID: 1624602166}
+  - component: {fileID: 1624602165}
   - component: {fileID: 1624602160}
   - component: {fileID: 1624602151}
   - component: {fileID: 1624602150}
@@ -13344,6 +13403,86 @@ MonoBehaviour:
   AIs:
   - {fileID: 1624602159}
   - {fileID: 1624602158}
+  - {fileID: 1624602168}
+  LastAI: -1
+--- !u!114 &1624602165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1624602148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22cdc26fbfa9f4e27af75d658b31deff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DirectionManager: {fileID: 1624602166}
+--- !u!114 &1624602166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1624602148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13863c3103d49429c9dc4a0576a8e9ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OriginalDirectionManager: {fileID: 1624602168}
+  Angle: 20
+--- !u!114 &1624602167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1624602148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8104c282ee59c40c795ee2cb0747c564, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Weapon: {fileID: 1624602169}
+  BulletEmitter: {fileID: 1624602165}
+  Firing: 0
+--- !u!114 &1624602168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1624602148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfc68232df6da4a1cbdcab43a31c04f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StartsInControl: 0
+  InControl: 0
+  FireDuration: 1.5
+  FireArc: -270
+  Turret: {fileID: 1624602167}
+  AfterAtack: {fileID: 1624602161}
+--- !u!114 &1624602169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1624602148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5aa0a22babcab431ea13b3823163fd63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FireRate: 60
+  Capacity: 0
+  Ammunition: 0
+  BulletSpeed: 30
+  BulletPrefab: {fileID: 2944136184898451382, guid: 9b428f37ff2fb4a879129ccde1aadcc4,
+    type: 3}
 --- !u!114 &1759972577 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114931417503075184, guid: 185784beef2224b11a285ffa14ebe05e,

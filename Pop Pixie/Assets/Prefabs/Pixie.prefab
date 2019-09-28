@@ -101,6 +101,7 @@ GameObject:
   - component: {fileID: 433535405577736701}
   - component: {fileID: 50770596489405938}
   - component: {fileID: 114416280350640038}
+  - component: {fileID: 1170961363034143733}
   - component: {fileID: 114255718929856854}
   - component: {fileID: 3970238083396131980}
   - component: {fileID: 114007357892525228}
@@ -455,6 +456,24 @@ MonoBehaviour:
   MouseThreshold: 0.01
   Arrow: {fileID: 1214155085074384}
   Cam: {fileID: 0}
+--- !u!114 &1170961363034143733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1276747056135348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5aa0a22babcab431ea13b3823163fd63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FireRate: 2
+  Capacity: 12
+  Ammunition: 12
+  BulletSpeed: 60
+  BulletPrefab: {fileID: 1122145563382620, guid: 4f133c207442b40298bcf1a1c464fb47,
+    type: 3}
 --- !u!114 &114255718929856854
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -469,12 +488,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AmmunitionCircle: {fileID: 114153154460385952}
   ReloadIndicator: {fileID: 2635195268556778807}
-  CurrentWeapon:
-    FireRate: 0
-    Capacity: 0
-    Ammunition: 0
-    BulletSpeed: 0
-    BulletPrefab: Pop Pellet
+  CurrentWeapon: {fileID: 1170961363034143733}
 --- !u!114 &3970238083396131980
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -573,4 +587,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98bbc2c1e63e98543830eec78d976795, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serializedGuid: 39a6b4bb954a5a4294b86a9ccda3081e
+  serializedGuid: 399649e60ae6bb46b83a8d021d613da8

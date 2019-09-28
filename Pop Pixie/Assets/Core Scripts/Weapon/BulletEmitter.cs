@@ -18,7 +18,7 @@ public class BulletEmitter : MonoBehaviour {
     var direction = dm.Direction;
 
     var bullet = Instantiate(
-      Prefab(), 
+      Weapon.BulletPrefab,
       transform.position,
       transform.rotation
     );
@@ -30,16 +30,4 @@ public class BulletEmitter : MonoBehaviour {
     return Weapon.BulletSpeed;
   }
   
-  GameObject _Prefab = null;
-
-  GameObject Prefab() {
-    if ( _Prefab == null ) {
-      _Prefab = (GameObject) Resources.Load(
-        Weapon.BulletPrefab, 
-        typeof(GameObject)
-      );
-    }
-
-    return _Prefab;
-  }
 }

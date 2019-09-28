@@ -2,34 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class Weapon {
+public class Weapon : MonoBehaviour {
 
   public float FireRate;
   public int Capacity;
   public int Ammunition;
   public float BulletSpeed;
-  public string BulletPrefab;
-
-  public static Weapon PopPistol(){
-    return new Weapon() {
-      FireRate = 2.0f,
-      Capacity = 12,
-      Ammunition = 12,
-      BulletSpeed = 60.0f,
-      BulletPrefab = "Bullets/Pop Pellet"
-    };
-  }
-
-  public static Weapon Turret(){
-    return new Weapon() {
-      FireRate = 30.0f,
-      Capacity = 0,
-      Ammunition = 0,
-      BulletSpeed = 30.0f,
-      BulletPrefab = "Bullets/Turret Bullet"
-    };
-  }
+  public GameObject BulletPrefab;
 
   public float CooldownInterval() {
     return 1.0f / FireRate;
