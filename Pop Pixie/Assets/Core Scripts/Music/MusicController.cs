@@ -36,6 +36,11 @@ public class MusicController : MonoBehaviour {
     SongName = songName;
   }
 
+  public void Stop() {
+    SongName = null;
+    Player.Stop();
+  }
+
   public void Fade(float fadeFrom, float fadeTo, float fadeDuration) {
     FadeFrom = fadeFrom;
     FadeTo = fadeTo;
