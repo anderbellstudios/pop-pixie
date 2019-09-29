@@ -81,6 +81,7 @@ class WizSkip : IWizardTerminalCommand {
       return "Usage: skip <scene name>\n";
 
     string sceneName = string.Join( " ", args.Skip(1) );
+    GDCall.ExpectFirstTime();
     SceneManager.LoadScene(sceneName);
 
     return "";
