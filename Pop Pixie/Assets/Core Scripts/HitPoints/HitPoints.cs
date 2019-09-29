@@ -7,8 +7,19 @@ using UnityEngine;
 
 public class HitPoints : MonoBehaviour, ISerializableComponent {
 
-  public string[] SerializableFields { get; } = { "Current" };
+  public string[] SerializableFields {
+    get {
+      List<string> fields = new List<string>();
 
+      if (ShouldSave) {
+        fields.Add("Current");
+      }
+
+      return fields.ToArray();
+    }
+  }
+
+  public bool ShouldSave = true;
   public float Maximum; 
   public float Current; 
   public float RegenerateRate;
@@ -66,6 +77,10 @@ public class HitPoints : MonoBehaviour, ISerializableComponent {
 	// Use this for initialization
 	void Start () {
     GDCall.UnlessLoad( InitHitPoints );
+
+    if ( !ShouldSave )
+      InitHitPoints();
+
     EventHandlers = gameObject.GetComponents<IHitPointEvents>();
 	}
 
