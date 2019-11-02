@@ -4,8 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class EnemyHitPointEvents : MonoBehaviour, IHitPointEvents {
+
   public SoundController SoundPlayer;
   public float FlashDuration; 
+  public DeathAnimation DeathAnimation;
+  public Collider2D Collider;
   public List<AudioClip> Sounds;
 
   public void Updated (HitPoints hp) {
@@ -37,6 +40,16 @@ public class EnemyHitPointEvents : MonoBehaviour, IHitPointEvents {
   }
 
   public void BecameZero (HitPoints hp) {
-    Destroy(gameObject);
+    disableAIs();
+    Collider.enabled = false;
+    DeathAnimation.Play();
   }
+
+  void disableAIs() {
+    foreach ( var ai in GetComponents<AEnemyAI>() ) {
+      if ( ai.InControl )
+        ai.RelinquishControl();
+    }
+  }
+
 }
