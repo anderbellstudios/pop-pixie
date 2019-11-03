@@ -15,13 +15,17 @@ public class EnemyHitPointEvents : MonoBehaviour, IHitPointEvents {
   }
 
   public void Decreased (HitPoints hp) {
-    float duration = FlashDuration;
-    StartCoroutine( Flash(duration) );
+    if ( FlashDuration > 0 ) {
+      float duration = FlashDuration;
+      StartCoroutine( Flash(duration) );
+    }
 
-    // Play hurt sound
-    int i = UnityEngine.Random.Range(0, Sounds.Count);
-    var sound = Sounds[i];
-    SoundPlayer.Play(sound);
+    if ( Sounds.Count > 0 ) {
+      // Play hurt sound
+      int i = UnityEngine.Random.Range(0, Sounds.Count);
+      var sound = Sounds[i];
+      SoundPlayer.Play(sound);
+    }
   }
 
   private IEnumerator Flash(float duration) {
