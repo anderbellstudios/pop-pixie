@@ -6,6 +6,7 @@ public class PlayerMovable : MonoBehaviour, IDirectionManager {
 
   public MovementManager MovementManager;
   public float Speed;
+  public Roll Roll;
   public Vector3 Direction { get; set; }
 
   void FixedUpdate() {
@@ -14,7 +15,8 @@ public class PlayerMovable : MonoBehaviour, IDirectionManager {
       Input.GetAxis("Vertical")
     );
 
-    MovementManager.Movement += Speed * (Vector2) Direction;
+    if ( !Roll.Rolling )
+      MovementManager.Movement += Speed * (Vector2) Direction;
   }
 
 }
