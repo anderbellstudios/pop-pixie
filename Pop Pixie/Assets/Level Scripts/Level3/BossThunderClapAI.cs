@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BossThunderClapAI : AEnemyAI {
 
+  public MonoBehaviour DirectionManager;
   public float ChargeUpDuration;
   public float StopAimingThreshold;
   public ParticleSystem ParticleSystem;
@@ -37,7 +38,7 @@ public class BossThunderClapAI : AEnemyAI {
 
   public override void WhileInControl() {
     if ( ChargingUpTimer.Started && ChargingUpTimer.Progress() < StopAimingThreshold )
-      Direction = TargetDirection();
+      Direction = ( (IDirectionManager) DirectionManager ).Direction;
 
     LineRenderer.SetPosition( 0, transform.position );
     LineRenderer.SetPosition( 1, 1000000 * Direction );
