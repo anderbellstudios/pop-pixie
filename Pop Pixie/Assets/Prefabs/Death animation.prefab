@@ -5293,6 +5293,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3061322410106164273}
   - component: {fileID: 3061322410106164272}
+  - component: {fileID: 1756858577600988285}
   m_Layer: 0
   m_Name: Death animation
   m_TagString: Untagged
@@ -5337,6 +5338,22 @@ MonoBehaviour:
   ParticleSystems:
   - {fileID: 3061322411166602252}
   - {fileID: 3061322409520199770}
+  SpawnFlyingRingPull: {fileID: 1756858577600988285}
+--- !u!114 &1756858577600988285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3061322410106164274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a50985e4c8f8f49ffad4106720405d80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Prefab: {fileID: 7948105521332548041, guid: 1aafa0728c97f43a99e0a21d933646a1, type: 3}
+  Amount: 7
+  Interval: 0.05
 --- !u!1 &3061322411166602255
 GameObject:
   m_ObjectHideFlags: 0

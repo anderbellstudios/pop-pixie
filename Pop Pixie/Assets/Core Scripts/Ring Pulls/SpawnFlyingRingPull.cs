@@ -5,13 +5,17 @@ using UnityEngine;
 public class SpawnFlyingRingPull : MonoBehaviour {
 
   public GameObject Prefab;
-  public Transform Parent; 
-  public Camera Camera;
 
   public int Amount = 1;
   public float Interval = 0.05f;
 
+  Transform Parent; 
+
   int AlreadyDropped = 0;
+
+  void Awake() {
+    Parent = GameObject.Find("HUD").transform;
+  }
 
   public void Instantiate() {
     InvokeRepeating("DropRingPull", 0, Interval);
@@ -21,7 +25,7 @@ public class SpawnFlyingRingPull : MonoBehaviour {
     AlreadyDropped++;
 
     GameObject flyingRingPull = Instantiate(Prefab, Parent);
-    flyingRingPull.transform.position = Camera.WorldToScreenPoint(transform.position);
+    flyingRingPull.transform.position = Camera.main.WorldToScreenPoint(transform.position);
 
     if ( AlreadyDropped >= Amount )
       CancelInvoke("DropRingPull");

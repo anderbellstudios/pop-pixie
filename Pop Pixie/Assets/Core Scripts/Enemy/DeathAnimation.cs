@@ -11,6 +11,7 @@ public class DeathAnimation : MonoBehaviour {
   public float DestroyTime;
   public GameObject GameObject;
   public List<ParticleSystem> ParticleSystems;
+  public SpawnFlyingRingPull SpawnFlyingRingPull;
 
   private IntervalTimer Timer;
 
@@ -24,6 +25,9 @@ public class DeathAnimation : MonoBehaviour {
     ParticleSystems.ForEach( x => x.Play() );
     Invoke("StartFadeOut", FadeOutDelay);
     Invoke("DestroyGameObject", DestroyTime);
+
+    if ( SpawnFlyingRingPull != null )
+      SpawnFlyingRingPull.Instantiate();
   }
 
   void StartFadeOut() {
