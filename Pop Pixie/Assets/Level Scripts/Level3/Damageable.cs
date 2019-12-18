@@ -12,6 +12,8 @@ public class Damageable : MonoBehaviour, IHitPointEvents {
   public bool DisableColliderOnBreak;
   public Behaviour Collider;
 
+  public SpawnFlyingRingPull SpawnFlyingRingPull;
+
   public void Updated (HitPoints hp) {
     if ( hp.Current == 0 ) {
       SetSprite( DestroyedFrame );
@@ -33,6 +35,9 @@ public class Damageable : MonoBehaviour, IHitPointEvents {
   public void BecameZero (HitPoints hp) {
     if ( DisableColliderOnBreak )
       Collider.enabled = false;
+
+    if ( SpawnFlyingRingPull != null )
+      SpawnFlyingRingPull.Instantiate();
   }
 
 }

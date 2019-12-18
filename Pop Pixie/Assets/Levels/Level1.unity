@@ -760,6 +760,7 @@ GameObject:
   - component: {fileID: 731868870}
   - component: {fileID: 731868875}
   - component: {fileID: 731868874}
+  - component: {fileID: 731868876}
   - component: {fileID: 731868873}
   m_Layer: 0
   m_Name: Sofa
@@ -887,6 +888,7 @@ MonoBehaviour:
   DestroyedFrame: {fileID: 21300002, guid: 185cc3be49acc4653bf7e51eae86f14a, type: 3}
   DisableColliderOnBreak: 1
   Collider: {fileID: 731868870}
+  SpawnFlyingRingPull: {fileID: 731868876}
 --- !u!114 &731868875
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -904,6 +906,23 @@ MonoBehaviour:
   Current: 1
   RegenerateRate: 0
   CanBeDamagedArbiters: []
+--- !u!114 &731868876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 731868869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a50985e4c8f8f49ffad4106720405d80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Prefab: {fileID: 7948105521332548041, guid: 1aafa0728c97f43a99e0a21d933646a1, type: 3}
+  Parent: {fileID: 1345067413}
+  Camera: {fileID: 519420031}
+  Amount: 20
+  Interval: 0.05
 --- !u!114 &769326912 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114518587581835158, guid: 185784beef2224b11a285ffa14ebe05e,
@@ -1220,6 +1239,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4744907529250306356, guid: 185784beef2224b11a285ffa14ebe05e,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4744907529250306356, guid: 185784beef2224b11a285ffa14ebe05e,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1076885735418248, guid: 185784beef2224b11a285ffa14ebe05e, type: 3}
       propertyPath: m_Name
       value: HUD
@@ -1377,7 +1406,7 @@ PrefabInstance:
     - target: {fileID: 1926873110156184254, guid: 185784beef2224b11a285ffa14ebe05e,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 144.724
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5259357250048785793, guid: 185784beef2224b11a285ffa14ebe05e,
         type: 3}
@@ -1393,6 +1422,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Size
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114624937289479306, guid: 185784beef2224b11a285ffa14ebe05e,
+        type: 3}
+      propertyPath: m_Value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2156842613202780029, guid: 185784beef2224b11a285ffa14ebe05e,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2156842613202780029, guid: 185784beef2224b11a285ffa14ebe05e,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224043045785024334, guid: 185784beef2224b11a285ffa14ebe05e,
         type: 3}
@@ -1798,6 +1842,12 @@ MonoBehaviour:
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &1345067413 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 224205917627926174, guid: 185784beef2224b11a285ffa14ebe05e,
+    type: 3}
+  m_PrefabInstance: {fileID: 1137098741}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1346691020
 GameObject:
   m_ObjectHideFlags: 0
