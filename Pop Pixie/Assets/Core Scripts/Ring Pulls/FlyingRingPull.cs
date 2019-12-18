@@ -6,9 +6,29 @@ public class FlyingRingPull : MonoBehaviour {
 
   public Rigidbody2D rb;
   public float InitialSpeed;
+  public float MagnetStrength;
+  public float Acceleration;
+  public float Threshold;
+
+  GameObject Magnet;
+  float Speed;
 
   void Start() {
     rb.velocity = InitialSpeed * Random.insideUnitCircle.normalized;
+    Magnet = GameObject.Find("Flying Ring Pull Magnet");
+    Speed = InitialSpeed;
+  }
+
+  void FixedUpdate() {
+    Vector2 heading = Magnet.transform.position - transform.position;
+
+    if ( heading.magnitude < Threshold ) {
+      Destroy(gameObject);
+    }
+
+    Speed += Acceleration * Time.fixedDeltaTime;
+    Vector2 targetVelocity = Speed * heading.normalized;
+    rb.velocity = Vector2.Lerp(rb.velocity, targetVelocity, MagnetStrength);
   }
 
 }
