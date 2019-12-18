@@ -71,8 +71,11 @@ public class BossThunderClapAI : AEnemyAI {
 
   void StopFiring() {
     FiringTimer.Stop();
-    LineRenderer.enabled = false;
     RelinquishControlTo( AfterAtack );
+  }
+
+  public override void ControlRelinquished() {
+    LineRenderer.enabled = false;
   }
 
 }
