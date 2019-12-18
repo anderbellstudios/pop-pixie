@@ -23,6 +23,9 @@ public class FlyingRingPull : MonoBehaviour {
     Vector2 heading = Magnet.transform.position - transform.position;
 
     if ( heading.magnitude < Threshold ) {
+      RingPullsData.Increment();
+      RingPullsData.ShouldPulse = true;
+
       Destroy(gameObject);
     }
 
