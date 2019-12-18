@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2395565714013297019}
   - component: {fileID: 2395565714013297015}
   - component: {fileID: 3536825772689701167}
+  - component: {fileID: 1927019847983179873}
   - component: {fileID: 8297279390652918566}
   - component: {fileID: 3302975520919101035}
   m_Layer: 2
@@ -179,6 +180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c902b98affab42d5b6d979f55dd91f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShouldSave: 1
   Maximum: 30
   Current: 30
   RegenerateRate: 0
@@ -200,6 +202,7 @@ MonoBehaviour:
   DisableComponents:
   - {fileID: 2395565714013297016}
   - {fileID: 8297279390652918566}
+  StoppedWorking: 0
 --- !u!114 &3536825772689701167
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -218,6 +221,24 @@ MonoBehaviour:
   - {fileID: 21300002, guid: b049abbcb8d0743d786294a6f6aee606, type: 3}
   - {fileID: 21300004, guid: b049abbcb8d0743d786294a6f6aee606, type: 3}
   DestroyedFrame: {fileID: 21300006, guid: b049abbcb8d0743d786294a6f6aee606, type: 3}
+  DisableColliderOnBreak: 0
+  Collider: {fileID: 0}
+  SpawnFlyingRingPull: {fileID: 1927019847983179873}
+--- !u!114 &1927019847983179873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2395565714013297018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a50985e4c8f8f49ffad4106720405d80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Prefab: {fileID: 7948105521332548041, guid: 1aafa0728c97f43a99e0a21d933646a1, type: 3}
+  Amount: 10
+  Interval: 0.05
 --- !u!114 &8297279390652918566
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -246,4 +267,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98bbc2c1e63e98543830eec78d976795, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serializedGuid: bf78b5241786f549b96202cf9dd25d6f
+  serializedGuid: 95ad6d63b695264193b2a8573442426d
