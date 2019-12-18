@@ -702,8 +702,10 @@ GameObject:
   m_Component:
   - component: {fileID: 849398208}
   - component: {fileID: 849398207}
+  - component: {fileID: 849398209}
+  - component: {fileID: 849398210}
   m_Layer: 0
-  m_Name: Ring Pull
+  m_Name: Floating Ring Pull
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -719,7 +721,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -740,6 +742,34 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &849398209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 849398206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 513a09899c2894880a80faa824f7050e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpawnFlyingRingPull: {fileID: 849398210}
+--- !u!114 &849398210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 849398206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a50985e4c8f8f49ffad4106720405d80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Prefab: {fileID: 7948105521332548041, guid: 1aafa0728c97f43a99e0a21d933646a1, type: 3}
+  Parent: {fileID: 2003246102}
+  Camera: {fileID: 519420031}
 --- !u!114 &887239019 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114569738761832572, guid: 185784beef2224b11a285ffa14ebe05e,
@@ -1110,6 +1140,16 @@ PrefabInstance:
     - target: {fileID: 114624937289479306, guid: 185784beef2224b11a285ffa14ebe05e,
         type: 3}
       propertyPath: m_Size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2156842613202780029, guid: 185784beef2224b11a285ffa14ebe05e,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2156842613202780029, guid: 185784beef2224b11a285ffa14ebe05e,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224043045785024334, guid: 185784beef2224b11a285ffa14ebe05e,
@@ -2073,6 +2113,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09ceb2e4e52ed49deaf32f1b1d64b3f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &2003246102 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 224205917627926174, guid: 185784beef2224b11a285ffa14ebe05e,
+    type: 3}
+  m_PrefabInstance: {fileID: 1137098741}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2051010861
 PrefabInstance:
   m_ObjectHideFlags: 0
