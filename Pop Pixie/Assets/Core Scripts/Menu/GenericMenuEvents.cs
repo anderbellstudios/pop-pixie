@@ -7,14 +7,10 @@ public class GenericMenuEvents : MonoBehaviour {
 
   public ScreenFade Fader;
 
-  public AudioClip Music;
-  public string AudioId;
-
   public float FadeInDelay, FadeInDuration, FadeOutDuration, PostFadeOutDelay;
 
   void Start () {
     Fader.Fade("to black", 0.0f);
-    MusicController.Current.Play(Music, AudioId);
     Invoke("FadeIn", FadeInDelay);
     LocalStart();
   }
@@ -46,7 +42,7 @@ public class GenericMenuEvents : MonoBehaviour {
     FadingOut = true;
     FadeOutCallback = callback;
 
-    MusicController.Current.Fade(1.0f, 0.0f, FadeOutDuration);
+    AudioMixer.Current.FadeOut( FadeOutDuration );
     Fader.Fade("to black", FadeOutDuration);
     Invoke("CallFadeOutCallback", FadeOutDuration + PostFadeOutDelay);
   }

@@ -6,7 +6,7 @@ public class Level2OggPlayer : AInspectable, IDialogueSequenceEventHandler, IPro
 
   public DialogueManager Dialogue;
   public DialoguePromptManager PromptManager;
-  public AudioSource Player;
+  public SongHopper SongHopper;
 
   public override void OnInspect() {
     Dialogue.Play("Dialogue/OggPlayer", this);
@@ -28,21 +28,11 @@ public class Level2OggPlayer : AInspectable, IDialogueSequenceEventHandler, IPro
   public void ButtonPressed (string button) {
     if ( button == "positive" ) {
       LevelLoreManager.Current.Open("Lore/Blank", this);
-
-      MainMusicPlayer().enabled = false;
-      Player.enabled = true;
-      Player.Play();
+      SongHopper.Hop();
     }
   }
 
   public void Closed () {
-    MainMusicPlayer().enabled = true;
-    MainMusicPlayer().Play();
-    Player.enabled = false;
-    Player.Stop();
-  }
-
-  AudioSource MainMusicPlayer () {
-    return MusicController.Current.Player;
+    SongHopper.Stop();
   }
 }

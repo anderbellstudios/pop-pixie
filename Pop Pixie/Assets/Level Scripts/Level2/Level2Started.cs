@@ -6,7 +6,6 @@ public class Level2Started : MonoBehaviour, IDialogueSequenceEventHandler {
 
   public DialogueManager Dialogue;
   public ScreenFade Fader;
-  public AudioClip Music;
   public Camera MainCamera, CutsceneCamera;
   public MentoeRunToElevator MentoeAnimation;
 
@@ -15,7 +14,6 @@ public class Level2Started : MonoBehaviour, IDialogueSequenceEventHandler {
 	// Use this for initialization
 	void Start () {
     Fader.Fade("from black", 2.0f);
-    MusicController.Current.Play(Music, "level 1");
     StateManager.SetState( State.Playing );
 
     GDCall.UnlessLoad( StartCutscene );

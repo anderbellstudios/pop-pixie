@@ -25,7 +25,6 @@ public class WizardHopper : MonoBehaviour {
 
     // Only on the first time
     if ( Letters.Count == 0 ) {
-      MusicController.Current.Stop();
       SceneManager.LoadScene( "WIZARD MODE!!" );
     }
   }

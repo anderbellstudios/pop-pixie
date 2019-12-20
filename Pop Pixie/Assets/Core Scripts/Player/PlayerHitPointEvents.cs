@@ -25,7 +25,7 @@ public class PlayerHitPointEvents : MonoBehaviour, IHitPointEvents {
 
     StateManager.SetState( State.Dying );
     Fader.Fade("to black", 3.0f);
-    MusicController.Current.Fade(1.0f, 0.0f, 1.0f);
+    AudioMixer.Current.FadeOut(1.0f);
     Invoke("GameOverScreen", TimeToDie);
   }
 

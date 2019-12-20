@@ -36,6 +36,7 @@ public class SaveHopper : MonoBehaviour {
       return;
 
     Debug.Log("Hop!");
+    SongController.Current.RecordPlaybackTime();
     GameData.Save();
     GameData.WriteAutoSave();
   }
