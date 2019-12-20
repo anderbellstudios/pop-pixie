@@ -1270,6 +1270,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5411410930119778802}
   - component: {fileID: 7709695969371984486}
+  - component: {fileID: 3383370558522729132}
+  - component: {fileID: 591708252709577927}
   m_Layer: 5
   m_Name: Ring Pull Counter
   m_TagString: Untagged
@@ -1314,6 +1316,120 @@ MonoBehaviour:
   PulseTarget: {fileID: 576785639179569919}
   PulseDuration: 0.1
   PulseAmplitude: 0.5
+  PulseSound: {fileID: 8300000, guid: 13766890f482a405882ff6d7c89ccfd8, type: 3}
+  PulseSoundController: {fileID: 3383370558522729132}
+--- !u!114 &3383370558522729132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8167145723663431394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f095d145693aa465db99b6491442db38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Player: {fileID: 591708252709577927}
+  BaseVolume: 0.1
+  OneShot: 1
+--- !u!82 &591708252709577927
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8167145723663431394}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 2f642fe27460d47339ea9404188688b3,
+    type: 2}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 0.2
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &8298155285661539515
 GameObject:
   m_ObjectHideFlags: 0
@@ -2288,7 +2404,12 @@ PrefabInstance:
     - target: {fileID: 8729189994209057329, guid: 88b312d3ed3c646a6bdfd60b468bb6cc,
         type: 3}
       propertyPath: m_Size
-      value: 0.6415086
+      value: 0.6481172
+      objectReference: {fileID: 0}
+    - target: {fileID: 8729189994209057329, guid: 88b312d3ed3c646a6bdfd60b468bb6cc,
+        type: 3}
+      propertyPath: m_Value
+      value: 0.018434161
       objectReference: {fileID: 0}
     - target: {fileID: 8912527588421011473, guid: 88b312d3ed3c646a6bdfd60b468bb6cc,
         type: 3}
@@ -2308,7 +2429,7 @@ PrefabInstance:
     - target: {fileID: 7065807153473217541, guid: 88b312d3ed3c646a6bdfd60b468bb6cc,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 153.07582
+      value: 147.48416
       objectReference: {fileID: 0}
     - target: {fileID: 7304220828509639110, guid: 88b312d3ed3c646a6bdfd60b468bb6cc,
         type: 3}

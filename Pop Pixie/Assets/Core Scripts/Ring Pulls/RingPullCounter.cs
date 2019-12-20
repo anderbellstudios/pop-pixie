@@ -10,6 +10,8 @@ public class RingPullCounter : MonoBehaviour {
   public Transform PulseTarget;
   public float PulseDuration;
   public float PulseAmplitude;
+  public AudioClip PulseSound;
+  public SoundController PulseSoundController;
 
   IntervalTimer PulseTimer;
 
@@ -24,6 +26,7 @@ public class RingPullCounter : MonoBehaviour {
 
     if ( RingPullsData.ShouldPulse ) {
       RingPullsData.ShouldPulse = false;
+      PulseSoundController.Play( PulseSound );
       PulseTimer.Reset();
     }
 

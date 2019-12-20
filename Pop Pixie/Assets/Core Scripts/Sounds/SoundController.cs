@@ -4,10 +4,16 @@ using UnityEngine;
 
 public class SoundController : MonoBehaviour {
   public AudioSource Player;
+  public float BaseVolume = 1f;
+  public bool OneShot = false;
 
   public void Play (AudioClip sound) {
-    Player.clip = sound;
-    Player.Play();
+    if ( OneShot ) {
+      Player.PlayOneShot(sound);
+    } else {
+      Player.clip = sound;
+      Player.Play();
+    }
   }
 
   public void Stop() {
@@ -15,6 +21,6 @@ public class SoundController : MonoBehaviour {
   }
 
   void Update() {
-    Player.volume = (float) OptionsData.SoundsVolume;
+    Player.volume = BaseVolume * (float) OptionsData.SoundsVolume;
   }
 }
