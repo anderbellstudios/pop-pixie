@@ -16,6 +16,7 @@ public class ElevatorSceneStarted : MonoBehaviour {
 
   void FadeToNextLevel () {
     Fader.Fade("to black", 4.0f);
+    AudioMixer.Current.FadeOut(4.0f);
     Invoke("NextLevel", 5.0f);
   }
 

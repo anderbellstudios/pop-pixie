@@ -45,6 +45,7 @@ public class LoadElevatorScene : AInspectable, IDialogueSequenceEventHandler, IP
     if ( button == "positive" ) {
       StateManager.SetState( State.LoadingLevel );
       Fader.Fade("to black", 2.0f);
+      AudioMixer.Current.FadeOut(2.0f);
       Invoke("LoadScene", 3.0f);
     }
   }
