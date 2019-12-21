@@ -15,13 +15,18 @@ public class Roll : MonoBehaviour {
 
   public bool Rolling;
 
+  void Update() {
+    if ( StateManager.Isnt( State.Playing ) )
+      return;
+
+    InitateOpportunity();
+  }
+
   void FixedUpdate() {
     TrailRenderer.emitting = Rolling;
 
     if ( StateManager.Isnt( State.Playing ) )
       return;
-
-    InitateOpportunity();
 
     if ( Rolling ) {
       MovementManager.Movement += Speed * Direction();
