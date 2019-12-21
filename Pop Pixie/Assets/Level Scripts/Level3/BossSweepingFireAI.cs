@@ -34,8 +34,11 @@ public class BossSweepingFireAI : AEnemyAI, IDirectionManager {
   }
 
   void StopFiring() {
-    Turret.StopFiring();
     RelinquishControlTo( AfterAtack );
+  }
+
+  public override void ControlRelinquished() {
+    Turret.StopFiring();
   }
 
 }
