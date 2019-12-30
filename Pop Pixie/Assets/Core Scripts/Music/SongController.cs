@@ -25,7 +25,6 @@ public class SongController : MonoBehaviour {
 
   void Update() {
     if ( CurrentSong == null ) return;
-    Debug.Log("Saving song");
     SongPlaybackTimeData.Record( CurrentSong, AudioSource.timeSamples );
   }
 

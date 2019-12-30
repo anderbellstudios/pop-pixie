@@ -6,6 +6,8 @@ using UnityEngine;
 public class WeaponReload : MonoBehaviour {
 
   public float Duration;
+  public AudioClip ReloadSound;
+  public SoundController SoundController;
   public MonoBehaviour ReloadBar;
   public MovementManager MovementManager;
 
@@ -31,16 +33,24 @@ public class WeaponReload : MonoBehaviour {
     ReloadTimer.IfElapsed( CurrentWeapon().Reload );
 
     if ( WrappedInput.GetButtonDown("Reload") && !InProgress() && CanReload() )
-      ReloadTimer.Reset();
+      BeginReload();
 
-    if ( InProgress() && CanReload() ) {
-      rb.Progress = Progress();
-    } else {
-      ReloadTimer.Stop();
+    if ( InProgress() ) {
+      if ( CanReload() ) {
+        rb.Progress = Progress();
+      } else {
+        ReloadTimer.Stop();
+        SoundController.Stop();
+      }
     }
 
     rb.Visible = InProgress();
 	}
+
+  void BeginReload() {
+    ReloadTimer.Reset();
+    SoundController.Play( ReloadSound );
+  }
 
   bool InProgress() {
     return ReloadTimer.Started && !ReloadTimer.Elapsed();
