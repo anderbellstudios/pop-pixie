@@ -20,7 +20,7 @@ public class SongPlaybackTimeData {
   }
 
   static string KeyString( Song song ) {
-    return "song-playback-time-" + song.AudioClip.GetHashCode();
+    return "song-playback-time-" + song.Name;
   }
 
 }

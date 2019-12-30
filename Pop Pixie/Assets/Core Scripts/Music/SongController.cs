@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SongController : MonoBehaviour {
 
@@ -15,8 +16,6 @@ public class SongController : MonoBehaviour {
   }
 
   public void Play( Song song ) {
-    RecordPlaybackTime();
-
     AudioSource.clip = song.AudioClip;
     AudioSource.timeSamples = SongPlaybackTimeData.Fetch(song);
     AudioSource.Play();
@@ -24,8 +23,9 @@ public class SongController : MonoBehaviour {
     CurrentSong = song;
   }
 
-  public void RecordPlaybackTime() {
+  void Update() {
     if ( CurrentSong == null ) return;
+    Debug.Log("Saving song");
     SongPlaybackTimeData.Record( CurrentSong, AudioSource.timeSamples );
   }
 

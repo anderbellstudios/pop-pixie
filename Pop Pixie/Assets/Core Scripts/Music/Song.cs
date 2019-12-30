@@ -7,6 +7,7 @@ using UnityEngine;
 public class Song {
 
   public AudioClip AudioClip;
+  public string Name;
   public bool Resume = false;
 
 }
