@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5732314681490263957}
   - component: {fileID: 5732314681490263954}
-  - component: {fileID: 5732314681490263955}
+  - component: {fileID: 8813306845071213350}
   - component: {fileID: 5732314681490263956}
   - component: {fileID: 5732314681490263945}
   - component: {fileID: 5097866351977819503}
@@ -80,7 +80,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 8
   m_Sprite: {fileID: 21300000, guid: e343f09cc77ce4b90a8355289ce52733, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -92,8 +92,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!60 &5732314681490263955
-PolygonCollider2D:
+--- !u!58 &8813306845071213350
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -106,29 +106,8 @@ PolygonCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.24, y: 0.41}
-      - {x: -0.22, y: 0.41}
-      - {x: -0.25, y: 0.39}
-      - {x: -0.42999998, y: 0.08}
-      - {x: -0.47, y: -0.01}
-      - {x: -0.28, y: -0.35}
-      - {x: -0.25, y: -0.39999998}
-      - {x: -0.24, y: -0.42}
-      - {x: 0.28, y: -0.42}
-      - {x: 0.48, y: -0.02}
-      - {x: 0.48, y: 0.02}
-      - {x: 0.38, y: 0.19999999}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!114 &5732314681490263956
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -272,7 +251,7 @@ MonoBehaviour:
   DisableComponents:
   - {fileID: 5732314681490263952}
   - {fileID: 5732314681490263956}
-  - {fileID: 5732314681490263955}
+  - {fileID: 8813306845071213350}
 --- !u!114 &1290923859604074303
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -316,4 +295,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98bbc2c1e63e98543830eec78d976795, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serializedGuid: 664aec2ec2d2c84bbc94b0d21f0c87bb
+  serializedGuid: 79272b9dcea1fb44bdd9739706a36a4a
