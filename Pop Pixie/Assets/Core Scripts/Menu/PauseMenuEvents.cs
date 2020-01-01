@@ -36,7 +36,7 @@ public class PauseMenuEvents : MonoBehaviour {
   }
 
   public void Resume() {
-    SceneManager.UnloadSceneAsync("Pause Menu");
+    UnloadScene();
     StateManager.SetState( State.Playing );
   }
 
@@ -55,12 +55,21 @@ public class PauseMenuEvents : MonoBehaviour {
     OptionsData.SoundsVolume = volume;
   }
 
+  public void CalibrateController() {
+    UnloadScene();
+    SceneManager.LoadScene( "Controller Calibration", LoadSceneMode.Additive );
+  }
+
   public void QuitGame() {
     WrappedApplication.Quit();
   }
 
   void SetButtonsEnabled( bool enabled ) {
     Buttons.ForEach( button => button.interactable = enabled );
+  }
+
+  void UnloadScene() {
+    SceneManager.UnloadSceneAsync("Pause Menu");
   }
 
 }

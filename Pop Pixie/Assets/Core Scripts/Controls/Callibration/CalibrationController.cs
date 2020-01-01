@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class CalibrationController : MonoBehaviour {
@@ -54,6 +55,12 @@ public class CalibrationController : MonoBehaviour {
   }
 
   void Update() {
+    if ( Input.GetKeyDown( KeyCode.Escape ) ) {
+      SceneManager.UnloadSceneAsync("Controller Calibration");
+      StateManager.SetState( State.Playing );
+      return;
+    }
+
     if ( CurrentControl == null )
       return;
 
