@@ -47,7 +47,7 @@ public class CalibrationController : MonoBehaviour {
 
     TopText.text = "Press the button shown below";
     BottomText.text = CurrentControl.Name;
-    Image.sprite = CurrentControl.Icon;
+    Image.sprite = CurrentControl.Icon( ControllerType );
   }
 
   void Update() {
