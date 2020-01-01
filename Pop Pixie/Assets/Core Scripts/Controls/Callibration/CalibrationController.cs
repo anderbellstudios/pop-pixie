@@ -15,6 +15,8 @@ public class CalibrationController : MonoBehaviour {
 
   public List<CalibrationButton> Controls;
 
+  public Sprite DoneImage;
+
   string ControllerType;
   int ControlIndex = 0;
   CalibrationButton CurrentControl = null;
@@ -39,6 +41,7 @@ public class CalibrationController : MonoBehaviour {
   void NextControl() {
     if ( ControlIndex == Controls.Count ) {
       CurrentControl = null;
+      ShowDoneScreen();
       return;
     }
 
@@ -54,12 +57,25 @@ public class CalibrationController : MonoBehaviour {
     if ( CurrentControl == null )
       return;
 
-    KeyCode? button = GamePad.AnyButtonDown();
+    KeyCode? keyCode = GamePad.AnyButtonDown();
 
-    if ( button != null ) {
-      Debug.Log(button);
+    if ( keyCode != null ) {
+      GamePadButtonData.SetKeyCode(
+        CurrentControl.Name,
+        (KeyCode) keyCode
+      );
+
+      Debug.Log( GamePadButtonData.GetKeyCode( CurrentControl.Name ) );
+
       NextControl();
     }
+  }
+
+  void ShowDoneScreen() {
+    TopText.text = "Calibration complete";
+    BottomText.text = "Press escape to exit.";
+
+    Image.sprite = DoneImage;
   }
 
   public void ChoosePS() {
