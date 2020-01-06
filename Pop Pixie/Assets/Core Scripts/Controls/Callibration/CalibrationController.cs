@@ -14,7 +14,7 @@ public class CalibrationController : MonoBehaviour {
 
   public GameObject ControllerOptions;
 
-  public List<CalibrationButton> Controls;
+  public List<CalibrationButton> Buttons;
 
   public Sprite DoneImage;
 
@@ -40,13 +40,13 @@ public class CalibrationController : MonoBehaviour {
   }
 
   void NextControl() {
-    if ( ControlIndex == Controls.Count ) {
+    if ( ControlIndex == Buttons.Count ) {
       CurrentControl = null;
       ShowDoneScreen();
       return;
     }
 
-    CurrentControl = Controls[ ControlIndex ];
+    CurrentControl = Buttons[ ControlIndex ];
     ControlIndex++;
 
     TopText.text = "Press the button shown below";
