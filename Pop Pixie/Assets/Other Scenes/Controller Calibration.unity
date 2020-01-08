@@ -434,7 +434,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &489957464
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1093,7 +1093,7 @@ GameObject:
   - component: {fileID: 832560580}
   - component: {fileID: 832560579}
   m_Layer: 5
-  m_Name: Button Image
+  m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1138,7 +1138,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 147c28bab55954226b24620e2e5d6c95, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -1270,6 +1270,7 @@ GameObject:
   - component: {fileID: 2089012088}
   - component: {fileID: 2089012087}
   - component: {fileID: 2089012086}
+  - component: {fileID: 2089012089}
   - component: {fileID: 2089012085}
   m_Layer: 0
   m_Name: CalibrationController
@@ -1394,8 +1395,38 @@ MonoBehaviour:
   Phases:
   - {fileID: 2089012087}
   - {fileID: 2089012086}
+  - {fileID: 2089012089}
   - {fileID: 2089012085}
   PhaseId: 0
+--- !u!114 &2089012089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2089012082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 774da2ec3d21b4f37bca3e78d36c7da6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Running: 0
+  TopText: {fileID: 693254289}
+  BottomText: {fileID: 701288971}
+  Image: {fileID: 832560579}
+  Axes:
+  - JoystickName: Move
+    AxisName: Vertical
+    Icon: {fileID: 21300000, guid: ca55b5dab0c8847ac9b3ca0dd7308602, type: 3}
+  - JoystickName: Move
+    AxisName: Horizontal
+    Icon: {fileID: 21300000, guid: 33a8f18b4abc84fc58ab8be07ffbef98, type: 3}
+  - JoystickName: Aim
+    AxisName: Vertical
+    Icon: {fileID: 21300000, guid: d1aa1353f190140ce9257cb06f6e1c2f, type: 3}
+  - JoystickName: Aim
+    AxisName: Horizontal
+    Icon: {fileID: 21300000, guid: cff64fb6353224627bc7f306d6ad54c3, type: 3}
 --- !u!1 &2098251622
 GameObject:
   m_ObjectHideFlags: 0
