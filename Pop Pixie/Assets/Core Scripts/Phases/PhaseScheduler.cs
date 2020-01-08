@@ -34,7 +34,7 @@ public class PhaseScheduler : MonoBehaviour, ISerializableComponent {
 
   void PhaseFinished() {
     NextPhase();
-    OnPhaseFinished();
+    if ( OnPhaseFinished != null ) OnPhaseFinished();
   }
 
   public float Progress() {

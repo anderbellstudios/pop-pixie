@@ -1067,7 +1067,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 2089012084}
+      objectReference: {fileID: 2089012087}
     - target: {fileID: 4794088179223121955, guid: a65eb72a46b2f4c9ab695c7a6b0d630b,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -1267,6 +1267,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2089012083}
   - component: {fileID: 2089012084}
+  - component: {fileID: 2089012088}
+  - component: {fileID: 2089012087}
+  - component: {fileID: 2089012086}
+  - component: {fileID: 2089012085}
   m_Layer: 0
   m_Name: CalibrationController
   m_TagString: Untagged
@@ -1300,10 +1304,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f67a8ce6ac683490cb27597baf2e9831, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PhaseScheduler: {fileID: 2089012088}
+--- !u!114 &2089012085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2089012082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18e3c7455a6d04daaa9e95de3e87a629, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Running: 0
   TopText: {fileID: 693254289}
   BottomText: {fileID: 701288971}
   Image: {fileID: 832560579}
-  ControllerOptions: {fileID: 489957463}
+  DoneImage: {fileID: 21300000, guid: b353acda6688f4db2a9aa2ace660a40c, type: 3}
+--- !u!114 &2089012086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2089012082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87896a10339594015b69428431e07738, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Running: 0
+  TopText: {fileID: 693254289}
+  BottomText: {fileID: 701288971}
+  Image: {fileID: 832560579}
+  ControllerTypeSelectionPhase: {fileID: 2089012087}
   Buttons:
   - Name: Fire
     PSIcon: {fileID: 21300000, guid: 224502647046c48f1b16f7e490af23ff, type: 3}
@@ -1326,7 +1361,41 @@ MonoBehaviour:
   - Name: Pause
     PSIcon: {fileID: 21300000, guid: 0ae2db3d7d6ec42f9a60025cc0121195, type: 3}
     XboxIcon: {fileID: 21300000, guid: e58c161bd6cfd4dccb3347acf4ff8f8a, type: 3}
-  DoneImage: {fileID: 21300000, guid: b353acda6688f4db2a9aa2ace660a40c, type: 3}
+--- !u!114 &2089012087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2089012082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89dd0fd65a04a4987a96f42f0601f09a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Running: 0
+  TopText: {fileID: 693254289}
+  BottomText: {fileID: 701288971}
+  Image: {fileID: 832560579}
+  ControllerOptions: {fileID: 489957463}
+  ControllerType: 
+--- !u!114 &2089012088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2089012082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bad7c0843734642d8943b4f104202113, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Phases:
+  - {fileID: 2089012087}
+  - {fileID: 2089012086}
+  - {fileID: 2089012085}
+  PhaseId: 0
 --- !u!1 &2098251622
 GameObject:
   m_ObjectHideFlags: 0
@@ -1508,6 +1577,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 2089012084}
+      objectReference: {fileID: 2089012087}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a65eb72a46b2f4c9ab695c7a6b0d630b, type: 3}
