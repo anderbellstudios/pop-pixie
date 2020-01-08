@@ -122,6 +122,7 @@ GameObject:
   m_Component:
   - component: {fileID: 217444}
   - component: {fileID: 217443}
+  - component: {fileID: 217451}
   - component: {fileID: 217449}
   - component: {fileID: 217445}
   - component: {fileID: 217446}
@@ -148,16 +149,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0b37c073ca3a475cb8bbdcfe068054a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BossProgressBar: {fileID: 1773374705}
   Fader: {fileID: 887239019}
-  Phases:
-  - {fileID: 217449}
-  - {fileID: 217447}
-  - {fileID: 217448}
-  - {fileID: 217450}
-  - {fileID: 217448}
-  - {fileID: 1624602153}
-  PhaseId: 0
+  PhaseScheduler: {fileID: 217451}
+  BossProgressBar: {fileID: 1773374705}
 --- !u!4 &217444
 Transform:
   m_ObjectHideFlags: 0
@@ -271,6 +265,26 @@ MonoBehaviour:
   FireableHitPoints:
   - {fileID: 1345876655}
   - {fileID: 94549115}
+--- !u!114 &217451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 217442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bad7c0843734642d8943b4f104202113, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Phases:
+  - {fileID: 217449}
+  - {fileID: 217447}
+  - {fileID: 217448}
+  - {fileID: 217450}
+  - {fileID: 217448}
+  - {fileID: 1624602153}
+  PhaseId: 0
 --- !u!114 &217452
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -3,61 +3,29 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Level3Started : MonoBehaviour, ISerializableComponent {
-
-  public string[] SerializableFields { get; } = { "PhaseId" };
-
-  public HUDBar BossProgressBar;
+public class Level3Started : MonoBehaviour {
 
   public ScreenFade Fader;
-  // public AudioClip Music;
-  public List<APhase> Phases;
-  public int PhaseId;
+  public PhaseScheduler PhaseScheduler;
+  public HUDBar BossProgressBar;
 
-	// Use this for initialization
 	void Start () {
     Fader.Fade("from black", 2.0f);
     StateManager.SetState( State.Playing );
 
-    GDCall.UnlessLoad( InitPhases );
-    GDCall.IfLoad( BeginPhase );
-  }
+    PhaseScheduler.OnPhaseFinished += PhaseFinished;
 
-  public void InitPhases() {
-    PhaseId = -1;
-    NextPhase();
-	}
-
-  void NextPhase() {
-    PhaseId += 1;
-    
-    if ( PhaseId < Phases.Count ) {
-      BeginPhase();
-    }
-  }
-
-  void BeginPhase() {
-    var phase = Phases[PhaseId];
-    phase.Begin( () => PhaseFinished() );
+    GDCall.UnlessLoad( PhaseScheduler.InitPhases );
+    GDCall.IfLoad( PhaseScheduler.BeginPhase );
   }
 
   void PhaseFinished() {
-    NextPhase();
-
     GameData.Save();
     GameData.WriteSave();
   }
 
   void Update() {
-    BossProgressBar.Progress = TotalBarProgress() / TotalProgressBarAllotment();
-  }
-
-  float TotalProgressBarAllotment() {
-    return Phases.Sum( phase => phase.ProgressBarAllotment() );
-  }
-
-  float TotalBarProgress() {
-    return Phases.Sum( phase => phase.ProgressBarValue() );
+    BossProgressBar.Progress = PhaseScheduler.Progress();
   }
 
 }
