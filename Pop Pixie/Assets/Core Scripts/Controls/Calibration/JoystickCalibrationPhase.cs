@@ -65,7 +65,7 @@ public class JoystickCalibrationPhase : APhase {
     }
 
     GamePadAxisData.SetAxis(
-      CurrentControl.Name(),
+      CurrentControl.InputName,
       axis,
       sign
     );

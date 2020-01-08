@@ -40,8 +40,8 @@ public class WeaponDirectionManager : MonoBehaviour, IDirectionManager {
   }
 
   Vector3? JoystickDirection() {
-    float x_component = Input.GetAxis("Fire X");
-    float y_component = Input.GetAxis("Fire Y");
+    float x_component = WrappedInput.GetAxis("Fire X");
+    float y_component = WrappedInput.GetAxis("Fire Y");
 
     var inputDirection = new Vector3(
       x_component, 

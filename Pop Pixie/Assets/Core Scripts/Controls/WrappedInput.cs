@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -25,6 +26,28 @@ public class WrappedInput : MonoBehaviour {
     }
 
     return Input.GetButtonDown( KeyboardButtonName(button) );
+  }
+
+  public static float GetAxis( string axis ) {
+    float amount;
+
+    if ( axis == "Horizontal" || axis == "Vertical" ) {
+      amount = Input.GetAxis( axis );
+    } else {
+      amount = 0;
+    }
+
+    String controllerInput = GamePadAxisData.GetInput( axis );
+    int controllerSign = GamePadAxisData.GetSign( axis );
+
+    if ( controllerInput != null ) {
+      float controllerAmount = Input.GetAxis( controllerInput ) * controllerSign;
+
+      if ( Mathf.Abs( controllerAmount ) > Mathf.Abs(amount) )
+        amount = controllerAmount;
+    }
+
+    return amount;
   }
 
   static KeyCode? ControllerButtonKeyCode( string button ) {

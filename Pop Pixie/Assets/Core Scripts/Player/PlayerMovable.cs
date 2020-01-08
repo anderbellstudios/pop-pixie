@@ -11,8 +11,8 @@ public class PlayerMovable : MonoBehaviour, IDirectionManager {
 
   void FixedUpdate() {
     Direction = new Vector2(
-      Input.GetAxis("Horizontal"),
-      Input.GetAxis("Vertical")
+      WrappedInput.GetAxis("Horizontal"),
+      WrappedInput.GetAxis("Vertical")
     );
 
     if ( !Roll.Rolling )

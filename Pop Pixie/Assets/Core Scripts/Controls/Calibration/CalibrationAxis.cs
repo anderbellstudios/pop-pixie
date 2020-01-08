@@ -7,11 +7,7 @@ using UnityEngine;
 public class CalibrationAxis {
 
   public string JoystickName;
-  public string AxisName;
+  public string InputName;
   public Sprite Icon;
-
-  public string Name() {
-    return JoystickName + " " + AxisName;
-  }
 
 }
