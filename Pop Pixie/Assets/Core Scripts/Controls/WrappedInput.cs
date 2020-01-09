@@ -59,34 +59,11 @@ public class WrappedInput : MonoBehaviour {
   }
 
   public static string ControllerPrefix() {
-    var joysticks = Input.GetJoystickNames();
-
-    if ( joysticks.Length > 0 ) {
-
-      string joystick = joysticks[0];
-
-      if ( Regex.Match( joystick, @"PLAYSTATION", RegexOptions.IgnoreCase ).Success ) {
-        return "PS3";
-      }
-
-      if ( Regex.Match( joystick, @"Interactive Entertainment", RegexOptions.IgnoreCase ).Success ) {
-        return "PS4";
-      }
-
-      if ( Regex.Match( joystick, @"Xbox", RegexOptions.IgnoreCase ).Success ) {
-        return "XboxOneS";
-      }
-
-      if ( Regex.Match( joystick, @"Unknown Wireless Controller", RegexOptions.IgnoreCase ).Success ) {
-        return "PS4";
-      }
-
-      Debug.Log( joystick );
-
+    if ( Input.GetJoystickNames().Length > 0 ) {
+      return ControllerTypeData.GetType();
+    } else {
+      return null;
     }
-
-    return null;
-
   }
 
 }
