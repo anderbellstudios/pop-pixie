@@ -6,11 +6,11 @@ using UnityEngine;
 public class GamePadButtonData {
 
   public static KeyCode? GetKeyCode( string button ) {
-    return GameData.Fetch( "game-pad-button-" + button );
+    return GameData.Current.Fetch( "game-pad-button-" + button );
   }
 
   public static void SetKeyCode( string button, KeyCode keyCode ) {
-    GameData.Set( "game-pad-button-" + button, keyCode );
+    GameData.Current.Set( "game-pad-button-" + button, keyCode );
   }
 
 }

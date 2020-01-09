@@ -10,8 +10,8 @@ public class PauseHopper : MonoBehaviour {
       return;
 
     if ( WrappedInput.GetButtonDown("Pause") ) {
-      GameData.Save();
-      GameData.WriteAutoSave();
+      GameData.Current.Save();
+      GameData.Current.WriteAutoSave();
 
       StateManager.SetState( State.Paused );
       SceneManager.LoadScene( "Pause Menu", LoadSceneMode.Additive );

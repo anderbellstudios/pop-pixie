@@ -7,70 +7,58 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
-public class GameData {
+public class GameData : AData {
   public static GameData Current = new GameData();
 
-  public Dictionary<string, dynamic> Dictionary = new Dictionary<string, dynamic> {
-    { "VERSION", "1.1" }
-  };
-
-  public static dynamic Fetch( string key, dynamic orSetEqualTo = null ) {
-    if ( Current.Dictionary.ContainsKey(key) )
-      return Current.Dictionary[key];
-
-    if ( orSetEqualTo != null )
-      return Current.Dictionary[key] = orSetEqualTo;
-
-    return null;
+  public override Dictionary<string, dynamic> LocalDefaultDictionary() {
+    return new Dictionary<string, dynamic> {
+      { "VERSION", "1.1" }
+    };
   }
 
-  public static void Set( string key, dynamic val ) {
-    Current.Dictionary[key] = val;
+  public void Save() {
+    Dictionary["scene"] = new SceneSerializer().Serialize();
   }
 
-  public static void Save() {
-    Current.Dictionary["scene"] = new SceneSerializer().Serialize();
-  }
-
-  public static void Load() {
+  public void Load() {
     GDCall.ExpectLoad();
-    new SceneDeserializer( Current.Dictionary["scene"] ).Deserialize();
+    new SceneDeserializer( Dictionary["scene"] ).Deserialize();
   }
 
-  public static void WriteSave() {
+  public void WriteSave() {
     WriteTrueSave();
     WriteAutoSave();
   }
 
-  public static void WriteTrueSave() {
+  public void WriteTrueSave() {
     Write("file0");
   }
 
-  public static void WriteAutoSave() {
+  public void WriteAutoSave() {
     Write("file1");
   }
 
-  public static void ReadSave() {
+  public void ReadSave() {
     Read("file0");
   }
 
-  public static void ReadAutoSave() {
+  public void ReadAutoSave() {
     Read("file1");
   }
 
-  public static void Write( string fileName ) {
+  public void Write( string fileName ) {
     var bf = new BinaryFormatter();
     var file = File.Open( Path(fileName), FileMode.OpenOrCreate );
-    bf.Serialize(file, Current.Dictionary);
+    bf.Serialize(file, Dictionary);
     file.Close();
   }
 
-  public static void Read( string fileName ) {
+  public void Read( string fileName ) {
     var file = File.Open( Path(fileName), FileMode.Open );
     var bf = new BinaryFormatter();
 
     try {
-      Current.Dictionary = ( Dictionary<string, dynamic> ) bf.Deserialize( file );
+      Dictionary = ( Dictionary<string, dynamic> ) bf.Deserialize( file );
 
     } catch (SerializationException e) {
 
@@ -84,11 +72,11 @@ public class GameData {
     }
   }
 
-  public static bool Exists() {
+  public bool Exists() {
     return File.Exists( Path("file1") );
   }
 
-  static string Path( string fileName ) {
+  string Path( string fileName ) {
     return System.IO.Path.Combine(Application.persistentDataPath, fileName);
   }
 

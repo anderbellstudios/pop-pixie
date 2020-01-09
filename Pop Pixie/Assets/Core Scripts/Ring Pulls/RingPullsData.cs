@@ -8,14 +8,14 @@ public class RingPullsData {
   public static bool ShouldPulse = false;
 
   public static int Amount() {
-    return GameData.Fetch(
+    return GameData.Current.Fetch(
       "ring-pulls", 
       orSetEqualTo: 0
     );
   }
 
   public static void SetAmount(int amount) {
-    GameData.Set("ring-pulls", amount);
+    GameData.Current.Set("ring-pulls", amount);
   }
 
   public static void Increment() {

@@ -10,11 +10,11 @@ class SaveLoadHelperButtons : Editor {
    DrawDefaultInspector();
 
    if ( GUILayout.Button("Save") ) {
-     GameData.Save();
+     GameData.Current.Save();
    }
 
    if ( GUILayout.Button("Load") ) {
-     GameData.Load();
+     GameData.Current.Load();
    }
  }
 

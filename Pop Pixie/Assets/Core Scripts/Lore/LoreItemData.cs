@@ -16,7 +16,7 @@ public class LoreItemData {
   }
 
   public static List<LoreItem> ReadLoreItems() {
-    return GameData.Fetch(
+    return GameData.Current.Fetch(
       "lore-items", 
       orSetEqualTo: new List<LoreItem>()
     );
