@@ -16,6 +16,8 @@ public abstract class AData {
   }
 
   public dynamic Fetch( string key, dynamic orSetEqualTo = null ) {
+    BeforeFetch();
+
     if ( Dictionary.ContainsKey(key) )
       return Dictionary[key];
 
@@ -27,6 +29,13 @@ public abstract class AData {
 
   public void Set( string key, dynamic val ) {
     Dictionary[key] = val;
+    AfterUpdate();
+  }
+
+  public virtual void BeforeFetch() {
+  }
+
+  public virtual void AfterUpdate() {
   }
 
 }
