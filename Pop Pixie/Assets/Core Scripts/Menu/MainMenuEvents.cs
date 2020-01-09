@@ -8,7 +8,7 @@ public class MainMenuEvents : GenericMenuEvents {
   public MainMenuConfirmWindow MainMenuConfirmWindow;
 
   public void TentativeNewGame () {
-    if ( GameData.Current.Exists() ) {
+    if ( SaveGame.Exists() ) {
       MainMenuConfirmWindow.Show();
     } else {
       NewGame();
@@ -29,7 +29,7 @@ public class MainMenuEvents : GenericMenuEvents {
   }
 
   void _Continue () {
-    GameData.Current.ReadAutoSave();
+    SaveGame.ReadAutoSave();
     GameData.Current.Load();
   }
 

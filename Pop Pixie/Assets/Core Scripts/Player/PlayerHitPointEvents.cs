@@ -20,8 +20,8 @@ public class PlayerHitPointEvents : MonoBehaviour, IHitPointEvents {
 
   public void BecameZero (HitPoints hp) {
     // Make sure you can't quit out to avoid dying
-    GameData.Current.ReadSave();
-    GameData.Current.WriteAutoSave();
+    SaveGame.ReadSave();
+    SaveGame.WriteAutoSave();
 
     StateManager.SetState( State.Dying );
     Fader.Fade("to black", 3.0f);

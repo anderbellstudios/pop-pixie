@@ -36,7 +36,7 @@ public class LoadAutoSaveMenuItem : MonoBehaviour {
 
     switch ( state ) {
       case PlayModeStateChange.EnteredPlayMode:
-        GameData.Current.ReadAutoSave();
+        SaveGame.ReadAutoSave();
         GameData.Current.Load();
         break;
 

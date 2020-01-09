@@ -21,7 +21,7 @@ public class Level3Started : MonoBehaviour {
 
   void PhaseFinished() {
     GameData.Current.Save();
-    GameData.Current.WriteSave();
+    SaveGame.WriteSave();
   }
 
   void Update() {

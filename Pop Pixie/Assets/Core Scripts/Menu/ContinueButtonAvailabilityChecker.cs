@@ -8,7 +8,7 @@ public class ContinueButtonAvailabilityChecker : MonoBehaviour {
   public GameObject Button;
 
   void Awake() {
-    if ( !GameData.Current.Exists() )
+    if ( !SaveGame.Exists() )
       Destroy(Button);
   }
 
