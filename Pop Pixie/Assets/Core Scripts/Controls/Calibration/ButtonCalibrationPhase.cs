@@ -10,8 +10,6 @@ public class ButtonCalibrationPhase : APhase {
   public TMP_Text BottomText;
   public Image Image;
 
-  public ControllerTypeSelectionPhase ControllerTypeSelectionPhase;
-
   public List<CalibrationButton> Buttons;
 
   int ControlIndex;
@@ -29,7 +27,7 @@ public class ButtonCalibrationPhase : APhase {
 
     TopText.text = "Press the button shown below";
     BottomText.text = CurrentControl.Name;
-    Image.sprite = CurrentControl.Icon( ControllerTypeSelectionPhase.ControllerType );
+    Image.sprite = CurrentControl.Icon( ControllerTypeData.GetType() );
   }
 
   public override void WhilePhaseRunning() {

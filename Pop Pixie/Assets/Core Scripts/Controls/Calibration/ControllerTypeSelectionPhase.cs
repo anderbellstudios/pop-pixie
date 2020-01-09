@@ -11,8 +11,6 @@ public class ControllerTypeSelectionPhase : APhase {
   public Image Image;
   public GameObject ControllerOptions;
 
-  public string ControllerType;
-
   public override void LocalBegin() {
     TopText.text = "Controller Calibration";
     BottomText.text = "";
@@ -20,7 +18,7 @@ public class ControllerTypeSelectionPhase : APhase {
   }
 
   void ChooseController( string type ) {
-    ControllerType = type;
+    ControllerTypeData.SetType( type );
     PhaseFinished();
   }
 
