@@ -30,7 +30,7 @@ public class MainMenuEvents : GenericMenuEvents {
 
   void _Continue () {
     SaveGame.ReadAutoSave();
-    GameData.Current.Load();
+    SceneData.Load();
   }
 
 }

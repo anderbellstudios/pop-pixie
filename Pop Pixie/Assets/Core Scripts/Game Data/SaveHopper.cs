@@ -21,7 +21,7 @@ public class SaveHopper : MonoBehaviour {
     if ( AboutToSave ) {
       AboutToSave = false;
 
-      GameData.Current.Save();
+      SceneData.Save();
       SaveGame.WriteSave();
     }
 
@@ -36,7 +36,7 @@ public class SaveHopper : MonoBehaviour {
       return;
 
     Debug.Log("Hop!");
-    GameData.Current.Save();
+    SceneData.Save();
     SaveGame.WriteAutoSave();
   }
 

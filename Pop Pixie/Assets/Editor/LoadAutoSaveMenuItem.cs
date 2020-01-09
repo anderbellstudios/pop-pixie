@@ -37,7 +37,7 @@ public class LoadAutoSaveMenuItem : MonoBehaviour {
     switch ( state ) {
       case PlayModeStateChange.EnteredPlayMode:
         SaveGame.ReadAutoSave();
-        GameData.Current.Load();
+        SceneData.Load();
         break;
 
       case PlayModeStateChange.EnteredEditMode: 
