@@ -16,9 +16,13 @@ public class SongController : MonoBehaviour {
   }
 
   public void Play( Song song ) {
-    AudioSource.clip = song.AudioClip;
-    AudioSource.timeSamples = SongPlaybackTimeData.Fetch(song);
-    AudioSource.Play();
+    if ( song == null ) {
+      AudioSource.Stop();
+    } else {
+      AudioSource.clip = song.AudioClip;
+      AudioSource.timeSamples = SongPlaybackTimeData.Fetch(song);
+      AudioSource.Play();
+    }
 
     CurrentSong = song;
   }
