@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class EnemyHitPointEvents : MonoBehaviour, IHitPointEvents {
 
   public SoundController SoundPlayer;
-  public float FlashDuration; 
+  public Flash Flash;
   public DeathAnimation DeathAnimation;
   public Collider2D Collider;
   public List<AudioClip> Sounds;
@@ -15,10 +15,7 @@ public class EnemyHitPointEvents : MonoBehaviour, IHitPointEvents {
   }
 
   public void Decreased (HitPoints hp) {
-    if ( FlashDuration > 0 ) {
-      float duration = FlashDuration;
-      StartCoroutine( Flash(duration) );
-    }
+    if ( Flash != null ) Flash.BeginFlashing();
 
     if ( Sounds.Count > 0 ) {
       // Play hurt sound
@@ -26,21 +23,6 @@ public class EnemyHitPointEvents : MonoBehaviour, IHitPointEvents {
       var sound = Sounds[i];
       SoundPlayer.Play(sound);
     }
-  }
-
-  private IEnumerator Flash(float duration) {
-    var renderer = gameObject.GetComponent<SpriteRenderer>();
-
-    int flashes = (int)( duration / 0.2f );
-
-    for(var n = 0; n < flashes; n++) {
-      renderer.enabled = true;
-      yield return new WaitForSeconds(0.1f);
-      renderer.enabled = false;
-      yield return new WaitForSeconds(0.1f);
-    }
-
-    renderer.enabled = true;
   }
 
   public void BecameZero (HitPoints hp) {

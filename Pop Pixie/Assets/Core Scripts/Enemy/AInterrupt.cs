@@ -13,7 +13,10 @@ public abstract class AInterrupt : MonoBehaviour {
   public virtual void LocalStart() {}
 
   void Update() {
-    AEnemyAI ai = GetComponents<AEnemyAI>().Where( x => x.InControl ).First();
+    AEnemyAI ai = GetComponents<AEnemyAI>().Where( x => x.InControl ).FirstOrDefault();
+
+    if ( ai == null )
+      return;
 
     if ( !OnlyAIsMatching().IsInstanceOfType( ai ) )
       return;

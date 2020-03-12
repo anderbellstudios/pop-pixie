@@ -10,16 +10,15 @@ public class PlayerShoot : MonoBehaviour {
   private IntervalTimer FireTimer;
 
   void Start () {
-    FireTimer = new IntervalTimer() {
-      Interval = CurrentWeapon().CooldownInterval()
-    };
-
+    FireTimer = new IntervalTimer();
     FireTimer.Start();
   }
 
 	void Update () {
     if ( StateManager.Isnt( State.Playing ) )
       return;
+
+    FireTimer.Interval = CurrentWeapon().CooldownInterval();
 
     if ( WrappedInput.GetButton("Fire") && CanShoot() ) {
       FireTimer.Reset();

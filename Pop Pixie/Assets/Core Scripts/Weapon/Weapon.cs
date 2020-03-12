@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Weapon : MonoBehaviour {
 
@@ -9,6 +10,7 @@ public class Weapon : MonoBehaviour {
   public int Ammunition;
   public float BulletSpeed;
   public GameObject BulletPrefab;
+  public Sprite Sprite;
 
   public float CooldownInterval() {
     return 1.0f / FireRate;

@@ -87,8 +87,8 @@ GameObject:
   - component: {fileID: 3579707395517347850}
   - component: {fileID: 3579707395517347849}
   - component: {fileID: 3579707395517347852}
-  - component: {fileID: 4330698070701059128}
   - component: {fileID: 3476267911021259740}
+  - component: {fileID: 6901898730673190071}
   - component: {fileID: 5324726799035979464}
   m_Layer: 8
   m_Name: Enemy
@@ -429,21 +429,7 @@ MonoBehaviour:
   Maximum: 30
   Current: 30
   RegenerateRate: 0
-  CanBeDamagedArbiters:
-  - {fileID: 4330698070701059128}
---- !u!114 &4330698070701059128
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3579707395517347952}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef4dc502e71444983a20288d1bd7dc7f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DamageCooldown: 1
+  CanBeDamagedArbiters: []
 --- !u!114 &3476267911021259740
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -457,12 +443,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SoundPlayer: {fileID: 3638335194234863145}
-  FlashDuration: 1
+  Flash: {fileID: 6901898730673190071}
   DeathAnimation: {fileID: 1047574261544682520}
   Collider: {fileID: 3559577149095304210}
   Sounds:
   - {fileID: 8300000, guid: d848a2e88753a4e39a69ab44c457170c, type: 3}
   - {fileID: 8300000, guid: e55f0fcf7ed804306a81d81713eb3ca2, type: 3}
+--- !u!114 &6901898730673190071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3579707395517347952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 149e69882a7db4c4c9c13baa54a536d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Duration: 1
+  Target: {fileID: 3700351857400163350}
+  DefaultEnabled: 1
 --- !u!114 &5324726799035979464
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -475,7 +476,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98bbc2c1e63e98543830eec78d976795, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serializedGuid: 80f2df86e886154895066e7920b63efd
+  serializedGuid: ef964db3fff58142be71bf2ac34ab966
 --- !u!1 &8492502832744839882
 GameObject:
   m_ObjectHideFlags: 0
@@ -619,6 +620,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 7944629351800641224}
+  BaseVolume: 1
+  OneShot: 0
 --- !u!114 &9127461508458327000
 MonoBehaviour:
   m_ObjectHideFlags: 0
