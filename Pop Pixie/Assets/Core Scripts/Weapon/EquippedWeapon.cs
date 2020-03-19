@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class EquippedWeapon : MonoBehaviour {
 
+  public WeaponReload WeaponReload;
+
   public List<Weapon> AllWeapons;
   public List<int> UnlockedWeaponIds;
 
@@ -48,6 +50,7 @@ public class EquippedWeapon : MonoBehaviour {
   void ChangeWeaponIndex( int delta ) {
     CurrentWeaponIdIndex = RelativeWeaponIndex(delta);
     UpdateWeaponSprites();
+    WeaponReload.Interrupt();
   }
 
   void UpdateWeaponSprites() {

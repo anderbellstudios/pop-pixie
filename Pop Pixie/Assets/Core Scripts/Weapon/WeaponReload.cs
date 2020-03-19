@@ -47,6 +47,10 @@ public class WeaponReload : MonoBehaviour {
     rb.Visible = InProgress();
 	}
 
+  public void Interrupt() {
+    ReloadTimer.Stop();
+  }
+
   void BeginReload() {
     ReloadTimer.Reset();
     SoundController.Play( ReloadSound );
