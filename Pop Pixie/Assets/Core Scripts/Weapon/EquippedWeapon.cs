@@ -10,7 +10,7 @@ public class EquippedWeapon : MonoBehaviour {
   public List<Weapon> AllWeapons;
   public List<int> UnlockedWeaponIds;
 
-  public int CurrentWeaponIdIndex = 0;
+  public int CurrentWeaponIdIndex;
 
   public Weapon CurrentWeapon
     => LookupWeapon( MapUnlockedWeaponIndexToId(CurrentWeaponIdIndex) );
@@ -20,6 +20,8 @@ public class EquippedWeapon : MonoBehaviour {
   private ReloadIndicator ReloadIndicator;
 
   void Start() {
+    CurrentWeaponIdIndex = EquippedWeaponData.CurrentWeapon;
+
     WeaponInfoController = GameObject.Find("Weapon Info").GetComponent<WeaponInfoController>();
 
     AmmunitionBar = WeaponInfoController.AmmunitionBar;
@@ -50,6 +52,7 @@ public class EquippedWeapon : MonoBehaviour {
   void ChangeWeaponIndex( int delta ) {
     CurrentWeaponIdIndex = RelativeWeaponIndex(delta);
     UpdateWeaponSprites();
+    EquippedWeaponData.CurrentWeapon = CurrentWeaponIdIndex;
     WeaponReload.Interrupt();
   }
 
