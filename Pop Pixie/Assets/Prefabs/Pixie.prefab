@@ -101,6 +101,8 @@ GameObject:
   - component: {fileID: 433535405577736701}
   - component: {fileID: 50770596489405938}
   - component: {fileID: 114416280350640038}
+  - component: {fileID: 2030370164847529254}
+  - component: {fileID: 7334260204961459633}
   - component: {fileID: 114255718929856854}
   - component: {fileID: 3970238083396131980}
   - component: {fileID: 114007357892525228}
@@ -453,10 +455,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a80be76f8ddb3463a8f5fc17404f4839, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  JoystickThreshold: 0.1
-  MouseThreshold: 0.01
   Arrow: {fileID: 1214155085074384}
-  Cam: {fileID: 0}
+  JoystickWeaponDirectionManager: {fileID: 2030370164847529254}
+  CursorWeaponDirectionManager: {fileID: 7334260204961459633}
+--- !u!114 &2030370164847529254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1276747056135348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aca4fecadc7354b6795d7d7822b94be0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Threshold: 0.1
+--- !u!114 &7334260204961459633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1276747056135348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0df16a64df9904b389deb777f7f672ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Threshold: 0.01
 --- !u!114 &114255718929856854
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -547,7 +574,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98bbc2c1e63e98543830eec78d976795, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serializedGuid: 71a0d9da4b21e842970bf5dadbeed2c7
+  serializedGuid: e5ca590b16e1714c9ed59e28888019d0
 --- !u!1 &2682847657043907044
 GameObject:
   m_ObjectHideFlags: 0

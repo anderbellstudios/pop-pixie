@@ -3,5 +3,5 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public interface IDirectionManager {
-  Vector3 Direction { get; set; }
+  Vector3 Direction { get; }
 }
