@@ -5,12 +5,14 @@ using UnityEngine;
 
 public class GamePadButtonData {
 
-  public static KeyCode? GetKeyCode( string button ) {
-    return ConfigData.Current.Fetch( "game-pad-button-" + button );
+  private static readonly string keyPrefix = "game-pad-buton-v1.1-";
+
+  public static GamePadButton GetButton( string buttonName ) {
+    return ConfigData.Current.Fetch( keyPrefix + buttonName );
   }
 
-  public static void SetKeyCode( string button, KeyCode keyCode ) {
-    ConfigData.Current.Set( "game-pad-button-" + button, keyCode );
+  public static void SetButton( string buttonName, GamePadButton button ) {
+    ConfigData.Current.Set( keyPrefix + buttonName, button );
   }
 
 }

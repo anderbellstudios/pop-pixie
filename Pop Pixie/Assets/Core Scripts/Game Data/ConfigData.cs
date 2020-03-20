@@ -5,9 +5,13 @@ using UnityEngine;
 public class ConfigData : AData {
   public static ConfigData Current = new ConfigData();
 
+  private bool loadData = true;
+
   public override void BeforeFetch() {
-    if ( DataOperation().Exists() )
+    if ( loadData && DataOperation().Exists() ) {
+      loadData = false;
       DataOperation().Read();
+    }
   }
 
   public override void AfterUpdate() {

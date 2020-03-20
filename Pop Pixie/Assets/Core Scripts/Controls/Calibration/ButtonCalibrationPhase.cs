@@ -38,9 +38,14 @@ public class ButtonCalibrationPhase : APhase {
   }
 
   void ButtonPressed( KeyCode keyCode ) {
-    GamePadButtonData.SetKeyCode(
+    GamePadButton button = new GamePadButton() {
+      Type = GamePadButton.ButtonType.KeyCode,
+      KeyCode = keyCode
+    };
+
+    GamePadButtonData.SetButton(
       CurrentControl.Name,
-      (KeyCode) keyCode
+      button
     );
 
     NextControl();
