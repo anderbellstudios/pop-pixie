@@ -55,11 +55,6 @@ public class PauseMenuEvents : MonoBehaviour {
     OptionsData.SoundsVolume = volume;
   }
 
-  public void CalibrateController() {
-    UnloadScene();
-    SceneManager.LoadScene( "Controller Calibration", LoadSceneMode.Additive );
-  }
-
   public void QuitGame() {
     WrappedApplication.Quit();
   }
