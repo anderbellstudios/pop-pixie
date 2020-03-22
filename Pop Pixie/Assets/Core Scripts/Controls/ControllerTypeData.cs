@@ -10,7 +10,7 @@ public class ControllerTypeData {
   }
 
   public static String GetType() {
-    return ConfigData.Current.Fetch( "controller-type" );
+    return ConfigData.Current.Fetch( "controller-type", orSetEqualTo: "Xbox" );
   }
 
 }

@@ -4,11 +4,13 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 public class PauseMenuEvents : MonoBehaviour {
 
   public List<Button> Buttons;
   public PercentageButton MusicVolumeButton, SoundsVolumeButton;
+  public TMP_Text ButtonIconsText;
 
   bool InFocus;
 
@@ -20,6 +22,8 @@ public class PauseMenuEvents : MonoBehaviour {
 
     SoundsVolumeButton.Value = OptionsData.SoundsVolume;
     SoundsVolumeButton.UpdateValue();
+
+    UpdateButtonIconsText();
   }
 
   void Update() {
@@ -53,6 +57,16 @@ public class PauseMenuEvents : MonoBehaviour {
 
   public void SoundsVolumeChanged( decimal volume ) {
     OptionsData.SoundsVolume = volume;
+  }
+
+  public void ToggleButtonIcons() {
+    string oldType = ControllerTypeData.GetType();
+    ControllerTypeData.SetType( oldType == "Xbox" ? "PS" : "Xbox" );
+    UpdateButtonIconsText();
+  }
+
+  void UpdateButtonIconsText() {
+    ButtonIconsText.text = "Controller: " + ControllerTypeData.GetType();
   }
 
   public void QuitGame() {

@@ -23,10 +23,6 @@ public class WrappedInput : MonoBehaviour {
     return Player.GetAxis( axis );
   }
 
-  static string KeyboardButtonName( string button ) {
-    return "Kb+M " + button;
-  }
-
   public static string ControllerPrefix() {
     if ( Input.GetJoystickNames().Length > 0 ) {
       return ControllerTypeData.GetType();
