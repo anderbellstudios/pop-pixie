@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class FireableScheduler : MonoBehaviour {
 
+  public delegate void FireableEvent();
+  public event FireableEvent FireableRemoved = delegate {};
+  public event FireableEvent CycleFinished = delegate {};
+
   public float FireInterval;
   public float RespiteInterval;
 
@@ -16,6 +20,8 @@ public class FireableScheduler : MonoBehaviour {
   private int Phase = -1;
 
   public void RemoveFireable( AFireable fireable ) {
+    FireableRemoved();
+
     int fireable_index = Fireables.FindIndex( l => l == fireable );
 
     // Make sure that the fireable about to be fired next remains the same
@@ -48,8 +54,10 @@ public class FireableScheduler : MonoBehaviour {
   }
 
   void RunPhase() {
-    if ( Phase >= Fireables.Count )
+    if ( Phase >= Fireables.Count ) {
       Phase = -1;
+      CycleFinished();
+    }
 
     if ( !RespitePhase() ) {
       var fireable = Fireables[Phase];
