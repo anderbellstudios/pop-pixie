@@ -7,7 +7,6 @@ public class PlayerHitPointEvents : MonoBehaviour, IHitPointEvents {
 
   public MonoBehaviour HealthBar;
   public ScreenFade Fader;
-  public float TimeToDie;
 
   public void Updated (HitPoints hp) {
     var hb = (HUDBar) HealthBar;
@@ -24,9 +23,9 @@ public class PlayerHitPointEvents : MonoBehaviour, IHitPointEvents {
     SaveGame.WriteAutoSave();
 
     StateManager.SetState( State.Dying );
-    Fader.Fade("to black", 3.0f);
+    Fader.Fade("to black", 2.0f);
     AudioMixer.Current.FadeOut(1.0f);
-    Invoke("GameOverScreen", TimeToDie);
+    Invoke("GameOverScreen", 2.0f);
   }
 
   void GameOverScreen () {

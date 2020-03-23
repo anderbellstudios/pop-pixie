@@ -37,8 +37,8 @@ public class Level2Started : MonoBehaviour, IDialogueSequenceEventHandler {
         break;
 
       case 1:
-        Fader.Fade("to black", 1.0f);
-        Invoke("SwitchToMainCamera", 2.0f);
+        Fader.Fade("to black", 0.5f);
+        Invoke("SwitchToMainCamera", 0.5f);
         break;
     }
   }
@@ -52,6 +52,6 @@ public class Level2Started : MonoBehaviour, IDialogueSequenceEventHandler {
     MainCamera.enabled = true;
     CutsceneCamera.enabled = false;
 
-    Fader.Fade("from black", 1.0f);
+    Fader.Fade("from black", 0.5f);
   }
 }
