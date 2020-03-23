@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Level3MonologuePhase : APhase {
+public class Level3MonologuePhase : APhase, IDialogueSequenceEventHandler {
 
+  public DialogueManager Dialogue;
   public CameraPan Pan1;
   public CameraPan Pan2;
   public float DelayBeforePan1;
@@ -19,7 +20,12 @@ public class Level3MonologuePhase : APhase {
   }
 
   void Pan1Finished() {
-    Invoke("StartPan2", DelayBeforePan2);
+    Dialogue.Play("Dialogue/Level 3 Intro", this);
+  }
+
+  // Pan out after monologue
+  public void SequenceFinished () {
+    StartPan2();
   }
 
   void StartPan2() {
