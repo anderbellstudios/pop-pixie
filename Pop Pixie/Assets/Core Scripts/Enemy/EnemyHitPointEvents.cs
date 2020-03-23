@@ -11,6 +11,8 @@ public class EnemyHitPointEvents : MonoBehaviour, IHitPointEvents {
   public Collider2D Collider;
   public List<AudioClip> Sounds;
 
+  public bool IsDead = false;
+
   public void Updated (HitPoints hp) {
   }
 
@@ -26,6 +28,7 @@ public class EnemyHitPointEvents : MonoBehaviour, IHitPointEvents {
   }
 
   public void BecameZero (HitPoints hp) {
+    IsDead = true;
     disableAIs();
     Collider.enabled = false;
     DeathAnimation.Play();

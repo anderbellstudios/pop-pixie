@@ -46,7 +46,7 @@ public class GremlinSpawnScheduler : MonoBehaviour {
   }
 
   bool DestroyedAllGremlins() {
-    return SpawnedGremlins.All( x => x == null);
+    return SpawnedGremlins.All( x => EnemyUtils.IsDead(x) );
   }
 
 }

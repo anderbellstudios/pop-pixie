@@ -14,9 +14,7 @@ public class EnemiesKilled : MonoBehaviour {
     if (Triggered)
       return;
 
-    bool all_dead = Enemies.All(
-      enemy => enemy == null
-    );
+    bool all_dead = Enemies.All( x => EnemyUtils.IsDead(x) );
 
     if (all_dead) {
       Triggered = true;
