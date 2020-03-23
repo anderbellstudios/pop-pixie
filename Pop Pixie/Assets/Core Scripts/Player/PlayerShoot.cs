@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerShoot : MonoBehaviour {
 
   public BulletEmitter BulletEmitter;
+  public DirectionScatterer DirectionScatterer;
 
   private IntervalTimer FireTimer;
 
@@ -18,11 +19,14 @@ public class PlayerShoot : MonoBehaviour {
     if ( StateManager.Isnt( State.Playing ) )
       return;
 
-    FireTimer.Interval = CurrentWeapon().CooldownInterval();
+    Weapon weapon = CurrentWeapon();
+
+    FireTimer.Interval = weapon.CooldownInterval();
 
     if ( WrappedInput.GetButton("Fire") && CanShoot() ) {
       FireTimer.Reset();
-      BulletEmitter.Shoot( CurrentWeapon() );
+      DirectionScatterer.Angle = weapon.Scatter;
+      BulletEmitter.Shoot( weapon );
     }
 	}
 
@@ -36,7 +40,6 @@ public class PlayerShoot : MonoBehaviour {
     return true;
   }
 
-  Weapon CurrentWeapon() {
-    return gameObject.GetComponent<EquippedWeapon>().CurrentWeapon;
-  }
+  Weapon CurrentWeapon() 
+    => gameObject.GetComponent<EquippedWeapon>().CurrentWeapon;
 }

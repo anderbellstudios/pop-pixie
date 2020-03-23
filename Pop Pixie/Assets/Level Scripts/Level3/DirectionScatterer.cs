@@ -7,8 +7,7 @@ public class DirectionScatterer : MonoBehaviour, IDirectionManager {
   public float Angle;
 
   public Vector3 Direction {
-    get { return ScatteredDirection(); }
-    set {} // <-- I get the feeling this is what the interface segregation principle was designed to avoid. 
+    get => ScatteredDirection();
   }
 
   Vector3 ScatteredDirection() {

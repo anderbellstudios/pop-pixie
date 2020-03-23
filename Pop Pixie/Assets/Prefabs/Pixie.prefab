@@ -105,6 +105,7 @@ GameObject:
   - component: {fileID: 7334260204961459633}
   - component: {fileID: 114255718929856854}
   - component: {fileID: 3970238083396131980}
+  - component: {fileID: 8442990466088851527}
   - component: {fileID: 114007357892525228}
   - component: {fileID: 114176230308344078}
   - component: {fileID: 58994815713915488}
@@ -516,6 +517,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BulletEmitter: {fileID: 114007357892525228}
+  DirectionScatterer: {fileID: 8442990466088851527}
+--- !u!114 &8442990466088851527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1276747056135348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13863c3103d49429c9dc4a0576a8e9ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OriginalDirectionManager: {fileID: 114416280350640038}
+  Angle: 0
 --- !u!114 &114007357892525228
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -528,7 +544,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22cdc26fbfa9f4e27af75d658b31deff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DirectionManager: {fileID: 114416280350640038}
+  DirectionManager: {fileID: 8442990466088851527}
 --- !u!114 &114176230308344078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -574,7 +590,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98bbc2c1e63e98543830eec78d976795, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serializedGuid: e5ca590b16e1714c9ed59e28888019d0
+  serializedGuid: f5e31f6c8c41e8439e952715ca4c91f4
 --- !u!1 &2682847657043907044
 GameObject:
   m_ObjectHideFlags: 0
@@ -621,6 +637,7 @@ MonoBehaviour:
   FireRate: 2
   Capacity: 12
   Ammunition: 12
+  Scatter: 0
   BulletSpeed: 60
   BulletPrefab: {fileID: 1122145563382620, guid: 4f133c207442b40298bcf1a1c464fb47,
     type: 3}
@@ -845,9 +862,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5aa0a22babcab431ea13b3823163fd63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FireRate: 12
-  Capacity: 24
-  Ammunition: 24
+  FireRate: 24
+  Capacity: 48
+  Ammunition: 48
+  Scatter: 20
   BulletSpeed: 80
   BulletPrefab: {fileID: 1122145563382620, guid: 86b9f28736d2e4cd28d5f15171fccafc,
     type: 3}
@@ -898,6 +916,7 @@ MonoBehaviour:
   FireRate: 6
   Capacity: 36
   Ammunition: 36
+  Scatter: 0
   BulletSpeed: 60
   BulletPrefab: {fileID: 1122145563382620, guid: 86b9f28736d2e4cd28d5f15171fccafc,
     type: 3}
