@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Level3BossPhase : APhase, ISerializableComponent {
+public class Level3BossPhase : APhase, ISerializableComponent, IHitPointEvents {
 
   public string[] SerializableFields { get; } = { "JumpedDown" };
 
@@ -38,6 +38,16 @@ public class Level3BossPhase : APhase, ISerializableComponent {
 
   public override float ProgressBarValue() {
     return HitPoints.Current / HitPoints.Maximum;
+  }
+
+  public void Updated (HitPoints hp) {
+  }
+
+  public void Decreased (HitPoints hp) {
+  }
+
+  public void BecameZero (HitPoints hp) {
+    PhaseFinished();
   }
 
 }
