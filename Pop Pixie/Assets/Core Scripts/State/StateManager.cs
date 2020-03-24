@@ -16,6 +16,14 @@ public enum State : int {
 public class StateManager : MonoBehaviour {
   public static int State;
 
+  public bool SetInitialState = false;
+  public State InitialState = global::State.Playing;
+
+  void Awake() {
+    if ( SetInitialState )
+      StateManager.SetState( InitialState );
+  }
+
   public static bool Is(object state) {
     return State == (int)state;
   }
