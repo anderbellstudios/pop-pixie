@@ -13,12 +13,14 @@ public abstract class AInspectable : MonoBehaviour {
   void OnTriggerEnter2D (Collider2D other) {
     if ( other.tag == "Player" ) {
       _Nearby = true;
+      OnPlayerOver();
     }
   }
 
   void OnTriggerExit2D (Collider2D other) {
     if ( other.tag == "Player" ) {
       _Nearby = false;
+      OnPlayerOut();
     }
   }
 
@@ -38,5 +40,11 @@ public abstract class AInspectable : MonoBehaviour {
   }
 
   public abstract void OnInspect();
+
+  public virtual void OnPlayerOver() {
+  }
+
+  public virtual void OnPlayerOut() {
+  }
 
 }
