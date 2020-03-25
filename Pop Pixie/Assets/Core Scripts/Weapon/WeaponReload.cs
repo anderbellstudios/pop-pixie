@@ -8,7 +8,7 @@ public class WeaponReload : MonoBehaviour {
   public float Duration;
   public AudioClip ReloadSound;
   public SoundController SoundController;
-  public MonoBehaviour ReloadBar;
+  public HUDBar ReloadBar;
   public MovementManager MovementManager;
 
   IntervalTimer ReloadTimer;
@@ -28,8 +28,6 @@ public class WeaponReload : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-    var rb = (HUDBar) ReloadBar;
-
     ReloadTimer.IfElapsed( CurrentWeapon().Reload );
 
     if ( WrappedInput.GetButtonDown("Reload") && !InProgress() && CanReload() )
@@ -37,14 +35,14 @@ public class WeaponReload : MonoBehaviour {
 
     if ( InProgress() ) {
       if ( CanReload() ) {
-        rb.Progress = Progress();
+        ReloadBar.Progress = Progress();
       } else {
         ReloadTimer.Stop();
         SoundController.Stop();
       }
     }
 
-    rb.Visible = InProgress();
+    ReloadBar.Visible = InProgress();
 	}
 
   public void Interrupt() {

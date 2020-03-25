@@ -5,12 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class PlayerHitPointEvents : MonoBehaviour, IHitPointEvents {
 
-  public MonoBehaviour HealthBar;
+  public HUDBar HealthBar;
   public ScreenFade Fader;
 
   public void Updated (HitPoints hp) {
-    var hb = (HUDBar) HealthBar;
-    hb.Progress = hp.Current / hp.Maximum;
+    HealthBar.Progress = hp.Current / hp.Maximum;
   }
 
   public void Decreased (HitPoints hp) {
