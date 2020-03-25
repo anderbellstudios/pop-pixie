@@ -11,6 +11,10 @@ public class LooksAtPlayer : MonoBehaviour, IDirectionManager {
 
   public Vector3 Direction { get; set; }
 
+  void Start() {
+    player = GameObject.Find("Pixie");
+  }
+
 	void Update () {
     Accelerate( w_squared * RelativeAngle() );
     Accelerate( -k * Velocity );
