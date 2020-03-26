@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 public class DiscoveredItemsMenuEvents : MonoBehaviour, ILoreEventHandler {
 
@@ -24,7 +25,7 @@ public class DiscoveredItemsMenuEvents : MonoBehaviour, ILoreEventHandler {
 
     foreach ( var loreItem in LoreItemData.ReadLoreItems() ) {
       GameObject button = Instantiate( ButtonPrefab, ButtonGroup );
-      button.transform.Find("Text").GetComponent<Text>().text = loreItem.Name;
+      button.transform.Find("Label").GetComponent<TMP_Text>().text = loreItem.Name;
 
       var buttonHandler = button.GetComponent<DiscoveredItemButton>();
       buttonHandler.LoreItem = loreItem;
