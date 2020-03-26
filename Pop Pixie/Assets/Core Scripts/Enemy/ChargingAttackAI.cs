@@ -12,6 +12,7 @@ public class ChargingAttackAI : AEnemyAI, IRequiresLineOfMovementAI {
 
   public SoundController SoundPlayer;
   public List<AudioClip> Sounds;
+  public float ChanceToPlaySound = 0f;
 
   public AEnemyAI WhenAttackFinished;
 
@@ -55,12 +56,18 @@ public class ChargingAttackAI : AEnemyAI, IRequiresLineOfMovementAI {
   void PerformAttack() {
     DamageTarget( Damage );
 
-    // Play attack sound
-    int i = Random.Range(0, Sounds.Count);
-    var sound = Sounds[i];
-    SoundPlayer.Play(sound);
+    if ( ShouldPlaySound() ) {
+      // Play attack sound
+      int i = Random.Range(0, Sounds.Count);
+      var sound = Sounds[i];
+      SoundPlayer.Play(sound);
+    }
 
     RelinquishControlTo( WhenAttackFinished );
+  }
+
+  bool ShouldPlaySound() {
+    return UnityEngine.Random.value < ChanceToPlaySound;
   }
 
 }
