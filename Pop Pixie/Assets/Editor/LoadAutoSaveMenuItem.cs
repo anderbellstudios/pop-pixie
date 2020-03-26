@@ -26,7 +26,7 @@ public class LoadAutoSaveMenuItem : MonoBehaviour {
   public static void LoadAutoSave() {
     DoingLoadAutoSave = true;
     ResumeScene = EditorSceneManager.GetActiveScene().path;
-    EditorApplication.NewScene();
+    EditorSceneManager.NewScene( NewSceneSetup.DefaultGameObjects );
     EditorApplication.isPlaying = true;
   }
 

@@ -10,7 +10,6 @@ public abstract class AActivator : MonoBehaviour {
 
   public virtual bool IsActivated() {
     throw new System.NotImplementedException("No implementation provided for IsActivated");
-    return false;
   }
 
 }

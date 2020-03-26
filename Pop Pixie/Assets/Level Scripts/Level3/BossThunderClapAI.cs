@@ -33,7 +33,7 @@ public class BossThunderClapAI : AEnemyAI {
     ParticleSystem.Play();
 
     LineRenderer.enabled = true;
-    LineRenderer.SetWidth(0.075f, 0.075f);
+    SetLineWidth(0.075f);
   }
 
   public override void WhileInControl() {
@@ -49,8 +49,7 @@ public class BossThunderClapAI : AEnemyAI {
   }
 
   void AnimateLaser() {
-    float w = LineWidth * ( 1 - FiringTimer.Progress() );
-    LineRenderer.SetWidth(w, w);
+    SetLineWidth( LineWidth * ( 1 - FiringTimer.Progress() ) );
   }
 
   void FireLaser() {
@@ -76,6 +75,11 @@ public class BossThunderClapAI : AEnemyAI {
 
   public override void ControlRelinquished() {
     LineRenderer.enabled = false;
+  }
+
+  void SetLineWidth( float width ) {
+    LineRenderer.startWidth = width;
+    LineRenderer.endWidth = width;
   }
 
 }

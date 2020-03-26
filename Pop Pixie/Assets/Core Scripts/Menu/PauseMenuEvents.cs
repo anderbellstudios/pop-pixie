@@ -60,13 +60,13 @@ public class PauseMenuEvents : MonoBehaviour {
   }
 
   public void ToggleButtonIcons() {
-    string oldType = ControllerTypeData.GetType();
-    ControllerTypeData.SetType( oldType == "Xbox" ? "PS" : "Xbox" );
+    string oldType = ControllerTypeData.GetControllerType();
+    ControllerTypeData.SetControllerType( oldType == "Xbox" ? "PS" : "Xbox" );
     UpdateButtonIconsText();
   }
 
   void UpdateButtonIconsText() {
-    ButtonIconsText.text = "Controller: " + ControllerTypeData.GetType();
+    ButtonIconsText.text = "Controller: " + ControllerTypeData.GetControllerType();
   }
 
   public void QuitGame() {

@@ -25,7 +25,7 @@ public class WrappedInput : MonoBehaviour {
 
   public static string ControllerPrefix() {
     if ( Input.GetJoystickNames().Length > 0 ) {
-      return ControllerTypeData.GetType();
+      return ControllerTypeData.GetControllerType();
     } else {
       return null;
     }

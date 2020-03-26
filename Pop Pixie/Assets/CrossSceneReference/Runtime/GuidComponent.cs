@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// Disable warning:
+// 'PrefabType' is obsolete: 'PrefabType no longer tells everything about Prefab instance.'
+#pragma warning disable 0618
+
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -130,3 +134,5 @@ public class GuidComponent : MonoBehaviour, ISerializationCallbackReceiver
         GuidManager.Remove(guid);
     }
 }
+
+#pragma warning restore 0618

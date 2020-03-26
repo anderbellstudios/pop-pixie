@@ -5,6 +5,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 
+// Disable warning:
+// 'PrefabType' is obsolete: 'PrefabType no longer tells everything about Prefab instance.'
+#pragma warning disable 0618
+
 public class GuidReferenceTests
 {
     // Tests - make a new GUID
@@ -105,3 +109,5 @@ public class GuidReferenceTests
         AssetDatabase.DeleteAsset(prefabPath);
     }
 }
+
+#pragma warning restore 0618
