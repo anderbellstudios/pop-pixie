@@ -20,37 +20,29 @@ public class LaserBeam : MonoBehaviour {
     return Heading();
   }
 
-  public RaycastHit2D HitData() {
-    return Physics2D.Raycast(
-      transform.position,
-      Direction(),
-      Mathf.Infinity,
-      Physics2D.DefaultRaycastLayers & ~( 1 << 8 ) // exclude the enemy layer
-    );
-  }
+  public RaycastHit2D HitData() => Physics2D.Raycast(
+    transform.position,
+    Direction(),
+    Mathf.Infinity,
+    Physics2D.DefaultRaycastLayers & ~( 1 << 8 ) // exclude the enemy layer
+  );
 
-  GameObject HitGameObject() {
-    return CachedHitData.collider.gameObject;
-  }
+  GameObject HitGameObject() 
+    => CachedHitData.collider?.gameObject;
 
-  bool HitGameObjectIsPlayer() {
-    return HitGameObject().tag == "Player";
-  }
+  bool HitGameObjectIsPlayer() 
+    => HitGameObject()?.tag == "Player";
 
-  Vector3 Heading() {
-    return HitDistance() * Direction();
-  }
+  Vector3 Heading() 
+    => HitDistance() * Direction();
 
-  float HitDistance() {
-    return CachedHitData.distance;
-  }
+  float HitDistance() 
+    => CachedHitData.distance;
 
-  Vector3 Direction() {
-    return Rotation() * Vector3.right;
-  }
+  Vector3 Direction() 
+    => Rotation() * Vector3.right;
 
-  Quaternion Rotation() {
-    return Quaternion.AngleAxis( Angle, Vector3.forward );
-  }
+  Quaternion Rotation() 
+    => Quaternion.AngleAxis( Angle, Vector3.forward );
 
 }
