@@ -335,7 +335,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HealthBar: {fileID: 0}
   Fader: {fileID: 0}
-  TimeToDie: 2
 --- !u!114 &8199610652695165348
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -545,6 +544,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DirectionManager: {fileID: 8442990466088851527}
+  ShouldPlayPewSound: 1
+  SoundController: {fileID: 1022981015693294435}
 --- !u!114 &114176230308344078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -590,7 +591,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98bbc2c1e63e98543830eec78d976795, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serializedGuid: b9c5f9db712c25478a946e80898495a6
+  serializedGuid: 46ec6744d549b74887572301a0ecbb81
 --- !u!1 &2682847657043907044
 GameObject:
   m_ObjectHideFlags: 0
@@ -642,6 +643,7 @@ MonoBehaviour:
   BulletPrefab: {fileID: 1122145563382620, guid: 4f133c207442b40298bcf1a1c464fb47,
     type: 3}
   Sprite: {fileID: 21300000, guid: df72df70c0c824194bec0028f8cf14c8, type: 3}
+  ShootSound: {fileID: 8300000, guid: 1f32d9f278e2e4e4e98372376dcb5b7e, type: 3}
 --- !u!1 &5430817066112313784
 GameObject:
   m_ObjectHideFlags: 0
@@ -654,7 +656,7 @@ GameObject:
   - component: {fileID: 1022981015693294435}
   - component: {fileID: 6149833450684619798}
   m_Layer: 0
-  m_Name: Reload Sound
+  m_Name: Sounds
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -688,7 +690,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 6149833450684619798}
   BaseVolume: 1
-  OneShot: 0
+  OneShot: 1
 --- !u!82 &6149833450684619798
 AudioSource:
   m_ObjectHideFlags: 0
@@ -870,6 +872,7 @@ MonoBehaviour:
   BulletPrefab: {fileID: 1122145563382620, guid: 86b9f28736d2e4cd28d5f15171fccafc,
     type: 3}
   Sprite: {fileID: 21300000, guid: dc4d6fea76a1a40d397e7fc0aeb434c6, type: 3}
+  ShootSound: {fileID: 8300000, guid: 1f32d9f278e2e4e4e98372376dcb5b7e, type: 3}
 --- !u!1 &8701162086127039843
 GameObject:
   m_ObjectHideFlags: 0
@@ -921,3 +924,4 @@ MonoBehaviour:
   BulletPrefab: {fileID: 1122145563382620, guid: 86b9f28736d2e4cd28d5f15171fccafc,
     type: 3}
   Sprite: {fileID: 21300000, guid: 86e2a792633754f33a9ba311142fb9c5, type: 3}
+  ShootSound: {fileID: 8300000, guid: 1f32d9f278e2e4e4e98372376dcb5b7e, type: 3}
