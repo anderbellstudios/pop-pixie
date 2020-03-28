@@ -9,6 +9,7 @@ public class Roll : MonoBehaviour {
   public MonoBehaviour DirectionManager; 
   public MovementManager MovementManager;
   public TrailRenderer TrailRenderer;
+  public Animator Animator;
 
   public float Speed;
   public float Duration;
@@ -35,15 +36,15 @@ public class Roll : MonoBehaviour {
   }
 
   void InitateOpportunity() {
-    if ( !WrappedInput.GetButtonDown("Roll") )
-      return; // Since the player isn't trying to roll
+    if ( WrappedInput.GetButtonDown("Roll") && !Rolling && RollAllowed.CanRoll() )
+      StartRolling(); 
+  }
 
-    if ( !Rolling && RollAllowed.CanRoll() ) {
-      RollAllowed.DidRoll();
-      Rolling = true;
-      Invoke("StopRolling", Duration);
-    }
-
+  void StartRolling() {
+    RollAllowed.DidRoll();
+    Rolling = true;
+    Invoke("StopRolling", Duration);
+    Animator.SetTrigger("Roll");
   }
 
   void StopRolling() {
