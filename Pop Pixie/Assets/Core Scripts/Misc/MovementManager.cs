@@ -18,18 +18,17 @@ public class MovementManager : MonoBehaviour {
   }
 
   void FixedUpdate() {
-    if ( StateManager.Is( State.Playing ) ) {
-      Vector2 velocity = ModifiedSpeed() * Movement;
+    Vector2 velocity = ModifiedSpeed() * Movement;
 
-      if ( Animator != null ) {
-        int facing = (int) Math.Round( Mathf.Clamp( velocity.x, -1, 1 ) );
-        Animator.SetInteger("Direction", facing);
-
-        float speed = velocity.magnitude;
-        Animator?.SetBool("Walking", speed >= 0.5f);
-      }
-
+    if ( StateManager.Is( State.Playing ) ) 
       rb.MovePosition(rb.position + velocity * Time.fixedDeltaTime);
+
+    if ( Animator != null ) {
+      int direction = (int) Math.Round( Mathf.Clamp( velocity.x, -1, 1 ) );
+      Animator.SetInteger("Movement Direction", direction);
+
+      float speed = velocity.magnitude;
+      Animator?.SetBool("Walking", speed >= 0.5f);
     }
 
     Movement = Vector2.zero;

@@ -108,8 +108,8 @@ GameObject:
   - component: {fileID: 114007357892525228}
   - component: {fileID: 114176230308344078}
   - component: {fileID: 58994815713915488}
+  - component: {fileID: 8996175904474746811}
   - component: {fileID: 5808721027974633971}
-  - component: {fileID: 3260640560408966150}
   - component: {fileID: 7969404203038904401}
   m_Layer: 12
   m_Name: Pixie
@@ -535,6 +535,20 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &8996175904474746811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1276747056135348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd52476eaa1f94295960d7b32c31b44f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DirectionManager: {fileID: 114416280350640038}
+  Animator: {fileID: 5808721027974633971}
 --- !u!95 &5808721027974633971
 Animator:
   serializedVersion: 3
@@ -554,21 +568,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!111 &3260640560408966150
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1276747056135348}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 0}
-  m_Animations: []
-  m_WrapMode: 0
-  m_PlayAutomatically: 0
-  m_AnimatePhysics: 0
-  m_CullingType: 0
 --- !u!114 &7969404203038904401
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -581,7 +580,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98bbc2c1e63e98543830eec78d976795, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serializedGuid: a17b369814b969449580ec9037148076
+  serializedGuid: 9d325e5c23270443ada0ff4b7ab8a02c
 --- !u!1 &2682847657043907044
 GameObject:
   m_ObjectHideFlags: 0
