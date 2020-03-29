@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,7 +22,7 @@ public class MovementManager : MonoBehaviour {
       Vector2 velocity = ModifiedSpeed() * Movement;
 
       if ( Animator != null ) {
-        int facing = velocity.x >= 0 ? 1 : -1;
+        int facing = (int) Math.Round( Mathf.Clamp( velocity.x, -1, 1 ) );
         Animator.SetInteger("Direction", facing);
 
         float speed = velocity.magnitude;
