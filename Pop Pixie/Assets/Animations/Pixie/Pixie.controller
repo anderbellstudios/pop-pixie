@@ -18,13 +18,19 @@ AnimatorController:
   - m_Name: Facing
     m_Type: 3
     m_DefaultFloat: 0
-    m_DefaultInt: 0
+    m_DefaultInt: -1
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
   - m_Name: Walking
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
+  - m_Name: Movement Direction
+    m_Type: 3
+    m_DefaultFloat: 0
+    m_DefaultInt: -1
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
   m_AnimatorLayers:
@@ -64,7 +70,7 @@ AnimatorStateTransition:
     m_ConditionEvent: Roll
     m_EventTreshold: 0
   - m_ConditionMode: 6
-    m_ConditionEvent: Facing
+    m_ConditionEvent: Movement Direction
     m_EventTreshold: -1
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102610982503493926}
@@ -236,7 +242,7 @@ AnimatorStateTransition:
     m_ConditionEvent: Roll
     m_EventTreshold: 0
   - m_ConditionMode: 3
-    m_ConditionEvent: Facing
+    m_ConditionEvent: Movement Direction
     m_EventTreshold: -1
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102689350678029842}
@@ -314,7 +320,7 @@ AnimatorStateTransition:
     m_ConditionEvent: Roll
     m_EventTreshold: 0
   - m_ConditionMode: 3
-    m_ConditionEvent: Facing
+    m_ConditionEvent: Movement Direction
     m_EventTreshold: -1
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102689350678029842}
@@ -480,7 +486,7 @@ AnimatorStateTransition:
     m_ConditionEvent: Roll
     m_EventTreshold: 0
   - m_ConditionMode: 6
-    m_ConditionEvent: Facing
+    m_ConditionEvent: Movement Direction
     m_EventTreshold: -1
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102610982503493926}
