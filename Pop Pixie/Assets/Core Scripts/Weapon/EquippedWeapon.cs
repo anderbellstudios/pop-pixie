@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class EquippedWeapon : MonoBehaviour {
 
   public WeaponReload WeaponReload;
+  public SpriteRenderer InHandSpriteRenderer;
 
   public List<Weapon> AllWeapons;
   public List<int> UnlockedWeaponIds;
@@ -57,6 +58,8 @@ public class EquippedWeapon : MonoBehaviour {
   }
 
   void UpdateWeaponSprites() {
+    InHandSpriteRenderer.sprite = CurrentWeapon.InHandSprite;
+
     Sprite prev = null, active = null, next = null;
 
     active = RelativeWeaponSprite(0);

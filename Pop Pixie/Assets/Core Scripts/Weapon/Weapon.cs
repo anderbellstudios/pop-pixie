@@ -12,6 +12,7 @@ public class Weapon : MonoBehaviour {
   public float BulletSpeed;
   public GameObject BulletPrefab;
   public Sprite Sprite;
+  public Sprite InHandSprite;
   public AudioClip ShootSound;
 
   public float CooldownInterval() 
