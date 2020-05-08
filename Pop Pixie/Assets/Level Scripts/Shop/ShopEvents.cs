@@ -6,7 +6,10 @@ using UnityEngine.SceneManagement;
 public class ShopEvents : GenericMenuEvents {
 
   public void CeasePerusal() {
-    FadeOut( () => SceneManager.LoadScene("Elevator") );
+    FadeOut( () => {
+      SaveGame.ReadSave();
+      SceneData.Load();
+    });
   }
 
 }
