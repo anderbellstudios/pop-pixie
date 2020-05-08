@@ -15,4 +15,8 @@ public class ElevatorEvents : GenericMenuEvents {
     });
   }
 
+  public void QuitGame() {
+    FadeOut(WrappedApplication.Quit);
+  }
+
 }
