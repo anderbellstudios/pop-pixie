@@ -865,6 +865,7 @@ GameObject:
   m_Component:
   - component: {fileID: 829235695}
   - component: {fileID: 829235696}
+  - component: {fileID: 829235694}
   m_Layer: 0
   m_Name: SceneEvents
   m_TagString: Untagged
@@ -872,6 +873,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &829235694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 829235693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98bbc2c1e63e98543830eec78d976795, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializedGuid: 75b0bfa87b2f084fb948f70abd2ae74f
 --- !u!4 &829235695
 Transform:
   m_ObjectHideFlags: 0
@@ -1565,7 +1579,7 @@ PrefabInstance:
     - target: {fileID: 1099072996498982214, guid: 190dea2662b46471eb7555ea0d812ac5,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: NextLevel
+      value: Continue
       objectReference: {fileID: 0}
     - target: {fileID: 1406071384081365691, guid: 190dea2662b46471eb7555ea0d812ac5,
         type: 3}
