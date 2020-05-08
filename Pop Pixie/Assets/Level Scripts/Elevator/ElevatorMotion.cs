@@ -8,31 +8,29 @@ public class ElevatorMotion : MonoBehaviour {
   public float Amplitude;
   public float CorrectingFactor;
   public float MinInterval, MaxInterval;
-  public Rigidbody2D Body;
 
-  private Vector3 InitialPosition;
+  private Vector3 Displacement;
   private DateTime LastWobbled;
   private float WobbleInterval;
-
-  void Start () {
-    InitialPosition = transform.position;
-  }
 
   // Update is called once per frame
   void Update () {
     if ( ShouldWobble() ) {
       UpdateWobbleInterval();
 
-      transform.Translate( new Vector3(
+      Displace(new Vector3(
         RandomNoise(),
         RandomNoise(),
         0
       ));
     }
 
-    Body.velocity = ( 
-      CorrectingFactor * ( InitialPosition - transform.position )
-    );
+    Displace(CorrectingFactor * -1 * Displacement);
+  }
+
+  void Displace(Vector3 amount) {
+    Displacement += amount;
+    transform.Translate(amount);
   }
 
   bool ShouldWobble () {
