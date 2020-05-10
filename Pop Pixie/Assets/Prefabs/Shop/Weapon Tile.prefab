@@ -65,7 +65,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: 500
+  m_text: 123
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7a8d2e5ee947345d79a1d843d46e6099, type: 2}
   m_sharedMaterial: {fileID: 21568142317124202, guid: 7a8d2e5ee947345d79a1d843d46e6099,
@@ -245,6 +245,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5169084372610617157}
   - component: {fileID: 5169084372610617156}
+  - component: {fileID: 2326310209689597703}
   - component: {fileID: 5169084372610617153}
   - component: {fileID: 5169084372610617158}
   - component: {fileID: 5169084372610617159}
@@ -285,6 +286,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5169084372610617162}
   m_CullTransparentMesh: 0
+--- !u!114 &2326310209689597703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5169084372610617162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43fa7a75b2aed41db8a04a53ab53d0fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Sprite: {fileID: 21300000, guid: b3d79b3b1c2ec46c293b0d23fbd37a72, type: 3}
+  Price: 123
+  Bought: 0
+  WeaponImage: {fileID: 5169084372902730756}
+  PriceLabel: {fileID: 2192419179216285116}
+  TickImage: {fileID: 6472886636442640229}
 --- !u!114 &5169084372610617153
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -324,7 +343,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5169084372529406383}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2326310209689597703}
+        m_MethodName: ToggleBought_TESTING_ONLY
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &5169084372610617158
@@ -435,7 +465,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: df72df70c0c824194bec0028f8cf14c8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b3d79b3b1c2ec46c293b0d23fbd37a72, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
