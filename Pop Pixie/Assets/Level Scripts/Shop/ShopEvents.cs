@@ -21,7 +21,7 @@ public class ShopEvents : GenericMenuEvents {
 
   public void CeasePerusal() {
     FadeOut( () => {
-      SaveGame.ReadSave();
+      SaveGame.WriteSave();
       SceneData.Load();
     });
   }
