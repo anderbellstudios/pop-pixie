@@ -12,4 +12,12 @@ public class ShopEvents : GenericMenuEvents {
     });
   }
 
+  public void OnWeaponSelect( WeaponTile weaponTile ) {
+    Debug.Log(weaponTile);
+  }
+
+  public void OnWeaponDeselect( WeaponTile weaponTile ) {
+    Debug.Log("-" + weaponTile);
+  }
+
 }

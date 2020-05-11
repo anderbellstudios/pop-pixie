@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using TMPro;
 
 [ExecuteInEditMode]
-public class WeaponTile : MonoBehaviour {
+public class WeaponTile : MonoBehaviour, ISelectHandler, IDeselectHandler {
 
   public Sprite Sprite;
   public int Price;
@@ -27,5 +28,18 @@ public class WeaponTile : MonoBehaviour {
   public void ToggleBought_TESTING_ONLY() {
     Bought = !Bought;
   }
+
+  public void OnSelect(BaseEventData eventData) {
+    MaybeShopEvents.If( shopEvents => shopEvents.OnWeaponSelect(this) );
+  }
+
+  public void OnDeselect(BaseEventData eventData) {
+    MaybeShopEvents.If( shopEvents => shopEvents.OnWeaponDeselect(this) );
+  }
+
+  Maybe<ShopEvents> MaybeShopEvents
+    => Maybe<ShopEvents>.ofNullable(
+      GameObject.Find("ShopEvents")?.GetComponent<ShopEvents>()
+    );
 
 }
