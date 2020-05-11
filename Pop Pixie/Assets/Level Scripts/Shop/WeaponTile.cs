@@ -25,8 +25,8 @@ public class WeaponTile : MonoBehaviour, ISelectHandler, IDeselectHandler {
     TickImage.enabled = Bought;
   }
 
-  public void ToggleBought_TESTING_ONLY() {
-    Bought = !Bought;
+  public void Interact() {
+    MaybeShopEvents.If( shopEvents => shopEvents.OnWeaponInteract(this) );
   }
 
   public void OnSelect(BaseEventData eventData) {
