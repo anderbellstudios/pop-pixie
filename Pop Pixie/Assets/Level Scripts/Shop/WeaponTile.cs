@@ -8,6 +8,7 @@ using TMPro;
 [ExecuteInEditMode]
 public class WeaponTile : MonoBehaviour, ISelectHandler, IDeselectHandler {
 
+  public string Name = "Untitled weapon";
   public Sprite Sprite;
   public int Price;
   public bool Bought;

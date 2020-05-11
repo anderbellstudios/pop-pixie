@@ -6,11 +6,15 @@ using TMPro;
 
 public class ShopEvents : GenericMenuEvents {
 
+  public TMP_Text WeaponNameLabel;
   public TMP_Text BuySellLabel;
 
   private Maybe<WeaponTile> SelectedWeapon;
 
   void Update() {
+    string weaponName = SelectedWeapon.Map(w => w.Name).GetOrDefault("");
+    WeaponNameLabel.text = weaponName;
+
     bool bought = SelectedWeapon.Map(w => w.Bought).GetOrDefault(false);
     BuySellLabel.text = bought ? "Sell" : "Buy";
   }
