@@ -19,7 +19,11 @@ public class RingPullsData {
   }
 
   public static void Increment() {
-    SetAmount( Amount() + 1 );
+    Modify(1);
+  }
+
+  public static void Modify(int delta) {
+    SetAmount( Amount() + delta );
   }
 
 }

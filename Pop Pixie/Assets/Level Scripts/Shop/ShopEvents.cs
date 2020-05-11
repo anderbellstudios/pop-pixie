@@ -26,10 +26,6 @@ public class ShopEvents : GenericMenuEvents {
     });
   }
 
-  public void OnWeaponInteract( WeaponTile weaponTile ) {
-    weaponTile.Bought = !weaponTile.Bought;
-  }
-
   public void OnWeaponSelect( WeaponTile weaponTile ) {
     SelectedWeapon = Maybe<WeaponTile>.Some( weaponTile );
   }

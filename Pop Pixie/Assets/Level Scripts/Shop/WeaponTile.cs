@@ -27,7 +27,25 @@ public class WeaponTile : MonoBehaviour, ISelectHandler, IDeselectHandler {
   }
 
   public void Interact() {
-    MaybeShopEvents.If( shopEvents => shopEvents.OnWeaponInteract(this) );
+    if (Bought) {
+      Sell();
+    } else {
+      Buy();
+    }
+  }
+
+  void Buy() {
+    if ( RingPullsData.Amount() >= Price ) {
+      Bought = true;
+      RingPullsData.Modify(-1 * Price);
+    } else {
+      Debug.Log("You can't afford it.");
+    }
+  }
+
+  void Sell() {
+    Bought = false;
+    RingPullsData.Modify(Price);
   }
 
   public void OnSelect(BaseEventData eventData) {
