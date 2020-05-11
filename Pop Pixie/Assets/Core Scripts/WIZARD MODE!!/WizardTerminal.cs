@@ -43,6 +43,10 @@ public class WizardTerminal : MonoBehaviour {
         commandManager = new WizSkip();
         break;
 
+      case "set_money":
+        commandManager = new WizSetMoney();
+        break;
+
       default:
         commandManager = new WizUnknownCommand();
         break;
@@ -71,7 +75,7 @@ class WizUnknownCommand : IWizardTerminalCommand {
 
 class WizHelp : IWizardTerminalCommand {
   public string Main( string[] args ) {
-    return "- help\n- skip <scene name>\n";
+    return "- help\n- skip <scene name>\n- set_money <new value>\n";
   }
 }
 
@@ -83,6 +87,23 @@ class WizSkip : IWizardTerminalCommand {
     string sceneName = string.Join( " ", args.Skip(1) );
     GDCall.ExpectFirstTime();
     SceneManager.LoadScene(sceneName);
+
+    return "";
+  }
+}
+
+class WizSetMoney : IWizardTerminalCommand {
+  public string Main( string[] args ) {
+    if ( args.Length < 2 )
+      return "Usage: set_money <new value>\n";
+
+    int amount = 0;
+
+    if ( !Int32.TryParse( args[1], out amount ) || amount < 0 ) {
+      return "Invalid amount specified.\n";
+    }
+
+    RingPullsData.SetAmount(amount);
 
     return "";
   }
