@@ -19,12 +19,13 @@ public class PlayerShoot : MonoBehaviour {
     if ( StateManager.Isnt( State.Playing ) )
       return;
 
-    Weapon weapon = CurrentWeapon();
+    Weapon weapon = CurrentWeapon().Weapon;
 
     FireTimer.Interval = weapon.CooldownInterval();
 
     if ( WrappedInput.GetButton("Fire") && CanShoot() ) {
       FireTimer.Reset();
+      CurrentWeapon().ExpendBullet();
       DirectionScatterer.Angle = weapon.Scatter;
       BulletEmitter.Shoot( weapon );
     }
@@ -40,6 +41,6 @@ public class PlayerShoot : MonoBehaviour {
     return true;
   }
 
-  Weapon CurrentWeapon() 
+  PlayerWeapon CurrentWeapon() 
     => gameObject.GetComponent<EquippedWeapon>().CurrentWeapon;
 }

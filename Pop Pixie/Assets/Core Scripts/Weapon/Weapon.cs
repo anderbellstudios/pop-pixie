@@ -1,10 +1,12 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Weapon : MonoBehaviour {
+[CreateAssetMenu(menuName = "ScriptableObjects/Weapon", order = 1)]
+public class Weapon : ScriptableObject {
 
+  public string Id;
   public float FireRate;
   public int Capacity;
   public int Ammunition;

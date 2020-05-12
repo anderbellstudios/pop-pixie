@@ -70,7 +70,7 @@ public class WeaponReload : MonoBehaviour {
     );
   }
 
-  Weapon CurrentWeapon() {
+  PlayerWeapon CurrentWeapon() {
     return gameObject.GetComponent<EquippedWeapon>().CurrentWeapon;
   }
 }

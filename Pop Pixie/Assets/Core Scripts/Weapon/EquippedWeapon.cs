@@ -8,20 +8,24 @@ public class EquippedWeapon : MonoBehaviour {
   public WeaponReload WeaponReload;
   public SpriteRenderer InHandSpriteRenderer;
 
-  public List<Weapon> AllWeapons;
-  public List<int> UnlockedWeaponIds;
+  public PlayerWeapons PlayerWeapons;
 
-  public int CurrentWeaponIdIndex;
+  public List<PlayerWeapon> AvailableWeapons()
+    => PlayerWeapons.AvailableWeapons();
 
-  public Weapon CurrentWeapon
-    => LookupWeapon( MapUnlockedWeaponIndexToId(CurrentWeaponIdIndex) );
+  public int CurrentWeaponIndex;
+
+  public PlayerWeapon CurrentWeapon
+    => AvailableWeapons().Count > CurrentWeaponIndex
+        ? AvailableWeapons()[CurrentWeaponIndex]
+        : AvailableWeapons()[0];
 
   private WeaponInfoController WeaponInfoController;
   private HUDBar AmmunitionBar;
   private ReloadIndicator ReloadIndicator;
 
   void Start() {
-    CurrentWeaponIdIndex = EquippedWeaponData.CurrentWeapon;
+    CurrentWeaponIndex = EquippedWeaponData.CurrentWeapon;
 
     WeaponInfoController = GameObject.Find("Weapon Info").GetComponent<WeaponInfoController>();
 
@@ -51,9 +55,9 @@ public class EquippedWeapon : MonoBehaviour {
   }
 
   void ChangeWeaponIndex( int delta ) {
-    CurrentWeaponIdIndex = RelativeWeaponIndex(delta);
+    CurrentWeaponIndex = RelativeWeaponIndex(delta);
     UpdateWeaponSprites();
-    EquippedWeaponData.CurrentWeapon = CurrentWeaponIdIndex;
+    EquippedWeaponData.CurrentWeapon = CurrentWeaponIndex;
     WeaponReload.Interrupt();
   }
 
@@ -64,10 +68,10 @@ public class EquippedWeapon : MonoBehaviour {
 
     active = RelativeWeaponSprite(0);
 
-    if ( UnlockedWeaponIds.Count >= 2 )
+    if ( AvailableWeapons().Count >= 2 )
       next = RelativeWeaponSprite(1);
 
-    if ( UnlockedWeaponIds.Count >= 3 )
+    if ( AvailableWeapons().Count >= 3 )
       prev = RelativeWeaponSprite(-1);
 
     WeaponInfoController.SetWeaponSprites( prev, active, next );
@@ -78,23 +82,15 @@ public class EquippedWeapon : MonoBehaviour {
     int positiveMod( int a, int n ) => (a + n) % n;
 
     return positiveMod(
-      CurrentWeaponIdIndex + delta,
-      UnlockedWeaponIds.Count
+      CurrentWeaponIndex + delta,
+      AvailableWeapons().Count
     );
   }
 
   Sprite RelativeWeaponSprite( int delta ) {
-    return LookupWeapon(
-      MapUnlockedWeaponIndexToId(
-        RelativeWeaponIndex(delta)
-      )
-    ).Sprite;
+    return AvailableWeapons()[
+      RelativeWeaponIndex(delta)
+    ].Sprite;
   }
-
-  private int MapUnlockedWeaponIndexToId( int index )
-    => UnlockedWeaponIds[ index ];
-
-  private Weapon LookupWeapon( int id )
-    => AllWeapons[ id ];
 
 }

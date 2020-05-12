@@ -14,7 +14,6 @@ public class BulletEmitter : MonoBehaviour {
 	public void Shoot( Weapon weapon ) {
     Weapon = weapon;
 
-    Weapon.ExpendBullet();
     InstantiateBullet();
     if ( ShouldPlayPewSound ) PlayPewSound();
   }
