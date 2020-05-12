@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [CreateAssetMenu(menuName = "ScriptableObjects/Weapon", order = 1)]
+[System.Serializable]
 public class Weapon : ScriptableObject {
 
   public string Id;
