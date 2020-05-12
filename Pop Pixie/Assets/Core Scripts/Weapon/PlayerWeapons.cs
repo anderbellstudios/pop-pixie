@@ -11,10 +11,17 @@ public class PlayerWeapons : MonoBehaviour {
   private List<PlayerWeapon> _AvailableWeapons;
   public List<PlayerWeapon> AvailableWeapons() {
     if (_AvailableWeapons == null) {
-      _AvailableWeapons = AllWeapons.Select(w => new PlayerWeapon(w)).ToList();
+      _AvailableWeapons = AllWeapons
+        .Where( w => IsAvailable(w) )
+        .Select( w => new PlayerWeapon(w) )
+        .ToList();
     }
 
     return _AvailableWeapons;
+  }
+
+  bool IsAvailable(Weapon weapon) {
+    return weapon.StartingWeapon || BoughtWeaponsData.IsBought(weapon.Id);
   }
 
 }

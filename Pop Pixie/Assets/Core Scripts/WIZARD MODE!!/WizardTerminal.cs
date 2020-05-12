@@ -47,6 +47,10 @@ public class WizardTerminal : MonoBehaviour {
         commandManager = new WizSetMoney();
         break;
 
+      case "buy_weapon":
+        commandManager = new WizBuyWeapon();
+        break;
+
       default:
         commandManager = new WizUnknownCommand();
         break;
@@ -75,7 +79,7 @@ class WizUnknownCommand : IWizardTerminalCommand {
 
 class WizHelp : IWizardTerminalCommand {
   public string Main( string[] args ) {
-    return "- help\n- skip <scene name>\n- set_money <new value>\n";
+    return "- help\n- skip <scene name>\n- set_money <new value>\n- buy_weapon <weapon id>\n";
   }
 }
 
@@ -104,6 +108,17 @@ class WizSetMoney : IWizardTerminalCommand {
     }
 
     RingPullsData.SetAmount(amount);
+
+    return "";
+  }
+}
+
+class WizBuyWeapon : IWizardTerminalCommand {
+  public string Main( string[] args ) {
+    if ( args.Length < 2 )
+      return "Usage: buy_weapon <weapon id>\n";
+
+    BoughtWeaponsData.SetBought(args[1], true);
 
     return "";
   }

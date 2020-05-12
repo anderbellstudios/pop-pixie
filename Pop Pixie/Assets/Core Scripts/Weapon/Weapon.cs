@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class Weapon : ScriptableObject {
 
   public string Id;
+  public bool StartingWeapon = false;
   public float FireRate;
   public int Capacity;
   public float Scatter = 0;
