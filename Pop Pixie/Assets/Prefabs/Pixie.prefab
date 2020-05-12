@@ -456,8 +456,6 @@ MonoBehaviour:
   InHandSpriteRenderer: {fileID: 2362158901014011680}
   AllWeapons:
   - {fileID: 7015583668464638585}
-  - {fileID: 2513013871550325791}
-  - {fileID: 6991337029745986231}
   UnlockedWeaponIds: 000000000100000002000000
   CurrentWeaponIdIndex: 0
 --- !u!114 &3970238083396131980
@@ -581,7 +579,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98bbc2c1e63e98543830eec78d976795, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serializedGuid: 370fa0e07163bf4ebd8a6e661cd010d7
+  serializedGuid: a874b80568af354c8dd1db943d44adb6
 --- !u!1 &242307965977937915
 GameObject:
   m_ObjectHideFlags: 0
@@ -854,64 +852,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 621356775703634870}
-  - {fileID: 2627541251758165471}
-  - {fileID: 2286949807848078293}
   m_Father: {fileID: 4143460359601258}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &8266935504964748869
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2286949807848078293}
-  - component: {fileID: 6991337029745986231}
-  m_Layer: 0
-  m_Name: Untitled Weapon 2
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2286949807848078293
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8266935504964748869}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 96797809834597806}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6991337029745986231
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8266935504964748869}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5aa0a22babcab431ea13b3823163fd63, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  FireRate: 24
-  Capacity: 48
-  Ammunition: 48
-  Scatter: 20
-  BulletSpeed: 80
-  BulletPrefab: {fileID: 1122145563382620, guid: 86b9f28736d2e4cd28d5f15171fccafc,
-    type: 3}
-  Sprite: {fileID: 21300000, guid: dc4d6fea76a1a40d397e7fc0aeb434c6, type: 3}
-  InHandSprite: {fileID: 21300000, guid: c1a6a10b9e4674a2983f90824c1603e1, type: 3}
-  ShootSound: {fileID: 8300000, guid: fb7da49f585a94666826fee4cfe420ad, type: 3}
 --- !u!1 &8628589527226356324
 GameObject:
   m_ObjectHideFlags: 0
@@ -991,59 +934,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &8701162086127039843
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2627541251758165471}
-  - component: {fileID: 2513013871550325791}
-  m_Layer: 0
-  m_Name: Untitled Weapon 1
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2627541251758165471
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8701162086127039843}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 96797809834597806}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2513013871550325791
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8701162086127039843}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5aa0a22babcab431ea13b3823163fd63, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  FireRate: 6
-  Capacity: 36
-  Ammunition: 36
-  Scatter: 0
-  BulletSpeed: 60
-  BulletPrefab: {fileID: 1122145563382620, guid: 86b9f28736d2e4cd28d5f15171fccafc,
-    type: 3}
-  Sprite: {fileID: 21300000, guid: 86e2a792633754f33a9ba311142fb9c5, type: 3}
-  InHandSprite: {fileID: 21300000, guid: 1580eff0368c04da6b6e1577d65af0c2, type: 3}
-  ShootSound: {fileID: 8300000, guid: fb7da49f585a94666826fee4cfe420ad, type: 3}
 --- !u!1001 &8586033814958976748
 PrefabInstance:
   m_ObjectHideFlags: 0
