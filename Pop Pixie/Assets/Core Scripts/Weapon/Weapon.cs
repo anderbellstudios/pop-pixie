@@ -9,6 +9,7 @@ public class Weapon : ScriptableObject {
 
   public string Id;
   public bool StartingWeapon = false;
+  public float Damage;
   public float FireRate;
   public int Capacity;
   public float Scatter = 0;

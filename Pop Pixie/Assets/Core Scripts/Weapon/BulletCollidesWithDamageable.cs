@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BulletCollidesWithDamageable : MonoBehaviour {
 
-  public float Damage;
+  public BulletData BulletData;
   public GameObject Explosion;
 
   void OnCollisionEnter2D (Collision2D col) {
@@ -15,7 +15,7 @@ public class BulletCollidesWithDamageable : MonoBehaviour {
     var hp = col.gameObject.GetComponent<HitPoints>();
 
     if ( hp != null ) {
-      hp.Damage( Damage );
+      hp.Damage( BulletData.Damage );
     }
   }
 

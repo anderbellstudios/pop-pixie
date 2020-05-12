@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7944514050088445212}
   - component: {fileID: 8876649700796538210}
   - component: {fileID: 8819938017500365010}
+  - component: {fileID: 6818582875802437754}
   - component: {fileID: 8838713438586547750}
   m_Layer: 10
   m_Name: GenericBullet
@@ -73,15 +74,15 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 7
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 1969fb4e6a8f0481bb82f2ce3e1bcdb0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 3.2, y: 3.2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!50 &8884931971228052092
@@ -149,9 +150,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2521b2f47bb4e451f8a81cc35d09c8fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damage: 0
+  BulletData: {fileID: 6818582875802437754}
   Explosion: {fileID: 5909980808810194523, guid: 9a75ea4552b8c43029b9cf003f9ec909,
     type: 3}
+--- !u!114 &6818582875802437754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8934373914239993322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a1d9d531b1314b909e3abfab19b9fa8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Damage: 0
 --- !u!96 &8838713438586547750
 TrailRenderer:
   serializedVersion: 2
