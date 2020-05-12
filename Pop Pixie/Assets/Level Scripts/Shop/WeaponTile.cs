@@ -9,6 +9,8 @@ using TMPro;
 public class WeaponTile : MonoBehaviour, ISelectHandler, IDeselectHandler {
 
   public string Name = "Untitled weapon";
+  public Weapon Weapon;
+  public bool InStock = false;
   public Sprite Sprite;
   public int Price;
   public bool Bought;
@@ -17,10 +19,19 @@ public class WeaponTile : MonoBehaviour, ISelectHandler, IDeselectHandler {
   public TMP_Text PriceLabel;
   public MonoBehaviour TickImage;
 
-  void Update() {
+  void Awake() {
     WeaponImage.sprite = Sprite;
     PriceLabel.text = Price.ToString();
 
+    // If the weapon is null, Bought is false
+    Bought = Maybe<Weapon>.ofNullable(Weapon)
+      .Map( w => BoughtWeaponsData.IsBought(w.Id) )
+      .GetOrDefault(false);
+
+    UpdateBoughtIndicator();
+  }
+
+  void UpdateBoughtIndicator() {
     byte opacity = (byte) (Bought ? 64 : 255);
     WeaponImage.color = new Color32(255, 255, 255, opacity);
     TickImage.enabled = Bought;
@@ -30,22 +41,51 @@ public class WeaponTile : MonoBehaviour, ISelectHandler, IDeselectHandler {
     if (Bought) {
       Sell();
     } else {
+      AttemptBuy();
+    }
+
+    UpdateBoughtIndicator();
+  }
+
+  void AttemptBuy() {
+    string reason = "";
+
+    if ( CanBuy(out reason) ) {
       Buy();
+    } else {
+      Debug.Log(reason);
     }
   }
 
-  void Buy() {
-    if ( RingPullsData.Amount() >= Price ) {
-      Bought = true;
-      RingPullsData.Modify(-1 * Price);
-    } else {
-      Debug.Log("You can't afford it.");
+  bool CanBuy(out string reason) {
+    if (!InStock) {
+      reason = "That's out of stock.";
+      return false;
     }
+
+    if ( RingPullsData.Amount() < Price ) {
+      reason = "You can't afford it.";
+      return false;
+    }
+
+    reason = "";
+    return true;
+  }
+
+  void Buy() {
+    Bought = true;
+    SetBoughtData(true);
+    RingPullsData.Modify(-1 * Price);
   }
 
   void Sell() {
     Bought = false;
+    SetBoughtData(false);
     RingPullsData.Modify(Price);
+  }
+
+  void SetBoughtData(bool value) {
+    BoughtWeaponsData.SetBought(Weapon.Id, value);
   }
 
   public void OnSelect(BaseEventData eventData) {
