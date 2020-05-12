@@ -13,6 +13,10 @@ public class WeaponTile : MonoBehaviour, ISelectHandler, IDeselectHandler {
   public bool InStock = false;
   public Sprite Sprite;
   public int Price;
+
+  [TextArea]
+  public string Description;
+
   public bool Bought;
 
   public Image WeaponImage;
@@ -38,54 +42,9 @@ public class WeaponTile : MonoBehaviour, ISelectHandler, IDeselectHandler {
   }
 
   public void Interact() {
-    if (Bought) {
-      Sell();
-    } else {
-      AttemptBuy();
-    }
+    MaybeShopEvents.If( shopEvents => shopEvents.InteractWithWeapon(this) );
 
     UpdateBoughtIndicator();
-  }
-
-  void AttemptBuy() {
-    string reason = "";
-
-    if ( CanBuy(out reason) ) {
-      Buy();
-    } else {
-      Debug.Log(reason);
-    }
-  }
-
-  bool CanBuy(out string reason) {
-    if (!InStock) {
-      reason = "That's out of stock.";
-      return false;
-    }
-
-    if ( RingPullsData.Amount() < Price ) {
-      reason = "You can't afford it.";
-      return false;
-    }
-
-    reason = "";
-    return true;
-  }
-
-  void Buy() {
-    Bought = true;
-    SetBoughtData(true);
-    RingPullsData.Modify(-1 * Price);
-  }
-
-  void Sell() {
-    Bought = false;
-    SetBoughtData(false);
-    RingPullsData.Modify(Price);
-  }
-
-  void SetBoughtData(bool value) {
-    BoughtWeaponsData.SetBought(Weapon.Id, value);
   }
 
   public void OnSelect(BaseEventData eventData) {
