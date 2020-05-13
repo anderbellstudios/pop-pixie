@@ -25,7 +25,12 @@ public class WeaponTile : MonoBehaviour, ISelectHandler, IDeselectHandler {
 
   void Awake() {
     WeaponImage.sprite = Sprite;
-    PriceLabel.text = Price.ToString();
+
+    if (InStock) {
+      PriceLabel.text = Price.ToString();
+    } else {
+      PriceLabel.text = "--";
+    }
 
     // If the weapon is null, Bought is false
     Bought = Maybe<Weapon>.ofNullable(Weapon)
