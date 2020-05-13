@@ -7,6 +7,7 @@ using TMPro;
 public class ShopEvents : GenericMenuEvents {
 
   public float DescriptionInterval;
+  public float UninteruptableDuration;
   public float ClosingDelay;
 
   [TextArea]
@@ -18,6 +19,7 @@ public class ShopEvents : GenericMenuEvents {
 
   private Maybe<WeaponTile> SelectedWeapon;
   private IntervalTimer DescriptionTimer;
+  private bool DoNotInterrupt = false;
 
   void Awake() {
     DescriptionTimer = new IntervalTimer() {
@@ -27,6 +29,12 @@ public class ShopEvents : GenericMenuEvents {
 
   public override void LocalStart() {
     Captions.SetText(OpeningText);
+    DoNotInterrupt = true;
+    Invoke("UnsetDoNotInterrupt", UninteruptableDuration);
+  }
+
+  void UnsetDoNotInterrupt() {
+    DoNotInterrupt = false;
   }
 
   void Update() {
@@ -51,22 +59,21 @@ public class ShopEvents : GenericMenuEvents {
     });
   }
 
-  bool FirstTime = true;
-
   public void OnWeaponSelect( WeaponTile weaponTile ) {
     SelectedWeapon = Maybe<WeaponTile>.Some( weaponTile );
 
-    if ( FirstTime ) {
-      // Don't interrupt the opening dialogue
-      FirstTime = false;
+    if (DoNotInterrupt)
       return;
-    }
 
     DescriptionTimer.Reset();
   }
 
   public void OnWeaponDeselect( WeaponTile weaponTile ) {
     SelectedWeapon = Maybe<WeaponTile>.None;
+
+    if (DoNotInterrupt)
+      return;
+
     DescriptionTimer.Stop();
     Captions.ClearText();
   }
