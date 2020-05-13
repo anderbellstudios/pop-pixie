@@ -14,6 +14,7 @@ public class Weapon : ScriptableObject {
   public int Capacity;
   public float Scatter = 0;
   public float BulletSpeed;
+  public float ReloadDuration = 2f;
   public GameObject BulletPrefab;
   public Sprite Sprite;
   public Sprite InHandSprite;
