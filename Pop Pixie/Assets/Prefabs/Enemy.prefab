@@ -160,7 +160,6 @@ GameObject:
   - component: {fileID: 3579707395517347855}
   - component: {fileID: 3579707395517347959}
   - component: {fileID: 3579707395517347851}
-  - component: {fileID: 3579707395517347848}
   - component: {fileID: 3579707395517347956}
   - component: {fileID: 3579707395517347850}
   - component: {fileID: 3579707395517347849}
@@ -374,24 +373,6 @@ MonoBehaviour:
   AttackInterval: 4
   AttackIntervalRandomness: 1
   WhenAttacking: {fileID: 3579707395517347850}
---- !u!114 &3579707395517347848
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3579707395517347952}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b04e49604810e4201b53559fa1c85657, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  StartsInControl: 0
-  InControl: 0
-  Speed: 5.75
-  PathfindingElbows: 2
-  WhenArrivedBack: {fileID: 3579707395517347958}
-  WhenTargetFound: {fileID: 3579707395517347851}
 --- !u!114 &3579707395517347956
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -409,6 +390,7 @@ MonoBehaviour:
   Speed: 5.75
   PathfindingElbows: 1
   PathfindingUpdateRate: 1
+  PathfindingUpdateRandomness: 1
   WhenTargetFound: {fileID: 3579707395517347851}
 --- !u!114 &3579707395517347850
 MonoBehaviour:
@@ -561,7 +543,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98bbc2c1e63e98543830eec78d976795, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serializedGuid: 89592fb68a62364fa80ac203671b5d68
+  serializedGuid: cf821c8c2e282e4a98559ffab2f3dd3d
 --- !u!1 &8492502832744839882
 GameObject:
   m_ObjectHideFlags: 0
