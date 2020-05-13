@@ -7,20 +7,21 @@ public class LookingForTargetAI : AEnemyAI {
   public float Speed;
   public int PathfindingElbows = 1;
   public float PathfindingUpdateRate;
+  public float PathfindingUpdateRandomness = 1f;
 
   public AEnemyAI WhenTargetFound;
 
   IntervalTimer CalculatePathTimer;
-  Vector3[] Path;
+  Vector3? NextPoint;
 
   public override void ControlGained() {
     CalculatePathTimer = new IntervalTimer() {
-      Interval = 1f / PathfindingUpdateRate
+      Interval = (1f / PathfindingUpdateRate) + RandomNoise(PathfindingUpdateRandomness)
     };
 
     CalculatePathTimer.Start();
     
-    Path = null;
+    NextPoint = null;
   }
 
   public override void WhileInControl() {
@@ -32,12 +33,12 @@ public class LookingForTargetAI : AEnemyAI {
   }
 
   void NavigateToTarget() {
-    if ( Path == null ) {
+    if ( !NextPoint.HasValue ) {
       CalculatePathTimer.IfElapsed( CalculatePath );
       return;
     }
 
-    var heading = Path[0] - transform.position;
+    var heading = NextPoint.Value - transform.position;
 
     ApplyMovement(
       heading.normalized * Speed
@@ -56,7 +57,11 @@ public class LookingForTargetAI : AEnemyAI {
       remainingSteps: PathfindingElbows
     );
 
-    Path = pathfinder.Vertices();
+    NextPoint = pathfinder.NextPoint();
+  }
+
+  float RandomNoise(float amplitude) {
+    return amplitude * UnityEngine.Random.value;
   }
 
 }

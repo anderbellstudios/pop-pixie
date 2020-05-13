@@ -20,6 +20,19 @@ using UnityEngine;
 
 public class AndersonsAlgorithm {
 
+  static float[] Angles = new float[] {
+    10, -10,
+    20, -20,
+    30, -30,
+    40, -40,
+    50, -50,
+    60, -60,
+    70, -70,
+    80, -80,
+    90, -90,
+    100, -100
+  };
+
   Vector3 Start, Destination;
   float Radius; 
   int RemainingSteps;
@@ -31,24 +44,24 @@ public class AndersonsAlgorithm {
     RemainingSteps = remainingSteps;
   }
 
-  public Vector3[] Vertices() {
+  public Vector3? NextPoint() {
     var hit = ObstacleInDirection( ToDestination() );
     Debug.DrawRay(Start, ToDestination(), Color.blue, 5.0f);
 
     if ( DirectPath(hit) ) {
-      return new Vector3[] { Destination };
+      return Destination;
     } else {
       return TryThroughElbow();
     }
     
   }
 
-  private Vector3[] TryThroughElbow() {
+  private Vector3? TryThroughElbow() {
     // Stop if out of steps
     if ( RemainingSteps == 0 )
       return null;
 
-    foreach ( float angle in Angles() ) {
+    foreach ( float angle in Angles ) {
 
       var direction = ToDestination(angle);
       Debug.DrawRay(Start, direction, Color.red, 5.0f);
@@ -65,17 +78,9 @@ public class AndersonsAlgorithm {
 
         // In order to understand recursion...
         var pathfinder = new AndersonsAlgorithm( elbow, Destination, Radius, RemainingSteps-1 );
-        Vector3[] vertices = pathfinder.Vertices();
 
-        if ( vertices != null ) {
-          // It really shouldn't be this hard to prepend elbow to vertices!
-          var list = vertices.ToList();
-          list.Insert(0, elbow);
-          vertices = list.ToArray();
-
-          // Found a route through the elbow. 
-          // Bubble back up thorugh call stack.
-          return vertices;
+        if ( pathfinder.NextPoint() != null ) {
+          return elbow;
         }
 
         // No route found thorugh this elbow.
@@ -117,25 +122,6 @@ public class AndersonsAlgorithm {
       // Nothing was hit
       return true;
     }
-  }
-
-  static float[] CacheAngles = null;
-
-  static private float[] Angles() {
-    if (CacheAngles == null) {
-      // Simplicity outweighs efficiency. Anyone who disagrees can rewrite this themselves. 
-      float[] pveAngles = Enumerable.Range(1, 18).Select( a => a *  10.0f ).ToArray(); //  10 to  180 deg
-      float[] nveAngles = Enumerable.Range(1, 18).Select( a => a * -10.0f ).ToArray(); // -10 to -180 deg
-
-      // Interleave angle arrays: 10, -10, 20, -20, etc.
-      CacheAngles = new float[36];
-      for (int i = 0; i < 18; i++) {
-        CacheAngles[2 * i]     = pveAngles[i];
-        CacheAngles[2 * i + 1] = nveAngles[i];
-      }
-    }
-
-    return CacheAngles;
   }
 
   private Vector3 ToDestination(float angle = 0.0f) {
