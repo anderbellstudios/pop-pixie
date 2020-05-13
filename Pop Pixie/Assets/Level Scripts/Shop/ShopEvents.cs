@@ -7,9 +7,10 @@ using TMPro;
 public class ShopEvents : GenericMenuEvents {
 
   public float DescriptionInterval;
+  public float ClosingDelay;
 
   [TextArea]
-  public string BuyText, SellText, OutOfStockText, CannotAffordText;
+  public string OpeningText, ClosingText, BuyText, SellText, OutOfStockText, CannotAffordText;
 
   public TMP_Text WeaponNameLabel;
   public TMP_Text BuySellLabel;
@@ -22,6 +23,10 @@ public class ShopEvents : GenericMenuEvents {
     DescriptionTimer = new IntervalTimer() {
       Interval = DescriptionInterval
     };
+  }
+
+  public override void LocalStart() {
+    Captions.SetText(OpeningText);
   }
 
   void Update() {
@@ -38,14 +43,25 @@ public class ShopEvents : GenericMenuEvents {
   }
 
   public void CeasePerusal() {
+    Captions.SetText(ClosingText);
+
     FadeOut( () => {
       SaveGame.WriteSave();
       SceneData.Load();
     });
   }
 
+  bool FirstTime = true;
+
   public void OnWeaponSelect( WeaponTile weaponTile ) {
     SelectedWeapon = Maybe<WeaponTile>.Some( weaponTile );
+
+    if ( FirstTime ) {
+      // Don't interrupt the opening dialogue
+      FirstTime = false;
+      return;
+    }
+
     DescriptionTimer.Reset();
   }
 

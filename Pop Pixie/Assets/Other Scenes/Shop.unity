@@ -2569,9 +2569,12 @@ MonoBehaviour:
   Fader: {fileID: 739071572}
   FadeInDelay: 0.5
   FadeInDuration: 0.5
-  FadeOutDuration: 0.5
+  FadeOutDuration: 2.5
   PostFadeOutDelay: 0
   DescriptionInterval: 1
+  ClosingDelay: 2.5
+  OpeningText: Hello friend!
+  ClosingText: Goodbye!
   BuyText: Pleasure doing business with you.
   SellText: Pleasure doing business with you.
   OutOfStockText: That's out of stock.
@@ -3679,6 +3682,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cease perusal
       objectReference: {fileID: 0}
+    - target: {fileID: 5617002268966972141, guid: 30fc863c9c7f54bb2a1fb26ab5a5428c,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1086275789}
+    - target: {fileID: 5617002268966972141, guid: 30fc863c9c7f54bb2a1fb26ab5a5428c,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: CeasePerusal
+      objectReference: {fileID: 0}
     - target: {fileID: 5617002268966972140, guid: 30fc863c9c7f54bb2a1fb26ab5a5428c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3784,21 +3797,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5617002269173442844, guid: 30fc863c9c7f54bb2a1fb26ab5a5428c,
-        type: 3}
-      propertyPath: m_Text
-      value: Cease perusal
-      objectReference: {fileID: 0}
-    - target: {fileID: 5617002268966972141, guid: 30fc863c9c7f54bb2a1fb26ab5a5428c,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1086275789}
-    - target: {fileID: 5617002268966972141, guid: 30fc863c9c7f54bb2a1fb26ab5a5428c,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: CeasePerusal
-      objectReference: {fileID: 0}
     - target: {fileID: 5617002269995953567, guid: 30fc863c9c7f54bb2a1fb26ab5a5428c,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -3824,6 +3822,31 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1947244622857821431, guid: 30fc863c9c7f54bb2a1fb26ab5a5428c,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1947244622857821431, guid: 30fc863c9c7f54bb2a1fb26ab5a5428c,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5617002269173442914, guid: 30fc863c9c7f54bb2a1fb26ab5a5428c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8964662544287319115, guid: 30fc863c9c7f54bb2a1fb26ab5a5428c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5617002269173442844, guid: 30fc863c9c7f54bb2a1fb26ab5a5428c,
+        type: 3}
+      propertyPath: m_Text
+      value: Cease perusal
+      objectReference: {fileID: 0}
     - target: {fileID: 5850306370819052816, guid: 30fc863c9c7f54bb2a1fb26ab5a5428c,
         type: 3}
       propertyPath: m_text
@@ -3838,26 +3861,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_isInputParsingRequired
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1947244622857821431, guid: 30fc863c9c7f54bb2a1fb26ab5a5428c,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 1947244622857821431, guid: 30fc863c9c7f54bb2a1fb26ab5a5428c,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: -25
-      objectReference: {fileID: 0}
-    - target: {fileID: 8964662544287319115, guid: 30fc863c9c7f54bb2a1fb26ab5a5428c,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5617002269173442914, guid: 30fc863c9c7f54bb2a1fb26ab5a5428c,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 30fc863c9c7f54bb2a1fb26ab5a5428c, type: 3}
