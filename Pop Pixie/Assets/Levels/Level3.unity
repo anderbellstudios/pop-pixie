@@ -136,9 +136,9 @@ GameObject:
   - component: {fileID: 217454}
   - component: {fileID: 217458}
   - component: {fileID: 217459}
-  - component: {fileID: 217452}
   - component: {fileID: 217461}
   - component: {fileID: 217460}
+  - component: {fileID: 217452}
   m_Layer: 0
   m_Name: LevelEvents
   m_TagString: Untagged
@@ -296,6 +296,7 @@ MonoBehaviour:
   - {fileID: 217455}
   - {fileID: 217458}
   - {fileID: 217459}
+  - {fileID: 217461}
   PhaseId: 0
 --- !u!114 &217452
 MonoBehaviour:
@@ -428,6 +429,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ElevatorBarrier: {fileID: 1862054908}
+  Dialogue: {fileID: 1007781046}
+  Delay: 1.5
 --- !u!114 &217461
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -437,13 +440,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 217442}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f708a61de3bc4a79ae9f2e760387713, type: 3}
+  m_Script: {fileID: 11500000, guid: 4ea938bedff164618b9b573e5f14a504, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Enemies:
-  - {fileID: 1624602148}
-  Triggered: 0
-  LevelCompleted: {fileID: 217460}
+  Running: 0
+  Event:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 217460}
+        m_MethodName: Run
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!1001 &63653801
 PrefabInstance:
   m_ObjectHideFlags: 0
