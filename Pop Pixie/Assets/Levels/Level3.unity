@@ -137,6 +137,8 @@ GameObject:
   - component: {fileID: 217458}
   - component: {fileID: 217459}
   - component: {fileID: 217452}
+  - component: {fileID: 217461}
+  - component: {fileID: 217460}
   m_Layer: 0
   m_Name: LevelEvents
   m_TagString: Untagged
@@ -413,6 +415,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Running: 0
   GameObject: {fileID: 2103683553}
+--- !u!114 &217460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 217442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8bc864d32c8149969efb266b131a007, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ElevatorBarrier: {fileID: 1862054908}
+--- !u!114 &217461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 217442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f708a61de3bc4a79ae9f2e760387713, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Enemies:
+  - {fileID: 1624602148}
+  Triggered: 0
+  LevelCompleted: {fileID: 217460}
 --- !u!1001 &63653801
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11884,7 +11915,7 @@ PrefabInstance:
     - target: {fileID: 3954705457071499327, guid: 9d193d8ac910849ad9065e3aecb6ba39,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 99.31882
+      value: 184.94135
       objectReference: {fileID: 0}
     - target: {fileID: 3404876472048993323, guid: 9d193d8ac910849ad9065e3aecb6ba39,
         type: 3}
@@ -12549,10 +12580,6 @@ PrefabInstance:
       propertyPath: IndicatorImage
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 1214155085074384, guid: 93988d4f18b94407e9c5cd99704a5630, type: 3}
-      propertyPath: m_Layer
-      value: 12
-      objectReference: {fileID: 0}
     - target: {fileID: 5921366765021838991, guid: 93988d4f18b94407e9c5cd99704a5630,
         type: 3}
       propertyPath: serializedGuid.Array.size
@@ -12637,6 +12664,10 @@ PrefabInstance:
         type: 3}
       propertyPath: serializedGuid.Array.data[15]
       value: 162
+      objectReference: {fileID: 0}
+    - target: {fileID: 1214155085074384, guid: 93988d4f18b94407e9c5cd99704a5630, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 93988d4f18b94407e9c5cd99704a5630, type: 3}
@@ -14253,13 +14284,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1862054906}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f708a61de3bc4a79ae9f2e760387713, type: 3}
+  m_Script: {fileID: 11500000, guid: 8cef93e0f12b94296a27d9f3094056ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Enemies:
-  - {fileID: 1624602148}
-  Triggered: 0
-  ElevatorBarrier: {fileID: 1862054909}
+  Collider: {fileID: 1862054909}
 --- !u!68 &1862054909
 EdgeCollider2D:
   m_ObjectHideFlags: 0

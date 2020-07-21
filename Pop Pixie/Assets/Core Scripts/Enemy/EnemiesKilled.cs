@@ -7,7 +7,7 @@ public class EnemiesKilled : MonoBehaviour {
 
   public List<GameObject> Enemies;
   public bool Triggered;
-  public EdgeCollider2D ElevatorBarrier;
+  public LevelCompleted LevelCompleted;
 
 	// Update is called once per frame
 	void Update () {
@@ -18,7 +18,7 @@ public class EnemiesKilled : MonoBehaviour {
 
     if (all_dead) {
       Triggered = true;
-      ElevatorBarrier.enabled = false;
+      LevelCompleted.Run();
     }
 	}
 }
