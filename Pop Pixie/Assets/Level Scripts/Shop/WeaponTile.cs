@@ -11,7 +11,8 @@ public class WeaponTile : MonoBehaviour, ISelectHandler, IDeselectHandler {
   public string Name = "Untitled weapon";
   public Weapon Weapon;
   public bool InStock = false;
-  public Sprite Sprite;
+  public Sprite UnboughtSprite;
+  public Sprite BoughtSprite;
   public int Price;
 
   [TextArea]
@@ -21,11 +22,8 @@ public class WeaponTile : MonoBehaviour, ISelectHandler, IDeselectHandler {
 
   public Image WeaponImage;
   public TMP_Text PriceLabel;
-  public MonoBehaviour TickImage;
 
   void Awake() {
-    WeaponImage.sprite = Sprite;
-
     if (InStock) {
       PriceLabel.text = Price.ToString();
     } else {
@@ -37,19 +35,16 @@ public class WeaponTile : MonoBehaviour, ISelectHandler, IDeselectHandler {
       .Map( w => BoughtWeaponsData.IsBought(w.Id) )
       .GetOrDefault(false);
 
-    UpdateBoughtIndicator();
+    UpdateSprite();
   }
 
-  void UpdateBoughtIndicator() {
-    byte opacity = (byte) (Bought ? 64 : 255);
-    WeaponImage.color = new Color32(255, 255, 255, opacity);
-    TickImage.enabled = Bought;
+  void UpdateSprite() {
+    WeaponImage.sprite = Bought ? BoughtSprite : UnboughtSprite;
   }
 
   public void Interact() {
     MaybeShopEvents.If( shopEvents => shopEvents.InteractWithWeapon(this) );
-
-    UpdateBoughtIndicator();
+    UpdateSprite();
   }
 
   public void OnSelect(BaseEventData eventData) {
