@@ -5,5 +5,6 @@ using UnityEngine;
 public class BulletData : MonoBehaviour {
 
   public float Damage;
+  public float Lifetime; 
 
 }

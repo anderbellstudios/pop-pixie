@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7944514050088445212}
   - component: {fileID: 8876649700796538210}
   - component: {fileID: 8819938017500365010}
+  - component: {fileID: 2888045085230147104}
   - component: {fileID: 6818582875802437754}
   - component: {fileID: 8838713438586547750}
   m_Layer: 10
@@ -153,6 +154,19 @@ MonoBehaviour:
   BulletData: {fileID: 6818582875802437754}
   Explosion: {fileID: 5909980808810194523, guid: 9a75ea4552b8c43029b9cf003f9ec909,
     type: 3}
+--- !u!114 &2888045085230147104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8934373914239993322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fb529db5871e4d9180c7fd1f84d2b03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BulletData: {fileID: 6818582875802437754}
 --- !u!114 &6818582875802437754
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -166,6 +180,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Damage: 0
+  Lifetime: 2
 --- !u!96 &8838713438586547750
 TrailRenderer:
   serializedVersion: 2
