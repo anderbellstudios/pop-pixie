@@ -7,6 +7,8 @@ public class PlayerShoot : MonoBehaviour {
 
   public BulletEmitter BulletEmitter;
   public DirectionScatterer DirectionScatterer;
+  public SoundController SoundController;
+  public AudioClip FailToShootSound;
 
   private IntervalTimer FireTimer;
 
@@ -28,6 +30,8 @@ public class PlayerShoot : MonoBehaviour {
       CurrentWeapon().ExpendBullet();
       DirectionScatterer.Angle = weapon.Scatter;
       BulletEmitter.Shoot( weapon );
+    } else if ( WrappedInput.GetButtonDown("Fire") && !CurrentWeapon().HasBullets() ) {
+      SoundController.Play( FailToShootSound, 0.1f );
     }
 	}
 
