@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class GremlinSpawnScheduler : MonoBehaviour {
 
+  public bool BeginSpawningOnAwake = false;
+
   public SpawnGremlin SpawnGremlin;
   public float SpawnInterval;
   public int MaxGremlins;
@@ -14,6 +16,11 @@ public class GremlinSpawnScheduler : MonoBehaviour {
   public List<GameObject> SpawnedGremlins;
 
   private IntervalTimer SpawnTimer;
+
+  void Awake() {
+    if (BeginSpawningOnAwake)
+      BeginSpawning();
+  }
 
   public void BeginSpawning() {
     SpawnedGremlins.Clear();

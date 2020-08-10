@@ -7,6 +7,7 @@ public class PlayerHitPointEvents : MonoBehaviour, IHitPointEvents {
 
   public HUDBar HealthBar;
   public ScreenFade Fader;
+  public string GameOverScene = "Game Over";
 
   public void Updated (HitPoints hp) {
     HealthBar.Progress = hp.Current / hp.Maximum;
@@ -28,6 +29,6 @@ public class PlayerHitPointEvents : MonoBehaviour, IHitPointEvents {
   }
 
   void GameOverScreen () {
-    SceneManager.LoadScene("Game Over");
+    SceneManager.LoadScene(GameOverScene);
   }
 }

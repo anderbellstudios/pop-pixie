@@ -55,7 +55,14 @@ public class ShopEvents : GenericMenuEvents {
 
     FadeOut( () => {
       SaveGame.WriteSave();
-      SceneData.Load();
+      SceneManager.LoadScene("Elevator");
+    });
+  }
+
+  public void EnterTestingRoom() {
+    FadeOut( () => {
+      SaveGame.WriteSave();
+      SceneManager.LoadScene("Testing Room");
     });
   }
 
