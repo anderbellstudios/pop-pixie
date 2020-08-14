@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -12,6 +13,7 @@ public class PauseMenuEvents : MonoBehaviour {
   public PercentageButton MusicVolumeButton, SoundsVolumeButton;
   public TMP_Text ButtonIconsText;
 
+  EnumeratorButton<String> ButtonIconsButton;
   bool InFocus;
 
   void Start() {
@@ -23,7 +25,14 @@ public class PauseMenuEvents : MonoBehaviour {
     SoundsVolumeButton.Value = OptionsData.SoundsVolume;
     SoundsVolumeButton.UpdateValue();
 
-    UpdateButtonIconsText();
+    ButtonIconsButton = new EnumeratorButton<String>(
+      new List<String>() { "Xbox", "PS" },
+      ControllerTypeData.GetControllerType(),
+      (type) => {
+        ButtonIconsText.text = "Controller: " + type;
+        ControllerTypeData.SetControllerType(type);
+      }
+    );
   }
 
   void Update() {
@@ -60,13 +69,7 @@ public class PauseMenuEvents : MonoBehaviour {
   }
 
   public void ToggleButtonIcons() {
-    string oldType = ControllerTypeData.GetControllerType();
-    ControllerTypeData.SetControllerType( oldType == "Xbox" ? "PS" : "Xbox" );
-    UpdateButtonIconsText();
-  }
-
-  void UpdateButtonIconsText() {
-    ButtonIconsText.text = "Controller: " + ControllerTypeData.GetControllerType();
+    ButtonIconsButton.Shift();
   }
 
   public void QuitGame() {
