@@ -11,7 +11,7 @@ public class Level1EnemyClose : MonoBehaviour, IDialogueSequenceEventHandler {
   public float ActivationRadius;
 
 	void Update () {
-    if ( Triggered )
+    if ( Triggered || EnemyUtils.IsDead(Enemy) )
       return;
 
     var dist = Vector3.Distance(
