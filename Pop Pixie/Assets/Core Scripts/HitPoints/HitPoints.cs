@@ -29,6 +29,8 @@ public class HitPoints : MonoBehaviour, ISerializableComponent {
 
   private IHitPointEvents[] EventHandlers;
 
+  private bool Dead = false;
+
   public void Cap () {
     // Make sure HP is between 0 and max
     Current = Mathf.Clamp( Current, 0, Maximum );
@@ -47,14 +49,16 @@ public class HitPoints : MonoBehaviour, ISerializableComponent {
   }
 
   public float Decrease (float val) {
-    if ( Current == 0 )
+    if ( Dead )
       return 0.0f; // <-- Bypass callbacks
 
     Increase(-val);
 
     SendEventHandlerMessage("Decreased");
-    if ( Current == 0 )
+    if ( Current == 0 ) {
+      Dead = true;
       SendEventHandlerMessage("BecameZero");
+    }
 
     return Current;
   }
@@ -82,6 +86,11 @@ public class HitPoints : MonoBehaviour, ISerializableComponent {
       InitHitPoints();
 
     EventHandlers = gameObject.GetComponents<IHitPointEvents>();
+
+    if (Current == 0) {
+      Dead = true;
+      SendEventHandlerMessage("BecameZero");
+    }
 	}
 
   public void InitHitPoints() {
