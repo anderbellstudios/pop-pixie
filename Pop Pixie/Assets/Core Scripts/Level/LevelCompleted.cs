@@ -16,10 +16,13 @@ public class LevelCompleted : MonoBehaviour, IDialogueSequenceEventHandler, ISer
     ElevatorBarrier.Remove();
 
     if (!KeycardDialoguePlayed)
-      Invoke("ShowMessage", Delay);
+      InvokeRepeating("TryShowMessage", Delay, Delay);
   }
 
-  void ShowMessage() {
+  void TryShowMessage() {
+    if (StateManager.Isnt(State.Playing))
+      return;
+    CancelInvoke();
     KeycardDialoguePlayed = true;
     Dialogue.Play("Dialogue/Keycard", this);
   }
