@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PassiveSounds : MonoBehaviour {
-  public EnemyHitPointEvents EnemyHitPointEvents;
+  public GameObject EnemyGameObject;
   public SoundController SoundPlayer;
   public List<AudioClip> Sounds;
   public float MinInterval, MaxInterval;
@@ -25,7 +25,7 @@ public class PassiveSounds : MonoBehaviour {
   }
 
   void PlaySound () {
-    if ( EnemyHitPointEvents.IsDead ) return;
+    if ( EnemyUtils.IsDead(EnemyGameObject) ) return;
 
     // Because C# doesn't appear to have any built-in 
     // random sampling methods. 

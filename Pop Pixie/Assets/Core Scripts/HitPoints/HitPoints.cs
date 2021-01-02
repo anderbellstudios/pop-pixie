@@ -29,7 +29,7 @@ public class HitPoints : MonoBehaviour, ISerializableComponent {
 
   private IHitPointEvents[] EventHandlers;
 
-  private bool Dead = false;
+  public bool Dead = false;
 
   public void Cap () {
     // Make sure HP is between 0 and max

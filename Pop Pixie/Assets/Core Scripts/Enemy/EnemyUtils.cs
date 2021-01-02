@@ -8,5 +8,5 @@ public class EnemyUtils {
     => enemyGO == null || GetDeadFlag(enemyGO);
 
   static bool GetDeadFlag( GameObject enemyGO ) 
-    => enemyGO.GetComponent<EnemyHitPointEvents>().IsDead;
+    => enemyGO.GetComponent<HitPoints>().Dead;
 }
