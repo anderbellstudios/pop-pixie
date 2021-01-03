@@ -25,6 +25,7 @@ public class Roll : MonoBehaviour {
 
   void FixedUpdate() {
     TrailRenderer.emitting = Rolling;
+    gameObject.layer = LayerMask.NameToLayer(Rolling ? "PlayerRolling" : "Player");
 
     if ( StateManager.Isnt( State.Playing ) )
       return;
