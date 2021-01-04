@@ -88,7 +88,7 @@ public abstract class AEnemyAI : MonoBehaviour {
       WidthRequiredForMovement() / 2, 
       TargetDirection(),
       Mathf.Infinity,
-      ~( ( 1 << 8 ) | ( 1 << 9 ) ) // <-- neither 8 nor 9
+      ~( ( 1 << 8 ) | ( 1 << 9 ) | ( 1 << 16 ) ) // <-- neither 8, 9 nor 16
     );
 
     return hit.collider.gameObject == Target;

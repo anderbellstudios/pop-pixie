@@ -18,6 +18,6 @@ public class TrainingRoom2Events : MonoBehaviour {
 
   void AfterRingPullCollected() {
     Debug.Log("AfterRingPullCollected");
-    SceneManager.LoadScene("Training Room 1");
+    SceneManager.LoadScene("Training Room 3");
   }
 }

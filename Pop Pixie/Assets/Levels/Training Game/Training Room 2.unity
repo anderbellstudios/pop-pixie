@@ -260,7 +260,7 @@ MonoBehaviour:
   OnCollide:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 405272549}
+      - m_Target: {fileID: 1025138321}
         m_TargetAssemblyTypeName: DamagedBlur, Assembly-CSharp
         m_MethodName: Activate
         m_Mode: 1
@@ -542,7 +542,6 @@ GameObject:
   m_Component:
   - component: {fileID: 405272548}
   - component: {fileID: 405272547}
-  - component: {fileID: 405272549}
   m_Layer: 0
   m_Name: LevelEvents
   m_TagString: Untagged
@@ -577,66 +576,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &405272549
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 405272546}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb1d8b87c2b374ea387b4c37c975bcd4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Fader: {fileID: 1018781648}
-  BlurImage: {fileID: 135232442}
-  BlurMaterials:
-  - {fileID: 2100000, guid: 1fdbf702e7910485ca1c3079a243b3a0, type: 2}
-  - {fileID: 2100000, guid: f958badaa3ae84c749f73b18ed7a1ba9, type: 2}
-  - {fileID: 2100000, guid: b3e8d69f33ddf48729d12470045f5f4f, type: 2}
-  - {fileID: 2100000, guid: 90d885e0d384849199ebfe3ee24a8ca1, type: 2}
-  - {fileID: 2100000, guid: aad5fb550492f461e915be5782e93b26, type: 2}
-  - {fileID: 2100000, guid: 8cadbf83c5d52437abd3140b22ec46dc, type: 2}
-  - {fileID: 2100000, guid: e6a2bca7f8c9b4b15a42006a67b9d7f9, type: 2}
-  - {fileID: 2100000, guid: a441e86c0256944b3b52c23e1ef310fe, type: 2}
-  - {fileID: 2100000, guid: ac1760bb2a8994334aaa782cd762913a, type: 2}
-  - {fileID: 2100000, guid: 9a7bc9fa20b904006b5dfde0e05edbb0, type: 2}
-  - {fileID: 2100000, guid: f127613a338ba4a27bcc88ba443a48a3, type: 2}
-  Curve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 0.05
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  Interval: 2
 --- !u!1001 &530709713
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1249,6 +1188,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 93988d4f18b94407e9c5cd99704a5630, type: 3}
+--- !u!114 &699291140 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8156467750406196158, guid: 93988d4f18b94407e9c5cd99704a5630,
+    type: 3}
+  m_PrefabInstance: {fileID: 699291139}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1217539196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28c2380e41ff24ba585f2350f56b8e03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &801042679 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3404938280424694815, guid: 9d193d8ac910849ad9065e3aecb6ba39,
@@ -1800,6 +1751,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da12b954f460e4413808eb78618261b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1025138321 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7635835200039015627, guid: 23360aafb74a0447980608780bf9327b,
+    type: 3}
+  m_PrefabInstance: {fileID: 7635835199282317914}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb1d8b87c2b374ea387b4c37c975bcd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!850595691 &1084141473
 LightingSettings:
   m_ObjectHideFlags: 0
@@ -2060,7 +2023,7 @@ MonoBehaviour:
   OnCollide:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 405272549}
+      - m_Target: {fileID: 1025138321}
         m_TargetAssemblyTypeName: DamagedBlur, Assembly-CSharp
         m_MethodName: Activate
         m_Mode: 1
@@ -2078,3 +2041,87 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 699291139}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &7635835199282317914
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7635835200039015624, guid: 23360aafb74a0447980608780bf9327b,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7635835200039015624, guid: 23360aafb74a0447980608780bf9327b,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3.7176569
+      objectReference: {fileID: 0}
+    - target: {fileID: 7635835200039015624, guid: 23360aafb74a0447980608780bf9327b,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.6312928
+      objectReference: {fileID: 0}
+    - target: {fileID: 7635835200039015624, guid: 23360aafb74a0447980608780bf9327b,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.5103327
+      objectReference: {fileID: 0}
+    - target: {fileID: 7635835200039015624, guid: 23360aafb74a0447980608780bf9327b,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7635835200039015624, guid: 23360aafb74a0447980608780bf9327b,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7635835200039015624, guid: 23360aafb74a0447980608780bf9327b,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7635835200039015624, guid: 23360aafb74a0447980608780bf9327b,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7635835200039015624, guid: 23360aafb74a0447980608780bf9327b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7635835200039015624, guid: 23360aafb74a0447980608780bf9327b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7635835200039015624, guid: 23360aafb74a0447980608780bf9327b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7635835200039015626, guid: 23360aafb74a0447980608780bf9327b,
+        type: 3}
+      propertyPath: m_Name
+      value: Damaged Blur
+      objectReference: {fileID: 0}
+    - target: {fileID: 7635835200039015627, guid: 23360aafb74a0447980608780bf9327b,
+        type: 3}
+      propertyPath: Fader
+      value: 
+      objectReference: {fileID: 1018781648}
+    - target: {fileID: 7635835200039015627, guid: 23360aafb74a0447980608780bf9327b,
+        type: 3}
+      propertyPath: BlurImage
+      value: 
+      objectReference: {fileID: 135232442}
+    - target: {fileID: 7635835200039015627, guid: 23360aafb74a0447980608780bf9327b,
+        type: 3}
+      propertyPath: PlayerMovementManager
+      value: 
+      objectReference: {fileID: 699291140}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 23360aafb74a0447980608780bf9327b, type: 3}

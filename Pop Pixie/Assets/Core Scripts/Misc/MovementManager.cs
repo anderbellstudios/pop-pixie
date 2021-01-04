@@ -7,15 +7,11 @@ public delegate float SpeedModifier(float s);
 
 public class MovementManager : MonoBehaviour {
 
-  public List<SpeedModifier> SpeedModifiers;
+  public List<SpeedModifier> SpeedModifiers = new List<SpeedModifier>();
   public Animator Animator;
 
   public Rigidbody2D rb;
   public Vector2 Movement;
-
-  void Awake() {
-    SpeedModifiers = new List<SpeedModifier>();
-  }
 
   void FixedUpdate() {
     Vector2 velocity = ModifiedSpeed() * Movement;
