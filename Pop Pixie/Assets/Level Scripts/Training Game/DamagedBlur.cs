@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class DamagedBlur : MonoBehaviour {
+  public static DamagedBlur Current;
+
   public ScreenFade Fader;
   public Image BlurImage;
   public GameObject BlurImageGameObject;
@@ -16,6 +18,8 @@ public class DamagedBlur : MonoBehaviour {
   private float MovementModifier = 1f;
 
   void Awake() {
+    Current = this;
+
     Timer = new IntervalTimer() {
       Interval = Interval
     };

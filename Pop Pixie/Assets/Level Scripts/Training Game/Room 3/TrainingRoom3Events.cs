@@ -29,7 +29,7 @@ public class TrainingRoom3Events : MonoBehaviour {
   void Update() {
     if (!TargetsDestroyed && TargetsParent.childCount == 0) {
       TargetsDestroyed = true;
-      SceneManager.LoadScene("Training Room 1");
+      SceneManager.LoadScene("Training Room 4");
     }
   }
 }

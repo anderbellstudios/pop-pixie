@@ -5,7 +5,6 @@ using UnityEngine;
 public class HologremAI : AEnemyAI, IRequiresLineOfMovementAI {
 
   public float Speed;
-  public DamagedBlur DamagedBlur;
 
   public override void WhileInControl() {
     if (LineOfMovement())
@@ -18,7 +17,7 @@ public class HologremAI : AEnemyAI, IRequiresLineOfMovementAI {
   }
 
   void PerformAttack() {
-    DamagedBlur.Activate();
+    DamagedBlur.Current.Activate();
     GetComponent<HitPoints>().Damage(1);
   }
 

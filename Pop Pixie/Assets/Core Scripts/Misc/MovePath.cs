@@ -17,13 +17,13 @@ public class MovePath : MonoBehaviour {
 
     Vector3 dest = Points[PointIndex];
 
-    transform.position = Vector3.MoveTowards(
-      transform.position, 
+    transform.localPosition = Vector3.MoveTowards(
+      transform.localPosition, 
       dest, 
       Speed * Time.deltaTime
     );
 
-    float dist = (transform.position - dest).magnitude;
+    float dist = (transform.localPosition - dest).magnitude;
 
     if (dist < 0.01) {
       PointIndex++;
