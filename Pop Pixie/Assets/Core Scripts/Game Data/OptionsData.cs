@@ -7,7 +7,7 @@ public class OptionsData {
 
   public static decimal MusicVolume {
     get {
-      return ConfigData.Current.Fetch("options-music-volume", orSetEqualTo: 1M);
+      return (decimal) ConfigData.Current.Fetch("options-music-volume", orSetEqualTo: 1M);
     }
 
     set {
@@ -17,7 +17,7 @@ public class OptionsData {
 
   public static decimal SoundsVolume {
     get {
-      return ConfigData.Current.Fetch("options-sounds-volume", orSetEqualTo: 1M);
+      return (decimal) ConfigData.Current.Fetch("options-sounds-volume", orSetEqualTo: 1M);
     }
 
     set {

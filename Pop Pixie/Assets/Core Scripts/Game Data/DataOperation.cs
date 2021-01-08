@@ -29,7 +29,7 @@ public class DataOperation {
     var bf = new BinaryFormatter();
 
     try {
-      Data.Dictionary = ( Dictionary<string, dynamic> ) bf.Deserialize( file );
+      Data.Dictionary = ( Dictionary<string, object> ) bf.Deserialize( file );
 
     } catch (SerializationException e) {
 

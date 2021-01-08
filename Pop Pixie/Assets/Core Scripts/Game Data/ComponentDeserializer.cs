@@ -14,11 +14,11 @@ public class ComponentDeserializer : MonoBehaviour {
   }
 
   public void Deserialize() {
-    dynamic component = GameObject.GetComponent( SerializedComponent.Type );
+    ISerializableComponent component = ( ISerializableComponent ) GameObject.GetComponent( SerializedComponent.Type );
 
-    foreach ( string fieldName in ( ( ISerializableComponent ) component ).SerializableFields ) {
+    foreach ( string fieldName in ( component ).SerializableFields ) {
       var field = SerializedComponent.Type.GetField( fieldName );
-      dynamic val = SerializedComponent.Fields[ fieldName ];
+      object val = SerializedComponent.Fields[ fieldName ];
       field.SetValue( component, val );
 
       if ( component is ISaveCallbacks ) {

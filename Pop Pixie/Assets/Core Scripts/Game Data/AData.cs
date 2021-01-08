@@ -5,17 +5,17 @@ using System.Linq;
 using UnityEngine;
 
 public abstract class AData {
-  public Dictionary<string, dynamic> Dictionary;
+  public Dictionary<string, object> Dictionary;
 
   public AData() {
     Dictionary = LocalDefaultDictionary();
   }
 
-  public virtual Dictionary<string, dynamic> LocalDefaultDictionary() {
-    return new Dictionary<string, dynamic>();
+  public virtual Dictionary<string, object> LocalDefaultDictionary() {
+    return new Dictionary<string, object>();
   }
 
-  public dynamic Fetch( string key, dynamic orSetEqualTo = null ) {
+  public object Fetch( string key, object orSetEqualTo = null ) {
     BeforeFetch();
 
     if ( Dictionary.ContainsKey(key) )
@@ -27,7 +27,7 @@ public abstract class AData {
     return null;
   }
 
-  public void Set( string key, dynamic val ) {
+  public void Set( string key, object val ) {
     Dictionary[key] = val;
     AfterUpdate();
   }

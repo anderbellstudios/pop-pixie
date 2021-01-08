@@ -6,7 +6,7 @@ using UnityEngine;
 public class BoughtWeaponsData {
 
   public static bool IsBought(string weaponId) {
-    return GameData.Current.Fetch(
+    return (bool) GameData.Current.Fetch(
       "bought-" + weaponId,
       orSetEqualTo: false
     );

@@ -22,12 +22,12 @@ public class ComponentSerializer {
     };
   }
 
-  Dictionary<string, dynamic> Fields() {
-    var dictionary = new Dictionary<string, dynamic>();
+  Dictionary<string, object> Fields() {
+    var dictionary = new Dictionary<string, object>();
 
     foreach ( string fieldName in Component.SerializableFields ) {
       var field = Component.GetType().GetField( fieldName );
-      var val = field.GetValue( Component );
+      object val = field.GetValue( Component );
       dictionary.Add( fieldName, val );
     }
 
