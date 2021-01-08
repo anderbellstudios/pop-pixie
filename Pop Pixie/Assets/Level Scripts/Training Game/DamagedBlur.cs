@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class DamagedBlur : MonoBehaviour {
   public ScreenFade Fader;
   public Image BlurImage;
+  public GameObject BlurImageGameObject;
   public MovementManager PlayerMovementManager;
   public List<Material> BlurMaterials;
   public AnimationCurve Curve;
@@ -30,7 +31,6 @@ public class DamagedBlur : MonoBehaviour {
   }
 
   void Update() {
-    Material material;
 
     if (Timer.Started) {
       float curveProgress = Curve.Evaluate(Timer.Progress());
@@ -43,7 +43,8 @@ public class DamagedBlur : MonoBehaviour {
         )
       );
 
-      material = BlurMaterials[materialIndex];
+      BlurImageGameObject.SetActive(true);
+      BlurImage.material = BlurMaterials[materialIndex];
 
       MovementModifier = 1f - curveProgress;
 
@@ -51,10 +52,9 @@ public class DamagedBlur : MonoBehaviour {
         Timer.Stop();
       }
     } else {
-      material = BlurMaterials[0];
+      BlurImageGameObject.SetActive(false);
+      BlurImage.material = BlurMaterials[0];
       MovementModifier = 1f;
     }
-
-    BlurImage.material = material;
   }
 }
