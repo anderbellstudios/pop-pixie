@@ -23,7 +23,7 @@ public class MultipleWeaponDirectionManager : MonoBehaviour, IDirectionManager {
     if ( StateManager.Isnt( State.Playing ) )
       return;
 
-    if ( CursorWeaponDirectionManager.Active() ) {
+    if ( CursorWeaponDirectionManager.Active() || ActiveDirectionManager == null ) {
       ActiveDirectionManager = CursorWeaponDirectionManager;
     } else if ( JoystickWeaponDirectionManager.Active() ) {
       ActiveDirectionManager = JoystickWeaponDirectionManager;

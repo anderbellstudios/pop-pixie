@@ -30,7 +30,7 @@ public class AssistModeData {
 
   public static AssistModeHP HPAdjustment {
     get {
-      return ConfigData.Current.Fetch("assist-mode-hp-adjustment", orSetEqualTo: AssistModeHP.Normal);
+      return (AssistModeHP) ConfigData.Current.Fetch("assist-mode-hp-adjustment", orSetEqualTo: AssistModeHP.Normal);
     }
 
     set {

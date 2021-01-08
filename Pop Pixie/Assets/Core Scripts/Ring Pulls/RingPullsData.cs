@@ -8,7 +8,7 @@ public class RingPullsData {
   public static bool ShouldPulse = false;
 
   public static int Amount() {
-    return GameData.Current.Fetch(
+    return (int) GameData.Current.Fetch(
       "ring-pulls", 
       orSetEqualTo: 0
     );

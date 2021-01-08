@@ -7,7 +7,7 @@ public class EquippedWeaponData {
 
   public static int CurrentWeapon {
     get {
-      return GameData.Current.Fetch("current-weapon", orSetEqualTo: 0);
+      return (int) GameData.Current.Fetch("current-weapon", orSetEqualTo: 0);
     }
 
     set {

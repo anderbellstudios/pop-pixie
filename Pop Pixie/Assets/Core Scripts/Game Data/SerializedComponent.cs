@@ -6,5 +6,5 @@ using UnityEngine;
 [Serializable]
 public class SerializedComponent {
   public Type Type;
-  public Dictionary<string, dynamic> Fields;
+  public Dictionary<string, object> Fields;
 }

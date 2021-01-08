@@ -16,7 +16,7 @@ public class SceneData {
     GDCall.ExpectLoad();
 
     new SceneDeserializer(
-      GameData.Current.Fetch("scene")
+      (SerializedScene) GameData.Current.Fetch("scene")
     ).Deserialize();
   }
 

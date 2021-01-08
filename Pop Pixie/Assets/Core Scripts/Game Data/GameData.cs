@@ -5,8 +5,8 @@ using UnityEngine;
 public class GameData : AData {
   public static GameData Current = new GameData();
 
-  public override Dictionary<string, dynamic> LocalDefaultDictionary() {
-    return new Dictionary<string, dynamic> {
+  public override Dictionary<string, object> LocalDefaultDictionary() {
+    return new Dictionary<string, object> {
       { "VERSION", "1.1" }
     };
   }

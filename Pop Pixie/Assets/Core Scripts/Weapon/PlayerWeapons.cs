@@ -34,7 +34,7 @@ public class PlayerWeapon {
       GameData.Current.Set("ammunition-" + Weapon.Id, value);
     }
     get {
-      return GameData.Current.Fetch("ammunition-" + Weapon.Id, orSetEqualTo: Weapon.Capacity);
+      return (int) GameData.Current.Fetch("ammunition-" + Weapon.Id, orSetEqualTo: Weapon.Capacity);
     }
   }
 
