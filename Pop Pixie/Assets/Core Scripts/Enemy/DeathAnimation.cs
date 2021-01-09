@@ -14,6 +14,7 @@ public class DeathAnimation : MonoBehaviour {
   public SpawnFlyingRingPull SpawnFlyingRingPull;
 
   private IntervalTimer Timer;
+  private Color InitialColor;
 
   void Awake() {
     Timer = new IntervalTimer() {
@@ -22,6 +23,8 @@ public class DeathAnimation : MonoBehaviour {
   }
 
   public void Play() {
+    InitialColor = SpriteRenderer.color;
+
     ParticleSystems.ForEach( x => x.Play() );
     Invoke("StartFadeOut", FadeOutDelay);
     Invoke("DestroyGameObject", DestroyTime);
@@ -35,8 +38,14 @@ public class DeathAnimation : MonoBehaviour {
   }
 
   void Update() {
-    if ( Timer.Started )
-      SpriteRenderer.color = new Color( 0, 0, 0, 1f - Timer.Progress() );
+    if ( Timer.Started ) {
+      SpriteRenderer.color = new Color(
+        InitialColor.r,
+        InitialColor.g,
+        InitialColor.b,
+        Mathf.Clamp(1f - Timer.Progress(), 0, InitialColor.a)
+      );
+    }
   }
 
   void DestroyGameObject() {

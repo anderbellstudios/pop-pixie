@@ -11,9 +11,12 @@ public class EnemyHitPointEvents : MonoBehaviour, IHitPointEvents {
   public Flash Flash;
   public DeathAnimation DeathAnimation;
   public Collider2D Collider;
+  public HUDBar HealthBar;
   public List<AudioClip> Sounds;
 
   public void Updated (HitPoints hp) {
+    if (HealthBar != null)
+      HealthBar.Progress = hp.Current / hp.Maximum;
   }
 
   public void Decreased (HitPoints hp) {

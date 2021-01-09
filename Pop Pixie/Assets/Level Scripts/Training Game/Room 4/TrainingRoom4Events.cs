@@ -3,11 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-// using UnityEngine.SceneManagement;
+using UnityEngine.SceneManagement;
 
-public class TrainingRoom4Events : MonoBehaviour {
+public class TrainingRoom4Events : MonoBehaviour, IPromptButtonEventHandler {
   public TMP_Text TimerText;
   public GameObject HologremsContainer;
+  public float DelayAfterRaceFinished;
+  public DialoguePromptManager PromptManager;
 
   bool RaceInProgress = false;
   bool RaceFinished = false;
@@ -39,6 +41,23 @@ public class TrainingRoom4Events : MonoBehaviour {
       RaceInProgress = false;
       RaceFinished = true;
       RaceFinishedTime = PlayingTime.time;
+
+      Invoke("AfterRaceFinished", DelayAfterRaceFinished);
+    }
+  }
+
+  public void AfterRaceFinished() {
+    PromptManager.Display(
+      "(Move on to the next room?)",
+      "Move on",
+      "Try again",
+      this
+    );
+  }
+
+  public void ButtonPressed (string button) {
+    if ( button == "positive" ) {
+      SceneManager.LoadScene("Training Room 5");
     }
   }
 
