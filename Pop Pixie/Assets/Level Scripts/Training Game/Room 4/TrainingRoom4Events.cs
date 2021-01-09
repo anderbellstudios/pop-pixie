@@ -7,16 +7,25 @@ using TMPro;
 
 public class TrainingRoom4Events : MonoBehaviour {
   public TMP_Text TimerText;
+  public GameObject HologremsContainer;
 
   bool RaceInProgress = false;
   bool RaceFinished = false;
   float RaceStartedTime = 0f;
   float RaceFinishedTime = 0f;
+  GameObject HologremsContainerClone;
 
   float ElapsedTime() => (RaceFinished ? RaceFinishedTime : PlayingTime.time) - RaceStartedTime;
 
+  void Awake() {
+    HologremsContainer.SetActive(false);
+  }
+
   public void HandleStartBoundaryCrossed() {
     if (!RaceInProgress) {
+      HologremsContainerClone = Instantiate(HologremsContainer);
+      HologremsContainerClone.SetActive(true);
+
       RaceInProgress = true;
       RaceFinished = false;
       RaceStartedTime = PlayingTime.time;
@@ -25,6 +34,8 @@ public class TrainingRoom4Events : MonoBehaviour {
 
   public void HandleFinishBoundaryCrossed() {
     if (RaceInProgress) {
+      Destroy(HologremsContainerClone);
+
       RaceInProgress = false;
       RaceFinished = true;
       RaceFinishedTime = PlayingTime.time;
