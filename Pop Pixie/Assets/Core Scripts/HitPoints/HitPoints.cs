@@ -21,6 +21,7 @@ public class HitPoints : MonoBehaviour, ISerializableComponent {
 
   public bool ShouldSave = true;
   public float Maximum; 
+  public bool InfiniteHP = false;
   public float Current; 
   public float RegenerateRate;
   public List<ACanBeDamagedArbiter> CanBeDamagedArbiters;
@@ -52,7 +53,8 @@ public class HitPoints : MonoBehaviour, ISerializableComponent {
     if ( Dead )
       return 0.0f; // <-- Bypass callbacks
 
-    Increase(-val);
+    if (!InfiniteHP)
+      Increase(-val);
 
     SendEventHandlerMessage("Decreased");
     if ( Current == 0 ) {

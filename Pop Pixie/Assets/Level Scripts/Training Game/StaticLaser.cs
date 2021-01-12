@@ -4,6 +4,6 @@ using UnityEngine;
 
 public class StaticLaser : MonoBehaviour {
   public void CollidedWithPlayer() {
-    DamagedBlur.Current.Activate();
+    GameObject.FindGameObjectWithTag("Player").GetComponent<HitPoints>().Damage(1);
   }
 }
