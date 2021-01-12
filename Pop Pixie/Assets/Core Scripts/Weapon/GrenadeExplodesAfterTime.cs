@@ -10,6 +10,7 @@ public class GrenadeExplodesAfterTime : MonoBehaviour {
   public float RadiusIndicatorTime;
   public float ExplodeTime;
   public float Radius;
+  public float DamageExplodingInHand;
   public AnimationCurve DamageCurve;
   public Transform RadiusIndicator;
   public GameObject Explosion;
@@ -57,10 +58,12 @@ public class GrenadeExplodesAfterTime : MonoBehaviour {
       float distance = (go.transform.position - transform.position).magnitude;
 
       if (hp != null && distance <= Radius) {
-        hp.Damage(BulletData.Damage * DamageCurve.Evaluate(distance / Radius));
+        hp.Damage(MaxDamage() * DamageCurve.Evaluate(distance / Radius));
       }
     };
   }
+
+  float MaxDamage() => GrenadeWaitingBeforeThrow.Waiting ? DamageExplodingInHand : BulletData.Damage;
 
   void SetRadiusIndicatorRadius( float radius ) {
     RadiusIndicator.localScale = new Vector3( 2 * radius, 2 * radius, 2 * radius );

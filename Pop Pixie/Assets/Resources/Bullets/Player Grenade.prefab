@@ -75,108 +75,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!61 &6298610648879913697
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3155477259556195472}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.76, y: 1.26}
-    newSize: {x: 3.2, y: 3.2}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.76, y: 1.26}
-  m_EdgeRadius: 0
---- !u!114 &5401688391077968189
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3155477259556195472}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e976484cfc07479c837c1e59c1da24b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &6190657918269877258
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3155477259556195472}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc47d8cf1130a40f78fe291b81730cb5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BulletData: {fileID: 1051516415135514880}
-  Speed: 75
-  FollowsPlayer: {fileID: 5401688391077968189}
-  Collider: {fileID: 6298610648879913697}
-  TrailRenderer: {fileID: 3071084885076420444}
-  Rigidbody: {fileID: 3132916451169411846}
-  Waiting: 1
---- !u!114 &7713868978431852629
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3155477259556195472}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c3bcb688092841779c695bbced433e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BulletData: {fileID: 1051516415135514880}
-  Rigidbody: {fileID: 3132916451169411846}
-  GrenadeWaitingBeforeThrow: {fileID: 6190657918269877258}
-  RadiusIndicatorTime: 0.2
-  ExplodeTime: 2
-  Radius: 6
-  DamageCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: -2.4146035
-      outSlope: -2.4146035
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.056039643
-    - serializedVersion: 3
-      time: 1
-      value: 0.25
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  RadiusIndicator: {fileID: 43473083253457666}
-  Explosion: {fileID: 7990283502541458056, guid: a60bf0c10d5984ba29965630914b3056,
-    type: 3}
 --- !u!1 &5586064788362070312
 GameObject:
   m_ObjectHideFlags: 0
@@ -253,6 +151,109 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!61 &6298610648879913697
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3155477259556195472}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.76, y: 1.26}
+    newSize: {x: 3.2, y: 3.2}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.76, y: 1.26}
+  m_EdgeRadius: 0
+--- !u!114 &5401688391077968189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3155477259556195472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e976484cfc07479c837c1e59c1da24b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6190657918269877258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3155477259556195472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc47d8cf1130a40f78fe291b81730cb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BulletData: {fileID: 1051516415135514880}
+  Speed: 75
+  FollowsPlayer: {fileID: 5401688391077968189}
+  Collider: {fileID: 6298610648879913697}
+  TrailRenderer: {fileID: 3071084885076420444}
+  Rigidbody: {fileID: 3132916451169411846}
+  Waiting: 1
+--- !u!114 &7713868978431852629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3155477259556195472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c3bcb688092841779c695bbced433e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BulletData: {fileID: 1051516415135514880}
+  Rigidbody: {fileID: 3132916451169411846}
+  GrenadeWaitingBeforeThrow: {fileID: 6190657918269877258}
+  RadiusIndicatorTime: 0.2
+  ExplodeTime: 2
+  Radius: 6
+  DamageExplodingInHand: 25
+  DamageCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: -2.4146035
+      outSlope: -2.4146035
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.056039643
+    - serializedVersion: 3
+      time: 1
+      value: 0.25
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  RadiusIndicator: {fileID: 43473083253457666}
+  Explosion: {fileID: 7990283502541458056, guid: a60bf0c10d5984ba29965630914b3056,
+    type: 3}
 --- !u!1001 &5780304582548719994
 PrefabInstance:
   m_ObjectHideFlags: 0
