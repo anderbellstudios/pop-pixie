@@ -27,6 +27,7 @@ public class GremlinSpawnScheduler : MonoBehaviour {
     Spawning = true;
 
     SpawnTimer = new IntervalTimer() {
+      TimeClass = "PlayingTime",
       Interval = SpawnInterval
     };
     

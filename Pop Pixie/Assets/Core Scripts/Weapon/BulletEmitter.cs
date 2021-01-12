@@ -28,7 +28,9 @@ public class BulletEmitter : MonoBehaviour {
       transform.rotation
     );
 
-    bullet.GetComponent<BulletData>().Damage = Weapon.Damage;
+    BulletData bulletData = bullet.GetComponent<BulletData>();
+    bulletData.Damage = Weapon.Damage;
+    bulletData.DirectionManager = dm;
     bullet.GetComponent<Rigidbody2D>().velocity = Speed() * direction;
 	}
 

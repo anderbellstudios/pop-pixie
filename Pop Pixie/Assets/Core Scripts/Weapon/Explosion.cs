@@ -7,6 +7,7 @@ public class Explosion : MonoBehaviour {
 
   public Image Image;
   public float Duration;
+  public GameObject ExplosionGameObject;
 
   IntervalTimer Timer;
 
@@ -26,7 +27,7 @@ public class Explosion : MonoBehaviour {
     Image.color = colour;
 
     if ( Timer.Elapsed() )
-      Destroy(gameObject);
+      Destroy(ExplosionGameObject);
   }
 
   float Scale() {

@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class FollowsPlayer : MonoBehaviour {
 
-  public GameObject player;
-
+  private GameObject player;
   private Vector3 offset;
 
 	// Use this for initialization
 	void Start () {
+    player = GameObject.FindGameObjectWithTag("Player");
     offset = transform.position - player.transform.position;
   }
 	

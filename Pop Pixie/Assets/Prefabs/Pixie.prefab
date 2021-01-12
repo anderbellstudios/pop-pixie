@@ -45,6 +45,8 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
@@ -56,6 +58,7 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -168,6 +171,8 @@ TrailRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
@@ -179,6 +184,7 @@ TrailRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -276,6 +282,7 @@ MonoBehaviour:
   CanBeDamagedArbiters:
   - {fileID: 8199610652695165348}
   - {fileID: 3633734644977408093}
+  Dead: 0
 --- !u!114 &3419888328154360209
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -673,6 +680,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AllWeapons:
   - {fileID: 11400000, guid: 38e77b0def8a741bf835137fdb7c51b5, type: 2}
+  - {fileID: 11400000, guid: 83495328be7ff4b2e9c2f8b140aeeae1, type: 2}
   - {fileID: 11400000, guid: 0a8dbe2daebd94dff9dcfb11d9e97858, type: 2}
   - {fileID: 11400000, guid: aa7b3cbcffe504d3780c57478188d7f6, type: 2}
 --- !u!114 &5921366765021838991
@@ -733,6 +741,8 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
@@ -744,6 +754,7 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -812,6 +823,8 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
@@ -823,6 +836,7 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -891,6 +905,8 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
@@ -902,6 +918,7 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -934,6 +951,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3705786556790825517, guid: 64be909e40cc84179a64b61c3255762a,
         type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3705786556790825517, guid: 64be909e40cc84179a64b61c3255762a,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: -6.88625
       objectReference: {fileID: 0}
@@ -949,6 +971,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3705786556790825517, guid: 64be909e40cc84179a64b61c3255762a,
         type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3705786556790825517, guid: 64be909e40cc84179a64b61c3255762a,
+        type: 3}
       propertyPath: m_LocalRotation.x
       value: -0
       objectReference: {fileID: 0}
@@ -961,16 +988,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalRotation.z
       value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3705786556790825517, guid: 64be909e40cc84179a64b61c3255762a,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3705786556790825517, guid: 64be909e40cc84179a64b61c3255762a,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3705786556790825517, guid: 64be909e40cc84179a64b61c3255762a,
         type: 3}

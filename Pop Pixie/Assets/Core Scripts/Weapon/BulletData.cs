@@ -6,5 +6,6 @@ public class BulletData : MonoBehaviour {
 
   public float Damage;
   public float Lifetime; 
+  public IDirectionManager DirectionManager;
 
 }
