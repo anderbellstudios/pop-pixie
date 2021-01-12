@@ -57,9 +57,7 @@ public class GrenadeExplodesAfterTime : MonoBehaviour {
       float distance = (go.transform.position - transform.position).magnitude;
 
       if (hp != null && distance <= Radius) {
-        float damage = BulletData.Damage * DamageCurve.Evaluate(distance / Radius);
-        Debug.Log(damage);
-        hp.Damage(damage);
+        hp.Damage(BulletData.Damage * DamageCurve.Evaluate(distance / Radius));
       }
     };
   }
