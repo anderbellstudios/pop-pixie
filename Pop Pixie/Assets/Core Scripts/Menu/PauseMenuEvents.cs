@@ -9,9 +9,12 @@ using TMPro;
 
 public class PauseMenuEvents : MonoBehaviour {
 
-  public List<Button> Buttons;
+  public List<Button> InitialButtons;
+  public List<GameObject> RemoveFromMinimalMenu;
   public PercentageButton MusicVolumeButton, SoundsVolumeButton;
   public TMP_Text ButtonIconsText;
+
+  private List<Button> Buttons;
 
   EnumeratorButton<String> ButtonIconsButton;
   bool InFocus;
@@ -33,6 +36,12 @@ public class PauseMenuEvents : MonoBehaviour {
         ControllerTypeData.SetControllerType(type);
       }
     );
+
+    if (PauseMenuData.MinimalPauseMenu) {
+      RemoveFromMinimalMenu.ForEach(go => Destroy(go));
+    }
+
+    Buttons = InitialButtons.Where(b => b != null).ToList();
   }
 
   void Update() {
