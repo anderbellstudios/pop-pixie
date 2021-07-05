@@ -33,7 +33,7 @@ public class LoreManager : MonoBehaviour {
     if (!IsOpen)
       return;
 
-    if (WrappedInput.GetButtonDown("Cancel")) {
+    if (WrappedInput.GetButtonUp("Cancel")) {
       LoreWindow.Hide();
 
       if (OnClose != null)

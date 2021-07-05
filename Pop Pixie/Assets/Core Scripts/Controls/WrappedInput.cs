@@ -19,6 +19,10 @@ public class WrappedInput : MonoBehaviour {
     return Player.GetButtonDown( buttonName );
   }
 
+  public static bool GetButtonUp( string buttonName ) {
+    return Player.GetButtonUp( buttonName );
+  }
+
   public static float GetAxis( string axis ) {
     return Player.GetAxis( axis );
   }
