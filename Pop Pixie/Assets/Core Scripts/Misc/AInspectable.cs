@@ -25,6 +25,10 @@ public abstract class AInspectable : MonoBehaviour {
   }
 
   void Update() {
+    AInspectableUpdate();
+  }
+
+  public void AInspectableUpdate() {
     bool statePlaying = StateManager.Is( State.Playing );
 
     IsNearby[this] = statePlaying && _Nearby;

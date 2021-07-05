@@ -123,18 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!114 &223217803 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4607526837676390574, guid: b5c86a1ed5ce34db29ecde0c58d6ef58,
-    type: 3}
-  m_PrefabInstance: {fileID: 802902595}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09ceb2e4e52ed49deaf32f1b1d64b3f5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &223827012
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1075,8 +1063,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 924280429}
-  - component: {fileID: 924280430}
   - component: {fileID: 924280431}
+  - component: {fileID: 924280430}
   m_Layer: 0
   m_Name: Trade Secret
   m_TagString: Untagged
@@ -1113,12 +1101,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 924280428}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7174e5eba63644cbb7f240714404111, type: 3}
+  m_Script: {fileID: 11500000, guid: 5c4860696fdf247538d78e5d1243b604, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LoreItemResourceName: gremlin-data
-  PromptText: Hello world
-  PromptManager: {fileID: 223217803}
+  Collected: 0
+  SpriteGameObject: {fileID: 2052160168}
+  ColliderBehaviour: {fileID: 924280431}
 --- !u!58 &924280431
 CircleCollider2D:
   m_ObjectHideFlags: 0
