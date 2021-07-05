@@ -7,6 +7,7 @@ public class TradeSecretSprite : AInspectable, ISerializableComponent {
   public string[] SerializableFields { get; } = { "Collected" };
 
   public bool Collected = false;
+  public LoreItem LoreItem;
   public GameObject SpriteGameObject;
   public CircleCollider2D ColliderBehaviour;
 
@@ -18,7 +19,13 @@ public class TradeSecretSprite : AInspectable, ISerializableComponent {
   }
 
   public override void OnInspect() {
-    Debug.Log("Activated");
     Collected = true;
+
+    LoreItemData.RecordRead(LoreItem);
+    StateManager.SetState(State.Lore);
+
+    LoreManager.Current.Open(LoreItem, () => {
+      StateManager.SetState(State.Playing);
+    });
   }
 }
