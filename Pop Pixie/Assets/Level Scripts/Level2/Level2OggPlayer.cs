@@ -28,6 +28,8 @@ public class Level2OggPlayer : AInspectable, IDialogueSequenceEventHandler, IPro
 
   public void ButtonPressed (string button) {
     if ( button == "positive" ) {
+      StateManager.SetState( State.Lore );
+
       LoreManager.Current.Open(LoreItem, () => {
         SongHopper.Stop();
       });

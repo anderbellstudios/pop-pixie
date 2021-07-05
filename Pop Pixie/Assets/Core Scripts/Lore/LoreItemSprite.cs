@@ -19,6 +19,9 @@ public class LoreItemSprite : AInspectable, IPromptButtonEventHandler {
 
   public void ButtonPressed (string button) {
     if ( button == "positive" ) {
+      LoreItemData.RecordRead(LoreItem);
+      StateManager.SetState( State.Lore );
+
       LoreManager.Current.Open(LoreItem, () => {
         StateManager.SetState( State.Playing );
       });

@@ -20,11 +20,12 @@ public class LoreManager : MonoBehaviour {
     LoreWindow.Hide();
 	}
 
-  public void Open(LoreItem item, LoreWindowOnClose OnClose = null) {
-    OnClose = OnClose;
+  public void Open(LoreItem item, LoreWindowOnClose onClose = null) {
+    OnClose = onClose;
     IsOpen = true;
 
-    LoreWindow.Write( item.Text );
+    LoreWindow.SetTitle(item.Name);
+    LoreWindow.SetText(item.Text);
     LoreWindow.Show();
   }
 	

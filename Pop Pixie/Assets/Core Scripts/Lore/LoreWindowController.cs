@@ -7,17 +7,16 @@ using TMPro;
 
 public class LoreWindowController : MonoBehaviour {
 
-  public TMP_Text TextBox;
-  public RectTransform TextBoxTransform;
+  public TMP_Text Title, TextBox;
   public GameObject LoreWindow;
   public GameObject ScrollBar;
 
-  public void Write (string text) {
+  public void SetTitle(string title) {
+    Title.text = title;
+  }
+
+  public void SetText(string text) {
     TextBox.text = text;
-    TextBoxTransform.sizeDelta = new Vector2(
-      0,
-      TextBox.GetPreferredValues().y
-    );
   }
 
   public void Show () {
