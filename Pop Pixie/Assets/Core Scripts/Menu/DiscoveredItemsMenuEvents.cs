@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 
-public class DiscoveredItemsMenuEvents : MonoBehaviour, ILoreEventHandler {
+public class DiscoveredItemsMenuEvents : MonoBehaviour {
 
   public static PauseMenuEvents ParentMenu; // Must be set by object that calls LoadScene
 
@@ -49,15 +49,15 @@ public class DiscoveredItemsMenuEvents : MonoBehaviour, ILoreEventHandler {
   public void LoreItemButtonClicked( Button button, LoreItem loreItem ) {
     InFocus = false;
     LastSelectedButton = button;
-    SetButtonsEnabled(false);
-    LoreManager.Open( loreItem, this );
-  }
 
-  public void Closed() {
-    SetButtonsEnabled(true);
-    LastSelectedButton.Select();
-    LastSelectedButton.OnSelect(null);
-    InFocus = true;
+    SetButtonsEnabled(false);
+
+    LoreManager.Open(loreItem, () => {
+      SetButtonsEnabled(true);
+      LastSelectedButton.Select();
+      LastSelectedButton.OnSelect(null);
+      InFocus = true;
+    });
   }
 
   void SetButtonsEnabled( bool enabled ) {

@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Level2OggPlayer : AInspectable, IDialogueSequenceEventHandler, IPromptButtonEventHandler, ILoreEventHandler {
+public class Level2OggPlayer : AInspectable, IDialogueSequenceEventHandler, IPromptButtonEventHandler {
 
+  public LoreItem LoreItem;
   public DialogueManager Dialogue;
   public DialoguePromptManager PromptManager;
   public SongHopper SongHopper;
@@ -27,12 +28,11 @@ public class Level2OggPlayer : AInspectable, IDialogueSequenceEventHandler, IPro
 
   public void ButtonPressed (string button) {
     if ( button == "positive" ) {
-      LevelLoreManager.Current.Open("Lore/Blank", this);
+      LoreManager.Current.Open(LoreItem, () => {
+        SongHopper.Stop();
+      });
+
       SongHopper.Hop();
     }
-  }
-
-  public void Closed () {
-    SongHopper.Stop();
   }
 }

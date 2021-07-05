@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LoreItemSprite : AInspectable, IPromptButtonEventHandler {
 
-  public string LoreItemResourceName;
+  public LoreItem LoreItem;
   public string PromptText;
   public DialoguePromptManager PromptManager;
 
@@ -19,7 +19,9 @@ public class LoreItemSprite : AInspectable, IPromptButtonEventHandler {
 
   public void ButtonPressed (string button) {
     if ( button == "positive" ) {
-      LevelLoreManager.Current.Open("Lore/" + LoreItemResourceName);
+      LoreManager.Current.Open(LoreItem, () => {
+        StateManager.SetState( State.Playing );
+      });
     }
   }
 }

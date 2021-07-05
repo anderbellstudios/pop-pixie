@@ -4,35 +4,39 @@ using UnityEngine;
 
 public class LoreManager : MonoBehaviour {
 
+  public delegate void LoreWindowOnClose();
+
+  public static LoreManager Current;
+
   public LoreWindowController LoreWindow;
 
-  private ILoreEventHandler EventHandler;
+  private LoreWindowOnClose OnClose;
   private bool IsOpen;
 
-  public void Open (LoreItem item, ILoreEventHandler event_handler=null) {
-    EventHandler = event_handler;
+	void Start() {
+    Current = this;
 
-    IsOpen = true;
-    LoreWindow.Write( item.Text );
-    LoreWindow.Show();
-  }
-
-	// Use this for initialization
-	void Start () {
     IsOpen = false;
     LoreWindow.Hide();
 	}
+
+  public void Open(LoreItem item, LoreWindowOnClose OnClose = null) {
+    OnClose = OnClose;
+    IsOpen = true;
+
+    LoreWindow.Write( item.Text );
+    LoreWindow.Show();
+  }
 	
-	// Update is called once per frame
-	void Update () {
-    if ( !IsOpen )
+	void Update() {
+    if (!IsOpen)
       return;
 
-    if ( WrappedInput.GetButtonDown("Cancel") ) {
+    if (WrappedInput.GetButtonDown("Cancel")) {
       LoreWindow.Hide();
 
-      if ( EventHandler != null )
-        EventHandler.Closed();
+      if (OnClose != null)
+        OnClose();
 
       IsOpen = false;
     }
