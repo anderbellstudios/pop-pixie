@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class EquippedWeapon : MonoBehaviour {
 
+  public static EquippedWeapon Current;
+
   public WeaponReload WeaponReload;
   public SpriteRenderer InHandSpriteRenderer;
 
@@ -20,9 +22,16 @@ public class EquippedWeapon : MonoBehaviour {
         ? AvailableWeapons()[CurrentWeaponIndex]
         : AvailableWeapons()[0];
 
+  public bool NeedToReload()
+   => CurrentWeapon.Ammunition == 0; 
+
   private WeaponInfoController WeaponInfoController;
   private HUDBar AmmunitionBar;
   private ReloadIndicator ReloadIndicator;
+
+  void Awake() {
+    Current = this;
+  }
 
   void Start() {
     CurrentWeaponIndex = EquippedWeaponData.CurrentWeapon;
@@ -51,7 +60,7 @@ public class EquippedWeapon : MonoBehaviour {
     AmmunitionBar.Progress = (float) CurrentWeapon.Ammunition / 
                              (float) CurrentWeapon.Capacity;
 
-    ReloadIndicator.Visible = CurrentWeapon.Ammunition == 0;
+    ReloadIndicator.Visible = NeedToReload();
   }
 
   void ChangeWeaponIndex( int delta ) {

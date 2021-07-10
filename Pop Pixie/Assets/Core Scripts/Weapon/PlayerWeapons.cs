@@ -6,9 +6,16 @@ using UnityEngine.UI;
 
 public class PlayerWeapons : MonoBehaviour {
 
+  public static PlayerWeapons Current;
+
   public List<Weapon> AllWeapons;
 
+  void Awake() {
+    Current = this;
+  }
+
   private List<PlayerWeapon> _AvailableWeapons;
+
   public List<PlayerWeapon> AvailableWeapons() {
     if (_AvailableWeapons == null) {
       _AvailableWeapons = AllWeapons
