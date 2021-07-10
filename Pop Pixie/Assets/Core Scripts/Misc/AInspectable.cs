@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -22,6 +23,24 @@ public abstract class AInspectable : MonoBehaviour {
       _Nearby = false;
       OnPlayerOut();
     }
+  }
+
+  void Start() {
+    AInspectableStart();
+  }
+
+  public void AInspectableStart() {
+    InGamePrompt.Current.RegisterSource(() => {
+      if (_Nearby) {
+        return AInspectablePromptText();
+      } else {
+        return null;
+      }
+    });
+  }
+
+  public virtual String AInspectablePromptText() {
+    return null;
   }
 
   void Update() {

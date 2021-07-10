@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -27,5 +28,9 @@ public class TradeSecretSprite : AInspectable, ISerializableComponent {
     LoreManager.Current.Open(LoreItem, () => {
       StateManager.SetState(State.Playing);
     });
+  }
+
+  public override String AInspectablePromptText() {
+    return "Press <color=#00ffff>[Inspect]</color> to steal <color=#ffff00>Trade Secret</color>";
   }
 }
