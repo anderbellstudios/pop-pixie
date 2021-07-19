@@ -8,10 +8,12 @@ public class SongStack : MonoBehaviour {
 
   Stack<Song> Songs = new Stack<Song>();
 
+  public bool SingletonInstance = true;
   public static SongStack Current;
 
   void Awake() {
-    Current = this;
+    if (SingletonInstance)
+      Current = this;
   }
 
   public void Play( Song song ) {

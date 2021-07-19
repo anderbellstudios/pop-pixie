@@ -9,10 +9,12 @@ public class SongController : MonoBehaviour {
 
   Song CurrentSong = null;
 
+  public bool SingletonInstance = true;
   public static SongController Current;
 
   void Awake() {
-    Current = this;
+    if (SingletonInstance)
+      Current = this;
   }
 
   public void Play( Song song ) {

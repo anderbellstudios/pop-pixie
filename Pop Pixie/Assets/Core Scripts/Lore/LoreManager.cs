@@ -6,6 +6,7 @@ public class LoreManager : MonoBehaviour {
 
   public delegate void LoreWindowOnClose();
 
+  public bool SingletonInstance = true;
   public static LoreManager Current;
 
   public LoreWindowController LoreWindow;
@@ -14,7 +15,8 @@ public class LoreManager : MonoBehaviour {
   private bool IsOpen;
 
 	void Start() {
-    Current = this;
+    if (SingletonInstance)
+      Current = this;
 
     IsOpen = false;
     LoreWindow.Hide();

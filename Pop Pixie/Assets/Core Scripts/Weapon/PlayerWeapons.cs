@@ -6,12 +6,14 @@ using UnityEngine.UI;
 
 public class PlayerWeapons : MonoBehaviour {
 
+  public bool SingletonInstance = true;
   public static PlayerWeapons Current;
 
   public List<Weapon> AllWeapons;
 
   void Awake() {
-    Current = this;
+    if (SingletonInstance)
+      Current = this;
   }
 
   private List<PlayerWeapon> _AvailableWeapons;

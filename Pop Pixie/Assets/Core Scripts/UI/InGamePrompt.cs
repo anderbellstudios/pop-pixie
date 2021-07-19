@@ -8,6 +8,7 @@ using TMPro;
 public class InGamePrompt : MonoBehaviour {
   public delegate String InGamePromptSource();
 
+  public bool SingletonInstance = true;
   public static InGamePrompt Current;
 
   public TMP_Text Text;
@@ -15,7 +16,8 @@ public class InGamePrompt : MonoBehaviour {
   private List<InGamePromptSource> Sources = new List<InGamePromptSource>();
 
   void Awake() {
-    Current = this;
+    if (SingletonInstance)
+      Current = this;
   }
 
   public void RegisterSource(InGamePromptSource source) {

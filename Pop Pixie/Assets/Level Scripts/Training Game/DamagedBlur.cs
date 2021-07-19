@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class DamagedBlur : MonoBehaviour {
+  public bool SingletonInstance = true;
   public static DamagedBlur Current;
 
   public ScreenFade Fader;
@@ -18,7 +19,8 @@ public class DamagedBlur : MonoBehaviour {
   private float MovementModifier = 1f;
 
   void Awake() {
-    Current = this;
+    if (SingletonInstance)
+      Current = this;
 
     Timer = new IntervalTimer() {
       Interval = Interval

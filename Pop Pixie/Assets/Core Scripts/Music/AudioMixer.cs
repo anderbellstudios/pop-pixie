@@ -8,10 +8,13 @@ public class AudioMixer : MonoBehaviour {
 
   IntervalTimer FadeOutTimer;
 
+  public bool SingletonInstance = true;
   public static AudioMixer Current;
 
   void Awake() {
-    Current = this;
+    if (SingletonInstance)
+      Current = this;
+
     FadeOutTimer = new IntervalTimer();
   }
 

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class EquippedWeapon : MonoBehaviour {
 
+  public bool SingletonInstance = true;
   public static EquippedWeapon Current;
 
   public WeaponReload WeaponReload;
@@ -30,7 +31,8 @@ public class EquippedWeapon : MonoBehaviour {
   private ReloadIndicator ReloadIndicator;
 
   void Awake() {
-    Current = this;
+    if (SingletonInstance)
+      Current = this;
   }
 
   void Start() {
