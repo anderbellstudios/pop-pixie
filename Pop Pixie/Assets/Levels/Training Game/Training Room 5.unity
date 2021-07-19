@@ -141,6 +141,70 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be0759ffc675d4e549c003e457cdcd9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &75865167
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 75865170}
+  - component: {fileID: 75865169}
+  - component: {fileID: 75865168}
+  m_Layer: 0
+  m_Name: Hologrem Spawner (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &75865168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 75865167}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c04b1900abeed40ca93b3c5441e06a28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Prefab: {fileID: 7502846902899155345, guid: 151e83790871f44a1ae73f053b037eb6, type: 3}
+--- !u!114 &75865169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 75865167}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6994a0c0a69842b09d05b826cb83b8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BeginSpawningOnAwake: 1
+  SpawnGremlin: {fileID: 75865168}
+  SpawnInterval: 13
+  MaxGremlins: -1
+  SpawnEarlyWhenAllGremlinsDestroyed: 0
+  Spawning: 0
+  SpawnedGremlins: []
+--- !u!4 &75865170
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 75865167}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 30, y: 15, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &223827012
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -282,6 +346,70 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: db7b40b7e04a74afa95cc6e82a722496, type: 3}
+--- !u!1 &230391877
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 230391880}
+  - component: {fileID: 230391879}
+  - component: {fileID: 230391878}
+  m_Layer: 0
+  m_Name: Hologrem Spawner (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &230391878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 230391877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c04b1900abeed40ca93b3c5441e06a28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Prefab: {fileID: 7502846902899155345, guid: 151e83790871f44a1ae73f053b037eb6, type: 3}
+--- !u!114 &230391879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 230391877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6994a0c0a69842b09d05b826cb83b8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BeginSpawningOnAwake: 1
+  SpawnGremlin: {fileID: 230391878}
+  SpawnInterval: 12
+  MaxGremlins: -1
+  SpawnEarlyWhenAllGremlinsDestroyed: 0
+  Spawning: 0
+  SpawnedGremlins: []
+--- !u!4 &230391880
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 230391877}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 30, y: -15, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &405272546
 GameObject:
   m_ObjectHideFlags: 0
@@ -327,7 +455,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &405272549
 MonoBehaviour:
@@ -1338,7 +1466,7 @@ PrefabInstance:
     - target: {fileID: 6706276749206458136, guid: 530f9cf13aaff49cfb6f3c91784a0e3c,
         type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6706276749206458136, guid: 530f9cf13aaff49cfb6f3c91784a0e3c,
         type: 3}
@@ -1426,7 +1554,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ff37fe44af314afc82c111d94c8647d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1459653196
+--- !u!1 &1287652577
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1434,27 +1562,61 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1459653197}
+  - component: {fileID: 1287652580}
+  - component: {fileID: 1287652579}
+  - component: {fileID: 1287652578}
   m_Layer: 0
-  m_Name: Rectangle
+  m_Name: Hologrem Spawner (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1459653197
+--- !u!114 &1287652578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1287652577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c04b1900abeed40ca93b3c5441e06a28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Prefab: {fileID: 7502846902899155345, guid: 151e83790871f44a1ae73f053b037eb6, type: 3}
+--- !u!114 &1287652579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1287652577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6994a0c0a69842b09d05b826cb83b8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BeginSpawningOnAwake: 1
+  SpawnGremlin: {fileID: 1287652578}
+  SpawnInterval: 11
+  MaxGremlins: -1
+  SpawnEarlyWhenAllGremlinsDestroyed: 0
+  Spawning: 0
+  SpawnedGremlins: []
+--- !u!4 &1287652580
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1459653196}
+  m_GameObject: {fileID: 1287652577}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.275449, y: 7.5205455, z: 0}
+  m_LocalPosition: {x: -30, y: -15, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1528938707
 PrefabInstance:
@@ -2046,7 +2208,7 @@ GameObject:
   - component: {fileID: 1844793468}
   - component: {fileID: 1844793470}
   - component: {fileID: 1844793469}
-  m_Layer: 8
+  m_Layer: 16
   m_Name: Mentoe Hologram
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2375,6 +2537,70 @@ Camera:
     type: 3}
   m_PrefabInstance: {fileID: 1890190307}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1934934185
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1934934188}
+  - component: {fileID: 1934934187}
+  - component: {fileID: 1934934186}
+  m_Layer: 0
+  m_Name: Hologrem Spawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1934934186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1934934185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c04b1900abeed40ca93b3c5441e06a28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Prefab: {fileID: 7502846902899155345, guid: 151e83790871f44a1ae73f053b037eb6, type: 3}
+--- !u!114 &1934934187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1934934185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6994a0c0a69842b09d05b826cb83b8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BeginSpawningOnAwake: 1
+  SpawnGremlin: {fileID: 1934934186}
+  SpawnInterval: 10
+  MaxGremlins: -1
+  SpawnEarlyWhenAllGremlinsDestroyed: 0
+  Spawning: 0
+  SpawnedGremlins: []
+--- !u!4 &1934934188
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1934934185}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -30, y: 15, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &2026659314 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 3061322409520199770, guid: 8bdd4b95fc8b44ed4aa22102cec8cd45,
@@ -2392,6 +2618,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Holoring
+      objectReference: {fileID: 0}
+    - target: {fileID: 145702683587674036, guid: ac0530a655ebf4e6396996d7e115bd35,
+        type: 3}
+      propertyPath: m_Layer
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 145702683587674036, guid: ac0530a655ebf4e6396996d7e115bd35,
         type: 3}

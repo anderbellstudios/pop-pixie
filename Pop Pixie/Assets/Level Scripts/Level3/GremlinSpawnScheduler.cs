@@ -11,6 +11,7 @@ public class GremlinSpawnScheduler : MonoBehaviour {
   public SpawnGremlin SpawnGremlin;
   public float SpawnInterval;
   public int MaxGremlins;
+  public bool SpawnEarlyWhenAllGremlinsDestroyed = true;
 
   public bool Spawning;
   public List<GameObject> SpawnedGremlins;
@@ -38,7 +39,7 @@ public class GremlinSpawnScheduler : MonoBehaviour {
     if ( !Spawning )
       return;
 
-    if ( DestroyedAllGremlins() || SpawnTimer.Elapsed() )
+    if ( (SpawnEarlyWhenAllGremlinsDestroyed && DestroyedAllGremlins()) || SpawnTimer.Elapsed() )
       TentativeSpawnNextGremlin();
 
     if ( SpawnedGremlins.Count == MaxGremlins && DestroyedAllGremlins() )
@@ -46,7 +47,7 @@ public class GremlinSpawnScheduler : MonoBehaviour {
   }
 
   void TentativeSpawnNextGremlin() {
-    if ( SpawnedGremlins.Count < MaxGremlins ) {
+    if ( SpawnedGremlins.Count < MaxGremlins || MaxGremlins == -1 ) {
       var gremlin = SpawnGremlin.Spawn();
       SpawnedGremlins.Add(gremlin);
       SpawnTimer.Reset();
