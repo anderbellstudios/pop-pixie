@@ -2,22 +2,29 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class CameraPan : MonoBehaviour {
   public Camera Camera;
   public Camera DestinationCamera;
   public float Duration;
+  public bool PauseGameplay, FollowPlayerAfterPan;
+
+  [SerializeField] public UnityEvent OnFinish;
 
   private DateTime StartedAt;
   private Vector3 InitialPosition;
   private float InitialSize;
 
-  public void Perform(MonoBehaviour target, string callback) {
+  public void Perform() {
     InitialPosition = Camera.transform.position;
     InitialSize = Camera.GetComponent<Camera>().orthographicSize;
 
+    if (PauseGameplay)
+      StateManager.SetState( State.Cutscene );
+
     StartedAt = DateTime.Now;
-    target.Invoke(callback, Duration);
+    Invoke("Finished", Duration);
   }
 
   void FixedUpdate() {
@@ -25,6 +32,15 @@ public class CameraPan : MonoBehaviour {
       Camera.transform.position = InterpolatedPosition();
       Camera.GetComponent<Camera>().orthographicSize = InterpolatedSize();
     }
+  }
+
+  void Finished() {
+    if (PauseGameplay)
+      StateManager.SetState( State.Playing );
+
+    Camera.GetComponent<FollowsPlayer>().enabled = FollowPlayerAfterPan;
+
+    OnFinish.Invoke();
   }
 
   Vector3 InterpolatedPosition() {

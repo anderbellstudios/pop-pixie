@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MentoeHologram : AEnemyAI {
+  public float InitialDelay;
   public float AttackInterval;
   public GameObject HoloringPrefab;
 
@@ -14,7 +15,11 @@ public class MentoeHologram : AEnemyAI {
       TimeClass = "PlayingTime"
     };
 
-    AttackTimer.Reset();
+    Invoke("StartTimer", InitialDelay);
+  }
+
+  void StartTimer() {
+    AttackTimer.Start();
   }
 
   public override void WhileInControl() {

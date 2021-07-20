@@ -14,7 +14,8 @@ public class CameraPanPhase : APhase {
   }
 
   void StartPan() {
-    Pan.Perform(this, "PanFinished");
+    // Pan.Perform(this, "PanFinished");
+    PanFinished();
   }
 
   void PanFinished() {

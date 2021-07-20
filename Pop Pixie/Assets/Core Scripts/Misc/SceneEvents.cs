@@ -11,7 +11,7 @@ public class SceneEvents : MonoBehaviour {
   public static SceneEvents Current;
 
   public ScreenFade Fader;
-  public bool ShouldFadeIn = true, ShouldFadeOut = true, WaitForFadeInBeforePermittingExit = false;
+  public bool ShouldFadeIn = true, ShouldFadeOut = true, WaitForFadeInBeforePermittingExit = false, PauseGameplayDuringFadeOut = false;
   public float FadeInDelay, FadeInDuration, FadeOutDuration, PostFadeOutDelay;
 
   [SerializeField] public UnityEvent OnFadeIn;
@@ -49,6 +49,9 @@ public class SceneEvents : MonoBehaviour {
     if (ShouldFadeOut) {
       FadingOut = true;
 
+      if (PauseGameplayDuringFadeOut)
+        StateManager.SetState( State.LoadingLevel );
+
       AudioMixer.Current.FadeOut( FadeOutDuration );
       Fader.Fade("to black", FadeOutDuration);
       Invoke("LoadNewScene", FadeOutDuration + PostFadeOutDelay);
@@ -58,6 +61,9 @@ public class SceneEvents : MonoBehaviour {
   }
 
   void LoadNewScene() {
+    if (PauseGameplayDuringFadeOut)
+      StateManager.SetState( State.Playing );
+
     SceneManager.LoadScene(NewSceneName);
   }
 }
