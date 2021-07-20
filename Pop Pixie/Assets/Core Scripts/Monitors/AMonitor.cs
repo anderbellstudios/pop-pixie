@@ -26,16 +26,22 @@ public abstract class AMonitor : MonoBehaviour, ISerializableComponent {
 
   void Update() {
     if (Waiting && TestCondition()) {
-      if (!WaitInfinitely)
-        Waiting = false;
-
-      Event.Invoke();
+      ConditionMet();
     }
 
     LocalUpdate();
   }
 
+  public void ConditionMet() {
+    if (!WaitInfinitely)
+      Waiting = false;
+
+    Event.Invoke();
+  }
+
   public virtual void LocalUpdate() {}
 
-  public abstract bool TestCondition();
+  public virtual bool TestCondition() {
+    return false;
+  }
 }
