@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using TMPro;
 
 public class PromptButtonController : MonoBehaviour {
 
   public GameObject PromptButtonPanel;
   public GameObject DefaultButton;
-  public Text PveLabel, NveLabel;
+  public TMP_Text PveLabel, NveLabel;
 
   private IPromptButtonEventHandler EventHandler;
 
