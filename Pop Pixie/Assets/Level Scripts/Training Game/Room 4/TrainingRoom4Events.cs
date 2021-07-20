@@ -3,13 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEngine.SceneManagement;
 
-public class TrainingRoom4Events : MonoBehaviour, IPromptButtonEventHandler {
+public class TrainingRoom4Events : MonoBehaviour {
   public TMP_Text TimerText;
   public GameObject HologremsContainer;
   public float DelayAfterRaceFinished;
-  public DialoguePromptManager PromptManager;
+  public WaitPhase RaceFinishedWaitPhase;
 
   bool RaceInProgress = false;
   bool RaceFinished = false;
@@ -21,6 +20,18 @@ public class TrainingRoom4Events : MonoBehaviour, IPromptButtonEventHandler {
 
   void Awake() {
     HologremsContainer.SetActive(false);
+  }
+
+  void Update() {
+    if (RaceInProgress || RaceFinished) {
+      float elapsedTime = ElapsedTime();
+      int minutes = (int) Mathf.Floor(Mathf.Clamp(elapsedTime / 60f, 0, 99));
+      int seconds = (int) Mathf.Floor(elapsedTime - (minutes * 60));
+
+      TimerText.text = String.Format("{0:00}:{1:00}", minutes, seconds);
+    } else {
+      TimerText.text = "00:00";
+    }
   }
 
   public void HandleStartBoundaryCrossed() {
@@ -46,30 +57,7 @@ public class TrainingRoom4Events : MonoBehaviour, IPromptButtonEventHandler {
     }
   }
 
-  public void AfterRaceFinished() {
-    PromptManager.Display(
-      "(Move on to the next room?)",
-      "Move on",
-      "Try again",
-      this
-    );
-  }
-
-  public void ButtonPressed (string button) {
-    if ( button == "positive" ) {
-      SceneManager.LoadScene("Training Room 5");
-    }
-  }
-
-  void Update() {
-    if (RaceInProgress || RaceFinished) {
-      float elapsedTime = ElapsedTime();
-      int minutes = (int) Mathf.Floor(Mathf.Clamp(elapsedTime / 60f, 0, 99));
-      int seconds = (int) Mathf.Floor(elapsedTime - (minutes * 60));
-
-      TimerText.text = String.Format("{0:00}:{1:00}", minutes, seconds);
-    } else {
-      TimerText.text = "00:00";
-    }
+  void AfterRaceFinished() {
+    RaceFinishedWaitPhase.StopWaiting();
   }
 }

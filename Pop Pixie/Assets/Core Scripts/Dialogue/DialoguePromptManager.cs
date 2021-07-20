@@ -5,11 +5,21 @@ using UnityEngine;
 
 public class DialoguePromptManager : MonoBehaviour, IDialoguePageEventHandler, IPromptButtonEventHandler {
 
+  public bool SingletonInstance = true;
+  public static DialoguePromptManager Current;
+
   public DialogueBoxController DialogueBox;
   public PromptButtonController PromptButtons;
   public Sprite PromptFace;
 
   private IPromptButtonEventHandler EventHandler;
+
+  void Awake () {
+    if (SingletonInstance)
+      Current = this;
+
+    PromptButtons.Hide();
+  }
 
   public void Display (string question, string pveAns, string nveAns, IPromptButtonEventHandler event_handler) {
     StateManager.SetState( State.DialoguePrompt );
@@ -36,10 +46,6 @@ public class DialoguePromptManager : MonoBehaviour, IDialoguePageEventHandler, I
     PromptButtons.Hide();
     DialogueBox.Hide();
     StateManager.SetState( State.Playing );
-  }
-
-  void Awake () {
-    PromptButtons.Hide();
   }
 
 }
