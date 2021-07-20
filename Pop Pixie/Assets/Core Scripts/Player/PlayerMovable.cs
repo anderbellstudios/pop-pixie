@@ -9,14 +9,17 @@ public class PlayerMovable : MonoBehaviour, IDirectionManager {
   public Roll Roll;
   public Vector3 Direction { get; set; }
 
-  void FixedUpdate() {
+  void Update() {
+    if ( StateManager.Isnt( State.Playing ) )
+      return;
+
     Direction = new Vector2(
       WrappedInput.GetAxis("Horizontal"),
       WrappedInput.GetAxis("Vertical")
     );
 
     if ( !Roll.Rolling )
-      MovementManager.Movement += Speed * (Vector2) Direction;
+      MovementManager.Movement += Speed * (Vector2) Direction * Time.deltaTime;
   }
 
 }

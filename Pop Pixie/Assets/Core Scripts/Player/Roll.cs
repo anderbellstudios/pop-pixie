@@ -16,29 +16,20 @@ public class Roll : MonoBehaviour {
 
   public bool Rolling;
 
+  void Start() {
+    StateChanged();
+  }
+
   void Update() {
     if ( StateManager.Isnt( State.Playing ) )
       return;
 
-    InitateOpportunity();
-  }
-
-  void FixedUpdate() {
-    TrailRenderer.emitting = Rolling;
-    gameObject.layer = LayerMask.NameToLayer(Rolling ? "PlayerRolling" : "Player");
-
-    if ( StateManager.Isnt( State.Playing ) )
-      return;
-
-    if ( Rolling ) {
-      MovementManager.Movement += Speed * Direction();
-    }
-
-  }
-
-  void InitateOpportunity() {
     if ( WrappedInput.GetButtonDown("Roll") && !Rolling && RollAllowed.CanRoll() )
       StartRolling(); 
+
+    if (Rolling) {
+      MovementManager.Movement += Speed * Direction() * Time.deltaTime;
+    }
   }
 
   void StartRolling() {
@@ -46,10 +37,17 @@ public class Roll : MonoBehaviour {
     Rolling = true;
     Invoke("StopRolling", Duration);
     Animator.SetTrigger("Roll");
+    StateChanged();
   }
 
   void StopRolling() {
     Rolling = false;
+    StateChanged();
+  }
+
+  void StateChanged() {
+    TrailRenderer.emitting = Rolling;
+    gameObject.layer = LayerMask.NameToLayer(Rolling ? "PlayerRolling" : "Player");
   }
 
   Vector2 Direction() {

@@ -21,7 +21,7 @@ public abstract class AEnemyAI : MonoBehaviour {
     ControlGained();
   }
 
-  void FixedUpdate() {
+  void Update() {
     if ( StateManager.Isnt( State.Playing ) ) 
       return;
 
@@ -59,7 +59,7 @@ public abstract class AEnemyAI : MonoBehaviour {
   }
 
   public void ApplyMovement( Vector2 movement ) {
-    GetComponent<MovementManager>().Movement += movement;
+    GetComponent<MovementManager>().Movement += movement * Time.deltaTime;
   }
 
   public GameObject Target {

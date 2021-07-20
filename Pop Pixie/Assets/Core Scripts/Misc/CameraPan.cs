@@ -12,9 +12,15 @@ public class CameraPan : MonoBehaviour {
 
   [SerializeField] public UnityEvent OnFinish;
 
-  private DateTime StartedAt;
   private Vector3 InitialPosition;
   private float InitialSize;
+  private IntervalTimer Timer;
+
+  void Awake() {
+    Timer = new IntervalTimer() {
+      Interval = Duration
+    };
+  }
 
   public void Perform() {
     InitialPosition = Camera.transform.position;
@@ -23,15 +29,19 @@ public class CameraPan : MonoBehaviour {
     if (PauseGameplay)
       StateManager.SetState( State.Cutscene );
 
-    StartedAt = DateTime.Now;
-    Invoke("Finished", Duration);
+    Timer.Reset();
   }
 
-  void FixedUpdate() {
-    if ( InProgress() ) {
+  void Update() {
+    Timer.UnlessElapsed(() => {
       Camera.transform.position = InterpolatedPosition();
       Camera.GetComponent<Camera>().orthographicSize = InterpolatedSize();
-    }
+    });
+
+    Timer.IfElapsed(() => {
+      Finished();
+      Timer.Stop();
+    });
   }
 
   void Finished() {
@@ -47,7 +57,7 @@ public class CameraPan : MonoBehaviour {
     return Vector3.Lerp(
       InitialPosition,
       DestinationCamera.transform.position,
-      Progress()
+      Timer.Progress()
     );
   }
 
@@ -55,24 +65,7 @@ public class CameraPan : MonoBehaviour {
     return Mathf.Lerp(
       InitialSize,
       DestinationCamera.GetComponent<Camera>().orthographicSize,
-      Progress()
+      Timer.Progress()
     );
-  }
-
-  float Progress() {
-    var since = (float) DateTime.Now.Subtract( StartedAt ).TotalSeconds;
-
-    return Mathf.Clamp(
-      since / Duration,
-      0.0f,
-      1.0f
-    );
-  }
-  
-  bool InProgress() {
-    if ( StartedAt == null )
-      return false;
-
-    return Progress() < 1.0f;
   }
 }

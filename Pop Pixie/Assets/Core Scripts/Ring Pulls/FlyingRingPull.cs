@@ -19,7 +19,7 @@ public class FlyingRingPull : MonoBehaviour {
     Speed = InitialSpeed;
   }
 
-  void FixedUpdate() {
+  void Update() {
     Vector2 heading = Magnet.transform.position - transform.position;
 
     if ( heading.magnitude < Threshold ) {
@@ -29,7 +29,7 @@ public class FlyingRingPull : MonoBehaviour {
       Destroy(gameObject);
     }
 
-    Speed += Acceleration * Time.fixedDeltaTime;
+    Speed += Acceleration * Time.deltaTime;
     Vector2 targetVelocity = Speed * heading.normalized;
     rb.velocity = Vector2.Lerp(rb.velocity, targetVelocity, MagnetStrength);
   }

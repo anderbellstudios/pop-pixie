@@ -19,14 +19,11 @@ public class MovementManager : MonoBehaviour {
     bool playingState = StateManager.Is( State.Playing );
 
     if ( playingState ) 
-      rb.MovePosition(rb.position + velocity * Time.fixedDeltaTime);
+      rb.MovePosition(rb.position + velocity);
 
     if ( Animator != null ) {
-      int direction = (int) Math.Round( Mathf.Clamp( velocity.x, -1, 1 ) );
-      Animator.SetInteger("Movement Direction", direction);
-
-      float speed = velocity.magnitude;
-      Animator.SetBool("Walking", playingState && speed >= 0.5f);
+      Animator.SetInteger("Movement Direction", velocity.x > 0 ? 1 : -1);
+      Animator.SetBool("Walking", playingState && velocity.magnitude >= 0.5f);
     }
 
     Movement = Vector2.zero;
