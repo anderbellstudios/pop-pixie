@@ -2,24 +2,39 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
 public delegate void PhaseFinishedEvent();
 
 public class PhaseScheduler : MonoBehaviour, ISerializableComponent {
 
-  public string[] SerializableFields { get; } = { "PhaseId" };
+  public string[] SerializableFields { get; } = { "Running", "PhaseId" };
 
+  public bool BeginFirstPhaseOnStart = true, Running = false;
   public List<APhase> Phases;
   public int PhaseId;
 
-  public event PhaseFinishedEvent OnPhaseFinished;
+  [SerializeField] public UnityEvent OnPhaseFinished;
 
-  public void InitPhases() {
+  void Start() {
+    GDCall.UnlessLoad(() => {
+      if (BeginFirstPhaseOnStart)
+        BeginFirstPhase();
+    });
+
+    GDCall.IfLoad(() => {
+      if (Running)
+        BeginCurrentPhase();
+    });
+  }
+
+  public void BeginFirstPhase() {
+    Running = true;
     PhaseId = -1;
     NextPhase();
 	}
 
-  public void BeginPhase() {
+  public void BeginCurrentPhase() {
     var phase = Phases[PhaseId];
     phase.Begin( () => PhaseFinished() );
   }
@@ -28,13 +43,15 @@ public class PhaseScheduler : MonoBehaviour, ISerializableComponent {
     PhaseId += 1;
     
     if ( PhaseId < Phases.Count ) {
-      BeginPhase();
+      BeginCurrentPhase();
+    } else {
+      Running = false;
     }
   }
 
   void PhaseFinished() {
     NextPhase();
-    if ( OnPhaseFinished != null ) OnPhaseFinished();
+    OnPhaseFinished.Invoke();
   }
 
   public float Progress() {

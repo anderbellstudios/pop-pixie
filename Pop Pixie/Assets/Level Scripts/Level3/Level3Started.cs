@@ -12,16 +12,6 @@ public class Level3Started : MonoBehaviour {
 	void Start () {
     Fader.Fade("from black", 2.0f);
     StateManager.SetState( State.Playing );
-
-    PhaseScheduler.OnPhaseFinished += PhaseFinished;
-
-    GDCall.UnlessLoad( PhaseScheduler.InitPhases );
-    GDCall.IfLoad( PhaseScheduler.BeginPhase );
-  }
-
-  void PhaseFinished() {
-    SceneData.Save();
-    SaveGame.WriteSave();
   }
 
   void Update() {
