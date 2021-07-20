@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Level2OggPlayer : AInspectable, IDialogueSequenceEventHandler, IPromptButtonEventHandler {
+public class Level2OggPlayer : AInspectable, IPromptButtonEventHandler {
 
   public LoreItem LoreItem;
   public DialogueManager Dialogue;
@@ -10,10 +10,7 @@ public class Level2OggPlayer : AInspectable, IDialogueSequenceEventHandler, IPro
   public SongHopper SongHopper;
 
   public override void OnInspect() {
-    Dialogue.Play("Dialogue/OggPlayer", this);
-  }
-
-  public void SequenceFinished () {
+    // Dialogue.Play("Dialogue/OggPlayer", this);
     ShowPrompt();
   }
 

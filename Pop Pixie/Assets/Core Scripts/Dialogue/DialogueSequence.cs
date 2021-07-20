@@ -4,9 +4,5 @@ using UnityEngine;
 
 [System.Serializable]
 public class DialogueSequence {
-  public DialoguePage[] Pages;
-
-  public static DialogueSequence ParseJSON (string json) {
-    return JsonUtility.FromJson<DialogueSequence>(json);
-  }
+  public List<DialoguePage> Pages;
 }

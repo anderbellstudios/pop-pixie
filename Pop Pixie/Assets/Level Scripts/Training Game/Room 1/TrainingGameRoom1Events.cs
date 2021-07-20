@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class TrainingGameRoom1Events : MonoBehaviour {
   public List<GameObject> Targets;
@@ -26,12 +25,5 @@ public class TrainingGameRoom1Events : MonoBehaviour {
       ? null
       : "Aim and press <color=#00ffff>[Fire]</color> to shoot the <color=#ffff00>Hologrems</color>"
     );
-  }
-
-  void Update() {
-    if (!TargetsDestroyed && Targets.All(t => EnemyUtils.IsDead(t))) {
-      TargetsDestroyed = true;
-      SceneManager.LoadScene("Training Room 2");
-    }
   }
 }

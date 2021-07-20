@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelNaNStarted : MonoBehaviour, IDialogueSequenceEventHandler {
+public class LevelNaNStarted : MonoBehaviour {
 
   public DialogueManager Dialogue;
   public ScreenFade Fader;
@@ -31,10 +31,10 @@ public class LevelNaNStarted : MonoBehaviour, IDialogueSequenceEventHandler {
   void StartFight() {
     FightTriggered = true;
     SongHopper.Hop();
-    Dialogue.Play("Dialogue/lNaNd1", this);
+    // Dialogue.Play("Dialogue/lNaNd1", this);
   }
 
   public void SequenceFinished () {
-    InitialAI.GainControl();
+    // InitialAI.GainControl();
   }
 }

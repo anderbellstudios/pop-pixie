@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelCompleted : MonoBehaviour, IDialogueSequenceEventHandler, ISerializableComponent {
+public class LevelCompleted : MonoBehaviour, ISerializableComponent {
 
   public string[] SerializableFields { get; } = { "KeycardDialoguePlayed" };
 
@@ -24,8 +24,6 @@ public class LevelCompleted : MonoBehaviour, IDialogueSequenceEventHandler, ISer
       return;
     CancelInvoke();
     KeycardDialoguePlayed = true;
-    Dialogue.Play("Dialogue/Keycard", this);
+    // Dialogue.Play("Dialogue/Keycard", this);
   }
-
-  public void SequenceFinished() {}
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Level1Started : MonoBehaviour, IDialogueSequenceEventHandler {
+public class Level1Started : MonoBehaviour {
 
   public DialogueManager Dialogue;
   public ScreenFade Fader;
@@ -15,9 +15,6 @@ public class Level1Started : MonoBehaviour, IDialogueSequenceEventHandler {
   }
 
   public void PlayDialogue() {
-    Dialogue.Play("Dialogue/l1d1", this);
+    // Dialogue.Play("Dialogue/l1d1", this);
 	}
-
-  public void SequenceFinished () {
-  }
 }

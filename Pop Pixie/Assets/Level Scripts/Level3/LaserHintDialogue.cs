@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LaserHintDialogue : MonoBehaviour, IDialogueSequenceEventHandler {
+public class LaserHintDialogue : MonoBehaviour {
 
   public DialogueManager Dialogue;
   public FireableScheduler LaserScheduler;
@@ -24,11 +24,8 @@ public class LaserHintDialogue : MonoBehaviour, IDialogueSequenceEventHandler {
   }
 
   void PlayDialogue() {
-    Dialogue.Play("Dialogue/Level 3 Laser Hint", this);
+    // Dialogue.Play("Dialogue/Level 3 Laser Hint", this);
     DoNotPlayDialogueAgain();
-  }
-
-  public void SequenceFinished () {
   }
 
 }

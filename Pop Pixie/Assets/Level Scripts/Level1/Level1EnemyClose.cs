@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Level1EnemyClose : MonoBehaviour, IDialogueSequenceEventHandler {
+public class Level1EnemyClose : MonoBehaviour {
 
   public DialogueManager Dialogue;
   public bool Triggered;
@@ -21,10 +21,7 @@ public class Level1EnemyClose : MonoBehaviour, IDialogueSequenceEventHandler {
 
     if ( dist < ActivationRadius ) {
       Triggered = true;
-      Dialogue.Play("Dialogue/l1d2", this);
+      // Dialogue.Play("Dialogue/l1d2", this);
     }
 	}
-
-  public void SequenceFinished () {
-  }
 }

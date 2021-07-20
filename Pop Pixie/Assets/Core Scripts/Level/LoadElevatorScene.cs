@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LoadElevatorScene : AInspectable, IDialogueSequenceEventHandler, IPromptButtonEventHandler {
+public class LoadElevatorScene : AInspectable, IPromptButtonEventHandler {
 
   public DialogueManager Dialogue;
   public DialoguePromptManager PromptManager;
@@ -17,7 +17,9 @@ public class LoadElevatorScene : AInspectable, IDialogueSequenceEventHandler, IP
 
   public override void OnInspect() {
     if ( ShouldPlayDialogue() ) {
-      Dialogue.Play("Dialogue/l1d3", this);
+      // Dialogue.Play("Dialogue/l1d3", this);
+      Triggered = true;
+      ShowPrompt();
     } else {
       ShowPrompt();
     }
@@ -25,11 +27,6 @@ public class LoadElevatorScene : AInspectable, IDialogueSequenceEventHandler, IP
 
   bool ShouldPlayDialogue() {
     return !Triggered && PreElevatorDialogue != "";
-  }
-
-  public void SequenceFinished () {
-    Triggered = true;
-    ShowPrompt();
   }
 
   void ShowPrompt () {

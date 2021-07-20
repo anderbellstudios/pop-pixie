@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Level2Started : MonoBehaviour, IDialogueSequenceEventHandler {
+public class Level2Started : MonoBehaviour {
 
   public DialogueManager Dialogue;
   public ScreenFade Fader;
@@ -25,27 +25,17 @@ public class Level2Started : MonoBehaviour, IDialogueSequenceEventHandler {
     CutsceneCamera.enabled = true;
 
     DialogueCount = 0;
-    Dialogue.Play("Dialogue/l2d1", this);
+    // Dialogue.Play("Dialogue/l2d1", this);
+    StateManager.SetState( State.Cutscene );
+    MentoeAnimation.Run();
+    Invoke("PlaySecondDialogue", 3.0f);
 	}
-
-  public void SequenceFinished () {
-    switch (DialogueCount) {
-      case 0:
-        StateManager.SetState( State.Cutscene );
-        MentoeAnimation.Run();
-        Invoke("PlaySecondDialogue", 3.0f);
-        break;
-
-      case 1:
-        Fader.Fade("to black", 0.5f);
-        Invoke("SwitchToMainCamera", 0.5f);
-        break;
-    }
-  }
 
   void PlaySecondDialogue () {
     DialogueCount = 1;
-    Dialogue.Play("Dialogue/l2d2", this);
+    // Dialogue.Play("Dialogue/l2d2", this);
+    Fader.Fade("to black", 0.5f);
+    Invoke("SwitchToMainCamera", 0.5f);
   }
 
   void SwitchToMainCamera () {
