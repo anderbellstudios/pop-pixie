@@ -24,13 +24,13 @@ public class DialogueManager : MonoBehaviour, IDialoguePageEventHandler {
   bool ButtonReleased;
 
   void Awake () {
+    if (SingletonInstance)
+      Current = this;
+
     DialogueBox.Hide();
   }
 
 	void Start() {
-    if (SingletonInstance)
-      Current = this;
-
     SkipCooldownTimer = new IntervalTimer() {
       Interval = SkipCooldown
     };
