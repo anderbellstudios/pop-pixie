@@ -147,12 +147,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 18948419}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 405272548}
-  m_RootOrder: 3
+  m_Father: {fileID: 1563871780}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &18948421
 MonoBehaviour:
@@ -167,6 +167,75 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SceneName: Training Room 5
+--- !u!1 &31363097
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 31363098}
+  - component: {fileID: 31363099}
+  m_Layer: 0
+  m_Name: Good time
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &31363098
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 31363097}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 362882839}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &31363099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 31363097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a04b80535ecb94923a1d2a1f9be2d096, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DialogueSequence:
+    Pages:
+    - Face: {fileID: 21300000, guid: bf675684fe9bc41c6b0daf6a2d134eab, type: 3}
+      AudioClip: {fileID: 0}
+      Text: 'Congratulations on completing the course within the time limit.
+
+        Please
+        advance to the final segment of the simulation,
+
+        or try again to
+        improve your time.'
+  OnFinish:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 362882838}
+        m_TargetAssemblyTypeName: WaitPhase, Assembly-CSharp
+        m_MethodName: StopWaiting
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &79398104
 GameObject:
   m_ObjectHideFlags: 0
@@ -966,7 +1035,7 @@ GameObject:
   - component: {fileID: 362882839}
   - component: {fileID: 362882838}
   m_Layer: 0
-  m_Name: Finish race
+  m_Name: End of race dialogue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -995,12 +1064,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 362882837}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 405272548}
-  m_RootOrder: 1
+  m_Children:
+  - {fileID: 31363098}
+  - {fileID: 1710789358}
+  m_Father: {fileID: 1563871780}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &369292318
 PrefabInstance:
@@ -1185,7 +1256,8 @@ MonoBehaviour:
   TimerText: {fileID: 220566119}
   HologremsContainer: {fileID: 79398104}
   DelayAfterRaceFinished: 0.75
-  RaceFinishedWaitPhase: {fileID: 362882838}
+  GoodTimeDialogue: {fileID: 31363099}
+  BadTimeDialogue: {fileID: 1710789359}
 --- !u!4 &405272548
 Transform:
   m_ObjectHideFlags: 0
@@ -1197,10 +1269,10 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 587202487}
   - {fileID: 1332877281}
-  - {fileID: 362882839}
-  - {fileID: 661290029}
-  - {fileID: 18948420}
+  - {fileID: 1289673070}
+  - {fileID: 1563871780}
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1219,9 +1291,9 @@ MonoBehaviour:
   BeginFirstPhaseOnStart: 1
   Running: 0
   Phases:
+  - {fileID: 587202486}
   - {fileID: 1332877280}
-  - {fileID: 362882838}
-  - {fileID: 661290031}
+  - {fileID: 1289673069}
   PhaseId: 0
   OnPhaseFinished:
     m_PersistentCalls:
@@ -1382,6 +1454,98 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 151e83790871f44a1ae73f053b037eb6, type: 3}
+--- !u!1001 &587202485
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 405272548}
+    m_Modifications:
+    - target: {fileID: 4748056685757717084, guid: 24a536b2882654803a737a63d5cbcaf2,
+        type: 3}
+      propertyPath: Delay
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5346401874578123340, guid: 24a536b2882654803a737a63d5cbcaf2,
+        type: 3}
+      propertyPath: m_Name
+      value: Delay Phase
+      objectReference: {fileID: 0}
+    - target: {fileID: 5526685007657887810, guid: 24a536b2882654803a737a63d5cbcaf2,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5526685007657887810, guid: 24a536b2882654803a737a63d5cbcaf2,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5526685007657887810, guid: 24a536b2882654803a737a63d5cbcaf2,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5526685007657887810, guid: 24a536b2882654803a737a63d5cbcaf2,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5526685007657887810, guid: 24a536b2882654803a737a63d5cbcaf2,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5526685007657887810, guid: 24a536b2882654803a737a63d5cbcaf2,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5526685007657887810, guid: 24a536b2882654803a737a63d5cbcaf2,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5526685007657887810, guid: 24a536b2882654803a737a63d5cbcaf2,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5526685007657887810, guid: 24a536b2882654803a737a63d5cbcaf2,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5526685007657887810, guid: 24a536b2882654803a737a63d5cbcaf2,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5526685007657887810, guid: 24a536b2882654803a737a63d5cbcaf2,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 24a536b2882654803a737a63d5cbcaf2, type: 3}
+--- !u!114 &587202486 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4748056685757717084, guid: 24a536b2882654803a737a63d5cbcaf2,
+    type: 3}
+  m_PrefabInstance: {fileID: 587202485}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8e4bfb50dc174effb4367a9fd17d3c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &587202487 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5526685007657887810, guid: 24a536b2882654803a737a63d5cbcaf2,
+    type: 3}
+  m_PrefabInstance: {fileID: 587202485}
+  m_PrefabAsset: {fileID: 0}
 --- !u!20 &612035769 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 20682073832733502, guid: db7b40b7e04a74afa95cc6e82a722496,
@@ -1488,12 +1652,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 661290028}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 405272548}
-  m_RootOrder: 2
+  m_Father: {fileID: 1563871780}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &661290030
 MonoBehaviour:
@@ -1507,7 +1671,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79da4014a58b94e3d985527a1b4b8c03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Question: (Move on to the next room?)
+  Question: (Move on to the next area?)
   PositiveAnswer: Move on
   NegativeAnswer: Try again
   OnPositiveAnswer:
@@ -1528,7 +1692,7 @@ MonoBehaviour:
   OnNegativeAnswer:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 405272549}
+      - m_Target: {fileID: 1563871779}
         m_TargetAssemblyTypeName: PhaseScheduler, Assembly-CSharp
         m_MethodName: BeginFirstPhase
         m_Mode: 1
@@ -3330,6 +3494,65 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 969272463}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1289673068
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1289673070}
+  - component: {fileID: 1289673069}
+  m_Layer: 0
+  m_Name: Begin loop
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1289673069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1289673068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ea938bedff164618b9b573e5f14a504, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Running: 0
+  Event:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1563871779}
+        m_TargetAssemblyTypeName: PhaseScheduler, Assembly-CSharp
+        m_MethodName: BeginFirstPhase
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!4 &1289673070
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1289673068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 405272548}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1296074098 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7502846902899155351, guid: 151e83790871f44a1ae73f053b037eb6,
@@ -3351,7 +3574,7 @@ PrefabInstance:
     - target: {fileID: 2670789577561297198, guid: d15ee1ea31e624a2690b5667f5f345e3,
         type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2670789577561297198, guid: d15ee1ea31e624a2690b5667f5f345e3,
         type: 3}
@@ -3406,7 +3629,35 @@ PrefabInstance:
     - target: {fileID: 6769439293733673370, guid: d15ee1ea31e624a2690b5667f5f345e3,
         type: 3}
       propertyPath: DialogueSequence.Pages.Array.size
-      value: 0
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6769439293733673370, guid: d15ee1ea31e624a2690b5667f5f345e3,
+        type: 3}
+      propertyPath: DialogueSequence.Pages.Array.data[0].Face
+      value: 
+      objectReference: {fileID: 21300000, guid: bf675684fe9bc41c6b0daf6a2d134eab,
+        type: 3}
+    - target: {fileID: 6769439293733673370, guid: d15ee1ea31e624a2690b5667f5f345e3,
+        type: 3}
+      propertyPath: DialogueSequence.Pages.Array.data[0].Text
+      value: 'While infiltrating the Mentoes building, you must rely on your speed
+
+        and
+        agility to escape danger.'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6769439293733673370, guid: d15ee1ea31e624a2690b5667f5f345e3,
+        type: 3}
+      propertyPath: DialogueSequence.Pages.Array.data[1].Face
+      value: 
+      objectReference: {fileID: 21300000, guid: bf675684fe9bc41c6b0daf6a2d134eab,
+        type: 3}
+    - target: {fileID: 6769439293733673370, guid: d15ee1ea31e624a2690b5667f5f345e3,
+        type: 3}
+      propertyPath: DialogueSequence.Pages.Array.data[1].Text
+      value: 'Complete this obstacle course within the time limit while avoiding
+
+        the
+        lasers and Hologrems.'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d15ee1ea31e624a2690b5667f5f345e3, type: 3}
@@ -3546,6 +3797,61 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1139901808}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1563871778
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1563871780}
+  - component: {fileID: 1563871779}
+  m_Layer: 0
+  m_Name: Loop
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1563871779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1563871778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bad7c0843734642d8943b4f104202113, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BeginFirstPhaseOnStart: 0
+  Running: 0
+  Phases:
+  - {fileID: 362882838}
+  - {fileID: 661290031}
+  PhaseId: 0
+  OnPhaseFinished:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!4 &1563871780
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1563871778}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 362882839}
+  - {fileID: 661290029}
+  - {fileID: 18948420}
+  m_Father: {fileID: 405272548}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1580611503
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3783,6 +4089,75 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 812172893}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1710789357
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1710789358}
+  - component: {fileID: 1710789359}
+  m_Layer: 0
+  m_Name: Bad time
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1710789358
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710789357}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 362882839}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1710789359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710789357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a04b80535ecb94923a1d2a1f9be2d096, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DialogueSequence:
+    Pages:
+    - Face: {fileID: 21300000, guid: bf675684fe9bc41c6b0daf6a2d134eab, type: 3}
+      AudioClip: {fileID: 0}
+      Text: 'Your time was unsatisfactory.
+
+        You may attempt the obstacle
+        course again to improve your time,
+
+        or you may advance to the final
+        segment of the simulation.'
+  OnFinish:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 362882838}
+        m_TargetAssemblyTypeName: WaitPhase, Assembly-CSharp
+        m_MethodName: StopWaiting
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &1750558016
 PrefabInstance:
   m_ObjectHideFlags: 0

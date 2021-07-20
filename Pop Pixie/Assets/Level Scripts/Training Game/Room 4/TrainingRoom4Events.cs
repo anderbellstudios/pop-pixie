@@ -8,7 +8,7 @@ public class TrainingRoom4Events : MonoBehaviour {
   public TMP_Text TimerText;
   public GameObject HologremsContainer;
   public float DelayAfterRaceFinished;
-  public WaitPhase RaceFinishedWaitPhase;
+  public DialogueHopper GoodTimeDialogue, BadTimeDialogue;
 
   bool RaceInProgress = false;
   bool RaceFinished = false;
@@ -58,6 +58,10 @@ public class TrainingRoom4Events : MonoBehaviour {
   }
 
   void AfterRaceFinished() {
-    RaceFinishedWaitPhase.StopWaiting();
+    if (ElapsedTime() > 40f) {
+      BadTimeDialogue.Hop();
+    } else {
+      GoodTimeDialogue.Hop();
+    }
   }
 }

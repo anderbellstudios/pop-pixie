@@ -6,6 +6,8 @@ using UnityEngine;
 public class DialoguePage {
   public Sprite Face;
   public AudioClip AudioClip;
+
+  [TextArea]
   public string Text;
 
   public bool HasAudioClip()
