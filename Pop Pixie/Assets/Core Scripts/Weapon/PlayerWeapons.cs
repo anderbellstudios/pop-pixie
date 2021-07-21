@@ -38,12 +38,18 @@ public class PlayerWeapons : MonoBehaviour {
 public class PlayerWeapon {
   public Weapon Weapon;
 
+  private int? _Ammunition;
+
   public int Ammunition {
     set {
       GameData.Current.Set("ammunition-" + Weapon.Id, value);
+      _Ammunition = value;
     }
     get {
-      return (int) GameData.Current.Fetch("ammunition-" + Weapon.Id, orSetEqualTo: Weapon.Capacity);
+      if (!_Ammunition.HasValue)
+        _Ammunition = (int) GameData.Current.Fetch("ammunition-" + Weapon.Id, orSetEqualTo: Weapon.Capacity);
+
+      return _Ammunition.Value;
     }
   }
 

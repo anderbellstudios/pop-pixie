@@ -22,7 +22,11 @@ public class TrainingRoom4Events : MonoBehaviour {
     HologremsContainer.SetActive(false);
   }
 
-  void Update() {
+  void Start() {
+    InvokeRepeating("UpdateTimer", 0f, 0.25f);
+  }
+
+  void UpdateTimer() {
     if (RaceInProgress || RaceFinished) {
       float elapsedTime = ElapsedTime();
       int minutes = (int) Mathf.Floor(Mathf.Clamp(elapsedTime / 60f, 0, 99));

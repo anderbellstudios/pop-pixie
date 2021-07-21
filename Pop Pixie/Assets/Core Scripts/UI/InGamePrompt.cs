@@ -13,11 +13,14 @@ public class InGamePrompt : MonoBehaviour {
 
   public TMP_Text Text;
 
+  private LowPriorityBehaviour LowPriorityBehaviour;
   private List<InGamePromptSource> Sources = new List<InGamePromptSource>();
 
   void Awake() {
     if (SingletonInstance)
       Current = this;
+
+    LowPriorityBehaviour = new LowPriorityBehaviour();
   }
 
   public void RegisterSource(InGamePromptSource source) {
@@ -25,10 +28,12 @@ public class InGamePrompt : MonoBehaviour {
   }
 
   void Update() {
-    if (StateManager.Isnt(State.Playing))
-      return;
+    LowPriorityBehaviour.EveryNFrames(10, () => {
+      if (StateManager.Isnt(State.Playing))
+        return;
 
-    Text.text = CurrentText();
+      Text.text = CurrentText();
+    });
   }
 
   String CurrentText() {

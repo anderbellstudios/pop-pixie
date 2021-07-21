@@ -25,6 +25,9 @@ public class WeaponReload : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+    if ( StateManager.Isnt( State.Playing ) )
+      return;
+
     ReloadTimer.IfElapsed( CurrentWeapon().Reload );
 
     if ( WrappedInput.GetButtonDown("Reload") && !InProgress() && CanReload() )
@@ -57,7 +60,7 @@ public class WeaponReload : MonoBehaviour {
   }
 
   bool CanReload() {
-    return !CurrentWeapon().Full() && StateManager.Is( State.Playing );
+    return !CurrentWeapon().Full();
   }
 
   PlayerWeapon CurrentWeapon() {

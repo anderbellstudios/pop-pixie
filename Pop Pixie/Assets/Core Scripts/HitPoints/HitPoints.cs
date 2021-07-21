@@ -5,6 +5,23 @@ using System.Reflection;
 using System.Linq;
 using UnityEngine;
 
+class HitPointEventsFacade : IHitPointEvents {
+  private List<IHitPointEvents> EventHandlers;
+
+  public HitPointEventsFacade(List<IHitPointEvents> eventHandlers) {
+    EventHandlers = eventHandlers;
+  }
+
+  public void Updated(HitPoints hp)
+    => EventHandlers.ForEach(x => x.Updated(hp));
+
+  public void Decreased(HitPoints hp)
+    => EventHandlers.ForEach(x => x.Decreased(hp));
+
+  public void BecameZero(HitPoints hp)
+    => EventHandlers.ForEach(x => x.BecameZero(hp));
+}
+
 public class HitPoints : MonoBehaviour, ISerializableComponent {
 
   public string[] SerializableFields {
@@ -25,12 +42,10 @@ public class HitPoints : MonoBehaviour, ISerializableComponent {
   public float Current; 
   public float RegenerateRate;
   public List<ACanBeDamagedArbiter> CanBeDamagedArbiters;
-
   public DateTime LastDamaged;
-
-  private IHitPointEvents[] EventHandlers;
-
   public bool Dead = false;
+
+  private IHitPointEvents EventHandler;
 
   public void Cap () {
     // Make sure HP is between 0 and max
@@ -40,12 +55,14 @@ public class HitPoints : MonoBehaviour, ISerializableComponent {
   public float Set (float val) {
     Current = val;
     Cap();
+    EventHandler.Updated(this);
     return Current;
   }
 
   public float Increase (float val) {
     Current += val;
     Cap();
+    EventHandler.Updated(this);
     return Current;
   }
 
@@ -56,10 +73,10 @@ public class HitPoints : MonoBehaviour, ISerializableComponent {
     if (!InfiniteHP)
       Increase(-val);
 
-    SendEventHandlerMessage("Decreased");
+    EventHandler.Decreased(this);
     if ( Current == 0 ) {
       Dead = true;
-      SendEventHandlerMessage("BecameZero");
+      EventHandler.BecameZero(this);
     }
 
     return Current;
@@ -82,36 +99,32 @@ public class HitPoints : MonoBehaviour, ISerializableComponent {
 
 	// Use this for initialization
 	void Start () {
+    EventHandler = new HitPointEventsFacade(
+      gameObject.GetComponents<IHitPointEvents>().ToList()
+    );
+
     GDCall.UnlessLoad( InitHitPoints );
 
     if ( !ShouldSave )
       InitHitPoints();
 
-    EventHandlers = gameObject.GetComponents<IHitPointEvents>();
+    EventHandler.Updated(this);
 
     if (Current == 0) {
       Dead = true;
-      SendEventHandlerMessage("BecameZero");
+      EventHandler.BecameZero(this);
     }
 	}
 
   public void InitHitPoints() {
     Current = Maximum;
+    EventHandler.Updated(this);
   }
 	
 	// Update is called once per frame
 	void Update () {
-    SendEventHandlerMessage("Updated");
-
     if ( StateManager.Is( State.Playing ) )
       Increase( RegenerateRate * Time.deltaTime );
 	}
-
-  void SendEventHandlerMessage(string message) {
-    foreach (IHitPointEvents eventHandler in EventHandlers) {
-      MethodInfo method = eventHandler.GetType().GetMethod(message);
-      method.Invoke(eventHandler, new object[] { this } );
-    }
-  }
 
 }

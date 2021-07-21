@@ -4,21 +4,32 @@ using UnityEngine;
 
 public class AudioMixer : MonoBehaviour {
 
-  public AudioSource AudioSource;
-
-  IntervalTimer FadeOutTimer;
-
   public bool SingletonInstance = true;
   public static AudioMixer Current;
+
+  public AudioSource AudioSource;
+
+  private LowPriorityBehaviour LowPriorityBehaviour;
+  private IntervalTimer FadeOutTimer;
 
   void Awake() {
     if (SingletonInstance)
       Current = this;
 
+    LowPriorityBehaviour = new LowPriorityBehaviour();
+
     FadeOutTimer = new IntervalTimer();
   }
 
   void Update() {
+    if (FadeOutTimer.Started) {
+      UpdateVolume();
+    } else {
+      LowPriorityBehaviour.EveryNFrames(20, UpdateVolume); 
+    }
+  }
+
+  void UpdateVolume() {
     AudioSource.volume = Volume();
   }
 

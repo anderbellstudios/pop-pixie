@@ -8,15 +8,22 @@ public class ButtonImage : MonoBehaviour {
   public Image Image;
   public string ButtonName;
 
-  string Prefix = null;
+  private string Prefix = null;
+  private LowPriorityBehaviour LowPriorityBehaviour;
+ 
+  void Awake() {
+    LowPriorityBehaviour = new LowPriorityBehaviour();
+  }
 
   void Update() {
-    string _prefix = WrappedInput.ControllerPrefix() ?? "Kb+M";
+    LowPriorityBehaviour.EveryNFrames(10, () => {
+      string _prefix = WrappedInput.ControllerPrefix() ?? "Kb+M";
 
-    if ( _prefix != Prefix ) {
-      Prefix = _prefix;
-      UpdateImage();
-    }
+      if ( _prefix != Prefix ) {
+        Prefix = _prefix;
+        UpdateImage();
+      }
+    });
   }
 
   void UpdateImage() {

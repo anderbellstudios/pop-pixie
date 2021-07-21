@@ -31,6 +31,6 @@ public class MentoeHologram : AEnemyAI {
   }
 
   public void HandleCollidedWithPlayer() {
-    GameObject.FindGameObjectWithTag("Player").GetComponent<HitPoints>().Damage(1);
+    Target.GetComponent<HitPoints>().Damage(1);
   }
 }

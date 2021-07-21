@@ -20,6 +20,6 @@ public class Holoring : MonoBehaviour {
   }
 
   public void HandleCollidedWithPlayer() {
-    GameObject.FindGameObjectWithTag("Player").GetComponent<HitPoints>().Damage(1);
+    PlayerGameObject.Current.GetComponent<HitPoints>().Damage(1);
   }
 }

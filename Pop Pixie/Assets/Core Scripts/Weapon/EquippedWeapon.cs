@@ -10,22 +10,9 @@ public class EquippedWeapon : MonoBehaviour {
 
   public WeaponReload WeaponReload;
   public SpriteRenderer InHandSpriteRenderer;
-
   public PlayerWeapons PlayerWeapons;
-
-  public List<PlayerWeapon> AvailableWeapons()
-    => PlayerWeapons.AvailableWeapons();
-
   public int CurrentWeaponIndex;
-
-  public PlayerWeapon CurrentWeapon
-    => AvailableWeapons().Count > CurrentWeaponIndex
-        ? AvailableWeapons()[CurrentWeaponIndex]
-        : AvailableWeapons()[0];
-
-  public bool NeedToReload()
-   => CurrentWeapon.Ammunition == 0; 
-
+  public PlayerWeapon CurrentWeapon;
   private WeaponInfoController WeaponInfoController;
   private HUDBar AmmunitionBar;
   private ReloadIndicator ReloadIndicator;
@@ -37,6 +24,7 @@ public class EquippedWeapon : MonoBehaviour {
 
   void Start() {
     CurrentWeaponIndex = EquippedWeaponData.CurrentWeapon;
+    ComputeCurrentWeapon();
 
     WeaponInfoController = GameObject.Find("Weapon Info").GetComponent<WeaponInfoController>();
 
@@ -67,9 +55,16 @@ public class EquippedWeapon : MonoBehaviour {
 
   void ChangeWeaponIndex( int delta ) {
     CurrentWeaponIndex = RelativeWeaponIndex(delta);
+    ComputeCurrentWeapon();
     UpdateWeaponSprites();
     EquippedWeaponData.CurrentWeapon = CurrentWeaponIndex;
     WeaponReload.Interrupt();
+  }
+
+  void ComputeCurrentWeapon() {
+    CurrentWeapon = AvailableWeapons().Count > CurrentWeaponIndex
+      ? AvailableWeapons()[CurrentWeaponIndex]
+      : AvailableWeapons()[0];
   }
 
   void UpdateWeaponSprites() {
@@ -87,6 +82,12 @@ public class EquippedWeapon : MonoBehaviour {
 
     WeaponInfoController.SetWeaponSprites( prev, active, next );
   }
+
+  public List<PlayerWeapon> AvailableWeapons()
+    => PlayerWeapons.AvailableWeapons();
+
+  public bool NeedToReload()
+   => CurrentWeapon.Ammunition == 0; 
 
   int RelativeWeaponIndex( int delta ) {
     // positiveMod :: [-1,n] -> n -> [0,n)

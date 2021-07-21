@@ -7,7 +7,11 @@ public abstract class AEnemyAI : MonoBehaviour {
   public bool StartsInControl;
   public bool InControl;
 
+  private LowPriorityBehaviour LowPriorityBehaviour;
+
   void Start() {
+    LowPriorityBehaviour = new LowPriorityBehaviour();
+
     LocalStart();
 
     if ( StartsInControl )
@@ -62,9 +66,8 @@ public abstract class AEnemyAI : MonoBehaviour {
     GetComponent<MovementManager>().Movement += movement * Time.deltaTime;
   }
 
-  public GameObject Target {
-    get { return GameObject.FindGameObjectWithTag("Player"); }
-  }
+  public GameObject Target
+    => PlayerGameObject.Current;
 
   public void DamageTarget( float damage ) {
     Target.GetComponent<HitPoints>().Damage( damage );
@@ -82,21 +85,27 @@ public abstract class AEnemyAI : MonoBehaviour {
     return TargetHeading().normalized;
   }
 
-  public bool LineOfMovement() {
-    var hit = Physics2D.CircleCast( 
-      transform.position, 
-      WidthRequiredForMovement() / 2, 
-      TargetDirection(),
-      Mathf.Infinity,
-      ~(
-        (1 << 8) |  // Enemy
-        (1 << 9) |  // DoNotCollideWithEnemy
-        (1 << 16) | // RollToPassEnemy
-        (1 << 17)   // PlayerGrenade
-      )
-    );
+  private bool _LineOfMovement;
 
-    return hit.collider.gameObject == Target;
+  public bool LineOfMovement() {
+    LowPriorityBehaviour.EveryNFrames(10, () => {
+      var hit = Physics2D.CircleCast( 
+          transform.position, 
+          WidthRequiredForMovement() / 2, 
+          TargetDirection(),
+          Mathf.Infinity,
+          ~(
+            (1 << 8) |  // Enemy
+            (1 << 9) |  // DoNotCollideWithEnemy
+            (1 << 16) | // RollToPassEnemy
+            (1 << 17)   // PlayerGrenade
+           )
+          );
+
+      _LineOfMovement = hit.collider.gameObject == Target;
+    });
+
+    return _LineOfMovement;
   }
 
   public float WidthRequiredForMovement() {
