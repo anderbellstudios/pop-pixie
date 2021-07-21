@@ -3,49 +3,51 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DialoguePromptManager : MonoBehaviour, IDialoguePageEventHandler, IPromptButtonEventHandler {
-
+public class DialoguePromptManager : MonoBehaviour {
   public bool SingletonInstance = true;
   public static DialoguePromptManager Current;
 
-  public DialogueBoxController DialogueBox;
-  public PromptButtonController PromptButtons;
-  public Sprite PromptFace;
+  public DialoguePromptBoxController DialoguePromptBox;
 
-  private IPromptButtonEventHandler EventHandler;
+  private bool Open = false;
+  private Action OnPositiveAnswer;
+  private Action OnNegativeAnswer;
 
-  void Awake () {
+  void Awake() {
     if (SingletonInstance)
       Current = this;
 
-    PromptButtons.Hide();
+    DialoguePromptBox.OnPositiveAnswer.AddListener(HandlePositiveAnswer);
+    DialoguePromptBox.OnNegativeAnswer.AddListener(HandleNegativeAnswer);
+
+    DialoguePromptBox.Hide();
   }
 
-  public void Display (string question, string pveAns, string nveAns, IPromptButtonEventHandler event_handler) {
-    StateManager.SetState( State.DialoguePrompt );
+  public void Prompt(string question, string positiveAnswer, string negativeAnswer, Action onPositiveAnswer, Action onNegativeAnswer) {
+    OnPositiveAnswer = onPositiveAnswer;
+    OnNegativeAnswer = onNegativeAnswer;
 
-    EventHandler = event_handler;
-    DialogueBox.Show();
-    DialogueBox.Write(question, this);
-    DialogueBox.SetFace( PromptFace );
+    StateManager.SetState(State.DialoguePrompt);
+    DialoguePromptBox.Show();
+    Open = true;
 
-    PromptButtons.Write(pveAns, nveAns, this);
-    PromptButtons.Hide();
+    DialoguePromptBox.SetQuestion(question);
+    DialoguePromptBox.SetAnswers(positiveAnswer, negativeAnswer);
   }
 
-  public void PageFinished () {
-    PromptButtons.Show();
-  }
-
-  public void ButtonPressed (string button) {
+  void HandlePositiveAnswer() {
     Exit();
-    EventHandler.ButtonPressed(button);
+    OnPositiveAnswer();
   }
 
-  void Exit () {
-    PromptButtons.Hide();
-    DialogueBox.Hide();
-    StateManager.SetState( State.Playing );
+  void HandleNegativeAnswer() {
+    Exit();
+    OnNegativeAnswer();
   }
 
+  void Exit() {
+    DialoguePromptBox.Hide();
+    Open = false;
+    StateManager.SetState(State.Playing);
+  }
 }

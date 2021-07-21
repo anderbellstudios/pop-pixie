@@ -5,4 +5,10 @@ using UnityEngine;
 [System.Serializable]
 public class DialogueSequence {
   public List<DialoguePage> Pages;
+
+  public int PageCount
+    => Pages.Count;
+
+  public DialoguePage GetPage(int index)
+    => Pages[index];
 }

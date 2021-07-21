@@ -2,95 +2,48 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+using KoganeUnityLib;
 
 public class DialogueBoxController : MonoBehaviour {
-
-  public Text TextBox;
+  public TMP_Text Heading;
+  public TMP_Typewriter BodyTypewriter;
   public Image FaceImage;
-  public float NormalInitialDelay;
-  public float FastInitialDelay;
-  public float NormalWriteDelay;
-  public float FastWriteDelay;
-  public GameObject DialogueBox;
-  public PromptButtonController PromptButtons;
 
-  private string FullText;
-  private int WriteProgress;
-  private IDialoguePageEventHandler EventHandler;
+  public bool TypewriterActive = false;
 
-  public void Write (string text, IDialoguePageEventHandler event_handler) {
-    FullText = text;
-    WriteProgress = 0;
-    DirectWrite("");
-    EventHandler = event_handler;
+  public void SetHeading(string text) {
+    Heading.text = text;
+  }
 
-    CancelInvoke();
-    Invoke(
-      "WriteNextLetter",
-      InitialDelay()
+  public void WriteBody(string text, float speed) {
+    TypewriterActive = true;
+
+    BodyTypewriter.Play(
+      text: text,
+      speed: speed,
+      onComplete: () => {
+        TypewriterActive = false;
+      }
     );
   }
 
-  void WriteNextLetter () {
-    if ( WriteProgress == FullText.Length ) {
-      FinishPage();
-      return;
-    }
-
-    WriteProgress += 1;
-
-    DirectWrite(
-      FullText.Substring(
-        0,
-        WriteProgress
-      )
-    );
-
-    Invoke(
-      "WriteNextLetter",
-      WriteDelay()
-    );
+  public void SkipTypewriter() {
+    BodyTypewriter.Skip();
   }
 
-  float InitialDelay() {
-    if ( WrappedInput.GetButton("Cancel") ) {
-      return FastInitialDelay;
-    } else {
-      return NormalInitialDelay;
-    }
-  }
-
-  float WriteDelay() {
-    if ( WrappedInput.GetButton("Cancel") ) {
-      return FastWriteDelay;
-    } else {
-      return NormalWriteDelay;
-    }
-  }
-
-  void DirectWrite (string text) {
-    TextBox.text = text;
-  }
-
-  public void SetFace (Sprite face) {
+  public void SetFace(Sprite face) {
     FaceImage.sprite = face;
   }
 
-  public void FinishPage () {
-    CancelInvoke();
-    DirectWrite(FullText);
-    EventHandler.PageFinished();
+  public void Show() {
+    gameObject.SetActive(true);
   }
 
-  public void Show () {
-    SetEnabled(true);
-  }
+  public void Hide() {
+    if (TypewriterActive)
+      BodyTypewriter.Skip();
 
-  public void Hide () {
-    SetEnabled(false);
-  }
-
-  void SetEnabled (bool state) {
-    DialogueBox.SetActive(state);
+    gameObject.SetActive(false);
   }
 }

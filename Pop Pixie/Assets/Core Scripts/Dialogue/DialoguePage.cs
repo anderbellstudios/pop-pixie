@@ -4,11 +4,10 @@ using UnityEngine;
 
 [System.Serializable]
 public class DialoguePage {
+  public string Speaker;
   public Sprite Face;
   public AudioClip AudioClip;
-
-  [TextArea]
-  public string Text;
+  [TextArea] public string Text;
 
   public bool HasAudioClip()
     => AudioClip != null;

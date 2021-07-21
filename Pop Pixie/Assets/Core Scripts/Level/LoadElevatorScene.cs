@@ -2,11 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using PopPixie.Audio;
 
-public class LoadElevatorScene : AInspectable, IPromptButtonEventHandler {
-
-  public DialogueManager Dialogue;
-  public DialoguePromptManager PromptManager;
+public class LoadElevatorScene : AInspectable {
   public ScreenFade Fader;
 
   public string FlavourFloorName;
@@ -30,21 +28,18 @@ public class LoadElevatorScene : AInspectable, IPromptButtonEventHandler {
   }
 
   void ShowPrompt () {
-    PromptManager.Display(
+    DialoguePromptManager.Current.Prompt(
       "(This elevator can take you to the " + FlavourFloorName + " floor.)\n(Will you advance?)",
       "Advance",
       "Do not",
-      this
+      () => {
+        StateManager.SetState( State.LoadingLevel );
+        Fader.Fade("to black", 2.0f);
+        AudioMixer.Current.FadeOut(2.0f);
+        Invoke("LoadScene", 3.0f);
+      },
+      () => {}
     );
-  }
-
-  public void ButtonPressed (string button) {
-    if ( button == "positive" ) {
-      StateManager.SetState( State.LoadingLevel );
-      Fader.Fade("to black", 2.0f);
-      AudioMixer.Current.FadeOut(2.0f);
-      Invoke("LoadScene", 3.0f);
-    }
   }
 
   void LoadScene () {

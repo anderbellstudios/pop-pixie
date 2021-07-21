@@ -3,25 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DialogueManager : MonoBehaviour, IDialoguePageEventHandler {
-
-  public delegate void DialogueManagerOnFinish();
-
+public class DialogueManager : MonoBehaviour {
   public bool SingletonInstance = true;
   public static DialogueManager Current;
 
-  public DialogueBoxController DialogueBox;
+  public DialogueBoxController DialogueBox; 
   public SoundController SoundController;
-  public float InterruptCooldown;
-  public float SkipCooldown;
+  public float TypewriterSpeed;
 
-  private DialogueSequence Sequence;
-  private int SequenceProgress;
-  private bool DialogueBoxInProgress;
-  private DialogueManagerOnFinish OnFinish;
-
-  IntervalTimer SkipCooldownTimer; 
-  bool ButtonReleased;
+  private DialogueSequence DialogueSequence;
+  private int CurrentPage;
+  private bool Open = false;
+  private Action OnFinish;
 
   void Awake () {
     if (SingletonInstance)
@@ -30,86 +23,62 @@ public class DialogueManager : MonoBehaviour, IDialoguePageEventHandler {
     DialogueBox.Hide();
   }
 
-	void Start() {
-    SkipCooldownTimer = new IntervalTimer() {
-      Interval = SkipCooldown
-    };
+	public void Play(DialogueSequence dialogueSequence, Action onFinish) {
+    DialogueSequence = dialogueSequence;
+    CurrentPage = -1;
+    OnFinish = onFinish;
 
-    SkipCooldownTimer.Start();
-  }
+    StateManager.SetState(State.Dialogue);
+    DialogueBox.Show();
+    Open = true;
+
+    NextPage();
+	}
 	
-	// Update is called once per frame
 	void Update () {
-    if ( StateManager.Isnt( State.Dialogue ) )
+    if (!Open)
       return;
 
-    if ( ButtonReleased && WrappedInput.GetButton("Confirm") ) {
-      ButtonReleased = false;
-
-      if (DialogueBoxInProgress) {
-        DialogueBox.FinishPage();
+    if (WrappedInput.GetButtonUp("confirm")) {
+      if (DialogueBox.TypewriterActive) {
+        DialogueBox.SkipTypewriter();
       } else {
-        ReadNextPage();
+        NextPage();
       }
     }
 
-    ButtonReleased = ! WrappedInput.GetButton("Confirm");
-
-    if ( WrappedInput.GetButton("Cancel") && !DialogueBoxInProgress ) {
-      ReadNextPage();
-    }
-
-    if ( WrappedInput.GetButton("Skip") && SkipCooldownTimer.Elapsed() ) {
-      SkipCooldownTimer.Reset();
-      ReadNextPage();
-      DialogueBox.FinishPage();
+    if (WrappedInput.GetButtonUp("cancel")) {
+      Exit();
     }
 	}
 
-  void ReadPage (DialoguePage page) {
-    DialogueBoxInProgress = true;
-    DialogueBox.Write( page.Text, this );
-    DialogueBox.SetFace( page.Face );
+  void NextPage() {
+    CurrentPage += 1;
 
-    if ( page.HasAudioClip() ) {
-      SoundController.Play( page.AudioClip );
+    if (CurrentPage >= DialogueSequence.PageCount) {
+      Exit();
+    } else {
+      ShowPage(DialogueSequence.GetPage(CurrentPage));
+    }
+  }
+
+  void ShowPage(DialoguePage page) {
+    DialogueBox.SetHeading(page.Speaker);
+    DialogueBox.SetFace(page.Face);
+    DialogueBox.WriteBody(page.Text, TypewriterSpeed);
+
+    if (page.HasAudioClip()) {
+      SoundController.Play(page.AudioClip);
     } else {
       SoundController.Stop();
     }
   }
 
-  public void PageFinished () {
-    DialogueBoxInProgress = false;
-  }
-
-  void ReadNextPage () {
-    if ( SequenceProgress < Sequence.Pages.Count ) {
-      var page = Sequence.Pages[ SequenceProgress ];
-      ReadPage(page);
-
-      SequenceProgress += 1;
-    } else {
-      Exit();
-    }
-  }
-
-  void Exit () {
-    DialogueBox.Hide();
-    StateManager.SetState( State.Playing );
-    OnFinish();
+  void Exit() {
     SoundController.Stop();
+    DialogueBox.Hide();
+    Open = false;
+    StateManager.SetState(State.Playing);
+    OnFinish();
   }
-
-	public void Play (DialogueSequence sequence, DialogueManagerOnFinish onFinish) {
-    ButtonReleased = false;
-    DialogueBoxInProgress = false;
-    DialogueBox.Show();
-    StateManager.SetState( State.Dialogue );
-
-    Sequence = sequence;
-    SequenceProgress = 0;
-    OnFinish = onFinish;
-
-    ReadNextPage();
-	}
 }

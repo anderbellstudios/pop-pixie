@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using PopPixie.Audio;
 
 public class SceneEvents : MonoBehaviour {
 
