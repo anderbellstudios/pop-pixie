@@ -68,8 +68,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1415191237
+  m_SortingLayer: 4
   m_SortingOrder: 6
   m_Sprite: {fileID: 21300000, guid: 49889b9b674184340bf9d19b77e15a98, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -448,9 +448,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShouldSave: 1
   Maximum: 30
+  InfiniteHP: 0
   Current: 30
   RegenerateRate: 0
   CanBeDamagedArbiters: []
+  Dead: 0
 --- !u!114 &3476267911021259740
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -468,10 +470,10 @@ MonoBehaviour:
   Flash: {fileID: 6901898730673190071}
   DeathAnimation: {fileID: 1047574261544682520}
   Collider: {fileID: 3559577149095304210}
+  HealthBar: {fileID: 0}
   Sounds:
   - {fileID: 8300000, guid: d848a2e88753a4e39a69ab44c457170c, type: 3}
   - {fileID: 8300000, guid: e55f0fcf7ed804306a81d81713eb3ca2, type: 3}
-  IsDead: 0
 --- !u!114 &6901898730673190071
 MonoBehaviour:
   m_ObjectHideFlags: 0

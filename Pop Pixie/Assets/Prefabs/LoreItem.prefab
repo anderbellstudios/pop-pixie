@@ -47,6 +47,8 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
@@ -58,6 +60,7 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -67,8 +70,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -712675227
+  m_SortingLayer: 2
   m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: 0447f1bf4334545119c1b7e969ad8c6b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -93,8 +96,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7174e5eba63644cbb7f240714404111, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Lore: {fileID: 0}
-  LoreItemResourceName: l1l1
+  LoreItem:
+    UniqueId: 
+    Name: 
+    Text: 
   PromptText: (You see a dark hexagon on the floor.)
   PromptManager: {fileID: 0}
 --- !u!60 &7572273704325297745

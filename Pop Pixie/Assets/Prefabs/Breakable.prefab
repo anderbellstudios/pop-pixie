@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 8622853643666898814}
   - component: {fileID: 8622853643666898811}
   m_Layer: 0
-  m_Name: Sofa
+  m_Name: Breakable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -50,6 +50,8 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
@@ -61,6 +63,7 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -70,8 +73,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -712675227
+  m_SortingLayer: 2
   m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: 185cc3be49acc4653bf7e51eae86f14a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -124,9 +127,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShouldSave: 1
   Maximum: 1
+  InfiniteHP: 0
   Current: 1
   RegenerateRate: 0
   CanBeDamagedArbiters: []
+  Dead: 0
 --- !u!114 &8622853643666898808
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -173,4 +178,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98bbc2c1e63e98543830eec78d976795, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serializedGuid: 310632fd2695cd458b972d5c60273ed2
+  serializedGuid: 
