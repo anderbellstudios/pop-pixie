@@ -13,6 +13,10 @@ public class Revolve : MonoBehaviour {
     }
   }
 
+  void OnDisable() {
+    gameObject.transform.rotation = Quaternion.identity;
+  }
+
   void Update() {
     gameObject.transform.Rotate(0, Speed * Time.deltaTime, 0);
   }

@@ -7,8 +7,10 @@ using TMPro;
 
 public class DiscoveredItemsMenuEvents : AMenu {
   public Button BackButton;
-  public GameObject ButtonPrefab;
-  public Transform ButtonGroup;
+  public GameObject MenuItemPrefab;
+  public Transform MenuItemContainer;
+  public RectTransform ScrollContentArea;
+  public ScrollRect ScrollRect;
   public LoreManager LoreManager;
 
   public override List<Button> LocalInitButtons() {
@@ -16,15 +18,54 @@ public class DiscoveredItemsMenuEvents : AMenu {
 
     buttons.Add(BackButton);
 
+    foreach (Transform child in MenuItemContainer) {
+      Destroy(child.gameObject);
+    }
+
     foreach (var loreItem in LoreItemData.ReadLoreItems()) {
-      GameObject button = Instantiate( ButtonPrefab, ButtonGroup );
-      button.transform.Find("TextMeshPro Text").GetComponent<TMP_Text>().text = loreItem.Name;
+      GameObject menuItemGameObject = Instantiate(MenuItemPrefab, MenuItemContainer);
 
-      var buttonHandler = button.GetComponent<DiscoveredItemButton>();
-      buttonHandler.LoreItem = loreItem;
-      buttonHandler.ClickCallback = LoreItemButtonClicked;
+      DiscoveredItemButton discoveredItemButton = menuItemGameObject.GetComponent<DiscoveredItemButton>();
 
-      buttons.Add(button.GetComponent<Button>());
+      discoveredItemButton.SetLoreItem(loreItem);
+      discoveredItemButton.ClickCallback = LoreItemButtonClicked;
+
+      discoveredItemButton.SelectCallback = () => {
+        Canvas.ForceUpdateCanvases();
+
+        RectTransform targetTransform = (RectTransform) menuItemGameObject.transform;
+
+        float targetPositionY =
+          ScrollRect.transform.InverseTransformPoint(ScrollContentArea.position).y
+          - ScrollRect.transform.InverseTransformPoint(targetTransform.position).y;
+
+        float targetHeight = targetTransform.sizeDelta.y;
+        float targetTopEdge = targetPositionY - (targetHeight / 2f);
+        float targetBottomEdge = targetPositionY + (targetHeight / 2f);
+
+        float viewportTopEdge = ScrollContentArea.anchoredPosition.y;
+        float viewportBottomEdge = viewportTopEdge + ((RectTransform) ScrollRect.transform).rect.height;
+
+        if (targetBottomEdge > viewportBottomEdge) {
+          ScrollContentArea.anchoredPosition =
+            ScrollContentArea.anchoredPosition
+            + new Vector2(
+                0,
+                targetBottomEdge - viewportBottomEdge
+              );
+        }
+
+        if (targetTopEdge < viewportTopEdge) {
+          ScrollContentArea.anchoredPosition =
+            ScrollContentArea.anchoredPosition
+            - new Vector2(
+                0,
+                viewportTopEdge - targetTopEdge
+              );
+        }
+      };
+
+      buttons.Add(discoveredItemButton.Button);
     }
 
     return buttons;

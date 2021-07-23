@@ -4,8 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class MutuallyExclusiveHighlight : MonoBehaviour, IDeselectHandler {
-  public void OnPointerEnter() {
+public class MutuallyExclusiveHighlight : MonoBehaviour, IPointerEnterHandler, IDeselectHandler {
+  public void OnPointerEnter(PointerEventData eventData) {
     var button = Button();
 
     if ( button.interactable ) {
@@ -14,7 +14,7 @@ public class MutuallyExclusiveHighlight : MonoBehaviour, IDeselectHandler {
     }
   }
 
-  public void OnDeselect( BaseEventData eventData ) {
+  public void OnDeselect(BaseEventData eventData) {
     // Create and trigger an artificial OnPointerExit event to turn off highlighting
     Button().OnPointerExit( eventData as PointerEventData );
   }

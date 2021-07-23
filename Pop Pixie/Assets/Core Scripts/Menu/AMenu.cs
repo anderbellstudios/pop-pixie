@@ -23,7 +23,7 @@ public abstract class AMenu : MonoBehaviour {
   void Start() {
     _Buttons = LocalInitButtons();
 
-    LastClickedButton = Buttons[0];
+    LastClickedButton = Buttons.FirstOrDefault();
 
     Buttons.ForEach(button =>
       button.onClick.AddListener(() => {
@@ -125,8 +125,8 @@ public abstract class AMenu : MonoBehaviour {
   }
 
   void GainedFocus() {
-    LastClickedButton.Select();
-    LastClickedButton.OnSelect(null);
+    LastClickedButton?.Select();
+    LastClickedButton?.OnSelect(null);
 
     LocalGainedFocus();
   }
