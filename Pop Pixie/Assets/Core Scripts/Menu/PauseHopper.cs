@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 public class PauseHopper : MonoBehaviour {
 
   public bool SaveOnPause = true;
-  public bool MinimalPauseMenu = false;
 
   void Update() {
     if ( StateManager.Isnt( State.Playing ) )
@@ -17,8 +16,6 @@ public class PauseHopper : MonoBehaviour {
         SceneData.Save();
         SaveGame.WriteAutoSave();
       }
-
-      PauseMenuData.MinimalPauseMenu = MinimalPauseMenu;
 
       StateManager.SetState( State.Paused );
       SceneManager.LoadScene( "Pause Menu", LoadSceneMode.Additive );

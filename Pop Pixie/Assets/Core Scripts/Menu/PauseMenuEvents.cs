@@ -7,21 +7,14 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 
-public class PauseMenuEvents : MonoBehaviour {
-
-  public List<Button> InitialButtons;
-  public List<GameObject> RemoveFromMinimalMenu;
+public class PauseMenuEvents : AMenu {
   public PercentageButton MusicVolumeButton, SoundsVolumeButton;
   public TMP_Text ButtonIconsText;
+  public AMenu DiscoveredItemsMenu;
 
-  private List<Button> Buttons;
+  private EnumeratorButton<String> ButtonIconsButton;
 
-  EnumeratorButton<String> ButtonIconsButton;
-  bool InFocus;
-
-  void Start() {
-    InFocus = true;
-
+  public override void LocalStart() {
     MusicVolumeButton.Value = OptionsData.MusicVolume;
     MusicVolumeButton.UpdateValue();
 
@@ -36,37 +29,19 @@ public class PauseMenuEvents : MonoBehaviour {
         ControllerTypeData.SetControllerType(type);
       }
     );
-
-    if (PauseMenuData.MinimalPauseMenu) {
-      RemoveFromMinimalMenu.ForEach(go => Destroy(go));
-    }
-
-    Buttons = InitialButtons.Where(b => b != null).ToList();
   }
 
-  void Update() {
-    if ( InFocus && WrappedInput.GetButtonDown("Pause") ) {
-      Resume();
-    }
-  }
-
-  public void Focus() {
-    SetButtonsEnabled(true);
-    Buttons[0].Select();
-    Buttons[0].OnSelect(null);
-    InFocus = true;
+  public override void LocalClose() {
+    StateManager.SetState( State.Playing );
+    SceneManager.UnloadSceneAsync("Pause Menu");
   }
 
   public void Resume() {
-    UnloadScene();
-    StateManager.SetState( State.Playing );
+    Close();
   }
 
   public void DiscoveredItems() {
-    SetButtonsEnabled(false);
-    DiscoveredItemsMenuEvents.ParentMenu = this;
-    SceneManager.LoadScene( "Discovered Items Menu", LoadSceneMode.Additive );
-    InFocus = false;
+    OpenNestedMenu(DiscoveredItemsMenu);
   }
 
   public void MusicVolumeChanged( decimal volume ) {
@@ -80,17 +55,4 @@ public class PauseMenuEvents : MonoBehaviour {
   public void ToggleButtonIcons() {
     ButtonIconsButton.Shift();
   }
-
-  public void QuitGame() {
-    WrappedApplication.Quit();
-  }
-
-  void SetButtonsEnabled( bool enabled ) {
-    Buttons.ForEach( button => button.interactable = enabled );
-  }
-
-  void UnloadScene() {
-    SceneManager.UnloadSceneAsync("Pause Menu");
-  }
-
 }

@@ -2,28 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 
-public class DiscoveredItemsMenuEvents : MonoBehaviour {
-
-  public static PauseMenuEvents ParentMenu; // Must be set by object that calls LoadScene
-
+public class DiscoveredItemsMenuEvents : AMenu {
+  public Button BackButton;
   public GameObject ButtonPrefab;
   public Transform ButtonGroup;
   public LoreManager LoreManager;
 
-  bool InFocus;
-  List<Button> Buttons;
-  Button LastSelectedButton;
+  public override List<Button> LocalInitButtons() {
+    List<Button> buttons = new List<Button>();
 
-  void Start() {
-    InFocus = true;
+    buttons.Add(BackButton);
 
-    Buttons = new List<Button>();
-
-    foreach ( var loreItem in LoreItemData.ReadLoreItems() ) {
+    foreach (var loreItem in LoreItemData.ReadLoreItems()) {
       GameObject button = Instantiate( ButtonPrefab, ButtonGroup );
       button.transform.Find("TextMeshPro Text").GetComponent<TMP_Text>().text = loreItem.Name;
 
@@ -31,37 +24,23 @@ public class DiscoveredItemsMenuEvents : MonoBehaviour {
       buttonHandler.LoreItem = loreItem;
       buttonHandler.ClickCallback = LoreItemButtonClicked;
 
-      Buttons.Add( button.GetComponent<Button>() );
+      buttons.Add(button.GetComponent<Button>());
     }
+
+    return buttons;
   }
 
-  void Update() {
-    if ( InFocus && WrappedInput.GetButtonDown("Cancel") ) {
-      ResumeParent();
-    }
-  }
-
-  public void ResumeParent() {
-    SceneManager.UnloadSceneAsync("Discovered Items Menu");
-    ParentMenu.Focus();
+  public void BackButtonClicked() {
+    Close();
   }
 
   public void LoreItemButtonClicked( Button button, LoreItem loreItem ) {
-    InFocus = false;
-    LastSelectedButton = button;
-
-    SetButtonsEnabled(false);
+    SetFocus(false);
+    SetVisible(false);
 
     LoreManager.Open(loreItem, () => {
-      SetButtonsEnabled(true);
-      LastSelectedButton.Select();
-      LastSelectedButton.OnSelect(null);
-      InFocus = true;
+      SetVisible(true);
+      SetFocus(true);
     });
   }
-
-  void SetButtonsEnabled( bool enabled ) {
-    Buttons.ForEach( button => button.interactable = enabled );
-  }
-
 }
