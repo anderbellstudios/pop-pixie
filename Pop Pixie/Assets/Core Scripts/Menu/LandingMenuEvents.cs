@@ -1,16 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class LandingMenuEvents : GenericMenuEvents {
+public class LandingMenuEvents : AMenu {
+  public AMenu OptionsMenu;
+  public SceneChangeHopper SceneChangeHopper;
+
+  public override void LocalStart() {
+    ResolutionData.Apply();
+  }
 
   public void Begin() {
-    FadeOut(MainMenu);
+    SceneChangeHopper.Hop();
   }
 
-  void MainMenu () {
-    SceneManager.LoadScene("Main Menu");
+  public void Options() {
+    OpenNestedMenu(OptionsMenu);
   }
-
 }
