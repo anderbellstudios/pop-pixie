@@ -16,7 +16,7 @@ public class PlayerMovable : MonoBehaviour, IDirectionManager {
     Direction = new Vector2(
       WrappedInput.GetAxis("Horizontal"),
       WrappedInput.GetAxis("Vertical")
-    );
+    ).normalized;
 
     if ( !Roll.Rolling )
       MovementManager.Movement += Speed * (Vector2) Direction * Time.deltaTime;
