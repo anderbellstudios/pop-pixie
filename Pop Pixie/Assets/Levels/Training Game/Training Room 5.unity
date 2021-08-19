@@ -2627,6 +2627,8 @@ GameObject:
   - component: {fileID: 1844793468}
   - component: {fileID: 1844793470}
   - component: {fileID: 1844793469}
+  - component: {fileID: 1844793472}
+  - component: {fileID: 1844793471}
   m_Layer: 16
   m_Name: Mentoe Hologram
   m_TagString: Untagged
@@ -2674,12 +2676,13 @@ SpriteRenderer:
   m_SortingLayerID: 1415191237
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: cee15cc9661f2454085b815fee1a60f2, type: 3}
+  m_Sprite: {fileID: 5508761632493892696, guid: cee15cc9661f2454085b815fee1a60f2,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.68, y: 2.34}
+  m_Size: {x: 3.7333333, y: 5.2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -2800,6 +2803,42 @@ MonoBehaviour:
   RegenerateRate: 0
   CanBeDamagedArbiters: []
   Dead: 0
+--- !u!114 &1844793471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1844793463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92da8a4f351ae42e6b40a68f6eba0cb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RandomiseOnAwake: 1
+  Animator: {fileID: 1844793472}
+  ParameterName: Offset
+  MinValue: 0
+  MaxValue: 1
+--- !u!95 &1844793472
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1844793463}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 776b96fcc5ff64fd6a507da1b5cc6768, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &1868525967
 PrefabInstance:
   m_ObjectHideFlags: 0
