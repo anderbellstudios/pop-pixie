@@ -13,20 +13,23 @@ public class MovementManager : MonoBehaviour {
   public Rigidbody2D rb;
   public Vector2 Movement;
 
-  void FixedUpdate() {
-    Vector2 velocity = ModifiedSpeed() * Movement;
-
-    bool playingState = StateManager.Is( State.Playing );
-
-    if ( playingState ) 
-      rb.MovePosition(rb.position + velocity);
-
+  void Update() {
     if ( Animator != null ) {
-      Animator.SetInteger("Movement Direction", velocity.x > 0 ? 1 : -1);
-      Animator.SetBool("Walking", playingState && velocity.magnitude >= 0.5f);
+      Animator.SetInteger("Movement Direction", Movement.x > 0 ? 1 : -1);
+      Animator.SetBool("Walking", StateManager.Is(State.Playing) && Movement.magnitude > 0);
+      Animator.SetFloat("Speed", Velocity().magnitude / Time.deltaTime);
     }
+  }
+
+  void FixedUpdate() {
+    if (StateManager.Is(State.Playing)) 
+      rb.MovePosition(rb.position + Velocity());
 
     Movement = Vector2.zero;
+  }
+
+  Vector2 Velocity() {
+    return ModifiedSpeed() * Movement;
   }
 
   float ModifiedSpeed() {
