@@ -18,8 +18,13 @@ public class ComponentDeserializer : MonoBehaviour {
 
     foreach ( string fieldName in ( component ).SerializableFields ) {
       var field = SerializedComponent.Type.GetField( fieldName );
-      object val = SerializedComponent.Fields[ fieldName ];
-      field.SetValue( component, val );
+      dynamic val = SerializedComponent.Fields[ fieldName ];
+
+      if (field.FieldType == typeof(Single)) {
+        field.SetValue( component, (float) val );
+      } else {
+        field.SetValue( component, val );
+      }
 
       if ( component is ISaveCallbacks ) {
         ( (ISaveCallbacks) component ).AfterLoad();

@@ -15,7 +15,7 @@ public abstract class AData {
     return new Dictionary<string, object>();
   }
 
-  public object Fetch( string key, object orSetEqualTo = null ) {
+  public dynamic Fetch( string key, object orSetEqualTo = null ) {
     BeforeFetch();
 
     if ( Dictionary.ContainsKey(key) )

@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using TMPro;
 
 public class DiscoveredItemsMenuEvents : AMenu {
+  public RegisteredLoreItems RegisteredLoreItems;
   public Button BackButton;
   public GameObject MenuItemPrefab;
   public Transform MenuItemContainer;
@@ -22,7 +23,9 @@ public class DiscoveredItemsMenuEvents : AMenu {
       Destroy(child.gameObject);
     }
 
-    foreach (var loreItem in LoreItemData.ReadLoreItems()) {
+    foreach (string loreItemId in LoreItemData.ReadLoreItems()) {
+      LoreItem loreItem = RegisteredLoreItems.Find(loreItemId);
+
       GameObject menuItemGameObject = Instantiate(MenuItemPrefab, MenuItemContainer);
 
       DiscoveredItemButton discoveredItemButton = menuItemGameObject.GetComponent<DiscoveredItemButton>();
