@@ -12,15 +12,18 @@ public class ValueChangedEvent : UnityEvent<decimal> {}
 public class PercentageButton : MonoBehaviour {
 
   public decimal Value = 1M;
+  public decimal MinValue = 0M;
+  public decimal MaxValue = 1M;
+  public decimal Increment = 0.1M;
   public TMP_Text Text;
 
   public ValueChangedEvent OnValueChanged;
 
   public void Pressed() {
-    Value -= 0.1M;
+    Value -= Increment;
 
-    if ( Value < 0M )
-      Value = 1M;
+    if ( Value < MinValue )
+      Value = MaxValue;
 
     UpdateValue();
 

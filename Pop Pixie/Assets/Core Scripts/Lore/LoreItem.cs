@@ -8,6 +8,5 @@ using UnityEngine;
 public class LoreItem : ScriptableObject {
   public string UniqueId = null;
   public string Name;
-  [TextArea]
-  public string Text;
+  public Sprite Image;
 }

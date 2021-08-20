@@ -27,7 +27,7 @@ public class LoreManager : MonoBehaviour {
     IsOpen = true;
 
     LoreWindow.SetTitle(item.Name);
-    LoreWindow.SetText(item.Text);
+    LoreWindow.SetImage(item.Image);
     LoreWindow.Show();
   }
 	

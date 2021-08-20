@@ -25,4 +25,14 @@ public class OptionsData {
     }
   }
 
+  public static decimal LoreWindowZoomLevel {
+    get {
+      return System.Convert.ToDecimal(ConfigData.Current.Fetch("options-lore-window-zoom-level", orSetEqualTo: 1M));
+    }
+
+    set {
+      ConfigData.Current.Set("options-lore-window-zoom-level", value);
+    }
+  }
+
 }
