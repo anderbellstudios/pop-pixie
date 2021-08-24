@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public abstract class AMenu : MonoBehaviour {
   public bool StartsVisible, StartsInFocus, HideWhenNestedMenuOpen;
+  public Button FirstSelected = null;
   public GameObject MenuRoot;
   public string CloseMenuControl = "Cancel";
 
@@ -23,7 +24,7 @@ public abstract class AMenu : MonoBehaviour {
   void Start() {
     _Buttons = LocalInitButtons();
 
-    LastClickedButton = Buttons.FirstOrDefault();
+    LastClickedButton = FirstSelected ?? Buttons.FirstOrDefault();
 
     Buttons.ForEach(button =>
       button.onClick.AddListener(() => {

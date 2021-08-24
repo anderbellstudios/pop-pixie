@@ -7,16 +7,17 @@ using UnityEngine.UI;
 
 public class VersionInfo : MonoBehaviour {
 
-  public Text CurrentText, LatestText;
-  public Button UpdateButton;
+  public Text Text;
+  public GameObject UpdateButton;
 
   public string VersionURL;
   public string DownloadURL;
 
-  string CurrentVersion, LatestVersion;
+  string CurrentVersion, LatestVersion = "--";
 
   void Awake() {
     CurrentVersion = Application.version;
+    UpdateText();
 
     InvokeRepeating( "FetchLatestVersion", 0f, 3f );
   }
@@ -25,7 +26,9 @@ public class VersionInfo : MonoBehaviour {
     try {
 
       using ( WebClient client = new WebClient() ) {
-       LatestVersion = client.DownloadString( VersionURL );
+       LatestVersion = client.DownloadString(VersionURL).Trim();
+       UpdateText();
+       UpdateButton.SetActive(NewVersionAvailable());
        CancelInvoke();
       }
 
@@ -34,14 +37,8 @@ public class VersionInfo : MonoBehaviour {
     }
   }
 
-  void Update() {
-    CurrentText.text = CurrentVersion;
-
-    if ( LatestVersion != null ) {
-      LatestText.text = LatestVersion;
-
-      UpdateButton.interactable = NewVersionAvailable();
-    }
+  void UpdateText() {
+    Text.text = String.Format("Current version: {0}\nLatest version: {1}", CurrentVersion, LatestVersion);
   }
 
   bool NewVersionAvailable() {
