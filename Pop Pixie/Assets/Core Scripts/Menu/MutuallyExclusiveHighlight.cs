@@ -8,7 +8,7 @@ public class MutuallyExclusiveHighlight : MonoBehaviour, IPointerEnterHandler, I
   public void OnPointerEnter(PointerEventData eventData) {
     var button = Button();
 
-    if ( button.interactable ) {
+    if ( button.interactable && InputMode.ReceivedInput && InputMode.IsMouseAndKeyboard() ) {
       button.Select();
       button.OnSelect(null);
     }

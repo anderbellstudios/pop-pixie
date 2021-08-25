@@ -7,6 +7,7 @@ public class InputMode : MonoBehaviour {
 
   public enum Mode { MouseAndKeyboard, Joystick };
   public static Mode Current = Mode.MouseAndKeyboard;
+  public static bool ReceivedInput = false;
 
   public static bool IsMouseAndKeyboard()
     => Current == Mode.MouseAndKeyboard;
@@ -22,11 +23,13 @@ public class InputMode : MonoBehaviour {
     if (inputActionEventData.IsCurrentInputSource(Rewired.ControllerType.Joystick)) {
       Current = Mode.Joystick;
       Cursor.visible = false;
+      ReceivedInput = true;
     }
 
     if (inputActionEventData.IsCurrentInputSource(Rewired.ControllerType.Mouse)) {
       Current = Mode.MouseAndKeyboard;
       Cursor.visible = true;
+      ReceivedInput = true;
     }
   }
 
