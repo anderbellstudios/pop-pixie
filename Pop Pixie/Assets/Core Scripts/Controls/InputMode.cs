@@ -13,11 +13,15 @@ public class InputMode : MonoBehaviour {
   }
 
   void OnInputUpdate(InputActionEventData inputActionEventData) {
-    if (inputActionEventData.IsCurrentInputSource(Rewired.ControllerType.Joystick))
+    if (inputActionEventData.IsCurrentInputSource(Rewired.ControllerType.Joystick)) {
       Current = Mode.Joystick;
+      Cursor.visible = false;
+    }
 
-    if (inputActionEventData.IsCurrentInputSource(Rewired.ControllerType.Mouse))
+    if (inputActionEventData.IsCurrentInputSource(Rewired.ControllerType.Mouse)) {
       Current = Mode.MouseAndKeyboard;
+      Cursor.visible = true;
+    }
   }
 
 }
