@@ -7,7 +7,7 @@ using Rewired;
 
 public class WrappedInput : MonoBehaviour {
 
-  private static Player Player {
+  public static Player Player {
     get => ReInput.players.GetPlayer(0);
   }
 
@@ -28,7 +28,7 @@ public class WrappedInput : MonoBehaviour {
   }
 
   public static string ControllerPrefix() {
-    if ( Input.GetJoystickNames().Length > 0 ) {
+    if (InputMode.Current == InputMode.Mode.Joystick) {
       return ControllerTypeData.GetControllerType();
     } else {
       return null;
