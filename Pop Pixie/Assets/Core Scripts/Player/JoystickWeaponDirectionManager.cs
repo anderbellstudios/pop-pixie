@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class JoystickWeaponDirectionManager : MonoBehaviour, IDirectionManager {
 
-  public float Threshold;
-
-  public bool Active() => RawDirection().magnitude >= Threshold;
-
   public Vector3 Direction {
     get => RawDirection().normalized;
   }

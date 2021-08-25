@@ -11,8 +11,6 @@ public class MultipleWeaponDirectionManager : MonoBehaviour, IDirectionManager {
   public JoystickWeaponDirectionManager JoystickWeaponDirectionManager;
   public CursorWeaponDirectionManager CursorWeaponDirectionManager;
 
-  private IDirectionManager ActiveDirectionManager;
-
   // Use this for initialization
   void Start () {
     Direction = Direction.normalized;
@@ -23,13 +21,9 @@ public class MultipleWeaponDirectionManager : MonoBehaviour, IDirectionManager {
     if ( StateManager.Isnt( State.Playing ) )
       return;
 
-    if ( CursorWeaponDirectionManager.Active() || ActiveDirectionManager == null ) {
-      ActiveDirectionManager = CursorWeaponDirectionManager;
-    } else if ( JoystickWeaponDirectionManager.Active() ) {
-      ActiveDirectionManager = JoystickWeaponDirectionManager;
-    }
-
-    var newDirection = ActiveDirectionManager.Direction;
+    var newDirection = InputMode.IsJoystick()
+      ? JoystickWeaponDirectionManager.Direction
+      : CursorWeaponDirectionManager.Direction;
 
     if ( newDirection.magnitude > 0 ) {
       Direction = newDirection;
