@@ -10,7 +10,8 @@ public enum State : int {
   DialoguePrompt, 
   Dying,
   LoadingLevel,
-  Cutscene
+  Cutscene,
+  ScriptedMovement
 };
 
 public class StateManager : MonoBehaviour {

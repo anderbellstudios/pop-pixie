@@ -31,6 +31,6 @@ public class TradeSecretSprite : AInspectable, ISerializableComponent {
   }
 
   public override String AInspectablePromptText() {
-    return "Press <color=#00ffff>[Inspect]</color> to steal <color=#ffff00>Trade Secret</color>";
+    return "Press <color=#00ffff>[Interact]</color> to steal <color=#ffff00>Trade Secret</color>";
   }
 }

@@ -29,9 +29,6 @@ public class InGamePrompt : MonoBehaviour {
 
   void Update() {
     LowPriorityBehaviour.EveryNFrames(10, () => {
-      if (StateManager.Isnt(State.Playing))
-        return;
-
       Text.text = CurrentText();
     });
   }

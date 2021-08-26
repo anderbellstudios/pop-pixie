@@ -8,6 +8,10 @@ public abstract class AInspectable : MonoBehaviour {
 
   public static Dictionary<AInspectable, bool> IsNearby = new Dictionary<AInspectable, bool>() {};
 
+  public static bool ShowButtonPrompt() {
+    return IsNearby.Values.Any( isTrue => isTrue );
+  }
+
   bool _Nearby;
   bool _ButttonReleased;
 
@@ -31,7 +35,7 @@ public abstract class AInspectable : MonoBehaviour {
 
   public void AInspectableStart() {
     InGamePrompt.Current.RegisterSource(() => {
-      if (_Nearby) {
+      if (InspectImminent()) {
         return AInspectablePromptText();
       } else {
         return null;
@@ -48,18 +52,16 @@ public abstract class AInspectable : MonoBehaviour {
   }
 
   public void AInspectableUpdate() {
-    bool statePlaying = StateManager.Is( State.Playing );
+    IsNearby[this] = InspectImminent();
 
-    IsNearby[this] = statePlaying && _Nearby;
-
-    if ( statePlaying && _ButttonReleased && _Nearby && WrappedInput.GetButtonDown("Inspect") )
+    if (InspectImminent() && _ButttonReleased && WrappedInput.GetButtonDown("Inspect"))
       OnInspect();
 
-    _ButttonReleased = statePlaying && ! WrappedInput.GetButton("Inspect");
+    _ButttonReleased = StateManager.Is(State.Playing) && !WrappedInput.GetButton("Inspect");
   }
 
-  public static bool ShowButtonPrompt() {
-    return IsNearby.Values.Any( isTrue => isTrue );
+  bool InspectImminent() {
+    return StateManager.Is(State.Playing) && _Nearby && IsInspectable();
   }
 
   public abstract void OnInspect();
@@ -68,6 +70,10 @@ public abstract class AInspectable : MonoBehaviour {
   }
 
   public virtual void OnPlayerOut() {
+  }
+
+  public virtual bool IsInspectable() {
+    return true;
   }
 
 }

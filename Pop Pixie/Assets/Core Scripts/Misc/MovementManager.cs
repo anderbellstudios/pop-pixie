@@ -16,16 +16,20 @@ public class MovementManager : MonoBehaviour {
   void Update() {
     if ( Animator != null ) {
       Animator.SetInteger("Movement Direction", Movement.x > 0 ? 1 : -1);
-      Animator.SetBool("Walking", StateManager.Is(State.Playing) && Movement.magnitude > 0);
+      Animator.SetBool("Walking", StatePermitsMovement() && Movement.magnitude > 0);
       Animator.SetFloat("Speed", Velocity().magnitude / Time.deltaTime);
     }
   }
 
   void FixedUpdate() {
-    if (StateManager.Is(State.Playing)) 
+    if (StatePermitsMovement())
       rb.MovePosition(rb.position + Velocity());
 
     Movement = Vector2.zero;
+  }
+
+  bool StatePermitsMovement() {
+    return StateManager.Is(State.Playing) || StateManager.Is(State.ScriptedMovement);
   }
 
   Vector2 Velocity() {
