@@ -13,7 +13,10 @@ public class PlayerShoot : MonoBehaviour {
   private IntervalTimer FireTimer;
 
   void Start () {
-    FireTimer = new IntervalTimer();
+    FireTimer = new IntervalTimer() {
+      TimeClass = "PlayingTime"
+    };
+
     FireTimer.Start();
   }
 

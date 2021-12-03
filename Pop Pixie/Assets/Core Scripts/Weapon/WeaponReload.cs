@@ -14,7 +14,9 @@ public class WeaponReload : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-    ReloadTimer = new IntervalTimer();
+    ReloadTimer = new IntervalTimer() {
+      TimeClass = "PlayingTime"
+    };
 
     // Reduce speed by half when reload is InProgress
     MovementManager.SpeedModifiers.Add(

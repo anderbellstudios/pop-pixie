@@ -12,6 +12,7 @@ public class Turret : AFireable {
 
   void Start() {
     FireTimer = new IntervalTimer() {
+      TimeClass = "PlayingTime",
       Interval = Weapon.CooldownInterval()
     };
   }

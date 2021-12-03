@@ -11,8 +11,8 @@ public class MentoeHologram : AEnemyAI {
 
   public override void ControlGained() {
     AttackTimer = new IntervalTimer() {
-      Interval = AttackInterval,
-      TimeClass = "PlayingTime"
+      TimeClass = "PlayingTime",
+      Interval = AttackInterval
     };
 
     Invoke("StartTimer", InitialDelay);

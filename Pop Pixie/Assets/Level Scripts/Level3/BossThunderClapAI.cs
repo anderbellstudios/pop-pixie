@@ -21,10 +21,12 @@ public class BossThunderClapAI : AEnemyAI {
 
   public override void ControlGained() {
     ChargingUpTimer = new IntervalTimer() {
+      TimeClass = "PlayingTime",
       Interval = ChargeUpDuration
     };
 
     FiringTimer = new IntervalTimer() {
+      TimeClass = "PlayingTime",
       Interval = FireDuration
     };
 

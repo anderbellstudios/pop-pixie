@@ -19,6 +19,7 @@ public class BossWaitingToAttackAI : AEnemyAI {
     );
 
     AttackTimer = new IntervalTimer() {
+      TimeClass = "PlayingTime",
       Interval = AttackInterval + attackIntervalRandomModifier
     };
 

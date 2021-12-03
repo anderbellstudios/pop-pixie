@@ -27,6 +27,7 @@ public class CirclingAroundTargetAI : AEnemyAI, IRequiresLineOfMovementAI {
     );
 
     AttackTimer = new IntervalTimer() {
+      TimeClass = "PlayingTime",
       Interval = AttackInterval + attackIntervalRandomModifier
     };
 

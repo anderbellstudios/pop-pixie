@@ -16,6 +16,7 @@ public class LookingForTargetAI : AEnemyAI {
 
   public override void ControlGained() {
     CalculatePathTimer = new IntervalTimer() {
+      TimeClass = "PlayingTime",
       Interval = (1f / PathfindingUpdateRate) + RandomNoise(PathfindingUpdateRandomness)
     };
 

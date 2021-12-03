@@ -18,6 +18,7 @@ public class BossGorillaSmashAI : AEnemyAI {
 
   public override void ControlGained() {
     RadiusExpandTimer = new IntervalTimer() {
+      TimeClass = "PlayingTime",
       Interval = RadiusExpandDuration
     };
 

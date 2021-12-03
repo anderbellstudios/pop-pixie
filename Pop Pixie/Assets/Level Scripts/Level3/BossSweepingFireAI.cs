@@ -16,6 +16,7 @@ public class BossSweepingFireAI : AEnemyAI, IDirectionManager {
 
   public override void ControlGained() {
     FiringTimer = new IntervalTimer() {
+      TimeClass = "PlayingTime",
       Interval = FireDuration
     };
 

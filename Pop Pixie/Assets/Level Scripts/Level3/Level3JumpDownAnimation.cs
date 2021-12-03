@@ -15,8 +15,8 @@ public class Level3JumpDownAnimation : MonoBehaviour {
 
   void Awake() {
     Timer = new IntervalTimer() {
-      Interval = Duration,
-      TimeClass = "PlayingTime"
+      TimeClass = "PlayingTime",
+      Interval = Duration
     };
   }
 

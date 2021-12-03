@@ -21,10 +21,12 @@ public class ChargingAttackAI : AEnemyAI, IRequiresLineOfMovementAI {
 
   public override void ControlGained() {
     PreparingAttackTimer = new IntervalTimer() {
+      TimeClass = "PlayingTime",
       Interval = PreparingAttackInterval
     };
 
     GiveUpTimer = new IntervalTimer() {
+      TimeClass = "PlayingTime",
       Interval = PreparingAttackInterval + GiveUpInterval
     };
 

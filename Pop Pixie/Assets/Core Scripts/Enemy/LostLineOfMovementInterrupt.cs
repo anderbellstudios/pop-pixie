@@ -16,8 +16,8 @@ public class LostLineOfMovementInterrupt : AInterrupt {
 
   public override void LocalStart() {
     Timer = new IntervalTimer() {
-      Interval = Delay,
-      TimeClass = "PlayingTime"
+      TimeClass = "PlayingTime",
+      Interval = Delay
     };
 
     Timer.Start();
