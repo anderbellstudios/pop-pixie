@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TradeSecretSprite : AInspectable, ISerializableComponent {
+public class PieceOfIntelSprite : AInspectable, ISerializableComponent {
 
   public string[] SerializableFields { get; } = { "Collected" };
 
@@ -31,6 +31,6 @@ public class TradeSecretSprite : AInspectable, ISerializableComponent {
   }
 
   public override String AInspectablePromptText() {
-    return "Press <color=#00ffff>[Interact]</color> to steal <color=#ffff00>Trade Secret</color>";
+    return "Press <color=#00ffff>[Interact]</color> to steal <color=#ffff00>Piece of Intel</color>";
   }
 }
