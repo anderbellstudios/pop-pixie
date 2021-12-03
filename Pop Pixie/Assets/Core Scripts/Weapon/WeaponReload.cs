@@ -49,6 +49,7 @@ public class WeaponReload : MonoBehaviour {
 
   public void Interrupt() {
     ReloadTimer.Stop();
+    SoundController.Stop();
   }
 
   void BeginReload() {
