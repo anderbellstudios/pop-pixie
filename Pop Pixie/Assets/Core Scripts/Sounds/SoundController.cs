@@ -21,4 +21,18 @@ public class SoundController : MonoBehaviour {
   public void Stop() {
     Player.Stop();
   }
+
+  private bool Paused = false;
+
+  void Update() {
+    if (StateManager.Is(State.Paused) && Player.isPlaying) {
+      Player.Pause();
+      Paused = true;
+    }
+
+    if (StateManager.Isnt(State.Paused) && Paused) {
+      Player.Play();
+      Paused = false;
+    }
+  }
 }
