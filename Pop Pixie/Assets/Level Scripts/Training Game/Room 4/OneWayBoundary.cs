@@ -8,23 +8,32 @@ public class OneWayBoundary : MonoBehaviour {
   public Behaviour LockBehaviour;
   public UnityEvent OnCrossed;
 
+  bool AwaitingCross = false;
+
   void Awake() {
     if (LockedOnAwake) {
       Lock();
     } else {
       Unlock();
     }
+
+    AwaitingCross = !LockedOnAwake;
   }
 
   public void Lock() {
     LockBehaviour.enabled = true;
+    HandleCrossed(); // In case the player clips through the first boundary
   }
 
   public void Unlock() {
     LockBehaviour.enabled = false;
+    AwaitingCross = true;
   }
 
   public void HandleCrossed() {
-    OnCrossed.Invoke();
+    if (AwaitingCross) {
+      OnCrossed.Invoke();
+      AwaitingCross = false;
+    }
   }
 }
