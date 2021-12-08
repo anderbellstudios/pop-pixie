@@ -9,7 +9,7 @@ public abstract class AMenu : MonoBehaviour {
   public bool StartsVisible, StartsInFocus, HideWhenNestedMenuOpen;
   public Button FirstSelected = null;
   public GameObject MenuRoot;
-  public string CloseMenuControl = "Cancel";
+  public List<String> CloseMenuControls = new List<String>() { "Cancel" };
 
   private List<Button> _Buttons;
   private List<Button> Buttons
@@ -53,7 +53,7 @@ public abstract class AMenu : MonoBehaviour {
         Close();
       }
 
-      if (WrappedInput.GetButtonDown(CloseMenuControl)) {
+      if (CloseMenuControls.Any(control => WrappedInput.GetButtonDown(control))) {
         _CloseNextFrame = true;
       }
     }
