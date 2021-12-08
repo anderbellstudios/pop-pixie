@@ -18,7 +18,7 @@ public class HologremAI : AEnemyAI, IRequiresLineOfMovementAI {
 
   void PerformAttack() {
     Target.GetComponent<HitPoints>().Damage(1);
-    GetComponent<HitPoints>().Damage(1);
+    Destroy(gameObject);
   }
 
 }
