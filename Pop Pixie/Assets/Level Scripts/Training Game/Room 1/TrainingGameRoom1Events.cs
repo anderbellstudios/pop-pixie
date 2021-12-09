@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,10 @@ public class TrainingGameRoom1Events : MonoBehaviour {
 
   void Start() {
     Fader.Fade("to black", 0.0f);
+
+    SimulationResultData.StartedTime = DateTime.Now;
+    SimulationResultData.NumberOfHitsTaken = 0;
+    SimulationResultData.ObstacleCourseBestTime = null;
 
     // Drain all available weapons to force player to reload
     PlayerWeapons.Current.AvailableWeapons().ForEach(weapon => weapon.Ammunition = 0);

@@ -7,6 +7,7 @@ public class TrainingGamePlayerHitPointEvents : MonoBehaviour, IHitPointEvents {
   public void Updated (HitPoints hp) {}
 
   public void Decreased (HitPoints hp) {
+    SimulationResultData.NumberOfHitsTaken++;
     DamagedBlur.Current.Activate();
   }
 
