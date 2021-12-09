@@ -9,6 +9,7 @@ public class PieceOfIntelSprite : AInspectable, ISerializableComponent {
 
   public bool Collected = false;
   public LoreItem LoreItem;
+  public CaptionLine CaptionLineAfterClose;
   public GameObject SpriteGameObject;
   public CircleCollider2D ColliderBehaviour;
 
@@ -27,6 +28,7 @@ public class PieceOfIntelSprite : AInspectable, ISerializableComponent {
 
     LoreManager.Current.Open(LoreItem, () => {
       StateManager.SetState(State.Playing);
+      CaptionLineManager.Current.Play(CaptionLineAfterClose);
     });
   }
 
