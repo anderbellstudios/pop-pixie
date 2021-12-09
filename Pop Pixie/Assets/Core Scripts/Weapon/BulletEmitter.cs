@@ -22,6 +22,10 @@ public class BulletEmitter : MonoBehaviour {
     var dm = (IDirectionManager) DirectionManager;
     var direction = dm.Direction;
 
+    if (direction.magnitude == 0) {
+      direction = new Vector3(0, 1, 0);
+    }
+
     var bullet = Instantiate(
       Weapon.BulletPrefab,
       transform.position,
@@ -31,8 +35,8 @@ public class BulletEmitter : MonoBehaviour {
     BulletData bulletData = bullet.GetComponent<BulletData>();
     bulletData.Damage = Weapon.Damage;
     bulletData.DirectionManager = dm;
-    bullet.GetComponent<Rigidbody2D>().velocity = Speed() * direction;
-	}
+    bullet.GetComponent<Rigidbody2D>().velocity = Speed() * direction.normalized;
+  }
 
   void PlayPewSound() {
     SoundController.Play( Weapon.ShootSound );
