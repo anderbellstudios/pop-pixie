@@ -11,19 +11,30 @@ public class MovementManager : MonoBehaviour {
   public Animator Animator;
 
   public Rigidbody2D rb;
-  public Vector2 Movement;
+
+  public Vector2 _Movement, VisualMovement;
+  public Vector2 Movement {
+    get { return _Movement; }
+
+    set {
+      _Movement = value;
+      VisualMovement = value;
+    }
+  }
 
   void Update() {
     if ( Animator != null ) {
-      Animator.SetInteger("Movement Direction", Movement.x > 0 ? 1 : -1);
-      Animator.SetBool("Walking", StatePermitsMovement() && Movement.magnitude > 0);
-      Animator.SetFloat("Speed", Velocity().magnitude / Time.deltaTime);
+      Animator.SetInteger("Movement Direction", VisualMovement.x > 0 ? 1 : -1);
+      Animator.SetBool("Walking", StatePermitsMovement() && VisualMovement.magnitude > 0);
+      Animator.SetFloat("Speed", Velocity(VisualMovement).magnitude / Time.deltaTime);
     }
+
+    VisualMovement = Vector2.zero;
   }
 
   void FixedUpdate() {
     if (StatePermitsMovement())
-      rb.MovePosition(rb.position + Velocity());
+      rb.MovePosition(rb.position + Velocity(Movement));
 
     Movement = Vector2.zero;
   }
@@ -32,8 +43,8 @@ public class MovementManager : MonoBehaviour {
     return StateManager.Is(State.Playing) || StateManager.Is(State.ScriptedMovement);
   }
 
-  Vector2 Velocity() {
-    return ModifiedSpeed() * Movement;
+  Vector2 Velocity(Vector2 movement) {
+    return ModifiedSpeed() * movement;
   }
 
   float ModifiedSpeed() {
