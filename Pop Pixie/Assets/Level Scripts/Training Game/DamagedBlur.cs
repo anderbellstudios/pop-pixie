@@ -23,7 +23,6 @@ public class DamagedBlur : MonoBehaviour {
       Current = this;
 
     Timer = new IntervalTimer() {
-      TimeClass = "PlayingTime",
       Interval = Interval
     };
 
