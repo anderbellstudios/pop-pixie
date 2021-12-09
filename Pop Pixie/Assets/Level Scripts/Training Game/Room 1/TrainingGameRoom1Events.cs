@@ -19,14 +19,14 @@ public class TrainingGameRoom1Events : MonoBehaviour {
 
     InGamePrompt.Current.RegisterSource(() =>
       equippedWeapon.NeedToReload()
-      ? "Press <color=#00ffff>[Reload]</color> to load your weapon"
+      ? "Press [Reload] to load your weapon"
       : null
     );
 
     InGamePrompt.Current.RegisterSource(() =>
       Targets.Any(t => EnemyUtils.IsDead(t))
       ? null
-      : "Aim and press <color=#00ffff>[Fire]</color> to shoot the <color=#ffff00>Hologrems</color>"
+      : "Aim and press [Fire] to shoot the <color=#ffff00>Hologrems</color>"
     );
   }
 

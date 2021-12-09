@@ -10,7 +10,7 @@ public class TrainingRoom2Events : MonoBehaviour {
     InGamePrompt.Current.RegisterSource(() =>
       PastFirstLaser
       ? null
-      : "Press <color=#00ffff>[Roll]</color> while moving to avoid taking damage"
+      : "Press [Roll] while moving to <color=#ffff00>roll</color>"
     );
   }
 

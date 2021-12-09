@@ -52,6 +52,6 @@ public class Door : AInspectable {
   }
 
   public override String AInspectablePromptText() {
-    return "Press <color=#00ffff>[Interact]</color> to go through door";
+    return "Press [Inspect] to go through door";
   }
 }
