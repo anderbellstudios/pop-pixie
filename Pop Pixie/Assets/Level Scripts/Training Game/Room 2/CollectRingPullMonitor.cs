@@ -4,14 +4,17 @@ using System.Linq;
 using UnityEngine;
 
 public class CollectRingPullMonitor : AMonitor {
-  public GameObject RingPull;
   public float DelayAfterPickUp = 2f;
 
-  private bool RingPullCollected = false;
+  private int PreviousRingPullCount;
+
+  public override void LocalAwake() {
+    PreviousRingPullCount = RingPullsData.Amount();
+  }
 
   public override void LocalUpdate() {
-    if (Waiting && !RingPullCollected && RingPull == null) {
-      RingPullCollected = true;
+    if (Waiting && RingPullsData.Amount() > PreviousRingPullCount) {
+      PreviousRingPullCount = RingPullsData.Amount();
       Invoke("ConditionMet", DelayAfterPickUp);
     }
   }

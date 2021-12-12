@@ -20,6 +20,9 @@ public class FlyingRingPull : MonoBehaviour {
   }
 
   void Update() {
+    if (StateManager.Is(State.Paused))
+      return;
+
     Vector2 heading = Magnet.transform.position - transform.position;
 
     if ( heading.magnitude < Threshold ) {
