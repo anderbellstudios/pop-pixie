@@ -8,29 +8,13 @@ using TMPro;
 public class LoreWindowController : MonoBehaviour {
 
   public TMP_Text Title;
-  public PercentageButton ZoomLevelButton;
   public Image Image;
   public AspectRatioFitter AspectRatioFitter;
   public RectTransform ContentTransform;
   public GameObject LoreWindow;
-  public GameObject ScrollBar;
+  public GameObject VerticalScrollBar, HorizontalScrollBar;
 
-  void Start() {
-    decimal zoomLevel = OptionsData.LoreWindowZoomLevel;
-
-    ZoomLevelButton.Value = zoomLevel;
-    ZoomLevelButton.MaxValue = 1M;
-    ZoomLevelButton.MinValue = 0.05M;
-    ZoomLevelButton.Increment = 0.05M;
-    ZoomLevelButton.UpdateValue();
-
-    SetRelativeWidth((float) zoomLevel);
-  }
-
-  public void SetZoomLevel(decimal zoomLevel) {
-    OptionsData.LoreWindowZoomLevel = zoomLevel;
-    SetRelativeWidth((float) zoomLevel);
-  }
+  private float ZoomLevel;
 
   public void SetTitle(string title) {
     Title.text = title;
@@ -41,16 +25,10 @@ public class LoreWindowController : MonoBehaviour {
     AspectRatioFitter.aspectRatio = image.rect.width / image.rect.height;
   }
 
-  public void SetRelativeWidth(float relativeWidth) {
-    float horizontalPadding = ((RectTransform) ContentTransform.parent).rect.width * (1f - relativeWidth) / 2f;
-    ContentTransform.offsetMin = new Vector2(horizontalPadding, 0);
-    ContentTransform.offsetMax = new Vector2(-horizontalPadding, 0);
-  }
-
   public void Show () {
+    ZoomLevel = 1;
     SetEnabled(true);
-    ScrollBar.GetComponent<Scrollbar>().value = 1f;
-    EventSystem.current.SetSelectedGameObject( ScrollBar );
+    VerticalScrollBar.GetComponent<Scrollbar>().value = 1f;
   }
 
   public void Hide () {
@@ -59,5 +37,20 @@ public class LoreWindowController : MonoBehaviour {
 
   void SetEnabled (bool state) {
     LoreWindow.SetActive(state);
+  }
+
+  void Update() {
+    if (WrappedInput.GetButtonDown("Next Weapon")) {
+      ZoomLevel += 0.25f;
+    } else if (WrappedInput.GetButtonDown("Previous Weapon")) {
+      ZoomLevel -= 0.25f;
+    }
+
+    ZoomLevel = Mathf.Clamp(ZoomLevel, 1, 4);
+
+    ContentTransform.localScale = new Vector3(ZoomLevel, ZoomLevel, ZoomLevel);
+
+    if (!HorizontalScrollBar.activeSelf)
+      EventSystem.current.SetSelectedGameObject(VerticalScrollBar);
   }
 }
