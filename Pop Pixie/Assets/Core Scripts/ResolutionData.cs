@@ -36,7 +36,11 @@ public class ResolutionData {
   }
 
   public static void Apply() {
+#if UNITY_EDITOR
+    Debug.Log($"Setting resolution: {Width}x{Height}, Fullscreen: {Fullscreen}");
+#else
     Screen.SetResolution(Width, Height, Fullscreen);
+#endif
   }
 
 }

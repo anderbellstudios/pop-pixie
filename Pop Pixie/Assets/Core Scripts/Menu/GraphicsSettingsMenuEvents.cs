@@ -6,47 +6,35 @@ using UnityEngine;
 using TMPro;
 
 public class GraphicsSettingsMenuEvents : AMenu {
-  public TMP_Text ResolutionText, FullscreenText;
-
-  private EnumeratorButton<Resolution> ResolutionButton;
-  private EnumeratorButton<Boolean> FullscreenButton;
+  public StepperInput ResolutionStepper, FullscreenStepper;
 
   private Resolution Resolution;
   private bool Fullscreen;
 
   public override void LocalStart() {
-    ResolutionButton = new EnumeratorButton<Resolution>(
-      values: Screen.resolutions.ToList(),
+    ResolutionStepper.Options = Screen.resolutions.Select(resolution => $"{resolution.width}x{resolution.height}").ToList();
 
-      initialValue: new Resolution() {
-        width = ResolutionData.Width,
-        height = ResolutionData.Height,
-        refreshRate = 60
-      },
-
-      onChange: (resolution) => {
-        ResolutionText.text = $"Resolution: {resolution.width}x{resolution.height}";
-        Resolution = resolution;
-      }
+    ResolutionStepper.Value = Array.FindIndex(Screen.resolutions, resolution =>
+      (resolution.width == ResolutionData.Width) && (resolution.height == ResolutionData.Height)
     );
 
-    FullscreenButton = new EnumeratorButton<Boolean>(
-      values: new List<Boolean>() { true, false },
-      initialValue: ResolutionData.Fullscreen,
+    if (ResolutionStepper.Value == -1)
+      ResolutionStepper.Value = Screen.resolutions.Count() - 1;
 
-      onChange: (fullscreen) => {
-        FullscreenText.text = "Mode: " + (fullscreen ? "Fullscreen" : "Windowed");
-        Fullscreen = fullscreen;
-      }
-    );
+    ResolutionStepper.OnChange.AddListener(ResolutionChanged);
+    ResolutionStepper.ValueChanged();
+
+    FullscreenStepper.Value = ResolutionData.Fullscreen ? 1 : 0;
+    FullscreenStepper.OnChange.AddListener(FullscreenChanged);
+    FullscreenStepper.ValueChanged();
   }
 
-  public void ShiftResolution() {
-    ResolutionButton.Shift();
+  public void ResolutionChanged(int index, string label) {
+    Resolution = Screen.resolutions[index];
   }
 
-  public void ShiftFullscreen() {
-    FullscreenButton.Shift();
+  public void FullscreenChanged(int index, string label) {
+    Fullscreen = index == 1;
   }
 
   public void SaveAndApply() {

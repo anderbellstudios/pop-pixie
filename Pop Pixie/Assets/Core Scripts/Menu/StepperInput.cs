@@ -1,0 +1,74 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
+using TMPro;
+
+public class StepperInput : MonoBehaviour, ISelectHandler, IDeselectHandler {
+  public TMP_Text Text;
+  public Button Button;
+  public string FormatString;
+
+  public List<string> Options;
+  public int Value = 0;
+  public string ValueLabel => Options[Value];
+
+  public UnityEvent<int, string> OnChange;
+
+  private bool Selected = false;
+
+  void Awake() {
+    UpdateLabel();
+  }
+
+  public void OnSelect(BaseEventData eventData) {
+    Selected = true;
+  }
+
+  public void OnDeselect(BaseEventData eventData) {
+    Selected = false;
+  }
+
+  void Update() {
+    if (Selected) {
+      if (WrappedInput.GetButtonDown("Right")) {
+        IncrementValue();
+      } else if (WrappedInput.GetButtonDown("Left")) {
+        DecrementValue();
+      }
+    }
+  }
+
+  public void IncrementValue() {
+    Value++;
+
+    if (Value == Options.Count)
+      Value = 0;
+
+    ValueChanged();
+  }
+
+  public void DecrementValue() {
+    Value--;
+
+    if (Value == -1)
+      Value = Options.Count - 1;
+
+    ValueChanged();
+  }
+
+  public void ValueChanged() {
+    UpdateLabel();
+    OnChange.Invoke(Value, ValueLabel);
+  }
+
+  public void UpdateLabel() {
+    Text.text = String.Format(FormatString, ValueLabel);
+  }
+
+  public int ValueForLabel(string label)
+    => Options.IndexOf(label);
+}
