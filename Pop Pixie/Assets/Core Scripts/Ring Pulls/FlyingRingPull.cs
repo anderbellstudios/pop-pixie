@@ -6,17 +6,16 @@ public class FlyingRingPull : MonoBehaviour {
 
   public Rigidbody2D rb;
   public float InitialSpeed;
-  public float MagnetStrength;
   public float Acceleration;
   public float Threshold;
 
   GameObject Magnet;
-  float Speed;
+  float CameraScale;
 
   void Start() {
-    rb.velocity = InitialSpeed * Random.insideUnitCircle.normalized;
+    CameraScale = ComputeCameraScale();
+    rb.velocity = CameraScale * InitialSpeed * Random.insideUnitCircle.normalized;
     Magnet = GameObject.Find("Flying Ring Pull Magnet");
-    Speed = InitialSpeed;
   }
 
   void Update() {
@@ -25,16 +24,21 @@ public class FlyingRingPull : MonoBehaviour {
 
     Vector2 heading = Magnet.transform.position - transform.position;
 
-    if ( heading.magnitude < Threshold ) {
+    if (heading.magnitude < CameraScale * Threshold) {
       RingPullsData.Increment();
       RingPullsData.ShouldPulse = true;
 
       Destroy(gameObject);
     }
 
-    Speed += Acceleration * Time.deltaTime;
-    Vector2 targetVelocity = Speed * heading.normalized;
-    rb.velocity = Vector2.Lerp(rb.velocity, targetVelocity, MagnetStrength);
+    rb.velocity += CameraScale * Acceleration * (1f / Mathf.Sqrt(heading.magnitude)) * Time.deltaTime * heading.normalized;
+  }
+
+  float ComputeCameraScale() {
+    Vector2 a = Camera.main.WorldToScreenPoint( new Vector2(0, 0) );
+    Vector2 b = Camera.main.WorldToScreenPoint( new Vector2(1, 0) );
+
+    return (b - a).magnitude;
   }
 
 }
