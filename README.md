@@ -1,50 +1,21 @@
 # Pop Pixie
 
-Pop Pixie is the successor to our BAFTA-nominated online game, [Mouse Trapped](https://github.com/12joan/mouse_trapped). Like Mouse Trapped, we entered Pop Pixie into the BAFTA Young Game Designers competition. 
+🕹 We're making a video game!
 
-The game revolves around the adventures of the Pop Pixie, a vigilante corner shop owner whose mission it is to infiltrate the evil Menotes corporation, discover its secrets and take down the Mentoes' Man. 
+## What's Pop Pixie?
 
-## Play online
+Pop Pixie is an indie video game currently being developed by a small team of volunteers.
 
-If you're smart enough to not run executables from developers you don't know, you can play Pop Pixie in your browser on our GitHub Pages site. 
+We built the demo of Pop Pixie for the 2019 BAFTA Young Game Designers competition. It was nominated as one of the ten finalists in its category, and we attended the YGD award ceremony in London. (The winner was the excellent [Wip](http://ygd.bafta.org/competition/competition-news/2019/wip) by Adam Pace.)
 
-https://12joan.github.io/pop-pixie-online/
+Since then, we've been working on making Pop Pixie into a full game. We've had a few setbacks, including having to redo almost all of our artwork, but we're making progress.
 
-## Installing
+We're hoping to release *Pop Pixie: Mission Training*, a short supplementary prequel game, in spring 2022. After that, we'll resume work on the main game, releasing new levels and updates as often as we can.
 
-Because Unity is magic, we can provide builds of Pop Pixie for Linux, Mac and Windows. Download the [latest release](https://github.com/12joan/pop-pixie/releases/latest) for your operating system and have fun!
+## Can I play it?
 
-## Building
+The only versions of Pop Pixie currently released online are the early demos, which include artwork that was unintentionally plagiarised from other artists. (The person responsible for this has since left the team, and we've apologised to the affected artists.)
 
-Pop Pixie is written in [Unity 2018.3.7](https://unity3d.com/pt/unity/whats-new/2018.3.7). While it's entirely possible that the game will work with a later version, I can't guarantee it. Earlier versions? No chance. 
+All active development is currently taking place on the [training-game](https://github.com/anderbellstudios/pop-pixie/tree/training-game) branch. You're free to explore the source code and run the dev version of the game in Unity, but be warned that Pop Pixie depends on the proprietary [Rewired](https://assetstore.unity.com/packages/tools/utilities/rewired-21676) input system, which you will need to purchase and manually include.
 
-To play the game, download Unity, download the project, open the project in Unity and click Build and Run. 
-
-## Controls
-
-The game is compatible with PS3, PS4 and Xbox One S controllers. 
-
-| Control | Keyboard and mouse | Playstation Controller   | Xbox Controller |
-| ------- | ------------------ | :----------------------- | --------------- |
-| Confirm | Space or return    | X                        | A               |
-| Cancel  | Escape             | Circle                   | B               |
-| Move    | WASD or arrow keys | Left joystick            | Left joystick   |
-| Aim     | Mouse              | Right joystick           | Right joystick  |
-| Inspect | Z                  | X                        | A               |
-| Shoot   | Left click         | R1                       | RB              |
-| Roll    | Space              | Circle                   | B               |
-| Reload  | R                  | Square                   | X               |
-| Pause   | Escape             | Start / Touch pad button | Menu button     |
-
-After the project is built, you can change the input settings using the Input tab in the launch window. 
-
-## Acknowledgements
-
-- Story and writing by Michael Bell
-- Code and music by Joe Anderson
-- Level design by Miles Kneeshaw
-- Vending machine menu theme, sound design, song mixing and voice recording by Luke Crossley
-- Voice acting by Ben Rea and Emma Burgess (in addition to Michael Bell)
-- Character sprites by Ben Rea
-- First and second level song ("Shall we begin?") by Thomas Lemon
-- Supporting video by Ian Turner
+If you want to get notified when we have a stable release, follow us on Twitter at [@AnderbellStds](https://twitter.com/AnderbellStds).
