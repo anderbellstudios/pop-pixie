@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 7948105521332548047}
   - component: {fileID: 1341988070208453317}
   - component: {fileID: 2114929547257975983}
-  - component: {fileID: 6262458320593880748}
   - component: {fileID: 8462654212117519510}
   m_Layer: 0
   m_Name: Flying Ring Pull
@@ -92,10 +91,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 2114929547257975983}
-  InitialSpeed: 500
-  MagnetStrength: 0.1
-  Acceleration: 800
-  Threshold: 50
+  InitialSpeed: 5
+  MagnetStrength: 0.25
+  Acceleration: 2000
+  Threshold: 2
 --- !u!50 &2114929547257975983
 Rigidbody2D:
   serializedVersion: 4
@@ -109,27 +108,14 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_LinearDrag: 1
+  m_AngularDrag: 1
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &6262458320593880748
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7948105521332548041}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 052c79f1f2cbd450286047c4585aef96, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WorldScale: 0.3
 --- !u!114 &8462654212117519510
 MonoBehaviour:
   m_ObjectHideFlags: 0
