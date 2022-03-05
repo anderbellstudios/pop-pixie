@@ -117,6 +117,7 @@ GameObject:
   - component: {fileID: 8996175904474746811}
   - component: {fileID: 5808721027974633971}
   - component: {fileID: 7969404203038904401}
+  - component: {fileID: 4804696006103119977}
   m_Layer: 12
   m_Name: Pixie
   m_TagString: Player
@@ -367,7 +368,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Animator: {fileID: 5808721027974633971}
   rb: {fileID: 50770596489405938}
-  Movement: {x: 0, y: 0}
+  _Movement: {x: 0, y: 0}
+  VisualMovement: {x: 0, y: 0}
 --- !u!114 &3261965296031136711
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -564,7 +566,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a71ed221072ca41b2bcf72997ed2c7a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ReloadSound: {fileID: 8300000, guid: 25232cf6db5f2470d8aa12602ce0f15d, type: 3}
   SoundController: {fileID: 1022981015693294435}
   ReloadBar: {fileID: 0}
   MovementManager: {fileID: 8156467750406196158}
@@ -630,6 +631,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serializedGuid: 
+--- !u!81 &4804696006103119977
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1276747056135348}
+  m_Enabled: 1
 --- !u!1 &242307965977937915
 GameObject:
   m_ObjectHideFlags: 0
