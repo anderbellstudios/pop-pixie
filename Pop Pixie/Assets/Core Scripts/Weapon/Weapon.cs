@@ -18,7 +18,7 @@ public class Weapon : ScriptableObject {
   public GameObject BulletPrefab;
   public Sprite Sprite;
   public Sprite InHandSprite;
-  public AudioClip ShootSound;
+  public AudioClip ReloadSound, ShootSound;
 
   public float CooldownInterval() 
     => 1.0f / FireRate;

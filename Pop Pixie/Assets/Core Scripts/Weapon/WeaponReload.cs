@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class WeaponReload : MonoBehaviour {
 
-  public AudioClip ReloadSound;
   public SoundController SoundController;
   public HUDBar ReloadBar;
   public MovementManager MovementManager;
@@ -53,9 +52,10 @@ public class WeaponReload : MonoBehaviour {
   }
 
   void BeginReload() {
-    ReloadTimer.Interval = CurrentWeapon().Weapon.ReloadDuration;
+    Weapon weapon = CurrentWeapon().Weapon;
+    ReloadTimer.Interval = weapon.ReloadDuration;
     ReloadTimer.Reset();
-    SoundController.Play( ReloadSound );
+    SoundController.Play(weapon.ReloadSound);
   }
 
   bool InProgress() {
