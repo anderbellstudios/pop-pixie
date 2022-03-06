@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public abstract class AMenu : MonoBehaviour {
   public bool StartsVisible, StartsInFocus, HideWhenNestedMenuOpen;
@@ -28,6 +29,10 @@ public abstract class AMenu : MonoBehaviour {
 
     Buttons.ForEach(button =>
       button.onClick.AddListener(() => {
+        MenuSound menuSound = MenuSound.current;
+        menuSound.Play();
+        menuSound.PreventImminentSounds();
+
         LastClickedButton = button;
       })
     );
@@ -126,6 +131,8 @@ public abstract class AMenu : MonoBehaviour {
   }
 
   void GainedFocus() {
+    MenuSound.current.PreventImminentSounds();
+
     LastClickedButton?.Select();
     LastClickedButton?.OnSelect(null);
 

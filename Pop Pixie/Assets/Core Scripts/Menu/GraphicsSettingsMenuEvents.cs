@@ -21,12 +21,15 @@ public class GraphicsSettingsMenuEvents : AMenu {
     if (ResolutionStepper.Value == -1)
       ResolutionStepper.Value = Screen.resolutions.Count() - 1;
 
+    Resolution = Screen.resolutions[ResolutionStepper.Value];
+
     ResolutionStepper.OnChange.AddListener(ResolutionChanged);
-    ResolutionStepper.ValueChanged();
+    ResolutionStepper.UpdateLabel();
 
     FullscreenStepper.Value = ResolutionData.Fullscreen ? 1 : 0;
     FullscreenStepper.OnChange.AddListener(FullscreenChanged);
-    FullscreenStepper.ValueChanged();
+    FullscreenStepper.UpdateLabel();
+    Fullscreen = ResolutionData.Fullscreen;
   }
 
   public void ResolutionChanged(int index, string label) {

@@ -35,8 +35,10 @@ public class StepperInput : MonoBehaviour, ISelectHandler, IDeselectHandler {
   void Update() {
     if (Selected) {
       if (WrappedInput.GetButtonDown("Right")) {
+        MenuSound.current.Play();
         IncrementValue();
       } else if (WrappedInput.GetButtonDown("Left")) {
+        MenuSound.current.Play();
         DecrementValue();
       }
     }

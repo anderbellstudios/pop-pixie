@@ -2,10 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum PauseBehaviourEnum { Ignore, Pause, Interrupt };
+
 public class SoundController : MonoBehaviour {
   public AudioSource Player;
   public float BaseVolume = 1f;
   public bool OneShot = false;
+
+  public PauseBehaviourEnum PauseBehaviour = PauseBehaviourEnum.Pause;
 
   public void Play (AudioClip sound, float volume = 1f) {
     Player.volume = BaseVolume * ((float) OptionsData.SoundsVolume) * volume;
@@ -25,12 +29,16 @@ public class SoundController : MonoBehaviour {
   private bool Paused = false;
 
   void Update() {
-    if (StateManager.Is(State.Paused) && Player.isPlaying) {
-      Player.Pause();
-      Paused = true;
+    if (PauseBehaviour != PauseBehaviourEnum.Ignore && StateManager.Is(State.Paused) && Player.isPlaying) {
+      if (PauseBehaviour == PauseBehaviourEnum.Pause) {
+        Player.Pause();
+        Paused = true;
+      } else {
+        Stop();
+      }
     }
 
-    if (StateManager.Isnt(State.Paused) && Paused) {
+    if (PauseBehaviour == PauseBehaviourEnum.Pause && StateManager.Isnt(State.Paused) && Paused) {
       Player.Play();
       Paused = false;
     }
