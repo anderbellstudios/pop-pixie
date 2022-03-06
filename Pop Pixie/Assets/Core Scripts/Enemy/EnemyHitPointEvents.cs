@@ -6,13 +6,10 @@ using UnityEngine.UI;
 
 public class EnemyHitPointEvents : MonoBehaviour, IHitPointEvents {
 
-  public SoundController SoundPlayer;
-  public float ChanceToPlaySound = 0f;
   public Flash Flash;
   public DeathAnimation DeathAnimation;
   public Collider2D Collider;
   public HUDBar HealthBar;
-  public List<AudioClip> Sounds;
 
   public void Updated (HitPoints hp) {
     if (HealthBar != null)
@@ -21,17 +18,6 @@ public class EnemyHitPointEvents : MonoBehaviour, IHitPointEvents {
 
   public void Decreased (HitPoints hp) {
     if ( Flash != null ) Flash.BeginFlashing();
-
-    if ( Sounds.Count > 0 && ShouldPlaySound() ) {
-      // Play hurt sound
-      int i = UnityEngine.Random.Range(0, Sounds.Count);
-      var sound = Sounds[i];
-      SoundPlayer.Play(sound);
-    }
-  }
-
-  bool ShouldPlaySound() {
-    return UnityEngine.Random.value < ChanceToPlaySound;
   }
 
   public void BecameZero (HitPoints hp) {

@@ -97,6 +97,7 @@ GameObject:
   - component: {fileID: 114203618625845968}
   - component: {fileID: 3419888328154360209}
   - component: {fileID: 114713038835468652}
+  - component: {fileID: 6331324344881386689}
   - component: {fileID: 8199610652695165348}
   - component: {fileID: 3633734644977408093}
   - component: {fileID: 8156467750406196158}
@@ -328,6 +329,26 @@ MonoBehaviour:
   HealthBar: {fileID: 0}
   Fader: {fileID: 0}
   GameOverScene: Game Over
+--- !u!114 &6331324344881386689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1276747056135348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16f038fad14e14b88abdc17d0a389828, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SoundController: {fileID: 1022981015693294435}
+  DamagedSounds:
+  - {fileID: 8300000, guid: 60c430cf1257c48909b563fc8edfcff1, type: 3}
+  - {fileID: 8300000, guid: eb1a5ca23cc3a4c90aa007408d56c95f, type: 3}
+  - {fileID: 8300000, guid: 0e8fa2f0b1e4e4daa8ecade8cbe0fa65, type: 3}
+  - {fileID: 8300000, guid: d03a266c538c14b1fb87d60032e829cc, type: 3}
+  - {fileID: 8300000, guid: fc9d8d9a8b8e0428497b794433a8ef0c, type: 3}
+  DeathSounds: []
 --- !u!114 &8199610652695165348
 MonoBehaviour:
   m_ObjectHideFlags: 0
