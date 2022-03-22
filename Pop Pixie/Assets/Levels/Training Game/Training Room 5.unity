@@ -598,8 +598,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CaptionLine:
     Text: <color=#ff0000>Mr Mentoe</color>
-    AudioClip: {fileID: 0}
-    Duration: 1.5
+    AudioClip: {fileID: 8300000, guid: ac265adafb5004a1cb38a94815dc484c, type: 3}
+    Duration: 1.916
 --- !u!1 &223450701
 GameObject:
   m_ObjectHideFlags: 0
@@ -2665,7 +2665,7 @@ PrefabInstance:
     - target: {fileID: 6769439293733673370, guid: d15ee1ea31e624a2690b5667f5f345e3,
         type: 3}
       propertyPath: DialogueSequence.Pages.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6769439293733673370, guid: d15ee1ea31e624a2690b5667f5f345e3,
         type: 3}
@@ -2676,8 +2676,9 @@ PrefabInstance:
     - target: {fileID: 6769439293733673370, guid: d15ee1ea31e624a2690b5667f5f345e3,
         type: 3}
       propertyPath: DialogueSequence.Pages.Array.data[0].Text
-      value: With all the skills you have acquired, you are finally ready to defeat
-        the founder and CEO of the <color=#ff0000>Mentoes Corporation</color>...
+      value: At last, the time has come to avenge your <color=#00ffff>father</color>
+        and put an end to the <color=#ff0000>Mentoes Corporation</color> once and
+        for all.
       objectReference: {fileID: 0}
     - target: {fileID: 6769439293733673370, guid: d15ee1ea31e624a2690b5667f5f345e3,
         type: 3}
@@ -2688,7 +2689,8 @@ PrefabInstance:
     - target: {fileID: 6769439293733673370, guid: d15ee1ea31e624a2690b5667f5f345e3,
         type: 3}
       propertyPath: DialogueSequence.Pages.Array.data[1].Text
-      value: <color=#00ffff>Your father</color>'s lifelong rival,
+      value: With all the skills you have acquired, you are finally ready to defeat
+        the founder and CEO of the <color=#ff0000>Mentoes Corporation</color>...
       objectReference: {fileID: 0}
     - target: {fileID: 6769439293733673370, guid: d15ee1ea31e624a2690b5667f5f345e3,
         type: 3}
@@ -2699,7 +2701,7 @@ PrefabInstance:
     - target: {fileID: 6769439293733673370, guid: d15ee1ea31e624a2690b5667f5f345e3,
         type: 3}
       propertyPath: DialogueSequence.Pages.Array.data[2].Text
-      value: Be sure to use all the skills you have acquired to defeat <color=#ff0000>him</color>.
+      value: <color=#00ffff>Your father</color>'s lifelong rival,
       objectReference: {fileID: 0}
     - target: {fileID: 6769439293733673370, guid: d15ee1ea31e624a2690b5667f5f345e3,
         type: 3}
@@ -2716,6 +2718,21 @@ PrefabInstance:
       propertyPath: DialogueSequence.Pages.Array.data[2].Speaker
       value: Amanda
       objectReference: {fileID: 0}
+    - target: {fileID: 6769439293733673370, guid: d15ee1ea31e624a2690b5667f5f345e3,
+        type: 3}
+      propertyPath: DialogueSequence.Pages.Array.data[0].AudioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 4d50a99cef88849d2882f7600b4af4bb, type: 3}
+    - target: {fileID: 6769439293733673370, guid: d15ee1ea31e624a2690b5667f5f345e3,
+        type: 3}
+      propertyPath: DialogueSequence.Pages.Array.data[1].AudioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 33ef3be313cbd401bad936bef9f65c39, type: 3}
+    - target: {fileID: 6769439293733673370, guid: d15ee1ea31e624a2690b5667f5f345e3,
+        type: 3}
+      propertyPath: DialogueSequence.Pages.Array.data[2].AudioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 99b70b15448554a27828e89a4d26418c, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d15ee1ea31e624a2690b5667f5f345e3, type: 3}
 --- !u!4 &1062561660 stripped
@@ -3581,13 +3598,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c128c9bc2a7144850ad94aaee2d89bd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SoundPlayer: {fileID: 0}
-  ChanceToPlaySound: 0
   Flash: {fileID: 0}
   DeathAnimation: {fileID: 1633572598}
   Collider: {fileID: 1844793466}
   HealthBar: {fileID: 674988209}
-  Sounds: []
 --- !u!114 &1844793470
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4928,6 +4942,7 @@ MonoBehaviour:
   Player: {fileID: 8037605711815316678}
   BaseVolume: 1
   OneShot: 0
+  PauseBehaviour: 1
 --- !u!114 &6567690635492697012
 MonoBehaviour:
   m_ObjectHideFlags: 0
