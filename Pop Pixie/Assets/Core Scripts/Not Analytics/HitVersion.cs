@@ -1,19 +1,23 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class HitVersion : MonoBehaviour {
 
-  public bool HitOnAwake = true;
+  public static bool HitOnAwake = true;
   public NotAnalytics Provider;
+  public String Prefix = "";
 
   void Awake() {
-    if (HitOnAwake)
+    if (HitOnAwake) {
       Hit();
+      HitOnAwake = false;
+    }
   }
 
   public void Hit() {
-    Provider.Hit(Application.version);
+    Provider.Hit(Prefix + Application.version);
   }
 
 }

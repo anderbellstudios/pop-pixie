@@ -1,9 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Net;
-using System.Threading;
 using UnityEngine;
+using UnityEngine.Networking;
+using Newtonsoft.Json;
 
 /* A note on analytics:
  *
@@ -21,35 +21,29 @@ using UnityEngine;
  */
 
 public class NotAnalytics : MonoBehaviour {
-
   public string Server, AppId;
 
-  public void Hit(string path) {
-    if ( Debug.isDebugBuild ) {
-      Debug.Log("Stubbing Not Analytics hit to " + path);
-      return;
+  public void Hit(string eventName) {
+    if (Debug.isDebugBuild) {
+      Debug.Log("Stubbing Not Analytics hit: " + eventName);
+    } else {
+      StartCoroutine(SendHit(eventName));
     }
+  }
 
-    try {
+  IEnumerator SendHit(string eventName) {
+    WWWForm form = new WWWForm();
+    form.AddField("hit[app_id]", AppId);
+    form.AddField("hit[event]", eventName);
 
-      using ( WebClient client = new WebClient() ) {
-        // Fire-and-Forget pattern https://stackoverflow.com/a/2178501
-        WebRequest myRequest = WebRequest.Create( Uri(path) );
-        ThreadPool.QueueUserWorkItem(o => { myRequest.GetResponse(); });
+    using (UnityWebRequest request = UnityWebRequest.Post(Server, form)) {
+      yield return request.SendWebRequest();
+
+      if (request.result == UnityWebRequest.Result.Success) {
+        Debug.Log("Sent Not Analytics hit");
+      } else {
+        Debug.Log(request.error);
       }
-
-    } catch ( WebException e ) {
-      Debug.Log(e);
     }
   }
-
-  Uri Uri(string path) {
-    return new UriBuilder(
-      "https",
-      Server,
-      443,
-      AppId + "/" + path
-    ).Uri;
-  }
-
 }
