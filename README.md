@@ -10,7 +10,7 @@ We built the demo of Pop Pixie for the 2019 BAFTA Young Game Designers competiti
 
 Since then, we've been working on making Pop Pixie into a full game. We've had a few setbacks, including having to redo almost all of our artwork, but we're making progress.
 
-We're hoping to release *Pop Pixie: Mission Training*, a short supplementary prequel game, in spring 2022. After that, we'll resume work on the main game, releasing new levels and updates as often as we can.
+We're hoping to release *Pop Pixie: Mission Training*, a short supplementary prequel game, in ~~spring~~ summer 2022. After that, we'll resume work on the main game, releasing new levels and updates as often as we can.
 
 ## Can I play it?
 
