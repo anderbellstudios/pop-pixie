@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using PopPixie.Audio;
 
 public class GenericMenuEvents : MonoBehaviour {
 
@@ -43,7 +42,7 @@ public class GenericMenuEvents : MonoBehaviour {
     FadingOut = true;
     FadeOutCallback = callback;
 
-    AudioMixer.Current.FadeOut( FadeOutDuration );
+    AudioFadeOut.Current.FadeOut( FadeOutDuration );
     Fader.Fade("to black", FadeOutDuration);
     Invoke("CallFadeOutCallback", FadeOutDuration + PostFadeOutDelay);
   }

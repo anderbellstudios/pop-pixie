@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using PopPixie.Audio;
 
 public class StopSongOnDeath : MonoBehaviour, IHitPointEvents {
 
@@ -12,7 +11,7 @@ public class StopSongOnDeath : MonoBehaviour, IHitPointEvents {
   }
 
   public void BecameZero (HitPoints hp) {
-    AudioMixer.Current.FadeOut(5);
+    AudioFadeOut.Current.FadeOut(5);
   }
 
 }

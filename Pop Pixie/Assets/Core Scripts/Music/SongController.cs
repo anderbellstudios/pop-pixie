@@ -30,8 +30,10 @@ public class SongController : MonoBehaviour {
   }
 
   void Update() {
-    if ( CurrentSong == null ) return;
-    SongPlaybackTimeData.Record( CurrentSong, AudioSource.timeSamples );
+    AudioSource.volume = AudioFadeOut.Current.FadeLevel() * ((float) OptionsData.MusicVolume);
+
+    if ( CurrentSong != null )
+      SongPlaybackTimeData.Record( CurrentSong, AudioSource.timeSamples );
   }
 
 }

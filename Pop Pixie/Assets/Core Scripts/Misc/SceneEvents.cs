@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
-using PopPixie.Audio;
 
 public class SceneEvents : MonoBehaviour {
 
@@ -53,7 +52,7 @@ public class SceneEvents : MonoBehaviour {
       if (PauseGameplayDuringFadeOut)
         StateManager.SetState( State.LoadingLevel );
 
-      AudioMixer.Current.FadeOut( FadeOutDuration );
+      AudioFadeOut.Current.FadeOut( FadeOutDuration );
       Fader.Fade("to black", FadeOutDuration);
       Invoke("LoadNewScene", FadeOutDuration + PostFadeOutDelay);
     } else {

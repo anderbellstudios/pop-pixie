@@ -10,16 +10,10 @@ public class SoundController : MonoBehaviour {
   public bool OneShot = false;
   public PauseBehaviourEnum PauseBehaviour = PauseBehaviourEnum.Pause;
 
-  private LowPriorityBehaviour LowPriorityBehaviour;
-  private float SoundVolume;
-
-  void Awake() {
-    LowPriorityBehaviour = new LowPriorityBehaviour();
-  }
+  private float SoundVolume = 1f;
 
   public void Play (AudioClip sound, float volume = 1f) {
     SoundVolume = volume;
-    UpdateVolume();
 
     if ( OneShot ) {
       Player.PlayOneShot(sound);
@@ -36,7 +30,7 @@ public class SoundController : MonoBehaviour {
   private bool Paused = false;
 
   void Update() {
-    LowPriorityBehaviour.EveryNFrames(10, UpdateVolume);
+    Player.volume = BaseVolume * SoundVolume * AudioFadeOut.Current.FadeLevel() * ((float) OptionsData.SoundsVolume);
 
     if (PauseBehaviour != PauseBehaviourEnum.Ignore && StateManager.Is(State.Paused) && Player.isPlaying) {
       if (PauseBehaviour == PauseBehaviourEnum.Pause) {
@@ -51,9 +45,5 @@ public class SoundController : MonoBehaviour {
       Player.Play();
       Paused = false;
     }
-  }
-
-  void UpdateVolume() {
-    Player.volume = BaseVolume * ((float) OptionsData.SoundsVolume) * SoundVolume;
   }
 }

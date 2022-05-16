@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using PopPixie.Audio;
 
 public class LoadElevatorScene : AInspectable {
   public ScreenFade Fader;
@@ -35,7 +34,7 @@ public class LoadElevatorScene : AInspectable {
       () => {
         StateManager.SetState( State.LoadingLevel );
         Fader.Fade("to black", 2.0f);
-        AudioMixer.Current.FadeOut(2.0f);
+        AudioFadeOut.Current.FadeOut(2.0f);
         Invoke("LoadScene", 3.0f);
       },
       () => {}

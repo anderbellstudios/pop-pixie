@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using PopPixie.Audio;
 
 public class PlayerHitPointEvents : MonoBehaviour, IHitPointEvents {
 
@@ -25,7 +24,7 @@ public class PlayerHitPointEvents : MonoBehaviour, IHitPointEvents {
 
     StateManager.SetState( State.Dying );
     Fader.Fade("to black", 2.0f);
-    AudioMixer.Current.FadeOut(1.0f);
+    AudioFadeOut.Current.FadeOut(1.0f);
     Invoke("GameOverScreen", 2.0f);
   }
 
