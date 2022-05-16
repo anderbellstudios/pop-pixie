@@ -29,6 +29,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7215385857777686877}
   m_Father: {fileID: 0}
@@ -70,6 +71,8 @@ MonoBehaviour:
   Player: {fileID: 2502998628826354574}
   BaseVolume: 1
   OneShot: 0
+  PauseBehaviour: 1
+  UseVoiceVolume: 1
 --- !u!82 &2502998628826354574
 AudioSource:
   m_ObjectHideFlags: 0
@@ -396,12 +399,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a696b6692505a4309b661ba29ba9c594, type: 3}
---- !u!224 &7215385857777686877 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 4074745959217174450, guid: a696b6692505a4309b661ba29ba9c594,
-    type: 3}
-  m_PrefabInstance: {fileID: 6678368657462939375}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &3708935619042068960 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8058801903961999119, guid: a696b6692505a4309b661ba29ba9c594,
@@ -414,3 +411,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f94eac28a45244e2b965ab36b789141, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &7215385857777686877 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 4074745959217174450, guid: a696b6692505a4309b661ba29ba9c594,
+    type: 3}
+  m_PrefabInstance: {fileID: 6678368657462939375}
+  m_PrefabAsset: {fileID: 0}

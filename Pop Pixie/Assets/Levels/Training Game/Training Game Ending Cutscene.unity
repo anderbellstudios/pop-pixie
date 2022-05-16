@@ -242,6 +242,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 763541826}
   - {fileID: 1335196682}
@@ -790,6 +791,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -1167,6 +1169,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1488103978}
   - {fileID: 708120184}
@@ -1203,6 +1206,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1978581127}
   m_Father: {fileID: 1424470124}
@@ -1222,6 +1226,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SoundController: {fileID: 1978581126}
   AudioClip: {fileID: 8300000, guid: 6958b6fddab774fe88a73fd424dded36, type: 3}
+  PlayOnAwake: 0
 --- !u!114 &1488103982
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1280,6 +1285,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2017158091}
   m_RootOrder: 0
@@ -1599,6 +1605,11 @@ PrefabInstance:
       propertyPath: OneShot
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8725130076926170511, guid: 64be909e40cc84179a64b61c3255762a,
+        type: 3}
+      propertyPath: UseVoiceVolume
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 64be909e40cc84179a64b61c3255762a, type: 3}
 --- !u!114 &1978581126 stripped
@@ -1709,6 +1720,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1593196381}
   - {fileID: 347860471}

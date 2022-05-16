@@ -9,6 +9,7 @@ public class SoundController : MonoBehaviour {
   public float BaseVolume = 1f;
   public bool OneShot = false;
   public PauseBehaviourEnum PauseBehaviour = PauseBehaviourEnum.Pause;
+  public bool UseVoiceVolume = false;
 
   private float SoundVolume = 1f;
 
@@ -30,7 +31,10 @@ public class SoundController : MonoBehaviour {
   private bool Paused = false;
 
   void Update() {
-    Player.volume = BaseVolume * SoundVolume * AudioFadeOut.Current.FadeLevel() * ((float) OptionsData.SoundsVolume);
+    Player.volume = BaseVolume
+      * SoundVolume
+      * AudioFadeOut.Current.FadeLevel()
+      * (float)(UseVoiceVolume ? OptionsData.VoiceVolume : OptionsData.SoundsVolume);
 
     if (PauseBehaviour != PauseBehaviourEnum.Ignore && StateManager.Is(State.Paused) && Player.isPlaying) {
       if (PauseBehaviour == PauseBehaviourEnum.Pause) {

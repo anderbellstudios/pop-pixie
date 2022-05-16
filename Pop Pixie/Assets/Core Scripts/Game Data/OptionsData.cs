@@ -25,4 +25,14 @@ public class OptionsData {
     }
   }
 
+  public static decimal VoiceVolume {
+    get {
+      return System.Convert.ToDecimal(ConfigData.Current.Fetch("options-voice-volume", orSetEqualTo: 1M));
+    }
+
+    set {
+      ConfigData.Current.Set("options-voice-volume", value);
+    }
+  }
+
 }
