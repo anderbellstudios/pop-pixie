@@ -1713,11 +1713,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecee26bd5e4d442bc8a966552f5161c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartsInControl: 0
+  StartsInControl: 1
   InControl: 0
   AIs:
   - {fileID: 1472147274}
   - {fileID: 773223464}
+  Interval: 2
   LastAI: -1
 --- !u!1001 &699291139
 PrefabInstance:
@@ -2008,7 +2009,7 @@ GameObject:
   - component: {fileID: 742429437}
   - component: {fileID: 742429441}
   - component: {fileID: 742429443}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Protective Enclosure
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2197,11 +2198,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f67c1cd0df304ae996276b12f3c2789, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartsInControl: 1
+  StartsInControl: 0
   InControl: 0
+  AttackInterval: 0.5
+  MinAttacks: 6
+  MaxAttacks: 10
   BombPrefab: {fileID: 5007492144386509978, guid: 9650ed0b889ae49d687939a9a87a15d1,
     type: 3}
-  WhenFinished: {fileID: 773223464}
+  BombVelocityCoefficient: 10
+  WhenFinished: {fileID: 691322867}
 --- !u!1001 &780510490
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3164,6 +3169,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Death animation - Hologram
       objectReference: {fileID: 0}
+    - target: {fileID: 1545084783249869422, guid: e1e165f91d38040f9b97c57f63429240,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1545084783337468771, guid: e1e165f91d38040f9b97c57f63429240,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1545084783733679617, guid: e1e165f91d38040f9b97c57f63429240,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 1545084783733679622, guid: e1e165f91d38040f9b97c57f63429240,
         type: 3}
       propertyPath: lengthInSec
@@ -3218,6 +3238,11 @@ PrefabInstance:
         type: 3}
       propertyPath: InitialModule.startLifetime.scalar
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1545084784310307411, guid: e1e165f91d38040f9b97c57f63429240,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1545084784310307411, guid: e1e165f91d38040f9b97c57f63429240,
         type: 3}
@@ -3351,7 +3376,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StartsInControl: 0
   InControl: 0
-  InitialDelay: 2
   AttackInterval: 4
   MinAttacks: 2
   MaxAttacks: 4
