@@ -33,10 +33,10 @@ public class GrenadeExplodesAfterTime : MonoBehaviour {
   }
 
   void Update() {
-    if (StateManager.Isnt( State.Playing ))
+    if (!StateManager.Playing)
       return;
 
-    if (!RadiusIndicatorTimer.Started && !GrenadeWaitingBeforeThrow.Waiting && ExplodeTimer.Progress() >= 0.50) {
+    if (!RadiusIndicatorTimer.Started && !WaitingToThrow() && ExplodeTimer.Progress() >= 0.50) {
       RadiusIndicatorTimer.Reset();
     }
 
@@ -63,7 +63,9 @@ public class GrenadeExplodesAfterTime : MonoBehaviour {
     };
   }
 
-  float MaxDamage() => GrenadeWaitingBeforeThrow.Waiting ? DamageExplodingInHand : BulletData.Damage;
+  float MaxDamage() => WaitingToThrow() ? DamageExplodingInHand : BulletData.Damage;
+
+  bool WaitingToThrow() => (GrenadeWaitingBeforeThrow != null) && GrenadeWaitingBeforeThrow.Waiting;
 
   void SetRadiusIndicatorRadius( float radius ) {
     RadiusIndicator.localScale = new Vector3( 2 * radius, 2 * radius, 2 * radius );

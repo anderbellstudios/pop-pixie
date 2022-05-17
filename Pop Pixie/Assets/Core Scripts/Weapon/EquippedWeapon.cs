@@ -40,7 +40,8 @@ public class EquippedWeapon : MonoBehaviour {
   }
 
   void PollChangeWeapon() {
-    if ( StateManager.Isnt( State.Playing ) ) return;
+    if (!StateManager.Playing)
+      return;
 
     if ( WrappedInput.GetButtonDown("Next Weapon")     ) ChangeWeaponIndex(1);
     if ( WrappedInput.GetButtonDown("Previous Weapon") ) ChangeWeaponIndex(-1);

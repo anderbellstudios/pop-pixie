@@ -24,10 +24,10 @@ public class PieceOfIntelSprite : AInspectable, ISerializableComponent {
     Collected = true;
 
     LoreItemData.RecordRead(LoreItem);
-    StateManager.SetState(State.Lore);
+    StateManager.AddState(State.NotPlaying);
 
     LoreManager.Current.Open(LoreItem, () => {
-      StateManager.SetState(State.Playing);
+      StateManager.RemoveState(State.NotPlaying);
       CaptionLineManager.Current.Play(CaptionLineAfterClose);
     });
   }

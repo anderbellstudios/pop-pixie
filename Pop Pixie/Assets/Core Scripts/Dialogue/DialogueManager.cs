@@ -28,7 +28,7 @@ public class DialogueManager : MonoBehaviour {
     CurrentPage = -1;
     OnFinish = onFinish;
 
-    StateManager.SetState(State.Dialogue);
+    StateManager.AddState(State.NotPlaying);
     DialogueBox.Show();
     Open = true;
 
@@ -78,7 +78,7 @@ public class DialogueManager : MonoBehaviour {
     SoundController.Stop();
     DialogueBox.Hide();
     Open = false;
-    StateManager.SetState(State.Playing);
+    StateManager.RemoveState(State.NotPlaying);
     OnFinish();
   }
 }

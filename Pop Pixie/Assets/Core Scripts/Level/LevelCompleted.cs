@@ -20,7 +20,7 @@ public class LevelCompleted : MonoBehaviour, ISerializableComponent {
   }
 
   void TryShowMessage() {
-    if (StateManager.Isnt(State.Playing))
+    if (!StateManager.Playing)
       return;
     CancelInvoke();
     KeycardDialoguePlayed = true;

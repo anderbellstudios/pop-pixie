@@ -11,7 +11,6 @@ public class Level3Started : MonoBehaviour {
 
 	void Start () {
     Fader.Fade("from black", 2.0f);
-    StateManager.SetState( State.Playing );
   }
 
   void Update() {

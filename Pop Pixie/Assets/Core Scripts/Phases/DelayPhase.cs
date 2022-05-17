@@ -9,14 +9,14 @@ public class DelayPhase : APhase {
 
 	public override void LocalBegin () {
     if (PauseGameplay)
-      StateManager.SetState( State.Cutscene );
+      StateManager.AddState(State.NotPlaying);
 
     Invoke("AfterDelay", Delay);
   }
 
   void AfterDelay() {
     if (PauseGameplay)
-      StateManager.SetState( State.Playing );
+      StateManager.RemoveState(State.NotPlaying);
 
     PhaseFinished();
   }

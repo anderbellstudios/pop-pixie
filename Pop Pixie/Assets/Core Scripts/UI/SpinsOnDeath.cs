@@ -10,7 +10,7 @@ public class SpinsOnDeath : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-    if ( StateManager.Isnt( State.Dying ) )
+    if (!StateManager.Enabled(StateFeatures.PlayerDeathAnimation))
       return;
 
     Cam.orthographicSize -= ZoomSpeed * Time.deltaTime;

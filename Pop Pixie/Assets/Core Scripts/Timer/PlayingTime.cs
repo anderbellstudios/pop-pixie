@@ -6,8 +6,10 @@ public class PlayingTime : MonoBehaviour {
   public static float time;
 
   void Update() {
-    if ( StateManager.Is( State.Playing ) )
-      time += Time.deltaTime;
+    if (!StateManager.Playing)
+      return;
+
+    time += Time.deltaTime;
   }
 
 }

@@ -20,7 +20,9 @@ public class PassiveSounds : MonoBehaviour {
   }
 
   void Update () {
-    if ( StateManager.Isnt( State.Playing ) ) return;
+    if (!StateManager.Playing)
+      return;
+
     Timer.IfElapsed( PlaySound );
   }
 

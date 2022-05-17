@@ -57,11 +57,11 @@ public abstract class AInspectable : MonoBehaviour {
     if (InspectImminent() && _ButttonReleased && WrappedInput.GetButtonDown("Inspect"))
       OnInspect();
 
-    _ButttonReleased = StateManager.Is(State.Playing) && !WrappedInput.GetButton("Inspect");
+    _ButttonReleased = StateManager.Playing && !WrappedInput.GetButton("Inspect");
   }
 
   bool InspectImminent() {
-    return StateManager.Is(State.Playing) && _Nearby && IsInspectable();
+    return StateManager.Playing && _Nearby && IsInspectable();
   }
 
   public abstract void OnInspect();

@@ -21,7 +21,7 @@ public class PlayerShoot : MonoBehaviour {
   }
 
 	void Update () {
-    if ( StateManager.Isnt( State.Playing ) )
+    if (!StateManager.Playing)
       return;
 
     Weapon weapon = CurrentWeapon().Weapon;

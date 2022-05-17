@@ -27,7 +27,7 @@ public class DialoguePromptManager : MonoBehaviour {
     OnPositiveAnswer = onPositiveAnswer;
     OnNegativeAnswer = onNegativeAnswer;
 
-    StateManager.SetState(State.DialoguePrompt);
+    StateManager.AddState(State.NotPlaying);
     DialoguePromptBox.Show();
     Open = true;
 
@@ -48,6 +48,6 @@ public class DialoguePromptManager : MonoBehaviour {
   void Exit() {
     DialoguePromptBox.Hide();
     Open = false;
-    StateManager.SetState(State.Playing);
+    StateManager.RemoveState(State.NotPlaying);
   }
 }

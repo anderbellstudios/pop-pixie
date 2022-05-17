@@ -27,7 +27,7 @@ public class CameraPan : MonoBehaviour {
     InitialSize = Camera.GetComponent<Camera>().orthographicSize;
 
     if (PauseGameplay)
-      StateManager.SetState( State.Cutscene );
+      StateManager.AddState(State.NotPlaying);
 
     Timer.Reset();
   }
@@ -46,7 +46,7 @@ public class CameraPan : MonoBehaviour {
 
   void Finished() {
     if (PauseGameplay)
-      StateManager.SetState( State.Playing );
+      StateManager.RemoveState(State.NotPlaying);
 
     Camera.GetComponent<FollowsPlayer>().enabled = FollowPlayerAfterPan;
 

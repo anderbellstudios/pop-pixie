@@ -41,7 +41,7 @@ public class FireableScheduler : MonoBehaviour {
   }
 
   void Update() {
-    if ( StateManager.Isnt( State.Playing ) )
+    if (!StateManager.Playing)
       return;
 
     if ( RespitePhase() ) {

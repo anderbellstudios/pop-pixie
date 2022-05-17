@@ -10,7 +10,7 @@ public class PlayerMovable : MonoBehaviour, IDirectionManager {
   public Vector3 Direction { get; set; }
 
   void Update() {
-    if ( StateManager.Isnt( State.Playing ) )
+    if (!StateManager.Playing)
       return;
 
     Direction = new Vector2(

@@ -26,7 +26,7 @@ public class WeaponReload : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-    if ( StateManager.Isnt( State.Playing ) )
+    if (!StateManager.Playing)
       return;
 
     ReloadTimer.IfElapsed( CurrentWeapon().Reload );

@@ -21,11 +21,11 @@ public class ScriptedMovement : MonoBehaviour {
     Running = true;
 
     if (ScriptedMovementState)
-      StateManager.SetState(State.ScriptedMovement);
+      StateManager.AddState(State.ScriptedMovement);
   }
 
   void Update() {
-    if (!Running || (StateManager.Isnt(State.Playing) && StateManager.Isnt(State.ScriptedMovement)))
+    if (!StateManager.Enabled(StateFeatures.Movement) || !Running)
       return;
 
     Vector3 destination = Path[PathIndex];
@@ -49,7 +49,7 @@ public class ScriptedMovement : MonoBehaviour {
     Running = false;
 
     if (ScriptedMovementState)
-      StateManager.SetState(State.Playing);
+      StateManager.RemoveState(State.ScriptedMovement);
 
     if (OnComplete != null)
       OnComplete();

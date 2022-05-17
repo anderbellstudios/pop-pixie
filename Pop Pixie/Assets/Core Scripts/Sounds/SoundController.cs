@@ -36,7 +36,7 @@ public class SoundController : MonoBehaviour {
       * AudioFadeOut.Current.FadeLevel()
       * (float)(UseVoiceVolume ? OptionsData.VoiceVolume : OptionsData.SoundsVolume);
 
-    if (PauseBehaviour != PauseBehaviourEnum.Ignore && StateManager.Is(State.Paused) && Player.isPlaying) {
+    if (PauseBehaviour != PauseBehaviourEnum.Ignore && StateManager.Enabled(StateFeatures.InterruptSounds) && Player.isPlaying) {
       if (PauseBehaviour == PauseBehaviourEnum.Pause) {
         Player.Pause();
         Paused = true;
@@ -45,7 +45,7 @@ public class SoundController : MonoBehaviour {
       }
     }
 
-    if (PauseBehaviour == PauseBehaviourEnum.Pause && StateManager.Isnt(State.Paused) && Paused) {
+    if (PauseBehaviour == PauseBehaviourEnum.Pause && !StateManager.Enabled(StateFeatures.InterruptSounds) && Paused) {
       Player.Play();
       Paused = false;
     }

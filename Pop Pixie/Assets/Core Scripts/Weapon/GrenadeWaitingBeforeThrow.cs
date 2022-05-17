@@ -13,7 +13,7 @@ public class GrenadeWaitingBeforeThrow : MonoBehaviour {
   public bool Waiting = true;
 
   void Update() {
-    if (StateManager.Isnt( State.Playing ) )
+    if (!StateManager.Playing)
       return;
 
     if (Waiting && !WrappedInput.GetButton("Fire")) {

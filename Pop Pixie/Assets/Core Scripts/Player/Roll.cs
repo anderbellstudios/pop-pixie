@@ -21,7 +21,7 @@ public class Roll : MonoBehaviour {
   }
 
   void Update() {
-    if ( StateManager.Isnt( State.Playing ) )
+    if (!StateManager.Playing)
       return;
 
     if ( WrappedInput.GetButtonDown("Roll") && !Rolling && RollAllowed.CanRoll() )

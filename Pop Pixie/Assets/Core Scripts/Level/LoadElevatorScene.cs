@@ -32,7 +32,7 @@ public class LoadElevatorScene : AInspectable {
       "Advance",
       "Do not",
       () => {
-        StateManager.SetState( State.LoadingLevel );
+        StateManager.AddState(State.NotPlaying);
         Fader.Fade("to black", 2.0f);
         AudioFadeOut.Current.FadeOut(2.0f);
         Invoke("LoadScene", 3.0f);

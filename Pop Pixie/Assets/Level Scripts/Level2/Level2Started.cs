@@ -14,7 +14,9 @@ public class Level2Started : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
     Fader.Fade("from black", 2.0f);
-    StateManager.SetState( State.Playing );
+    // StateManager.SetState( State.Playing );
+
+    Debug.Log("Not implemented");
 
     GDCall.UnlessLoad( StartCutscene );
     GDCall.IfLoad( MentoeAnimation.Skip );
@@ -26,7 +28,7 @@ public class Level2Started : MonoBehaviour {
 
     DialogueCount = 0;
     // Dialogue.Play("Dialogue/l2d1", this);
-    StateManager.SetState( State.Cutscene );
+    // StateManager.SetState( State.Cutscene );
     MentoeAnimation.Run();
     Invoke("PlaySecondDialogue", 3.0f);
 	}

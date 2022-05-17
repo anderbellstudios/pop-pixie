@@ -27,7 +27,7 @@ public class Turret : AFireable {
   }
 
   void Update() {
-    if ( StateManager.Isnt( State.Playing ) )
+    if (!StateManager.Playing)
       return;
 
     if ( Firing )

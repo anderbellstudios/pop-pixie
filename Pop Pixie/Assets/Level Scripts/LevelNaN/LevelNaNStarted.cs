@@ -16,11 +16,10 @@ public class LevelNaNStarted : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
     Fader.Fade("from black", 2.0f);
-    StateManager.SetState( State.Playing );
   }
 
   void Update() {
-    if ( StateManager.Isnt( State.Playing ) ) return;
+    if (!StateManager.Playing) return;
     if ( FightTriggered ) return;
 
     float distance = Vector3.Distance( Player.position, Amanda.position );

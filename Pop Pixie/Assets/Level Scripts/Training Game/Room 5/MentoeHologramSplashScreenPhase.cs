@@ -45,7 +45,7 @@ public class MentoeHologramSplashScreenPhase : APhase {
   }
 
   public override void LocalBegin() {
-    StateManager.SetState(State.Cutscene);
+    StateManager.AddState(State.NotPlaying);
     AnimationTimer.Reset();
 
     Invoke("PlayCaptionLine", DelayBeforeCaptionLine);
@@ -87,6 +87,6 @@ public class MentoeHologramSplashScreenPhase : APhase {
 
   public override void AfterFinished() {
     UpdateWithProgress(1);
-    StateManager.SetState(State.Playing);
+    StateManager.RemoveState(State.NotPlaying);
   }
 }

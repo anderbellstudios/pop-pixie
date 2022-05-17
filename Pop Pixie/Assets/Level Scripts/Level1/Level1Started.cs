@@ -10,8 +10,7 @@ public class Level1Started : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
     Fader.Fade("from black", 2.0f);
-    StateManager.SetState( State.Playing );
-    GDCall.UnlessLoad( PlayDialogue );
+    GDCall.UnlessLoad(PlayDialogue);
   }
 
   public void PlayDialogue() {

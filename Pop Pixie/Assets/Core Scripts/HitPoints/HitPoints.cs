@@ -123,8 +123,10 @@ public class HitPoints : MonoBehaviour, ISerializableComponent {
 	
 	// Update is called once per frame
 	void Update () {
-    if ( StateManager.Is( State.Playing ) )
-      Increase( RegenerateRate * Time.deltaTime );
+    if (!StateManager.Playing)
+      return;
+
+    Increase( RegenerateRate * Time.deltaTime );
 	}
 
 }

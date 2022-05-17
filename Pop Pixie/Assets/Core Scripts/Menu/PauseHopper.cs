@@ -8,7 +8,7 @@ public class PauseHopper : MonoBehaviour {
   public bool SaveOnPause = true;
 
   void Update() {
-    if ( StateManager.Isnt( State.Playing ) )
+    if (!StateManager.Playing)
       return;
 
     if ( WrappedInput.GetButtonDown("Pause") ) {
@@ -17,8 +17,8 @@ public class PauseHopper : MonoBehaviour {
         SaveGame.WriteAutoSave();
       }
 
-      StateManager.SetState( State.Paused );
-      SceneManager.LoadScene( "Pause Menu", LoadSceneMode.Additive );
+      StateManager.AddState(State.Paused);
+      SceneManager.LoadScene("Pause Menu", LoadSceneMode.Additive);
     }
       
   }

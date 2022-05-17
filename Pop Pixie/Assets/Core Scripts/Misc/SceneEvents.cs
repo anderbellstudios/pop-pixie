@@ -50,7 +50,7 @@ public class SceneEvents : MonoBehaviour {
       FadingOut = true;
 
       if (PauseGameplayDuringFadeOut)
-        StateManager.SetState( State.LoadingLevel );
+        StateManager.AddState(State.NotPlaying);
 
       AudioFadeOut.Current.FadeOut( FadeOutDuration );
       Fader.Fade("to black", FadeOutDuration);
@@ -61,9 +61,6 @@ public class SceneEvents : MonoBehaviour {
   }
 
   void LoadNewScene() {
-    if (PauseGameplayDuringFadeOut)
-      StateManager.SetState( State.Playing );
-
     SceneManager.LoadScene(NewSceneName);
   }
 }

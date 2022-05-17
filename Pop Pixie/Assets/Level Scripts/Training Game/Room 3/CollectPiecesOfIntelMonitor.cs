@@ -7,7 +7,7 @@ public class CollectPiecesOfIntelMonitor : AMonitor {
   public List<PieceOfIntelSprite> PiecesOfIntel;
 
   public override bool TestCondition() {
-    if (StateManager.Isnt( State.Playing ))
+    if (!StateManager.Playing)
       return false;
 
     return PiecesOfIntel.All(x => x.Collected);

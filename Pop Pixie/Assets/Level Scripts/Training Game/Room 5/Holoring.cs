@@ -7,7 +7,7 @@ public class Holoring : MonoBehaviour {
   public float Lifetime;
 
   void Update() {
-    if (StateManager.Isnt( State.Playing ))
+    if (!StateManager.Playing)
       return;
 
     float delta = Time.deltaTime * ExpandSpeed;

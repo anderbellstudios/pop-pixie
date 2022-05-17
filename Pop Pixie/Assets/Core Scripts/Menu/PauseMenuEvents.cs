@@ -11,7 +11,7 @@ public class PauseMenuEvents : AMenu {
   public AMenu DiscoveredItemsMenu, OptionsMenu;
 
   public override void LocalClose() {
-    StateManager.SetState( State.Playing );
+    StateManager.RemoveState(State.Paused);
     SceneManager.UnloadSceneAsync("Pause Menu");
   }
 

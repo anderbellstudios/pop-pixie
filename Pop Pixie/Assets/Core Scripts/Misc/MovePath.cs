@@ -12,7 +12,7 @@ public class MovePath : MonoBehaviour {
   private int PointIndex = 0;
 
   void Update() {
-    if (StateManager.Isnt(State.Playing) || !Running)
+    if (!StateManager.Playing || !Running)
       return;
 
     Vector3 dest = Points[PointIndex];

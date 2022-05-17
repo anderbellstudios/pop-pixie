@@ -32,7 +32,7 @@ public class SaveHopper : MonoBehaviour {
   }
 
   void AutoSave() {
-    if ( StateManager.Isnt( State.Playing ) )
+    if (!StateManager.Playing)
       return;
 
     Debug.Log("Hop!");

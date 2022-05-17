@@ -40,7 +40,7 @@ public class MovementManager : MonoBehaviour {
   }
 
   bool StatePermitsMovement() {
-    return StateManager.Is(State.Playing) || StateManager.Is(State.ScriptedMovement);
+    return StateManager.Enabled(StateFeatures.Movement);
   }
 
   Vector2 Velocity(Vector2 movement) {

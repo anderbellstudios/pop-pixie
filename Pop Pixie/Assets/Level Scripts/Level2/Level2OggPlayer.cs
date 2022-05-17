@@ -8,13 +8,14 @@ public class Level2OggPlayer : AInspectable {
 
   public override void OnInspect() {
     // Dialogue.Play("Dialogue/OggPlayer", this);
+    Debug.Log("Not implemented");
 
-    StateManager.SetState( State.Lore );
+    // StateManager.SetState( State.Lore );
 
-    LoreManager.Current.Open(LoreItem, () => {
-      SongHopper.Stop();
-    });
+    // LoreManager.Current.Open(LoreItem, () => {
+    //   SongHopper.Stop();
+    // });
 
-    SongHopper.Hop();
+    // SongHopper.Hop();
   }
 }

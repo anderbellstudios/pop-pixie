@@ -22,7 +22,7 @@ public class PlayerHitPointEvents : MonoBehaviour, IHitPointEvents {
     SaveGame.ReadSave();
     SaveGame.WriteAutoSave();
 
-    StateManager.SetState( State.Dying );
+    StateManager.AddState(State.PlayerDying);
     Fader.Fade("to black", 2.0f);
     AudioFadeOut.Current.FadeOut(1.0f);
     Invoke("GameOverScreen", 2.0f);
