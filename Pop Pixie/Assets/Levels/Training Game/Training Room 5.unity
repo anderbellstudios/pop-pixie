@@ -1970,7 +1970,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpriteRenderer: {fileID: 742429439}
   WorkingFrames:
-  - {fileID: 21300000, guid: 1b5f5f98320794ffcaab523e6b6d47fd, type: 3}
+  - {fileID: 21300000, guid: 0a8b5c20eda01463d961bdc7f3d892a4, type: 3}
   DestroyedFrame: {fileID: 21300000, guid: ebfca8e050ec8470dbbd622e51a425e8, type: 3}
   SpawnFlyingRingPull: {fileID: 0}
   DisableComponents:
@@ -1995,7 +1995,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 3de6c18b91ea0472ba0b87b50c6f0bcc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2016,8 +2016,8 @@ SpriteRenderer:
   m_SortingLayerID: 1415191237
   m_SortingLayer: 4
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 1b5f5f98320794ffcaab523e6b6d47fd, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.69803923}
+  m_Sprite: {fileID: 21300000, guid: 0a8b5c20eda01463d961bdc7f3d892a4, type: 3}
+  m_Color: {r: 0.06666667, g: 0.59607846, b: 0.101960786, a: 0.7490196}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -2036,7 +2036,7 @@ Transform:
   m_GameObject: {fileID: 742429436}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 36, y: -25, z: 0}
-  m_LocalScale: {x: 56, y: 60, z: 10}
+  m_LocalScale: {x: 1.25, y: 1.25, z: 1.25}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -2061,8 +2061,8 @@ MonoBehaviour:
   RegenerateRate: 0
   CanBeDamagedArbiters: []
   Dead: 0
---- !u!61 &742429442
-BoxCollider2D:
+--- !u!58 &742429442
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -2075,18 +2075,8 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.1, y: 0.1}
-    newSize: {x: 0.35, y: 0.44}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.1, y: 0.1}
-  m_EdgeRadius: 0
+  m_Radius: 2.56
 --- !u!1001 &780510490
 PrefabInstance:
   m_ObjectHideFlags: 0
