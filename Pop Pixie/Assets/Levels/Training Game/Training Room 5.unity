@@ -1698,6 +1698,7 @@ Transform:
   m_Children:
   - {fileID: 1472147275}
   - {fileID: 773223463}
+  - {fileID: 1951467544}
   m_Father: {fileID: 1844793465}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1718,6 +1719,7 @@ MonoBehaviour:
   AIs:
   - {fileID: 1472147274}
   - {fileID: 773223464}
+  - {fileID: 1951467545}
   Interval: 2
   LastAI: -1
 --- !u!1001 &699291139
@@ -2203,10 +2205,10 @@ MonoBehaviour:
   AttackInterval: 0.5
   MinAttacks: 6
   MaxAttacks: 10
+  WhenFinished: {fileID: 691322867}
   BombPrefab: {fileID: 5007492144386509978, guid: 9650ed0b889ae49d687939a9a87a15d1,
     type: 3}
   BombVelocityCoefficient: 10
-  WhenFinished: {fileID: 691322867}
 --- !u!1001 &780510490
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3379,9 +3381,9 @@ MonoBehaviour:
   AttackInterval: 4
   MinAttacks: 2
   MaxAttacks: 4
+  WhenFinished: {fileID: 691322867}
   HoloringPrefab: {fileID: 145702683587674036, guid: ac0530a655ebf4e6396996d7e115bd35,
     type: 3}
-  WhenFinished: {fileID: 691322867}
 --- !u!4 &1472147275
 Transform:
   m_ObjectHideFlags: 0
@@ -4316,6 +4318,58 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1929603378}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1951467543
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1951467544}
+  - component: {fileID: 1951467545}
+  m_Layer: 16
+  m_Name: Bullets Attack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1951467544
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1951467543}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 691322866}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1951467545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1951467543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3825dbbda88e64dd88168ad2d6a722f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StartsInControl: 0
+  InControl: 0
+  Duration: 12
+  BulletPrefab: {fileID: 4253899728925275938, guid: deeaf1767dca84c7984744fe2b3cc298,
+    type: 3}
+  BulletsPerSecond: 6
+  BulletSpeed: 36
+  WhenFinished: {fileID: 691322867}
 --- !u!1 &1954371624
 GameObject:
   m_ObjectHideFlags: 0
