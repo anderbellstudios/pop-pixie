@@ -24,7 +24,7 @@ public class LaserBeam : MonoBehaviour {
     transform.position,
     Direction(),
     Mathf.Infinity,
-    Physics2D.DefaultRaycastLayers & ~( 1 << 8 ) // exclude the enemy layer
+    IgnoreEnemyLayerMask.Mask
   );
 
   GameObject HitGameObject() 

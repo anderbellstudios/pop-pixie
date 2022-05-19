@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Laser : AFireable {
 
@@ -11,9 +12,12 @@ public class Laser : AFireable {
   public float InitialAngle, FinalAngle;
   public bool Firing;
 
+  [SerializeField] public UnityEvent OnStop;
+  [SerializeField] public UnityEvent OnFinished;
+
   private IntervalTimer SweepTimer;
 
-  void Start() {
+  void Awake() {
     SweepTimer = new IntervalTimer() {
       TimeClass = "PlayingTime",
       Interval = SweepDuration
@@ -24,8 +28,10 @@ public class Laser : AFireable {
     if (!StateManager.Playing)
       return;
 
-    if ( SweepTimer.Elapsed() )
-      Firing = false;
+    if ( SweepTimer.Elapsed() ) {
+      StopFiring();
+      OnFinished.Invoke();
+    }
 
     if ( Firing )
       FireBeam();
@@ -40,6 +46,7 @@ public class Laser : AFireable {
 
   public override void StopFiring() {
     Firing = false;
+    OnStop.Invoke();
   }
 
   void FireBeam() {

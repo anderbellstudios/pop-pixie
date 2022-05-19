@@ -94,12 +94,7 @@ public abstract class AEnemyAI : MonoBehaviour {
           WidthRequiredForMovement() / 2, 
           TargetDirection(),
           Mathf.Infinity,
-          ~(
-            (1 << 8) |  // Enemy
-            (1 << 9) |  // DoNotCollideWithEnemy
-            (1 << 16) | // RollToPassEnemy
-            (1 << 17)   // PlayerGrenade
-           )
+          IgnoreEnemyLayerMask.Mask
           );
 
       _LineOfMovement = hit.collider.gameObject == Target;
