@@ -34,7 +34,7 @@ public abstract class AInspectable : MonoBehaviour {
   }
 
   public void AInspectableStart() {
-    InGamePrompt.Current.RegisterSource(() => {
+    InGamePrompt.Current.RegisterSource(1000, () => {
       if (InspectImminent()) {
         return AInspectablePromptText();
       } else {

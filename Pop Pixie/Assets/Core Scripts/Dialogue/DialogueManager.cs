@@ -65,7 +65,10 @@ public class DialogueManager : MonoBehaviour {
   void ShowPage(DialoguePage page) {
     DialogueBox.SetHeading(page.Speaker);
     DialogueBox.SetFace(page.Face);
-    DialogueBox.WriteBody(page.Text, TypewriterSpeed);
+
+    float speed = TypewriterSpeed * page.RelativeSpeed;
+    DialoguePreprocessor preprocessor = new DialoguePreprocessor(speed);
+    DialogueBox.WriteBody(preprocessor.Preprocess(page.Text), speed);
 
     if (page.HasAudioClip()) {
       SoundController.Play(page.AudioClip);

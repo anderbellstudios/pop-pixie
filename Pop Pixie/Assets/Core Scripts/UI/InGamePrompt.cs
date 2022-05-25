@@ -14,7 +14,7 @@ public class InGamePrompt : MonoBehaviour {
   public TMP_Text Text;
 
   private LowPriorityBehaviour LowPriorityBehaviour;
-  private List<InGamePromptSource> Sources = new List<InGamePromptSource>();
+  private List<(Int32, InGamePromptSource)> Sources = new List<(Int32, InGamePromptSource)>();
 
   void Awake() {
     if (SingletonInstance)
@@ -23,8 +23,8 @@ public class InGamePrompt : MonoBehaviour {
     LowPriorityBehaviour = new LowPriorityBehaviour();
   }
 
-  public void RegisterSource(InGamePromptSource source) {
-    Sources.Add(source);
+  public void RegisterSource(int priority, InGamePromptSource source) {
+    Sources.Add((priority, source));
   }
 
   void Update() {
@@ -34,13 +34,19 @@ public class InGamePrompt : MonoBehaviour {
   }
 
   String CurrentText() {
-    foreach (InGamePromptSource source in Sources) {
-      String maybeText = source();
+    String resultingText = null;
+    int highestPriority = 0;
 
-      if (maybeText != null)
-        return maybeText;
+    foreach ((int priority, InGamePromptSource source) sourceWithPriority in Sources) {
+      String text = sourceWithPriority.source();
+      int priority = sourceWithPriority.priority;
+
+      if (text != null && (resultingText == null || priority >= highestPriority)) {
+        resultingText = text;
+        highestPriority = priority;
+      }
     }
 
-    return null;
+    return resultingText;
   }
 }

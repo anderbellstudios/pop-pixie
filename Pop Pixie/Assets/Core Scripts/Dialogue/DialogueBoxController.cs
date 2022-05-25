@@ -33,6 +33,7 @@ public class DialogueBoxController : MonoBehaviour {
   }
 
   public void SetFace(Sprite face) {
+    FaceImage.gameObject.SetActive(face != null);
     FaceImage.sprite = face;
   }
 

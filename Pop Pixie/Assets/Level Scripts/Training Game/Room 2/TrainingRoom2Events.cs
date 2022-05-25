@@ -7,7 +7,7 @@ public class TrainingRoom2Events : MonoBehaviour {
   private bool PastFirstLaser = false;
 
   void Start() {
-    InGamePrompt.Current.RegisterSource(() =>
+    InGamePrompt.Current.RegisterSource(100, () =>
       PastFirstLaser
       ? null
       : "Press [Roll] while moving to <color=#ffff00>roll</color>"
