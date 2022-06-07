@@ -12,7 +12,8 @@ public class LoreWindowController : MonoBehaviour {
   public AspectRatioFitter AspectRatioFitter;
   public RectTransform ContentTransform;
   public GameObject LoreWindow;
-  public GameObject VerticalScrollBar, HorizontalScrollBar;
+  public GameObject VerticalScrollBar;
+  public TMP_Text ZoomControlText;
 
   private float ZoomLevel;
 
@@ -28,7 +29,9 @@ public class LoreWindowController : MonoBehaviour {
   public void Show () {
     ZoomLevel = 1;
     SetEnabled(true);
+    ZoomLevelWasUpdated();
     VerticalScrollBar.GetComponent<Scrollbar>().value = 1f;
+    EventSystem.current.SetSelectedGameObject(VerticalScrollBar);
   }
 
   public void Hide () {
@@ -41,16 +44,22 @@ public class LoreWindowController : MonoBehaviour {
 
   void Update() {
     if (WrappedInput.GetButtonDown("Next Weapon")) {
-      ZoomLevel += 0.25f;
+      ChangeZoomLevel(0.25f);
     } else if (WrappedInput.GetButtonDown("Previous Weapon")) {
-      ZoomLevel -= 0.25f;
+      ChangeZoomLevel(-0.25f);
     }
+  }
 
-    ZoomLevel = Mathf.Clamp(ZoomLevel, 1, 4);
+  void ChangeZoomLevel(float delta) {
+    ZoomLevel = Mathf.Clamp(ZoomLevel + delta, 1, 4);
+    ZoomLevelWasUpdated();
+  }
 
+  void ZoomLevelWasUpdated() {
     ContentTransform.localScale = new Vector3(ZoomLevel, ZoomLevel, ZoomLevel);
 
-    if (!HorizontalScrollBar.activeSelf)
-      EventSystem.current.SetSelectedGameObject(VerticalScrollBar);
+    ZoomControlText.text = ZoomLevel > 1
+      ? "Zoom out <size=150%>[Previous Weapon]</size>"
+      : "Zoom in <size=150%>[Next Weapon]</size>";
   }
 }
