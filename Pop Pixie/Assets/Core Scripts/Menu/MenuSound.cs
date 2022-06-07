@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,19 +12,22 @@ public class MenuSound : MonoBehaviour {
   public SoundHopper SoundHopper;
 
   private GameObject PreviousSelected;
-  private bool FirstSelection = true;
-  private float PreventSoundsBefore = 0f;
 
   void Update() {
     GameObject currentSelected = EventSystem.currentSelectedGameObject;
 
     if (currentSelected != PreviousSelected) {
-      if (currentSelected != null && !FirstSelection && Time.time >= PreventSoundsBefore) {
+      String currentSelectedMenuName = MenuNameForGameObject(currentSelected);
+      String previousSelectedMenuName = MenuNameForGameObject(PreviousSelected);
+
+#if UNITY_EDITOR
+      Debug.Assert(currentSelectedMenuName != "", "Menu name cannot be empty");
+#endif
+
+      if (currentSelectedMenuName == previousSelectedMenuName && currentSelectedMenuName != null)
         Play();
-      }
 
       PreviousSelected = currentSelected;
-      FirstSelection = false;
     }
   }
 
@@ -31,7 +35,10 @@ public class MenuSound : MonoBehaviour {
     SoundHopper.Hop();
   }
 
-  public void PreventImminentSounds() {
-    PreventSoundsBefore = Time.time + 0.100f;
+  private String MenuNameForGameObject(GameObject go) {
+    if (go == null)
+      return null;
+
+    return go.GetComponent<ShouldPlayMenuSound>()?.MenuName;
   }
 }

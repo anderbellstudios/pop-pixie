@@ -29,10 +29,7 @@ public abstract class AMenu : MonoBehaviour {
 
     Buttons.ForEach(button =>
       button.onClick.AddListener(() => {
-        MenuSound menuSound = MenuSound.current;
-        menuSound.Play();
-        menuSound.PreventImminentSounds();
-
+        MenuSound.current.Play();
         LastClickedButton = button;
       })
     );
@@ -44,7 +41,7 @@ public abstract class AMenu : MonoBehaviour {
   }
 
   public virtual List<Button> LocalInitButtons() {
-    return MenuRoot.GetComponentsInChildren<Button>().ToList();
+    return MenuRoot.GetComponentsInChildren<Button>(true).ToList();
   }
 
   public virtual void LocalStart() {} 
@@ -131,8 +128,6 @@ public abstract class AMenu : MonoBehaviour {
   }
 
   void GainedFocus() {
-    MenuSound.current.PreventImminentSounds();
-
     LastClickedButton?.Select();
     LastClickedButton?.OnSelect(null);
 

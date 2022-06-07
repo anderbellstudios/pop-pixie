@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 2752957778822378588}
   - component: {fileID: 5824783991190008246}
   - component: {fileID: 8241573439687427580}
+  - component: {fileID: 6965610519516366368}
   m_Layer: 5
   m_Name: Piece of Intel Menu Item
   m_TagString: Untagged
@@ -33,6 +34,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1338088058163587281}
   - {fileID: 8035429050597419173}
@@ -143,7 +145,7 @@ MonoBehaviour:
         m_CallState: 2
 --- !u!95 &8719725116346227309
 Animator:
-  serializedVersion: 3
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -156,6 +158,7 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
@@ -210,6 +213,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6f172720f2164d6185d927b4060ea6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6965610519516366368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1338088056958131796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52e31569ee46e45f388a877648bb9cae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MenuName: Discovered Items
 --- !u!1 &1338088058163587282
 GameObject:
   m_ObjectHideFlags: 0
@@ -239,6 +255,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1338088056958131795}
   m_RootOrder: 0
@@ -335,6 +352,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1338088056958131795}
   m_RootOrder: 1
@@ -382,7 +400,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4278255615
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
