@@ -13,7 +13,7 @@ public abstract class AInspectable : MonoBehaviour {
   }
 
   bool _Nearby;
-  bool _ButttonReleased;
+  ButtonPressHelper _ButtonPressHelper = new SingleButtonPressHelper();
 
   void OnTriggerEnter2D (Collider2D other) {
     if ( other.tag == "Player" ) {
@@ -52,12 +52,13 @@ public abstract class AInspectable : MonoBehaviour {
   }
 
   public void AInspectableUpdate() {
+    if (!StateManager.Playing)
+      _ButtonPressHelper.Clear();
+
     IsNearby[this] = InspectImminent();
 
-    if (InspectImminent() && _ButttonReleased && WrappedInput.GetButtonDown("Inspect"))
+    if (InspectImminent() && _ButtonPressHelper.GetButtonPress("Inspect"))
       OnInspect();
-
-    _ButttonReleased = StateManager.Playing && !WrappedInput.GetButton("Inspect");
   }
 
   bool InspectImminent() {

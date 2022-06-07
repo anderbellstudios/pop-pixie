@@ -16,15 +16,19 @@ public class Roll : MonoBehaviour {
 
   public bool Rolling;
 
+  private ButtonPressHelper ButtonPressHelper = new SingleButtonPressHelper();
+
   void Start() {
     StateChanged();
   }
 
   void Update() {
-    if (!StateManager.Playing)
+    if (!StateManager.Playing) {
+      ButtonPressHelper.Clear();
       return;
+    }
 
-    if ( WrappedInput.GetButtonDown("Roll") && !Rolling && RollAllowed.CanRoll() )
+    if (ButtonPressHelper.GetButtonPress("Roll") && !Rolling && RollAllowed.CanRoll())
       StartRolling(); 
 
     if (Rolling) {

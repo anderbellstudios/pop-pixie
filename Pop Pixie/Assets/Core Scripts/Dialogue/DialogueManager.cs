@@ -15,6 +15,7 @@ public class DialogueManager : MonoBehaviour {
   private int CurrentPage;
   private bool Open = false;
   private Action OnFinish;
+  private ButtonPressHelper ButtonPressHelper = new MultipleButtonPressHelper();
 
   void Awake () {
     if (SingletonInstance)
@@ -31,6 +32,7 @@ public class DialogueManager : MonoBehaviour {
     StateManager.AddState(State.NotPlaying);
     DialogueBox.Show();
     Open = true;
+    ButtonPressHelper.Clear();
 
     NextPage();
 	}
@@ -39,7 +41,7 @@ public class DialogueManager : MonoBehaviour {
     if (!Open)
       return;
 
-    if (WrappedInput.GetButtonUp("confirm")) {
+    if (ButtonPressHelper.GetButtonPress("confirm")) {
       if (DialogueBox.TypewriterActive) {
         DialogueBox.SkipTypewriter();
       } else {
@@ -47,7 +49,7 @@ public class DialogueManager : MonoBehaviour {
       }
     }
 
-    if (WrappedInput.GetButtonUp("cancel")) {
+    if (ButtonPressHelper.GetButtonPress("cancel")) {
       Exit();
     }
 	}
