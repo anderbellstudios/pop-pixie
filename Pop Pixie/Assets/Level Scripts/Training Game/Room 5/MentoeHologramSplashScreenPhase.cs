@@ -30,6 +30,8 @@ public class MentoeHologramSplashScreenPhase : APhase {
   public Image BackgroundImage;
   public AnimationCurve BackgroundOpacityCurve;
 
+  public GameObject SplashScreenGameObject;
+
   private IntervalTimer AnimationTimer;
   private Vector3 MentoeInitialPosition, TextInitialPosition;
 
@@ -87,6 +89,7 @@ public class MentoeHologramSplashScreenPhase : APhase {
 
   public override void AfterFinished() {
     UpdateWithProgress(1);
+    SplashScreenGameObject.SetActive(false);
     StateManager.RemoveState(State.NotPlaying);
   }
 }
