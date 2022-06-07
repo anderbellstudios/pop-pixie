@@ -8,6 +8,10 @@ public abstract class AData {
   public Dictionary<string, object> Dictionary;
 
   public AData() {
+    Clear();
+  }
+
+  public void Clear() {
     Dictionary = LocalDefaultDictionary();
   }
 
