@@ -6,8 +6,19 @@ public class BulletDespawnsAfterLifetime : MonoBehaviour {
 
   public BulletData BulletData;
 
+  private IntervalTimer DespawnTimer;
+
   void Start() {
-    Invoke("DestroyBullet", BulletData.Lifetime);
+    DespawnTimer = new IntervalTimer() {
+      TimeClass = "PlayingTime",
+      Interval = BulletData.Lifetime
+    };
+
+    DespawnTimer.Reset();
+  }
+
+  void Update() {
+    DespawnTimer.IfElapsed(DestroyBullet);
   }
 
   void DestroyBullet() {
