@@ -7,7 +7,6 @@ public class DialoguePage {
   public string Speaker;
   public Sprite Face;
   public AudioClip AudioClip;
-  public float RelativeSpeed = 1f;
   [TextArea] public string Text;
 
   public bool HasAudioClip()
