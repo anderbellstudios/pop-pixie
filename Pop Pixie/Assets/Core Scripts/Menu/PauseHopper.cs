@@ -7,11 +7,15 @@ public class PauseHopper : MonoBehaviour {
 
   public bool SaveOnPause = true;
 
-  void Update() {
-    if (!StateManager.Playing)
-      return;
+  private ButtonPressHelper ButtonPressHelper = new SingleButtonPressHelper();
 
-    if ( WrappedInput.GetButtonDown("Pause") ) {
+  void Update() {
+    if (!StateManager.Playing) {
+      ButtonPressHelper.Clear();
+      return;
+    }
+
+    if (ButtonPressHelper.GetButtonPress("Pause")) {
       if (SaveOnPause) {
         SceneData.Save();
         SaveGame.WriteAutoSave();
