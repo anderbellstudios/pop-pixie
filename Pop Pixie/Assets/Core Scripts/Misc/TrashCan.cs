@@ -19,7 +19,7 @@ public class TrashCan : AInspectable {
 
   enum JumpDirectionEnum { In, Out };
 
-  private int TimesInspected;
+  private int Stage;
 
   private bool Jumping = false;
   private AnimationCurve JumpXCurve, JumpYCurve, JumpRotationCurve;
@@ -30,7 +30,7 @@ public class TrashCan : AInspectable {
   private IntervalTimer DigTimer;
 
   void Awake() {
-    TimesInspected = 0;
+    Stage = 0;
 
     JumpTimer = new IntervalTimer() {
       Interval = JumpDuration
@@ -54,22 +54,26 @@ public class TrashCan : AInspectable {
   }
 
   public override void OnInspect() {
-    switch (TimesInspected++) {
+    switch (Stage) {
       case 0:
         FirstDialogue.Hop();
         break;
 
       case 1:
+        Stage++;
         SecondDialogue.Hop();
         break;
 
       default:
+        Stage++;
         FinalDialogue.Hop();
         break;
     }
   }
 
   public void BeginAnimation() {
+    Stage++;
+
     Vector3 playerPosition = PlayerGameObject.Current.transform.position;
 
     PopPixieSpriteTransform.position = playerPosition;
