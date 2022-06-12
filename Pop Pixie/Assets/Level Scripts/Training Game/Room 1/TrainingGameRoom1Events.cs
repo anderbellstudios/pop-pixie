@@ -22,12 +22,6 @@ public class TrainingGameRoom1Events : MonoBehaviour {
 
     EquippedWeapon equippedWeapon = EquippedWeapon.Current;
 
-    InGamePrompt.Current.RegisterSource(101, () =>
-      equippedWeapon.NeedToReload()
-      ? "Press [Reload] to load your weapon"
-      : null
-    );
-
     InGamePrompt.Current.RegisterSource(100, () =>
       Targets.Any(t => EnemyUtils.IsDead(t))
       ? null

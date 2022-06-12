@@ -32,6 +32,12 @@ public class EquippedWeapon : MonoBehaviour {
     ReloadIndicator = WeaponInfoController.ReloadIndicator;
 
     UpdateWeaponSprites();
+
+    InGamePrompt.Current.RegisterSource(200, () =>
+      NeedToReload()
+      ? "Press [Reload] to reload your weapon"
+      : null
+    );
   }
 
   void Update () {

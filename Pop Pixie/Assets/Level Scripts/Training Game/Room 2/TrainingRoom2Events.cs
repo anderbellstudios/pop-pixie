@@ -7,7 +7,8 @@ public class TrainingRoom2Events : MonoBehaviour {
   private bool PastFirstLaser = false;
 
   void Start() {
-    InGamePrompt.Current.RegisterSource(100, () =>
+    // We don't care about the reload prompt (priority 200) in this room
+    InGamePrompt.Current.RegisterSource(201, () =>
       PastFirstLaser
       ? null
       : "Press [Roll] while moving to <color=#ffff00>roll</color>"
