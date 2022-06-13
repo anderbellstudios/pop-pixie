@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 145702683587674039}
   - component: {fileID: 1087182704539849877}
   - component: {fileID: 9152054768216355035}
+  - component: {fileID: 8253950149057209232}
   m_Layer: 16
   m_Name: Holoring
   m_TagString: Untagged
@@ -32,7 +33,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 7620059038153698697}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -197,3 +199,105 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &8253950149057209232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 145702683587674036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ffec57cdabff4a9393c1369fc31f1c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1001 &9033756932925551709
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 145702683587674037}
+    m_Modifications:
+    - target: {fileID: 1446324665142540110, guid: da5610c3757554b9ba970e31cb5a5187,
+        type: 3}
+      propertyPath: MinDistance
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1446324665142540110, guid: da5610c3757554b9ba970e31cb5a5187,
+        type: 3}
+      propertyPath: DopplerLevel
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1504687451264260564, guid: da5610c3757554b9ba970e31cb5a5187,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1504687451264260564, guid: da5610c3757554b9ba970e31cb5a5187,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1504687451264260564, guid: da5610c3757554b9ba970e31cb5a5187,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1504687451264260564, guid: da5610c3757554b9ba970e31cb5a5187,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1504687451264260564, guid: da5610c3757554b9ba970e31cb5a5187,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1504687451264260564, guid: da5610c3757554b9ba970e31cb5a5187,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1504687451264260564, guid: da5610c3757554b9ba970e31cb5a5187,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1504687451264260564, guid: da5610c3757554b9ba970e31cb5a5187,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1504687451264260564, guid: da5610c3757554b9ba970e31cb5a5187,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1504687451264260564, guid: da5610c3757554b9ba970e31cb5a5187,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1504687451264260564, guid: da5610c3757554b9ba970e31cb5a5187,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5355052923060775063, guid: da5610c3757554b9ba970e31cb5a5187,
+        type: 3}
+      propertyPath: AudioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 3d079d3fe326e4ff88c971663ea4ef13, type: 3}
+    - target: {fileID: 6491719405529198266, guid: da5610c3757554b9ba970e31cb5a5187,
+        type: 3}
+      propertyPath: m_Name
+      value: Laser Hum
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: da5610c3757554b9ba970e31cb5a5187, type: 3}
+--- !u!4 &7620059038153698697 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1504687451264260564, guid: da5610c3757554b9ba970e31cb5a5187,
+    type: 3}
+  m_PrefabInstance: {fileID: 9033756932925551709}
+  m_PrefabAsset: {fileID: 0}
