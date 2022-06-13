@@ -2,13 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerShoot : MonoBehaviour {
 
   public BulletEmitter BulletEmitter;
   public DirectionScatterer DirectionScatterer;
-  public SoundController SoundController;
-  public AudioClip FailToShootSound;
+  public UnityEvent OnFailedToShoot;
 
   private IntervalTimer FireTimer;
 
@@ -34,7 +34,7 @@ public class PlayerShoot : MonoBehaviour {
       DirectionScatterer.Angle = weapon.Scatter;
       BulletEmitter.Shoot( weapon );
     } else if ( WrappedInput.GetButtonDown("Fire") && !CurrentWeapon().HasBullets() ) {
-      SoundController.Play( FailToShootSound, 0.1f );
+      OnFailedToShoot.Invoke();
     }
 	}
 
