@@ -7,6 +7,7 @@ using UnityEngine;
 public class Door : AInspectable {
   public bool IsOpen = false;
   public Transform DoorTransform;
+  public BoxCollider2D DoorCollider;
   public List<Transform> MovementPath;
   public float MovementSpeed;
 
@@ -23,11 +24,13 @@ public class Door : AInspectable {
   public void Open() {
     IsOpen = true;
     SetDoorAngle(90f);
+    SetCollider(false);
   }
 
   public void Close() {
     IsOpen = false;
     SetDoorAngle(0f);
+    SetCollider(true);
   }
 
   public override void OnInspect() {
@@ -45,6 +48,10 @@ public class Door : AInspectable {
 
   void SetDoorAngle(float angle) {
     DoorTransform.localRotation = Quaternion.Euler(0f, 0f, angle);
+  }
+
+  void SetCollider(bool enabled) {
+    DoorCollider.enabled = enabled;
   }
 
   public override bool IsInspectable() {
