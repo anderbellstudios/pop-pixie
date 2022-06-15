@@ -13,7 +13,10 @@ public abstract class AMonitor : MonoBehaviour, ISerializableComponent {
 
   public void StartWaiting() {
     Waiting = true;
+    BeganWaiting();
   }
+
+  public virtual void BeganWaiting() {}
 
   void Awake() {
     if (WaitOnAwake)
