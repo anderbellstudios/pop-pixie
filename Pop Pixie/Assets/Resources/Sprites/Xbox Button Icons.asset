@@ -17,6 +17,7 @@ MonoBehaviour:
   materialHashCode: 0
   m_Version: 1.1.0
   m_FaceInfo:
+    m_FaceIndex: 0
     m_FamilyName: 
     m_StyleName: 
     m_PointSize: 512
@@ -98,6 +99,36 @@ MonoBehaviour:
     m_Scale: 1
     m_Name: Roll
     m_HashCode: 3066237
+  - m_ElementType: 2
+    m_Unicode: 65534
+    m_GlyphIndex: 10
+    m_Scale: 1
+    m_Name: Move Left
+    m_HashCode: 1434459882
+  - m_ElementType: 2
+    m_Unicode: 65534
+    m_GlyphIndex: 11
+    m_Scale: 1
+    m_Name: Move Down
+    m_HashCode: 1434178371
+  - m_ElementType: 2
+    m_Unicode: 65534
+    m_GlyphIndex: 12
+    m_Scale: 1
+    m_Name: Move Right
+    m_HashCode: 66723921
+  - m_ElementType: 2
+    m_Unicode: 65534
+    m_GlyphIndex: 13
+    m_Scale: 1
+    m_Name: Move Stick
+    m_HashCode: 59048471
+  - m_ElementType: 2
+    m_Unicode: 65534
+    m_GlyphIndex: 14
+    m_Scale: 1
+    m_Name: Move Up
+    m_HashCode: 750667988
   m_SpriteGlyphTable:
   - m_Index: 0
     m_Metrics:
@@ -259,18 +290,94 @@ MonoBehaviour:
     m_AtlasIndex: 0
     sprite: {fileID: -6216974254548779218, guid: b1af62c52d4ee40eb902f7b6a016cb39,
       type: 3}
+  - m_Index: 10
+    m_Metrics:
+      m_Width: 512
+      m_Height: 512
+      m_HorizontalBearingX: 0
+      m_HorizontalBearingY: 0
+      m_HorizontalAdvance: 512
+    m_GlyphRect:
+      m_X: 5632
+      m_Y: 0
+      m_Width: 512
+      m_Height: 512
+    m_Scale: 1
+    m_AtlasIndex: 0
+    sprite: {fileID: 1279048774, guid: b1af62c52d4ee40eb902f7b6a016cb39, type: 3}
+  - m_Index: 11
+    m_Metrics:
+      m_Width: 512
+      m_Height: 512
+      m_HorizontalBearingX: 0
+      m_HorizontalBearingY: 0
+      m_HorizontalAdvance: 512
+    m_GlyphRect:
+      m_X: 6144
+      m_Y: 0
+      m_Width: 512
+      m_Height: 512
+    m_Scale: 1
+    m_AtlasIndex: 0
+    sprite: {fileID: -432336446, guid: b1af62c52d4ee40eb902f7b6a016cb39, type: 3}
+  - m_Index: 12
+    m_Metrics:
+      m_Width: 512
+      m_Height: 512
+      m_HorizontalBearingX: 0
+      m_HorizontalBearingY: 0
+      m_HorizontalAdvance: 512
+    m_GlyphRect:
+      m_X: 6656
+      m_Y: 0
+      m_Width: 512
+      m_Height: 512
+    m_Scale: 1
+    m_AtlasIndex: 0
+    sprite: {fileID: 636315755, guid: b1af62c52d4ee40eb902f7b6a016cb39, type: 3}
+  - m_Index: 13
+    m_Metrics:
+      m_Width: 512
+      m_Height: 512
+      m_HorizontalBearingX: 0
+      m_HorizontalBearingY: 0
+      m_HorizontalAdvance: 512
+    m_GlyphRect:
+      m_X: 7168
+      m_Y: 0
+      m_Width: 512
+      m_Height: 512
+    m_Scale: 1
+    m_AtlasIndex: 0
+    sprite: {fileID: 854945939, guid: b1af62c52d4ee40eb902f7b6a016cb39, type: 3}
+  - m_Index: 14
+    m_Metrics:
+      m_Width: 512
+      m_Height: 512
+      m_HorizontalBearingX: 0
+      m_HorizontalBearingY: 0
+      m_HorizontalAdvance: 512
+    m_GlyphRect:
+      m_X: 5120
+      m_Y: 0
+      m_Width: 512
+      m_Height: 512
+    m_Scale: 1
+    m_AtlasIndex: 0
+    sprite: {fileID: 117820276, guid: b1af62c52d4ee40eb902f7b6a016cb39, type: 3}
   spriteInfoList: []
   fallbackSpriteAssets: []
 --- !u!21 &6329349160476163085
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: TextMeshPro/Sprite
   m_Shader: {fileID: 4800000, guid: cf81c85f95fe47e1a27f6ae460cf182c, type: 3}
-  m_ShaderKeywords: 
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -284,6 +391,7 @@ Material:
         m_Texture: {fileID: 2800000, guid: b1af62c52d4ee40eb902f7b6a016cb39, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
     - _ColorMask: 15
     - _Stencil: 0
