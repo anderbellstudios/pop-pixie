@@ -51,13 +51,14 @@ public class DialogueManager : MonoBehaviour {
 
     if (ButtonPressHelper.GetButtonPress("confirm")) {
       if (DialogueBox.TypewriterActive) {
-        DialogueBox.SkipTypewriter();
+        if (Debug.isDebugBuild)
+          DialogueBox.SkipTypewriter();
       } else {
         NextPage();
       }
     }
 
-    if (ButtonPressHelper.GetButtonPress("cancel")) {
+    if (Debug.isDebugBuild && ButtonPressHelper.GetButtonPress("cancel")) {
       Exit();
     }
 
