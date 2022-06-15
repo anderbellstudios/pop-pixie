@@ -5,9 +5,11 @@ using UnityEngine;
 public class LandingMenuEvents : AMenu {
   public AMenu OptionsMenu;
   public SceneChangeHopper SceneChangeHopper;
+  public GameObject DebugModeIndicator;
 
   public override void LocalStart() {
     ResolutionData.Apply();
+    DebugModeIndicator.SetActive(Debug.isDebugBuild);
   }
 
   public void Begin() {
