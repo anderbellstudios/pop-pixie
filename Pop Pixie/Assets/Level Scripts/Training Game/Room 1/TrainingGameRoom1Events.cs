@@ -13,7 +13,7 @@ public class TrainingGameRoom1Events : MonoBehaviour {
   void Start() {
     Fader.Fade("to black", 0.0f);
 
-    SimulationResultData.StartedTime = DateTime.Now;
+    SimulationResultData.StartedTime = PlayingTime.time;
     SimulationResultData.NumberOfHitsTaken = 0;
     SimulationResultData.ObstacleCourseBestTime = null;
 

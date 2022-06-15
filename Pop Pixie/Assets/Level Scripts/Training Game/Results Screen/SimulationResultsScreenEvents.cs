@@ -13,14 +13,14 @@ public class SimulationResultsScreenEvents : MonoBehaviour {
   public DialogueHopper GoodDialogue, BadDialogue;
 
   void Awake() {
-    SimulationResultData.FinishedTime = DateTime.Now;
+    SimulationResultData.FinishedTime = PlayingTime.time;
 
-    TimeSpan? completionTime = SimulationResultData.CompletionTime;
+    float completionTime = SimulationResultData.CompletionTime;
     int hitsTaken = SimulationResultData.NumberOfHitsTaken;
     int? bestTime = SimulationResultData.ObstacleCourseBestTime;
 
-    CompletionTimeText.text = completionTime?.ToString(@"hh\:mm\:ss") ?? "--:--:--";
-    CompletionTimeText.color = (completionTime?.TotalSeconds ?? 0) <= GoodCompletionTime ? GoodColor : BadColor;
+    CompletionTimeText.text = TimeSpan.FromSeconds(completionTime).ToString(@"hh\:mm\:ss");
+    CompletionTimeText.color = completionTime <= GoodCompletionTime ? GoodColor : BadColor;
 
     NumberOfHitsTakenText.text = hitsTaken.ToString();
     NumberOfHitsTakenText.color = hitsTaken <= GoodHitsTaken ? GoodColor : BadColor;

@@ -1,11 +1,9 @@
 using System;
 
 public class SimulationResultData {
-  public static DateTime? StartedTime, FinishedTime = null;
+  public static float StartedTime, FinishedTime = 0;
   public static int NumberOfHitsTaken = 0;
   public static int? ObstacleCourseBestTime = null;
 
-  public static TimeSpan? CompletionTime => (StartedTime.HasValue && FinishedTime.HasValue)
-    ? FinishedTime - StartedTime
-    : null;
+  public static float CompletionTime => FinishedTime - StartedTime;
 }
