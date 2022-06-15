@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 using TMPro;
 using KoganeUnityLib;
 
 public class DialogueBoxController : MonoBehaviour {
-  public TMP_Text Heading;
+  public TMP_Text Heading, ContinuePrompt;
   public TMP_Typewriter BodyTypewriter;
   public Image FaceImage;
 
   public bool TypewriterActive = false;
+  public UnityEvent OnFinished;
 
   public void SetHeading(string text) {
     Heading.text = text;
@@ -24,6 +26,7 @@ public class DialogueBoxController : MonoBehaviour {
       speed: speed,
       onComplete: () => {
         TypewriterActive = false;
+        OnFinished.Invoke();
       }
     );
   }
@@ -35,6 +38,10 @@ public class DialogueBoxController : MonoBehaviour {
   public void SetFace(Sprite face) {
     FaceImage.gameObject.SetActive(face != null);
     FaceImage.sprite = face;
+  }
+
+  public void SetContinuePromptVisible(bool visible) {
+    ContinuePrompt.color = visible ? Color.white : Color.clear;
   }
 
   public void Show() {

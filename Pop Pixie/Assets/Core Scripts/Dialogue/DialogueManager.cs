@@ -10,18 +10,26 @@ public class DialogueManager : MonoBehaviour {
   public DialogueBoxController DialogueBox; 
   public SoundController SoundController;
   public float TypewriterSpeed;
+  public float ContinuePromptDelay;
 
   private DialogueSequence DialogueSequence;
   private int CurrentPage;
   private bool Open = false;
   private Action OnFinish;
   private ButtonPressHelper ButtonPressHelper = new MultipleButtonPressHelper();
+  private IntervalTimer ContinuePromptTimer = new IntervalTimer();
 
   void Awake () {
     if (SingletonInstance)
       Current = this;
 
+    ContinuePromptTimer = new IntervalTimer() {
+      Interval = ContinuePromptDelay
+    };
+
     DialogueBox.Hide();
+
+    DialogueBox.OnFinished.AddListener(() => ContinuePromptTimer.Reset());
   }
 
 	public void Play(DialogueSequence dialogueSequence, Action onFinish) {
@@ -52,6 +60,8 @@ public class DialogueManager : MonoBehaviour {
     if (ButtonPressHelper.GetButtonPress("cancel")) {
       Exit();
     }
+
+    DialogueBox.SetContinuePromptVisible(ContinuePromptTimer.Elapsed());
 	}
 
   void NextPage() {
@@ -76,6 +86,8 @@ public class DialogueManager : MonoBehaviour {
     } else {
       SoundController.Stop();
     }
+
+    ContinuePromptTimer.Stop();
   }
 
   void Exit() {
