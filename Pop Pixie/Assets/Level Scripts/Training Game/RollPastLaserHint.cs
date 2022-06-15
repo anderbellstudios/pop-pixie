@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class TrainingRoom2Events : MonoBehaviour {
-  private bool PastFirstLaser = false;
+public class RollPastLaserHint : MonoBehaviour {
+  private bool PastLaser = false;
 
   void Start() {
-    // We don't care about the reload prompt (priority 200) in this room
-    InGamePrompt.Current.RegisterSource(201, () =>
-      PastFirstLaser
+    InGamePrompt.Current.RegisterSource(100, () =>
+      PastLaser
       ? null
       : "Press [Roll] while moving to <color=#ffff00>roll</color>"
     );
@@ -17,7 +16,7 @@ public class TrainingRoom2Events : MonoBehaviour {
 
   void OnTriggerEnter2D(Collider2D other) {
     if (other.tag == "Player") {
-      PastFirstLaser = true;
+      PastLaser = true;
     }
   }
 }
