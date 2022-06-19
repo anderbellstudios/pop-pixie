@@ -65,10 +65,8 @@ public class TrainingRoom4Events : MonoBehaviour {
   }
 
   void AfterRaceFinished() {
-    if (ElapsedTime() > 40f) {
-      BadTimeDialogue.Hop();
-    } else {
-      GoodTimeDialogue.Hop();
-    }
+    bool goodTime = ElapsedTime() <= 40f;
+    NotAnalytics.Current.Hit("finished-obstacle-course", goodTime ? "good-time" : "bad-time");
+    (goodTime ? GoodTimeDialogue : BadTimeDialogue).Hop();
   }
 }

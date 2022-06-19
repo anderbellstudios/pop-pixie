@@ -10,25 +10,36 @@ using Newtonsoft.Json;
  * In the interest of finding a compormise between user privacy and the
  * availability of accurate usage data, Anderbell Studios has developed a
  * custom metrics system that processes only the data we want to collect,
- * and no more. 
- *
- * Pop Pixie collects the version number of the current build at the time
- * of launching the game. This information is collected anonymously and IP
- * addresses are not logged.
+ * and no more. All information is collected anonymously and IP addresses are
+ * not logged.
  *
  * The source code for the metrics server is available at
  * https://github.com/12joan/not-analytics
  */
 
 public class NotAnalytics : MonoBehaviour {
-  public string Server, AppId;
+  public bool SingletonInstance = true;
+  public static NotAnalytics Current;
+
+  public string Server, AppId, VersionPrefix;
+
+  void Awake() {
+    if (SingletonInstance)
+      Current = this;
+  }
 
   public void Hit(string eventName) {
+    string eventNameWithVersion = VersionPrefix + Application.version + ":" + eventName;
+
     if (Debug.isDebugBuild) {
-      Debug.Log("Stubbing Not Analytics hit: " + eventName);
+      Debug.Log("Stubbing Not Analytics hit: " + eventNameWithVersion);
     } else {
-      StartCoroutine(SendHit(eventName));
+      StartCoroutine(SendHit(eventNameWithVersion));
     }
+  }
+
+  public void Hit(string eventType, string eventData) {
+    Hit(eventType + ":" + eventData);
   }
 
   IEnumerator SendHit(string eventName) {
