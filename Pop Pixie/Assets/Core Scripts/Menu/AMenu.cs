@@ -95,25 +95,36 @@ public abstract class AMenu : MonoBehaviour {
     }
 
     LocalClose();
+
   }
 
   public virtual void LocalClose() {}
 
   public void SetVisible(bool visible) {
     MenuRoot.SetActive(visible);
+
+    bool wasVisible = _Visible;
     _Visible = visible;
 
-    if (visible) {
+    if (visible && !wasVisible) {
       BecameVisible();
-    } else {
+    } else if (!visible && wasVisible) {
       LostVisibility();
     }
   }
 
-  void BecameVisible() { LocalBecameVisible(); }
+  void BecameVisible() {
+    EnhancedDataCollection.LogIfEnabled(() => "Menu opened " + gameObject.name);
+    LocalBecameVisible();
+  }
+
   public virtual void LocalBecameVisible() {}
 
-  void LostVisibility() { LocalLostVisibility(); }
+  void LostVisibility() {
+    EnhancedDataCollection.LogIfEnabled(() => "Menu closed: " + gameObject.name);
+    LocalLostVisibility();
+  }
+
   public virtual void LocalLostVisibility() {}
 
   public void SetFocus(bool focus) {

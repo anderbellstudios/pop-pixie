@@ -75,11 +75,13 @@ public class StateManager : MonoBehaviour {
     => (a.Enabled | b.Enabled, a.Disabled | b.Disabled);
 
   static public void AddState(State state) {
+    EnhancedDataCollection.LogIfEnabled(() => "State added: " + state);
     Current.ActiveStates.Add(StateTuple(state));
     Current.RecomputeStateFeaturesCache();
   }
 
   static public void RemoveState(State state) {
+    EnhancedDataCollection.LogIfEnabled(() => "State removed: " + state);
     Current.ActiveStates.Remove(StateTuple(state));
     Current.RecomputeStateFeaturesCache();
   }

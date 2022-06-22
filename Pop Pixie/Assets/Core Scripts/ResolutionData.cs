@@ -36,6 +36,8 @@ public class ResolutionData {
   }
 
   public static void Apply() {
+    EnhancedDataCollection.LogIfEnabled(() => $"Resolution: {Width}x{Height}, Fullscreen: {Fullscreen}");
+
 #if UNITY_EDITOR
     Debug.Log($"Setting resolution: {Width}x{Height}, Fullscreen: {Fullscreen}");
 #else

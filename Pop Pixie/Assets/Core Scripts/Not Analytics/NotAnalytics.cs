@@ -31,6 +31,8 @@ public class NotAnalytics : MonoBehaviour {
   public void Hit(string eventName) {
     string eventNameWithVersion = VersionPrefix + Application.version + ":" + eventName;
 
+    EnhancedDataCollection.LogIfEnabled(() => eventNameWithVersion);
+
     if (Debug.isDebugBuild) {
       Debug.Log("Stubbing Not Analytics hit: " + eventNameWithVersion);
     } else {
