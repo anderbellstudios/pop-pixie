@@ -5,14 +5,13 @@ using UnityEngine;
 using UnityEngine.Events;
 
 public class PlayerShoot : MonoBehaviour {
-
-  public BulletEmitter BulletEmitter;
-  public DirectionScatterer DirectionScatterer;
+  public MonoBehaviour AimDirection;
+  public FireBullet FireBullet;
   public UnityEvent OnFailedToShoot;
 
   private IntervalTimer FireTimer;
 
-  void Start () {
+  void Start() {
     FireTimer = new IntervalTimer() {
       TimeClass = "PlayingTime"
     };
@@ -20,34 +19,40 @@ public class PlayerShoot : MonoBehaviour {
     FireTimer.Start();
   }
 
-	void Update () {
+	void Update() {
     if (!StateManager.Playing)
       return;
 
-    Weapon weapon = CurrentWeapon().Weapon;
+    PlayerWeapon weapon = PlayerWeapon();
 
     FireTimer.Interval = weapon.CooldownInterval();
 
-    if ( WrappedInput.GetButton("Fire") && CanShoot() ) {
+    if (WrappedInput.GetButton("Fire") && FireTimer.Elapsed()) {
       FireTimer.Reset();
-      CurrentWeapon().ExpendBullet();
-      DirectionScatterer.Angle = weapon.Scatter;
-      BulletEmitter.Shoot( weapon );
-    } else if ( WrappedInput.GetButtonDown("Fire") && !CurrentWeapon().HasBullets() ) {
-      OnFailedToShoot.Invoke();
+
+      if (weapon.HasBullets()) {
+        Fire(weapon);
+      } else {
+        OnFailedToShoot.Invoke();
+      }
     }
 	}
 
-  bool CanShoot () {
-    if ( !FireTimer.Elapsed() )
-      return false;
+  void Fire(PlayerWeapon weapon) {
+    weapon.ExpendBullet();
 
-    if ( !CurrentWeapon().HasBullets() )
-      return false;
-
-    return true;
+    FireBullet.Fire(
+      prefab: weapon.BulletPrefab,
+      getDirection: () => ScatterDirection.Scatter(
+        ((IDirectionManager) AimDirection).Direction,
+        amount: weapon.Scatter
+      ),
+      speed: weapon.BulletSpeed,
+      damage: weapon.Damage,
+      sound: weapon.ShootSound
+    );
   }
 
-  PlayerWeapon CurrentWeapon() 
+  PlayerWeapon PlayerWeapon() 
     => gameObject.GetComponent<EquippedWeapon>().CurrentWeapon;
 }

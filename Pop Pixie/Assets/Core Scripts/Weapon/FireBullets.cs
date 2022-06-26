@@ -11,7 +11,6 @@ public class FireBullets : MonoBehaviour {
   public GameObject BulletPrefab;
   public float BulletSpeed;
   public float BulletDamage;
-  public float BulletLifetime = 100;
   public AudioClip FireSound;
   public UnityEvent OnStopFiring;
 
@@ -58,7 +57,6 @@ public class FireBullets : MonoBehaviour {
       getDirection: GetDirection,
       speed: BulletSpeed,
       damage: BulletDamage,
-      lifetime: BulletLifetime,
       sound: FireSound
     );
   }

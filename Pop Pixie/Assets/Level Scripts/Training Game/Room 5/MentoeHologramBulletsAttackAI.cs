@@ -10,7 +10,6 @@ public class MentoeHologramBulletsAttackAI : AEnemyAI {
   public float BulletsPerSecond;
   public float BulletSpeed;
   public float BulletDamage;
-  public float BulletLifetime;
   public AudioClip FireSound;
 
   public AEnemyAI WhenFinished;
@@ -58,7 +57,6 @@ public class MentoeHologramBulletsAttackAI : AEnemyAI {
       getDirection: () => direction.normalized,
       speed: BulletSpeed,
       damage: BulletDamage,
-      lifetime: BulletLifetime,
       sound: FireSound
     );
   }

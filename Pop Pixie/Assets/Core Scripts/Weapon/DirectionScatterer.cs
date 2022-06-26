@@ -6,6 +6,10 @@ public class DirectionScatterer : MonoBehaviour, IDirectionManager {
   public MonoBehaviour OriginalDirectionManager;
   public float Angle;
 
+  void Awake() {
+    Debug.Log("DirectionScatterer is deprecated. Please use ScatterDirection instead.");
+  }
+
   public Vector3 Direction {
     get => ScatteredDirection();
   }

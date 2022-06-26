@@ -11,6 +11,10 @@ public class BulletEmitter : MonoBehaviour {
 
   private Weapon Weapon;
 
+  void Awake() {
+    Debug.Log("BulletEmitter is deprecated. Please use FireBullet instead.");
+  }
+
 	public void Shoot( Weapon weapon ) {
     Weapon = weapon;
 

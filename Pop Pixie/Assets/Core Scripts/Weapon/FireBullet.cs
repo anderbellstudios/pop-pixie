@@ -6,7 +6,7 @@ using UnityEngine;
 public class FireBullet : MonoBehaviour {
   public SoundController SoundController;
 
-  public void Fire(GameObject prefab, Func<Vector3> getDirection, float speed, float damage, float lifetime, AudioClip sound = null) {
+  public void Fire(GameObject prefab, Func<Vector3> getDirection, float speed, float damage, AudioClip sound = null) {
     Vector3 direction = getDirection();
 
     if (direction.magnitude == 0)
