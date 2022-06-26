@@ -21,7 +21,7 @@ public class GrenadeWaitingBeforeThrow : MonoBehaviour {
       FollowsPlayer.enabled = false;
       Collider.enabled = true;
       TrailRenderer.emitting = true;
-      Rigidbody.velocity = Speed * BulletData.DirectionManager.Direction;
+      Rigidbody.velocity = Speed * BulletData.GetDirection();
     }
   }
 

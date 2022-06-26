@@ -3,10 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MentoeHologramBulletsAttackAI : AEnemyAI {
+  public FireBullet FireBullet;
+
   public float Duration;
   public GameObject BulletPrefab;
   public float BulletsPerSecond;
   public float BulletSpeed;
+  public float BulletDamage;
+  public float BulletLifetime;
+  public AudioClip FireSound;
 
   public AEnemyAI WhenFinished;
 
@@ -48,10 +53,13 @@ public class MentoeHologramBulletsAttackAI : AEnemyAI {
   }
 
   void FireBulletInDirection(Vector3 direction) {
-    Instantiate(
-      BulletPrefab,
-      transform.position,
-      transform.rotation
-    ).GetComponent<Rigidbody2D>().velocity = BulletSpeed * direction.normalized;
+    FireBullet.Fire(
+      prefab: BulletPrefab,
+      getDirection: () => direction.normalized,
+      speed: BulletSpeed,
+      damage: BulletDamage,
+      lifetime: BulletLifetime,
+      sound: FireSound
+    );
   }
 }
