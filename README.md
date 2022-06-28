@@ -1,21 +1,26 @@
 # Pop Pixie
 
-🕹 We're making a video game!
+[**🛠 Under active development**](#project-status)
 
-## What's Pop Pixie?
+In this top-down, story-driven shooter, you play as Pop Pixie, the rightful inheritor of the Pop™ brand of soda. Your mission is to infiltrate the headquarters of the evil Mentoes Corporation, avenge the death of your father, and bring the company’s dark secrets to light.
 
-Pop Pixie is an indie video game currently being developed by a small team of volunteers.
+Mr Mentoe and his minions will do everything in their power to put a stop to your mission. Fight back with an expansive arsenal of fizzing firearms and soda-themed weapons.
 
-We built the demo of Pop Pixie for the 2019 BAFTA Young Game Designers competition. It was nominated as one of the ten finalists in its category, and we attended the YGD award ceremony in London. (The winner was the excellent [Wip](http://ygd.bafta.org/competition/competition-news/2019/wip) by Adam Pace.)
+But you can’t do it alone. Masterminding your mission is Amanda, who will stop at nothing to put an end to the corrupt corporatocracies that carelessly destroy families like hers every day.
 
-Since then, we've been working on making Pop Pixie into a full game. We've had a few setbacks, including having to redo almost all of our artwork, but we're making progress.
+## Gameplay
 
-We're hoping to release *Pop Pixie: Mission Training*, a short supplementary prequel game, in ~~spring~~ summer 2022. After that, we'll resume work on the main game, releasing new levels and updates as often as we can.
+- Fight your way through swarms of bloodthirsty gremlins
+- Outsmart and outmanoeuvre ruthless bosses
+- Unlock an expansive arsenal of fizzing firearms and soda-themed weapons
+- Learn the dark secrets behind the Mentoes Corporation
 
-## Can I play it?
+## Project Status
 
-The only versions of Pop Pixie currently released online are the early demos, which include artwork that was unintentionally plagiarised from other artists. (The person responsible for this has since left the team, and we've apologised to the affected artists.)
+**Update June 2022**: We're getting ready to release the supplementary prequel game *Pop Pixie: Mission Training* later this year. After that, we'll work on getting the first few levels of the main game ready to play and start releasing incremental updates.
 
-All active development is currently taking place on the [training-game](https://github.com/anderbellstudios/pop-pixie/tree/training-game) branch. You're free to explore the source code and run the dev version of the game in Unity, but be warned that Pop Pixie depends on the proprietary [Rewired](https://assetstore.unity.com/packages/tools/utilities/rewired-21676) input system, which you will need to purchase and manually include.
+Follow us on social media for more updates:
 
-If you want to get notified when we have a stable release, follow us on Twitter at [@AnderbellStds](https://twitter.com/AnderbellStds).
+- [Twitter](https://twtter.com/AnderbellStds)
+- ~Discord~ (coming soon)
+- ~Website~ (coming soon)
