@@ -13,7 +13,7 @@ public class MultipleWeaponDirectionManager : MonoBehaviour, IDirectionManager {
 
   // Use this for initialization
   void Start () {
-    Direction = Direction.normalized;
+    Direction = Vector3.up;
   }
   
   // Update is called once per frame
