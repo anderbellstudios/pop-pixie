@@ -12,7 +12,7 @@ public class SimulationResultsScreenEvents : MonoBehaviour {
   public int GoodCompletionTime, GoodHitsTaken, GoodBestTime;
   public DialogueHopper GoodDialogue, BadDialogue;
 
-  void Awake() {
+  void Start() {
     SimulationResultData.FinishedTime = PlayingTime.time;
 
     float completionTime = SimulationResultData.CompletionTime;
