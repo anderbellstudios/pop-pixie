@@ -2298,12 +2298,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StartsInControl: 0
   InControl: 0
-  AttackInterval: 0.5
-  MinAttacks: 5
-  MaxAttacks: 10
+  AttackInterval: 0.25
+  MinAttacks: 10
+  MaxAttacks: 20
   WhenFinished: {fileID: 691322867}
   BombPrefab: {fileID: 5007492144386509978, guid: 9650ed0b889ae49d687939a9a87a15d1,
     type: 3}
+  PredictiveAimLeadTime: 1
   BombVelocityCoefficient: 10
 --- !u!1001 &780510490
 PrefabInstance:
@@ -5011,7 +5012,6 @@ MonoBehaviour:
   BulletsPerSecond: 9
   BulletSpeed: 54
   BulletDamage: 1
-  BulletLifetime: 100
   FireSound: {fileID: 8300000, guid: 1f32d9f278e2e4e4e98372376dcb5b7e, type: 3}
   WhenFinished: {fileID: 691322867}
 --- !u!1 &1954371624
