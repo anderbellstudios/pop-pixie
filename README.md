@@ -21,6 +21,6 @@ But you can’t do it alone. Masterminding your mission is Amanda, who will stop
 
 Follow us on social media for more updates:
 
-- [Twitter](https://twtter.com/AnderbellStds)
+- [Twitter](https://twitter.com/AnderbellStds)
 - ~Discord~ (coming soon)
 - ~Website~ (coming soon)
