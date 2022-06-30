@@ -4327,6 +4327,7 @@ GameObject:
   - component: {fileID: 1844793466}
   - component: {fileID: 1844793468}
   - component: {fileID: 1844793470}
+  - component: {fileID: 1844793474}
   - component: {fileID: 1844793469}
   - component: {fileID: 1844793472}
   - component: {fileID: 1844793471}
@@ -4485,7 +4486,8 @@ MonoBehaviour:
   InfiniteHP: 0
   Current: 0
   RegenerateRate: 0
-  CanBeDamagedArbiters: []
+  CanBeDamagedArbiters:
+  - {fileID: 1844793474}
   Dead: 0
 --- !u!114 &1844793471
 MonoBehaviour:
@@ -4538,6 +4540,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HitPointses:
   - {fileID: 1844793470}
+--- !u!114 &1844793474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1844793463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cfbb47cabdc64cccb7b19a2f644bbd2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Predecessor: {fileID: 742429436}
 --- !u!1001 &1868525967
 PrefabInstance:
   m_ObjectHideFlags: 0
