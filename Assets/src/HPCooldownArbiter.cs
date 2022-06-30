@@ -7,10 +7,6 @@ public class HPCooldownArbiter : ACanBeDamagedArbiter  {
   public float DamageCooldown;
 
   public override bool CanBeDamaged(HitPoints hp) {
-    var since = DateTime.Now.Subtract(
-      hp.LastDamaged
-    ).TotalSeconds;
-
-    return since > DamageCooldown;
+    return (PlayingTime.time - hp.LastDamaged) > DamageCooldown;
   }
 }

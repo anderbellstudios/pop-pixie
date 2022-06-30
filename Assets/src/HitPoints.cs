@@ -42,7 +42,7 @@ public class HitPoints : MonoBehaviour, ISerializableComponent {
   public float Current; 
   public float RegenerateRate;
   public List<ACanBeDamagedArbiter> CanBeDamagedArbiters;
-  public DateTime LastDamaged;
+  public float LastDamaged;
   public bool Dead = false;
 
   private IHitPointEvents EventHandler;
@@ -90,7 +90,7 @@ public class HitPoints : MonoBehaviour, ISerializableComponent {
 
   public float Damage (float val) {
     if ( CanBeDamaged() ) {
-      LastDamaged = DateTime.Now;
+      LastDamaged = PlayingTime.time;
       return Decrease(val);
     }
 
@@ -118,6 +118,7 @@ public class HitPoints : MonoBehaviour, ISerializableComponent {
 
   public void InitHitPoints() {
     Current = Maximum;
+    LastDamaged = -1000000f;
     EventHandler.Updated(this);
   }
 	
