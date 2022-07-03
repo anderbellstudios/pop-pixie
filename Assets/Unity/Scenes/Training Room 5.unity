@@ -1588,8 +1588,8 @@ Transform:
   m_Children:
   - {fileID: 1472147275}
   - {fileID: 773223463}
-  - {fileID: 1951467544}
   - {fileID: 723498927}
+  - {fileID: 1951467544}
   m_Father: {fileID: 1844793465}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1921,7 +1921,7 @@ Transform:
   m_Children:
   - {fileID: 917884949}
   m_Father: {fileID: 691322866}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!120 &723498928
 LineRenderer:
@@ -2205,6 +2205,7 @@ MonoBehaviour:
   Current: 240
   RegenerateRate: 0
   CanBeDamagedArbiters: []
+  LastDamaged: 0
   Dead: 0
 --- !u!58 &742429442
 CircleCollider2D:
@@ -4488,6 +4489,7 @@ MonoBehaviour:
   RegenerateRate: 0
   CanBeDamagedArbiters:
   - {fileID: 1844793474}
+  LastDamaged: 0
   Dead: 0
 --- !u!114 &1844793471
 MonoBehaviour:
@@ -5004,7 +5006,7 @@ Transform:
   m_Children:
   - {fileID: 1168810401870577104}
   m_Father: {fileID: 691322866}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1951467545
 MonoBehaviour:
@@ -5027,7 +5029,7 @@ MonoBehaviour:
   BulletsPerSecond: 9
   BulletSpeed: 54
   BulletDamage: 1
-  FireSound: {fileID: 8300000, guid: 1f32d9f278e2e4e4e98372376dcb5b7e, type: 3}
+  FireSound: {fileID: 8300000, guid: 35db2e744c9b743339dbb77fe495f819, type: 3}
   WhenFinished: {fileID: 691322867}
 --- !u!1 &1954371624
 GameObject:
@@ -5975,10 +5977,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2188249698261330207, guid: 6488a5bcb39014cc6a63de202ca5e7f7,
+        type: 3}
+      propertyPath: PauseBehaviour
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3558941989644226142, guid: 6488a5bcb39014cc6a63de202ca5e7f7,
         type: 3}
       propertyPath: m_Name
       value: Fire Bullet
+      objectReference: {fileID: 0}
+    - target: {fileID: 4986886257930538602, guid: 6488a5bcb39014cc6a63de202ca5e7f7,
+        type: 3}
+      propertyPath: spreadCustomCurve.m_Curve.Array.data[0].value
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4986886257930538602, guid: 6488a5bcb39014cc6a63de202ca5e7f7,
+        type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 0.8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6488a5bcb39014cc6a63de202ca5e7f7, type: 3}
