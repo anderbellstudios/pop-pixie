@@ -14,6 +14,7 @@ public class GrenadeExplodesAfterTime : MonoBehaviour {
   public AnimationCurve DamageCurve;
   public Transform RadiusIndicator;
   public GameObject Explosion;
+  public GameObject ExplosionSound;
 
   private IntervalTimer RadiusIndicatorTimer;
   private IntervalTimer ExplodeTimer;
@@ -47,7 +48,12 @@ public class GrenadeExplodesAfterTime : MonoBehaviour {
     ExplodeTimer.IfElapsed(() => {
       GameObject ExplosionGameObject = Instantiate(Explosion, transform.position, Quaternion.identity);
       ExplosionGameObject.transform.localScale = new Vector3(2 * Radius, 2 * Radius, 2 * Radius);
+
+      if (ExplosionSound != null)
+        Instantiate(ExplosionSound, transform.position, Quaternion.identity);
+
       ApplyDamageInRadius();
+
       Destroy(gameObject);
     });
   }
