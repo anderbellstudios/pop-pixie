@@ -8,7 +8,12 @@ public delegate float SpeedModifier(float s);
 public class MovementManager : MonoBehaviour {
 
   public List<SpeedModifier> SpeedModifiers = new List<SpeedModifier>();
+
   public Animator Animator;
+
+  public SoundController SoundController;
+  public List<AudioClip> FootstepSounds;
+  private int currentFootstepSound = 0;
 
   public Rigidbody2D rb;
 
@@ -37,6 +42,11 @@ public class MovementManager : MonoBehaviour {
       rb.MovePosition(rb.position + Velocity(Movement));
 
     Movement = Vector2.zero;
+  }
+
+  public void OnFootstepDown() {
+    SoundController.Play(FootstepSounds[currentFootstepSound]);
+    currentFootstepSound = (currentFootstepSound + 1) % FootstepSounds.Count;
   }
 
   bool StatePermitsMovement() {
