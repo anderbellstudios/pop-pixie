@@ -11,7 +11,7 @@ public class ResolutionData {
     }
 
     get {
-      return (int) ConfigData.Current.Fetch("resolution-width", orSetEqualTo: 1920);
+      return (int) ConfigData.Current.Fetch("resolution-width", orSetEqualTo: 640);
     }
   }
 
@@ -21,7 +21,7 @@ public class ResolutionData {
     }
 
     get {
-      return (int) ConfigData.Current.Fetch("resolution-height", orSetEqualTo: 1080);
+      return (int) ConfigData.Current.Fetch("resolution-height", orSetEqualTo: 360);
     }
   }
 
