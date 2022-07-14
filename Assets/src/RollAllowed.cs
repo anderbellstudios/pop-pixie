@@ -4,20 +4,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class RollAllowed : MonoBehaviour {
-
   public float Cooldown;
-  private DateTime LastRolled;
+
+  private float LastRolled = -1000000;
 
   public bool CanRoll() {
-    return SecondsSinceRoll() >= Cooldown;
+    return (PlayingTime.time - LastRolled) > Cooldown;
   }
 
   public void DidRoll() {
-    LastRolled = DateTime.Now;
+    LastRolled = PlayingTime.time;
   }
-
-  double SecondsSinceRoll() {
-    return DateTime.Now.Subtract( LastRolled ).TotalSeconds;
-  }
-
 }
