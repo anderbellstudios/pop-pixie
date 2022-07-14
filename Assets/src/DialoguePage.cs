@@ -11,4 +11,21 @@ public class DialoguePage {
 
   public bool HasAudioClip()
     => AudioClip != null;
+
+  private int _Hash = 0;
+
+  public int Hash {
+    get {
+      // https://stackoverflow.com/a/5155015
+      if (_Hash == 0) {
+        _Hash = 23;
+
+        foreach (char c in Text) unchecked {
+          _Hash = _Hash * 31 + c;
+        }
+      }
+
+      return _Hash;
+    }
+  }
 }

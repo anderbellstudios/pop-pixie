@@ -13,7 +13,8 @@ public class DialogueManager : MonoBehaviour {
   public float ContinuePromptDelay;
 
   private DialogueSequence DialogueSequence;
-  private int CurrentPage;
+  private int CurrentPageIndex;
+  private DialoguePage CurrentPage;
   private bool Open = false;
   private Action OnFinish;
   private ButtonPressHelper ButtonPressHelper = new MultipleButtonPressHelper();
@@ -34,7 +35,7 @@ public class DialogueManager : MonoBehaviour {
 
 	public void Play(DialogueSequence dialogueSequence, Action onFinish) {
     DialogueSequence = dialogueSequence;
-    CurrentPage = -1;
+    CurrentPageIndex = -1;
     OnFinish = onFinish;
 
     StateManager.AddState(State.NotPlaying);
@@ -51,9 +52,10 @@ public class DialogueManager : MonoBehaviour {
 
     if (ButtonPressHelper.GetButtonPress("confirm")) {
       if (DialogueBox.TypewriterActive) {
-        if (Debug.isDebugBuild)
+        if (DialogueSeenBeforeData.GetSeenBefore(CurrentPage))
           DialogueBox.SkipTypewriter();
       } else {
+        DialogueSeenBeforeData.SetSeenBefore(CurrentPage);
         NextPage();
       }
     }
@@ -66,24 +68,25 @@ public class DialogueManager : MonoBehaviour {
 	}
 
   void NextPage() {
-    CurrentPage += 1;
+    CurrentPageIndex += 1;
 
-    if (CurrentPage >= DialogueSequence.PageCount) {
+    if (CurrentPageIndex >= DialogueSequence.PageCount) {
       Exit();
     } else {
-      ShowPage(DialogueSequence.GetPage(CurrentPage));
+      CurrentPage = DialogueSequence.GetPage(CurrentPageIndex);
+      ShowCurrentPage();
     }
   }
 
-  void ShowPage(DialoguePage page) {
-    DialogueBox.SetHeading(page.Speaker);
-    DialogueBox.SetFace(page.Face);
+  void ShowCurrentPage() {
+    DialogueBox.SetHeading(CurrentPage.Speaker);
+    DialogueBox.SetFace(CurrentPage.Face);
 
     DialoguePreprocessor preprocessor = new DialoguePreprocessor(TypewriterSpeed);
-    DialogueBox.WriteBody(preprocessor.Preprocess(page.Text), TypewriterSpeed);
+    DialogueBox.WriteBody(preprocessor.Preprocess(CurrentPage.Text), TypewriterSpeed);
 
-    if (page.HasAudioClip()) {
-      SoundController.Play(page.AudioClip);
+    if (CurrentPage.HasAudioClip()) {
+      SoundController.Play(CurrentPage.AudioClip);
     } else {
       SoundController.Stop();
     }
