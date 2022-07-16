@@ -1,11 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class SongController : MonoBehaviour {
-
-  public AudioSource AudioSource;
+  public AudioSource IntroAudioSource, MainAudioSource;
 
   Song CurrentSong = null;
 
@@ -17,23 +15,44 @@ public class SongController : MonoBehaviour {
       Current = this;
   }
 
-  public void Play( Song song ) {
-    if ( song == null ) {
-      AudioSource.Stop();
+  public void Play(Song song) {
+    if (song == null) {
+      IntroAudioSource.Stop();
+      MainAudioSource.Stop();
     } else {
-      AudioSource.clip = song.AudioClip;
-      AudioSource.timeSamples = SongPlaybackTimeData.Fetch(song);
-      AudioSource.Play();
+      if (song.HasIntro) {
+        if (song.Resume)
+          throw new System.Exception("Resume is not supported for songs with intro");
+
+        MainAudioSource.Stop();
+
+        double introEndTime = AudioSettings.dspTime + song.IntroClip.length;
+
+        IntroAudioSource.clip = song.IntroClip;
+        IntroAudioSource.Play();
+        IntroAudioSource.SetScheduledEndTime(introEndTime);
+
+        MainAudioSource.clip = song.AudioClip;
+        MainAudioSource.PlayScheduled(introEndTime);
+      } else {
+        IntroAudioSource.Stop();
+        MainAudioSource.clip = song.AudioClip;
+
+        if (song.Resume)
+          MainAudioSource.timeSamples = SongPlaybackTimeData.Fetch(song);
+
+        MainAudioSource.Play();
+      }
     }
 
     CurrentSong = song;
   }
 
   void Update() {
-    AudioSource.volume = AudioFadeOut.Current.FadeLevel() * ((float) OptionsData.MusicVolume);
+    IntroAudioSource.volume = MainAudioSource.volume =
+      AudioFadeOut.Current.FadeLevel() * ((float) OptionsData.MusicVolume);
 
-    if ( CurrentSong != null )
-      SongPlaybackTimeData.Record( CurrentSong, AudioSource.timeSamples );
+    if (CurrentSong != null && CurrentSong.Resume)
+      SongPlaybackTimeData.Record(CurrentSong, MainAudioSource.timeSamples);
   }
-
 }
