@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [System.Flags]
 public enum StateFeatures {
@@ -8,7 +9,7 @@ public enum StateFeatures {
   Playing = 1,
   BackgroundAnimations = 2,
   Movement = 4,
-  InterruptSounds = 8,
+  PauseAudio = 8,
   PlayerDeathAnimation = 16
 };
 
@@ -40,7 +41,7 @@ public class StateManager : MonoBehaviour {
   );
 
   static (StateFeatures Enabled, StateFeatures Disabled) PausedState = InheritFrom(NotPlayingState, (
-    StateFeatures.InterruptSounds,
+    StateFeatures.PauseAudio,
     StateFeatures.BackgroundAnimations
   ));
 
@@ -77,13 +78,13 @@ public class StateManager : MonoBehaviour {
   static public void AddState(State state) {
     EnhancedDataCollection.LogIfEnabled(() => "State added: " + state);
     Current.ActiveStates.Add(StateTuple(state));
-    Current.RecomputeStateFeaturesCache();
+    Current.HandleStateChanged();
   }
 
   static public void RemoveState(State state) {
     EnhancedDataCollection.LogIfEnabled(() => "State removed: " + state);
     Current.ActiveStates.Remove(StateTuple(state));
-    Current.RecomputeStateFeaturesCache();
+    Current.HandleStateChanged();
   }
 
   static public bool Enabled(StateFeatures flag) {
@@ -92,10 +93,14 @@ public class StateManager : MonoBehaviour {
 
   static public bool Playing => Enabled(StateFeatures.Playing);
 
+  static public void AddListener(UnityAction action) => Current.OnStateChanged.AddListener(action);
+  static public void RemoveListener(UnityAction action) => Current.OnStateChanged.RemoveListener(action);
+
   public List<State> InitialStates = new List<State> { State.Playing };
 
   protected List<(StateFeatures Enabled, StateFeatures Disabled)> ActiveStates = new List<(StateFeatures Enabled, StateFeatures Disabled)>();
   protected StateFeatures StateFeaturesCache;
+  protected UnityEvent OnStateChanged = new UnityEvent();
 
   void Awake () {
     if (SingletonInstance)
@@ -104,7 +109,7 @@ public class StateManager : MonoBehaviour {
     InitialStates.ForEach(state => AddState(state));
   }
 
-  protected void RecomputeStateFeaturesCache() {
+  protected void HandleStateChanged() {
     StateFeatures features = StateFeatures.None;
 
     ActiveStates.ForEach(state => {
@@ -113,5 +118,7 @@ public class StateManager : MonoBehaviour {
     });
 
     StateFeaturesCache = features;
+
+    OnStateChanged.Invoke();
   }
 }
