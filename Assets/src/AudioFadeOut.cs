@@ -8,6 +8,7 @@ public class AudioFadeOut : MonoBehaviour {
   public static AudioFadeOut Current;
 
   private IntervalTimer FadeOutTimer;
+  private bool IgnoreMusic = false;
 
   void Awake() {
     if (SingletonInstance)
@@ -16,13 +17,14 @@ public class AudioFadeOut : MonoBehaviour {
     FadeOutTimer = new IntervalTimer();
   }
 
-  public void FadeOut( float duration ) {
+  public void FadeOut(float duration, bool ignoreMusic = true) {
     FadeOutTimer.Interval = duration;
     FadeOutTimer.Reset();
+    IgnoreMusic = ignoreMusic;
   }
 
-  public float FadeLevel() {
-    if ( FadeOutTimer.Started ) {
+  public float FadeLevel(bool isMusic = false) {
+    if (FadeOutTimer.Started && (!isMusic || !IgnoreMusic)) {
       return 1f - FadeOutTimer.Progress();
     } else {
       return 1f;

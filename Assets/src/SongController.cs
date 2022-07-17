@@ -11,11 +11,21 @@ public class SongController : MonoBehaviour {
   public static SongController Current;
 
   void Awake() {
-    if (SingletonInstance)
+    if (SingletonInstance) {
+      if (Current != null) {
+        Destroy(gameObject);
+        return;
+      }
+
       Current = this;
+      DontDestroyOnLoad(gameObject);
+    }
   }
 
   public void Play(Song song) {
+    if (song.Equals(CurrentSong))
+      return;
+
     if (song == null) {
       IntroAudioSource.Stop();
       MainAudioSource.Stop();
@@ -50,7 +60,7 @@ public class SongController : MonoBehaviour {
 
   void Update() {
     IntroAudioSource.volume = MainAudioSource.volume =
-      AudioFadeOut.Current.FadeLevel() * ((float) OptionsData.MusicVolume);
+      AudioFadeOut.Current.FadeLevel(true) * ((float) OptionsData.MusicVolume);
 
     if (CurrentSong != null && CurrentSong.Resume)
       SongPlaybackTimeData.Record(CurrentSong, MainAudioSource.timeSamples);

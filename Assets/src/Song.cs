@@ -11,4 +11,5 @@ public class Song {
   public bool Resume = false;
 
   public bool HasIntro => IntroClip != null;
+  public bool Equals(Song other) => Name == other?.Name;
 }

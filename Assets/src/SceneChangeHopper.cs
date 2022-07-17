@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class SceneChangeHopper : MonoBehaviour {
   public string SceneName;
+  public bool FadeOutMusic = false;
 
   public void Hop() {
-    SceneEvents.Current.ChangeScene(SceneName);
+    SceneEvents.Current.ChangeScene(SceneName, FadeOutMusic);
   }
 }

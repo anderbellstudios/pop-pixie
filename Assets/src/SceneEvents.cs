@@ -40,8 +40,8 @@ public class SceneEvents : MonoBehaviour {
     OnFadeIn.Invoke();
   }
 
-  public void ChangeScene(string sceneName) {
-    if ( FadingOut || (WaitForFadeInBeforePermittingExit && FadingIn) )
+  public void ChangeScene(string sceneName, bool fadeOutMusic = false) {
+    if (FadingOut || (WaitForFadeInBeforePermittingExit && FadingIn))
       return;
 
     NewSceneName = sceneName;
@@ -52,7 +52,7 @@ public class SceneEvents : MonoBehaviour {
       if (PauseGameplayDuringFadeOut)
         StateManager.AddState(State.NotPlaying);
 
-      AudioFadeOut.Current.FadeOut( FadeOutDuration );
+      AudioFadeOut.Current.FadeOut(FadeOutDuration, !fadeOutMusic);
       Fader.Fade("to black", FadeOutDuration);
       Invoke("LoadNewScene", FadeOutDuration + PostFadeOutDelay);
     } else {
