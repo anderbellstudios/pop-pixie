@@ -10,6 +10,7 @@ public class MentoeHologramSweepingAttackAI : AEnemyAI {
   public Transform DangerZoneTransform;
   public Image DangerZoneImage;
   public LineRenderer LineRenderer;
+  public SoundHopper SoundHopper;
 
   public AEnemyAI WhenFinished;
 
@@ -52,6 +53,7 @@ public class MentoeHologramSweepingAttackAI : AEnemyAI {
       LaserTimer.Reset();
       BeforeLaserTimer.Stop();
       LineRenderer.enabled = true;
+      SoundHopper.Hop();
     });
 
     if (LaserTimer.Elapsed()) {
