@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class Door : AInspectable {
   public bool IsOpen = false;
+  public SoundHopper OpenSound, CloseSound;
   public Transform DoorTransform;
   public BoxCollider2D DoorCollider;
   public List<Transform> MovementPath;
@@ -13,25 +14,35 @@ public class Door : AInspectable {
 
   void Start() {
     if (IsOpen) {
-      Open();
+      Open(true);
     } else {
-      Close();
+      Close(true);
     }
 
     AInspectableStart();
   }
 
-  public void Open() {
+  public void Open(bool isStart) {
     IsOpen = true;
     SetDoorAngle(90f);
     SetCollider(false);
+
+    if (!isStart)
+      OpenSound.Hop();
   }
 
-  public void Close() {
+  public void Open() => Open(false);
+
+  public void Close(bool isStart = false) {
     IsOpen = false;
     SetDoorAngle(0f);
     SetCollider(true);
+
+    if (!isStart)
+      CloseSound.Hop();
   }
+
+  public void Close() => Close(false);
 
   public override void OnInspect() {
     Open();
