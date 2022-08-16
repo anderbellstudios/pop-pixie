@@ -16,6 +16,7 @@ public class TrashCan : AInspectable {
   public float JumpDuration;
   public float TrashCanWobbleSpeed, TrashCanWobbleAmplitude, PopPixieWobbleSpeed, PopPixieWobbleAmplitude;
   public float DigDuration;
+  public SoundHopper DigSound;
 
   enum JumpDirectionEnum { In, Out };
 
@@ -106,6 +107,7 @@ public class TrashCan : AInspectable {
   void BeginDigging() {
     DigTimer.Reset();
     Digging = true;
+    DigSound.Hop();
   }
 
   void EndDigging() {
