@@ -9,8 +9,15 @@ public class LandingMenuEvents : AMenu {
   public GameObject DebugModeIndicator;
   public TMP_Text EDCIndicatorText;
 
+  // Only enforce resolution when launching the game
+  public static bool AppliedResolutionData = false;
+
   public override void LocalStart() {
-    ResolutionData.Apply();
+    if (!AppliedResolutionData) {
+      AppliedResolutionData = true;
+      ResolutionData.Apply();
+    }
+
     DebugModeIndicator.SetActive(Debug.isDebugBuild);
 
     if (EnhancedDataCollection.Enabled) {
