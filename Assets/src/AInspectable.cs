@@ -12,7 +12,7 @@ public abstract class AInspectable : MonoBehaviour {
     return IsNearby.Values.Any( isTrue => isTrue );
   }
 
-  bool _Nearby;
+  protected bool _Nearby;
   ButtonPressHelper _ButtonPressHelper = new SingleButtonPressHelper();
 
   void OnTriggerEnter2D (Collider2D other) {
