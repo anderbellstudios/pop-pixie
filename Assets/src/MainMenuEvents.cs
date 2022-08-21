@@ -18,12 +18,12 @@ public class MainMenuEvents : AMenu {
       PrimaryText.text = "Continue";
       OnPrimary = () => ContinueGameHopper.Hop();
 
-      SecondaryText.text = "New Game";
+      SecondaryText.text = "New game";
       OnSecondary = () => OpenNestedMenu(ConfirmOverwriteMenu);
 
       SecondaryButton.SetActive(true);
     } else {
-      PrimaryText.text = "New Game";
+      PrimaryText.text = "New game";
       OnPrimary = () => NewGameHopper.Hop();
 
       SecondaryButton.SetActive(false);
