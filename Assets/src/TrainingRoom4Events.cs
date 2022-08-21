@@ -7,6 +7,7 @@ using TMPro;
 public class TrainingRoom4Events : MonoBehaviour {
   public TMP_Text TimerText;
   public GameObject HologremsContainer;
+  public SoundHopper StartedFinishedSound;
   public float DelayAfterRaceFinished;
   public DialogueHopper GoodTimeDialogue, BadTimeDialogue;
 
@@ -46,6 +47,7 @@ public class TrainingRoom4Events : MonoBehaviour {
       RaceInProgress = true;
       RaceFinished = false;
       RaceStartedTime = PlayingTime.time;
+      StartedFinishedSound.Hop();
     }
   }
 
@@ -56,6 +58,7 @@ public class TrainingRoom4Events : MonoBehaviour {
       RaceInProgress = false;
       RaceFinished = true;
       RaceFinishedTime = PlayingTime.time;
+      StartedFinishedSound.Hop();
 
       if (!SimulationResultData.ObstacleCourseBestTime.HasValue || ElapsedTime() < SimulationResultData.ObstacleCourseBestTime)
         SimulationResultData.ObstacleCourseBestTime = (int) ElapsedTime();
