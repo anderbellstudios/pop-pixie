@@ -3,11 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Net;
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
 public class VersionInfo : MonoBehaviour {
-
-  public Text Text;
+  public TMP_Text Text;
   public GameObject UpdateButton;
 
   public string VersionURL;
@@ -19,37 +18,36 @@ public class VersionInfo : MonoBehaviour {
     CurrentVersion = Application.version;
     UpdateText();
 
-    InvokeRepeating( "FetchLatestVersion", 0f, 3f );
+    InvokeRepeating("FetchLatestVersion", 0f, 3f);
   }
 
   void FetchLatestVersion() {
     try {
-
-      using ( WebClient client = new WebClient() ) {
+      using (WebClient client = new WebClient()) {
        LatestVersion = client.DownloadString(VersionURL).Trim();
+
+       UpdateButton.SetActive(
+         new Version(CurrentVersion) < new Version(LatestVersion)
+       );
+
        UpdateText();
-       UpdateButton.SetActive(NewVersionAvailable());
        CancelInvoke();
       }
-
-    } catch ( WebException e ) {
+    } catch (WebException e) {
       Debug.Log(e);
     }
   }
 
   void UpdateText() {
-    Text.text = String.Format("Current version: {0}\nLatest version: {1}", CurrentVersion, LatestVersion);
-  }
-
-  bool NewVersionAvailable() {
-    var current = new Version( CurrentVersion );
-    var latest = new Version( LatestVersion );
-
-    return latest > current;
+    Text.text = String.Format(
+      "Current version: {0}\nLatest version: {1}",
+      CurrentVersion,
+      LatestVersion
+    );
   }
 
   public void ButtonClicked() {
-    Application.OpenURL( DownloadURL );
+    Application.OpenURL(DownloadURL);
+    WrappedApplication.Quit();
   }
-
 }
