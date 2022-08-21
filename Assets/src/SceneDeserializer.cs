@@ -16,7 +16,7 @@ public class SceneDeserializer : MonoBehaviour {
   public void Deserialize() {
     WaitingForSceneLoad = true;
     SceneManager.sceneLoaded += OnSceneLoaded;
-    SceneManager.LoadSceneAsync( SerializedScene.Name );
+    SceneEvents.Current.ChangeScene( SerializedScene.Name, true, true );
   }
 
   public void OnSceneLoaded( Scene scene, LoadSceneMode mode ) {

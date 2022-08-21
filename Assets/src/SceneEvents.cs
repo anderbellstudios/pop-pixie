@@ -18,6 +18,7 @@ public class SceneEvents : MonoBehaviour {
 
   private bool FadingIn = false, FadingOut = false;
   private string NewSceneName;
+  private bool Asynchronous;
 
   void Start() {
     if (SingletonInstance)
@@ -40,11 +41,12 @@ public class SceneEvents : MonoBehaviour {
     OnFadeIn.Invoke();
   }
 
-  public void ChangeScene(string sceneName, bool fadeOutMusic = false) {
+  public void ChangeScene(string sceneName, bool fadeOutMusic = false, bool asynchronous = false) {
     if (FadingOut || (WaitForFadeInBeforePermittingExit && FadingIn))
       return;
 
     NewSceneName = sceneName;
+    Asynchronous = asynchronous;
 
     if (ShouldFadeOut) {
       FadingOut = true;
@@ -61,6 +63,9 @@ public class SceneEvents : MonoBehaviour {
   }
 
   void LoadNewScene() {
-    SceneManager.LoadScene(NewSceneName);
+    if (Asynchronous)
+      SceneManager.LoadSceneAsync(NewSceneName);
+    else
+      SceneManager.LoadScene(NewSceneName);
   }
 }

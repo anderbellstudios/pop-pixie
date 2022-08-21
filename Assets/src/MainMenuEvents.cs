@@ -1,36 +1,35 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using TMPro;
 
-public class MainMenuEvents : GenericMenuEvents {
+public class MainMenuEvents : AMenu {
+  public TMP_Text PrimaryText, SecondaryText;
+  public GameObject SecondaryButton;
+  public AMenu ConfirmOverwriteMenu;
+  public ContinueGameHopper ContinueGameHopper;
+  public NewGameHopper NewGameHopper;
 
-  public MainMenuConfirmWindow MainMenuConfirmWindow;
+  private Action OnPrimary, OnSecondary;
 
-  public void TentativeNewGame () {
-    if ( SaveGame.Exists() ) {
-      MainMenuConfirmWindow.Show();
+  public override void LocalStart() {
+    if (SaveGame.Exists()) {
+      PrimaryText.text = "Continue";
+      OnPrimary = () => ContinueGameHopper.Hop();
+
+      SecondaryText.text = "New Game";
+      OnSecondary = () => OpenNestedMenu(ConfirmOverwriteMenu);
+
+      SecondaryButton.SetActive(true);
     } else {
-      NewGame();
+      PrimaryText.text = "New Game";
+      OnPrimary = () => NewGameHopper.Hop();
+
+      SecondaryButton.SetActive(false);
     }
   }
 
-  public void NewGame () {
-    MainMenuConfirmWindow.Hide();
-    FadeOut(_NewGame);
-  }
-
-  public void Continue () {
-    FadeOut(_Continue);
-  }
-
-  void _NewGame () {
-    SceneManager.LoadScene("Level1");
-  }
-
-  void _Continue () {
-    SaveGame.ReadAutoSave();
-    SceneData.Load();
-  }
-
+  public void PrimaryClicked() => OnPrimary.Invoke();
+  public void SecondaryClicked() => OnSecondary.Invoke();
 }
