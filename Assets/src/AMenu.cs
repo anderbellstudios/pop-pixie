@@ -63,6 +63,8 @@ public abstract class AMenu : MonoBehaviour {
 
   public virtual void LocalUpdate() {} 
 
+  public void Open() => Open(null);
+
   public void Open(AMenu parentMenu) {
     _ParentMenu = parentMenu;
 

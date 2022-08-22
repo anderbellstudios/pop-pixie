@@ -1,7 +1,8 @@
 using System;
 
 public class GDCall {
-  static bool FirstTime, Load = false;
+  static bool FirstTime = true;
+  static bool Load = false;
 
   public static void ExpectFirstTime() {
     FirstTime = true;
