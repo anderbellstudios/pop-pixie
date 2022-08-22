@@ -20,10 +20,12 @@ public class SceneEvents : MonoBehaviour {
   private string NewSceneName;
   private bool Asynchronous;
 
-  void Start() {
+  void Awake() {
     if (SingletonInstance)
       Current = this;
+  }
 
+  void Start() {
     if (ShouldFadeIn) {
       FadingIn = true;
       Fader.Fade("to black", 0.0f);

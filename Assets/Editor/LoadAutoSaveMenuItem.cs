@@ -7,44 +7,55 @@ using UnityEditor.SceneManagement;
 
 [InitializeOnLoad]
 public class LoadAutoSaveMenuItem : MonoBehaviour {
-
   static string ResumeScene {
-		get { return EditorPrefs.GetString("LoadAutoSaveMenuItem.ResumeScene", EditorSceneManager.GetActiveScene().path); }
-		set { EditorPrefs.SetString("LoadAutoSaveMenuItem.ResumeScene", value); }
-	}
+    get {
+      return EditorPrefs.GetString(
+        "LoadAutoSaveMenuItem.ResumeScene",
+        EditorSceneManager.GetActiveScene().path
+      );
+    }
+
+    set {
+      EditorPrefs.SetString(
+        "LoadAutoSaveMenuItem.ResumeScene",
+        value
+      );
+    }
+  }
 
   static bool DoingLoadAutoSave {
-		get { return EditorPrefs.GetBool("LoadAutoSaveMenuItem.DoingLoadAutoSave", false); }
-		set { EditorPrefs.SetBool("LoadAutoSaveMenuItem.DoingLoadAutoSave", value); }
-	}
+    get {
+      return EditorPrefs.GetBool(
+        "LoadAutoSaveMenuItem.DoingLoadAutoSave",
+        false
+        );
+    }
+
+    set {
+      EditorPrefs.SetBool(
+        "LoadAutoSaveMenuItem.DoingLoadAutoSave",
+        value
+      );
+    }
+  }
 
   static LoadAutoSaveMenuItem() {
     EditorApplication.playModeStateChanged += OnPlayModeStateChange;
   }
 
-  [ MenuItem("Play/Load AutoSave") ]
+  [MenuItem("Play/Load AutoSave")]
   public static void LoadAutoSave() {
     DoingLoadAutoSave = true;
     ResumeScene = EditorSceneManager.GetActiveScene().path;
-    EditorSceneManager.NewScene( NewSceneSetup.DefaultGameObjects );
+    EditorSceneManager.SaveOpenScenes();
+    EditorSceneManager.OpenScene("Assets/Unity/Scenes/Load Autosave.unity");
     EditorApplication.isPlaying = true;
   }
 
-  static void OnPlayModeStateChange( PlayModeStateChange state ) {
-    if ( !DoingLoadAutoSave )
-      return;
-
-    switch ( state ) {
-      case PlayModeStateChange.EnteredPlayMode:
-        SaveGame.ReadAutoSave();
-        SceneData.Load();
-        break;
-
-      case PlayModeStateChange.EnteredEditMode: 
-        DoingLoadAutoSave = false;
-        EditorSceneManager.OpenScene(ResumeScene);
-        break;
+  static void OnPlayModeStateChange(PlayModeStateChange state) {
+    if (DoingLoadAutoSave && state == PlayModeStateChange.EnteredEditMode) {
+      DoingLoadAutoSave = false;
+      EditorSceneManager.OpenScene(ResumeScene);
     }
   }
-
 }
