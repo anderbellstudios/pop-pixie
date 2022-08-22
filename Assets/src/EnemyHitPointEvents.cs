@@ -5,15 +5,18 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class EnemyHitPointEvents : MonoBehaviour, IHitPointEvents {
-
   public Flash Flash;
   public DeathAnimation DeathAnimation;
   public Collider2D Collider;
   public HUDBar HealthBar;
+  public bool HideHealthBarWhenFullOrEmpty;
 
   public void Updated (HitPoints hp) {
-    if (HealthBar != null)
-      HealthBar.Progress = hp.Current / hp.Maximum;
+    if (HealthBar != null) {
+      float relativeHP = hp.Current / hp.Maximum;
+      HealthBar.Progress = relativeHP;
+      HealthBar.gameObject.SetActive(!HideHealthBarWhenFullOrEmpty || (relativeHP > 0 && relativeHP < 1));
+    }
   }
 
   public void Decreased (HitPoints hp) {
@@ -32,5 +35,4 @@ public class EnemyHitPointEvents : MonoBehaviour, IHitPointEvents {
         ai.RelinquishControl();
     }
   }
-
 }
