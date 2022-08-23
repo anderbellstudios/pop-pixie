@@ -97,7 +97,6 @@ GameObject:
   - component: {fileID: 1028730790360758871}
   - component: {fileID: 1157152440242330114}
   - component: {fileID: 114203618625845968}
-  - component: {fileID: 3419888328154360209}
   - component: {fileID: 114713038835468652}
   - component: {fileID: 6331324344881386689}
   - component: {fileID: 8199610652695165348}
@@ -299,6 +298,7 @@ MonoBehaviour:
   ShouldSave: 0
   Maximum: 30
   InfiniteHP: 0
+  UseAssistModeDamageReduction: 1
   Current: 0
   RegenerateRate: 1
   CanBeDamagedArbiters:
@@ -306,19 +306,6 @@ MonoBehaviour:
   - {fileID: 3633734644977408093}
   LastDamaged: 0
   Dead: 0
---- !u!114 &3419888328154360209
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1276747056135348}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65282cc1ec4384a17853870aa2308055, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HitPoints: {fileID: 114203618625845968}
 --- !u!114 &114713038835468652
 MonoBehaviour:
   m_ObjectHideFlags: 0
