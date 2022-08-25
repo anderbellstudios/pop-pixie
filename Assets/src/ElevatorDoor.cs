@@ -12,7 +12,7 @@ public class ElevatorDoor : AInspectable, ISerializableComponent {
   public string NextLevel;
   public SceneChangeHopper SceneChangeHopper;
 
-  private bool HasKeycard = false;
+  public bool HasKeycard = false;
   public void GotKeycard() => HasKeycard = true;
 
   void Awake() {
