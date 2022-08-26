@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveHint : MonoBehaviour {
+public class TrainingGameMoveHint : MonoBehaviour {
   public GameObject KeyboardAndMouseHint, JoystickHint;
   private LowPriorityBehaviour LowPriorityBehaviour;
 

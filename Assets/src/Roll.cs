@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Roll : MonoBehaviour {
 
+  public static bool HasRolled;
+
   public RollAllowed RollAllowed;
   public MonoBehaviour DirectionManager; 
   public MovementManager MovementManager;
@@ -20,6 +22,7 @@ public class Roll : MonoBehaviour {
 
   void Start() {
     StateChanged();
+    HasRolled = false;
   }
 
   void Update() {
@@ -37,6 +40,9 @@ public class Roll : MonoBehaviour {
   }
 
   void StartRolling() {
+    if (PlayerGameObject.EstimatedVelocity.magnitude > 0.1f)
+      HasRolled = true;
+
     RollAllowed.DidRoll();
     Rolling = true;
     Invoke("StopRolling", Duration);
