@@ -7,7 +7,6 @@ using TMPro;
 
 public class DiscoveredItemsMenuEvents : AMenu {
   public RegisteredLoreItems RegisteredLoreItems;
-  public Button BackButton;
   public GameObject MenuItemPrefab;
   public Transform MenuItemContainer;
   public RectTransform ScrollContentArea;
@@ -17,13 +16,11 @@ public class DiscoveredItemsMenuEvents : AMenu {
   public override List<Button> LocalInitButtons() {
     List<Button> buttons = new List<Button>();
 
-    buttons.Add(BackButton);
-
     foreach (Transform child in MenuItemContainer) {
       Destroy(child.gameObject);
     }
 
-    foreach (string loreItemId in LoreItemData.ReadLoreItems()) {
+    for (int i = 0; i < 20; i++) foreach (string loreItemId in RegisteredLoreItems.LoreItems.Select(x => x.UniqueId)) {//LoreItemData.ReadLoreItems()) {
       LoreItem loreItem = RegisteredLoreItems.Find(loreItemId);
 
       GameObject menuItemGameObject = Instantiate(MenuItemPrefab, MenuItemContainer);
@@ -33,49 +30,16 @@ public class DiscoveredItemsMenuEvents : AMenu {
       discoveredItemButton.SetLoreItem(loreItem);
       discoveredItemButton.ClickCallback = LoreItemButtonClicked;
 
-      discoveredItemButton.SelectCallback = () => {
-        Canvas.ForceUpdateCanvases();
-
-        RectTransform targetTransform = (RectTransform) menuItemGameObject.transform;
-
-        float targetPositionY =
-          ScrollRect.transform.InverseTransformPoint(ScrollContentArea.position).y
-          - ScrollRect.transform.InverseTransformPoint(targetTransform.position).y;
-
-        float targetHeight = targetTransform.sizeDelta.y;
-        float targetTopEdge = targetPositionY - (targetHeight / 2f);
-        float targetBottomEdge = targetPositionY + (targetHeight / 2f);
-
-        float viewportTopEdge = ScrollContentArea.anchoredPosition.y;
-        float viewportBottomEdge = viewportTopEdge + ((RectTransform) ScrollRect.transform).rect.height;
-
-        if (targetBottomEdge > viewportBottomEdge) {
-          ScrollContentArea.anchoredPosition =
-            ScrollContentArea.anchoredPosition
-            + new Vector2(
-                0,
-                targetBottomEdge - viewportBottomEdge
-              );
-        }
-
-        if (targetTopEdge < viewportTopEdge) {
-          ScrollContentArea.anchoredPosition =
-            ScrollContentArea.anchoredPosition
-            - new Vector2(
-                0,
-                viewportTopEdge - targetTopEdge
-              );
-        }
-      };
+      discoveredItemButton.SelectCallback = () => ScrollToSelectionHelper.EnsureVisible(
+        targetTransform: (RectTransform) menuItemGameObject.transform,
+        contentArea: ScrollContentArea,
+        scrollRect: ScrollRect
+      );
 
       buttons.Add(discoveredItemButton.Button);
     }
 
     return buttons;
-  }
-
-  public void BackButtonClicked() {
-    Close();
   }
 
   public void LoreItemButtonClicked( Button button, LoreItem loreItem ) {

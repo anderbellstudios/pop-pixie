@@ -13,7 +13,7 @@ public abstract class AMenu : MonoBehaviour {
   public List<String> CloseMenuControls = new List<String>() { "Cancel" };
 
   private List<Button> _Buttons;
-  private List<Button> Buttons
+  protected List<Button> Buttons
     => _Buttons.Where(b => b != null).ToList();
 
   private bool _Visible, _InFocus, _CloseNextFrame;
@@ -34,6 +34,8 @@ public abstract class AMenu : MonoBehaviour {
       })
     );
 
+    LocalStartBeforeSelect();
+
     SetVisible(StartsVisible);
     SetFocus(StartsInFocus);
 
@@ -44,6 +46,7 @@ public abstract class AMenu : MonoBehaviour {
     return MenuRoot.GetComponentsInChildren<Button>(true).ToList();
   }
 
+  public virtual void LocalStartBeforeSelect() {} 
   public virtual void LocalStart() {} 
 
   void Update() {

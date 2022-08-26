@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2177325599433290211}
   - component: {fileID: 2176625619901320341}
   - component: {fileID: 2869524532631287988}
+  - component: {fileID: 7107313432244332813}
   - component: {fileID: -363679831415067658}
   - component: {fileID: 3318024266128598971}
   m_Layer: 0
@@ -84,6 +85,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StandaloneInputModule: {fileID: 2176625619901320341}
+--- !u!114 &7107313432244332813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2280404555034541499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8006d7c96cd2c440593ee37b07390dad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnSelectionChange:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -363679831415067658}
+        m_TargetAssemblyTypeName: MenuSound, Assembly-CSharp
+        m_MethodName: HandleSelectionChanged
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &-363679831415067658
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -96,7 +124,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8c980079277a44349836d7dda5bb640, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EventSystem: {fileID: 2177325599433290211}
   SoundHopper: {fileID: 3318024266128598971}
 --- !u!114 &3318024266128598971
 MonoBehaviour:

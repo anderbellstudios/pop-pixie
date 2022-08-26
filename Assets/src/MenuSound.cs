@@ -8,27 +8,18 @@ public class MenuSound : MonoBehaviour {
   public static MenuSound current
     => EventSystem.current.gameObject.GetComponent<MenuSound>();
 
-  public EventSystem EventSystem;
   public SoundHopper SoundHopper;
 
-  private GameObject PreviousSelected;
-
-  void Update() {
-    GameObject currentSelected = EventSystem.currentSelectedGameObject;
-
-    if (currentSelected != PreviousSelected) {
-      String currentSelectedMenuName = MenuNameForGameObject(currentSelected);
-      String previousSelectedMenuName = MenuNameForGameObject(PreviousSelected);
+  public void HandleSelectionChanged(GameObject currentSelected, GameObject previousSelected) {
+    String currentSelectedMenuName = MenuNameForGameObject(currentSelected);
+    String previousSelectedMenuName = MenuNameForGameObject(previousSelected);
 
 #if UNITY_EDITOR
-      Debug.Assert(currentSelectedMenuName != "", "Menu name cannot be empty");
+    Debug.Assert(currentSelectedMenuName != "", "Menu name cannot be empty");
 #endif
 
-      if (currentSelectedMenuName == previousSelectedMenuName && currentSelectedMenuName != null)
-        Play();
-
-      PreviousSelected = currentSelected;
-    }
+    if (currentSelectedMenuName == previousSelectedMenuName && currentSelectedMenuName != null)
+      Play();
   }
 
   public void Play() {

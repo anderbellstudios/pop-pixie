@@ -1,63 +1,45 @@
-﻿using System.Collections;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
 using TMPro;
 
 [ExecuteInEditMode]
-public class WeaponTile : MonoBehaviour, ISelectHandler, IDeselectHandler {
-
+public class WeaponTile : MonoBehaviour {
   public string Name = "Untitled weapon";
   public Weapon Weapon;
-  public bool InStock = false;
-  public Sprite UnboughtSprite;
-  public Sprite BoughtSprite;
   public int Price;
+  [TextArea] public string Description;
+  public Image Image, DarkenImage, TickImage;
+  public TMP_Text NameLabel, PriceLabel;
 
-  [TextArea]
-  public string Description;
+  private bool _Bought;
+  public bool Bought {
+    get { return _Bought; }
+    set {
+      _Bought = value;
+      HandleBoughtChanged();
+    }
+  }
 
-  public bool Bought;
-
-  public Image WeaponImage;
-  public TMP_Text PriceLabel;
+  public Action ClickHandler;
 
   void Awake() {
-    if (InStock) {
-      PriceLabel.text = Price.ToString();
-    } else {
-      PriceLabel.text = "--";
-    }
-
-    // If the weapon is null, Bought is false
-    Bought = Maybe<Weapon>.ofNullable(Weapon)
-      .Map( w => BoughtWeaponsData.IsBought(w.Id) )
-      .GetOrDefault(false);
-
-    UpdateSprite();
+    Image.sprite = Weapon?.Sprite;
+    NameLabel.text = Name;
+    PriceLabel.text = PriceString();
+    Bought = Price == -1 || BoughtWeaponsData.IsBought(Weapon.Id);
   }
 
-  void UpdateSprite() {
-    WeaponImage.sprite = Bought ? BoughtSprite : UnboughtSprite;
+  void HandleBoughtChanged() {
+    DarkenImage.enabled = TickImage.enabled = Bought;
   }
 
-  public void Interact() {
-    MaybeShopEvents.If( shopEvents => shopEvents.InteractWithWeapon(this) );
-    UpdateSprite();
+  public void HandleClick() {
+    ClickHandler.Invoke();
   }
 
-  public void OnSelect(BaseEventData eventData) {
-    MaybeShopEvents.If( shopEvents => shopEvents.OnWeaponSelect(this) );
-  }
-
-  public void OnDeselect(BaseEventData eventData) {
-    MaybeShopEvents.If( shopEvents => shopEvents.OnWeaponDeselect(this) );
-  }
-
-  Maybe<ShopEvents> MaybeShopEvents
-    => Maybe<ShopEvents>.ofNullable(
-      GameObject.Find("ShopEvents")?.GetComponent<ShopEvents>()
-    );
-
+  public bool Free => Price <= 0;
+  public string PriceString() => Free ? "Free" : Price.ToString();
 }

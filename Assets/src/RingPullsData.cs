@@ -10,7 +10,7 @@ public class RingPullsData {
   public static int Amount() {
     return (int) GameData.Current.Fetch(
       "ring-pulls", 
-      orSetEqualTo: 0
+      orSetEqualTo: Debug.isDebugBuild ? 500 : 0
     );
   }
 
