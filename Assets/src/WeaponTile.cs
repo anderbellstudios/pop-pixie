@@ -41,5 +41,5 @@ public class WeaponTile : MonoBehaviour {
   }
 
   public bool Free => Price <= 0;
-  public string PriceString() => Free ? "Free" : Price.ToString();
+  public string PriceString() => Free ? "Free" : Price.ToString() + " <sprite=\"Ring Pull Icon\" name=\"Ring Pull\">";
 }

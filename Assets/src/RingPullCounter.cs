@@ -22,7 +22,7 @@ public class RingPullCounter : MonoBehaviour {
   }
 
   void Update() {
-    Text.text = RingPullsData.Amount().ToString();
+    Text.text = RingPullsData.Amount().ToString() + " <sprite=\"Ring Pull Icon\" name=\"Ring Pull\">";
 
     if ( RingPullsData.ShouldPulse ) {
       RingPullsData.ShouldPulse = false;
