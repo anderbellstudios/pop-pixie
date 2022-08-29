@@ -22,8 +22,9 @@ public class MovementManager : MonoBehaviour {
     get { return _Movement; }
 
     set {
+      Vector2 diff = value - _Movement;
       _Movement = value;
-      VisualMovement = value;
+      VisualMovement += diff;
     }
   }
 
@@ -41,7 +42,7 @@ public class MovementManager : MonoBehaviour {
     if (StatePermitsMovement())
       rb.MovePosition(rb.position + Velocity(Movement));
 
-    Movement = Vector2.zero;
+    _Movement = Vector2.zero;
   }
 
   public void OnFootstepDown() {
