@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SongController : MonoBehaviour {
   public AudioSource IntroAudioSource, MainAudioSource;
+  public AudioLowPassFilter IntroLowPassFilter, MainLowPassFilter;
 
   Song CurrentSong = null;
 
@@ -20,6 +21,12 @@ public class SongController : MonoBehaviour {
       Current = this;
       DontDestroyOnLoad(gameObject);
     }
+  }
+
+  void Start() {
+    StateManager.AddListener(() => {
+      IntroLowPassFilter.enabled = MainLowPassFilter.enabled = StateManager.Enabled(StateFeatures.MuffleMusic);
+    });
   }
 
   public void Play(Song song) {

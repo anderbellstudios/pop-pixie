@@ -10,7 +10,8 @@ public enum StateFeatures {
   BackgroundAnimations = 2,
   Movement = 4,
   PauseAudio = 8,
-  PlayerDeathAnimation = 16
+  PlayerDeathAnimation = 16,
+  MuffleMusic = 32
 };
 
 public enum State {
@@ -41,7 +42,7 @@ public class StateManager : MonoBehaviour {
   );
 
   static (StateFeatures Enabled, StateFeatures Disabled) PausedState = InheritFrom(NotPlayingState, (
-    StateFeatures.PauseAudio,
+    StateFeatures.MuffleMusic,
     StateFeatures.BackgroundAnimations
   ));
 

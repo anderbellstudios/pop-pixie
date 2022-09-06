@@ -64,6 +64,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IntroAudioSource: {fileID: 2939204126368740231}
   MainAudioSource: {fileID: 235767654209159900}
+  IntroLowPassFilter: {fileID: 5741552395972799781}
+  MainLowPassFilter: {fileID: 1492963723633689336}
   SingletonInstance: 1
 --- !u!82 &5511992969328948667
 AudioSource:
@@ -172,6 +174,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3433949666406116722}
   - component: {fileID: 235767654209159900}
+  - component: {fileID: 1492963723633689336}
   m_Layer: 0
   m_Name: Main Audio Source
   m_TagString: Untagged
@@ -291,6 +294,31 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!169 &1492963723633689336
+AudioLowPassFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6285294521427879175}
+  m_Enabled: 0
+  serializedVersion: 3
+  m_LowpassResonanceQ: 1
+  lowpassLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.09049568
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &6473509952424517002
 GameObject:
   m_ObjectHideFlags: 0
@@ -301,6 +329,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3917339264494949494}
   - component: {fileID: 2939204126368740231}
+  - component: {fileID: 5741552395972799781}
   m_Layer: 0
   m_Name: Intro Audio Source
   m_TagString: Untagged
@@ -411,6 +440,31 @@ AudioSource:
     - serializedVersion: 3
       time: 0
       value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!169 &5741552395972799781
+AudioLowPassFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6473509952424517002}
+  m_Enabled: 0
+  serializedVersion: 3
+  m_LowpassResonanceQ: 1
+  lowpassLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.09049568
       inSlope: 0
       outSlope: 0
       tangentMode: 0
