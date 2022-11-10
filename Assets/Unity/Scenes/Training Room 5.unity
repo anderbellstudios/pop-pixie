@@ -2527,6 +2527,7 @@ MonoBehaviour:
   ShouldSave: 1
   Maximum: 240
   InfiniteHP: 0
+  UseAssistModeDamageReduction: 0
   Current: 240
   RegenerateRate: 0
   CanBeDamagedArbiters: []
@@ -2564,6 +2565,7 @@ MonoBehaviour:
   DeathAnimation: {fileID: 1257315381}
   Collider: {fileID: 742429442}
   HealthBar: {fileID: 0}
+  HideHealthBarWhenFullOrEmpty: 0
 --- !u!114 &742429444
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8156,7 +8158,7 @@ PrefabInstance:
     - target: {fileID: 6769439293733673370, guid: d15ee1ea31e624a2690b5667f5f345e3,
         type: 3}
       propertyPath: DialogueSequence.Pages.Array.size
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6769439293733673370, guid: d15ee1ea31e624a2690b5667f5f345e3,
         type: 3}
@@ -8167,9 +8169,8 @@ PrefabInstance:
     - target: {fileID: 6769439293733673370, guid: d15ee1ea31e624a2690b5667f5f345e3,
         type: 3}
       propertyPath: DialogueSequence.Pages.Array.data[0].Text
-      value: At last, the time has come to avenge your <color=#00ffff>father</color>
-        and put an end to the <color=#ff0000>Mentoes Corporation</color> once and
-        for all.
+      value: With all the skills you have acquired, you are finally ready to defeat
+        the founder and CEO of the <color=#ff0000>Mentoes Corporation</color>...
       objectReference: {fileID: 0}
     - target: {fileID: 6769439293733673370, guid: d15ee1ea31e624a2690b5667f5f345e3,
         type: 3}
@@ -8180,8 +8181,7 @@ PrefabInstance:
     - target: {fileID: 6769439293733673370, guid: d15ee1ea31e624a2690b5667f5f345e3,
         type: 3}
       propertyPath: DialogueSequence.Pages.Array.data[1].Text
-      value: With all the skills you have acquired, you are finally ready to defeat
-        the founder and CEO of the <color=#ff0000>Mentoes Corporation</color>...
+      value: <color=#00ffff>Your father</color>'s lifelong rival,
       objectReference: {fileID: 0}
     - target: {fileID: 6769439293733673370, guid: d15ee1ea31e624a2690b5667f5f345e3,
         type: 3}
@@ -8213,12 +8213,12 @@ PrefabInstance:
         type: 3}
       propertyPath: DialogueSequence.Pages.Array.data[0].AudioClip
       value: 
-      objectReference: {fileID: 8300000, guid: 4d50a99cef88849d2882f7600b4af4bb, type: 3}
+      objectReference: {fileID: 8300000, guid: 33ef3be313cbd401bad936bef9f65c39, type: 3}
     - target: {fileID: 6769439293733673370, guid: d15ee1ea31e624a2690b5667f5f345e3,
         type: 3}
       propertyPath: DialogueSequence.Pages.Array.data[1].AudioClip
       value: 
-      objectReference: {fileID: 8300000, guid: 33ef3be313cbd401bad936bef9f65c39, type: 3}
+      objectReference: {fileID: 8300000, guid: 99b70b15448554a27828e89a4d26418c, type: 3}
     - target: {fileID: 6769439293733673370, guid: d15ee1ea31e624a2690b5667f5f345e3,
         type: 3}
       propertyPath: DialogueSequence.Pages.Array.data[2].AudioClip
@@ -9957,6 +9957,7 @@ MonoBehaviour:
   DeathAnimation: {fileID: 1633572598}
   Collider: {fileID: 1844793466}
   HealthBar: {fileID: 0}
+  HideHealthBarWhenFullOrEmpty: 0
 --- !u!114 &1844793470
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9972,6 +9973,7 @@ MonoBehaviour:
   ShouldSave: 1
   Maximum: 600
   InfiniteHP: 0
+  UseAssistModeDamageReduction: 0
   Current: 0
   RegenerateRate: 0
   CanBeDamagedArbiters:
