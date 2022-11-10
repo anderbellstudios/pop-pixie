@@ -13,7 +13,6 @@ public class LoreWindowController : MonoBehaviour {
   public RectTransform ContentTransform;
   public GameObject LoreWindow;
   public GameObject VerticalScrollBar;
-  public TMP_Text ZoomControlText;
 
   private float ZoomLevel;
 
@@ -43,9 +42,9 @@ public class LoreWindowController : MonoBehaviour {
   }
 
   void Update() {
-    if (WrappedInput.GetButtonDown("Next Weapon")) {
+    if (WrappedInput.GetButtonDown("Zoom In")) {
       ChangeZoomLevel(0.25f);
-    } else if (WrappedInput.GetButtonDown("Previous Weapon")) {
+    } else if (WrappedInput.GetButtonDown("Zoom Out")) {
       ChangeZoomLevel(-0.25f);
     }
   }
@@ -57,9 +56,5 @@ public class LoreWindowController : MonoBehaviour {
 
   void ZoomLevelWasUpdated() {
     ContentTransform.localScale = new Vector3(ZoomLevel, ZoomLevel, ZoomLevel);
-
-    ZoomControlText.text = ZoomLevel > 1
-      ? "Zoom out <size=150%>[Previous Weapon]</size>"
-      : "Zoom in <size=150%>[Next Weapon]</size>";
   }
 }

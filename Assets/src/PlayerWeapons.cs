@@ -58,6 +58,7 @@ public class PlayerWeapon {
   }
 
   public string Id => Weapon.Id;
+  public string Name => Weapon.Name;
   public float Damage => Weapon.Damage;
   public float FireRate => Weapon.FireRate;
   public int Capacity => Weapon.Capacity;
