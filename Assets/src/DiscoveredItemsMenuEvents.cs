@@ -20,7 +20,7 @@ public class DiscoveredItemsMenuEvents : AMenu {
       Destroy(child.gameObject);
     }
 
-    for (int i = 0; i < 20; i++) foreach (string loreItemId in RegisteredLoreItems.LoreItems.Select(x => x.UniqueId)) {//LoreItemData.ReadLoreItems()) {
+    foreach (string loreItemId in LoreItemData.ReadLoreItems()) {
       LoreItem loreItem = RegisteredLoreItems.Find(loreItemId);
 
       GameObject menuItemGameObject = Instantiate(MenuItemPrefab, MenuItemContainer);
