@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
 class HitPointEventsFacade : IHitPointEvents {
   private List<IHitPointEvents> EventHandlers;
@@ -36,6 +37,9 @@ public class HitPoints : MonoBehaviour, ISerializableComponent {
     }
   }
 
+  public static HitPoints PlayerHitPoints;
+
+  public bool IsPlayer = false;
   public bool ShouldSave = true;
   public float Maximum; 
   public bool InfiniteHP = false;
@@ -45,6 +49,7 @@ public class HitPoints : MonoBehaviour, ISerializableComponent {
   public List<ACanBeDamagedArbiter> CanBeDamagedArbiters;
   public float LastDamaged;
   public bool Dead = false;
+  public UnityEvent<HitPoints> OnUpdate, OnDecrease, OnBecomeZero;
 
   private IHitPointEvents EventHandler;
 
@@ -57,6 +62,7 @@ public class HitPoints : MonoBehaviour, ISerializableComponent {
     Current = val;
     Cap();
     EventHandler.Updated(this);
+    OnUpdate.Invoke(this);
     return Current;
   }
 
@@ -64,6 +70,7 @@ public class HitPoints : MonoBehaviour, ISerializableComponent {
     Current += val;
     Cap();
     EventHandler.Updated(this);
+    OnUpdate.Invoke(this);
     return Current;
   }
 
@@ -76,9 +83,11 @@ public class HitPoints : MonoBehaviour, ISerializableComponent {
     }
 
     EventHandler.Decreased(this);
+    OnDecrease.Invoke(this);
     if ( Current == 0 ) {
       Dead = true;
       EventHandler.BecameZero(this);
+      OnBecomeZero.Invoke(this);
     }
 
     return Current;
@@ -99,11 +108,21 @@ public class HitPoints : MonoBehaviour, ISerializableComponent {
     return -1.0f;
   }
 
-	// Use this for initialization
-	void Start () {
-    EventHandler = new HitPointEventsFacade(
-      gameObject.GetComponents<IHitPointEvents>().ToList()
-    );
+  void Awake() {
+    if (IsPlayer) {
+      PlayerHitPoints = this;
+    }
+  }
+
+	void Start() {
+    List<IHitPointEvents> eventHandlers = gameObject.GetComponents<IHitPointEvents>().ToList();
+    EventHandler = new HitPointEventsFacade(eventHandlers);
+
+#if UNITY_EDITOR
+    if (eventHandlers.Count > 0) {
+      Debug.LogWarning($"IHitPointEvents is deprecated. Use UnityEvents instead. {eventHandlers.Count} IHitPointEvents handlers found on {gameObject.name}.");
+    }
+#endif
 
     GDCall.UnlessLoad( InitHitPoints );
 
@@ -111,10 +130,12 @@ public class HitPoints : MonoBehaviour, ISerializableComponent {
       InitHitPoints();
 
     EventHandler.Updated(this);
+    OnUpdate.Invoke(this);
 
     if (Current == 0) {
       Dead = true;
       EventHandler.BecameZero(this);
+      OnBecomeZero.Invoke(this);
     }
 	}
 
@@ -124,8 +145,7 @@ public class HitPoints : MonoBehaviour, ISerializableComponent {
     EventHandler.Updated(this);
   }
 	
-	// Update is called once per frame
-	void Update () {
+	void Update() {
     if (!StateManager.Playing)
       return;
 

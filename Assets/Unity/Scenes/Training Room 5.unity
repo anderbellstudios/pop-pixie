@@ -2698,6 +2698,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c902b98affab42d5b6d979f55dd91f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsPlayer: 0
   ShouldSave: 1
   Maximum: 240
   InfiniteHP: 0
@@ -2707,6 +2708,15 @@ MonoBehaviour:
   CanBeDamagedArbiters: []
   LastDamaged: 0
   Dead: 0
+  OnUpdate:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDecrease:
+    m_PersistentCalls:
+      m_Calls: []
+  OnBecomeZero:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!58 &742429442
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -10144,6 +10154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c902b98affab42d5b6d979f55dd91f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsPlayer: 0
   ShouldSave: 1
   Maximum: 600
   InfiniteHP: 0
@@ -10154,6 +10165,15 @@ MonoBehaviour:
   - {fileID: 1844793474}
   LastDamaged: 0
   Dead: 0
+  OnUpdate:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDecrease:
+    m_PersistentCalls:
+      m_Calls: []
+  OnBecomeZero:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1844793471
 MonoBehaviour:
   m_ObjectHideFlags: 0

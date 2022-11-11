@@ -7,6 +7,14 @@ public class MentoeHologramBombAttackAI : ARepeatedAttackAI {
   public float PredictiveAimLeadTime;
   public float BombVelocityCoefficient;
 
+  void Start() {
+    HitPoints.PlayerHitPoints.OnDecrease.AddListener(hitPoints => {
+      if (InControl) {
+        EndAttack();
+      }
+    });
+  }
+
   public override void PerformAttack() {
     Vector3 predictedPlayerPosition = ((Vector3) TargetHeading()) + (PlayerGameObject.EstimatedVelocity * PredictiveAimLeadTime);
 

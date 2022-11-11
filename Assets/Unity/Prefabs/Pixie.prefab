@@ -295,6 +295,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c902b98affab42d5b6d979f55dd91f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsPlayer: 1
   ShouldSave: 0
   Maximum: 30
   InfiniteHP: 0
@@ -306,6 +307,15 @@ MonoBehaviour:
   - {fileID: 3633734644977408093}
   LastDamaged: 0
   Dead: 0
+  OnUpdate:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDecrease:
+    m_PersistentCalls:
+      m_Calls: []
+  OnBecomeZero:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &114713038835468652
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -528,7 +538,6 @@ MonoBehaviour:
   WeaponReload: {fileID: 114176230308344078}
   InHandSpriteRenderer: {fileID: 2362158901014011680}
   PlayerWeapons: {fileID: 8976978952436203077}
-  CurrentWeaponIndex: 0
 --- !u!114 &3970238083396131980
 MonoBehaviour:
   m_ObjectHideFlags: 0

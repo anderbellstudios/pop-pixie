@@ -38,10 +38,14 @@ public abstract class ARepeatedAttackAI : AEnemyAI {
       PerformAttack();
 
     if (RemainingAttacks == 0) {
-      RelinquishControlTo(WhenFinished);
+      EndAttack();
     } else {
       RemainingAttacks--;
     }
+  }
+
+  protected void EndAttack() {
+    RelinquishControlTo(WhenFinished);
   }
 
   public abstract void PerformAttack();
