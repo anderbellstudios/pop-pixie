@@ -5,6 +5,7 @@ using UnityEngine;
 public class MentoeHologramBulletsAttackAI : AEnemyAI {
   public FireBullet FireBullet;
 
+  public float Rotations;
   public float Duration;
   public GameObject BulletPrefab;
   public float BulletsPerSecond;
@@ -41,7 +42,7 @@ public class MentoeHologramBulletsAttackAI : AEnemyAI {
     } else {
       FireTimer.IfElapsed(() => {
         // Add 15deg to the angle to avoid shooting the player right away
-        float angle = Mathf.Lerp(0, 360, AngleTimer.Progress()) + 15;
+        float angle = Mathf.Lerp(0, 360 * Rotations, AngleTimer.Progress()) + 15;
 
         FireBulletInDirection(Quaternion.Euler(0, 0, angle +   0) * Vector3.right,  true);
         FireBulletInDirection(Quaternion.Euler(0, 0, angle +  90) * Vector3.right, false);
