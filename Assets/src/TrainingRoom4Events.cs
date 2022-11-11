@@ -68,7 +68,8 @@ public class TrainingRoom4Events : MonoBehaviour {
   }
 
   void AfterRaceFinished() {
-    bool goodTime = ElapsedTime() <= 40f;
+    // Timer rounds down, so anything less than 41 seconds is a good time
+    bool goodTime = ElapsedTime() < 41f;
     NotAnalytics.Current.Hit("finished-obstacle-course", goodTime ? "good-time" : "bad-time");
     (goodTime ? GoodTimeDialogue : BadTimeDialogue).Hop();
   }
