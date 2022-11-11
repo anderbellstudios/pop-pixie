@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ReloadIndicator : MonoBehaviour {
-  public MonoBehaviour Indicator;
+  public MonoBehaviour ButtonHint, EmptyGlow;
   public bool Visible = false;
 
   void Update() {
-    Indicator.enabled = Visible;
+    ButtonHint.enabled = Visible;
+    EmptyGlow.enabled = Visible;
   }
-
 }
