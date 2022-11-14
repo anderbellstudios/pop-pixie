@@ -4,14 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ResolutionData {
-
   public static int Width {
     set {
       ConfigData.Current.Set("resolution-width", value);
     }
 
     get {
-      return (int) ConfigData.Current.Fetch("resolution-width", orSetEqualTo: 640);
+      return (int) ConfigData.Current.Fetch("resolution-width", orSetEqualTo: (int) (Display.main.renderingWidth * 0.75f));
     }
   }
 
@@ -21,7 +20,7 @@ public class ResolutionData {
     }
 
     get {
-      return (int) ConfigData.Current.Fetch("resolution-height", orSetEqualTo: 360);
+      return (int) ConfigData.Current.Fetch("resolution-height", orSetEqualTo: (int) (Display.main.renderingHeight * 0.75f));
     }
   }
 
@@ -44,5 +43,4 @@ public class ResolutionData {
     Screen.SetResolution(Width, Height, Fullscreen);
 #endif
   }
-
 }
