@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Level3BossPhase : APhase, ISerializableComponent, IHitPointEvents {
-
+public class Level3BossPhase : APhase, ISerializableComponent {
   public string[] SerializableFields { get; } = { "JumpedDown" };
 
   public Level3JumpDownAnimation JumpAnimation;
@@ -13,12 +12,18 @@ public class Level3BossPhase : APhase, ISerializableComponent, IHitPointEvents {
 
   public bool JumpedDown = false;
 
-	public override void LocalBegin () {
-    if ( JumpedDown ) {
+  void Awake() {
+    HitPoints.OnBecomeZero.AddListener(hp => {
+      PhaseFinished();
+    });
+  }
+
+	public override void LocalBegin() {
+    if (JumpedDown) {
       // Loaded autosave after jump
       StartAI();
     } else {
-      JumpAnimation.Perform( JumpFinished );
+      JumpAnimation.Perform(JumpFinished);
     }
   }
 
@@ -39,15 +44,4 @@ public class Level3BossPhase : APhase, ISerializableComponent, IHitPointEvents {
   public override float ProgressBarValue() {
     return HitPoints.Current / HitPoints.Maximum;
   }
-
-  public void Updated (HitPoints hp) {
-  }
-
-  public void Decreased (HitPoints hp) {
-  }
-
-  public void BecameZero (HitPoints hp) {
-    PhaseFinished();
-  }
-
 }

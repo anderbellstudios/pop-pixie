@@ -2,14 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TrainingGamePlayerHitPointEvents : MonoBehaviour, IHitPointEvents {
+public class TrainingGamePlayerHitPointEvents : MonoBehaviour {
+  public HitPoints OverrideHitPoints;
 
-  public void Updated (HitPoints hp) {}
-
-  public void Decreased (HitPoints hp) {
-    SimulationResultData.NumberOfHitsTaken++;
-    DamagedBlur.Current.Activate();
+  void Awake() {
+    (OverrideHitPoints ?? GetComponent<HitPoints>()).OnDecrease.AddListener(hp => {
+      SimulationResultData.NumberOfHitsTaken++;
+      DamagedBlur.Current.Activate();
+    });
   }
-
-  public void BecameZero (HitPoints hp) {}
 }

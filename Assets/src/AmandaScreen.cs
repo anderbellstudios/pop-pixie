@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AmandaScreen : MonoBehaviour, IHitPointEvents {
+public class AmandaScreen : MonoBehaviour {
+  public HitPoints OverrideHitPoints;
   public SpriteRenderer SpriteRenderer;
   public Sprite BrokenSprite;
   public GameObject OverrideGameObject;
@@ -11,15 +12,12 @@ public class AmandaScreen : MonoBehaviour, IHitPointEvents {
   private IntervalTimer OverrideTimer;
   private bool Destroyed = false;
 
-  public void Updated(HitPoints hp) {}
-  public void Decreased(HitPoints hp) {}
-
-  public void BecameZero(HitPoints hp) {
-    SpriteRenderer.sprite = BrokenSprite;
-    Destroyed = true;
-  }
-
   void Awake() {
+    (OverrideHitPoints ?? GetComponent<HitPoints>()).OnBecomeZero.AddListener(hp => {
+      SpriteRenderer.sprite = BrokenSprite;
+      Destroyed = true;
+    });
+
     OverrideTimer = new IntervalTimer() {
       TimeClass = "PlayingTime",
       Interval = OverrideInterval

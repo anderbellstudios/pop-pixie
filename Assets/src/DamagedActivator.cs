@@ -2,9 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DamagedActivator : AActivator, IHitPointEvents {
+public class DamagedActivator : AActivator {
+  public HitPoints OverrideHitPoints;
 
   bool Activated = false;
+
+  void Awake() {
+    (OverrideHitPoints ?? GetComponent<HitPoints>()).OnDecrease.AddListener(hp => {
+      Activated = true;
+    });
+  }
 
   public override bool IsActivated() {
     if ( Activated ) {
@@ -14,15 +21,4 @@ public class DamagedActivator : AActivator, IHitPointEvents {
     
     return false;
   }
-
-  public void Updated (HitPoints hp) {
-  }
-
-  public void Decreased (HitPoints hp) {
-    Activated = true;
-  }
-
-  public void BecameZero (HitPoints hp) {
-  }
-
 }

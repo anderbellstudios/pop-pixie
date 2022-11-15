@@ -2,18 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DamagedAndDeathSounds : MonoBehaviour, IHitPointEvents {
+public class DamagedAndDeathSounds : MonoBehaviour {
+  public HitPoints OverrideHitPoints;
   public SoundController SoundController;
   public List<AudioClip> DamagedSounds, DeathSounds;
 
-  public void Updated (HitPoints hp) {}
+  void Awake() {
+    HitPoints hitPoints = OverrideHitPoints ?? GetComponent<HitPoints>();
 
-  public void Decreased (HitPoints hp) {
-    PlayRandomSound(DamagedSounds);
-  }
+    hitPoints.OnDecrease.AddListener(hp => {
+      PlayRandomSound(DamagedSounds);
+    });
 
-  public void BecameZero (HitPoints hp) {
-    PlayRandomSound(DeathSounds);
+    hitPoints.OnBecomeZero.AddListener(hp => {
+      PlayRandomSound(DeathSounds);
+    });
   }
 
   private void PlayRandomSound(List<AudioClip> sounds) {
