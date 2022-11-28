@@ -4,7 +4,7 @@ using UnityEngine;
 
 [System.Serializable]
 public class CaptionLine {
-  public string Text;
+  [TextArea] public string Text;
   public AudioClip AudioClip;
   public float Duration;
 
