@@ -11,6 +11,7 @@ public class ScriptedMovement : MonoBehaviour {
   private List<Vector3> Path;
   private int PathIndex = 0;
   private float Speed;
+  private float DeltaTime;
   private Action OnComplete;
 
   public void FollowPath(List<Vector3> path, float speed, Action onComplete) {
@@ -19,13 +20,23 @@ public class ScriptedMovement : MonoBehaviour {
     Speed = speed;
     OnComplete = onComplete;
     Running = true;
+    DeltaTime = 0f;
 
     if (ScriptedMovementState)
       StateManager.AddState(State.ScriptedMovement);
   }
 
   void Update() {
-    if (!StateManager.Enabled(StateFeatures.Movement) || !Running)
+    if (!StateManager.Enabled(StateFeatures.Movement))
+      return;
+
+    if (!Running)
+      return;
+
+    DeltaTime += Time.deltaTime;
+
+    // Prevent enqueueing movement multiple times per FixedUpdate
+    if (MovementManager.Movement != Vector2.zero)
       return;
 
     Vector3 destination = Path[PathIndex];
@@ -41,8 +52,10 @@ public class ScriptedMovement : MonoBehaviour {
     }
 
     MovementManager.Movement += (Vector2) (
-      heading.normalized * Mathf.Min(Speed * Time.deltaTime, heading.magnitude)
+      heading.normalized * Mathf.Min(Speed * DeltaTime, heading.magnitude)
     );
+
+    DeltaTime = 0f;
   }
 
   void FinishedPath() {
