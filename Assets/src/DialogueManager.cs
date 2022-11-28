@@ -42,6 +42,7 @@ public class DialogueManager : MonoBehaviour {
     DialogueBox.Show();
     Open = true;
     ButtonPressHelper.Clear();
+    dialogueSequence.DialogueMusicFadeBehaviour.ApplyEnterBehaviour();
 
     NextPage();
 	}
@@ -99,6 +100,7 @@ public class DialogueManager : MonoBehaviour {
     DialogueBox.Hide();
     Open = false;
     StateManager.RemoveState(State.NotPlaying);
+    DialogueSequence.DialogueMusicFadeBehaviour.ApplyExitBehaviour();
     OnFinish();
   }
 }

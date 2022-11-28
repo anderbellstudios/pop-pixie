@@ -34,6 +34,8 @@ public class CaptionLineManager : MonoBehaviour {
 
     Timer.Interval = captionLine.Duration + FadeOutDuration;
     Timer.Reset();
+
+    CaptionLine.DialogueMusicFadeBehaviour.ApplyEnterBehaviour();
   }
 
   void Update() {
@@ -51,6 +53,7 @@ public class CaptionLineManager : MonoBehaviour {
       Timer.IfElapsed(() => {
         Timer.Stop();
         SetOpacity(0);
+        CaptionLine.DialogueMusicFadeBehaviour.ApplyExitBehaviour();
       });
     }
   }

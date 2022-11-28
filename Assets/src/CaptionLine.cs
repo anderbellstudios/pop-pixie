@@ -7,4 +7,9 @@ public class CaptionLine {
   public string Text;
   public AudioClip AudioClip;
   public float Duration;
+
+  public DialogueMusicFadeBehaviour DialogueMusicFadeBehaviour = new DialogueMusicFadeBehaviour(
+    DialogueMusicFadeBehaviour.BehaviourType.SetLow,
+    DialogueMusicFadeBehaviour.BehaviourType.SetHigh
+  );
 }

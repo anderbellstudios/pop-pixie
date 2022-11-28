@@ -626,6 +626,9 @@ MonoBehaviour:
     Text: <color=#ff0000>Mr Mentoe</color>
     AudioClip: {fileID: 8300000, guid: ac265adafb5004a1cb38a94815dc484c, type: 3}
     Duration: 1.916
+    DialogueMusicFadeBehaviour:
+      EnterBehaviour: 2
+      ExitBehaviour: 2
 --- !u!1 &223450701
 GameObject:
   m_ObjectHideFlags: 0
@@ -2933,6 +2936,16 @@ PrefabInstance:
       propertyPath: CaptionLine.AudioClip
       value: 
       objectReference: {fileID: 8300000, guid: fe3581f4d3ae24129898f43f71fac5f0, type: 3}
+    - target: {fileID: 5130155323799688325, guid: 355d3d9f32d464463883a5572f6fa988,
+        type: 3}
+      propertyPath: CaptionLine.DialogueMusicFadeBehaviour.ExitBehaviour
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5130155323799688325, guid: 355d3d9f32d464463883a5572f6fa988,
+        type: 3}
+      propertyPath: CaptionLine.DialogueMusicFadeBehaviour.EnterBehaviour
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5130155323799688347, guid: 355d3d9f32d464463883a5572f6fa988,
         type: 3}
       propertyPath: m_Name
@@ -8421,6 +8434,16 @@ PrefabInstance:
       propertyPath: DialogueSequence.Pages.Array.data[2].AudioClip
       value: 
       objectReference: {fileID: 8300000, guid: 99b70b15448554a27828e89a4d26418c, type: 3}
+    - target: {fileID: 6769439293733673370, guid: d15ee1ea31e624a2690b5667f5f345e3,
+        type: 3}
+      propertyPath: DialogueSequence.DialogueMusicFadeBehaviour.ExitBehaviour
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6769439293733673370, guid: d15ee1ea31e624a2690b5667f5f345e3,
+        type: 3}
+      propertyPath: DialogueSequence.DialogueMusicFadeBehaviour.EnterBehaviour
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d15ee1ea31e624a2690b5667f5f345e3, type: 3}
 --- !u!4 &1062561660 stripped

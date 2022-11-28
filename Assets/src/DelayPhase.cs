@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class DelayPhase : APhase {
-
   public bool PauseGameplay;
   public bool UsePlayingTime = false;
   public float Delay;
   public HUDBar HUDBar;
+  public DialogueMusicFadeBehaviour DialogueMusicFadeBehaviour = new DialogueMusicFadeBehaviour(
+    DialogueMusicFadeBehaviour.BehaviourType.Ignore,
+    DialogueMusicFadeBehaviour.BehaviourType.Ignore
+  );
 
   private IntervalTimer Timer;
 
@@ -25,6 +28,8 @@ public class DelayPhase : APhase {
       StateManager.AddState(State.NotPlaying);
 
     Timer.Reset();
+
+    DialogueMusicFadeBehaviour.ApplyEnterBehaviour();
   }
 
   public override void WhilePhaseRunning() {
@@ -35,8 +40,8 @@ public class DelayPhase : APhase {
       if (PauseGameplay)
         StateManager.RemoveState(State.NotPlaying);
 
+      DialogueMusicFadeBehaviour.ApplyExitBehaviour();
       PhaseFinished();
     });
   }
-
 }
