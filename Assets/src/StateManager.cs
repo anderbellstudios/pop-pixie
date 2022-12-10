@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 [System.Flags]
 public enum StateFeatures {
@@ -76,6 +78,12 @@ public class StateManager : MonoBehaviour {
   static (StateFeatures Enabled, StateFeatures Disabled) InheritFrom((StateFeatures Enabled, StateFeatures Disabled) a, (StateFeatures Enabled, StateFeatures Disabled) b)
     => (a.Enabled | b.Enabled, a.Disabled | b.Disabled);
 
+  static public void ResetStates(List<State> states) {
+    EnhancedDataCollection.LogIfEnabled(() => "Resetting states");
+    Current.ActiveStates = states.Select(StateTuple).ToList();
+    Current.HandleStateChanged();
+  }
+
   static public void AddState(State state) {
     EnhancedDataCollection.LogIfEnabled(() => "State added: " + state);
     Current.ActiveStates.Add(StateTuple(state));
@@ -97,17 +105,20 @@ public class StateManager : MonoBehaviour {
   static public void AddListener(UnityAction action) => Current.OnStateChanged.AddListener(action);
   static public void RemoveListener(UnityAction action) => Current.OnStateChanged.RemoveListener(action);
 
-  public List<State> InitialStates = new List<State> { State.Playing };
-
   protected List<(StateFeatures Enabled, StateFeatures Disabled)> ActiveStates = new List<(StateFeatures Enabled, StateFeatures Disabled)>();
   protected StateFeatures StateFeaturesCache;
   protected UnityEvent OnStateChanged = new UnityEvent();
 
   void Awake () {
-    if (SingletonInstance)
-      Current = this;
+    if (SingletonInstance) {
+      if (Current != null) {
+        Destroy(gameObject);
+        return;
+      }
 
-    InitialStates.ForEach(state => AddState(state));
+      Current = this;
+      DontDestroyOnLoad(gameObject);
+    }
   }
 
   protected void HandleStateChanged() {
