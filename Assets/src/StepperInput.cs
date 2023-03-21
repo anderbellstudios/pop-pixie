@@ -7,10 +7,9 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
 
-public class StepperInput : MonoBehaviour, ISelectHandler, IDeselectHandler {
+public class StepperInput : MonoBehaviour {
   public TMP_Text Text;
   public Button Button;
-  public string FormatString;
 
   public List<string> Options;
   public int Value = 0;
@@ -65,10 +64,13 @@ public class StepperInput : MonoBehaviour, ISelectHandler, IDeselectHandler {
   public void ValueChanged() {
     UpdateLabel();
     OnChange.Invoke(Value, ValueLabel);
+
+    // If arrows were clicked, selection must be restored
+    Button.Select();
   }
 
   public void UpdateLabel() {
-    Text.text = String.Format(FormatString, ValueLabel);
+    Text.text = ValueLabel;
   }
 
   public int ValueForLabel(string label)
