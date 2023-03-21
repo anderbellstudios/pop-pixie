@@ -7,6 +7,7 @@ public class SongController : MonoBehaviour {
   public AudioLowPassFilter IntroLowPassFilter, MainLowPassFilter;
 
   Song CurrentSong = null;
+  double IntroLength = 0;
 
   public bool SingletonInstance = true;
   public static SongController Current;
@@ -43,14 +44,13 @@ public class SongController : MonoBehaviour {
 
         MainAudioSource.Stop();
 
-        double introEndTime = AudioSettings.dspTime + song.IntroClip.length;
-
+        IntroLength = song.IntroClip.length;
         IntroAudioSource.clip = song.IntroClip;
         IntroAudioSource.Play();
-        IntroAudioSource.SetScheduledEndTime(introEndTime);
+
+        Invoke("EnqueueMainClip", song.IntroClip.length / 2f);
 
         MainAudioSource.clip = song.AudioClip;
-        MainAudioSource.PlayScheduled(introEndTime);
       } else {
         IntroAudioSource.Stop();
         MainAudioSource.clip = song.AudioClip;
@@ -63,6 +63,16 @@ public class SongController : MonoBehaviour {
     }
 
     CurrentSong = song;
+  }
+
+  void EnqueueMainClip() {
+    if (IntroAudioSource.isPlaying) {
+      // Minimise delay between fetching these time-sensitive values
+      double virtualTransitionTime = AudioSettings.dspTime - IntroAudioSource.time;
+      double transitionTime = IntroLength + virtualTransitionTime;
+      IntroAudioSource.SetScheduledEndTime(transitionTime);
+      MainAudioSource.PlayScheduled(transitionTime);
+    }
   }
 
   void Update() {
