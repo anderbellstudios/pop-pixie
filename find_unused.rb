@@ -1,8 +1,8 @@
 require 'yaml'
 
 $SEARCH_DIRS = Dir.glob(
-  File.expand_path('./Assets/[!vendor]*', __dir__)
-).filter { |f| File.directory?(f) }
+  File.expand_path('./Assets/*', __dir__)
+).filter { |f| File.directory?(f) && File.basename(f) != 'vendor' }
 
 def find_matching_pattern(pattern)
   $SEARCH_DIRS.flat_map do |search_dir|
