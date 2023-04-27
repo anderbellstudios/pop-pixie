@@ -7,10 +7,14 @@ public class DialoguePage {
   public string Speaker;
   public Sprite Face;
   public AudioClip AudioClip;
+  public float AutoAdvanceDelay;
   [TextArea] public string Text;
 
   public bool HasAudioClip()
     => AudioClip != null;
+
+  public bool ShouldAutoAdvance()
+    => AutoAdvanceDelay > 0;
 
   private int _Hash = 0;
 

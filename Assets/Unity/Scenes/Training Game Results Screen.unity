@@ -1957,14 +1957,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DialogueSequence:
+    DialogueMusicFadeBehaviour:
+      EnterBehaviour: 1
+      ExitBehaviour: 0
     Pages:
     - Speaker: Amanda
       Face: {fileID: 21300000, guid: bf675684fe9bc41c6b0daf6a2d134eab, type: 3}
-      AudioClip: {fileID: 8300000, guid: bda620aca416d4868a53dbda0c2a1785, type: 3}
+      AudioClip: {fileID: 8300000, guid: 6b80a8e986b724450a21d5f2c6edb13c, type: 3}
+      AutoAdvanceDelay: 0
       Text: 'Congratulations, <color=#00ffff>Pop Pixie</color>.
 
-        Looks like
-        you might actually have a shot at this.'
+        It looks
+        like you might actually have a shot at this.'
+    - Speaker: Pop Pixie
+      Face: {fileID: 21300000, guid: 2a314213eb58f4992ab045ac29e75d0c, type: 3}
+      AudioClip: {fileID: 8300000, guid: e0493fdce89ca4ffe802789f1d4cd4b4, type: 3}
+      AutoAdvanceDelay: 0
+      Text: It's all in the wrists.
   OnFinish:
     m_PersistentCalls:
       m_Calls:
@@ -2954,23 +2963,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DialogueSequence:
+    DialogueMusicFadeBehaviour:
+      EnterBehaviour: 1
+      ExitBehaviour: 0
     Pages:
     - Speaker: Amanda
       Face: {fileID: 21300000, guid: bf675684fe9bc41c6b0daf6a2d134eab, type: 3}
-      AudioClip: {fileID: 8300000, guid: 22fc22ee76ed3401c8b8877a5fc04106, type: 3}
-      Text: Had this not been a simulation, you would be dead right now.
-    - Speaker: Amanda
-      Face: {fileID: 21300000, guid: bf675684fe9bc41c6b0daf6a2d134eab, type: 3}
-      AudioClip: {fileID: 8300000, guid: 37e864b339d394b83ad568187f91a8e4, type: 3}
-      Text: 'But we''re out of time.
+      AudioClip: {fileID: 8300000, guid: 0e6c6d047e2184c7c8d717d7045f73c0, type: 3}
+      AutoAdvanceDelay: 0
+      Text: 'Had this not been a simulation, you would be dead right now.
 
-        It''s now or never.'
+        But
+        we''re out of time. It''s now or never.'
     - Speaker: Pop Pixie
       Face: {fileID: 21300000, guid: 2a314213eb58f4992ab045ac29e75d0c, type: 3}
-      AudioClip: {fileID: 8300000, guid: f028b2f1e1c0a49fc944e8e280ac99b6, type: 3}
-      Text: 'Hey, who knows?
+      AudioClip: {fileID: 8300000, guid: db945758454134c26b6151ddd3c5af06, type: 3}
+      AutoAdvanceDelay: 0
+      Text: 'I didn''t get hit *that* many times.
 
-        Maybe I might get lucky?'
+        And hey, who know? I might
+        just get lucky.'
   OnFinish:
     m_PersistentCalls:
       m_Calls:
@@ -3062,7 +3074,7 @@ PrefabInstance:
     - target: {fileID: 6769439293733673370, guid: d15ee1ea31e624a2690b5667f5f345e3,
         type: 3}
       propertyPath: DialogueSequence.Pages.Array.data[0].Text
-      value: 'Training Simulation completed.
+      value: 'Simulation completed.
 
         Analysing results...'
       objectReference: {fileID: 0}
@@ -3075,7 +3087,7 @@ PrefabInstance:
         type: 3}
       propertyPath: DialogueSequence.Pages.Array.data[0].AudioClip
       value: 
-      objectReference: {fileID: 8300000, guid: 2d6e127548bd74a308e6f5ceacfd94f7, type: 3}
+      objectReference: {fileID: 8300000, guid: 94c0212759176491eb92b48e45df6361, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d15ee1ea31e624a2690b5667f5f345e3, type: 3}
 --- !u!4 &1863814373 stripped

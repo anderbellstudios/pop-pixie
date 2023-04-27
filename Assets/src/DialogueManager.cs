@@ -92,6 +92,16 @@ public class DialogueManager : MonoBehaviour {
       SoundController.Stop();
     }
 
+    if (CurrentPage.ShouldAutoAdvance()) {
+      DialoguePage autoAdvancePage = CurrentPage;
+
+      AsyncTimer.BaseTime.SetTimeout(() => {
+        if (CurrentPage == autoAdvancePage) {
+          NextPage();
+        }
+      }, CurrentPage.AutoAdvanceDelay);
+    }
+
     ContinuePromptTimer.Stop();
   }
 

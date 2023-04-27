@@ -22,17 +22,33 @@ public class CutsceneTextManager : MonoBehaviour {
     FadeOutTimer = new IntervalTimer();
   }
 
-  public void Write(string text, float duration, Action onComplete) {
+  public void Write(
+    string text,
+    float totalDuration,
+    float typewriterDuration,
+    float fadeOutDuration,
+    Action onComplete
+  ) {
     SetOpacity(1);
+
+    float fadeOutDelay = totalDuration - typewriterDuration - fadeOutDuration;
+
+    if (fadeOutDelay < 0) {
+      throw new Exception("Not enough time for fade out on line: " + text);
+    }
 
     Typewriter.Play(
       text: text,
-      speed: text.Length / duration,
-      onComplete: onComplete
+      speed: text.Length / typewriterDuration,
+      onComplete: () => {
+        AsyncTimer.BaseTime.SetTimeout(() => {
+          FadeOut(fadeOutDuration, onComplete);
+        }, fadeOutDelay);
+      }
     );
   }
 
-  public void FadeOut(float duration, Action onFadeOut) {
+  void FadeOut(float duration, Action onFadeOut) {
     FadeOutTimer.Interval = duration;
     FadeOutTimer.Reset();
     OnFadeOut = onFadeOut;

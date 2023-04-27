@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class CutsceneLinePhase : APhase {
   [TextArea] public string Text;
-  public float Duration, FadeOutDelay, FadeOutDuration;
+  public float TotalDuration, TypewriterDuration, FadeOutDuration;
 
   public override void LocalBegin() {
-    CutsceneTextManager.Current.Write(Text, Duration, () => {
-      Invoke("FadeOut", FadeOutDelay - FadeOutDuration);
-    });
-  }
-
-  void FadeOut() {
-    CutsceneTextManager.Current.FadeOut(FadeOutDuration, PhaseFinished);
+    CutsceneTextManager.Current.Write(
+      Text,
+      TotalDuration,
+      TypewriterDuration,
+      FadeOutDuration,
+      PhaseFinished
+    );
   }
 }
