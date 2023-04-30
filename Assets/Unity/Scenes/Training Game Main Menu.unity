@@ -400,7 +400,7 @@ PrefabInstance:
     - target: {fileID: 5526685007657887810, guid: 24a536b2882654803a737a63d5cbcaf2,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5526685007657887810, guid: 24a536b2882654803a737a63d5cbcaf2,
         type: 3}
@@ -1366,10 +1366,15 @@ PrefabInstance:
       propertyPath: SceneName
       value: Training Game Tower Scene
       objectReference: {fileID: 0}
+    - target: {fileID: 8443191957000134993, guid: 495b0e30e922c42f89f2a3609dc7005e,
+        type: 3}
+      propertyPath: FadeOutMusic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8443191957000134994, guid: 495b0e30e922c42f89f2a3609dc7005e,
         type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 8443191957000134994, guid: 495b0e30e922c42f89f2a3609dc7005e,
         type: 3}
@@ -2168,6 +2173,7 @@ MonoBehaviour:
   Phases:
   - {fileID: 1497134037}
   - {fileID: 1744680395}
+  - {fileID: 7510602723503863460}
   - {fileID: 123387742}
   - {fileID: 1820124400}
   - {fileID: 2086223275}
@@ -2191,6 +2197,7 @@ Transform:
   m_Children:
   - {fileID: 1497134038}
   - {fileID: 1744680396}
+  - {fileID: 7510602723503863458}
   - {fileID: 123387743}
   - {fileID: 1820124402}
   - {fileID: 2086223276}
@@ -3534,7 +3541,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1373300131}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1820124399
 GameObject:
@@ -3634,7 +3641,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1373300131}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1869936253
 GameObject:
@@ -4503,7 +4510,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1373300131}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2112406989
 GameObject:
@@ -4714,3 +4721,83 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &7510602723503863456
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7510602723503863458}
+  - component: {fileID: 7510602723503863460}
+  - component: {fileID: 7510602723503863459}
+  m_Layer: 0
+  m_Name: VR Ambience
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7510602723503863458
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7510602723503863456}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1373300131}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7510602723503863459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7510602723503863456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d29ec59bb440446f99a90f3da5374c99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Song:
+    IntroClip: {fileID: 0}
+    AudioClip: {fileID: 8300000, guid: 2b3353eac5b234ae6b01bafcc1826dff, type: 3}
+    Name: vr-ambience
+    Resume: 0
+  HopOnStart: 0
+  StopOnDestroy: 0
+--- !u!114 &7510602723503863460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7510602723503863456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ea938bedff164618b9b573e5f14a504, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Running: 0
+  Event:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7510602723503863459}
+        m_TargetAssemblyTypeName: SongHopper, Assembly-CSharp
+        m_MethodName: Hop
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
