@@ -15,7 +15,7 @@ public class CollectRingPullMonitor : AMonitor {
   public override void LocalUpdate() {
     if (Waiting && RingPullsData.Amount() > PreviousRingPullCount) {
       PreviousRingPullCount = RingPullsData.Amount();
-      Invoke("ConditionMet", DelayAfterPickUp);
+      AsyncTimer.PlayingTime.SetTimeout(ConditionMet, DelayAfterPickUp);
     }
   }
 }
