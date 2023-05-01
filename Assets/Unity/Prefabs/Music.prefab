@@ -64,8 +64,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IntroAudioSource: {fileID: 2939204126368740231}
   MainAudioSource: {fileID: 235767654209159900}
-  IntroLowPassFilter: {fileID: 5741552395972799781}
-  MainLowPassFilter: {fileID: 1492963723633689336}
   SingletonInstance: 1
 --- !u!82 &5511992969328948667
 AudioSource:
@@ -174,6 +172,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3433949666406116722}
   - component: {fileID: 235767654209159900}
+  - component: {fileID: 4899249102719122509}
   - component: {fileID: 1492963723633689336}
   m_Layer: 0
   m_Name: Main Audio Source
@@ -294,6 +293,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &4899249102719122509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6285294521427879175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b87c5596348634f68b4d282897cb19d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AudioLowPassFilter: {fileID: 1492963723633689336}
 --- !u!169 &1492963723633689336
 AudioLowPassFilter:
   m_ObjectHideFlags: 0
@@ -329,6 +341,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3917339264494949494}
   - component: {fileID: 2939204126368740231}
+  - component: {fileID: 1848522106277385730}
   - component: {fileID: 5741552395972799781}
   m_Layer: 0
   m_Name: Intro Audio Source
@@ -449,6 +462,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1848522106277385730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6473509952424517002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b87c5596348634f68b4d282897cb19d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AudioLowPassFilter: {fileID: 5741552395972799781}
 --- !u!169 &5741552395972799781
 AudioLowPassFilter:
   m_ObjectHideFlags: 0
