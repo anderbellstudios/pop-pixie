@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6834334765884626187}
   - component: {fileID: 6769439293733673370}
   m_Layer: 0
-  m_Name: Initial dialogue
+  m_Name: Dialogue Phase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,6 +28,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -73,9 +74,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DialogueSequence:
+    DialogueMusicFadeBehaviour:
+      EnterBehaviour: 1
+      ExitBehaviour: 0
     Pages:
-    - Face: {fileID: 21300000, guid: 1b5f5f98320794ffcaab523e6b6d47fd, type: 3}
+    - Speaker: 
+      Face: {fileID: 21300000, guid: 1b5f5f98320794ffcaab523e6b6d47fd, type: 3}
       AudioClip: {fileID: 0}
+      AutoAdvanceDelay: 0
       Text: ...
   OnFinish:
     m_PersistentCalls:

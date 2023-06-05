@@ -9,6 +9,7 @@ public class Song {
   public AudioClip AudioClip;
   public string Name;
   public bool Resume = false;
+  public bool ResetFadeLevel = true;
 
   public bool HasIntro => IntroClip != null;
   public bool Equals(Song other) => Name == other?.Name;
