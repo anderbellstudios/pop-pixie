@@ -1,5 +1,5 @@
 // Uncomment to enable Enhanced Data Collection by default
-// #define ENHANCED_DATA_COLLECTION_BUILD
+#define ENHANCED_DATA_COLLECTION_BUILD
 
 using System;
 using System.Collections;
