@@ -35,7 +35,15 @@ public class MusicController : MonoBehaviour {
 
       SeamlessAudioSource.Play(song.IntroClip, () => {
         HandleSongStarted(song);
-        SeamlessAudioSource.PlayNext(song.AudioClip, null);
+
+        /**
+         * Delaying scheduling the main clip seems to improve the accuracy
+         * of the transition for songs started immediately on scene load.
+         */
+        AsyncTimer.BaseTime.SetTimeout(() => {
+          if (CurrentSong == song)
+            SeamlessAudioSource.PlayNext(song.AudioClip, null);
+        }, Mathf.Min(1f, song.IntroClip.length / 2f));
       });
     } else {
       AudioSource audioSource = SeamlessAudioSource.Play(song.AudioClip, () => {
