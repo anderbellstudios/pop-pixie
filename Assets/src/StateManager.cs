@@ -84,6 +84,10 @@ public class StateManager : MonoBehaviour {
     Current.HandleStateChanged();
   }
 
+  static public void ResetStatesToDefault() {
+    ResetStates(new List<State>() { State.Playing });
+  }
+
   static public void AddState(State state) {
     EnhancedDataCollection.LogIfEnabled(() => "State added: " + state);
     Current.ActiveStates.Add(StateTuple(state));
@@ -118,7 +122,14 @@ public class StateManager : MonoBehaviour {
 
       Current = this;
       DontDestroyOnLoad(gameObject);
+
+      ResetStatesToDefault();
+      SceneManager.sceneUnloaded += OnSceneUnloaded;
     }
+  }
+
+  void OnSceneUnloaded(Scene scene) {
+    ResetStatesToDefault();
   }
 
   protected void HandleStateChanged() {
