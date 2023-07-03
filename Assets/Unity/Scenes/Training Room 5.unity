@@ -2073,6 +2073,7 @@ GameObject:
   m_Component:
   - component: {fileID: 691322866}
   - component: {fileID: 691322867}
+  - component: {fileID: 691322868}
   m_Layer: 16
   m_Name: AI
   m_TagString: Untagged
@@ -2120,6 +2121,27 @@ MonoBehaviour:
   - {fileID: 1951467545}
   Interval: 1.5
   LastAI: -1
+--- !u!114 &691322868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 691322865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fceeb58c8cbe444981d496cbba126fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EnclosureHitPoints: {fileID: 742429441}
+  BossHitPoints: {fileID: 1844793470}
+  HoloringAI: {fileID: 1472147274}
+  BombAI: {fileID: 773223464}
+  SweepingAI: {fileID: 723498931}
+  BulletsAI: {fileID: 1951467545}
+  BreakEnclosureSpeedMultiplier: 1.5
+  TwoThirdsHPSpeedMultiplier: 1.5
+  OneThirdHPSpeedMultiplier: 1.5
 --- !u!1001 &699291139
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2691,7 +2713,6 @@ MonoBehaviour:
   StartsInControl: 0
   InControl: 0
   SafeAngle: 30
-  DangerZoneExpandDuration: 6
   BeforeLaserDuration: 5
   LaserDuration: 1
   LaserBeamLength: 300
