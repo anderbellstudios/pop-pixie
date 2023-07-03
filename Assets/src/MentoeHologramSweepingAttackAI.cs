@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class MentoeHologramSweepingAttackAI : AEnemyAI {
   public float SafeAngle;
-  public float DangerZoneExpandDuration, BeforeLaserDuration, LaserDuration, LaserBeamLength;
+  public float BeforeLaserDuration, LaserDuration, LaserBeamLength;
   public AnimationCurve DangerZoneExpandCurve;
   public Transform DangerZoneTransform;
   public Image DangerZoneImage;
@@ -22,7 +22,7 @@ public class MentoeHologramSweepingAttackAI : AEnemyAI {
   public override void ControlGained() {
     DangerZoneExpandTimer = new IntervalTimer() {
       TimeClass = "PlayingTime",
-      Interval = DangerZoneExpandDuration
+      Interval = BeforeLaserDuration + LaserDuration
     };
 
     BeforeLaserTimer = new IntervalTimer() {
