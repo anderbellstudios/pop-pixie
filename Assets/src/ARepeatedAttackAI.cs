@@ -34,15 +34,11 @@ public abstract class ARepeatedAttackAI : AEnemyAI {
   public virtual void LocalWhileInControl() {}
 
   void PerformAttackAndDecrementCounter() {
-    if (RemainingAttacks > 0)
-    {
-        PerformAttack();
-        RemainingAttacks--;
-    }
-
-    if (RemainingAttacks == 0)
-    {
-        EndAttack();
+    if (RemainingAttacks > 0) 
+      PerformAttack();
+      RemainingAttacks--;
+    } else {
+      EndAttack();
     }
   }
 
