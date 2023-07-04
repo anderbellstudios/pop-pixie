@@ -35,12 +35,14 @@ public abstract class ARepeatedAttackAI : AEnemyAI {
 
   void PerformAttackAndDecrementCounter() {
     if (RemainingAttacks > 0)
-      PerformAttack();
+    {
+        PerformAttack();
+        RemainingAttacks--;
+    }
 
-    if (RemainingAttacks == 0) {
-      EndAttack();
-    } else {
-      RemainingAttacks--;
+    if (RemainingAttacks == 0)
+    {
+        EndAttack();
     }
   }
 
