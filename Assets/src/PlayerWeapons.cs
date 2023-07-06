@@ -68,6 +68,7 @@ public class PlayerWeapon {
   public Sprite Sprite => Weapon.Sprite;
   public Sprite InHandSprite => Weapon.InHandSprite;
   public AudioClip ShootSound => Weapon.ShootSound;
+  public bool isReloading = false;
 
   public float CooldownInterval() 
     => 1.0f / FireRate;

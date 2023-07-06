@@ -30,7 +30,7 @@ public class PlayerShoot : MonoBehaviour {
     if (WrappedInput.GetButton("Fire") && FireTimer.Elapsed()) {
       FireTimer.Reset();
 
-      if (weapon.HasBullets()) {
+      if (weapon.HasBullets() && !weapon.isReloading) {
         Fire(weapon);
       } else {
         OnFailedToShoot.Invoke();
