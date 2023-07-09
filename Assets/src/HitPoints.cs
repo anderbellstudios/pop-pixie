@@ -28,32 +28,30 @@ public class HitPoints : MonoBehaviour, ISerializableComponent {
   public float Current; 
   public float RegenerateRate;
   public List<ACanBeDamagedArbiter> CanBeDamagedArbiters;
+  public ACounterAttackArbiter CounterAttackArbiter;
   public float LastDamaged;
   public bool Dead = false;
-  public UnityEvent<HitPoints> OnUpdate, OnDecrease, OnBecomeZero;
+  public UnityEvent<HitPoints> OnUpdate, OnDecrease, OnBecomeZero, OnCounterAttack;
 
   public void Cap() {
     // Make sure HP is between 0 and max
     Current = Mathf.Clamp( Current, 0, Maximum );
   }
 
-  public float Set(float val) {
+  public void Set(float val) {
     Current = val;
     Cap();
     OnUpdate.Invoke(this);
-    return Current;
   }
 
-  public float Increase(float val) {
+  public void Increase(float val) {
     Current += val;
     Cap();
     OnUpdate.Invoke(this);
-    return Current;
   }
 
-  public float Decrease(float val) {
-    if (Dead)
-      return 0.0f; // <-- Bypass callbacks
+  public void Decrease(float val) {
+    if (Dead) return;
 
     if (!InfiniteHP) {
       Increase(-val * (float) (IsPlayer ? 1M - AssistModeData.DamageReduction : 1M));
@@ -65,8 +63,6 @@ public class HitPoints : MonoBehaviour, ISerializableComponent {
       Dead = true;
       OnBecomeZero.Invoke(this);
     }
-
-    return Current;
   }
 
   bool CanBeDamaged() {
@@ -75,13 +71,23 @@ public class HitPoints : MonoBehaviour, ISerializableComponent {
     );
   }
 
-  public float Damage(float val) {
-    if (CanBeDamaged()) {
-      LastDamaged = PlayingTime.time;
-      return Decrease(val);
+  bool IsCounterAttack() {
+    return CounterAttackArbiter != null && CounterAttackArbiter.IsCounterAttack();
+  }
+
+  // Returns true on counter attack
+  public bool Damage(float val, bool canBeCounterAttacked = false) {
+    if (canBeCounterAttacked && IsCounterAttack()) {
+      OnCounterAttack.Invoke(this);
+      return true;
     }
 
-    return -1.0f;
+    if (CanBeDamaged()) {
+      LastDamaged = PlayingTime.time;
+      Decrease(val);
+    }
+
+    return false;
   }
 
   void Awake() {

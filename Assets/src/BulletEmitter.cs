@@ -38,6 +38,8 @@ public class BulletEmitter : MonoBehaviour {
 
     BulletData bulletData = bullet.GetComponent<BulletData>();
     bulletData.Damage = Weapon.Damage;
+    bulletData.Originator = gameObject;
+    bulletData.CounterAttackSpeed = Speed();
     bulletData.GetDirection = () => dm.Direction;
     bullet.GetComponent<Rigidbody2D>().velocity = Speed() * direction.normalized;
   }

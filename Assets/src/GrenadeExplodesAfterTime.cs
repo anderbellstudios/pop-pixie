@@ -11,6 +11,7 @@ public class GrenadeExplodesAfterTime : MonoBehaviour {
   public float ExplodeTime;
   public float Radius;
   public float DamageExplodingInHand;
+  public float VelocityCoefficient;
   public AnimationCurve DamageCurve;
   public Transform RadiusIndicator;
   public GameObject Explosion;
@@ -46,30 +47,29 @@ public class GrenadeExplodesAfterTime : MonoBehaviour {
     }
 
     ExplodeTimer.IfElapsed(() => {
-      GameObject ExplosionGameObject = Instantiate(Explosion, transform.position, Quaternion.identity);
-      ExplosionGameObject.transform.localScale = new Vector3(2 * Radius, 2 * Radius, 2 * Radius);
+      bool isCounterAttack = DamageHitPointsInRadius.Invoke(
+        WaitingToThrow() ? DamageExplodingInHand : BulletData.Damage,
+        transform.position,
+        Radius,
+        true,
+        DamageCurve
+      );
 
-      if (ExplosionSound != null)
-        Instantiate(ExplosionSound, transform.position, Quaternion.identity);
+      if (isCounterAttack && BulletData.Originator && BulletData.Originator != PlayerGameObject.Current) {
+        Vector3 toOriginator = (BulletData.Originator.transform.position - transform.position);
+        Rigidbody.velocity = toOriginator * VelocityCoefficient;
+        ExplodeTimer.Reset();
+      } else {
+        GameObject ExplosionGameObject = Instantiate(Explosion, transform.position, Quaternion.identity);
+        ExplosionGameObject.transform.localScale = new Vector3(2 * Radius, 2 * Radius, 2 * Radius);
 
-      ApplyDamageInRadius();
+        if (ExplosionSound != null)
+          Instantiate(ExplosionSound, transform.position, Quaternion.identity);
 
-      Destroy(gameObject);
+        Destroy(gameObject);
+      }
     });
   }
-
-  void ApplyDamageInRadius() {
-    foreach (GameObject go in FindObjectsOfType<GameObject>()) {
-      HitPoints hp = go.GetComponent<HitPoints>();
-      float distance = (go.transform.position - transform.position).magnitude;
-
-      if (hp != null && distance <= Radius) {
-        hp.Damage(MaxDamage() * DamageCurve.Evaluate(distance / Radius));
-      }
-    };
-  }
-
-  float MaxDamage() => WaitingToThrow() ? DamageExplodingInHand : BulletData.Damage;
 
   bool WaitingToThrow() => (GrenadeWaitingBeforeThrow != null) && GrenadeWaitingBeforeThrow.Waiting;
 
