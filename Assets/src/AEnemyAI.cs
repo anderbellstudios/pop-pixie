@@ -69,8 +69,8 @@ public abstract class AEnemyAI : MonoBehaviour {
   public GameObject Target
     => PlayerGameObject.Current;
 
-  public void DamageTarget( float damage ) {
-    Target.GetComponent<HitPoints>().Damage( damage );
+  public bool DamageTarget(float damage, bool canBeCounterAttacked = false) {
+    return Target.GetComponent<HitPoints>().Damage(damage, canBeCounterAttacked);
   }
 
   public Vector2 TargetHeading() {

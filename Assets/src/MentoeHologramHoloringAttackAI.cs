@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MentoeHologramHoloringAttackAI : ARepeatedAttackAI {
   public GameObject HoloringPrefab;
+  public DamageMultiHitPointEntity DamageBoss;
 
   void Start() {
     InGamePrompt.Current.RegisterSource(98, () =>
@@ -14,6 +15,8 @@ public class MentoeHologramHoloringAttackAI : ARepeatedAttackAI {
   }
 
   public override void PerformAttack() {
-    Instantiate(HoloringPrefab, transform);
+    GameObject holoringGameObject = Instantiate(HoloringPrefab, transform);
+    Holoring holoring = holoringGameObject.GetComponent<Holoring>();
+    holoring.DamageBoss = (damage) => DamageBoss.Damage(damage);
   }
 }

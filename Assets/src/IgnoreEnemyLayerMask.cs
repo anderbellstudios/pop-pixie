@@ -4,5 +4,5 @@ using UnityEngine;
 
 public static class IgnoreEnemyLayerMask {
   public static int Mask
-    => ~LayerMask.GetMask("Enemy", "RollToPassEnemy", "DoNotCollideWithEnemy", "PlayerGrenade");
+    => ~LayerMask.GetMask("Enemy", "RollToPassEnemy", "DoNotCollideWithEnemy", "Grenade");
 }

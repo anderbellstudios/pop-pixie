@@ -16,6 +16,8 @@ public class FireBullet : MonoBehaviour {
 
     BulletData bulletData = bullet.GetComponent<BulletData>();
     bulletData.Damage = damage;
+    bulletData.Originator = gameObject;
+    bulletData.CounterAttackSpeed = speed;
     bulletData.GetDirection = getDirection;
 
     bullet.GetComponent<Rigidbody2D>().velocity = speed * direction.normalized;

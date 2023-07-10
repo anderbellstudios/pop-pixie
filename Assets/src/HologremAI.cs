@@ -17,8 +17,16 @@ public class HologremAI : AEnemyAI, IRequiresLineOfMovementAI {
   }
 
   void PerformAttack() {
-    Target.GetComponent<HitPoints>().Damage(1);
-    Destroy(gameObject);
-  }
+    bool isCounterAttack = Target.GetComponent<HitPoints>().Damage(1, true);
 
+    if (isCounterAttack) {
+      DamageHitPointsInRadius.Invoke(
+        1, // Damage
+        transform.position,
+        5 // Radius
+      );
+    } else { 
+      Destroy(gameObject);
+    }
+  }
 }

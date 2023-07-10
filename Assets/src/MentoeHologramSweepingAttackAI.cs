@@ -11,6 +11,7 @@ public class MentoeHologramSweepingAttackAI : AEnemyAI {
   public Image DangerZoneImage;
   public LineRenderer LineRenderer;
   public SoundHopper SoundHopper;
+  public DamageMultiHitPointEntity DamageBoss;
 
   public AEnemyAI WhenFinished;
 
@@ -69,7 +70,8 @@ public class MentoeHologramSweepingAttackAI : AEnemyAI {
       float targetAngle = ((Mathf.Atan2(targetDirection.y, targetDirection.x) * Mathf.Rad2Deg) - StartAngle + 360) % 360;
 
       if ((PreviousAngle <= targetAngle) && (targetAngle <= angle)) {
-        DamageTarget(1);
+        bool isCounterAttack = DamageTarget(1, true);
+        if (isCounterAttack) DamageBoss.Damage(150);
       }
 
       PreviousAngle = angle;
