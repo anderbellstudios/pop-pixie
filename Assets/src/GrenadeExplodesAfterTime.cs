@@ -11,6 +11,7 @@ public class GrenadeExplodesAfterTime : MonoBehaviour {
   public float ExplodeTime;
   public float Radius;
   public float DamageExplodingInHand;
+  public bool DamagesPlayer = true, DamagesEnemies = true;
   public float VelocityCoefficient;
   public AnimationCurve DamageCurve;
   public Transform RadiusIndicator;
@@ -48,11 +49,16 @@ public class GrenadeExplodesAfterTime : MonoBehaviour {
 
     ExplodeTimer.IfElapsed(() => {
       bool isCounterAttack = DamageHitPointsInRadius.Invoke(
-        WaitingToThrow() ? DamageExplodingInHand : BulletData.Damage,
-        transform.position,
-        Radius,
-        true,
-        DamageCurve
+        damage: WaitingToThrow() ? DamageExplodingInHand : BulletData.Damage,
+        origin: transform.position,
+        radius: Radius,
+        canBeCounterAttacked: true,
+        damageCurve: DamageCurve,
+        shouldDamage: (go) => {
+          if (!DamagesPlayer && go.tag == "Player") return false;
+          if (!DamagesEnemies && go.tag == "Enemy") return false;
+          return true;
+        }
       );
 
       if (isCounterAttack && BulletData.Originator && BulletData.Originator != PlayerGameObject.Current) {

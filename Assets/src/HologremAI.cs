@@ -21,9 +21,9 @@ public class HologremAI : AEnemyAI, IRequiresLineOfMovementAI {
 
     if (isCounterAttack) {
       DamageHitPointsInRadius.Invoke(
-        1, // Damage
-        transform.position,
-        5 // Radius
+        damage: 1,
+        origin: transform.position,
+        radius: 5
       );
     } else { 
       Destroy(gameObject);

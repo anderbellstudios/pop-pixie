@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,11 +9,14 @@ public static class DamageHitPointsInRadius {
     Vector3 origin,
     float radius,
     bool canBeCounterAttacked = false,
-    AnimationCurve damageCurve = null
+    AnimationCurve damageCurve = null,
+    Func<GameObject, bool> shouldDamage = null
   ) {
     bool isCounterAttack = false;
 
     foreach (GameObject go in GameObject.FindObjectsOfType<GameObject>()) {
+      if (shouldDamage != null && !shouldDamage(go)) continue;
+
       HitPoints hp = go.GetComponent<HitPoints>();
       float distance = (go.transform.position - origin).magnitude;
 
