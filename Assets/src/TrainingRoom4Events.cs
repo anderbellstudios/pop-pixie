@@ -69,7 +69,7 @@ public class TrainingRoom4Events : MonoBehaviour {
       if (!SimulationResultData.ObstacleCourseBestTime.HasValue || ElapsedTime() < SimulationResultData.ObstacleCourseBestTime)
         SimulationResultData.ObstacleCourseBestTime = (int) ElapsedTime();
 
-      Invoke("AfterRaceFinished", DelayAfterRaceFinished);
+      AsyncTimer.PlayingTime.SetTimeout(AfterRaceFinished, DelayAfterRaceFinished);
     }
   }
 
