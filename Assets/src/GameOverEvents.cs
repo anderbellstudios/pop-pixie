@@ -7,8 +7,4 @@ public class GameOverEvents : MonoBehaviour {
     SaveGame.ReadSave();
     SceneData.Load();
   }
-
-  public void Quit() {
-    WrappedApplication.Quit();
-  }
 }

@@ -12,8 +12,4 @@ public class ElevatorEvents : MonoBehaviour {
     GDCall.ExpectFirstTime();
     SceneEvents.Current.ChangeScene(ElevatorData.NextLevel, true);
   }
-
-  public void Quit() {
-    WrappedApplication.Quit();
-  }
 }

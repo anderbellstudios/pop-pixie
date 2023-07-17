@@ -48,6 +48,5 @@ public class VersionInfo : MonoBehaviour {
 
   public void ButtonClicked() {
     Application.OpenURL(DownloadURL);
-    WrappedApplication.Quit();
   }
 }

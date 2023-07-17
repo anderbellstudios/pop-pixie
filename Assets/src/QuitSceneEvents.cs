@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WrappedApplication {
+public class QuitSceneEvents : MonoBehaviour {
+  void Start() {
+    EnhancedDataCollection.LogIfEnabled(() => "Quitting via quit scene");
 
-  public static void Quit() {
 #if UNITY_EDITOR
     UnityEditor.EditorApplication.isPlaying = false;
 #else
     Application.Quit();
 #endif
   }
-
 }
