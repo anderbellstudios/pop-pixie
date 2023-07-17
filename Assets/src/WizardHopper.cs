@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class WizardHopper : MonoBehaviour {
-
   public string Passphrase = "wizard";
 
   public List<char> Letters;
@@ -16,17 +15,16 @@ public class WizardHopper : MonoBehaviour {
   }
 
   void Update() {
-    if ( Letters.Count == 0 )
+    if (Letters.Count == 0)
       return;
 
-    if ( Input.GetKeyDown( Letters[0].ToString() ) ) {
+    if (Input.GetKeyDown(Letters[0].ToString())) {
       Letters.RemoveAt(0);
     }
 
     // Only on the first time
-    if ( Letters.Count == 0 ) {
-      SceneManager.LoadScene( "WIZARD MODE!!" );
+    if (Letters.Count == 0) {
+      SceneEvents.Current.ChangeScene("Wizard Mode", true);
     }
   }
-
 }
