@@ -17,6 +17,7 @@ public class MentoeHologramBulletsAttackAI : AEnemyAI {
 
   private IntervalTimer AngleTimer, FireTimer;
   private Vector3 ReferenceDirection;
+  private float CurrentRotations;
 
   public override void ControlGained() {
     AngleTimer = new IntervalTimer() {
@@ -34,6 +35,7 @@ public class MentoeHologramBulletsAttackAI : AEnemyAI {
     FireTimer.Start();
 
     ReferenceDirection = TargetDirection();
+    CurrentRotations = Rotations;
   }
 
   public override void WhileInControl() {
@@ -42,7 +44,7 @@ public class MentoeHologramBulletsAttackAI : AEnemyAI {
     } else {
       FireTimer.IfElapsed(() => {
         // Add 15deg to the angle to avoid shooting the player right away
-        float angle = Mathf.Lerp(0, 360 * Rotations, AngleTimer.Progress()) + 15;
+        float angle = Mathf.Lerp(0, 360 * CurrentRotations, AngleTimer.Progress()) + 15;
 
         FireBulletInDirection(Quaternion.Euler(0, 0, angle +   0) * Vector3.right,  true);
         FireBulletInDirection(Quaternion.Euler(0, 0, angle +  90) * Vector3.right, false);
