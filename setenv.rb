@@ -12,19 +12,10 @@ environment_files = Dir.glob("./environments/#{new_environment}/**/*", File::FNM
   .select { |f| File.file?(f) }
   .map { |f| f.sub("./environments/#{new_environment}/", '') }
 
-unless previous_environment.nil?
-  environment_files.each do |file|
-    system("diff -q ./#{file} ./environments/#{previous_environment}/#{file}")
-
-    if $?.exitstatus == 1
-      $stderr.puts "Manually merge #{file} before switching environments"
-      exit 1
-    end
-  end
-end
-
 environment_files.each do |file|
-  FileUtils.cp("./environments/#{new_environment}/#{file}", "./#{file}")
+  puts "Linking #{file}"
+  FileUtils.rm("./#{file}")
+  FileUtils.ln("./environments/#{new_environment}/#{file}", "./#{file}")
 end
 
 File.write('./environments/current', new_environment)
