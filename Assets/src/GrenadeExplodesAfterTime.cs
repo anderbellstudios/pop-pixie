@@ -64,6 +64,7 @@ public class GrenadeExplodesAfterTime : MonoBehaviour {
       if (isCounterAttack && BulletData.Originator && BulletData.Originator != PlayerGameObject.Current) {
         Vector3 toOriginator = (BulletData.Originator.transform.position - transform.position);
         Rigidbody.velocity = toOriginator * VelocityCoefficient;
+        DamagesEnemies = true;
         ExplodeTimer.Reset();
       } else {
         GameObject ExplosionGameObject = Instantiate(Explosion, transform.position, Quaternion.identity);
