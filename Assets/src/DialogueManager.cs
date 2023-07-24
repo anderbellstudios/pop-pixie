@@ -51,7 +51,7 @@ public class DialogueManager : MonoBehaviour {
     if (!Open)
       return;
 
-    if (ButtonPressHelper.GetButtonPress("confirm")) {
+    if (ButtonPressHelper.GetButtonPress("confirm") || WrappedInput.GetButtonDown("Click")) {
       if (DialogueBox.TypewriterActive) {
         if (DialogueSeenBeforeData.GetSeenBefore(CurrentPage))
           DialogueBox.SkipTypewriter();
