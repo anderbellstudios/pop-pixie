@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class LoreManager : MonoBehaviour {
-
   public delegate void LoreWindowOnClose();
 
   public bool SingletonInstance = true;
+  public bool StartOpen = false;
   public static LoreManager Current;
 
   public LoreWindowController LoreWindow;
@@ -14,35 +14,40 @@ public class LoreManager : MonoBehaviour {
   private LoreWindowOnClose OnClose;
   private bool IsOpen;
 
-	void Start() {
+  void Start() {
     if (SingletonInstance)
       Current = this;
 
-    IsOpen = false;
-    LoreWindow.Hide();
-	}
+    SetIsOpen(StartOpen);
+  }
 
   public void Open(LoreItem item, LoreWindowOnClose onClose = null) {
-    OnClose = onClose;
-    IsOpen = true;
-
+    LoreWindow.ResetZoomAndPan();
     LoreWindow.SetTitle(item.Name);
     LoreWindow.SetImage(item.Image);
-    LoreWindow.Show();
+
+    OnClose = onClose;
+    SetIsOpen(true);
   }
-	
-	void Update() {
-    if (!IsOpen)
-      return;
 
-    if (WrappedInput.GetButtonUp("Cancel")) {
+  public void Close() {
+    if (OnClose != null) OnClose();
+    SetIsOpen(false);
+  }
+
+  void SetIsOpen(bool isOpen) {
+    IsOpen = isOpen;
+
+    if (isOpen) {
+      LoreWindow.Show();
+    } else {
       LoreWindow.Hide();
-
-      if (OnClose != null)
-        OnClose();
-
-      IsOpen = false;
     }
-	}
+  }
 
+  void Update() {
+    if (IsOpen && WrappedInput.GetButtonUp("Cancel")) {
+      Close();
+    }
+  }
 }
