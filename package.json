@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "set-env": "ruby setenv.rb",
+    "vendor:validate": "ruby Assets/vendor/validate.rb",
+    "find-unused": "ruby find_unused.rb",
+    "lint": "dotnet format --include Assets/src/**/*.cs --folder",
+    "lint:nofix": "dotnet format --include Assets/src/**/*.cs --folder --verify-no-changes"
+  }
+}
