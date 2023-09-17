@@ -59,6 +59,30 @@ Move from `/Assets/Rewired` to `/Assets/vendor/Rewired`
 
 **When there are no more compile errors, Rewired will prompt you to begin installation. Please skip this step.**
 
+#### Pixel Art City Backgrounds (third-party, paid)
+
+The city background used in some scenes in Pop Pixie is modified from the Pixel Art City Backgrounds asset pack by edermunizz. Due to the license under which this asset pack is sold, we're unable to include our modified version of the city background in this GitHub repo. The game will still run without the background, but some scenes will be rendered incorrectly.
+
+Purchase from https://edermunizz.itch.io/pixel-art-city-backgrounds. If you send us proof that you have done so, we will give you a copy of the modified background.
+
+Expected file structure:
+
+```
+/Assets/vendor/Main Menu Background
+├── Lights 1.png
+├── Lights 2.png
+├── Lights 3.png
+├── Lights 4.png
+├── Lights 5.png
+├── Lights 6.png
+├── Lights 7.png
+├── Lights 8.png
+├── Lights 9.png
+├── Lights 10.png
+├── Main Menu Background.png
+└── Tower M.png
+```
+
 #### TextMesh Pro (special, free)
 
 We use TextMesh Pro for rendering text in Pop Pixie.
