@@ -15,12 +15,12 @@ public class DirectionScatterer : MonoBehaviour, IDirectionManager {
   }
 
   Vector3 ScatteredDirection() {
-    var originalDirection = ( (IDirectionManager) OriginalDirectionManager ).Direction;
+    var originalDirection = ((IDirectionManager)OriginalDirectionManager).Direction;
     return RandomRotation() * originalDirection;
   }
 
   Quaternion RandomRotation() {
-    float angle = Random.Range( -Angle, Angle ) / 2;
+    float angle = Random.Range(-Angle, Angle) / 2;
     return Quaternion.Euler(0, 0, angle);
   }
 }

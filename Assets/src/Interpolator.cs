@@ -10,7 +10,7 @@ public class Interpolator : MonoBehaviour {
 
   private float Duration;
   private float StartTime;
-  private float StartProgress, EndProgress; 
+  private float StartProgress, EndProgress;
   private bool IsAnimating = false;
 
   public void Reset(float progress) {
@@ -37,7 +37,8 @@ public class Interpolator : MonoBehaviour {
   }
 
   void Update() {
-    if (IsAnimating) HandleChange();
+    if (IsAnimating)
+      HandleChange();
   }
 
   private void HandleChange() {

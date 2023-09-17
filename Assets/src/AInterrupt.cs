@@ -5,31 +5,31 @@ using System.Linq;
 using UnityEngine;
 
 public abstract class AInterrupt : MonoBehaviour {
-  
+
   void Start() {
     LocalStart();
   }
 
-  public virtual void LocalStart() {}
+  public virtual void LocalStart() { }
 
   void Update() {
-    AEnemyAI ai = GetComponents<AEnemyAI>().Where( x => x.InControl ).FirstOrDefault();
+    AEnemyAI ai = GetComponents<AEnemyAI>().Where(x => x.InControl).FirstOrDefault();
 
-    if ( ai == null )
+    if (ai == null)
       return;
 
-    if ( !OnlyAIsMatching().IsInstanceOfType( ai ) )
+    if (!OnlyAIsMatching().IsInstanceOfType(ai))
       return;
 
-    if ( ShouldInterrupt( ai ) )
-      ai.RelinquishControlTo( InterruptAI() );
+    if (ShouldInterrupt(ai))
+      ai.RelinquishControlTo(InterruptAI());
   }
 
   public virtual Type OnlyAIsMatching() {
-    return typeof( AEnemyAI );
+    return typeof(AEnemyAI);
   }
 
-  public abstract bool ShouldInterrupt( AEnemyAI ai );
+  public abstract bool ShouldInterrupt(AEnemyAI ai);
   public abstract AEnemyAI InterruptAI();
 
 }

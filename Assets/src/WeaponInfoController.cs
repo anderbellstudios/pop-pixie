@@ -24,7 +24,7 @@ public class WeaponInfoController : MonoBehaviour {
   }
 
   public void SetAmmunition(int current, int max) {
-    AmmunitionBar.Progress = (float) current / (float) max;
+    AmmunitionBar.Progress = (float)current / (float)max;
     ReloadIndicator.Visible = current == 0;
   }
 }

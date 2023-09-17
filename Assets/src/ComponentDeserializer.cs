@@ -17,7 +17,7 @@ public class ComponentDeserializer : MonoBehaviour {
   }
 
   public void Deserialize() {
-    ISerializableComponent component = (ISerializableComponent) GameObject.GetComponent(
+    ISerializableComponent component = (ISerializableComponent)GameObject.GetComponent(
       SerializedComponent.Type
     );
 
@@ -28,14 +28,14 @@ public class ComponentDeserializer : MonoBehaviour {
       if (field.FieldType == typeof(Int32)) {
         field.SetValue(component, Convert.ToInt32(val));
       } else if (field.FieldType == typeof(Single)) {
-        field.SetValue(component, (float) val);
+        field.SetValue(component, (float)val);
       } else {
         field.SetValue(component, val);
       }
 
       if (component is ISaveCallbacks) {
-        ((ISaveCallbacks) component).AfterLoad();
+        ((ISaveCallbacks)component).AfterLoad();
       }
     }
-  } 
+  }
 }

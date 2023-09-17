@@ -18,7 +18,7 @@ public class Level3BossPhase : APhase, ISerializableComponent {
     });
   }
 
-	public override void LocalBegin() {
+  public override void LocalBegin() {
     if (JumpedDown) {
       // Loaded autosave after jump
       StartAI();
@@ -28,7 +28,7 @@ public class Level3BossPhase : APhase, ISerializableComponent {
   }
 
   void JumpFinished() {
-    Invoke( "StartAI", 0.5f );
+    Invoke("StartAI", 0.5f);
     JumpedDown = true;
   }
 

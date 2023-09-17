@@ -6,7 +6,7 @@ public class EnableComponentPhase : APhase {
 
   public MonoBehaviour Component;
 
-	public override void LocalBegin () {
+  public override void LocalBegin() {
     Component.enabled = true;
     PhaseFinished();
   }

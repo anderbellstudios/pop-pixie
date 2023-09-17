@@ -30,7 +30,7 @@ public class SeamlessAudioSource : MonoBehaviour {
     if (!currentClip) {
       return Play(clip, onPlay);
     }
-     
+
     return PlayScheduled(
       clip,
       AudioSettings.dspTime + currentClip.length - PrimaryAudioSource.time,

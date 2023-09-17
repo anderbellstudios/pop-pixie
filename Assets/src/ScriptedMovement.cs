@@ -51,7 +51,7 @@ public class ScriptedMovement : MonoBehaviour {
       }
     }
 
-    MovementManager.Movement += (Vector2) (
+    MovementManager.Movement += (Vector2)(
       heading.normalized * Mathf.Min(Speed * DeltaTime, heading.magnitude)
     );
 

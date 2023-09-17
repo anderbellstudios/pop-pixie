@@ -31,7 +31,7 @@ public class DiscoveredItemsMenuEvents : AMenu {
       discoveredItemButton.ClickCallback = LoreItemButtonClicked;
 
       discoveredItemButton.SelectCallback = () => ScrollToSelectionHelper.EnsureVisible(
-        targetTransform: (RectTransform) menuItemGameObject.transform,
+        targetTransform: (RectTransform)menuItemGameObject.transform,
         contentArea: ScrollContentArea,
         scrollRect: ScrollRect
       );
@@ -42,7 +42,7 @@ public class DiscoveredItemsMenuEvents : AMenu {
     return buttons;
   }
 
-  public void LoreItemButtonClicked( Button button, LoreItem loreItem ) {
+  public void LoreItemButtonClicked(Button button, LoreItem loreItem) {
     SetFocus(false);
     SetVisible(false);
 

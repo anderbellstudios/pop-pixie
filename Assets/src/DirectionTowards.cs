@@ -10,7 +10,7 @@ public class DirectionTowards : MonoBehaviour, IDirectionManager {
   public string TargetName;
 
   void Awake() {
-    if ( Target == null ) 
+    if (Target == null)
       Target = GameObject.Find(TargetName).transform;
   }
 

@@ -30,7 +30,8 @@ public class Holoring : MonoBehaviour {
   }
 
   public void HandleCollidedWithPlayer() {
-    if (IsCounterAttacked) return;
+    if (IsCounterAttacked)
+      return;
     IsCounterAttacked = PlayerGameObject.Current.GetComponent<HitPoints>().Damage(1, true);
   }
 }

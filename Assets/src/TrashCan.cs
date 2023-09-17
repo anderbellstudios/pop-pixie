@@ -10,7 +10,7 @@ public class TrashCan : AInspectable {
   public SpriteRenderer PopPixieSpriteRenderer;
   public SpawnFlyingRingPull SpawnFlyingRingPull;
   public SpriteRenderer TrashCanFrontSprite, TrashCanBackSprite;
-  public Sprite TrashCanFrontSpriteEmpty, TrashCanBackSpriteEmpty; 
+  public Sprite TrashCanFrontSpriteEmpty, TrashCanBackSpriteEmpty;
 
   public float ZenithOffsetY, FinalOffsetX, FinalOffsetY;
   public float JumpDuration;
@@ -168,7 +168,7 @@ public class TrashCan : AInspectable {
         ParticleSystem.Play();
         BeginDigging();
       } else {
-      SetCutscene(false);
+        SetCutscene(false);
       }
     });
   }

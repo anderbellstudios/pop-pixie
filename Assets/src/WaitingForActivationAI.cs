@@ -8,8 +8,8 @@ public class WaitingForActivationAI : AEnemyAI {
   public AEnemyAI WhenActivated;
 
   public override void WhileInControl() {
-    if ( Activator.IsActivated( this ) ) {
-      RelinquishControlTo( WhenActivated );
+    if (Activator.IsActivated(this)) {
+      RelinquishControlTo(WhenActivated);
     }
   }
 

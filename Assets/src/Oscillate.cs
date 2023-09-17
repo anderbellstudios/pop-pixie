@@ -17,8 +17,8 @@ public class Oscillate : MonoBehaviour {
   }
 
   float Scale() {
-    var sine = (float) Math.Sin(Time.time * OscillationSpeed);
-    return BaseScale + ( sine * OscillationScale );
+    var sine = (float)Math.Sin(Time.time * OscillationSpeed);
+    return BaseScale + (sine * OscillationScale);
   }
 
 }

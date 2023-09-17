@@ -9,7 +9,7 @@ public class Level3Started : MonoBehaviour {
   public PhaseScheduler PhaseScheduler;
   public HUDBar BossProgressBar;
 
-	void Start () {
+  void Start() {
     Fader.Fade("from black", 2.0f);
   }
 

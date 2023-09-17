@@ -15,7 +15,7 @@ public class CutsceneTextManager : MonoBehaviour {
   private IntervalTimer FadeOutTimer;
   private Action OnFadeOut;
 
-  void Awake () {
+  void Awake() {
     if (SingletonInstance)
       Current = this;
 

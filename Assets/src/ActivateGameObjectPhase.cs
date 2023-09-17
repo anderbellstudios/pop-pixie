@@ -6,7 +6,7 @@ public class ActivateGameObjectPhase : APhase {
 
   public GameObject GameObject;
 
-	public override void LocalBegin() {
+  public override void LocalBegin() {
     GameObject.active = true;
     PhaseFinished();
   }

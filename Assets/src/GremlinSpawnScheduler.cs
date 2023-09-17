@@ -31,23 +31,23 @@ public class GremlinSpawnScheduler : MonoBehaviour {
       TimeClass = "PlayingTime",
       Interval = SpawnInterval
     };
-    
+
     TentativeSpawnNextGremlin();
   }
 
   void Update() {
-    if ( !Spawning )
+    if (!Spawning)
       return;
 
-    if ( (SpawnEarlyWhenAllGremlinsDestroyed && DestroyedAllGremlins()) || SpawnTimer.Elapsed() )
+    if ((SpawnEarlyWhenAllGremlinsDestroyed && DestroyedAllGremlins()) || SpawnTimer.Elapsed())
       TentativeSpawnNextGremlin();
 
-    if ( SpawnedGremlins.Count == MaxGremlins && DestroyedAllGremlins() )
+    if (SpawnedGremlins.Count == MaxGremlins && DestroyedAllGremlins())
       Spawning = false;
   }
 
   void TentativeSpawnNextGremlin() {
-    if ( SpawnedGremlins.Count < MaxGremlins || MaxGremlins == -1 ) {
+    if (SpawnedGremlins.Count < MaxGremlins || MaxGremlins == -1) {
       var gremlin = SpawnGremlin.Spawn();
       SpawnedGremlins.Add(gremlin);
       SpawnTimer.Reset();
@@ -55,7 +55,7 @@ public class GremlinSpawnScheduler : MonoBehaviour {
   }
 
   bool DestroyedAllGremlins() {
-    return SpawnedGremlins.All( x => EnemyUtils.IsDead(x) );
+    return SpawnedGremlins.All(x => EnemyUtils.IsDead(x));
   }
 
 }

@@ -23,9 +23,9 @@ public class HitPoints : MonoBehaviour, ISerializableComponent {
 
   public bool IsPlayer = false;
   public bool ShouldSave = true;
-  public float Maximum; 
+  public float Maximum;
   public bool InfiniteHP = false;
-  public float Current; 
+  public float Current;
   public float RegenerateRate;
   public List<ACanBeDamagedArbiter> CanBeDamagedArbiters;
   public ACounterAttackArbiter CounterAttackArbiter;
@@ -35,7 +35,7 @@ public class HitPoints : MonoBehaviour, ISerializableComponent {
 
   public void Cap() {
     // Make sure HP is between 0 and max
-    Current = Mathf.Clamp( Current, 0, Maximum );
+    Current = Mathf.Clamp(Current, 0, Maximum);
   }
 
   public void Set(float val) {
@@ -51,10 +51,11 @@ public class HitPoints : MonoBehaviour, ISerializableComponent {
   }
 
   public void Decrease(float val) {
-    if (Dead) return;
+    if (Dead)
+      return;
 
     if (!InfiniteHP) {
-      Increase(-val * (float) (IsPlayer ? 1M - AssistModeData.DamageReduction : 1M));
+      Increase(-val * (float)(IsPlayer ? 1M - AssistModeData.DamageReduction : 1M));
     }
 
     OnDecrease.Invoke(this);
@@ -96,7 +97,7 @@ public class HitPoints : MonoBehaviour, ISerializableComponent {
     }
   }
 
-	void Start() {
+  void Start() {
     GDCall.UnlessLoad(InitHitPoints);
 
     if (!ShouldSave)
@@ -108,17 +109,17 @@ public class HitPoints : MonoBehaviour, ISerializableComponent {
       Dead = true;
       OnBecomeZero.Invoke(this);
     }
-	}
+  }
 
   public void InitHitPoints() {
     Current = Maximum;
     LastDamaged = -1000000f;
   }
-	
-	void Update() {
+
+  void Update() {
     if (!StateManager.Playing)
       return;
 
     Increase(RegenerateRate * Time.deltaTime);
-	}
+  }
 }

@@ -35,8 +35,8 @@ public class FlyingRingPull : MonoBehaviour {
   }
 
   float ComputeCameraScale() {
-    Vector2 a = Camera.main.WorldToScreenPoint( new Vector2(0, 0) );
-    Vector2 b = Camera.main.WorldToScreenPoint( new Vector2(1, 0) );
+    Vector2 a = Camera.main.WorldToScreenPoint(new Vector2(0, 0));
+    Vector2 b = Camera.main.WorldToScreenPoint(new Vector2(1, 0));
 
     return (b - a).magnitude;
   }

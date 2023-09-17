@@ -18,8 +18,8 @@ public class MovePath : MonoBehaviour {
     Vector3 dest = Points[PointIndex];
 
     transform.localPosition = Vector3.MoveTowards(
-      transform.localPosition, 
-      dest, 
+      transform.localPosition,
+      dest,
       Speed * Time.deltaTime
     );
 

@@ -24,14 +24,14 @@ public abstract class ARepeatedAttackAI : AEnemyAI {
     LocalControlGained();
   }
 
-  public virtual void LocalControlGained() {}
+  public virtual void LocalControlGained() { }
 
   public override void WhileInControl() {
     AttackTimer.IfElapsed(PerformAttackAndDecrementCounter);
     LocalWhileInControl();
   }
 
-  public virtual void LocalWhileInControl() {}
+  public virtual void LocalWhileInControl() { }
 
   void PerformAttackAndDecrementCounter() {
     if (RemainingAttacks > 0) {

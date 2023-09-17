@@ -20,12 +20,13 @@ public class Damageable : MonoBehaviour {
 
     hitPoints.OnUpdate.AddListener(hp => {
       if (hp.Current == 0) {
-        if (!StoppedWorking) StopWorking();
+        if (!StoppedWorking)
+          StopWorking();
         SetSprite(DestroyedFrame);
       } else {
         int frames_count = WorkingFrames.Length;
         float increment = hp.Maximum / frames_count;
-        int frame_no = frames_count - (int) Math.Ceiling(hp.Current / increment);
+        int frame_no = frames_count - (int)Math.Ceiling(hp.Current / increment);
         SetSprite(WorkingFrames[frame_no]);
       }
     });
@@ -43,6 +44,6 @@ public class Damageable : MonoBehaviour {
 
   void StopWorking() {
     StoppedWorking = true;
-    DisableComponents.ForEach( comp => comp.enabled = false );
+    DisableComponents.ForEach(comp => comp.enabled = false);
   }
 }

@@ -11,16 +11,16 @@ public class WrappedBaseInput : BaseInput {
     StandaloneInputModule.inputOverride = this;
   }
 
-  public override bool GetButtonDown( string button ) {
-    if ( button == "Horizontal" || button == "Vertical" ) {
-      return base.GetButtonDown( button );
+  public override bool GetButtonDown(string button) {
+    if (button == "Horizontal" || button == "Vertical") {
+      return base.GetButtonDown(button);
     } else {
-      return WrappedInput.GetButtonDown( button );
+      return WrappedInput.GetButtonDown(button);
     }
   }
 
-  public override float GetAxisRaw( string axis ) {
-    return WrappedInput.GetAxis( axis );
+  public override float GetAxisRaw(string axis) {
+    return WrappedInput.GetAxis(axis);
   }
 
 }

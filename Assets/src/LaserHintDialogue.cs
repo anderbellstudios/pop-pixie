@@ -12,7 +12,7 @@ public class LaserHintDialogue : MonoBehaviour {
 
   void Start() {
     LaserScheduler.FireableRemoved += DoNotPlayDialogueAgain;
-    LaserScheduler.CycleFinished   += DialogueOpportunity;
+    LaserScheduler.CycleFinished += DialogueOpportunity;
   }
 
   void DoNotPlayDialogueAgain() {
@@ -20,7 +20,8 @@ public class LaserHintDialogue : MonoBehaviour {
   }
 
   void DialogueOpportunity() {
-    if ( ShouldPlayDialogue ) Invoke("PlayDialogue", 0.5f);
+    if (ShouldPlayDialogue)
+      Invoke("PlayDialogue", 0.5f);
   }
 
   void PlayDialogue() {

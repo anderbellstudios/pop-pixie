@@ -11,8 +11,8 @@ public class WeaponReload : MonoBehaviour {
 
   IntervalTimer ReloadTimer;
 
-	// Use this for initialization
-	void Start () {
+  // Use this for initialization
+  void Start() {
     ReloadTimer = new IntervalTimer() {
       TimeClass = "PlayingTime"
     };
@@ -22,20 +22,20 @@ public class WeaponReload : MonoBehaviour {
       s => InProgress() ? 0.5f * s : s
     );
 
-	}
-	
-	// Update is called once per frame
-	void Update () {
+  }
+
+  // Update is called once per frame
+  void Update() {
     if (!StateManager.Playing)
       return;
 
-    ReloadTimer.IfElapsed( CurrentWeapon().Reload );
+    ReloadTimer.IfElapsed(CurrentWeapon().Reload);
 
-    if ( WrappedInput.GetButtonDown("Reload") && !InProgress() && CanReload() )
+    if (WrappedInput.GetButtonDown("Reload") && !InProgress() && CanReload())
       BeginReload();
 
-    if ( InProgress() ) {
-      if ( CanReload() ) {
+    if (InProgress()) {
+      if (CanReload()) {
         ReloadBar.Progress = ReloadTimer.Progress();
       } else {
         ReloadTimer.Stop();
@@ -44,7 +44,7 @@ public class WeaponReload : MonoBehaviour {
     }
 
     ReloadBar.Visible = InProgress();
-	}
+  }
 
   public void Interrupt() {
     ReloadTimer.Stop();

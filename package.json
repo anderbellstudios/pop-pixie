@@ -1,0 +1,15 @@
+{
+  "scripts": {
+    "set-env": "ruby setenv.rb",
+    "vendor:validate": "ruby Assets/vendor/validate.rb",
+    "find-unused": "ruby find_unused.rb",
+    "lint": "dotnet format --include Assets/src/**/*.cs --folder",
+    "lint:nofix": "yarn lint --verify-no-changes",
+    "ci": "yarn lint:nofix",
+    "husky:install": "husky install",
+    "husky:uninstall": "husky uninstall"
+  },
+  "devDependencies": {
+    "husky": "^8.0.3"
+  }
+}

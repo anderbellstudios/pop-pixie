@@ -11,7 +11,7 @@ public class LostLineOfMovementInterrupt : AInterrupt {
   IntervalTimer Timer;
 
   public override Type OnlyAIsMatching() {
-    return typeof( IRequiresLineOfMovementAI );
+    return typeof(IRequiresLineOfMovementAI);
   }
 
   public override void LocalStart() {
@@ -23,8 +23,8 @@ public class LostLineOfMovementInterrupt : AInterrupt {
     Timer.Start();
   }
 
-  public override bool ShouldInterrupt( AEnemyAI ai ) {
-    if ( ai.LineOfMovement() )
+  public override bool ShouldInterrupt(AEnemyAI ai) {
+    if (ai.LineOfMovement())
       Timer.Reset();
 
     return Timer.Elapsed();

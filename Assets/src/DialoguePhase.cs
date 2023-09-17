@@ -7,7 +7,7 @@ public class DialoguePhase : APhase {
   public DialogueManager DialogueManager;
   public string DialoguePath;
 
-	public override void LocalBegin () {
+  public override void LocalBegin() {
     // DialogueManager.Play(DialoguePath, this);
     PhaseFinished();
   }

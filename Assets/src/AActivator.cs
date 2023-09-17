@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class AActivator : MonoBehaviour {
 
-  public virtual bool IsActivated( AEnemyAI ai ) {
+  public virtual bool IsActivated(AEnemyAI ai) {
     return IsActivated();
   }
 

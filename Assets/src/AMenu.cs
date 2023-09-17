@@ -46,8 +46,8 @@ public abstract class AMenu : MonoBehaviour {
     return MenuRoot.GetComponentsInChildren<Button>(true).ToList();
   }
 
-  public virtual void LocalStartBeforeSelect() {} 
-  public virtual void LocalStart() {} 
+  public virtual void LocalStartBeforeSelect() { }
+  public virtual void LocalStart() { }
 
   void Update() {
     if (_InFocus) {
@@ -64,7 +64,7 @@ public abstract class AMenu : MonoBehaviour {
     }
   }
 
-  public virtual void LocalUpdate() {} 
+  public virtual void LocalUpdate() { }
 
   public void Open() => Open(null);
 
@@ -77,7 +77,7 @@ public abstract class AMenu : MonoBehaviour {
     LocalOpen();
   }
 
-  public virtual void LocalOpen() {}
+  public virtual void LocalOpen() { }
 
   public void OpenNestedMenu(AMenu menu) {
     SetFocus(false);
@@ -103,7 +103,7 @@ public abstract class AMenu : MonoBehaviour {
 
   }
 
-  public virtual void LocalClose() {}
+  public virtual void LocalClose() { }
 
   public void SetVisible(bool visible) {
     MenuRoot.SetActive(visible);
@@ -123,14 +123,14 @@ public abstract class AMenu : MonoBehaviour {
     LocalBecameVisible();
   }
 
-  public virtual void LocalBecameVisible() {}
+  public virtual void LocalBecameVisible() { }
 
   void LostVisibility() {
     EnhancedDataCollection.LogIfEnabled(() => "Menu closed: " + gameObject.name);
     LocalLostVisibility();
   }
 
-  public virtual void LocalLostVisibility() {}
+  public virtual void LocalLostVisibility() { }
 
   public void SetFocus(bool focus) {
     Buttons.ForEach(b => b.interactable = focus);
@@ -150,8 +150,8 @@ public abstract class AMenu : MonoBehaviour {
     LocalGainedFocus();
   }
 
-  public virtual void LocalGainedFocus() {}
+  public virtual void LocalGainedFocus() { }
 
   void LostFocus() { LocalLostFocus(); }
-  public virtual void LocalLostFocus() {}
+  public virtual void LocalLostFocus() { }
 }

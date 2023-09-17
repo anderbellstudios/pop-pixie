@@ -9,39 +9,39 @@ public class SceneDeserializer : MonoBehaviour {
   SerializedScene SerializedScene;
   bool WaitingForSceneLoad = false;
 
-  public SceneDeserializer( SerializedScene serializedScene ) {
+  public SceneDeserializer(SerializedScene serializedScene) {
     SerializedScene = serializedScene;
   }
 
   public void Deserialize() {
     WaitingForSceneLoad = true;
     SceneManager.sceneLoaded += OnSceneLoaded;
-    SceneEvents.Current.ChangeScene( SerializedScene.Name, true, true );
+    SceneEvents.Current.ChangeScene(SerializedScene.Name, true, true);
   }
 
-  public void OnSceneLoaded( Scene scene, LoadSceneMode mode ) {
-    if ( !WaitingForSceneLoad )
+  public void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
+    if (!WaitingForSceneLoad)
       return;
 
     WaitingForSceneLoad = false;
 
-    foreach ( GameObject go in SerializableGameObjects() ) {
+    foreach (GameObject go in SerializableGameObjects()) {
       var matchingSerializedGameObjects = SerializedScene.GameObjects.Where(
         sgo => sgo.Guid == go.GetComponent<GuidComponent>().GetGuid()
       ).ToList();
 
-      switch ( matchingSerializedGameObjects.Count ) {
+      switch (matchingSerializedGameObjects.Count) {
         case 0:
           Destroy(go);
           break;
 
         case 1:
           var sgo = matchingSerializedGameObjects[0];
-          new GameObjectDeserializer( sgo ).Deserialize();
+          new GameObjectDeserializer(sgo).Deserialize();
           break;
       }
-    } 
-  } 
+    }
+  }
 
   GameObject[] SerializableGameObjects() {
     return FindObjectsOfType<GameObject>().Where(

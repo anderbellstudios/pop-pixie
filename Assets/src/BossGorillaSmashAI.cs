@@ -34,25 +34,25 @@ public class BossGorillaSmashAI : AEnemyAI {
   }
 
   public override void WhileInControl() {
-    SetRadiusIndicatorScale( RadiusExpandTimer.Progress() );
-    AttackTimer.IfElapsed( DoAttack );
+    SetRadiusIndicatorScale(RadiusExpandTimer.Progress());
+    AttackTimer.IfElapsed(DoAttack);
   }
 
   void DoAttack() {
-    Instantiate( Explosion, transform );
+    Instantiate(Explosion, transform);
 
-    if ( TargetDistance() <= DamageRadius )
-      DamageTarget( Damage );
+    if (TargetDistance() <= DamageRadius)
+      DamageTarget(Damage);
 
-    RelinquishControlTo( AfterAtack );
+    RelinquishControlTo(AfterAtack);
   }
 
   public override void ControlRelinquished() {
     SetRadiusIndicatorScale(0f);
   }
 
-  void SetRadiusIndicatorScale( float scale ) {
-    RadiusIndicator.localScale = new Vector3( scale, scale, scale );
+  void SetRadiusIndicatorScale(float scale) {
+    RadiusIndicator.localScale = new Vector3(scale, scale, scale);
   }
 
 }

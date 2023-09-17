@@ -44,7 +44,7 @@ public class ElevatorDoor : AInspectable, ISerializableComponent {
         ElevatorData.NextLevel = NextLevel;
         SceneChangeHopper.Hop();
       },
-      () => {}
+      () => { }
     );
   }
 }

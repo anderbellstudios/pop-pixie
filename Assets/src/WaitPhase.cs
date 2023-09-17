@@ -7,7 +7,7 @@ public class WaitPhase : APhase {
 
   [SerializeField] public UnityEvent OnBegin;
 
-	public override void LocalBegin () {
+  public override void LocalBegin() {
     OnBegin.Invoke();
   }
 

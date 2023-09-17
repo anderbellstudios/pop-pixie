@@ -34,10 +34,10 @@ public class AndersonsAlgorithm {
   };
 
   Vector3 Start, Destination;
-  float Radius; 
+  float Radius;
   int RemainingSteps;
 
-  public AndersonsAlgorithm(Vector3 start, Vector2 destination, float radius, int remainingSteps=1) {
+  public AndersonsAlgorithm(Vector3 start, Vector2 destination, float radius, int remainingSteps = 1) {
     Start = start;
     Destination = destination;
     Radius = radius;
@@ -45,23 +45,23 @@ public class AndersonsAlgorithm {
   }
 
   public Vector3? NextPoint() {
-    var hit = ObstacleInDirection( ToDestination() );
+    var hit = ObstacleInDirection(ToDestination());
     Debug.DrawRay(Start, ToDestination(), Color.blue, 5.0f);
 
-    if ( DirectPath(hit) ) {
+    if (DirectPath(hit)) {
       return Destination;
     } else {
       return TryThroughElbow();
     }
-    
+
   }
 
   private Vector3? TryThroughElbow() {
     // Stop if out of steps
-    if ( RemainingSteps == 0 )
+    if (RemainingSteps == 0)
       return null;
 
-    foreach ( float angle in Angles ) {
+    foreach (float angle in Angles) {
 
       var direction = ToDestination(angle);
       Debug.DrawRay(Start, direction, Color.red, 5.0f);
@@ -72,14 +72,14 @@ public class AndersonsAlgorithm {
 
       float dist = 1.0f;
 
-      while( dist < maxDist ) {
+      while (dist < maxDist) {
         // Find elbow position dist from start in direction
-        var elbow = Start + ( dist * Vector3.Normalize(direction) );
+        var elbow = Start + (dist * Vector3.Normalize(direction));
 
         // In order to understand recursion...
-        var pathfinder = new AndersonsAlgorithm( elbow, Destination, Radius, RemainingSteps-1 );
+        var pathfinder = new AndersonsAlgorithm(elbow, Destination, Radius, RemainingSteps - 1);
 
-        if ( pathfinder.NextPoint() != null ) {
+        if (pathfinder.NextPoint() != null) {
           return elbow;
         }
 
@@ -97,12 +97,12 @@ public class AndersonsAlgorithm {
 
   private RaycastHit2D ObstacleInDirection(Vector3 direction) {
     // Cast a circle from the start to the destination
-    return Physics2D.CircleCast( 
-      Start, 
-      Radius, 
+    return Physics2D.CircleCast(
+      Start,
+      Radius,
       direction,
       Mathf.Infinity,
-      ~( ( 1 << 8 ) | ( 1 << 9 ) ) // <-- neither 8 nor 9
+      ~((1 << 8) | (1 << 9)) // <-- neither 8 nor 9
     );
   }
 
@@ -110,7 +110,7 @@ public class AndersonsAlgorithm {
     // If it hit anything other than itself
     if (hit.collider) {
 
-      if ( ToDestination().magnitude - hit.distance > Radius * 2 ) {
+      if (ToDestination().magnitude - hit.distance > Radius * 2) {
         // Hit something before destination
         return false;
       } else {

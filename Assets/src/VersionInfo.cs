@@ -24,14 +24,14 @@ public class VersionInfo : MonoBehaviour {
   void FetchLatestVersion() {
     try {
       using (WebClient client = new WebClient()) {
-       LatestVersion = client.DownloadString(VersionURL).Trim();
+        LatestVersion = client.DownloadString(VersionURL).Trim();
 
-       UpdateButton.SetActive(
-         new Version(CurrentVersion) < new Version(LatestVersion)
-       );
+        UpdateButton.SetActive(
+          new Version(CurrentVersion) < new Version(LatestVersion)
+        );
 
-       UpdateText();
-       CancelInvoke();
+        UpdateText();
+        CancelInvoke();
       }
     } catch (WebException e) {
       Debug.Log(e);

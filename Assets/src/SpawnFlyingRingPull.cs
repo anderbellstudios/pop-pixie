@@ -9,7 +9,7 @@ public class SpawnFlyingRingPull : MonoBehaviour {
   public int Amount = 1;
   public float Interval = 0.05f;
 
-  Transform Parent; 
+  Transform Parent;
 
   int AlreadyDropped = 0;
 
@@ -27,7 +27,7 @@ public class SpawnFlyingRingPull : MonoBehaviour {
     GameObject flyingRingPull = Instantiate(Prefab, Parent);
     flyingRingPull.transform.position = Camera.main.WorldToScreenPoint(transform.position);
 
-    if ( AlreadyDropped >= Amount )
+    if (AlreadyDropped >= Amount)
       CancelInvoke("DropRingPull");
   }
 

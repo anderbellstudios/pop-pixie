@@ -19,7 +19,7 @@ public class PlayerShoot : MonoBehaviour {
     FireTimer.Start();
   }
 
-	void Update() {
+  void Update() {
     if (!StateManager.Playing)
       return;
 
@@ -36,7 +36,7 @@ public class PlayerShoot : MonoBehaviour {
         OnFailedToShoot.Invoke();
       }
     }
-	}
+  }
 
   void Fire(PlayerWeapon weapon) {
     weapon.ExpendBullet();
@@ -44,7 +44,7 @@ public class PlayerShoot : MonoBehaviour {
     FireBullet.Fire(
       prefab: weapon.BulletPrefab,
       getDirection: () => ScatterDirection.Scatter(
-        ((IDirectionManager) AimDirection).Direction,
+        ((IDirectionManager)AimDirection).Direction,
         amount: weapon.Scatter
       ),
       speed: weapon.BulletSpeed,
@@ -53,6 +53,6 @@ public class PlayerShoot : MonoBehaviour {
     );
   }
 
-  PlayerWeapon PlayerWeapon() 
+  PlayerWeapon PlayerWeapon()
     => gameObject.GetComponent<EquippedWeapon>().CurrentWeapon;
 }

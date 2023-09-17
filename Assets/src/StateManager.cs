@@ -113,7 +113,7 @@ public class StateManager : MonoBehaviour {
   protected StateFeatures StateFeaturesCache;
   protected UnityEvent OnStateChanged = new UnityEvent();
 
-  void Awake () {
+  void Awake() {
     if (SingletonInstance) {
       if (Current != null) {
         Destroy(gameObject);

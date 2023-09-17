@@ -7,7 +7,7 @@ public class Roll : MonoBehaviour {
   public static bool HasRolled;
 
   public RollAllowed RollAllowed;
-  public MonoBehaviour DirectionManager; 
+  public MonoBehaviour DirectionManager;
   public MovementManager MovementManager;
   public TrailRenderer TrailRenderer;
   public Animator Animator;
@@ -31,7 +31,7 @@ public class Roll : MonoBehaviour {
     }
 
     if (ButtonPressHelper.GetButtonPress("Roll") && !Rolling && RollAllowed.CanRoll())
-      StartRolling(); 
+      StartRolling();
 
     if (Rolling) {
       MovementManager.Movement += Speed * Direction() * Time.deltaTime;
@@ -40,7 +40,8 @@ public class Roll : MonoBehaviour {
   }
 
   void StartRolling() {
-    if (PlayerIsMoving()) HasRolled = true;
+    if (PlayerIsMoving())
+      HasRolled = true;
 
     RollAllowed.DidRoll();
     Rolling = true;
@@ -65,7 +66,7 @@ public class Roll : MonoBehaviour {
   }
 
   Vector2 Direction() {
-    return ( (IDirectionManager) DirectionManager ).Direction.normalized;
+    return ((IDirectionManager)DirectionManager).Direction.normalized;
   }
 
   bool PlayerIsMoving() {

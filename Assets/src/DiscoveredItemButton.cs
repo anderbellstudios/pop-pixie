@@ -11,7 +11,7 @@ public class DiscoveredItemButton : MonoBehaviour, ISelectHandler {
   public Button Button;
   public TMP_Text Label;
 
-  public delegate void ClickCallbackDelegate( Button button, LoreItem loreItem );
+  public delegate void ClickCallbackDelegate(Button button, LoreItem loreItem);
   public ClickCallbackDelegate ClickCallback;
   public Action SelectCallback;
 
@@ -21,7 +21,7 @@ public class DiscoveredItemButton : MonoBehaviour, ISelectHandler {
   }
 
   public void OnClick() {
-    ClickCallback( Button, LoreItem );
+    ClickCallback(Button, LoreItem);
   }
 
   public void OnSelect(BaseEventData eventData) {

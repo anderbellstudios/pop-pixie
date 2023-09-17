@@ -11,7 +11,7 @@ public class SceneSerializer : MonoBehaviour {
       Name = SceneName(),
       GameObjects = GameObjects()
     };
-  } 
+  }
 
   string SceneName() {
     return SceneManager.GetActiveScene().name;
@@ -20,6 +20,6 @@ public class SceneSerializer : MonoBehaviour {
   SerializedGameObject[] GameObjects() {
     return FindObjectsOfType<GameObject>().Select(
       go => new GameObjectSerializer(go).Serialize()
-    ).ToArray().Where( sgo => sgo != null ).ToArray();
+    ).ToArray().Where(sgo => sgo != null).ToArray();
   }
 }

@@ -18,8 +18,8 @@ public class PlayerMovable : MonoBehaviour, IDirectionManager {
       WrappedInput.GetAxis("Vertical")
     ).normalized;
 
-    if ( !Roll.Rolling )
-      MovementManager.Movement += Speed * (Vector2) Direction * Time.deltaTime;
+    if (!Roll.Rolling)
+      MovementManager.Movement += Speed * (Vector2)Direction * Time.deltaTime;
   }
 
 }

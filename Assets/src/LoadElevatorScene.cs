@@ -13,7 +13,7 @@ public class LoadElevatorScene : AInspectable {
   public bool Triggered;
 
   public override void OnInspect() {
-    if ( ShouldPlayDialogue() ) {
+    if (ShouldPlayDialogue()) {
       // Dialogue.Play("Dialogue/l1d3", this);
       Triggered = true;
       ShowPrompt();
@@ -26,7 +26,7 @@ public class LoadElevatorScene : AInspectable {
     return !Triggered && PreElevatorDialogue != "";
   }
 
-  void ShowPrompt () {
+  void ShowPrompt() {
     DialoguePromptManager.Current.Prompt(
       "(This elevator can take you to the " + FlavourFloorName + " floor.)\n(Will you advance?)",
       "Advance",
@@ -37,11 +37,11 @@ public class LoadElevatorScene : AInspectable {
         AudioFadeOut.Current.FadeOut(2.0f);
         Invoke("LoadScene", 3.0f);
       },
-      () => {}
+      () => { }
     );
   }
 
-  void LoadScene () {
+  void LoadScene() {
     ElevatorData.NextLevel = NextLevel;
     SceneManager.LoadScene("Elevator");
   }

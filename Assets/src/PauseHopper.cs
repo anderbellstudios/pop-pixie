@@ -24,7 +24,7 @@ public class PauseHopper : MonoBehaviour {
       StateManager.AddState(State.Paused);
       SceneManager.LoadScene("Pause Menu", LoadSceneMode.Additive);
     }
-      
+
   }
 
 }

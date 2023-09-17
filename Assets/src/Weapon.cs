@@ -21,6 +21,6 @@ public class Weapon : ScriptableObject {
   public Sprite InHandSprite;
   public AudioClip ReloadSound, ShootSound;
 
-  public float CooldownInterval() 
+  public float CooldownInterval()
     => 1.0f / FireRate;
 }

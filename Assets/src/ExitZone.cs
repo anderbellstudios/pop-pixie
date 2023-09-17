@@ -9,15 +9,15 @@ public class ExitZone : MonoBehaviour {
   public Color InactiveColor, ActiveColor;
   public float Delay;
 
-  void OnTriggerEnter2D (Collider2D other) {
-    if ( other.tag == "Player" ) {
+  void OnTriggerEnter2D(Collider2D other) {
+    if (other.tag == "Player") {
       SpriteRenderer.color = ActiveColor;
       Invoke("Leave", Delay);
     }
   }
 
-  void OnTriggerExit2D (Collider2D other) {
-    if ( other.tag == "Player" ) {
+  void OnTriggerExit2D(Collider2D other) {
+    if (other.tag == "Player") {
       SpriteRenderer.color = InactiveColor;
       CancelInvoke();
     }

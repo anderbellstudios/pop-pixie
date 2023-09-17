@@ -98,7 +98,7 @@ public class MusicController : MonoBehaviour {
     float volume =
       AudioFadeOut.Current.FadeLevel(true)
       * FadeInterpolator.Evaluate()
-      * ((float) OptionsData.MusicVolume);
+      * ((float)OptionsData.MusicVolume);
 
     SeamlessAudioSource.ForEachAudioSource((audioSource) => {
       audioSource.volume = volume;
@@ -110,6 +110,7 @@ public class MusicController : MonoBehaviour {
 
   void HandleSongStarted(Song song) {
     CurrentSong = song;
-    if (song.ResetFadeLevel) SetFadeLevel(1f);
+    if (song.ResetFadeLevel)
+      SetFadeLevel(1f);
   }
 }

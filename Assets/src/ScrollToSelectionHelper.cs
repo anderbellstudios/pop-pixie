@@ -14,7 +14,7 @@ public static class ScrollToSelectionHelper {
     float targetBottomEdge = targetPositionY + (targetHeight / 2f);
 
     float viewportTopEdge = contentArea.anchoredPosition.y;
-    float viewportBottomEdge = viewportTopEdge + ((RectTransform) scrollRect.transform).rect.height;
+    float viewportBottomEdge = viewportTopEdge + ((RectTransform)scrollRect.transform).rect.height;
 
     if (targetBottomEdge > viewportBottomEdge) {
       contentArea.anchoredPosition += new Vector2(

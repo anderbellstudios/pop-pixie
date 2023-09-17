@@ -6,8 +6,8 @@ using UnityEngine;
 public class FireableScheduler : MonoBehaviour {
 
   public delegate void FireableEvent();
-  public event FireableEvent FireableRemoved = delegate {};
-  public event FireableEvent CycleFinished = delegate {};
+  public event FireableEvent FireableRemoved = delegate { };
+  public event FireableEvent CycleFinished = delegate { };
 
   public float FireInterval;
   public float RespiteInterval;
@@ -19,13 +19,13 @@ public class FireableScheduler : MonoBehaviour {
   // -1 is the respite phase; anything else corresponds to an index of Fireables
   private int Phase = -1;
 
-  public void RemoveFireable( AFireable fireable ) {
+  public void RemoveFireable(AFireable fireable) {
     FireableRemoved();
 
-    int fireable_index = Fireables.FindIndex( l => l == fireable );
+    int fireable_index = Fireables.FindIndex(l => l == fireable);
 
     // Make sure that the fireable about to be fired next remains the same
-    if ( fireable_index < Phase )
+    if (fireable_index < Phase)
       Phase -= 1;
 
     Fireables.Remove(fireable);
@@ -44,22 +44,22 @@ public class FireableScheduler : MonoBehaviour {
     if (!StateManager.Playing)
       return;
 
-    if ( RespitePhase() ) {
+    if (RespitePhase()) {
       Timer.Interval = RespiteInterval;
     } else {
       Timer.Interval = FireInterval;
     }
 
-    Timer.IfElapsed( () => RunPhase() );
+    Timer.IfElapsed(() => RunPhase());
   }
 
   void RunPhase() {
-    if ( Phase >= Fireables.Count ) {
+    if (Phase >= Fireables.Count) {
       Phase = -1;
       CycleFinished();
     }
 
-    if ( !RespitePhase() ) {
+    if (!RespitePhase()) {
       var fireable = Fireables[Phase];
       fireable.BeginFiring();
     }

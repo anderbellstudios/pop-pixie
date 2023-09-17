@@ -15,7 +15,7 @@ public class CaptionLineManager : MonoBehaviour {
   private CaptionLine CaptionLine = null;
   private IntervalTimer Timer;
 
-  void Awake () {
+  void Awake() {
     if (SingletonInstance)
       Current = this;
 

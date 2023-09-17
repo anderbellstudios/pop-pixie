@@ -14,7 +14,7 @@ public class BossWaitingToAttackAI : AEnemyAI {
 
   public override void ControlGained() {
     float attackIntervalRandomModifier = Random.Range(
-      - AttackIntervalRandomness / 2,
+      -AttackIntervalRandomness / 2,
         AttackIntervalRandomness / 2
     );
 
@@ -27,10 +27,10 @@ public class BossWaitingToAttackAI : AEnemyAI {
   }
 
   public override void WhileInControl() {
-    ApplyMovement( Speed * TargetDirection() );
+    ApplyMovement(Speed * TargetDirection());
 
     AttackTimer.IfElapsed(
-      () => RelinquishControlTo( WhenAttacking )
+      () => RelinquishControlTo(WhenAttacking)
     );
   }
 

@@ -24,15 +24,15 @@ public class RingPullCounter : MonoBehaviour {
   void Update() {
     Text.text = RingPullsData.Amount().ToString() + " <sprite=\"Ring Pull Icon\" name=\"Ring Pull\">";
 
-    if ( RingPullsData.ShouldPulse ) {
+    if (RingPullsData.ShouldPulse) {
       RingPullsData.ShouldPulse = false;
-      PulseSoundController.Play( PulseSound );
+      PulseSoundController.Play(PulseSound);
       PulseTimer.Reset();
     }
 
-    if ( PulseTimer.Started ) {
-      float scale = 1 + PulseAmplitude * ( 1 - PulseTimer.Progress() );
-      PulseTarget.localScale = new Vector2( scale, scale );
+    if (PulseTimer.Started) {
+      float scale = 1 + PulseAmplitude * (1 - PulseTimer.Progress());
+      PulseTarget.localScale = new Vector2(scale, scale);
     }
   }
 

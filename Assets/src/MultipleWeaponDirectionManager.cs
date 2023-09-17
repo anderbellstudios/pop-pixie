@@ -12,12 +12,12 @@ public class MultipleWeaponDirectionManager : MonoBehaviour, IDirectionManager {
   public CursorWeaponDirectionManager CursorWeaponDirectionManager;
 
   // Use this for initialization
-  void Start () {
+  void Start() {
     Direction = Vector3.up;
   }
-  
+
   // Update is called once per frame
-  void Update () {
+  void Update() {
     if (!StateManager.Playing)
       return;
 
@@ -25,11 +25,11 @@ public class MultipleWeaponDirectionManager : MonoBehaviour, IDirectionManager {
       ? JoystickWeaponDirectionManager.Direction
       : CursorWeaponDirectionManager.Direction;
 
-    if ( newDirection.magnitude > 0 ) {
+    if (newDirection.magnitude > 0) {
       Direction = newDirection;
 
       var rotation = Quaternion.FromToRotation(
-        new Vector3( 0, 1, 0 ),
+        new Vector3(0, 1, 0),
         Direction
       );
 

@@ -32,17 +32,17 @@ public class PhaseScheduler : MonoBehaviour, ISerializableComponent {
     Running = true;
     PhaseId = -1;
     NextPhase();
-	}
+  }
 
   public void BeginCurrentPhase() {
     var phase = Phases[PhaseId];
-    phase.Begin( () => PhaseFinished() );
+    phase.Begin(() => PhaseFinished());
   }
 
   void NextPhase() {
     PhaseId += 1;
-    
-    if ( PhaseId < Phases.Count ) {
+
+    if (PhaseId < Phases.Count) {
       BeginCurrentPhase();
     } else {
       Running = false;
@@ -59,11 +59,11 @@ public class PhaseScheduler : MonoBehaviour, ISerializableComponent {
   }
 
   float TotalProgressBarAllotment() {
-    return Phases.Sum( phase => phase.ProgressBarAllotment() );
+    return Phases.Sum(phase => phase.ProgressBarAllotment());
   }
 
   float TotalBarProgress() {
-    return Phases.Sum( phase => phase.ProgressBarValue() );
+    return Phases.Sum(phase => phase.ProgressBarValue());
   }
 
 }

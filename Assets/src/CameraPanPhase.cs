@@ -8,8 +8,9 @@ public class CameraPanPhase : APhase {
   public bool Cutscene;
   public float DelayBeforePan;
 
-	public override void LocalBegin () {
-    if (Cutscene) StateManager.AddState(State.NotPlaying);
+  public override void LocalBegin() {
+    if (Cutscene)
+      StateManager.AddState(State.NotPlaying);
     Invoke("StartPan", DelayBeforePan);
   }
 
@@ -19,7 +20,8 @@ public class CameraPanPhase : APhase {
   }
 
   void PanFinished() {
-    if (Cutscene) StateManager.RemoveState(State.NotPlaying);
+    if (Cutscene)
+      StateManager.RemoveState(State.NotPlaying);
     PhaseFinished();
   }
 

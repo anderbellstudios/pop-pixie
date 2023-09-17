@@ -32,8 +32,8 @@ public class TrainingRoom4Events : MonoBehaviour {
   void UpdateTimer() {
     if (RaceInProgress || RaceFinished) {
       float elapsedTime = ElapsedTime();
-      int minutes = (int) Mathf.Floor(Mathf.Clamp(elapsedTime / 60f, 0, 99));
-      int seconds = (int) Mathf.Floor(elapsedTime - (minutes * 60));
+      int minutes = (int)Mathf.Floor(Mathf.Clamp(elapsedTime / 60f, 0, 99));
+      int seconds = (int)Mathf.Floor(elapsedTime - (minutes * 60));
 
       TimerText.text = String.Format("{0:00}:{1:00}", minutes, seconds);
     } else {
@@ -67,7 +67,7 @@ public class TrainingRoom4Events : MonoBehaviour {
       AsyncTimer.BaseTime.SetTimeout(() => RaceSong.Stop(), StartedFinishedSoundDuration);
 
       if (!SimulationResultData.ObstacleCourseBestTime.HasValue || ElapsedTime() < SimulationResultData.ObstacleCourseBestTime)
-        SimulationResultData.ObstacleCourseBestTime = (int) ElapsedTime();
+        SimulationResultData.ObstacleCourseBestTime = (int)ElapsedTime();
 
       AsyncTimer.PlayingTime.SetTimeout(AfterRaceFinished, DelayAfterRaceFinished);
     }

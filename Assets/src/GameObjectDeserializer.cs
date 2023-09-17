@@ -7,15 +7,15 @@ using UnityEngine;
 public class GameObjectDeserializer : MonoBehaviour {
   SerializedGameObject SerializedGameObject;
 
-  public GameObjectDeserializer( SerializedGameObject serializedGameObject ) {
+  public GameObjectDeserializer(SerializedGameObject serializedGameObject) {
     SerializedGameObject = serializedGameObject;
   }
 
   public void Deserialize() {
-    GameObject gameObject = GuidManager.ResolveGuid( SerializedGameObject.Guid );
+    GameObject gameObject = GuidManager.ResolveGuid(SerializedGameObject.Guid);
 
-    foreach ( SerializedComponent component in SerializedGameObject.Components ) {
-      new ComponentDeserializer( component, gameObject ).Deserialize();
+    foreach (SerializedComponent component in SerializedGameObject.Components) {
+      new ComponentDeserializer(component, gameObject).Deserialize();
     }
-  } 
+  }
 }

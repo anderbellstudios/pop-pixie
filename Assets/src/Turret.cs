@@ -30,12 +30,12 @@ public class Turret : AFireable {
     if (!StateManager.Playing)
       return;
 
-    if ( Firing )
-      FireTimer.IfElapsed( () => ShootBullet() );
+    if (Firing)
+      FireTimer.IfElapsed(() => ShootBullet());
   }
 
   void ShootBullet() {
-    BulletEmitter.Shoot( Weapon );
+    BulletEmitter.Shoot(Weapon);
   }
 
 }

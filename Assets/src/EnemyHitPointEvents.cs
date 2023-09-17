@@ -36,7 +36,8 @@ public class EnemyHitPointEvents : MonoBehaviour {
 
   void DisableAIs() {
     foreach (var ai in GetComponents<AEnemyAI>()) {
-      if (ai.InControl) ai.RelinquishControl();
+      if (ai.InControl)
+        ai.RelinquishControl();
     }
   }
 }

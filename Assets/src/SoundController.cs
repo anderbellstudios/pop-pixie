@@ -15,10 +15,10 @@ public class SoundController : MonoBehaviour {
     Player.ignoreListenerPause = PlayWhilePaused;
   }
 
-  public void Play (AudioClip sound, float volume = 1f) {
+  public void Play(AudioClip sound, float volume = 1f) {
     SoundVolume = volume;
 
-    if ( OneShot ) {
+    if (OneShot) {
       Player.PlayOneShot(sound);
     } else {
       Player.clip = sound;

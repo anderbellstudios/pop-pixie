@@ -31,15 +31,15 @@ public class IntervalTimer {
     LastElapsed = CurrentTime();
   }
 
-  public void IfElapsed( TimerDelegate callback ) {
-    if ( Elapsed() ) {
+  public void IfElapsed(TimerDelegate callback) {
+    if (Elapsed()) {
       Reset();
       callback();
     }
   }
 
-  public void UnlessElapsed( TimerDelegate callback ) {
-    if ( Started && !Elapsed() ) {
+  public void UnlessElapsed(TimerDelegate callback) {
+    if (Started && !Elapsed()) {
       callback();
     }
   }
@@ -49,11 +49,11 @@ public class IntervalTimer {
   }
 
   public float Progress() {
-    return Mathf.Clamp( TimeSinceElapsed() / Interval, 0f, 1f );
+    return Mathf.Clamp(TimeSinceElapsed() / Interval, 0f, 1f);
   }
 
   float CurrentTime() {
-    switch ( TimeClass ) {
+    switch (TimeClass) {
       case "Time":
         return Time.time;
 
@@ -61,7 +61,7 @@ public class IntervalTimer {
         return PlayingTime.time;
 
       default:
-        Debug.Log( "Need to add a case branch for " + TimeClass );
+        Debug.Log("Need to add a case branch for " + TimeClass);
         return 0f;
     }
   }

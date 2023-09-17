@@ -6,24 +6,24 @@ using UnityEngine;
 
 public abstract class AInspectable : MonoBehaviour {
 
-  public static Dictionary<AInspectable, bool> IsNearby = new Dictionary<AInspectable, bool>() {};
+  public static Dictionary<AInspectable, bool> IsNearby = new Dictionary<AInspectable, bool>() { };
 
   public static bool ShowButtonPrompt() {
-    return IsNearby.Values.Any( isTrue => isTrue );
+    return IsNearby.Values.Any(isTrue => isTrue);
   }
 
   protected bool _Nearby;
   ButtonPressHelper _ButtonPressHelper = new SingleButtonPressHelper();
 
-  void OnTriggerEnter2D (Collider2D other) {
-    if ( other.tag == "Player" ) {
+  void OnTriggerEnter2D(Collider2D other) {
+    if (other.tag == "Player") {
       _Nearby = true;
       OnPlayerOver();
     }
   }
 
-  void OnTriggerExit2D (Collider2D other) {
-    if ( other.tag == "Player" ) {
+  void OnTriggerExit2D(Collider2D other) {
+    if (other.tag == "Player") {
       _Nearby = false;
       OnPlayerOut();
     }

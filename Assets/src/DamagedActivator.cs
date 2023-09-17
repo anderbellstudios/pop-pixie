@@ -14,11 +14,11 @@ public class DamagedActivator : AActivator {
   }
 
   public override bool IsActivated() {
-    if ( Activated ) {
+    if (Activated) {
       Activated = false;
       return true;
     }
-    
+
     return false;
   }
 }

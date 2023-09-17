@@ -10,7 +10,7 @@ public class ResolutionData {
     }
 
     get {
-      return (int) ConfigData.Current.Fetch("resolution-width", orSetEqualTo: (int) (Display.main.renderingWidth * 0.75f));
+      return (int)ConfigData.Current.Fetch("resolution-width", orSetEqualTo: (int)(Display.main.renderingWidth * 0.75f));
     }
   }
 
@@ -20,7 +20,7 @@ public class ResolutionData {
     }
 
     get {
-      return (int) ConfigData.Current.Fetch("resolution-height", orSetEqualTo: (int) (Display.main.renderingHeight * 0.75f));
+      return (int)ConfigData.Current.Fetch("resolution-height", orSetEqualTo: (int)(Display.main.renderingHeight * 0.75f));
     }
   }
 
@@ -30,7 +30,7 @@ public class ResolutionData {
     }
 
     get {
-      return (bool) ConfigData.Current.Fetch("resolution-fullscreen", orSetEqualTo: false);
+      return (bool)ConfigData.Current.Fetch("resolution-fullscreen", orSetEqualTo: false);
     }
   }
 

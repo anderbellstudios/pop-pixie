@@ -11,7 +11,7 @@ public class PassiveSounds : MonoBehaviour {
 
   private IntervalTimer Timer;
 
-  void Start () {
+  void Start() {
     Timer = new IntervalTimer() {
       TimeClass = "PlayingTime",
     };
@@ -19,15 +19,16 @@ public class PassiveSounds : MonoBehaviour {
     UpdatePlayInterval();
   }
 
-  void Update () {
+  void Update() {
     if (!StateManager.Playing)
       return;
 
-    Timer.IfElapsed( PlaySound );
+    Timer.IfElapsed(PlaySound);
   }
 
-  void PlaySound () {
-    if ( EnemyUtils.IsDead(EnemyGameObject) ) return;
+  void PlaySound() {
+    if (EnemyUtils.IsDead(EnemyGameObject))
+      return;
 
     // Because C# doesn't appear to have any built-in 
     // random sampling methods. 
@@ -38,10 +39,10 @@ public class PassiveSounds : MonoBehaviour {
     UpdatePlayInterval();
   }
 
-  void UpdatePlayInterval () {
-    Timer.Interval = MinInterval 
-      + ( MaxInterval - MinInterval ) 
-      * ( UnityEngine.Random.value );
+  void UpdatePlayInterval() {
+    Timer.Interval = MinInterval
+      + (MaxInterval - MinInterval)
+      * (UnityEngine.Random.value);
 
     Timer.Reset();
   }
