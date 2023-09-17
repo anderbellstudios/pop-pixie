@@ -5,6 +5,7 @@ $REQUIRED_LIBRARIES = %{
   Rewired
   TextMesh Pro
   TMP_Typewriter
+  Main Menu Background
 }.lines.map(&:strip).reject(&:empty?)
 
 $REQUIRED_LIBRARIES.each do |library|
