@@ -8,7 +8,7 @@ public class FaceDirection : MonoBehaviour {
   public Animator Animator;
 
   void Update() {
-    int facing = ( (IDirectionManager) DirectionManager ).Direction.x > 0 ? 1 : -1;
+    int facing = ((IDirectionManager)DirectionManager).Direction.x > 0 ? 1 : -1;
     Animator.SetInteger("Facing", facing);
   }
 

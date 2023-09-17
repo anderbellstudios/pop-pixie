@@ -11,11 +11,11 @@ public class RangedAttackAI : AEnemyAI, IRequiresLineOfMovementAI {
 
   public override void ControlGained() {
     PerformAttack();
-    RelinquishControlTo( WhenAttackFinished );
+    RelinquishControlTo(WhenAttackFinished);
   }
 
   void PerformAttack() {
-    BulletEmitter.Shoot( Weapon );
+    BulletEmitter.Shoot(Weapon);
   }
 
 }

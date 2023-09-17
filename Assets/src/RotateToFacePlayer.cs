@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class RotateToFacePlayer : MonoBehaviour {
-	void Update () {
+  void Update() {
     if (!StateManager.Playing)
       return;
 
@@ -14,5 +14,5 @@ public class RotateToFacePlayer : MonoBehaviour {
       0,
       Mathf.Atan2(toPlayer.y, toPlayer.x) * Mathf.Rad2Deg
     );
-	}
+  }
 }

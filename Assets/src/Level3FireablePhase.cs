@@ -8,12 +8,12 @@ public class Level3FireablePhase : APhase {
   public FireableScheduler FireableScheduler;
   public List<HitPoints> FireableHitPoints;
 
-	public override void LocalBegin () {
+  public override void LocalBegin() {
     FireableScheduler.enabled = true;
   }
 
   public override void WhilePhaseRunning() {
-    if ( FireableScheduler.Fireables.Count == 0 )
+    if (FireableScheduler.Fireables.Count == 0)
       PhaseFinished();
   }
 
@@ -26,11 +26,11 @@ public class Level3FireablePhase : APhase {
   }
 
   public float TotalMaxHP() {
-    return FireableHitPoints.Sum( hp => hp.Maximum );
+    return FireableHitPoints.Sum(hp => hp.Maximum);
   }
 
   public override float ProgressBarValue() {
-    return FireableHitPoints.Sum( hp => hp.Current ) / TotalMaxHP();
+    return FireableHitPoints.Sum(hp => hp.Current) / TotalMaxHP();
   }
 
 }

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HPCooldownArbiter : ACanBeDamagedArbiter  {
+public class HPCooldownArbiter : ACanBeDamagedArbiter {
   public float DamageCooldown;
 
   public override bool CanBeDamaged(HitPoints hp) {

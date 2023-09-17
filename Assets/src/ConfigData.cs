@@ -8,7 +8,7 @@ public class ConfigData : AData {
   private bool loadData = true;
 
   public override void BeforeFetch() {
-    if ( loadData && DataOperation().Exists() ) {
+    if (loadData && DataOperation().Exists()) {
       loadData = false;
       DataOperation().Read();
     }
@@ -19,7 +19,7 @@ public class ConfigData : AData {
   }
 
   DataOperation DataOperation() {
-    return new DataOperation( this, "config" );
+    return new DataOperation(this, "config");
   }
 
 }

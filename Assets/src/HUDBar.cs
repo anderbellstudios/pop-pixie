@@ -12,7 +12,7 @@ public class HUDBar : MonoBehaviour {
   public bool Visible;
 
   void Update() {
-    AllImages.ForEach( img => img.enabled = Visible );
+    AllImages.ForEach(img => img.enabled = Visible);
     FilledImage.fillAmount = Progress;
   }
 

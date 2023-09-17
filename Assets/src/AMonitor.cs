@@ -16,7 +16,7 @@ public abstract class AMonitor : MonoBehaviour, ISerializableComponent {
     BeganWaiting();
   }
 
-  public virtual void BeganWaiting() {}
+  public virtual void BeganWaiting() { }
 
   void Awake() {
     if (WaitOnAwake)
@@ -25,7 +25,7 @@ public abstract class AMonitor : MonoBehaviour, ISerializableComponent {
     LocalAwake();
   }
 
-  public virtual void LocalAwake() {}
+  public virtual void LocalAwake() { }
 
   void Update() {
     if (Waiting && TestCondition()) {
@@ -42,7 +42,7 @@ public abstract class AMonitor : MonoBehaviour, ISerializableComponent {
     Event.Invoke();
   }
 
-  public virtual void LocalUpdate() {}
+  public virtual void LocalUpdate() { }
 
   public virtual bool TestCondition() {
     return false;

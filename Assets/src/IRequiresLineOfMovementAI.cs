@@ -1,1 +1,1 @@
-public interface IRequiresLineOfMovementAI {}
+public interface IRequiresLineOfMovementAI { }

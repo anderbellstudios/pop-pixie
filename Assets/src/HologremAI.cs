@@ -25,7 +25,7 @@ public class HologremAI : AEnemyAI, IRequiresLineOfMovementAI {
         origin: transform.position,
         radius: 5
       );
-    } else { 
+    } else {
       Destroy(gameObject);
     }
   }

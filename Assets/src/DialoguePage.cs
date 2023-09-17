@@ -24,9 +24,10 @@ public class DialoguePage {
       if (_Hash == 0) {
         _Hash = 23;
 
-        foreach (char c in Text) unchecked {
-          _Hash = _Hash * 31 + c;
-        }
+        foreach (char c in Text)
+          unchecked {
+            _Hash = _Hash * 31 + c;
+          }
       }
 
       return _Hash;

@@ -7,7 +7,7 @@ public class DialogueManager : MonoBehaviour {
   public bool SingletonInstance = true;
   public static DialogueManager Current;
 
-  public DialogueBoxController DialogueBox; 
+  public DialogueBoxController DialogueBox;
   public SoundController SoundController;
   public float TypewriterSpeed;
   public float ContinuePromptDelay;
@@ -20,7 +20,7 @@ public class DialogueManager : MonoBehaviour {
   private ButtonPressHelper ButtonPressHelper = new MultipleButtonPressHelper();
   private IntervalTimer ContinuePromptTimer = new IntervalTimer();
 
-  void Awake () {
+  void Awake() {
     if (SingletonInstance)
       Current = this;
 
@@ -33,7 +33,7 @@ public class DialogueManager : MonoBehaviour {
     DialogueBox.OnFinished.AddListener(() => ContinuePromptTimer.Reset());
   }
 
-	public void Play(DialogueSequence dialogueSequence, Action onFinish) {
+  public void Play(DialogueSequence dialogueSequence, Action onFinish) {
     DialogueSequence = dialogueSequence;
     CurrentPageIndex = -1;
     OnFinish = onFinish;
@@ -45,9 +45,9 @@ public class DialogueManager : MonoBehaviour {
     dialogueSequence.DialogueMusicFadeBehaviour.ApplyEnterBehaviour();
 
     NextPage();
-	}
-	
-	void Update () {
+  }
+
+  void Update() {
     if (!Open)
       return;
 
@@ -66,7 +66,7 @@ public class DialogueManager : MonoBehaviour {
     }
 
     DialogueBox.SetContinuePromptVisible(ContinuePromptTimer.Elapsed());
-	}
+  }
 
   void NextPage() {
     CurrentPageIndex += 1;

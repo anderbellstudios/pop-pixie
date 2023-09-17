@@ -14,11 +14,11 @@ public abstract class AEnemyAI : MonoBehaviour {
 
     LocalStart();
 
-    if ( StartsInControl )
+    if (StartsInControl)
       GainControl();
   }
 
-  public virtual void LocalStart() {}
+  public virtual void LocalStart() { }
 
   public void GainControl() {
     InControl = true;
@@ -29,7 +29,7 @@ public abstract class AEnemyAI : MonoBehaviour {
     if (!StateManager.Playing)
       return;
 
-    if ( InControl )
+    if (InControl)
       WhileInControl();
   }
 
@@ -47,22 +47,22 @@ public abstract class AEnemyAI : MonoBehaviour {
   public virtual void ControlRelinquished() {
   }
 
-  void OnCollisionEnter2D( Collision2D col ) {
-    if ( InControl )
-      LocalOnCollisionEnter2D( col );
+  void OnCollisionEnter2D(Collision2D col) {
+    if (InControl)
+      LocalOnCollisionEnter2D(col);
   }
 
-  public virtual void LocalOnCollisionEnter2D( Collision2D col ) {
+  public virtual void LocalOnCollisionEnter2D(Collision2D col) {
   }
 
   // Utility methods
 
-  public void RelinquishControlTo( AEnemyAI ai ) {
+  public void RelinquishControlTo(AEnemyAI ai) {
     RelinquishControl();
     ai.GainControl();
   }
 
-  public void ApplyMovement( Vector2 movement ) {
+  public void ApplyMovement(Vector2 movement) {
     GetComponent<MovementManager>().Movement += movement * Time.deltaTime;
   }
 
@@ -89,9 +89,9 @@ public abstract class AEnemyAI : MonoBehaviour {
 
   public bool LineOfMovement() {
     LowPriorityBehaviour.EveryNFrames(10, () => {
-      var hit = Physics2D.CircleCast( 
-          transform.position, 
-          WidthRequiredForMovement() / 2, 
+      var hit = Physics2D.CircleCast(
+          transform.position,
+          WidthRequiredForMovement() / 2,
           TargetDirection(),
           Mathf.Infinity,
           IgnoreEnemyLayerMask.Mask

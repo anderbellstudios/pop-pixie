@@ -21,21 +21,21 @@ public class BossSweepingFireAI : AEnemyAI, IDirectionManager {
     };
 
     FiringTimer.Reset();
-    
+
     CentralDirection = TargetDirection();
   }
 
   public override void WhileInControl() {
-    float dTheta = Mathf.Lerp( -FireArc / 2f, FireArc / 2f, FiringTimer.Progress() );
-    Direction = Quaternion.Euler( 0, 0, dTheta ) * CentralDirection;
+    float dTheta = Mathf.Lerp(-FireArc / 2f, FireArc / 2f, FiringTimer.Progress());
+    Direction = Quaternion.Euler(0, 0, dTheta) * CentralDirection;
 
     Turret.BeginFiring();
 
-    FiringTimer.IfElapsed( StopFiring );
+    FiringTimer.IfElapsed(StopFiring);
   }
 
   void StopFiring() {
-    RelinquishControlTo( AfterAtack );
+    RelinquishControlTo(AfterAtack);
   }
 
   public override void ControlRelinquished() {

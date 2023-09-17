@@ -22,7 +22,7 @@ public class CirclingAroundTargetAI : AEnemyAI, IRequiresLineOfMovementAI {
 
   public override void ControlGained() {
     float attackIntervalRandomModifier = Random.Range(
-      - AttackIntervalRandomness / 2,
+      -AttackIntervalRandomness / 2,
         AttackIntervalRandomness / 2
     );
 
@@ -35,7 +35,7 @@ public class CirclingAroundTargetAI : AEnemyAI, IRequiresLineOfMovementAI {
 
     var random = Random.Range(-1f, 1f);
 
-    if ( random > 0 ) {
+    if (random > 0) {
       CircleDirection = 1;
     } else {
       CircleDirection = -1;
@@ -43,16 +43,16 @@ public class CirclingAroundTargetAI : AEnemyAI, IRequiresLineOfMovementAI {
   }
 
   public override void WhileInControl() {
-    if ( TargetDistance() > TooFarThreshold || TargetDistance() < TooCloseThreshold ) {
+    if (TargetDistance() > TooFarThreshold || TargetDistance() < TooCloseThreshold) {
       AdjustingDistance = true;
     }
 
-    if ( AdjustingDistance ) {
+    if (AdjustingDistance) {
 
-      if ( TargetDistance() > ApproachToDistance ) {
-        ApplyMovement( TargetDirection() * ApproachSpeed );
-      } else if ( TargetDistance() < BackOffToDistance ) {
-        ApplyMovement( - TargetDirection() * BackOffSpeed );
+      if (TargetDistance() > ApproachToDistance) {
+        ApplyMovement(TargetDirection() * ApproachSpeed);
+      } else if (TargetDistance() < BackOffToDistance) {
+        ApplyMovement(-TargetDirection() * BackOffSpeed);
       } else {
         AdjustingDistance = false;
       }
@@ -60,18 +60,18 @@ public class CirclingAroundTargetAI : AEnemyAI, IRequiresLineOfMovementAI {
     } else {
 
       ApplyMovement(
-        Vector2.Perpendicular( TargetDirection() ) * CircleSpeed * CircleDirection
+        Vector2.Perpendicular(TargetDirection()) * CircleSpeed * CircleDirection
       );
 
     }
 
     AttackTimer.IfElapsed(
-      () => RelinquishControlTo( WhenAttacking )
+      () => RelinquishControlTo(WhenAttacking)
     );
 
   }
 
-  public override void LocalOnCollisionEnter2D( Collision2D _ ) {
+  public override void LocalOnCollisionEnter2D(Collision2D _) {
     CircleDirection *= -1;
   }
 

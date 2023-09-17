@@ -20,15 +20,15 @@ public class Level3JumpDownAnimation : MonoBehaviour {
     };
   }
 
-  public void Perform( Action callback ) {
+  public void Perform(Action callback) {
     Callback = callback;
     InitialPosition = transform.position;
     Timer.Reset();
   }
 
   void Update() {
-    Timer.UnlessElapsed( UpdateJump );
-    Timer.IfElapsed( FinishedJump );
+    Timer.UnlessElapsed(UpdateJump);
+    Timer.IfElapsed(FinishedJump);
   }
 
   void UpdateJump() {
@@ -47,9 +47,9 @@ public class Level3JumpDownAnimation : MonoBehaviour {
   float Y() {
     float t = Timer.Progress();
 
-    float y_factor = (3f/2f) * Mathf.Sin(
-      ( Mathf.PI * t )
-      + ( ( 1 - t ) * Mathf.Asin(2f/3f) )
+    float y_factor = (3f / 2f) * Mathf.Sin(
+      (Mathf.PI * t)
+      + ((1 - t) * Mathf.Asin(2f / 3f))
     ) - 1f;
 
     return JumpDistance * y_factor;

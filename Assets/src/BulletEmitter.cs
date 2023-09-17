@@ -15,15 +15,16 @@ public class BulletEmitter : MonoBehaviour {
     Debug.Log("BulletEmitter is deprecated. Please use FireBullet instead.");
   }
 
-	public void Shoot( Weapon weapon ) {
+  public void Shoot(Weapon weapon) {
     Weapon = weapon;
 
     InstantiateBullet();
-    if ( ShouldPlayPewSound ) PlayPewSound();
+    if (ShouldPlayPewSound)
+      PlayPewSound();
   }
 
   void InstantiateBullet() {
-    var dm = (IDirectionManager) DirectionManager;
+    var dm = (IDirectionManager)DirectionManager;
     var direction = dm.Direction;
 
     if (direction.magnitude == 0) {
@@ -45,11 +46,11 @@ public class BulletEmitter : MonoBehaviour {
   }
 
   void PlayPewSound() {
-    SoundController.Play( Weapon.ShootSound );
+    SoundController.Play(Weapon.ShootSound);
   }
 
   float Speed() {
     return Weapon.BulletSpeed;
   }
-  
+
 }

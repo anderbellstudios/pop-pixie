@@ -16,13 +16,13 @@ public class OptionsMenuEvents : AMenu {
     MusicVolumeStepper.Options = SoundsVolumeStepper.Options = VoiceVolumeStepper.Options =
       Enumerable.Range(0, 11).Select(n => String.Format("{0}%", n * 10)).ToList();
 
-    MusicVolumeStepper.Value = (int) (OptionsData.MusicVolume * 10);
+    MusicVolumeStepper.Value = (int)(OptionsData.MusicVolume * 10);
     MusicVolumeStepper.UpdateLabel();
 
-    SoundsVolumeStepper.Value = (int) (OptionsData.SoundsVolume * 10);
+    SoundsVolumeStepper.Value = (int)(OptionsData.SoundsVolume * 10);
     SoundsVolumeStepper.UpdateLabel();
 
-    VoiceVolumeStepper.Value = (int) (OptionsData.VoiceVolume * 10);
+    VoiceVolumeStepper.Value = (int)(OptionsData.VoiceVolume * 10);
     VoiceVolumeStepper.UpdateLabel();
 
     MusicVolumeStepper.OnChange.AddListener(MusicVolumeChanged);
@@ -45,15 +45,15 @@ public class OptionsMenuEvents : AMenu {
   }
 
   public void MusicVolumeChanged(int index, string label) {
-    OptionsData.MusicVolume = ((decimal) index) * 0.1M;
+    OptionsData.MusicVolume = ((decimal)index) * 0.1M;
   }
 
   public void SoundsVolumeChanged(int index, string label) {
-    OptionsData.SoundsVolume = ((decimal) index) * 0.1M;
+    OptionsData.SoundsVolume = ((decimal)index) * 0.1M;
   }
 
   public void VoiceVolumeChanged(int index, string label) {
-    OptionsData.VoiceVolume = ((decimal) index) * 0.1M;
+    OptionsData.VoiceVolume = ((decimal)index) * 0.1M;
   }
 
   public void ControllerIconsChanged(int index, string label) {

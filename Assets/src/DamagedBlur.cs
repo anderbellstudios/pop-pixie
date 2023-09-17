@@ -41,7 +41,7 @@ public class DamagedBlur : MonoBehaviour {
     if (Timer.Started) {
       float curveProgress = Curve.Evaluate(Timer.Progress());
 
-      int materialIndex = (int) Mathf.Floor(
+      int materialIndex = (int)Mathf.Floor(
         Mathf.Clamp(
           BlurMaterials.Count * curveProgress,
           0,

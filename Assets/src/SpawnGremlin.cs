@@ -8,7 +8,7 @@ public class SpawnGremlin : MonoBehaviour {
   public GameObject Prefab;
 
   public GameObject Spawn() {
-    var gremlin = Instantiate( Prefab );
+    var gremlin = Instantiate(Prefab);
 
     gremlin.transform.position = transform.position;
     gremlin.GetComponent<DummyActivator>().Activated = true;

@@ -35,37 +35,37 @@ public class ChargingAttackAI : AEnemyAI, IRequiresLineOfMovementAI {
   }
 
   public override void WhileInControl() {
-    var randomAngle = Random.Range( -WiggleAmplitude, WiggleAmplitude );
-    transform.rotation = Quaternion.Euler( 0, 0, randomAngle );
+    var randomAngle = Random.Range(-WiggleAmplitude, WiggleAmplitude);
+    transform.rotation = Quaternion.Euler(0, 0, randomAngle);
 
-    if ( PreparingAttackTimer.Elapsed() )
-      ApplyMovement( TargetDirection() * Speed );
+    if (PreparingAttackTimer.Elapsed())
+      ApplyMovement(TargetDirection() * Speed);
 
-    if ( GiveUpTimer.Elapsed() )
-      RelinquishControlTo( WhenAttackFinished );
+    if (GiveUpTimer.Elapsed())
+      RelinquishControlTo(WhenAttackFinished);
   }
 
   public override void ControlRelinquished() {
     transform.rotation = Quaternion.identity;
   }
 
-  public override void LocalOnCollisionEnter2D( Collision2D col ) {
-    if ( col.gameObject == Target ) {
+  public override void LocalOnCollisionEnter2D(Collision2D col) {
+    if (col.gameObject == Target) {
       PerformAttack();
     }
   }
 
   void PerformAttack() {
-    DamageTarget( Damage );
+    DamageTarget(Damage);
 
-    if ( ShouldPlaySound() ) {
+    if (ShouldPlaySound()) {
       // Play attack sound
       int i = Random.Range(0, Sounds.Count);
       var sound = Sounds[i];
       SoundPlayer.Play(sound);
     }
 
-    RelinquishControlTo( WhenAttackFinished );
+    RelinquishControlTo(WhenAttackFinished);
   }
 
   bool ShouldPlaySound() {

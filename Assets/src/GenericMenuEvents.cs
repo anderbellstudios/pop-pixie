@@ -9,17 +9,17 @@ public class GenericMenuEvents : MonoBehaviour {
 
   public float FadeInDelay, FadeInDuration, FadeOutDuration, PostFadeOutDelay;
 
-  void Start () {
+  void Start() {
     Fader.Fade("to black", 0.0f);
     Invoke("FadeIn", FadeInDelay);
     LocalStart();
   }
 
-  public virtual void LocalStart() {}
+  public virtual void LocalStart() { }
 
   private bool FadingIn = true;
 
-  void FadeIn () {
+  void FadeIn() {
     FadingIn = true;
     Fader.Fade("from black", FadeInDuration);
     Invoke("_AfterFadeIn", FadeInDuration);
@@ -30,24 +30,24 @@ public class GenericMenuEvents : MonoBehaviour {
     AfterFadeIn();
   }
 
-  public virtual void AfterFadeIn() {}
+  public virtual void AfterFadeIn() { }
 
   private bool FadingOut = false;
   private Action FadeOutCallback;
 
-  public void FadeOut( Action callback ) {
-    if ( FadingIn || FadingOut )
+  public void FadeOut(Action callback) {
+    if (FadingIn || FadingOut)
       return; // Don't interrupt a fade in or fade out
 
     FadingOut = true;
     FadeOutCallback = callback;
 
-    AudioFadeOut.Current.FadeOut( FadeOutDuration );
+    AudioFadeOut.Current.FadeOut(FadeOutDuration);
     Fader.Fade("to black", FadeOutDuration);
     Invoke("CallFadeOutCallback", FadeOutDuration + PostFadeOutDelay);
   }
 
-  void CallFadeOutCallback () {
+  void CallFadeOutCallback() {
     FadeOutCallback();
   }
 }

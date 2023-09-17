@@ -28,12 +28,12 @@ public class Laser : AFireable {
     if (!StateManager.Playing)
       return;
 
-    if ( SweepTimer.Elapsed() ) {
+    if (SweepTimer.Elapsed()) {
       StopFiring();
       OnFinished.Invoke();
     }
 
-    if ( Firing )
+    if (Firing)
       FireBeam();
 
     LineRenderer.enabled = Firing;
@@ -57,9 +57,9 @@ public class Laser : AFireable {
     DrawBeam(heading);
   }
 
-  void DrawBeam( Vector3 heading ) {
-    LineRenderer.SetPosition( 0, transform.position );
-    LineRenderer.SetPosition( 1, transform.position + heading );
+  void DrawBeam(Vector3 heading) {
+    LineRenderer.SetPosition(0, transform.position);
+    LineRenderer.SetPosition(1, transform.position + heading);
   }
 
   float BeamAngle() {

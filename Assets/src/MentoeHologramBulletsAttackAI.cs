@@ -46,8 +46,8 @@ public class MentoeHologramBulletsAttackAI : AEnemyAI {
         // Add 15deg to the angle to avoid shooting the player right away
         float angle = Mathf.Lerp(0, 360 * CurrentRotations, AngleTimer.Progress()) + 15;
 
-        FireBulletInDirection(Quaternion.Euler(0, 0, angle +   0) * Vector3.right,  true);
-        FireBulletInDirection(Quaternion.Euler(0, 0, angle +  90) * Vector3.right, false);
+        FireBulletInDirection(Quaternion.Euler(0, 0, angle + 0) * Vector3.right, true);
+        FireBulletInDirection(Quaternion.Euler(0, 0, angle + 90) * Vector3.right, false);
         FireBulletInDirection(Quaternion.Euler(0, 0, angle + 180) * Vector3.right, false);
         FireBulletInDirection(Quaternion.Euler(0, 0, angle + 270) * Vector3.right, false);
       });

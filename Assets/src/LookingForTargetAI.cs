@@ -21,21 +21,21 @@ public class LookingForTargetAI : AEnemyAI {
     };
 
     CalculatePathTimer.Start();
-    
+
     NextPoint = null;
   }
 
   public override void WhileInControl() {
-    if ( LineOfMovement() ) {
-      RelinquishControlTo( WhenTargetFound );
-    } else if ( PathfindingElbows > 0 ) {
+    if (LineOfMovement()) {
+      RelinquishControlTo(WhenTargetFound);
+    } else if (PathfindingElbows > 0) {
       NavigateToTarget();
     }
   }
 
   void NavigateToTarget() {
-    if ( !NextPoint.HasValue ) {
-      CalculatePathTimer.IfElapsed( CalculatePath );
+    if (!NextPoint.HasValue) {
+      CalculatePathTimer.IfElapsed(CalculatePath);
       return;
     }
 
@@ -45,14 +45,14 @@ public class LookingForTargetAI : AEnemyAI {
       heading.normalized * Speed
     );
 
-    if ( heading.magnitude < 0.4 )
+    if (heading.magnitude < 0.4)
       CalculatePath();
 
   }
 
   void CalculatePath() {
     var pathfinder = new AndersonsAlgorithm(
-      start:       transform.position,
+      start: transform.position,
       destination: Target.transform.position,
       radius: WidthRequiredForMovement() / 2,
       remainingSteps: PathfindingElbows

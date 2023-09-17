@@ -23,7 +23,7 @@ public class DialoguePreprocessor {
 
         switch (commandGroup.Value) {
           case "delay":
-            output += new string(DelayChar, (int) (CharactersPerSecond * (amount / 1000f)));
+            output += new string(DelayChar, (int)(CharactersPerSecond * (amount / 1000f)));
             break;
 
           case "slow":

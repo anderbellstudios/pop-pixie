@@ -11,20 +11,20 @@ public class WrappedInput : MonoBehaviour {
     get => ReInput.players.GetPlayer(0);
   }
 
-  public static bool GetButton( string buttonName ) {
-    return Player.GetButton( buttonName );
+  public static bool GetButton(string buttonName) {
+    return Player.GetButton(buttonName);
   }
 
-  public static bool GetButtonDown( string buttonName ) {
-    return Player.GetButtonDown( buttonName );
+  public static bool GetButtonDown(string buttonName) {
+    return Player.GetButtonDown(buttonName);
   }
 
-  public static bool GetButtonUp( string buttonName ) {
-    return Player.GetButtonUp( buttonName );
+  public static bool GetButtonUp(string buttonName) {
+    return Player.GetButtonUp(buttonName);
   }
 
-  public static float GetAxis( string axis ) {
-    return Player.GetAxis( axis );
+  public static float GetAxis(string axis) {
+    return Player.GetAxis(axis);
   }
 
   public static string ControllerPrefix() {

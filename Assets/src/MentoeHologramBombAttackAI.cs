@@ -16,7 +16,7 @@ public class MentoeHologramBombAttackAI : ARepeatedAttackAI {
   }
 
   public override void PerformAttack() {
-    Vector3 predictedPlayerPosition = ((Vector3) TargetHeading()) + (PlayerGameObject.EstimatedVelocity * PredictiveAimLeadTime);
+    Vector3 predictedPlayerPosition = ((Vector3)TargetHeading()) + (PlayerGameObject.EstimatedVelocity * PredictiveAimLeadTime);
 
     GameObject bombGameObject = Instantiate(
       BombPrefab,

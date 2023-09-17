@@ -14,8 +14,8 @@ public class ElevatorMotion : MonoBehaviour {
   private float WobbleInterval;
 
   // Update is called once per frame
-  void Update () {
-    if ( ShouldWobble() ) {
+  void Update() {
+    if (ShouldWobble()) {
       UpdateWobbleInterval();
 
       Displace(new Vector3(
@@ -33,21 +33,21 @@ public class ElevatorMotion : MonoBehaviour {
     transform.Translate(amount);
   }
 
-  bool ShouldWobble () {
-    var since = DateTime.Now.Subtract( LastWobbled ).TotalSeconds;
+  bool ShouldWobble() {
+    var since = DateTime.Now.Subtract(LastWobbled).TotalSeconds;
     return since > WobbleInterval;
   }
 
-  void UpdateWobbleInterval () {
+  void UpdateWobbleInterval() {
     LastWobbled = DateTime.Now;
 
-    WobbleInterval = MinInterval 
-      + ( MaxInterval - MinInterval ) 
-      * ( UnityEngine.Random.value );
+    WobbleInterval = MinInterval
+      + (MaxInterval - MinInterval)
+      * (UnityEngine.Random.value);
   }
 
-  float RandomNoise () {
-    return Amplitude * ( UnityEngine.Random.value - 0.5f );
+  float RandomNoise() {
+    return Amplitude * (UnityEngine.Random.value - 0.5f);
   }
 
 }

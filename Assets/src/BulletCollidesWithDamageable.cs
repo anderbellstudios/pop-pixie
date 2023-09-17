@@ -7,7 +7,7 @@ public class BulletCollidesWithDamageable : MonoBehaviour {
   public BulletData BulletData;
   public GameObject Explosion;
 
-  void OnCollisionEnter2D (Collision2D col) {
+  void OnCollisionEnter2D(Collision2D col) {
     HitPoints hp = col.gameObject.GetComponent<HitPoints>();
 
     if (hp != null) {

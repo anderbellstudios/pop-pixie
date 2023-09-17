@@ -39,47 +39,47 @@ public class BossThunderClapAI : AEnemyAI {
   }
 
   public override void WhileInControl() {
-    if ( ChargingUpTimer.Started && ChargingUpTimer.Progress() < StopAimingThreshold )
-      Direction = ( (IDirectionManager) DirectionManager ).Direction;
+    if (ChargingUpTimer.Started && ChargingUpTimer.Progress() < StopAimingThreshold)
+      Direction = ((IDirectionManager)DirectionManager).Direction;
 
-    LineRenderer.SetPosition( 0, transform.position );
-    LineRenderer.SetPosition( 1, 1000000 * Direction );
+    LineRenderer.SetPosition(0, transform.position);
+    LineRenderer.SetPosition(1, 1000000 * Direction);
 
-    ChargingUpTimer.IfElapsed( FireLaser );
-    FiringTimer.UnlessElapsed( AnimateLaser );
-    FiringTimer.IfElapsed( StopFiring );
+    ChargingUpTimer.IfElapsed(FireLaser);
+    FiringTimer.UnlessElapsed(AnimateLaser);
+    FiringTimer.IfElapsed(StopFiring);
   }
 
   void AnimateLaser() {
-    SetLineWidth( LineWidth * ( 1 - FiringTimer.Progress() ) );
+    SetLineWidth(LineWidth * (1 - FiringTimer.Progress()));
   }
 
   void FireLaser() {
     ChargingUpTimer.Stop();
     FiringTimer.Reset();
 
-    var hit = Physics2D.CircleCast( 
-      transform.position, 
-      LineWidth / 2, 
+    var hit = Physics2D.CircleCast(
+      transform.position,
+      LineWidth / 2,
       Direction,
       Mathf.Infinity,
       1 << 12 // <-- only collide with player
     );
 
-    if ( hit.collider != null )
-      DamageTarget( Damage );
+    if (hit.collider != null)
+      DamageTarget(Damage);
   }
 
   void StopFiring() {
     FiringTimer.Stop();
-    RelinquishControlTo( AfterAtack );
+    RelinquishControlTo(AfterAtack);
   }
 
   public override void ControlRelinquished() {
     LineRenderer.enabled = false;
   }
 
-  void SetLineWidth( float width ) {
+  void SetLineWidth(float width) {
     LineRenderer.startWidth = width;
     LineRenderer.endWidth = width;
   }

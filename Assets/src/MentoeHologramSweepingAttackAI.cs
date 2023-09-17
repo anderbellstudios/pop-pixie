@@ -71,7 +71,8 @@ public class MentoeHologramSweepingAttackAI : AEnemyAI {
 
       if ((PreviousAngle <= targetAngle) && (targetAngle <= angle)) {
         bool isCounterAttack = DamageTarget(1, true);
-        if (isCounterAttack) DamageBoss.Damage(150);
+        if (isCounterAttack)
+          DamageBoss.Damage(150);
       }
 
       PreviousAngle = angle;

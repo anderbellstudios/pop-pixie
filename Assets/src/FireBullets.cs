@@ -43,7 +43,7 @@ public class FireBullets : MonoBehaviour {
       return;
     }
 
-    int expectedBulletsFired = (int) Mathf.Floor(timeSinceBegan * BulletsPerSecond);
+    int expectedBulletsFired = (int)Mathf.Floor(timeSinceBegan * BulletsPerSecond);
 
     if (expectedBulletsFired > BulletsFired) {
       Fire();

@@ -22,10 +22,12 @@ public class SongHopper : MonoBehaviour {
   }
 
   void Start() {
-    if (HopOnStart) Hop();
+    if (HopOnStart)
+      Hop();
   }
 
   void OnDestroy() {
-    if (StopOnDestroy) Stop();
+    if (StopOnDestroy)
+      Stop();
   }
 }

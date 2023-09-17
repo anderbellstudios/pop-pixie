@@ -6,8 +6,8 @@ public class FloatingRingPull : MonoBehaviour {
 
   public SpawnFlyingRingPull SpawnFlyingRingPull;
 
-  void OnTriggerEnter2D( Collider2D col ) {
-    if ( col.tag == "Player" ) {
+  void OnTriggerEnter2D(Collider2D col) {
+    if (col.tag == "Player") {
       SpawnFlyingRingPull.Instantiate();
       Destroy(gameObject);
     }

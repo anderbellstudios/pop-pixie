@@ -10,7 +10,7 @@ public class AnimationRandomiseParameter : MonoBehaviour {
   public float MinValue, MaxValue;
 
   void Awake() {
-    if (RandomiseOnAwake) 
+    if (RandomiseOnAwake)
       Perform();
   }
 

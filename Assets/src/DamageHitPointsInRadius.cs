@@ -15,7 +15,8 @@ public static class DamageHitPointsInRadius {
     bool isCounterAttack = false;
 
     foreach (GameObject go in GameObject.FindObjectsOfType<GameObject>()) {
-      if (shouldDamage != null && !shouldDamage(go)) continue;
+      if (shouldDamage != null && !shouldDamage(go))
+        continue;
 
       HitPoints hp = go.GetComponent<HitPoints>();
       float distance = (go.transform.position - origin).magnitude;

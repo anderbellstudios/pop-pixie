@@ -8,5 +8,5 @@ public class ElevatorBarrier : MonoBehaviour {
 
   public void Remove() {
     Collider.enabled = false;
-	}
+  }
 }

@@ -7,14 +7,14 @@ using UnityEngine;
 public class GameObjectSerializer {
   private GameObject GameObject;
 
-  public GameObjectSerializer( GameObject go ) {
+  public GameObjectSerializer(GameObject go) {
     GameObject = go;
   }
 
   public SerializedGameObject Serialize() {
     var guidComponent = GameObject.GetComponent<GuidComponent>();
 
-    if ( guidComponent == null )
+    if (guidComponent == null)
       return null;
 
     return new SerializedGameObject() {
@@ -33,7 +33,7 @@ public class GameObjectSerializer {
     return GameObject.GetComponents<Component>().ToList().Where(
       component => component is ISerializableComponent
     ).ToList().Select(
-      component => (ISerializableComponent) component
+      component => (ISerializableComponent)component
     ).ToArray();
   }
 }

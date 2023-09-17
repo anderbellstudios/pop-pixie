@@ -15,27 +15,27 @@ public class LooksAtPlayer : MonoBehaviour, IDirectionManager {
     player = GameObject.Find("Pixie");
   }
 
-	void Update () {
-    Accelerate( w_squared * RelativeAngle() );
-    Accelerate( -k * Velocity );
+  void Update() {
+    Accelerate(w_squared * RelativeAngle());
+    Accelerate(-k * Velocity);
 
     VelocityTick();
 
     Direction = transform.right;
-	}
+  }
 
-  void Accelerate( float amount ) {
+  void Accelerate(float amount) {
     Velocity += amount * Time.deltaTime;
   }
 
   void VelocityTick() {
-    transform.Rotate( 0, 0, Velocity * Time.deltaTime );
+    transform.Rotate(0, 0, Velocity * Time.deltaTime);
   }
 
   float RelativeAngle() {
     return Mathf.Deg2Rad * Vector3.SignedAngle(
-      transform.right, 
-      TargetDirection(), 
+      transform.right,
+      TargetDirection(),
       Vector3.forward
     );
   }

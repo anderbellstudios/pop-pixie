@@ -8,8 +8,8 @@ public class Revolve : MonoBehaviour {
   public bool RandomInitialRotation;
 
   void Start() {
-    if ( RandomInitialRotation ) {
-      gameObject.transform.Rotate( 0, Random.Range(0, 360), 0 );
+    if (RandomInitialRotation) {
+      gameObject.transform.Rotate(0, Random.Range(0, 360), 0);
     }
   }
 

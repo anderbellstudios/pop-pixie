@@ -14,7 +14,7 @@ public class DelayPhase : APhase {
 
   private IntervalTimer Timer;
 
-	public override void LocalBegin () {
+  public override void LocalBegin() {
     Timer = new IntervalTimer() {
       TimeClass = UsePlayingTime ? "PlayingTime" : "Time",
       Interval = Delay

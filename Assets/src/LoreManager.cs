@@ -31,7 +31,8 @@ public class LoreManager : MonoBehaviour {
   }
 
   public void Close() {
-    if (OnClose != null) OnClose();
+    if (OnClose != null)
+      OnClose();
     SetIsOpen(false);
   }
 

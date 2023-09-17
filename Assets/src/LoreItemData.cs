@@ -7,10 +7,10 @@ using UnityEngine;
 public class LoreItemData {
 
   public static void RecordRead(LoreItem loreItem) {
-    if ( loreItem.UniqueId == null )
+    if (loreItem.UniqueId == null)
       return;
 
-    if ( AlreadyRead(loreItem) )
+    if (AlreadyRead(loreItem))
       return;
 
     List<String> readLoreItems = ReadLoreItems();

@@ -19,19 +19,19 @@ public abstract class AData {
     return new Dictionary<string, object>();
   }
 
-  public dynamic Fetch( string key, object orSetEqualTo = null ) {
+  public dynamic Fetch(string key, object orSetEqualTo = null) {
     BeforeFetch();
 
-    if ( Dictionary.ContainsKey(key) )
+    if (Dictionary.ContainsKey(key))
       return Dictionary[key];
 
-    if ( orSetEqualTo != null )
+    if (orSetEqualTo != null)
       return Dictionary[key] = orSetEqualTo;
 
     return null;
   }
 
-  public void Set( string key, object val ) {
+  public void Set(string key, object val) {
     Dictionary[key] = val;
     AfterUpdate();
   }

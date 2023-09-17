@@ -32,7 +32,7 @@ public class PlayerHitPointEvents : MonoBehaviour {
     });
   }
 
-  void GameOverScreen () {
+  void GameOverScreen() {
     SceneManager.LoadScene(GameOverScene);
   }
 }

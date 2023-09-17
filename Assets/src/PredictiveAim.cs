@@ -20,7 +20,7 @@ public class PredictiveAim : MonoBehaviour, IDirectionManager {
     float c = toPlayer.sqrMagnitude;
 
     List<float> possibleTimes = a == 0f
-      ? (b == 0f ? new List<float> {} : new List<float> { -c / b })
+      ? (b == 0f ? new List<float> { } : new List<float> { -c / b })
       : new List<float> {
         (-b + Mathf.Sqrt(b * b - 4 * a * c)) / (2 * a),
         (-b - Mathf.Sqrt(b * b - 4 * a * c)) / (2 * a)

@@ -68,7 +68,7 @@ public class ShopMenu : AMenu {
 
     if (weaponTile != null) {
       ScrollToSelectionHelper.EnsureVisible(
-        targetTransform: (RectTransform) currentSelected.transform,
+        targetTransform: (RectTransform)currentSelected.transform,
         contentArea: ScrollContentArea,
         scrollRect: ScrollRect
       );

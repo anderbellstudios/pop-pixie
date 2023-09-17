@@ -6,14 +6,14 @@ using UnityEngine;
 public class LaserBeam : MonoBehaviour {
 
   public float Damage;
-  private float Angle; 
+  private float Angle;
   private RaycastHit2D CachedHitData;
 
-  public Vector3 Fire( float angle ) {
+  public Vector3 Fire(float angle) {
     Angle = angle;
     CachedHitData = HitData();
 
-    if ( HitGameObjectIsPlayer() ) {
+    if (HitGameObjectIsPlayer()) {
       HitGameObject().GetComponent<HitPoints>().Damage(Damage);
     }
 
@@ -27,22 +27,22 @@ public class LaserBeam : MonoBehaviour {
     IgnoreEnemyLayerMask.Mask
   );
 
-  GameObject HitGameObject() 
+  GameObject HitGameObject()
     => CachedHitData.collider?.gameObject;
 
-  bool HitGameObjectIsPlayer() 
+  bool HitGameObjectIsPlayer()
     => HitGameObject()?.tag == "Player";
 
-  Vector3 Heading() 
+  Vector3 Heading()
     => HitDistance() * Direction();
 
-  float HitDistance() 
+  float HitDistance()
     => CachedHitData.distance;
 
-  Vector3 Direction() 
+  Vector3 Direction()
     => Rotation() * Vector3.right;
 
-  Quaternion Rotation() 
-    => Quaternion.AngleAxis( Angle, Vector3.forward );
+  Quaternion Rotation()
+    => Quaternion.AngleAxis(Angle, Vector3.forward);
 
 }

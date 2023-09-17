@@ -7,19 +7,19 @@ public class Level3GremlinPhase : APhase {
 
   public List<GremlinSpawnScheduler> GremlinSpawnSchedulers;
 
-	public override void LocalBegin () {
+  public override void LocalBegin() {
     // LaserScheduler.enabled = true;
-    GremlinSpawnSchedulers.ForEach( sch => StartGremlinSpawener(sch) );
+    GremlinSpawnSchedulers.ForEach(sch => StartGremlinSpawener(sch));
   }
 
-  void StartGremlinSpawener( GremlinSpawnScheduler sch ) {
+  void StartGremlinSpawener(GremlinSpawnScheduler sch) {
     sch.BeginSpawning();
   }
 
   public override void WhilePhaseRunning() {
-    bool all_finished = GremlinSpawnSchedulers.All( sch => !sch.Spawning );
+    bool all_finished = GremlinSpawnSchedulers.All(sch => !sch.Spawning);
 
-    if ( all_finished ) {
+    if (all_finished) {
       PhaseFinished();
     }
   }

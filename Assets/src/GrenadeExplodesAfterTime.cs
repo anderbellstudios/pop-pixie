@@ -55,8 +55,10 @@ public class GrenadeExplodesAfterTime : MonoBehaviour {
         canBeCounterAttacked: true,
         damageCurve: DamageCurve,
         shouldDamage: (go) => {
-          if (!DamagesPlayer && go.tag == "Player") return false;
-          if (!DamagesEnemies && go.tag == "Enemy") return false;
+          if (!DamagesPlayer && go.tag == "Player")
+            return false;
+          if (!DamagesEnemies && go.tag == "Enemy")
+            return false;
           return true;
         }
       );
@@ -80,8 +82,8 @@ public class GrenadeExplodesAfterTime : MonoBehaviour {
 
   bool WaitingToThrow() => (GrenadeWaitingBeforeThrow != null) && GrenadeWaitingBeforeThrow.Waiting;
 
-  void SetRadiusIndicatorRadius( float radius ) {
-    RadiusIndicator.localScale = new Vector3( 2 * radius, 2 * radius, 2 * radius );
+  void SetRadiusIndicatorRadius(float radius) {
+    RadiusIndicator.localScale = new Vector3(2 * radius, 2 * radius, 2 * radius);
   }
 
 }

@@ -4,9 +4,9 @@ using System.Linq;
 using UnityEngine;
 
 public class EnemyUtils {
-  public static bool IsDead( GameObject enemyGO ) 
+  public static bool IsDead(GameObject enemyGO)
     => enemyGO == null || GetDeadFlag(enemyGO);
 
-  static bool GetDeadFlag( GameObject enemyGO ) 
+  static bool GetDeadFlag(GameObject enemyGO)
     => enemyGO.GetComponent<HitPoints>().Dead;
 }

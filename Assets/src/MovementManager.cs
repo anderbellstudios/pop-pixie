@@ -29,7 +29,7 @@ public class MovementManager : MonoBehaviour {
   }
 
   void Update() {
-    if ( Animator != null ) {
+    if (Animator != null) {
       Animator.SetInteger("Movement Direction", VisualMovement.x > 0 ? 1 : -1);
       Animator.SetBool("Walking", StatePermitsMovement() && VisualMovement.magnitude > 0);
       Animator.SetFloat("Speed", Velocity(VisualMovement).magnitude / Time.deltaTime);

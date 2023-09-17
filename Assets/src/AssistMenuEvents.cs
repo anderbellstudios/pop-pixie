@@ -12,12 +12,12 @@ public class AssistMenuEvents : AMenu {
       String.Format("{0}%", n * 10)
     ).ToList();
 
-    DamageReductionStepper.Value = (int) (AssistModeData.DamageReduction * 10);
+    DamageReductionStepper.Value = (int)(AssistModeData.DamageReduction * 10);
     DamageReductionStepper.UpdateLabel();
     DamageReductionStepper.OnChange.AddListener(DamageReductionChanged);
   }
 
   public void DamageReductionChanged(int index, string label) {
-    AssistModeData.DamageReduction = ((decimal) index) * 0.1M;
+    AssistModeData.DamageReduction = ((decimal)index) * 0.1M;
   }
 }

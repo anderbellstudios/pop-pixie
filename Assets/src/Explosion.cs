@@ -20,22 +20,22 @@ public class Explosion : MonoBehaviour {
   }
 
   void Update() {
-    transform.localScale = new Vector3( Scale(), Scale(), Scale() );
+    transform.localScale = new Vector3(Scale(), Scale(), Scale());
 
     var colour = Image.color;
     colour.a = Alpha();
     Image.color = colour;
 
-    if ( Timer.Elapsed() )
+    if (Timer.Elapsed())
       Destroy(ExplosionGameObject);
   }
 
   float Scale() {
-    return Mathf.Lerp( 0.2f, 1f, Progress() );
+    return Mathf.Lerp(0.2f, 1f, Progress());
   }
 
   float Alpha() {
-    return Mathf.Lerp( 1f, 0.75f, Progress() );
+    return Mathf.Lerp(1f, 0.75f, Progress());
   }
 
   float Progress() {

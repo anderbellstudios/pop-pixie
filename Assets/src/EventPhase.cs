@@ -7,7 +7,7 @@ public class EventPhase : APhase {
 
   [SerializeField] public UnityEvent Event;
 
-	public override void LocalBegin () {
+  public override void LocalBegin() {
     Event.Invoke();
     PhaseFinished();
   }

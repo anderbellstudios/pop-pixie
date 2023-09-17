@@ -15,7 +15,7 @@ public class LoreWindowUserInput : MonoBehaviour {
   private Vector2 PreviousMousePosition;
   private float TotalMouseMovement;
 
-	void Update() {
+  void Update() {
     Vector2 panAxes = new Vector2(
       WrappedInput.GetAxis("Horizontal") + WrappedInput.GetAxis("Scroll X"),
       WrappedInput.GetAxis("Vertical") + WrappedInput.GetAxis("Scroll Y")
@@ -53,7 +53,7 @@ public class LoreWindowUserInput : MonoBehaviour {
     if (Mathf.Abs(zoomDirection) > AxisThreshold) {
       ChangeZoom(zoomDirection);
     }
-	}
+  }
 
   void ClickZoom() {
     float zoom = LoreWindow.GetZoom();

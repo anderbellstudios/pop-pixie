@@ -18,7 +18,7 @@ public class SaveTransform : MonoBehaviour, ISerializableComponent, ISaveCallbac
   }
 
   public void AfterLoad() {
-    Transform.position = new Vector3( x, y, z );
+    Transform.position = new Vector3(x, y, z);
   }
 
 }

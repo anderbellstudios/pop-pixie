@@ -13,7 +13,7 @@ public class Bob : MonoBehaviour {
   float PhaseOffset = 0;
 
   void Start() {
-    if ( RandomInitialPhase ) {
+    if (RandomInitialPhase) {
       PhaseOffset = Random.Range(0, 360);
     }
 

@@ -8,12 +8,12 @@ public class SpinsOnDeath : MonoBehaviour {
   public float SpinSpeed;
   public Camera Cam;
 
-	// Update is called once per frame
-	void Update () {
+  // Update is called once per frame
+  void Update() {
     if (!StateManager.Enabled(StateFeatures.PlayerDeathAnimation))
       return;
 
     Cam.orthographicSize -= ZoomSpeed * Time.deltaTime;
-    gameObject.transform.Rotate( 0, 0, SpinSpeed * Time.deltaTime );
-	}
+    gameObject.transform.Rotate(0, 0, SpinSpeed * Time.deltaTime);
+  }
 }

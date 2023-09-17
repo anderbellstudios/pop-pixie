@@ -15,6 +15,6 @@ public class TMPMinSize : MonoBehaviour, ILayoutElement {
   public float flexibleHeight { get { return -1; } }
   public int layoutPriority { get { return 1; } }
 
-  public void CalculateLayoutInputHorizontal() {}
-  public void CalculateLayoutInputVertical() {}
+  public void CalculateLayoutInputHorizontal() { }
+  public void CalculateLayoutInputVertical() { }
 }

@@ -19,7 +19,7 @@ public class StopMovingOnPause : MonoBehaviour {
   }
 
   void Update() {
-    if ( !StateManager.Playing && WasPlayingLastFrame ) {
+    if (!StateManager.Playing && WasPlayingLastFrame) {
       saveVelocity = rb.velocity;
       saveAngularVelocity = rb.angularVelocity;
 
@@ -27,7 +27,7 @@ public class StopMovingOnPause : MonoBehaviour {
       rb.angularVelocity = 0f;
     }
 
-    if ( StateManager.Playing && ! WasPlayingLastFrame ) {
+    if (StateManager.Playing && !WasPlayingLastFrame) {
       rb.velocity = saveVelocity;
       rb.angularVelocity = saveAngularVelocity;
       rb.WakeUp();

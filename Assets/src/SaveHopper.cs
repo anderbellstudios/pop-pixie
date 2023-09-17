@@ -9,7 +9,7 @@ public class SaveHopper : MonoBehaviour {
 
   void Start() {
     // Using Update so that everything had a chance to Start
-    GDCall.UnlessLoad( HopSaveYourGame );
+    GDCall.UnlessLoad(HopSaveYourGame);
     AboutToInvokeAutoSave = true;
   }
 
@@ -18,16 +18,16 @@ public class SaveHopper : MonoBehaviour {
   }
 
   void Update() {
-    if ( AboutToSave ) {
+    if (AboutToSave) {
       AboutToSave = false;
 
       SceneData.Save();
       SaveGame.WriteSave();
     }
 
-    if ( AboutToInvokeAutoSave ) {
+    if (AboutToInvokeAutoSave) {
       AboutToInvokeAutoSave = false;
-      InvokeRepeating( "AutoSave", 5.0f, 5.0f );
+      InvokeRepeating("AutoSave", 5.0f, 5.0f);
     }
   }
 

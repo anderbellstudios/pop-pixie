@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LineOfSightActivator : AActivator {
 
-  public override bool IsActivated( AEnemyAI ai ) {
+  public override bool IsActivated(AEnemyAI ai) {
     return ai.LineOfMovement(); // Since sight is not implemented yet
   }
 
