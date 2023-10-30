@@ -25,21 +25,20 @@ public class Roll : MonoBehaviour {
   }
 
   void Update() {
-    if (!StateManager.Playing) {
+    if (StateManager.Playing) {
+      if (ButtonPressHelper.GetButtonPress("Roll") && !Rolling && RollAllowed.CanRoll())
+        StartRolling();
+    } else {
       ButtonPressHelper.Clear();
-      return;
     }
 
-    if (ButtonPressHelper.GetButtonPress("Roll") && !Rolling && RollAllowed.CanRoll())
-      StartRolling();
-
-    if (Rolling) {
+    if (StateManager.Enabled(StateFeatures.Movement) && Rolling) {
       MovementManager.Movement += Speed * Direction() * Time.deltaTime;
       UpdateLayer();
     }
   }
 
-  void StartRolling() {
+  public void StartRolling() {
     if (PlayerIsMoving())
       HasRolled = true;
 
