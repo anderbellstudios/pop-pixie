@@ -56,9 +56,14 @@ public class ChargingAttackAI : AEnemyAI, IRequiresLineOfMovementAI {
   }
 
   void PerformAttack() {
-    DamageTarget(Damage);
+    bool isCounterAttack = DamageTarget(Damage, true);
 
-    if (ShouldPlaySound()) {
+    if (isCounterAttack) {
+      HitPoints hp = GetComponent<HitPoints>();
+      hp.Damage(Damage * 2);
+      if (hp.Dead)
+        return;
+    } else if (ShouldPlaySound()) {
       // Play attack sound
       int i = Random.Range(0, Sounds.Count);
       var sound = Sounds[i];
