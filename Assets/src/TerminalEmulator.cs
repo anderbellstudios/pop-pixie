@@ -8,9 +8,15 @@ public class TerminalEmulator : MonoBehaviour {
   public int Columns, Rows;
   public float RowHeight;
 
+  private Vector3 InitialPosition;
   private int CurrentColumn = 0;
   private int CurrentRow = 0;
   private string Buffer = "";
+
+  void Awake() {
+    BufferWasUpdated();
+    InitialPosition = transform.localPosition;
+  }
 
   void BufferWasUpdated() {
     OutputText.text = Buffer + "<color=#0f0>_";
@@ -56,9 +62,6 @@ public class TerminalEmulator : MonoBehaviour {
     BufferWasUpdated();
     CurrentColumn = 0;
     CurrentRow = 0;
-  }
-
-  void Awake() {
-    BufferWasUpdated();
+    transform.localPosition = InitialPosition;
   }
 }
