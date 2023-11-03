@@ -559,6 +559,126 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 118c6d91a3b9a4ef5a1a97df107835ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &749283614
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 749283615}
+  - component: {fileID: 749283616}
+  m_Layer: 0
+  m_Name: Boot Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &749283615
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 749283614}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 985101563}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &749283616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 749283614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 839608e322402436c9e11e92c0f31b1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TerminalEmulator: {fileID: 558909517}
+  HopOnStart: 1
+  DelayBetweenLines: 0.01
+  Content: "Welcome to Debian GNU/Linux 11 (bullseye)!\n\n[    5.521501] systemd[1]:
+    Set hostname to <debian-gnu-linux-11>.\n[    5.726820] systemd[1]: /lib/systemd/system/plymouth-start.service:16:
+    Unit configured to use KillMode=none. This is unsafe, as it disables systemd\u2019s
+    process lifecycle management for the service. Please update your service to use
+    a safer KillMode=, such as \u2019mixed\u2019 or \u2019control-group\u2019. Support
+    for KillMode=none is deprecated and will eventually be removed.\n[    5.861908]
+    systemd[1]: Queued start job for default target Multi-User System.\n[    5.866636]
+    systemd[1]: Created slice system\u2014modprobe.slice.\n[  OK  ] Created slice
+    system-modprobe.slice.\n[    5.870655] systemd[1]: Created slice User and Session
+    Slice.\n[  OK  ] Created slice User and Session Slice.\n[    5.872871] systemd[1]:
+    Started Forward Password Requests to Wall Directory Watch.\n[    5.876865] systemd[1]:
+    Set up automount Arbitrary Executable File Formats File System Automount Point.\n[   
+    5.882213] systemd[1]: Reached target Remote File Systems.\n[  OK  ] Started Forward
+    Password Requests to Wall Directory Watch.\n[    5.885063] systemd[1]: Reached
+    target Slices.\n[  OK  ] Set up automount Arbitrary Executable File Formats File
+    System Automount Point.\n[    5.893541] systemd[1]: Listening on Syslog Socket.
+    iS\n[    5.896186] systemd[1]: Listening on fsck to fsckd communication Socket.\n[   
+    5.901508] systemd[1]: Listening on initctl] Compatibility Named Pipe.\n[    5.905347]
+    systemd[1]: Listening on Journal Audit Socket.\n[    5.908003] systemd[1]: Listening
+    on Journal Socket (/devu/log).\n[  OK  ] Reached target Slices.\n[  OK  ] Listening
+    on Syslog Socket.\n[  OK  ] Listening on fsck to fsckd communication Socket.\n[ 
+    OK  ] Listening on initctl Compatibility Named Pipe.\n[  OK  ] Listening on Journal
+    Audit Socket.\n[    5.931336] systemd[1]: Listening on Journal Socket.\n[  OK 
+    ] Listening on Journal Socket (/dev/log).\n[  OK  ] Listening on Journal Socket.\n[   
+    5.944257] systemd[1]: Listening on udev Control Socket.\n[  OK  ] Listening on
+    udev Control Socket.\n[    5.950386] systemd[1]: Listening on udev Kernel Socket.\n[ 
+    OK  ] Listening on udev Kernel Socket.\n[    5.960758] systemd[1]: Mounting Huge
+    Pages File System...\nMounting Huge Pages File System...\n[    5.967802] systemd[1]:
+    Mounting POSIX Message Queue File System...\n[    5.980167] systemd[1]: Mounting
+    Kernel Debug File System...\nMounting POSIX Message Queue File System...\nMounting
+    Kernel Debug File System...\n[  OK  ] Listening on fsck to fsckd communication
+    Socket.\n[  OK  ] Reached target Slices.\n[  OK  ] Listening on Syslog Socket.\n[ 
+    OK  ] Listening on fsck to fsckd communication Socket.\n[  OK  ] Listening on
+    initctl Compatibility Named Pipe.\n[  OK  ] Listening on Journal Audit Socket.\n[   
+    5.931336] systemd[1]: Listening on Journal Socket.\n[  OK  ] Listening on Journal
+    Socket (/dev/log).\n[  OK  ] Listening on Journal Socket.\n[    5.944257] systemd[1]:
+    Listening on udev Control Socket.\n[  OK  ] Listening on udev Control Socket.\n[   
+    5.950386] systemd[1]: Listening on udev Kernel Socket.\n[  OK  ] Listening on
+    udev Kernel Socket.\n[    5.960758] systemd[1]: Mounting Huge Pages File System...\nMounting
+    Huge Pages File System...\n[    5.967802] systemd[1]: Mounting POSIX Message
+    Queue File System...\n[    5.980167] systemd[1]: Mounting Kernel Debug File System...\nMounting
+    POSIX Message Queue File System...\nMounting Kernel Debug File System... iS\n[   
+    5.998908] systemd[1]: Mounting Kernel Trace File System...\nMounting Kernel Trace
+    File System...\n[    6.007615] systemd[1]: Starting Set the console keyboard
+    layout...\nStarting Set the console keyboard layout...\n[    6.021234] systemd[1]:
+    Starting Create list of static device nodes for the current kernel...\nStarting
+    Create list of static device nodes for the current kernel...\n[    6.028634]
+    systemd[1]: Starting Load Kernel Module configfs...\nStarting Load Kernel Module
+    configfs.. .\n[    6.036305] systemd[1]: Starting Load Kernel Module drm...\nStarting
+    Load Kernel Module drm...\n[    6.040586] systemd[1]: Starting Load Kernel Module
+    fuse...\nStarting Load Kernel Module fuse...\n[    6.064043] systemd[1]: Condition
+    check resulted in Set Up Additional Binary Formats being skipped.\n[    6.071846]
+    systemd[1]: Condition check resulted in File System Check on Root Device being
+    skipped.\n[    6.091178] systemd[1]: Starting Journal Service...\nStarting Journal
+    Service...\n[    6.095988] fuse: init (API version 7.32)\n[    6.134765] systemd[1]:
+    Starting Load Kernel Modules...\n[    6.147089] systemd[1]: Starting Coldplug
+    All udev Devices...\nStarting Coldplug All udev Devices...\n[    6.157496] systemd[1]:
+    Mounted Huge Pages File System."
+  OnFinish:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 806652148}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!1 &806652148
 GameObject:
   m_ObjectHideFlags: 0
@@ -576,7 +696,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &806652149
 RectTransform:
   m_ObjectHideFlags: 0
@@ -778,6 +898,38 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: 91
   m_LayoutPriority: 1
+--- !u!1 &985101562
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 985101563}
+  m_Layer: 0
+  m_Name: Events
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &985101563
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 985101562}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 749283615}
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &1084230262 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7199067239809464672, guid: 11ccdb240b1774862a0234faccd36dcf,
