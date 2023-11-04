@@ -2,13 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AccessTerminalInspectable : AInspectable {
+public class AccessTerminalSprite : AInspectable {
   public AccessTerminalConfig Config;
 
-  private bool HasBeenAccessed = false;
-
   public override void OnInspect() {
-    HasBeenAccessed = true;
+    LevelObjectives.Current.UsedAccessTerminal = true;
     LoreItemData.RecordRead(Config.LoreItem);
     StateManager.AddState(State.NotPlaying);
 
@@ -23,9 +21,9 @@ public class AccessTerminalInspectable : AInspectable {
     => "Press [Inspect] to use the <color=#ffff00>access terminal</color>";
 
   public override string AInspectableUninspectableText()
-    => HasBeenAccessed ? null : "Find a <color=#ffff00>keycard</color> to use the <color=#ffff00>access terminal</color>";
+    => LevelObjectives.Current.UsedAccessTerminal ? null : "Find a <color=#ffff00>keycard</color> to use the <color=#ffff00>access terminal</color>";
 
   // TODO: Refactor state
   public override bool IsInspectable()
-    => ElevatorDoor.Current.HasKeycard && !HasBeenAccessed;
+    => LevelObjectives.Current.GotKeycard && !LevelObjectives.Current.UsedAccessTerminal;
 }
