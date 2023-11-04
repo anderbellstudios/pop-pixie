@@ -5,18 +5,12 @@ using UnityEngine.Events;
 
 public class TerminalEmulatorPrintLineByLine : MonoBehaviour {
   public TerminalEmulator TerminalEmulator;
-  public bool HopOnStart = true;
   public float DelayBetweenLines = 0.1f;
   [TextArea] public string Content;
   public UnityEvent OnFinish;
 
   private List<string> Lines;
   private int CurrentLine = 0;
-
-  void Start() {
-    if (HopOnStart)
-      Hop();
-  }
 
   public void Hop() {
     Lines = new List<string>(Content.Split('\n'));
