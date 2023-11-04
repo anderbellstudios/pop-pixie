@@ -7,8 +7,10 @@ public class AccessTerminalManager : MonoBehaviour {
   public bool SingletonInstance = true;
   public bool StartOpen = false;
   public static AccessTerminalManager Current;
+
   public List<GameObject> ActivateOnOpen;
   public UnityEvent OnOpen, OnClose;
+  public TerminalEmulatorRunCommand LsCommand, OpenCommand;
 
   private System.Action InternalOnClose;
   private bool IsOpen;
@@ -23,6 +25,9 @@ public class AccessTerminalManager : MonoBehaviour {
   }
 
   public void Open(AccessTerminalConfig config, System.Action onClose = null) {
+    LsCommand.CommandResult = config.Filename;
+    OpenCommand.Command = "open Documents/" + config.Filename;
+
     InternalOnClose = onClose;
     SetIsOpen(true);
     OnOpen.Invoke();
