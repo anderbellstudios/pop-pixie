@@ -26,7 +26,6 @@ public class AccessTerminalIndicatorLight : MonoBehaviour {
   }
 
   void Update() {
-    Debug.Log(IsBlinking());
     if (!IsBlinking()) {
       IndicatorLight.SetActive(false);
       return;
