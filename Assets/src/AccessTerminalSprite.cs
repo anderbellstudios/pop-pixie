@@ -22,10 +22,10 @@ public class AccessTerminalSprite : AInspectable {
   }
 
   public override string AInspectablePromptText()
-    => "Press [Inspect] to use the <color=#ffff00>access terminal</color>";
+    => "Press [Inspect] to use the <color=#ffff00>Access Terminal</color>";
 
   public override string AInspectableUninspectableText()
-    => LevelObjectives.Current.UsedAccessTerminal ? null : "Find a <color=#ffff00>keycard</color> to use the <color=#ffff00>access terminal</color>";
+    => LevelObjectives.Current.UsedAccessTerminal ? null : "Find a <color=#ffff00>Keycard</color> to use the <color=#ffff00>Access Terminal</color>";
 
   public override bool IsInspectable()
     => LevelObjectives.Current.GotKeycard && !LevelObjectives.Current.UsedAccessTerminal;
