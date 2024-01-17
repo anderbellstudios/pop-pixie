@@ -33,6 +33,6 @@ public class PieceOfIntelSprite : AInspectable, ISerializableComponent {
   }
 
   public override String AInspectablePromptText() {
-    return "Press [Inspect] to steal <color=#ffff00>Piece of Intel</color>";
+    return "Press [Inspect] to steal a <color=#ffff00>Piece of Intel</color>";
   }
 }
