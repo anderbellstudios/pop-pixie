@@ -4,15 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ScreenFade : MonoBehaviour {
-  public bool SingletonInstance = false;
-  public static ScreenFade Current;
 
   private Image image;
 
+  // Use this for initialization
   void Awake() {
-    if (SingletonInstance)
-      Current = this;
-
     image = gameObject.GetComponent<Image>();
   }
 

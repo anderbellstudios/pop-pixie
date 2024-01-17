@@ -79,7 +79,7 @@ Shader "Custom/HologramFloorShader" {
 
         float2 referencePoint = (mul(unity_CameraProjection, _WorldSpaceCameraPos) / 2);
         float offsetX = referencePoint.x * _ScreenParams.x;
-        float offsetY = referencePoint.y * _ScreenParams.y;
+        float offsetY = -1 * referencePoint.y * _ScreenParams.y;
 
         c.a *= 
           (positiveMod(offsetX + IN.vertex.x, _PixelsOn + _PixelsOff) < _PixelsOn) |

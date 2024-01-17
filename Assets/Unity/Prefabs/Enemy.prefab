@@ -332,7 +332,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62ee4fc16bc4641b0ab2fe76a9dd9244, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OverrideHitPoints: {fileID: 0}
 --- !u!114 &3579707395517347855
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -419,7 +418,7 @@ MonoBehaviour:
   StartsInControl: 0
   InControl: 0
   Speed: 8
-  Damage: 15
+  Damage: 14
   WiggleAmplitude: 10
   PreparingAttackInterval: 0.5
   GiveUpInterval: 3
@@ -455,28 +454,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c902b98affab42d5b6d979f55dd91f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsPlayer: 0
   ShouldSave: 1
   Maximum: 30
   InfiniteHP: 0
   Current: 30
   RegenerateRate: 0
   CanBeDamagedArbiters: []
-  CounterAttackArbiter: {fileID: 0}
   LastDamaged: 0
   Dead: 0
-  OnUpdate:
-    m_PersistentCalls:
-      m_Calls: []
-  OnDecrease:
-    m_PersistentCalls:
-      m_Calls: []
-  OnBecomeZero:
-    m_PersistentCalls:
-      m_Calls: []
-  OnCounterAttack:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &3476267911021259740
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -489,7 +474,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c128c9bc2a7144850ad94aaee2d89bd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OverrideHitPoints: {fileID: 0}
   Flash: {fileID: 6901898730673190071}
   DeathAnimation: {fileID: 1047574261544682520}
   Collider: {fileID: 3559577149095304210}
@@ -540,7 +524,7 @@ MonoBehaviour:
   Animator: {fileID: 4126083962849904502}
 --- !u!95 &4126083962849904502
 Animator:
-  serializedVersion: 5
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -557,8 +541,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &5324726799035979464
 MonoBehaviour:
   m_ObjectHideFlags: 0

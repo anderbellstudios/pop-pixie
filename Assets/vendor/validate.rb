@@ -6,7 +6,6 @@ $REQUIRED_LIBRARIES = %{
   TextMesh Pro
   TMP_Typewriter
   Main Menu Background
-  FronkonGames
 }.lines.map(&:strip).reject(&:empty?)
 
 $REQUIRED_LIBRARIES.each do |library|

@@ -5,10 +5,11 @@ using System.Linq;
 using UnityEngine;
 
 public abstract class AInspectable : MonoBehaviour {
-  public static Dictionary<AInspectable, bool> IsInspectImminentMap = new Dictionary<AInspectable, bool>() { };
+
+  public static Dictionary<AInspectable, bool> IsNearby = new Dictionary<AInspectable, bool>() { };
 
   public static bool ShowButtonPrompt() {
-    return IsInspectImminentMap.Values.Any(isTrue => isTrue);
+    return IsNearby.Values.Any(isTrue => isTrue);
   }
 
   protected bool _Nearby;
@@ -34,23 +35,15 @@ public abstract class AInspectable : MonoBehaviour {
 
   public void AInspectableStart() {
     InGamePrompt.Current.RegisterSource(1000, () => {
-      if (IsInspectImminent()) {
+      if (InspectImminent()) {
         return AInspectablePromptText();
+      } else {
+        return null;
       }
-
-      if (IsPlayingAndNearby()) {
-        return AInspectableUninspectableText();
-      }
-
-      return null;
     });
   }
 
   public virtual String AInspectablePromptText() {
-    return null;
-  }
-
-  public virtual String AInspectableUninspectableText() {
     return null;
   }
 
@@ -62,14 +55,15 @@ public abstract class AInspectable : MonoBehaviour {
     if (!StateManager.Playing)
       _ButtonPressHelper.Clear();
 
-    IsInspectImminentMap[this] = IsInspectImminent();
+    IsNearby[this] = InspectImminent();
 
-    if (IsInspectImminent() && _ButtonPressHelper.GetButtonPress("Inspect"))
+    if (InspectImminent() && _ButtonPressHelper.GetButtonPress("Inspect"))
       OnInspect();
   }
 
-  bool IsInspectImminent() => IsPlayingAndNearby() && IsInspectable();
-  bool IsPlayingAndNearby() => StateManager.Playing && _Nearby;
+  bool InspectImminent() {
+    return StateManager.Playing && _Nearby && IsInspectable();
+  }
 
   public abstract void OnInspect();
 
@@ -82,4 +76,5 @@ public abstract class AInspectable : MonoBehaviour {
   public virtual bool IsInspectable() {
     return true;
   }
+
 }

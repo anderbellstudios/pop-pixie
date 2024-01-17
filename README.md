@@ -59,14 +59,6 @@ Move from `/Assets/Rewired` to `/Assets/vendor/Rewired`
 
 **When there are no more compile errors, Rewired will prompt you to begin installation. Please skip this step.**
 
-#### Retro: CRT TV (Asset Store, paid)
-
-We use Retro: CRT TV for the CRT effect in Pop Pixie. Without it, Access Terminal screens won't render correctly, but will still be legible.
-
-Purchase from https://assetstore.unity.com/packages/vfx/shaders/fullscreen-camera-effects/retro-crt-tv-241411
-
-Move from `/Assets/FronkonGames` to `/Assets/vendor/FronkonGames`
-
 #### Pixel Art City Backgrounds (third-party, paid)
 
 The city background used in some scenes in Pop Pixie is modified from the Pixel Art City Backgrounds asset pack by edermunizz. Due to the license under which this asset pack is sold, we're unable to include our modified version of the city background in this GitHub repo. The game will still run without the background, but some scenes will be rendered incorrectly.
