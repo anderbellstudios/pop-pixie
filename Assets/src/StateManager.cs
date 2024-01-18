@@ -11,9 +11,8 @@ public enum StateFeatures {
   Playing = 1,
   BackgroundAnimations = 2,
   Movement = 4,
-  PauseAudio = 8,
-  PlayerDeathAnimation = 16,
-  MuffleSounds = 32
+  PlayerDeathAnimation = 8,
+  MuffleSounds = 16
 };
 
 public enum State {
