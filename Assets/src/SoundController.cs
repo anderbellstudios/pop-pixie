@@ -7,13 +7,10 @@ public class SoundController : MonoBehaviour {
   public float BaseVolume = 1f;
   public bool OneShot = false;
   public bool UseVoiceVolume = false;
-  public bool PlayWhilePaused = false;
+  public bool PauseWhenNotPlaying = false;
 
   private float SoundVolume = 1f;
-
-  void Awake() {
-    Player.ignoreListenerPause = PlayWhilePaused;
-  }
+  private bool PausedDueToNotPlaying = false;
 
   public void Play(AudioClip sound, float volume = 1f) {
     SoundVolume = volume;
@@ -28,6 +25,22 @@ public class SoundController : MonoBehaviour {
 
   public void Stop() {
     Player.Stop();
+  }
+
+  void Start() {
+    if (PauseWhenNotPlaying) {
+      StateManager.AddListener(() => {
+        bool shouldPause = !StateManager.Enabled(StateFeatures.Playing);
+
+        if (shouldPause && !PausedDueToNotPlaying) {
+          Player.Pause();
+        } else if (!shouldPause && PausedDueToNotPlaying) {
+          Player.UnPause();
+        }
+
+        PausedDueToNotPlaying = shouldPause;
+      });
+    }
   }
 
   void Update() {
