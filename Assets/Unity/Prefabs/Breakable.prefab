@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8622853643666898804}
   - component: {fileID: 8622853643666898809}
   - component: {fileID: 8622853643666898808}
+  - component: {fileID: 4299860753972999170}
   - component: {fileID: 8622853643666898814}
   - component: {fileID: 8622853643666898811}
   m_Layer: 0
@@ -32,6 +33,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 6.4500003, y: 13.49, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -47,6 +49,7 @@ SpriteRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -55,7 +58,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: ea6c993430e9b40f887ef37d1f7cae17, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -125,13 +128,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c902b98affab42d5b6d979f55dd91f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsPlayer: 0
   ShouldSave: 1
   Maximum: 1
   InfiniteHP: 0
   Current: 1
   RegenerateRate: 0
   CanBeDamagedArbiters: []
+  CounterAttackArbiter: {fileID: 0}
+  LastDamaged: 0
   Dead: 0
+  OnUpdate:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDecrease:
+    m_PersistentCalls:
+      m_Calls: []
+  OnBecomeZero:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4299860753972999170}
+        m_TargetAssemblyTypeName: BreakableStyle, Assembly-CSharp
+        m_MethodName: DisableOutline
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnCounterAttack:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &8622853643666898808
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -144,6 +174,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8538966f9f284f789bf9c660ea84e4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OverrideHitPoints: {fileID: 0}
   SpriteRenderer: {fileID: 8622853643666898805}
   WorkingFrames:
   - {fileID: 21300000, guid: 185cc3be49acc4653bf7e51eae86f14a, type: 3}
@@ -151,6 +182,20 @@ MonoBehaviour:
   SpawnFlyingRingPull: {fileID: 8622853643666898814}
   DisableComponents:
   - {fileID: 8622853643666898804}
+--- !u!114 &4299860753972999170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8622853643666898807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e9bf149180ff4090b5be7c70daf57fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Speed: 1
+  SpriteRenderer: {fileID: 8622853643666898805}
 --- !u!114 &8622853643666898814
 MonoBehaviour:
   m_ObjectHideFlags: 0
