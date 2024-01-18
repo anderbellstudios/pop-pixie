@@ -8,6 +8,7 @@ public class GrenadePredictedPosition : MonoBehaviour {
   public RectTransform RadiusIndicator;
   public Image ExplodeDurationIndicator;
   public float AnimateInDuration;
+  public float Drag = 10f;
 
   private float CreatedTime;
 
@@ -44,11 +45,20 @@ public class GrenadePredictedPosition : MonoBehaviour {
 
     RadiusIndicator.localScale = Vector3.one * radius;
 
-    ExplodeDurationIndicator.fillAmount = Mathf.Clamp(Age() / explodeTime, 0f, 1f);
+    // The time required for the grenade to get far enough away
+    float throwDuration = DragUtils.TimeUntilDisplacement(
+      speed: speed,
+      drag: Drag,
+      displacement: radius
+    );
+
+    float safeThrowTime = explodeTime - throwDuration;
+
+    ExplodeDurationIndicator.fillAmount = Mathf.Clamp(Age() / safeThrowTime, 0f, 1f);
   }
 
   private float GetMaxDistance(Vector3 direction, float speed) {
-    float maxDistance = speed / 10;
+    float maxDistance = DragUtils.MaxDisplacement(speed: speed, drag: Drag);
 
     RaycastHit2D hitData = Physics2D.Raycast(
       transform.position,

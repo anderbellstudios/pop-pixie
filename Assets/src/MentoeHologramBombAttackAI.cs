@@ -5,7 +5,6 @@ using UnityEngine;
 public class MentoeHologramBombAttackAI : ARepeatedAttackAI {
   public GameObject BombPrefab;
   public float PredictiveAimLeadTime;
-  public float BombVelocityCoefficient;
 
   void Start() {
     HitPoints.PlayerHitPoints.OnDecrease.AddListener(hitPoints => {
@@ -24,7 +23,13 @@ public class MentoeHologramBombAttackAI : ARepeatedAttackAI {
       transform.rotation
     );
 
-    bombGameObject.GetComponent<Rigidbody2D>().velocity = BombVelocityCoefficient * predictedPlayerPosition;
+    Rigidbody2D rb = bombGameObject.GetComponent<Rigidbody2D>();
+
+    rb.velocity = DragUtils.VelocityForDisplacement(
+      displacement: predictedPlayerPosition,
+      drag: rb.drag
+    );
+
     BulletData bulletData = bombGameObject.GetComponent<BulletData>();
     bulletData.Originator = gameObject;
     bulletData.Damage = 100;
