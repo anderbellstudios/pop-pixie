@@ -1,26 +1,33 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 /**
  * - Weapons are rendered on an infinite helix in 3D space.
  * - Near Z is 0.5, far Z is 1.5, center Z is 1.0.
+ * - Item 0 has angle 0.
  */
 
 public class SpiralWeaponSwitcher : MonoBehaviour {
   public GameObject BaseIndicator;
-  public int IndicatorCount;
-  public float StartRevolutions;
-  public float EndRevolutions;
+  public float AngleStepDegrees;
+  public int BeforeAfterCount;
   public float Radius;
   public float Stretch;
   public float JoystickThreshold;
 
   private Vector2 PreviousJoystick = Vector2.right;
   private float TargetAngle, CurrentAngle = 0f;
-  private List<GameObject> Indicators = new List<GameObject>();
+  private float AngleStep;
+  private Dictionary<int, GameObject> ItemGameObjects = new Dictionary<int, GameObject>();
+
+  void Awake() {
+    AngleStep = Mathf.Deg2Rad * AngleStepDegrees;
+  }
 
   void Update() {
     Vector2 joystick = new Vector2(
@@ -36,23 +43,17 @@ public class SpiralWeaponSwitcher : MonoBehaviour {
 
     CurrentAngle = Mathf.Lerp(CurrentAngle, TargetAngle, 0.3f);
 
-    Indicators.ForEach(Destroy);
+    int currentItemIndex = ClosestItemIndexForAngle(CurrentAngle);
 
-    float startAngle = StartRevolutions * 2 * Mathf.PI;
-    float endAngle = EndRevolutions * 2 * Mathf.PI;
+    int firstItemIndex = currentItemIndex - BeforeAfterCount;
+    int lastItemIndex = currentItemIndex + BeforeAfterCount;
 
-    Func<int, float> nthAngle = (int n) => {
-      float progress = (float)n / IndicatorCount;
-      return Mathf.Lerp(startAngle, endAngle, progress);
-    };
+    DestroyUnusedItems(minIndex: firstItemIndex, maxIndex: lastItemIndex);
 
-    float angleStep = nthAngle(1) - nthAngle(0);
+    for (int i = firstItemIndex; i < lastItemIndex; i++) {
+      GameObject item = GetOrCreateItem(i);
 
-    for (int i = 0; i < IndicatorCount; i++) {
-      GameObject indicator = Instantiate(BaseIndicator, transform);
-      indicator.SetActive(true);
-
-      float angle = nthAngle(i);
+      float angle = AngleForItemIndex(i);
 
       Vector3 position = HelixPosition(
         radius: Radius,
@@ -61,26 +62,45 @@ public class SpiralWeaponSwitcher : MonoBehaviour {
         angle: angle
       );
 
-      if (position.z < 0.5f || position.z > 1.5f) {
-        Destroy(indicator);
-        continue;
-      }
-
-      indicator.transform.localPosition = Perspective(position);
+      item.transform.localPosition = Perspective(position);
 
       float scale = 1f / position.z;
-      indicator.transform.localScale = Vector3.one * scale;
+      item.transform.localScale = Vector3.one * scale;
 
-      Image image = indicator.GetComponent<Image>();
+      Image image = item.GetComponent<Image>();
 
       float opacity = Mathf.Clamp01(1f - Mathf.Abs(position.z - 1f) * 2f);
       image.color = new Color(1f, 1f, 1f, opacity);
 
-      if (Mathf.Abs(TargetAngle - angle) < angleStep / 2f) {
+      if (i == currentItemIndex) {
         image.color = Color.red;
       }
+    }
+  }
 
-      Indicators.Add(indicator);
+  float AngleForItemIndex(int index) => AngleStep * index;
+  int ClosestItemIndexForAngle(float angle) => Mathf.RoundToInt(angle / AngleStep);
+
+  GameObject GetOrCreateItem(int index) {
+    if (ItemGameObjects.ContainsKey(index)) {
+      return ItemGameObjects[index];
+    }
+
+    GameObject item = Instantiate(BaseIndicator, transform);
+    item.SetActive(true);
+
+    item.GetComponentInChildren<TMP_Text>().text = index.ToString();
+    ItemGameObjects[index] = item;
+
+    return item;
+  }
+
+  void DestroyUnusedItems(int minIndex, int maxIndex) {
+    foreach (int index in ItemGameObjects.Keys.ToArray()) {
+      if (index < minIndex || index > maxIndex) {
+        Destroy(ItemGameObjects[index]);
+        ItemGameObjects.Remove(index);
+      }
     }
   }
 
