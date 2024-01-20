@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using TMPro;
 
 [ExecuteInEditMode]
-public class WeaponTile : MonoBehaviour {
+public class ShopWeaponTile : MonoBehaviour {
   public string Name = "Untitled weapon";
   public Weapon Weapon;
   public int Price;

@@ -13,7 +13,7 @@ using TMPro;
  */
 
 public class SpiralWeaponSwitcher : MonoBehaviour {
-  public GameObject BaseIndicator;
+  public GameObject BaseItem;
   public float AngleStepDegrees;
   public int BeforeAfterCount;
   public float Radius;
@@ -24,9 +24,11 @@ public class SpiralWeaponSwitcher : MonoBehaviour {
   private float TargetAngle, CurrentAngle = 0f;
   private float AngleStep;
   private Dictionary<int, GameObject> ItemGameObjects = new Dictionary<int, GameObject>();
+  private List<PlayerWeapon> Weapons;
 
-  void Awake() {
+  void Start() {
     AngleStep = Mathf.Deg2Rad * AngleStepDegrees;
+    Weapons = PlayerWeapons.Current.AvailableWeapons();
   }
 
   void Update() {
@@ -67,14 +69,12 @@ public class SpiralWeaponSwitcher : MonoBehaviour {
       float scale = 1f / position.z;
       item.transform.localScale = Vector3.one * scale;
 
-      Image image = item.GetComponent<Image>();
+      SpiralWeaponTile weaponTile = item.GetComponent<SpiralWeaponTile>();
 
-      float opacity = Mathf.Clamp01(1f - Mathf.Abs(position.z - 1f) * 2f);
-      image.color = new Color(1f, 1f, 1f, opacity);
-
-      if (i == currentItemIndex) {
-        image.color = Color.red;
-      }
+      weaponTile.SetOpacity(
+        opacity: Mathf.Clamp01(1f - Mathf.Abs(position.z - 1f) * 2f),
+        selected: i == currentItemIndex
+      );
     }
   }
 
@@ -86,10 +86,12 @@ public class SpiralWeaponSwitcher : MonoBehaviour {
       return ItemGameObjects[index];
     }
 
-    GameObject item = Instantiate(BaseIndicator, transform);
+    GameObject item = Instantiate(BaseItem, transform);
     item.SetActive(true);
 
-    item.GetComponentInChildren<TMP_Text>().text = index.ToString();
+    PlayerWeapon weapon = Weapons[PositiveMod(index, Weapons.Count)];
+    item.GetComponent<SpiralWeaponTile>().SetWeapon(weapon);
+
     ItemGameObjects[index] = item;
 
     return item;
@@ -115,4 +117,6 @@ public class SpiralWeaponSwitcher : MonoBehaviour {
     p.y / p.z,
     p.z // For ease of debugging
   );
+
+  int PositiveMod(int x, int m) => (x % m + m) % m;
 }

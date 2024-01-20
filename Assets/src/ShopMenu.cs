@@ -21,7 +21,7 @@ public class ShopMenu : AMenu {
 
   public override void LocalStartBeforeSelect() {
     Buttons.ForEach(button => {
-      WeaponTile weaponTile = button.gameObject.GetComponent<WeaponTile>();
+      ShopWeaponTile weaponTile = button.gameObject.GetComponent<ShopWeaponTile>();
 
       weaponTile.ClickHandler = () => {
         if (Leaving)
@@ -37,7 +37,7 @@ public class ShopMenu : AMenu {
     WelcomeLine.Perform();
   }
 
-  void AttemptBuy(WeaponTile weaponTile) {
+  void AttemptBuy(ShopWeaponTile weaponTile) {
     if (RingPullsData.Amount() < weaponTile.Price) {
       CannotAffordLine.Perform();
       return;
@@ -47,7 +47,7 @@ public class ShopMenu : AMenu {
     BuyLine.Perform();
   }
 
-  void AttemptSell(WeaponTile weaponTile) {
+  void AttemptSell(ShopWeaponTile weaponTile) {
     if (weaponTile.Free) {
       CannotSellFreeLine.Perform();
       return;
@@ -57,14 +57,14 @@ public class ShopMenu : AMenu {
     SellLine.Perform();
   }
 
-  void BuyOrSell(WeaponTile weaponTile, bool buy) {
+  void BuyOrSell(ShopWeaponTile weaponTile, bool buy) {
     RingPullsData.Modify(weaponTile.Price * (buy ? -1 : 1));
     BoughtWeaponsData.SetBought(weaponTile.Weapon.Id, buy);
     weaponTile.Bought = buy;
   }
 
   public void HandleSelectionChanged(GameObject currentSelected, GameObject previousSelected) {
-    WeaponTile weaponTile = currentSelected?.GetComponent<WeaponTile>();
+    ShopWeaponTile weaponTile = currentSelected?.GetComponent<ShopWeaponTile>();
 
     if (weaponTile != null) {
       ScrollToSelectionHelper.EnsureVisible(
@@ -77,7 +77,7 @@ public class ShopMenu : AMenu {
     }
   }
 
-  public void ShowWeaponInfo(WeaponTile weaponTile) {
+  public void ShowWeaponInfo(ShopWeaponTile weaponTile) {
     Weapon weapon = weaponTile.Weapon;
 
     ActionButtonHintText.text = (weaponTile.Bought ? "Sell" : "Buy") + " <size=150%>[Confirm]</size>";
