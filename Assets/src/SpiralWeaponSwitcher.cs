@@ -12,7 +12,7 @@ using TMPro;
  * - Item 0 has angle 0.
  */
 
-public class SpiralWeaponSwitcher : MonoBehaviour {
+public class SpiralWeaponSwitcher : AWeaponSwitcherUI {
   public GameObject BaseItem;
   public float AngleStepDegrees;
   public int BeforeAfterCount;
@@ -28,8 +28,15 @@ public class SpiralWeaponSwitcher : MonoBehaviour {
 
   void Start() {
     AngleStep = Mathf.Deg2Rad * AngleStepDegrees;
-    Weapons = PlayerWeapons.Current.AvailableWeapons();
   }
+
+  public override void OnOpen(List<PlayerWeapon> availableWeapons, int equippedWeaponIndex) {
+    Weapons = availableWeapons;
+  }
+
+  public override int OnClose() => WeaponIndexForItemIndex(
+    ClosestItemIndexForAngle(TargetAngle)
+  );
 
   void Update() {
     Vector2 joystick = new Vector2(
@@ -89,7 +96,8 @@ public class SpiralWeaponSwitcher : MonoBehaviour {
     GameObject item = Instantiate(BaseItem, transform);
     item.SetActive(true);
 
-    PlayerWeapon weapon = Weapons[PositiveMod(index, Weapons.Count)];
+    int weaponIndex = WeaponIndexForItemIndex(index);
+    PlayerWeapon weapon = Weapons[weaponIndex];
     item.GetComponent<SpiralWeaponTile>().SetWeapon(weapon);
 
     ItemGameObjects[index] = item;
@@ -118,5 +126,6 @@ public class SpiralWeaponSwitcher : MonoBehaviour {
     p.z // For ease of debugging
   );
 
+  int WeaponIndexForItemIndex(int index) => PositiveMod(index, Weapons.Count);
   int PositiveMod(int x, int m) => (x % m + m) % m;
 }
