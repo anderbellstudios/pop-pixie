@@ -6,7 +6,6 @@ using UnityEngine;
 using Rewired;
 
 public class WrappedInput : MonoBehaviour {
-
   public static Player Player {
     get => ReInput.players.GetPlayer(0);
   }
@@ -34,5 +33,4 @@ public class WrappedInput : MonoBehaviour {
       return null;
     }
   }
-
 }

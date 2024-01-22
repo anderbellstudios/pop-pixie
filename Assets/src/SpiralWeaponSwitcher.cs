@@ -18,9 +18,9 @@ public class SpiralWeaponSwitcher : AWeaponSwitcherUI {
   public int BeforeAfterCount;
   public float Radius;
   public float Stretch;
-  public float JoystickThreshold;
+  public float JoystickThreshold, CursorThreshold;
 
-  private Vector2 PreviousJoystick = Vector2.right;
+  private Vector2 PreviousDirection = Vector2.right;
   private float TargetAngle, CurrentAngle = 0f;
   private float AngleStep;
   private Dictionary<int, GameObject> ItemGameObjects = new Dictionary<int, GameObject>();
@@ -39,15 +39,19 @@ public class SpiralWeaponSwitcher : AWeaponSwitcherUI {
   );
 
   void Update() {
-    Vector2 joystick = new Vector2(
-      WrappedInput.GetAxis("Horizontal"),
-      WrappedInput.GetAxis("Vertical")
-    );
+    Vector2 direction = InputMode.IsJoystick()
+      ? new Vector2(
+        WrappedInput.GetAxis("Horizontal"),
+        WrappedInput.GetAxis("Vertical")
+      )
+      : CursorDirection.DirectionFromScreenCenter() / (Screen.height / 2f);
 
-    if (joystick.magnitude > JoystickThreshold) {
-      float angle = Vector2.SignedAngle(PreviousJoystick, joystick) * Mathf.Deg2Rad;
+    float threshold = InputMode.IsJoystick() ? JoystickThreshold : CursorThreshold;
+
+    if (direction.magnitude > threshold) {
+      float angle = Vector2.SignedAngle(PreviousDirection, direction) * Mathf.Deg2Rad;
       TargetAngle += angle;
-      PreviousJoystick = joystick;
+      PreviousDirection = direction;
     }
 
     CurrentAngle = Mathf.Lerp(CurrentAngle, TargetAngle, 0.3f);
