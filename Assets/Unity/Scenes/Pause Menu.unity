@@ -142,6 +142,8 @@ GameObject:
   - component: {fileID: 67319750}
   - component: {fileID: 67319749}
   - component: {fileID: 67319748}
+  - component: {fileID: 67319753}
+  - component: {fileID: 67319752}
   m_Layer: 5
   m_Name: Menu canvas
   m_TagString: Untagged
@@ -234,6 +236,34 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!225 &67319752
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 67319747}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &67319753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 67319747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d2396bbd81234fc6b3e43992c1a91a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CanvasGroup: {fileID: 67319752}
+  BeforeInitialVisible: 0
+  InitialVisible: 1
+  Duration: 0.1
 --- !u!1 &136608893
 GameObject:
   m_ObjectHideFlags: 0
@@ -2334,6 +2364,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SingletonInstance: 0
+  StartOpen: 0
   LoreWindow: {fileID: 478940898}
 --- !u!114 &1029052668
 MonoBehaviour:

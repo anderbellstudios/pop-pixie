@@ -449,6 +449,8 @@ GameObject:
   - component: {fileID: 3288217033747459043}
   - component: {fileID: 8118304448397083036}
   - component: {fileID: 2598093845933131527}
+  - component: {fileID: 5807569463201166768}
+  - component: {fileID: 3149749126933257872}
   m_Layer: 5
   m_Name: Spiral Weapon Switcher Canvas
   m_TagString: Untagged
@@ -539,6 +541,34 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &5807569463201166768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7974878008531128654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d2396bbd81234fc6b3e43992c1a91a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CanvasGroup: {fileID: 3149749126933257872}
+  BeforeInitialVisible: 0
+  InitialVisible: 1
+  Duration: 0.1
+--- !u!225 &3149749126933257872
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7974878008531128654}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1001 &2573013430108941058
 PrefabInstance:
   m_ObjectHideFlags: 0
