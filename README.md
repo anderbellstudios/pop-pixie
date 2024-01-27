@@ -17,7 +17,7 @@ But you can’t do it alone. Masterminding your mission is Amanda, who will stop
 
 ## Project Status
 
-**Update February 2023**: We're putting the finishing touches to the supplementary prequel game *Pop Pixie: Mission Training*, which we're hoping to release in 2023. After that, we'll work on getting the first few levels of the main game ready to play and start releasing incremental updates.
+**Update January 2024**: We're putting the finishing touches to the supplementary prequel game *Pop Pixie: Mission Training*, which we're hoping to release in 2024. After that, we'll work on getting the first few levels of the main game ready to play and start releasing incremental updates.
 
 Follow us on social media for more updates:
 
