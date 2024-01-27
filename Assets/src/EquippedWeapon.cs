@@ -11,7 +11,12 @@ public class EquippedWeapon : MonoBehaviour {
   public SpriteRenderer InHandSpriteRenderer;
   public PlayerWeapons PlayerWeapons;
   public PlayerWeapon CurrentWeapon;
+  public float TapToChangeDuration;
+
   private WeaponInfoController WeaponInfoController;
+  private bool ListeningForTap = false;
+  private AsyncTimer.EnqueuedEvent TapTimer;
+  private bool WeaponSwitcherOpen = false;
 
   void Awake() {
     if (SingletonInstance)
@@ -21,34 +26,99 @@ public class EquippedWeapon : MonoBehaviour {
   void Start() {
     WeaponInfoController = GameObject.Find("Weapon Info").GetComponent<WeaponInfoController>();
 
-    SetWeaponByIndex(EquippedWeaponData.CurrentWeapon);
+    SetWeaponByIndex(index: CurrentWeaponIndex, setLast: false);
 
     InGamePrompt.Current.RegisterSource(200, () =>
       CurrentWeapon.Ammunition == 0
         ? "Press [Reload] to reload your weapon"
         : null
     );
+
+    StateManager.AddListener(() => {
+      if (!StateManager.Playing) {
+        AsyncTimer.BaseTime.ClearTimeout(TapTimer);
+        ListeningForTap = false;
+      }
+    });
   }
 
   void Update() {
     WeaponInfoController.SetAmmunition(CurrentWeapon.Ammunition, CurrentWeapon.Capacity);
 
     if (StateManager.Playing && WrappedInput.GetButtonDown("Change Weapon")) {
-      SetWeaponByIndex((EquippedWeaponData.CurrentWeapon + 1) % AvailableWeapons.Count);
       WeaponReload.Interrupt();
+
+      ListeningForTap = true;
+
+      TapTimer = AsyncTimer.BaseTime.SetTimeout(() => {
+        // Not a tap, so open the weapon switcher
+        WeaponSwitcher.Current.Show();
+        WeaponSwitcherOpen = true;
+
+        ListeningForTap = false;
+      }, TapToChangeDuration);
+    }
+
+    if (WrappedInput.GetButtonUp("Change Weapon")) {
+      if (WeaponSwitcherOpen) {
+        WeaponSwitcher.Current.Hide();
+        WeaponSwitcherOpen = false;
+      }
+
+      if (ListeningForTap) {
+        AsyncTimer.BaseTime.ClearTimeout(TapTimer);
+        ListeningForTap = false;
+        HandleTap();
+      }
     }
   }
 
-  void SetWeaponByIndex(int index) {
+  void HandleTap() {
+    /**
+     * If LastWeaponIndex is -1, do nothing. This serves to teach the player
+     * that the full weapon switcher exists. Otherwise, a player might toggle
+     * between their first two weapons without realising that other weapons are
+     * available.
+     */
+    if (LastWeaponIndex != -1) {
+      SetWeaponByIndex(LastWeaponIndex);
+    }
+  }
+
+  public void SetWeaponByIndex(int index, bool setLast = true) {
     CurrentWeapon = AvailableWeapons.Count > index
       ? AvailableWeapons[index]
       : AvailableWeapons[0];
 
-    EquippedWeaponData.CurrentWeapon = index;
+    if (setLast && CurrentWeaponIndex != index) {
+      LastWeaponIndex = CurrentWeaponIndex;
+    }
+
+    CurrentWeaponIndex = index;
 
     InHandSpriteRenderer.sprite = CurrentWeapon.InHandSprite;
     WeaponInfoController.SetWeaponImage(CurrentWeapon.Sprite);
     WeaponInfoController.SetWeaponName(CurrentWeapon.Name);
+  }
+
+  public int CurrentWeaponIndex {
+    get {
+      return EquippedWeaponData.CurrentWeapon;
+    }
+
+    set {
+      EquippedWeaponData.CurrentWeapon = value;
+    }
+  }
+
+  public int LastWeaponIndex {
+    get {
+      return EquippedWeaponData.LastWeapon;
+    }
+
+    set {
+      EquippedWeaponData.LastWeapon = value;
+    }
   }
 
   public List<PlayerWeapon> AvailableWeapons => PlayerWeapons.AvailableWeapons();

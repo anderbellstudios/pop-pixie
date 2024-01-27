@@ -21,7 +21,7 @@ public class ElevatorDoor : AInspectable {
     => "Press [Inspect] to use the <color=#ffff00>elevator</color>";
 
   public override String AInspectableUninspectableText()
-    => "Use an <color=#ffff00>access terminal</color> to gain access to higher floors";
+    => "Use an <color=#ffff00>Access Terminal</color> to gain access to higher floors";
 
   public override void OnInspect() {
     DialoguePromptManager.Current.Prompt(
