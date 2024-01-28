@@ -49,7 +49,7 @@ module UsageData
 
     def uses?(file)
       referenced_guids.include?(file.guid) || (
-        path.end_with?('.cs') &&
+        file.path.end_with?('.cs') &&
         referenced_identifiers.include?(file.class_name)
       )
     end

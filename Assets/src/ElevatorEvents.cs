@@ -3,13 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ElevatorEvents : MonoBehaviour {
+  private string NextLevel = "";
+
   void Start() {
-    SceneData.Save();
-    SaveGame.WriteSave();
+    GameData.Save();
+  }
+
+  public void SetNextLevel(string nextLevel) {
+    NextLevel = nextLevel;
   }
 
   public void Continue() {
-    GDCall.ExpectFirstTime();
-    SceneEvents.Current.ChangeScene(ElevatorData.NextLevel, true);
+    SceneEvents.Current.ChangeScene(NextLevel, true);
   }
 }

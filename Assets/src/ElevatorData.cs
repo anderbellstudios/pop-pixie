@@ -1,11 +1,13 @@
 public class ElevatorData {
-  public static string NextLevel {
+  public static bool FromShop = false;
+
+  public static int ElevatorRide {
     get {
-      return (string)GameData.Current.Fetch("next-level");
+      return (int)GameData.Current.Fetch("elevator-ride", orSetEqualTo: 0);
     }
 
     set {
-      GameData.Current.Set("next-level", value);
+      GameData.Current.Set("elevator-ride", value);
     }
   }
 }

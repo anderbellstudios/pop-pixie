@@ -6,7 +6,7 @@ public class NewGameHopper : MonoBehaviour {
   public SceneChangeHopper SceneChangeHopper;
 
   public void Hop() {
-    GameData.Current.Clear();
+    GameData.Reset();
     SceneChangeHopper.Hop();
   }
 }

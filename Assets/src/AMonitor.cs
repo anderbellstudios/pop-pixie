@@ -4,12 +4,10 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
-public abstract class AMonitor : MonoBehaviour, ISerializableComponent {
-  public string[] SerializableFields { get; } = { "Waiting" };
-
+public abstract class AMonitor : MonoBehaviour {
   public bool WaitOnAwake = true, WaitInfinitely = false, Waiting;
 
-  [SerializeField] public UnityEvent Event;
+  public UnityEvent Event;
 
   public void StartWaiting() {
     Waiting = true;

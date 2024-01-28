@@ -41,5 +41,4 @@ public abstract class AData {
 
   public virtual void AfterUpdate() {
   }
-
 }

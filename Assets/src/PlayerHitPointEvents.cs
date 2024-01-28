@@ -21,10 +21,6 @@ public class PlayerHitPointEvents : MonoBehaviour {
     });
 
     hitPoints.OnBecomeZero.AddListener(hp => {
-      // Make sure you can't quit out to avoid dying
-      SaveGame.ReadSave();
-      SaveGame.WriteAutoSave();
-
       StateManager.AddState(State.PlayerDying);
       Fader.Fade("to black", 2.0f);
       AudioFadeOut.Current.FadeOut(1.0f);
@@ -33,6 +29,7 @@ public class PlayerHitPointEvents : MonoBehaviour {
   }
 
   void GameOverScreen() {
+    GameOverData.ResumeLevel = SceneManager.GetActiveScene().name;
     SceneManager.LoadScene(GameOverScene);
   }
 }

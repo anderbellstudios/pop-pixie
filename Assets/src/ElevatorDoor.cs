@@ -7,12 +7,15 @@ public class ElevatorDoor : AInspectable {
   public bool SingletonInstance = true;
   public static ElevatorDoor Current;
 
-  public string NextLevel;
+  public int ElevatorRide = 0;
   public SceneChangeHopper SceneChangeHopper;
 
   void Awake() {
     if (SingletonInstance)
       Current = this;
+
+    if (ElevatorRide < 1)
+      throw new Exception("ElevatorRide must be set to a value greater than 0");
   }
 
   public override bool IsInspectable() => LevelObjectives.Current.UsedAccessTerminal;
@@ -29,7 +32,8 @@ public class ElevatorDoor : AInspectable {
       "Advance",
       "Do not",
       () => {
-        ElevatorData.NextLevel = NextLevel;
+        ElevatorData.ElevatorRide = ElevatorRide;
+        ElevatorData.FromShop = false;
         SceneChangeHopper.Hop();
       },
       () => { }
