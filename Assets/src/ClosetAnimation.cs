@@ -20,6 +20,11 @@ public class ClosetAnimation : APhase {
     PlayerSpriteGroup.SetActive(false);
   }
 
+  public override bool SkipOnRetry() {
+    RollOutOfCloset();
+    return true;
+  }
+
   public override void LocalBegin() {
     StateManager.AddState(State.ScriptedMovement);
     NextRattleOnOff();
