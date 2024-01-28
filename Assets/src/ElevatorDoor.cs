@@ -33,7 +33,7 @@ public class ElevatorDoor : AInspectable {
       "Do not",
       () => {
         ElevatorData.ElevatorRide = ElevatorRide;
-        ElevatorData.FromShop = false;
+        ElevatorData.WillArriveFromLevel();
         SceneChangeHopper.Hop();
       },
       () => { }

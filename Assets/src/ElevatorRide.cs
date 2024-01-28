@@ -16,7 +16,7 @@ public class ElevatorRide : MonoBehaviour {
   }
 
   public void BeginRide() {
-    PhaseScheduler scheduler = ElevatorData.FromShop ? FromShopPhaseScheduler : StandardPhaseScheduler;
+    PhaseScheduler scheduler = ElevatorData.ArrivedFromShop ? FromShopPhaseScheduler : StandardPhaseScheduler;
 
     if (scheduler == null) {
       OnFinish.Invoke();

@@ -12,7 +12,7 @@ public class ContinueGameHopper : MonoBehaviour {
 
   public void Hop() {
     GameData.Load();
-    ElevatorData.FromShop = false;
+    ElevatorData.WillArriveFromLoad();
     SceneEvents.Current.ChangeScene("Elevator", true);
   }
 }

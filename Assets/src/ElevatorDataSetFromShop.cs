@@ -4,6 +4,6 @@ using UnityEngine;
 
 public class ElevatorDataSetFromShop : MonoBehaviour {
   public void SetFromShop() {
-    ElevatorData.FromShop = true;
+    ElevatorData.WillArriveFromShop();
   }
 }
