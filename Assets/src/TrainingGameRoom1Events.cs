@@ -8,8 +8,6 @@ public class TrainingGameRoom1Events : MonoBehaviour {
   public ScreenFade Fader;
   public List<GameObject> Targets;
 
-  private bool TargetsDestroyed = false;
-
   void Start() {
     Fader.Fade("to black", 0.0f);
 
