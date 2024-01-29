@@ -1135,6 +1135,9 @@ MonoBehaviour:
   OnPhaseFinished:
     m_PersistentCalls:
       m_Calls: []
+  OnLastPhaseFinished:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &405272548
 Transform:
   m_ObjectHideFlags: 0
@@ -2280,11 +2283,6 @@ PrefabInstance:
       propertyPath: InfiniteHP
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114416280350640038, guid: 93988d4f18b94407e9c5cd99704a5630,
-        type: 3}
-      propertyPath: Cam
-      value: 
-      objectReference: {fileID: 612035769}
     - target: {fileID: 114713038835468652, guid: 93988d4f18b94407e9c5cd99704a5630,
         type: 3}
       propertyPath: Fader
@@ -2954,7 +2952,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsPlayer: 0
-  ShouldSave: 1
   Maximum: 240
   InfiniteHP: 0
   Current: 240
@@ -3076,7 +3073,6 @@ MonoBehaviour:
   BombPrefab: {fileID: 5007492144386509978, guid: 9650ed0b889ae49d687939a9a87a15d1,
     type: 3}
   PredictiveAimLeadTime: 1
-  BombDrag: 10
 --- !u!1001 &780510490
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10543,7 +10539,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsPlayer: 0
-  ShouldSave: 1
   Maximum: 600
   InfiniteHP: 0
   Current: 0
@@ -12698,6 +12693,11 @@ PrefabInstance:
     - target: {fileID: 9099809310805258085, guid: ffa0825e8c0934b3d90b310c2e64fc93,
         type: 3}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9212703925408537685, guid: ffa0825e8c0934b3d90b310c2e64fc93,
+        type: 3}
+      propertyPath: SingletonInstance
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
