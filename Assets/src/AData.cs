@@ -12,7 +12,6 @@ public abstract class AData {
   }
 
   public void Clear() {
-    Debug.Log("Clearing");
     Dictionary = LocalDefaultDictionary();
   }
 

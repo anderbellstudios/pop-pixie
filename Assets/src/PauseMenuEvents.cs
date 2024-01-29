@@ -8,18 +8,8 @@ using UnityEngine.UI;
 using TMPro;
 
 public class PauseMenuEvents : AMenu {
-  public AMenu DiscoveredItemsMenu, OptionsMenu;
-
   public override void LocalClose() {
     StateManager.RemoveState(State.Paused);
     SceneManager.UnloadSceneAsync("Pause Menu");
-  }
-
-  public void DiscoveredItems() {
-    OpenNestedMenu(DiscoveredItemsMenu);
-  }
-
-  public void Options() {
-    OpenNestedMenu(OptionsMenu);
   }
 }
