@@ -17,6 +17,7 @@ public class HitPoints : MonoBehaviour {
   public List<ACanBeDamagedArbiter> CanBeDamagedArbiters;
   public ACounterAttackArbiter CounterAttackArbiter;
   public float LastDamaged;
+  public float LastDamageAmount;
   public bool Dead = false;
   public UnityEvent<HitPoints> OnUpdate, OnDecrease, OnBecomeZero, OnCounterAttack;
 
@@ -25,24 +26,24 @@ public class HitPoints : MonoBehaviour {
     Current = Mathf.Clamp(Current, 0, Maximum);
   }
 
-  public void Set(float val) {
-    Current = val;
+  public void Set(float hp) {
+    Current = hp;
     Cap();
     OnUpdate.Invoke(this);
   }
 
-  public void Increase(float val) {
-    Current += val;
+  public void Increase(float amount) {
+    Current += amount;
     Cap();
     OnUpdate.Invoke(this);
   }
 
-  public void Decrease(float val) {
+  public void Decrease(float damage) {
     if (Dead)
       return;
 
     if (!InfiniteHP) {
-      Increase(-val * (float)(IsPlayer ? 1M - AssistModeData.DamageReduction : 1M));
+      Increase(-damage * (float)(IsPlayer ? 1M - AssistModeData.DamageReduction : 1M));
     }
 
     OnDecrease.Invoke(this);
@@ -53,9 +54,9 @@ public class HitPoints : MonoBehaviour {
     }
   }
 
-  bool CanBeDamaged() {
+  bool CanBeDamaged(float damage) {
     return CanBeDamagedArbiters.ToArray().All(
-      arbiter => arbiter.CanBeDamaged(this)
+      arbiter => arbiter.CanBeDamaged(this, damage)
     );
   }
 
@@ -64,15 +65,16 @@ public class HitPoints : MonoBehaviour {
   }
 
   // Returns true on counter attack
-  public bool Damage(float val, bool canBeCounterAttacked = false) {
+  public bool Damage(float damage, bool canBeCounterAttacked = false) {
     if (canBeCounterAttacked && IsCounterAttack()) {
       OnCounterAttack.Invoke(this);
       return true;
     }
 
-    if (CanBeDamaged()) {
+    if (CanBeDamaged(damage)) {
       LastDamaged = PlayingTime.time;
-      Decrease(val);
+      LastDamageAmount = damage;
+      Decrease(damage);
     }
 
     return false;
@@ -87,6 +89,7 @@ public class HitPoints : MonoBehaviour {
   void Start() {
     Current = Maximum;
     LastDamaged = -1000000f;
+    LastDamageAmount = 0f;
     OnUpdate.Invoke(this);
   }
 
