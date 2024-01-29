@@ -150,7 +150,6 @@ GameObject:
   - component: {fileID: 217462}
   - component: {fileID: 217461}
   - component: {fileID: 217460}
-  - component: {fileID: 217452}
   m_Layer: 0
   m_Name: LevelEvents
   m_TagString: Untagged
@@ -338,19 +337,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &217452
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 217442}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98bbc2c1e63e98543830eec78d976795, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  serializedGuid: 361fba7d1a02d346a255c202a888af62
+  OnLastPhaseFinished:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &217453
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14128,7 +14117,6 @@ GameObject:
   - component: {fileID: 1624602151}
   - component: {fileID: 1624602150}
   - component: {fileID: 1624602149}
-  - component: {fileID: 1624602154}
   m_Layer: 8
   m_Name: Security Boss
   m_TagString: Untagged
@@ -14263,20 +14251,6 @@ MonoBehaviour:
   HitPoints: {fileID: 1624602157}
   rb: {fileID: 1624602149}
   InitialAI: {fileID: 1624602161}
-  JumpedDown: 0
---- !u!114 &1624602154
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1624602148}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98bbc2c1e63e98543830eec78d976795, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  serializedGuid: 2ce698856375ac47ba89ffb540d384b9
 --- !u!114 &1624602156
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14305,7 +14279,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsPlayer: 0
-  ShouldSave: 1
   Maximum: 500
   InfiniteHP: 0
   Current: 0
@@ -14831,11 +14804,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a6bb798439734d3d9fc0addce0331d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Fader: {fileID: 1007781043}
-  FlavourFloorName: fourth
-  NextLevel: End of Game
-  PreElevatorDialogue: 
-  Triggered: 0
 --- !u!61 &1836242926
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -1,5 +1,4 @@
 $REQUIRED_LIBRARIES = %{
-  CrossSceneReference
   DOTween
   JsonDotNet
   Rewired

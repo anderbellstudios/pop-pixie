@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 3536825772689701167}
   - component: {fileID: 1927019847983179873}
   - component: {fileID: 8297279390652918566}
-  - component: {fileID: 3302975520919101035}
   m_Layer: 2
   m_Name: Generator
   m_TagString: Untagged
@@ -33,6 +32,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6731887649467473070}
   m_Father: {fileID: 0}
@@ -81,13 +81,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c902b98affab42d5b6d979f55dd91f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShouldSave: 1
+  IsPlayer: 0
   Maximum: 30
   InfiniteHP: 0
   Current: 30
   RegenerateRate: 0
   CanBeDamagedArbiters: []
+  CounterAttackArbiter: {fileID: 0}
+  LastDamaged: 0
   Dead: 0
+  OnUpdate:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDecrease:
+    m_PersistentCalls:
+      m_Calls: []
+  OnBecomeZero:
+    m_PersistentCalls:
+      m_Calls: []
+  OnCounterAttack:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &2395565714013297015
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -100,6 +114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e959051f71124d268a9ed420b86a1d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OverrideHitPoints: {fileID: 0}
   FireableScheduler: {fileID: 0}
   Fireable: {fileID: 0}
 --- !u!114 &3536825772689701167
@@ -114,6 +129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8538966f9f284f789bf9c660ea84e4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OverrideHitPoints: {fileID: 0}
   SpriteRenderer: {fileID: 2407353336495165546}
   WorkingFrames:
   - {fileID: 21300000, guid: b049abbcb8d0743d786294a6f6aee606, type: 3}
@@ -155,19 +171,6 @@ MonoBehaviour:
   BaseScale: 1
   OscillationSpeed: 3
   OscillationScale: 0.05
---- !u!114 &3302975520919101035
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2395565714013297018}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98bbc2c1e63e98543830eec78d976795, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  serializedGuid: 
 --- !u!1 &4686739706715246009
 GameObject:
   m_ObjectHideFlags: 0
@@ -195,6 +198,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8408835526948289606}
   m_RootOrder: 0
@@ -215,6 +219,7 @@ SpriteRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
