@@ -6,13 +6,13 @@ using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public class SceneEvents : MonoBehaviour {
-
   public bool SingletonInstance = true;
   public static SceneEvents Current;
 
   public ScreenFade Fader;
   public bool ShouldFadeIn = true, ShouldFadeOut = true, WaitForFadeInBeforePermittingExit = false, PauseGameplayDuringFadeOut = false;
   public float FadeInDelay, FadeInDuration, FadeOutDuration, PostFadeOutDelay;
+  public bool IsRetry = false;
 
   [SerializeField] public UnityEvent OnFadeIn;
 
@@ -23,6 +23,9 @@ public class SceneEvents : MonoBehaviour {
   void Awake() {
     if (SingletonInstance)
       Current = this;
+
+    IsRetry = GameOverData.IsRetry;
+    GameOverData.IsRetry = false;
   }
 
   void Start() {

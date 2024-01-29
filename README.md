@@ -123,19 +123,6 @@ If there are compiled binaries for multiple .NET versions, use the latest 4.x ve
 
 Place any assemblies in `/Assets/vendor/JsonDotNet`
 
-#### CrossSceneReference (GitHub, free)
-
-We use CrossSceneReference as part of Pop Pixie's scene serialisation system (soon to be deprecated).
-
-Add by running the following in the root of the project:
-
-```bash
-git clone https://github.com/Unity-Technologies/guid-based-reference
-mv guid-based-reference/Assets/CrossSceneReference Assets/vendor/CrossSceneReference
-rm -rf guid-based-reference
-rm -r Assets/vendor/CrossSceneReference/{Tests,Documentation~,Samples}
-```
-
 #### Summary
 
 If you installed all of those dependencies correctly, `ruby Assets/vendor/validate.rb` should have no output and there should be no compile errors in the Unity console. (It's safe to ignore any warnings.)

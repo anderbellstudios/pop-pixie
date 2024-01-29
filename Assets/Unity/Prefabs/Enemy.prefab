@@ -155,7 +155,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3582955439319841774}
-  - component: {fileID: 175506486471093771}
   - component: {fileID: 3539202781201710242}
   - component: {fileID: 3559577149095304210}
   - component: {fileID: 3579707395517347957}
@@ -175,7 +174,6 @@ GameObject:
   - component: {fileID: 6600136505380408632}
   - component: {fileID: 6012198600645605431}
   - component: {fileID: 4126083962849904502}
-  - component: {fileID: 5324726799035979464}
   m_Layer: 8
   m_Name: Enemy
   m_TagString: Enemy
@@ -203,22 +201,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &175506486471093771
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3579707395517347952}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b397b7c32e21f473da65ec3fd9264959, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Transform: {fileID: 3582955439319841774}
-  x: 0
-  y: 0
-  z: 0
 --- !u!50 &3539202781201710242
 Rigidbody2D:
   serializedVersion: 4
@@ -457,7 +439,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsPlayer: 0
-  ShouldSave: 1
   Maximum: 30
   InfiniteHP: 0
   Current: 30
@@ -560,19 +541,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &5324726799035979464
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3579707395517347952}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98bbc2c1e63e98543830eec78d976795, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  serializedGuid: 
 --- !u!1 &6514734076882035074
 GameObject:
   m_ObjectHideFlags: 0
@@ -821,7 +789,7 @@ MonoBehaviour:
   BaseVolume: 1
   OneShot: 0
   UseVoiceVolume: 0
-  PlayWhilePaused: 0
+  PauseWhenNotPlaying: 0
 --- !u!114 &9127461508458327000
 MonoBehaviour:
   m_ObjectHideFlags: 0

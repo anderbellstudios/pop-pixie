@@ -5,6 +5,6 @@ using UnityEngine;
 
 public class ClearGameDataHopper : MonoBehaviour {
   public void Hop() {
-    GameData.Current.Clear();
+    GameData.Reset();
   }
 }

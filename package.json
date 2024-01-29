@@ -3,6 +3,7 @@
     "set-env": "ruby setenv.rb",
     "vendor:validate": "ruby Assets/vendor/validate.rb",
     "find-unused": "ruby find_unused.rb",
+    "used-by": "ruby used_by.rb",
     "lint:fix": "dotnet format --include Assets/src/**/*.cs --folder",
     "lint": "yarn lint:fix --verify-no-changes",
     "ci": "yarn lint",

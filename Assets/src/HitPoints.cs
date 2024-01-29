@@ -6,23 +6,10 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class HitPoints : MonoBehaviour, ISerializableComponent {
-  public string[] SerializableFields {
-    get {
-      List<string> fields = new List<string>();
-
-      if (ShouldSave) {
-        fields.Add("Current");
-      }
-
-      return fields.ToArray();
-    }
-  }
-
+public class HitPoints : MonoBehaviour {
   public static HitPoints PlayerHitPoints;
 
   public bool IsPlayer = false;
-  public bool ShouldSave = true;
   public float Maximum;
   public bool InfiniteHP = false;
   public float Current;
@@ -98,22 +85,9 @@ public class HitPoints : MonoBehaviour, ISerializableComponent {
   }
 
   void Start() {
-    GDCall.UnlessLoad(InitHitPoints);
-
-    if (!ShouldSave)
-      InitHitPoints();
-
-    OnUpdate.Invoke(this);
-
-    if (Current == 0) {
-      Dead = true;
-      OnBecomeZero.Invoke(this);
-    }
-  }
-
-  public void InitHitPoints() {
     Current = Maximum;
     LastDamaged = -1000000f;
+    OnUpdate.Invoke(this);
   }
 
   void Update() {

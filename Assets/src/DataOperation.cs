@@ -7,7 +7,6 @@ using UnityEngine;
 using Newtonsoft.Json;
 
 public class DataOperation {
-
   AData Data;
   string FileName;
 
@@ -31,7 +30,6 @@ public class DataOperation {
   }
 
   string Path() {
-    return System.IO.Path.Combine(Application.persistentDataPath, FileName + ".v2.json");
+    return System.IO.Path.Combine(Application.persistentDataPath, FileName + ".json");
   }
-
 }

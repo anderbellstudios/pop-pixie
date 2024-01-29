@@ -6,26 +6,16 @@ using UnityEngine.Events;
 
 public delegate void PhaseFinishedEvent();
 
-public class PhaseScheduler : MonoBehaviour, ISerializableComponent {
-
-  public string[] SerializableFields { get; } = { "Running", "PhaseId" };
-
+public class PhaseScheduler : MonoBehaviour {
   public bool BeginFirstPhaseOnStart = true, Running = false;
   public List<APhase> Phases;
   public int PhaseId;
 
-  [SerializeField] public UnityEvent OnPhaseFinished;
+  public UnityEvent OnPhaseFinished, OnLastPhaseFinished;
 
   void Start() {
-    GDCall.UnlessLoad(() => {
-      if (BeginFirstPhaseOnStart)
-        BeginFirstPhase();
-    });
-
-    GDCall.IfLoad(() => {
-      if (Running)
-        BeginCurrentPhase();
-    });
+    if (BeginFirstPhaseOnStart)
+      BeginFirstPhase();
   }
 
   public void BeginFirstPhase() {
@@ -46,6 +36,7 @@ public class PhaseScheduler : MonoBehaviour, ISerializableComponent {
       BeginCurrentPhase();
     } else {
       Running = false;
+      OnLastPhaseFinished.Invoke();
     }
   }
 
@@ -65,5 +56,4 @@ public class PhaseScheduler : MonoBehaviour, ISerializableComponent {
   float TotalBarProgress() {
     return Phases.Sum(phase => phase.ProgressBarValue());
   }
-
 }

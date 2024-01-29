@@ -150,7 +150,6 @@ GameObject:
   - component: {fileID: 217462}
   - component: {fileID: 217461}
   - component: {fileID: 217460}
-  - component: {fileID: 217452}
   m_Layer: 0
   m_Name: LevelEvents
   m_TagString: Untagged
@@ -326,7 +325,7 @@ MonoBehaviour:
   OnPhaseFinished:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1007781048}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SaveHopper, Assembly-CSharp
         m_MethodName: HopSaveYourGame
         m_Mode: 1
@@ -338,19 +337,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &217452
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 217442}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98bbc2c1e63e98543830eec78d976795, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  serializedGuid: 361fba7d1a02d346a255c202a888af62
+  OnLastPhaseFinished:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &217453
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12298,6 +12287,11 @@ PrefabInstance:
       propertyPath: m_AnchorMin.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3499406405898083984, guid: 9d193d8ac910849ad9065e3aecb6ba39,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3954705457071499327, guid: 9d193d8ac910849ad9065e3aecb6ba39,
         type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -12438,6 +12432,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6630807675782584725, guid: 9d193d8ac910849ad9065e3aecb6ba39,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6796128810477013336, guid: 9d193d8ac910849ad9065e3aecb6ba39,
         type: 3}
       propertyPath: m_havePropertiesChanged
@@ -12447,6 +12446,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_isInputParsingRequired
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7045575422725809927, guid: 9d193d8ac910849ad9065e3aecb6ba39,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7250991966997929728, guid: 9d193d8ac910849ad9065e3aecb6ba39,
         type: 3}
@@ -12508,6 +12512,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7599374993457473556, guid: 9d193d8ac910849ad9065e3aecb6ba39,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7725316708017085490, guid: 9d193d8ac910849ad9065e3aecb6ba39,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -12551,6 +12560,11 @@ PrefabInstance:
     - target: {fileID: 7891717261090446261, guid: 9d193d8ac910849ad9065e3aecb6ba39,
         type: 3}
       propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8054485318893141224, guid: 9d193d8ac910849ad9065e3aecb6ba39,
+        type: 3}
+      propertyPath: m_fontSize
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8265842533256751798, guid: 9d193d8ac910849ad9065e3aecb6ba39,
@@ -12617,18 +12631,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1007781041}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1007781048 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4274367662528080724, guid: 9d193d8ac910849ad9065e3aecb6ba39,
-    type: 3}
-  m_PrefabInstance: {fileID: 1007781041}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a10658fadb24f418f93920b6f5ae5b7d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1026194624
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14097,7 +14099,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1624602152}
-  - component: {fileID: 1624602155}
   - component: {fileID: 1624602153}
   - component: {fileID: 1624602157}
   - component: {fileID: 1624602170}
@@ -14116,7 +14117,6 @@ GameObject:
   - component: {fileID: 1624602151}
   - component: {fileID: 1624602150}
   - component: {fileID: 1624602149}
-  - component: {fileID: 1624602154}
   m_Layer: 8
   m_Name: Security Boss
   m_TagString: Untagged
@@ -14251,36 +14251,6 @@ MonoBehaviour:
   HitPoints: {fileID: 1624602157}
   rb: {fileID: 1624602149}
   InitialAI: {fileID: 1624602161}
-  JumpedDown: 0
---- !u!114 &1624602154
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1624602148}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98bbc2c1e63e98543830eec78d976795, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  serializedGuid: 2ce698856375ac47ba89ffb540d384b9
---- !u!114 &1624602155
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1624602148}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b397b7c32e21f473da65ec3fd9264959, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Transform: {fileID: 1624602152}
-  x: 0
-  y: 0
-  z: 0
 --- !u!114 &1624602156
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14309,7 +14279,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsPlayer: 0
-  ShouldSave: 1
   Maximum: 500
   InfiniteHP: 0
   Current: 0
@@ -14835,11 +14804,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a6bb798439734d3d9fc0addce0331d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Fader: {fileID: 1007781043}
-  FlavourFloorName: fourth
-  NextLevel: End of Game
-  PreElevatorDialogue: 
-  Triggered: 0
 --- !u!61 &1836242926
 BoxCollider2D:
   m_ObjectHideFlags: 0
