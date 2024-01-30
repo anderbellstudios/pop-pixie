@@ -114,7 +114,7 @@ GameObject:
   - component: {fileID: 3970238083396131980}
   - component: {fileID: 2419092305282880378}
   - component: {fileID: 114176230308344078}
-  - component: {fileID: 58994815713915488}
+  - component: {fileID: 1239569371881086291}
   - component: {fileID: 8996175904474746811}
   - component: {fileID: 5808721027974633971}
   - component: {fileID: 4804696006103119977}
@@ -610,8 +610,8 @@ MonoBehaviour:
   SoundController: {fileID: 784185259429699772}
   ReloadBar: {fileID: 0}
   MovementManager: {fileID: 8156467750406196158}
---- !u!58 &58994815713915488
-CircleCollider2D:
+--- !u!70 &1239569371881086291
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -624,8 +624,8 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
+  m_Size: {x: 1, y: 1.5}
+  m_Direction: 0
 --- !u!114 &8996175904474746811
 MonoBehaviour:
   m_ObjectHideFlags: 0

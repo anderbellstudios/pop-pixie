@@ -156,7 +156,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3582955439319841774}
   - component: {fileID: 3539202781201710242}
-  - component: {fileID: 3559577149095304210}
+  - component: {fileID: 6204492881993947924}
   - component: {fileID: 3579707395517347957}
   - component: {fileID: 3579707395517347958}
   - component: {fileID: 3579707395517347853}
@@ -222,8 +222,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!58 &3559577149095304210
-CircleCollider2D:
+--- !u!70 &6204492881993947924
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -236,8 +236,8 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
+  m_Size: {x: 1, y: 1.5}
+  m_Direction: 0
 --- !u!114 &3579707395517347957
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -475,7 +475,7 @@ MonoBehaviour:
   OverrideHitPoints: {fileID: 0}
   Flash: {fileID: 6901898730673190071}
   DeathAnimation: {fileID: 1047574261544682520}
-  Collider: {fileID: 3559577149095304210}
+  Collider: {fileID: 6204492881993947924}
   HealthBar: {fileID: 1082843675207852493}
   HideHealthBarWhenFullOrEmpty: 1
 --- !u!114 &6901898730673190071
