@@ -7,7 +7,6 @@ using TMPro;
 
 [ExecuteInEditMode]
 public class ShopWeaponTile : MonoBehaviour {
-  public string Name = "Untitled weapon";
   public Weapon Weapon;
   public int Price;
   [TextArea] public string Description;
@@ -26,8 +25,8 @@ public class ShopWeaponTile : MonoBehaviour {
   public Action ClickHandler;
 
   void Awake() {
-    Image.sprite = Weapon?.Sprite;
-    NameLabel.text = Name;
+    NameLabel.text = Weapon.Name;
+    Image.sprite = Weapon.Sprite;
     PriceLabel.text = PriceString();
     Bought = Price == -1 || BoughtWeaponsData.IsBought(Weapon.Id);
   }

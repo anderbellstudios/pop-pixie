@@ -81,7 +81,7 @@ public class ShopMenu : AMenu {
     Weapon weapon = weaponTile.Weapon;
 
     ActionButtonHintText.text = (weaponTile.Bought ? "Sell" : "Buy") + " <size=150%>[Confirm]</size>";
-    WeaponNameText.text = weaponTile.Name;
+    WeaponNameText.text = weapon.Name;
     DescriptionText.text = weaponTile.Description;
     PriceText.text = weaponTile.PriceString();
 
