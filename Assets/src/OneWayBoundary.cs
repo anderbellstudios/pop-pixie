@@ -4,30 +4,32 @@ using UnityEngine;
 using UnityEngine.Events;
 
 public class OneWayBoundary : MonoBehaviour {
-  public bool LockedOnAwake;
+  public bool Locked;
   public Behaviour LockBehaviour;
   public UnityEvent OnCrossed;
 
   bool AwaitingCross = false;
 
   void Awake() {
-    if (LockedOnAwake) {
+    if (Locked) {
       Lock();
     } else {
       Unlock();
     }
 
-    AwaitingCross = !LockedOnAwake;
+    AwaitingCross = !Locked;
   }
 
   public void Lock() {
     LockBehaviour.enabled = true;
     HandleCrossed(); // In case the player clips through the first boundary
+    Locked = true;
   }
 
   public void Unlock() {
     LockBehaviour.enabled = false;
     AwaitingCross = true;
+    Locked = false;
   }
 
   public void HandleCrossed() {
