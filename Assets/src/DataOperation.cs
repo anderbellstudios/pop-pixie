@@ -16,6 +16,7 @@ public class DataOperation {
   }
 
   public void Write() {
+    Data.BeforeWrite();
     string json = JsonConvert.SerializeObject(Data.Dictionary);
     File.WriteAllText(Path(), json);
   }
@@ -23,6 +24,7 @@ public class DataOperation {
   public void Read() {
     string json = File.ReadAllText(Path());
     Data.Dictionary = JsonConvert.DeserializeObject<Dictionary<string, object>>(json);
+    Data.AfterRead();
   }
 
   public bool Exists() {

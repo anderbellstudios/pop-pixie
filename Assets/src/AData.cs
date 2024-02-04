@@ -36,6 +36,12 @@ public abstract class AData {
     AfterUpdate();
   }
 
+  public virtual void BeforeWrite() {
+  }
+
+  public virtual void AfterRead() {
+  }
+
   public virtual void BeforeFetch() {
   }
 
