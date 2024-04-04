@@ -133,15 +133,6 @@ Unity may have modified `ProjectSettings/ProjectSettings.asset` when starting up
 
 At this point, `git status` should report that the working tree is clean. Please try to resolve any inconsistencies if this is not the case.
 
-### Set the environment
-
-Pop Pixie has various environments (separate versions of Unity config files) and provides a script to switch between them. Run the following in the root of the project to set the environment to `develop`:
-
-```bash
-gem install tty-prompt # First time only
-ruby setenv.rb
-```
-
 ### What's next?
 
 You should now be ready to begin work on Pop Pixie. Open a Unity scene from `/Assets/Unity/Scenes` to get started.
