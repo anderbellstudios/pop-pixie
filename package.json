@@ -2,10 +2,13 @@
   "scripts": {
     "set-env": "ruby setenv.rb",
     "vendor:validate": "ruby Assets/vendor/validate.rb",
+    "vendor:pack": "cd Assets/vendor && zip -r ../../vendor.zip */",
+    "vendor:unpack": "cd Assets/vendor && unzip ../../vendor.zip",
     "find-unused": "ruby find_unused.rb",
     "used-by": "ruby used_by.rb",
     "lint:fix": "dotnet format --include Assets/src/**/*.cs --folder",
     "lint": "yarn lint:fix --verify-no-changes",
+    "test": "./test.sh",
     "ci": "yarn lint",
     "husky:install": "husky install",
     "husky:uninstall": "husky uninstall"

@@ -3,7 +3,7 @@ require 'yaml'
 module UsageData
   GUID_REFERENCING_EXTENSIONS = %w[.unity .prefab .mat .asset .controller]
   IDENTIFIER_REFERENCING_EXTENSIONS = %w[.cs]
-  IGNORE_UNUSED_EXTENSIONS = %w[.unity .preset .otf .ttf .asset .txt]
+  IGNORE_UNUSED_EXTENSIONS = %w[.unity .preset .otf .ttf .asset .txt .asmdef]
 
   class SourceFile
     @@by_guid = {}
