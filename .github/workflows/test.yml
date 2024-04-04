@@ -9,6 +9,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Install vendor
+        run: |
+          curl ${{ secrets.VENDOR_URL }} -o vendor.zip
+          yarn vendor:unpack
+          rm vendor.zip
+
       - uses: actions/cache@v3
         with:
           path: Library
