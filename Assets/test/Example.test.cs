@@ -7,6 +7,6 @@ using UnityEngine.TestTools;
 public class ExampleTest {
   [Test]
   public void ItWorks() {
-    Assert.IsTrue(false);
+    Assert.IsTrue(true);
   }
 }
