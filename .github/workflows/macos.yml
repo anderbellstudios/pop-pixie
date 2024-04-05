@@ -23,7 +23,7 @@ jobs:
 
   package_macos:
     name: Package macOS build
-      # needs: build
+    needs: build
     runs-on: macos-latest
 
     steps:
