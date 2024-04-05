@@ -7,10 +7,6 @@ on:
         required: true
         type: string
 
-      custom_parameters:
-        required: false
-        type: string
-
     outputs:
       artifact_name:
         value: ${{ jobs.build.outputs.artifact_name }}
@@ -50,13 +46,11 @@ jobs:
         with:
           buildName: 'Pop Pixie'
           targetPlatform: ${{ inputs.target_platform }}
-          customParameters: ${{ inputs.custom_parameters }}
 
       - uses: actions/upload-artifact@v4
         with:
           name: Build-${{ inputs.target_platform }}
           path: build/${{ inputs.target_platform }}
-          # path: Assets/test
 
       - id: output_artifact_name
         run: echo "artifact_name=Build-${{ inputs.target_platform }}" >> $GITHUB_OUTPUT

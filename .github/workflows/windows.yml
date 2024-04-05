@@ -4,10 +4,10 @@ on: push
 
 jobs:
   build:
+    name: 'Build for Windows'
     uses: ./.github/workflows/build.yml
     with:
       target_platform: StandaloneWindows64
-      custom_parameters: -development
     secrets: inherit
 
   package_windows:
@@ -38,5 +38,5 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: 'Install Pop Pixie - Windows'
+          name: 'Windows Installer'
           path: 'Output/Install Pop Pixie.exe'
