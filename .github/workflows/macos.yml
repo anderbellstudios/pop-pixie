@@ -68,7 +68,7 @@ jobs:
         run: 'security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k password build.keychain'
 
       - name: Sign app
-        run: '/usr/bin/codesign --force -s $MACOS_IDENTITY_ID "installers/macos/public/Pop Pixie.app" -v'
+        run: '/usr/bin/codesign --deep --force --verify --timestamp -s $MACOS_IDENTITY_ID --options runtime --entitlements installers/macos/pop-pixie.entitlements "installers/macos/public/Pop Pixie.app" -v'
         env:
           MACOS_IDENTITY_ID: ${{ secrets.MACOS_IDENTITY_ID }}
 
