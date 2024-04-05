@@ -17,7 +17,6 @@ on:
 jobs:
   build:
     name: Build ${{ inputs.target_platform }}
-    if: ${{ github.ref == 'refs/heads/dx/package-builds' }}
     runs-on: ubuntu-latest
     outputs:
       artifact_name: ${{ steps.output_artifact_name.outputs.artifact_name }}
