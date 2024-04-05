@@ -40,15 +40,15 @@ jobs:
       - run: find .
 
       # https://localazy.com/blog/how-to-automatically-sign-macos-apps-using-github-actions
-      - run: echo $MACOS_CERTIFICATE | base64 - --decode > certificate.p12
+      - run: 'echo $MACOS_CERTIFICATE | base64 - --decode > certificate.p12'
         env:
           MACOS_CERTIFICATE: ${{ secrets.MACOS_CERTIFICATE }}
-      - run: security create-keychain -p password build.keychain
-      - run: security default-keychain -s build.keychain
-      - run: security unlock-keychain -p password build.keychain
-      - run: security import certificate.p12 -k build.keychain -T /usr/bin/codesign
-      - run: security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k password build.keychain
-      - run: /usr/bin/codesign --force -s $MACOS_IDENTITY_ID ./path/to/you/app -v
+      - run: 'security create-keychain -p password build.keychain'
+      - run: 'security default-keychain -s build.keychain'
+      - run: 'security unlock-keychain -p password build.keychain'
+      - run: 'security import certificate.p12 -k build.keychain -T /usr/bin/codesign'
+      - run: 'security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k password build.keychain'
+      - run: '/usr/bin/codesign --force -s $MACOS_IDENTITY_ID ./path/to/you/app -v'
         env:
           MACOS_IDENTITY_ID: ${{ secrets.MACOS_IDENTITY_ID }}
 
