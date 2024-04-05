@@ -6,8 +6,8 @@ jobs:
   build:
     uses: ./.github/workflows/build.yml
     with:
-      targetPlatform: StandaloneWindows64
-      customParameters: -development
+      target_platform: StandaloneWindows64
+      custom_parameters: -development
     secrets: inherit
 
   package_windows:
