@@ -1,2 +1,2 @@
 #!/bin/bash
-dotnet format --include $@ --folder
+dotnet format --include $@
