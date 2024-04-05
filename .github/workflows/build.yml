@@ -51,4 +51,4 @@ jobs:
       - name: Outputs
         run: |
           echo "artifact_name=Build-${{ inputs.targetPlatform }}" >> $GITHUB_OUTPUT
-          echo "run_id=${{ github.run.id }}" >> $GITHUB_OUTPUT
+          echo "run_id=${{ github.run_id }}" >> $GITHUB_OUTPUT
