@@ -43,6 +43,9 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path: installers/macos/public
 
+      - name: Create Applications shortcut
+        run: ln -s /Applications installers/macos/public/Applications
+
       - name: Fix app permissions
         run: 'chmod +x "installers/macos/public/Pop Pixie.app/Contents/MacOS/Pop Pixie"'
 
