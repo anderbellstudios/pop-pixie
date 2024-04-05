@@ -48,6 +48,7 @@ jobs:
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
+          buildName: 'Pop Pixie'
           targetPlatform: ${{ inputs.target_platform }}
           customParameters: ${{ inputs.custom_parameters }}
 
@@ -55,6 +56,7 @@ jobs:
         with:
           name: Build-${{ inputs.target_platform }}
           path: build/${{ inputs.target_platform }}
+          # path: Assets/test
 
       - id: output_artifact_name
         run: echo "artifact_name=Build-${{ inputs.target_platform }}" >> $GITHUB_OUTPUT
