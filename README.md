@@ -136,3 +136,9 @@ At this point, `git status` should report that the working tree is clean. Please
 ### What's next?
 
 You should now be ready to begin work on Pop Pixie. Open a Unity scene from `/Assets/Unity/Scenes` to get started.
+
+### Updating the app version
+
+When updating the app verison, it should be modified in `ProjectSettings.asset` and `pop-pixie.iss`.
+
+The in-game version checker uses https://github.com/anderbellstudios/pop-pixie/blob/version/VERSION.
