@@ -5,7 +5,7 @@
     "vendor:unpack": "cd Assets/vendor && unzip ../../vendor.zip",
     "find-unused": "ruby find_unused.rb",
     "used-by": "ruby used_by.rb",
-    "lint:fix": "dotnet format --include Assets/src/**/*.cs --folder",
+    "lint:fix": "./format_changed.sh",
     "lint": "yarn lint:fix --verify-no-changes",
     "test": "./test.sh",
     "ci": "yarn lint",

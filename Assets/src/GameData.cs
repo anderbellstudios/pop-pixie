@@ -74,5 +74,6 @@ public class GameData : AData {
   }
 
   public static bool Exists() => GameDataOperation.Exists();
-  private static DataOperation GameDataOperation => new DataOperation(Current, "game");
+  public static string FileName = "game";
+  private static DataOperation GameDataOperation => new DataOperation(Current, FileName);
 }
