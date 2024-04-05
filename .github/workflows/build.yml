@@ -27,7 +27,7 @@ jobs:
       artifact_name: ${{ steps.output_artifact_name.outputs.artifact_name }}
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       # - name: Install vendor
       #   run: |
@@ -51,7 +51,7 @@ jobs:
       #     targetPlatform: ${{ inputs.target_platform }}
       #     customParameters: ${{ inputs.custom_parameters }}
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: Build-${{ inputs.target_platform }}
           # path: build/${{ inputs.target_platform }}
