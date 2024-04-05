@@ -13,14 +13,13 @@ jobs:
   package_windows:
     name: Package Windows build
     needs: build
-    # runs-on: windows-latest
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
-      # - uses: actions/download-artifact@v4
-      #   with:
-      #     name: ${{ needs.build.outputs.artifact_name }}
-      #     run-id: ${{ needs.build.outputs.run_id }}
-      #     github-token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/download-artifact@v4
+        with:
+          name: ${{ needs.build.outputs.artifact_name }}
+          run-id: ${{ needs.build.outputs.run_id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - run: echo "Artifact ${{ needs.build.outputs.artifact_name }} Run ${{ needs.build.outputs.run_id }}"
+      - run: dir

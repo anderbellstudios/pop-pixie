@@ -3,19 +3,28 @@ name: Build
 on:
   workflow_call:
     inputs:
-      targetPlatform:
+      target_platform:
         required: true
         type: string
 
-      customParameters:
+      custom_parameters:
         required: false
         type: string
 
+    outputs:
+      artifact_name:
+        value: ${{ jobs.build.outputs.artifact_name }}
+
+      run_id:
+        value: ${{ github.run_id }}
+
 jobs:
   build:
-    name: Build ${{ inputs.targetPlatform }}
+    name: Build ${{ inputs.target_platform }}
     if: ${{ github.ref == 'refs/heads/dx/package-builds' }}
     runs-on: ubuntu-latest
+    outputs:
+      artifact_name: ${{ steps.output_artifact_name.outputs.artifact_name }}
 
     steps:
       - uses: actions/checkout@v3
@@ -39,16 +48,14 @@ jobs:
       #     UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
       #     UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
       #   with:
-      #     targetPlatform: ${{ inputs.targetPlatform }}
-      #     customParameters: ${{ inputs.customParameters }}
+      #     targetPlatform: ${{ inputs.target_platform }}
+      #     customParameters: ${{ inputs.custom_parameters }}
 
       - uses: actions/upload-artifact@v3
         with:
-          name: Build-${{ inputs.targetPlatform }}
-          # path: build/${{ inputs.targetPlatform }}
+          name: Build-${{ inputs.target_platform }}
+          # path: build/${{ inputs.target_platform }}
           path: Assets/test
 
-      - name: Outputs
-        run: |
-          echo "artifact_name=Build-${{ inputs.targetPlatform }}" >> $GITHUB_OUTPUT
-          echo "run_id=${{ github.run_id }}" >> $GITHUB_OUTPUT
+      - id: output_artifact_name
+        run: echo "artifact_name=Build-${{ inputs.target_platform }}" >> $GITHUB_OUTPUT
