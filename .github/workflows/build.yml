@@ -46,6 +46,7 @@ jobs:
         with:
           buildName: 'Pop Pixie'
           targetPlatform: ${{ inputs.target_platform }}
+          versioning: none
 
       - uses: actions/upload-artifact@v4
         with:
