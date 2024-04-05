@@ -4,9 +4,10 @@ name: Build and package macOS
 #   1. openssl req -newkey rsa:2048 -keyout pop-pixie.key -out pop-pixie.csr
 #   2. Sign with Apple as a Developer ID Application
 #   3. openssl x509 -in pop-pixie.cer -inform DER -out pop-pixie.pem -outform PEM
-#   4. openssl pkcs12 -export -out pop-pixie.p12 -inkey pop-pixie.key -in pop-pixie.pem
+#   4. openssl pkcs12 -export -out pop-pixie.p12 -inkey pop-pixie.key -in pop-pixie.pem # You must specify an export password
 #   5. base64 -i pop-pixie.p12 | pbcopy
 #   6. pbpaste | gh secret set MACOS_CERTIFICATE
+#   6. gh secret set MACOS_CERTIFICATE_PWD # The export password
 #   7. security find-identity -v # Get the long alphanumeric string
 #   8. gh secret set MACOS_IDENTITY_ID
 
@@ -46,7 +47,9 @@ jobs:
       - run: 'security create-keychain -p password build.keychain'
       - run: 'security default-keychain -s build.keychain'
       - run: 'security unlock-keychain -p password build.keychain'
-      - run: 'security import certificate.p12 -k build.keychain -T /usr/bin/codesign'
+      - run: 'security import certificate.p12 -P $MACOS_CERTIFICATE_PWD -k build.keychain -T /usr/bin/codesign'
+        env:
+          MACOS_CERTIFICATE_PWD: ${{ secrets.MACOS_CERTIFICATE_PWD }}
       - run: 'security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k password build.keychain'
       - run: '/usr/bin/codesign --force -s $MACOS_IDENTITY_ID ./path/to/you/app -v'
         env:
