@@ -49,5 +49,5 @@ jobs:
           path: Assets/src
 
       - run: |
-        echo artifact_name=Build-${{ inputs.targetPlatform }} >> $GITHUB_OUTPUT
-        echo run_id=$GITHUB_RUN_ID >> $GITHUB_OUTPUT
+        echo "artifact_name=Build-"${{ inputs.targetPlatform }} >> $GITHUB_OUTPUT
+        echo "run_id=$GITHUB_RUN_ID" >> $GITHUB_OUTPUT
