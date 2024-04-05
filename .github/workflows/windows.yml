@@ -8,6 +8,7 @@ jobs:
     with:
       targetPlatform: StandaloneWindows64
       customParameters: -development
+    secrets: inherit
 
   package_windows:
     needs: build
