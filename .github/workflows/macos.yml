@@ -47,6 +47,10 @@ jobs:
       - run: 'security create-keychain -p password build.keychain'
       - run: 'security default-keychain -s build.keychain'
       - run: 'security unlock-keychain -p password build.keychain'
+      - run: shasum certificate.p12
+      - run: echo $MACOS_CERTIFICATE_PWD | shasum
+        env:
+          MACOS_CERTIFICATE_PWD: ${{ secrets.MACOS_CERTIFICATE_PWD }}
       - run: 'security import certificate.p12 -P $MACOS_CERTIFICATE_PWD -k build.keychain -T /usr/bin/codesign'
         env:
           MACOS_CERTIFICATE_PWD: ${{ secrets.MACOS_CERTIFICATE_PWD }}
