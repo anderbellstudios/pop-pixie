@@ -38,24 +38,47 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path: installers/macos/public
 
-      - run: find .
-
       # https://localazy.com/blog/how-to-automatically-sign-macos-apps-using-github-actions
-      - run: 'echo $MACOS_CERTIFICATE | base64 - --decode > certificate.p12'
+
+      - name: Prepare certificate step 1
+        run: 'echo $MACOS_CERTIFICATE | base64 - --decode > certificate.p12'
         env:
           MACOS_CERTIFICATE: ${{ secrets.MACOS_CERTIFICATE }}
-      - run: 'security create-keychain -p password build.keychain'
-      - run: 'security default-keychain -s build.keychain'
-      - run: 'security unlock-keychain -p password build.keychain'
-      - run: 'security import certificate.p12 -P $MACOS_CERTIFICATE_PWD -k build.keychain -T /usr/bin/codesign'
+
+      - name: Prepare certificate step 2
+        run: 'security create-keychain -p password build.keychain'
+
+      - name: Prepare certificate step 3
+        run: 'security default-keychain -s build.keychain'
+
+      - name: Prepare certificate step 4
+        run: 'security unlock-keychain -p password build.keychain'
+
+      - name: Prepare certificate step 5
+        run: 'security import certificate.p12 -P $MACOS_CERTIFICATE_PWD -k build.keychain -T /usr/bin/codesign'
         env:
           MACOS_CERTIFICATE_PWD: ${{ secrets.MACOS_CERTIFICATE_PWD }}
-      - run: 'security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k password build.keychain'
-      - run: '/usr/bin/codesign --force -s $MACOS_IDENTITY_ID "installers/macos/public/Pop Pixie.app" -v'
+
+      - name: Prepare certificate step 6
+        run: 'security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k password build.keychain'
+
+      - name: Sign app
+        run: '/usr/bin/codesign --force -s $MACOS_IDENTITY_ID "installers/macos/public/Pop Pixie.app" -v'
         env:
           MACOS_IDENTITY_ID: ${{ secrets.MACOS_IDENTITY_ID }}
 
-      - run: hdiutil create -srcfolder installers/macos/public -volname 'Install Pop Pixie' 'Install Pop Pixie.dmg'
+      - name: Zip app
+        run: 'ditto -c -k --sequesterRsrc --keepParent "installers/macos/public/Pop Pixie.app" pop-pixie-macos.zip'
+
+      - name: Notarize app
+        run: 'xcrun notarytool submit pop-pixie-macos.zip --apple-id $APPLE_ID --password $APPLE_ID_PASSWORD --team-id $APPLE_TEAM_ID --wait'
+        env:
+          APPLE_ID: shrug
+          APPLE_ID_PASSWORD: shrug
+          APPLE_TEAM_ID: shrug
+
+      - name: Create DMG
+        run: 'hdiutil create -srcfolder installers/macos/public -volname "Install Pop Pixie" "Install Pop Pixie.dmg"'
 
       - uses: actions/upload-artifact@v4
         with:
