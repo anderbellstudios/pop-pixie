@@ -1,17 +1,20 @@
 name: Development build
 
-on: push
+on:
+  workflow_call:
+    input:
+      targetPlatform:
+        required: true
+        type: string
+
+      customParameters:
+        required: false
+        type: string
 
 jobs:
   build:
     if: ${{ github.ref == 'refs/heads/dx/package-builds' }}
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        targetPlatform:
-          - StandaloneOSX
-          - StandaloneWindows64
 
     steps:
       - uses: actions/checkout@v3
@@ -35,22 +38,12 @@ jobs:
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
-          targetPlatform: ${{ matrix.targetPlatform }}
-          customParameters: -development
+          targetPlatform: ${{ inputs.targetPlatform }}
+          customParameters: ${{ inputs.customParameters }}
 
       - uses: actions/upload-artifact@v3
         with:
-          name: Build-${{ matrix.targetPlatform }}
-          path: build/${{ matrix.targetPlatform }}
+          name: Build-${{ inputs.targetPlatform }}
+          path: build/${{ inputs.targetPlatform }}
 
-  package_windows:
-    needs: build
-    if: ${{ matrix.targetPlatform == 'StandaloneWindows64' }}
-    runs-on: windows-latest
-
-    steps:
-      - uses: actions/download-artifact@v4
-        with:
-          name: Build-StandaloneWindows64
-
-      - run: ls -R
+      - run: echo "artifact_name=Build-"${{ inputs.targetPlatform }} >> $GITHUB_OUTPUT

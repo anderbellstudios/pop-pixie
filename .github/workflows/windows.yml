@@ -1,0 +1,21 @@
+name: Build and package Windows
+
+on: push
+
+jobs:
+  build:
+    uses: anderbellstudios/pop-pixie/.github/workflows/build.yml
+      with:
+        targetPlatform: StandaloneWindows64
+        customParameters: -development
+
+  package_windows:
+    needs: build
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: ${{ needs.build.outputs.artifact_name }}
+
+      - run: ls -R
