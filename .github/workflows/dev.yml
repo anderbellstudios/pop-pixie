@@ -3,10 +3,10 @@ name: Development builds
 on: push
 
 jobs:
-  windows_build:
-    name: 'Build for Windows'
-    uses: ./.github/workflows/windows.yml
-    secrets: inherit
+  # windows_build:
+  #   name: 'Build for Windows'
+  #   uses: ./.github/workflows/windows.yml
+  #   secrets: inherit
 
   macos_build:
     name: 'Build for macOS'
