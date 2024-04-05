@@ -5,11 +5,16 @@ name: Build and package macOS
 #   2. Sign with Apple as a Developer ID Application
 #   3. openssl x509 -in pop-pixie.cer -inform DER -out pop-pixie.pem -outform PEM
 #   4. openssl pkcs12 -export -legacy -out pop-pixie.p12 -inkey pop-pixie.key -in pop-pixie.pem # You must specify an export password
-#   5. base64 -i pop-pixie.p12 | pbcopy
-#   6. pbpaste | gh secret set MACOS_CERTIFICATE
+#   5. base64 -i pop-pixie.p12 | gh secret set MACOS_CERTIFICATE
 #   6. gh secret set MACOS_CERTIFICATE_PWD # The export password
 #   7. security find-identity -v # Get the short alphanumeric string in brackets
 #   8. gh secret set MACOS_IDENTITY_ID
+
+# To create an App Store Connect API key:
+#   1. Create a developer key at https://appstoreconnect.apple.com/access/integrations/api
+#   2. gh secret set APP_STORE_CONNECT_ISSUER_UUID
+#   3. gh secret set APP_STORE_CONNECT_API_KEY
+#   4. base64 -i AuthKey_**********.p8 | gh secret set APP_STORE_CONNECT_PASSWORD
 
 on: workflow_call
 
@@ -70,12 +75,16 @@ jobs:
       - name: Zip app
         run: 'ditto -c -k --sequesterRsrc --keepParent "installers/macos/public/Pop Pixie.app" pop-pixie-macos.zip'
 
-      - name: Notarize app
-        run: 'xcrun notarytool submit pop-pixie-macos.zip --apple-id $APPLE_ID --password $APPLE_ID_PASSWORD --team-id $APPLE_TEAM_ID --wait'
+      - name: Prepare App Store Connect password
+        run: 'echo $APP_STORE_CONNECT_PASSWORD | base64 - --decode > app-store-connect-key.p8'
         env:
-          APPLE_ID: shrug
-          APPLE_ID_PASSWORD: shrug
-          APPLE_TEAM_ID: shrug
+          APP_STORE_CONNECT_PASSWORD: ${{ secrets.APP_STORE_CONNECT_PASSWORD }}
+
+      - name: Notarize app
+        run: 'xcrun notarytool submit pop-pixie-macos.zip --issuer $APP_STORE_CONNECT_ISSUER_UUID --key-id $APP_STORE_CONNECT_API_KEY --key app-store-connect-key.p8 --wait'
+        env:
+          APP_STORE_CONNECT_ISSUER_UUID: ${{ secrets.APP_STORE_CONNECT_ISSUER_UUID }}
+          APP_STORE_CONNECT_API_KEY: ${{ secrets.APP_STORE_CONNECT_API_KEY }}
 
       - name: Create DMG
         run: 'hdiutil create -srcfolder installers/macos/public -volname "Install Pop Pixie" "Install Pop Pixie.dmg"'
