@@ -5,9 +5,9 @@ on: push
 jobs:
   build:
     uses: anderbellstudios/pop-pixie/.github/workflows/build.yml
-      with:
-        targetPlatform: StandaloneWindows64
-        customParameters: -development
+    with:
+      targetPlatform: StandaloneWindows64
+      customParameters: -development
 
   package_windows:
     needs: build
