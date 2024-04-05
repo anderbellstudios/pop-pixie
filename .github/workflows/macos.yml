@@ -38,6 +38,8 @@ jobs:
       #     path: installers/macos/public
 
       - run: find .
+      - run: base64 --version
+      - run: base64 --help
 
       # https://localazy.com/blog/how-to-automatically-sign-macos-apps-using-github-actions
       - name: Sign app
