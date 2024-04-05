@@ -4,7 +4,7 @@ on: push
 
 jobs:
   build:
-    uses: anderbellstudios/pop-pixie/.github/workflows/build.yml
+    uses: pop-pixie/.github/workflows/build.yml@${{ github.sha }}
     with:
       targetPlatform: StandaloneWindows64
       customParameters: -development
