@@ -43,6 +43,9 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path: installers/macos/public
 
+      - name: Fix app permissions
+        run: 'chmod +x "installers/macos/public/Pop Pixie.app/Contents/MacOS/Pop Pixie"'
+
       # https://localazy.com/blog/how-to-automatically-sign-macos-apps-using-github-actions
 
       - name: Prepare certificate step 1
