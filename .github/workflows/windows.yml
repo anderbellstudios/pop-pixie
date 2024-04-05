@@ -21,5 +21,7 @@ jobs:
           name: ${{ needs.build.outputs.artifact_name }}
           run-id: ${{ needs.build.outputs.run_id }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: public
 
       - run: dir
+      - run: dir public
