@@ -5,10 +5,11 @@
     "vendor:unpack": "cd Assets/vendor && unzip ../../vendor.zip",
     "find-unused": "ruby find_unused.rb",
     "used-by": "ruby used_by.rb",
+    "lint:all:fix": "./format.sh Assets/src/**/*.cs",
     "lint:fix": "./format_changed.sh",
+    "lint:all": "yarn lint:all:fix --verify-no-changes",
     "lint": "yarn lint:fix --verify-no-changes",
     "test": "./test.sh",
-    "ci": "yarn lint",
     "husky:install": "husky install",
     "husky:uninstall": "husky uninstall"
   },
