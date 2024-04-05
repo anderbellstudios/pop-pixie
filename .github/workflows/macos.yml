@@ -8,18 +8,18 @@ name: Build and package macOS
 #   5. base64 -i pop-pixie.p12 | pbcopy
 #   6. pbpaste | gh secret set MACOS_CERTIFICATE
 #   6. gh secret set MACOS_CERTIFICATE_PWD # The export password
-#   7. security find-identity -v # Get the long alphanumeric string
+#   7. security find-identity -v # Get the short alphanumeric string in brackets
 #   8. gh secret set MACOS_IDENTITY_ID
 
 on: workflow_call
 
 jobs:
-  # build:
-  #   name: 'Build for macOS'
-  #   uses: ./.github/workflows/build.yml
-  #   with:
-  #     target_platform: StandaloneOSX
-  #   secrets: inherit
+  build:
+    name: 'Build for macOS'
+    uses: ./.github/workflows/build.yml
+    with:
+      target_platform: StandaloneOSX
+    secrets: inherit
 
   package_macos:
     name: Package macOS build
@@ -31,12 +31,12 @@ jobs:
         with:
           sparse-checkout: installers/macos
 
-      # - uses: actions/download-artifact@v4
-      #   with:
-      #     name: ${{ needs.build.outputs.artifact_name }}
-      #     run-id: ${{ needs.build.outputs.run_id }}
-      #     github-token: ${{ secrets.GITHUB_TOKEN }}
-      #     path: installers/macos/public
+      - uses: actions/download-artifact@v4
+        with:
+          name: ${{ needs.build.outputs.artifact_name }}
+          run-id: ${{ needs.build.outputs.run_id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: installers/macos/public
 
       - run: find .
 
@@ -51,11 +51,11 @@ jobs:
         env:
           MACOS_CERTIFICATE_PWD: ${{ secrets.MACOS_CERTIFICATE_PWD }}
       - run: 'security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k password build.keychain'
-      - run: '/usr/bin/codesign --force -s $MACOS_IDENTITY_ID ./path/to/you/app -v'
+      - run: '/usr/bin/codesign --force -s $MACOS_IDENTITY_ID "installers/macos/public/Pop Pixie.app" -v'
         env:
           MACOS_IDENTITY_ID: ${{ secrets.MACOS_IDENTITY_ID }}
 
-      # - run: hdiutil create -srcfolder installers/macos/public -volname 'Install Pop Pixie' 'Install Pop Pixie.dmg'
+      - run: hdiutil create -srcfolder installers/macos/public -volname 'Install Pop Pixie' 'Install Pop Pixie.dmg'
 
       - uses: actions/upload-artifact@v4
         with:
