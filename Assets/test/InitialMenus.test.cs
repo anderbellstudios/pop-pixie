@@ -8,7 +8,7 @@ using TMPro;
 
 public class InitialMenusTest : ABaseTest {
   [UnityTest]
-  public IEnumerator ItLoadsLevel1() {
+  public IEnumerator LandingAndMainMenu() {
     SandboxGameData();
 
     SceneManager.LoadScene(0);
