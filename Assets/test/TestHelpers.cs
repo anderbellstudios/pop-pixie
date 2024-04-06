@@ -6,11 +6,23 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.TestTools;
 using TMPro;
 
 public abstract class ABaseTest {
-  protected void SandboxGameData() {
-    GameData.FileName = "game-test-" + System.Guid.NewGuid().ToString();
+  [UnitySetUp]
+  public IEnumerator CommonSetUp() {
+    string runId = System.Guid.NewGuid().ToString();
+    GameData.FileName = "game-test-" + runId;
+    ConfigData.FileName = "config-test-" + runId;
+    WrappedInput.TestMode = true;
+    yield return null;
+  }
+
+  [UnityTearDown]
+  public IEnumerator CommonTearDown() {
+    StopMoving();
+    yield return null;
   }
 
   protected List<GameObject> FindAllByText(string pattern, bool regex = false) {
@@ -109,10 +121,12 @@ public abstract class ABaseTest {
     Assert.Fail(message);
   }
 
-  protected IEnumerator AwaitSceneChange(string sceneName) {
+  protected IEnumerator AwaitSceneChange(string sceneName, float retryInterval = 1f, int retries = 10) {
     yield return AwaitCondition(
       condition: () => GetActiveScene() == sceneName,
-      message: "AwaitSceneChange: Timed out waiting for scene change to " + sceneName
+      message: "AwaitSceneChange: Timed out waiting for scene change to " + sceneName,
+      retryInterval: retryInterval,
+      retries: retries
     );
   }
 
@@ -169,17 +183,21 @@ public abstract class ABaseTest {
       }
     );
 
-    yield return AwaitCondition(condition: () => finished, retryInterval: 5f);
+    yield return AwaitCondition(condition: () => finished, retries: 60);
   }
 
   protected IEnumerator ScriptedMovement(string anchorName) {
     yield return ScriptedMovement(new[] { anchorName });
   }
 
-  protected void KillAllEnemies() {
-    GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+  protected void KillAllEnemies(Transform container = null) {
+    List<GameObject> enemies = GameObject.FindGameObjectsWithTag("Enemy").Where(enemy => {
+      if (container == null)
+        return true;
+      return enemy.transform.IsChildOf(container);
+    }).ToList();
 
-    if (enemies.Count() == 0) {
+    if (enemies.Count == 0) {
       Assert.Fail("KillAllEnemies: No enemies found");
     }
 
@@ -190,31 +208,70 @@ public abstract class ABaseTest {
     }
   }
 
-  protected IEnumerator PressButton(string rawButtonName, float duration = 0.2f) {
+  protected IEnumerator ButtonDown(string rawButtonName) {
     string buttonName = rawButtonName.ToLower();
-
-    WrappedInput.TestMode = true;
 
     WrappedInput.GetButtonOverrides[buttonName] = true;
     WrappedInput.GetButtonDownOverrides[buttonName] = true;
 
     yield return null;
 
-    WrappedInput.GetButtonDownOverrides[buttonName] = false;
+    WrappedInput.GetButtonDownOverrides[buttonName] = null;
+  }
 
-    yield return new WaitForSeconds(duration);
+  protected IEnumerator ButtonUp(string rawButtonName) {
+    string buttonName = rawButtonName.ToLower();
 
-    WrappedInput.GetButtonOverrides[buttonName] = false;
+    WrappedInput.GetButtonOverrides[buttonName] = null;
     WrappedInput.GetButtonUpOverrides[buttonName] = true;
 
     yield return null;
 
-    WrappedInput.GetButtonUpOverrides[buttonName] = false;
+    WrappedInput.GetButtonUpOverrides[buttonName] = null;
+  }
 
-    WrappedInput.TestMode = false;
+  protected IEnumerator PressButton(string buttonName, float duration = 0.2f) {
+    yield return ButtonDown(buttonName);
+    yield return new WaitForSeconds(duration);
+    yield return ButtonUp(buttonName);
+  }
+
+  protected void MoveRight() {
+    WrappedInput.AxisOverrides["horizontal"] = 1f;
+    WrappedInput.AxisOverrides["vertical"] = 0f;
+  }
+
+  protected void MoveLeft() {
+    WrappedInput.AxisOverrides["horizontal"] = -1f;
+    WrappedInput.AxisOverrides["vertical"] = 0f;
+  }
+
+  protected void MoveUp() {
+    WrappedInput.AxisOverrides["horizontal"] = 0f;
+    WrappedInput.AxisOverrides["vertical"] = 1f;
+  }
+
+  protected void MoveDown() {
+    WrappedInput.AxisOverrides["horizontal"] = 0f;
+    WrappedInput.AxisOverrides["vertical"] = -1f;
+  }
+
+  protected void StopMoving() {
+    WrappedInput.AxisOverrides["horizontal"] = 0f;
+    WrappedInput.AxisOverrides["vertical"] = 0f;
   }
 
   protected IEnumerator AdvanceDialogue() {
-    yield return PressButton("Confirm");
+    yield return AwaitCondition(() => GameObject.Find("Dialogue Box"));
+
+    while (GameObject.Find("Dialogue Box")) {
+      yield return PressButton("Confirm");
+    }
+  }
+
+  protected IEnumerator GoThroughDoor() {
+    yield return AwaitText("Press.*to go through", regex: true);
+    yield return PressButton("Inspect");
+    yield return AwaitPlayingState();
   }
 }

@@ -4,18 +4,17 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEngine.SceneManagement;
-using TMPro;
 
 public class Level1Test : ABaseTest {
-  [UnityTest]
-  public IEnumerator Level1() {
-    SandboxGameData();
-
+  [UnitySetUp]
+  public IEnumerator Init() {
     SceneManager.LoadScene("Level 1");
-    yield return AwaitSceneChange("Level 1");
-
+    yield return null;
     yield return AwaitPlayingState();
+  }
 
+  [UnityTest]
+  public IEnumerator CompletesLevel() {
     yield return ScriptedMovement(new[] {
       "Middle",
       "Top",
@@ -46,7 +45,7 @@ public class Level1Test : ABaseTest {
 
     yield return PressButton("Inspect");
 
-    yield return AwaitText("Mentoes Tower brochure", retryInterval: 5f);
+    yield return AwaitText("Mentoes Tower brochure", retries: 60);
 
     yield return PressButton("Cancel");
     yield return AwaitPlayingState();

@@ -18,5 +18,6 @@ public class ConfigData : AData {
     ConfigDataOperation.Write();
   }
 
-  private DataOperation ConfigDataOperation => new DataOperation(this, "config");
+  public static string FileName = "config";
+  private DataOperation ConfigDataOperation => new DataOperation(this, FileName);
 }
