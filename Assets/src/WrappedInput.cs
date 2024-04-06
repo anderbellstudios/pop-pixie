@@ -1,25 +1,31 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using UnityEngine;
 using Rewired;
 
 public class WrappedInput : MonoBehaviour {
+  public static bool TestMode = false;
+
+  public static Dictionary<string, bool>
+    GetButtonOverrides = new Dictionary<string, bool>(),
+    GetButtonDownOverrides = new Dictionary<string, bool>(),
+    GetButtonUpOverrides = new Dictionary<string, bool>();
+
   public static Player Player {
     get => ReInput.players.GetPlayer(0);
   }
 
   public static bool GetButton(string buttonName) {
-    return Player.GetButton(buttonName);
+    return Overridden(buttonName, GetButtonOverrides) || Player.GetButton(buttonName);
   }
 
   public static bool GetButtonDown(string buttonName) {
-    return Player.GetButtonDown(buttonName);
+    return Overridden(buttonName, GetButtonDownOverrides) || Player.GetButtonDown(buttonName);
   }
 
   public static bool GetButtonUp(string buttonName) {
-    return Player.GetButtonUp(buttonName);
+    return Overridden(buttonName, GetButtonUpOverrides) || Player.GetButtonUp(buttonName);
   }
 
   public static float GetAxis(string axis) {
@@ -32,5 +38,12 @@ public class WrappedInput : MonoBehaviour {
     } else {
       return null;
     }
+  }
+
+  private static bool Overridden(string rawButtonName, Dictionary<string, bool> dict) {
+    if (!TestMode)
+      return false;
+    string buttonName = rawButtonName.ToLower();
+    return dict.ContainsKey(buttonName) && dict[buttonName];
   }
 }
