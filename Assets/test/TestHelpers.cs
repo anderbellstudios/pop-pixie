@@ -5,8 +5,9 @@ using System.Text.RegularExpressions;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
+using UnityEngine.SceneManagement;
+using UnityEditor.SceneManagement;
 using TMPro;
 
 public abstract class ABaseTest {
@@ -23,6 +24,13 @@ public abstract class ABaseTest {
   public IEnumerator CommonTearDown() {
     StopMoving();
     yield return null;
+  }
+
+  protected void LoadSceneNotInBuildSettings(string scenePath) {
+    EditorSceneManager.LoadSceneAsyncInPlayMode(
+      "Assets/Unity/Scenes/Test Pathfinding.unity",
+      new LoadSceneParameters(LoadSceneMode.Single)
+    );
   }
 
   protected List<GameObject> FindAllByText(string pattern, bool regex = false) {
