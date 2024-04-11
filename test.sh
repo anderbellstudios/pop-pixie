@@ -1,6 +1,6 @@
 #!/bin/bash
 
-/Applications/Unity/Hub/Editor/2021.3.32f1/Unity.app/Contents/MacOS/Unity \
+/Applications/Unity/Hub/Editor/2022.3.24f1/Unity.app/Contents/MacOS/Unity \
   -projectPath . \
   -batchmode \
   -runTests \

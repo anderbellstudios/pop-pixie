@@ -17,6 +17,7 @@ public class NavigateToPoint : MonoBehaviour {
   private int GraphVersion = 0;
   private AsyncTimer.EnqueuedEvent Timer;
   private Action CancelScriptedMovement;
+  private List<Vector3> Path;
 
   void Start() {
     AfterStart = true;
@@ -51,21 +52,23 @@ public class NavigateToPoint : MonoBehaviour {
 
     GraphVersion = graph.RecomputeVersion;
 
-    List<Vector3> path = graph.FindPath(transform.position, DestinationPoint);
+    Path = graph.FindPath(transform.position, DestinationPoint);
 
-    if (path != null) {
-      if (DebugPath) {
-        Gizmos.color = Color.green;
-        Gizmos.DrawLineStrip(path, false);
-      }
-
+    if (Path != null) {
       CancelScriptedMovement = ScriptedMovement.FollowPath(
-        path: path,
+        path: Path,
         speed: Speed,
         onComplete: OnComplete.Invoke,
         skipAhead: true,
         avoidCollisionDistance: AvoidCollisionDistance
       );
+    }
+  }
+
+  void OnDrawGizmos() {
+    if (DebugPath && Path != null) {
+      Gizmos.color = Color.green;
+      Gizmos.DrawLineStrip(Path.ToArray(), false);
     }
   }
 }
