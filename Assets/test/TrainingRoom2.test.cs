@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using System.Collections;
 using System.Collections.Generic;
 using NUnit.Framework;
@@ -25,3 +26,4 @@ public class TrainingRoom2Test : ABaseTest {
     SceneManager.LoadScene("Training Room 3");
   }
 }
+#endif

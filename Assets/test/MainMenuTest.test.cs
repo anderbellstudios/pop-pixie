@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using System.Collections;
 using System.Collections.Generic;
 using NUnit.Framework;
@@ -46,3 +47,4 @@ public class MainMenuTest : ABaseTest {
     Assert.AreEqual(ElevatorData.ElevatorRide, 0);
   }
 }
+#endif

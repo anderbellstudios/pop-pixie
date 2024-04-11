@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using System.Collections;
 using System.Collections.Generic;
 using NUnit.Framework;
@@ -20,3 +21,4 @@ public class TrainingRoom5Test : ABaseTest {
     yield return AwaitSceneChange("Training Game Results Screen");
   }
 }
+#endif
