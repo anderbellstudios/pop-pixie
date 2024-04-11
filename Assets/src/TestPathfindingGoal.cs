@@ -7,13 +7,18 @@ public class TestPathfindingGoal : MonoBehaviour {
   public int OpenDoorThreshold;
   public GameObject Door;
   public int Count = 0;
+  public bool Destroys;
 
   void OnTriggerEnter2D(Collider2D other) {
-    if (++Count == OpenDoorThreshold) {
+    Count++;
+
+    if (Door != null && Count == OpenDoorThreshold) {
       Destroy(Door);
       PathfindingGraph.Current.Recompute();
     }
 
-    Destroy(other.gameObject);
+    if (Destroys) {
+      Destroy(other.gameObject);
+    }
   }
 }

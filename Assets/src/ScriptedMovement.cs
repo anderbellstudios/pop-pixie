@@ -16,7 +16,7 @@ public class ScriptedMovement : MonoBehaviour {
   private float Speed;
   private float DeltaTime;
   private Action OnComplete;
-  private int AvoidCollisionLayerMask;
+  private int CollisionLayerMask;
   private int FollowPathId = -1;
 
   private LowPriorityBehaviour LowPriorityBehaviour;
@@ -37,9 +37,7 @@ public class ScriptedMovement : MonoBehaviour {
 
     int currentFollowPathId = ++FollowPathId;
 
-    if (AvoidCollisionDistance != null) {
-      AvoidCollisionLayerMask = CollisionMask.ForLayer(MovementManager.gameObject.layer);
-    }
+    CollisionLayerMask = CollisionMask.ForLayer(MovementManager.gameObject.layer);
 
     if (ScriptedMovementState)
       StateManager.AddState(State.ScriptedMovement);
@@ -106,7 +104,12 @@ public class ScriptedMovement : MonoBehaviour {
    */
   void TrySkipAhead() {
     for (int i = Path.Count - 1; i > PathIndex; i--) {
-      if (LineOfMovement.Check(transform.position, Path[i])) {
+      if (LineOfMovement.Check(
+        transform.position,
+        Path[i],
+        layerMask: CollisionLayerMask,
+        exclude: MovementManager.gameObject
+      )) {
         PathIndex = i;
         return;
       }
@@ -126,7 +129,7 @@ public class ScriptedMovement : MonoBehaviour {
       radius: 0.5f,
       direction: direction,
       distance: direction.magnitude,
-      layerMask: AvoidCollisionLayerMask
+      layerMask: CollisionLayerMask
     )
       .Where(hit => hit.collider.gameObject != MovementManager.gameObject)
       .FirstOrDefault()

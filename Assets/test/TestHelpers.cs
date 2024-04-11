@@ -175,7 +175,11 @@ public abstract class ABaseTest {
 
     bool finished = false;
 
-    player.GetComponent<ScriptedMovement>().FollowPath(
+    ScriptedMovement scriptedMovement = player.GetComponent<ScriptedMovement>();
+
+    scriptedMovement.ScriptedMovementState = false;
+
+    scriptedMovement.FollowPath(
       path: anchorNames.Select(anchorName => {
         Transform anchor = anchorContainer.transform.Find(anchorName);
 
@@ -185,8 +189,9 @@ public abstract class ABaseTest {
 
         return anchor.position;
       }).ToList(),
-      speed: 10f,
+      speed: 20f,
       onComplete: () => {
+        scriptedMovement.ScriptedMovementState = true;
         finished = true;
       }
     );

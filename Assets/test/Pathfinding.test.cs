@@ -14,6 +14,8 @@ public class PathfindingTest : ABaseTest {
 
       GameObject agents = GameObject.Find("Agents");
       TestPathfindingBadZone badZone = GameObject.Find("BadZone").GetComponent<TestPathfindingBadZone>();
+      TestPathfindingGoal split1 = GameObject.Find("Split1").GetComponent<TestPathfindingGoal>();
+      TestPathfindingGoal split2 = GameObject.Find("Split2").GetComponent<TestPathfindingGoal>();
 
       foreach (Transform agent in agents.transform) {
         agent.gameObject.GetComponent<NavigateToPoint>().enabled = true;
@@ -26,6 +28,9 @@ public class PathfindingTest : ABaseTest {
       );
 
       Assert.False(badZone.Failed, "Agent should not touch bad zone");
+
+      Assert.NotZero(split1.Count, "Some agents should take split 1");
+      Assert.NotZero(split2.Count, "Some agents should take split 2");
 
       SceneManager.LoadScene("Landing");
       yield return null;

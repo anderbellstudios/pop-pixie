@@ -52,7 +52,16 @@ public class NavigateToPoint : MonoBehaviour {
 
     GraphVersion = graph.RecomputeVersion;
 
-    Path = graph.FindPath(transform.position, DestinationPoint);
+    Path = graph.FindPath(
+      transform.position,
+      DestinationPoint,
+      avoidEdge: (Vector3 startPoint, Vector3 endPoint) => !LineOfMovement.Check(
+        startPoint,
+        endPoint,
+        layerMask: CollisionMask.ForLayer(gameObject.layer),
+        exclude: gameObject
+      )
+    );
 
     if (Path != null) {
       CancelScriptedMovement = ScriptedMovement.FollowPath(
