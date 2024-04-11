@@ -4,6 +4,7 @@ module UsageData
   GUID_REFERENCING_EXTENSIONS = %w[.unity .prefab .mat .asset .controller]
   IDENTIFIER_REFERENCING_EXTENSIONS = %w[.cs]
   IGNORE_UNUSED_EXTENSIONS = %w[.unity .preset .otf .ttf .asset .txt .asmdef]
+  IGNORE_UNUSED_DIRS = %w[Assets/test/]
 
   class SourceFile
     @@by_guid = {}
@@ -63,7 +64,9 @@ module UsageData
     end
 
     def used?
-      path.end_with?(*IGNORE_UNUSED_EXTENSIONS) || used_by.any?
+      path.end_with?(*IGNORE_UNUSED_EXTENSIONS) ||
+        path.include?(*IGNORE_UNUSED_DIRS) ||
+        used_by.any?
     end
   end
 
