@@ -1,3 +1,4 @@
+#if UNITY_ENGINE
 using System.Collections;
 using System.Collections.Generic;
 using NUnit.Framework;
@@ -49,3 +50,4 @@ public class TrainingRoom4Test : ABaseTest {
     yield return AwaitSceneChange("Training Room 5");
   }
 }
+#endif

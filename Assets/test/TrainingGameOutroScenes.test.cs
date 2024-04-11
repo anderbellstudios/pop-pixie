@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using System.Collections;
 using System.Collections.Generic;
 using NUnit.Framework;
@@ -24,3 +25,4 @@ public class TrainingGameOutroScenes : ABaseTest {
     yield return AwaitSceneChange("Landing");
   }
 }
+#endif
