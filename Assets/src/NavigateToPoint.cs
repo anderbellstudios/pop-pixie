@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,10 +11,12 @@ public class NavigateToPoint : MonoBehaviour {
   public float AvoidCollisionDistance = 4f;
   public float RecomputeInterval = 3f;
   public Vector3 DestinationPoint;
+  public bool DebugPath;
 
   private bool AfterStart = false;
   private int GraphVersion = 0;
   private AsyncTimer.EnqueuedEvent Timer;
+  private Action CancelScriptedMovement;
 
   void Start() {
     AfterStart = true;
@@ -29,7 +32,10 @@ public class NavigateToPoint : MonoBehaviour {
 
   void OnDisable() {
     AsyncTimer.PlayingTime.ClearTimeout(Timer);
-    // TODO: Interrupt scripted motion
+
+    if (CancelScriptedMovement != null) {
+      CancelScriptedMovement();
+    }
   }
 
   void Update() {
@@ -48,7 +54,12 @@ public class NavigateToPoint : MonoBehaviour {
     List<Vector3> path = graph.FindPath(transform.position, DestinationPoint);
 
     if (path != null) {
-      ScriptedMovement.FollowPath(
+      if (DebugPath) {
+        Gizmos.color = Color.green;
+        Gizmos.DrawLineStrip(path, false);
+      }
+
+      CancelScriptedMovement = ScriptedMovement.FollowPath(
         path: path,
         speed: Speed,
         onComplete: OnComplete.Invoke,
