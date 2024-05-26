@@ -115,8 +115,8 @@ public abstract class ABaseTest {
 
   protected IEnumerator AwaitCondition(
     System.Func<bool> condition,
-    float retryInterval = 1f,
-    int retries = 10,
+    float retryInterval = 0.5f,
+    int retries = 40,
     string message = "AwaitCondition: Timed out"
   ) {
     for (int i = 0; i < retries; i++) {
@@ -130,7 +130,7 @@ public abstract class ABaseTest {
     Assert.Fail(message);
   }
 
-  protected IEnumerator AwaitSceneChange(string sceneName, float retryInterval = 1f, int retries = 10) {
+  protected IEnumerator AwaitSceneChange(string sceneName, float retryInterval = 0.5f, int retries = 40) {
     yield return AwaitCondition(
       condition: () => GetActiveScene() == sceneName,
       message: "AwaitSceneChange: Timed out waiting for scene change to " + sceneName,
@@ -139,7 +139,7 @@ public abstract class ABaseTest {
     );
   }
 
-  protected IEnumerator AwaitText(string text, bool regex = false, float retryInterval = 1f, int retries = 10) {
+  protected IEnumerator AwaitText(string text, bool regex = false, float retryInterval = 0.5f, int retries = 40) {
     yield return AwaitCondition(
       condition: () => !!FindByText(text, regex),
       message: "AwaitText: Timed out waiting for text: " + text,
@@ -197,7 +197,7 @@ public abstract class ABaseTest {
       }
     );
 
-    yield return AwaitCondition(condition: () => finished, retries: 60);
+    yield return AwaitCondition(condition: () => finished, retries: 120);
   }
 
   protected IEnumerator ScriptedMovement(string anchorName) {

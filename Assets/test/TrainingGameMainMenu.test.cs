@@ -17,7 +17,7 @@ public class TrainingGameMainMenu : ABaseTest {
   public IEnumerator StartsMissionTraining() {
     Click(GameObject.Find("Mission Training game"));
     yield return AwaitSceneChange("Training Game Tower Scene");
-    yield return AwaitSceneChange("Training Room 1", retries: 30);
+    yield return AwaitSceneChange("Training Room 1", retries: 60);
   }
 
   [UnityTest]

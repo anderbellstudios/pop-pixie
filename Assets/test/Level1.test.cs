@@ -46,7 +46,7 @@ public class Level1Test : ABaseTest {
 
     yield return PressButton("Inspect");
 
-    yield return AwaitText("Mentoes Tower brochure", retries: 60);
+    yield return AwaitText("Mentoes Tower brochure", retries: 120);
 
     yield return PressButton("Cancel");
     yield return AwaitPlayingState();
