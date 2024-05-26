@@ -70,7 +70,8 @@ public class Level1Test : ABaseTest {
     AssertHasText("Press.*to use", regex: true);
 
     yield return PressButton("Inspect");
-    yield return PressButton("Confirm");
+
+    ClickByText("Advance");
 
     yield return AwaitSceneChange("Elevator");
   }
