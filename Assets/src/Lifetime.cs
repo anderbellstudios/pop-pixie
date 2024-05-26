@@ -4,18 +4,10 @@ using UnityEngine;
 
 public class Lifetime : MonoBehaviour {
   public float Interval;
-  private IntervalTimer DespawnTimer;
+  public bool UsePlayingTime = true;
 
   void Start() {
-    DespawnTimer = new IntervalTimer() {
-      TimeClass = "PlayingTime",
-      Interval = Interval
-    };
-
-    DespawnTimer.Reset();
-  }
-
-  void Update() {
-    DespawnTimer.IfElapsed(() => Destroy(gameObject));
+    AsyncTimer timer = UsePlayingTime ? AsyncTimer.PlayingTime : AsyncTimer.BaseTime;
+    timer.SetTimeout(() => Destroy(gameObject), Interval);
   }
 }

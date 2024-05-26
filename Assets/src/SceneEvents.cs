@@ -13,12 +13,13 @@ public class SceneEvents : MonoBehaviour {
   public bool ShouldFadeIn = true, ShouldFadeOut = true, WaitForFadeInBeforePermittingExit = false, PauseGameplayDuringFadeOut = false;
   public float FadeInDelay, FadeInDuration, FadeOutDuration, PostFadeOutDelay;
   public bool IsRetry = false;
+  public GameObject PopLogoAnimation;
 
   [SerializeField] public UnityEvent OnFadeIn;
 
   private bool FadingIn = false, FadingOut = false;
   private string NewSceneName;
-  private bool Asynchronous;
+  private AsyncOperation PreloadSceneOperation;
 
   void Awake() {
     if (SingletonInstance)
@@ -46,12 +47,11 @@ public class SceneEvents : MonoBehaviour {
     OnFadeIn.Invoke();
   }
 
-  public void ChangeScene(string sceneName, bool fadeOutMusic = false, bool asynchronous = false) {
+  public void ChangeScene(string sceneName, bool fadeOutMusic = false, bool popLogoAnimation = false) {
     if (FadingOut || (WaitForFadeInBeforePermittingExit && FadingIn))
       return;
 
     NewSceneName = sceneName;
-    Asynchronous = asynchronous;
 
     if (ShouldFadeOut) {
       FadingOut = true;
@@ -59,18 +59,30 @@ public class SceneEvents : MonoBehaviour {
       if (PauseGameplayDuringFadeOut)
         StateManager.AddState(State.NotPlaying);
 
+      PreloadScene();
+
       AudioFadeOut.Current.FadeOut(FadeOutDuration, !fadeOutMusic);
       Fader.Fade("to black", FadeOutDuration);
       Invoke("LoadNewScene", FadeOutDuration + PostFadeOutDelay);
+
+      if (popLogoAnimation)
+        Instantiate(PopLogoAnimation);
     } else {
       LoadNewScene();
     }
   }
 
+  void PreloadScene() {
+    PreloadSceneOperation = SceneManager.LoadSceneAsync(NewSceneName);
+    PreloadSceneOperation.allowSceneActivation = false;
+  }
+
   void LoadNewScene() {
-    if (Asynchronous)
-      SceneManager.LoadSceneAsync(NewSceneName);
-    else
+    if (PreloadSceneOperation == null) {
       SceneManager.LoadScene(NewSceneName);
+    } else {
+      PreloadSceneOperation.allowSceneActivation = true;
+      PreloadSceneOperation = null;
+    }
   }
 }

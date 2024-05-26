@@ -2,4 +2,4 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 yarn lint
-rm Assets/InitTestScene*
+rm Assets/InitTestScene* 2>/dev/null || true

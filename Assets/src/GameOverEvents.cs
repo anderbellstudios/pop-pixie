@@ -12,6 +12,6 @@ public class GameOverEvents : MonoBehaviour {
 
     GameData.LoadOrReset();
     GameOverData.IsRetry = true;
-    SceneEvents.Current.ChangeScene(level, true);
+    SceneEvents.Current.ChangeScene(level, true, true);
   }
 }
