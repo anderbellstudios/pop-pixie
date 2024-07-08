@@ -14,7 +14,7 @@ public class MainMenuEvents : AMenu {
   private Action OnPrimary, OnSecondary;
 
   public override void LocalStart() {
-    if (SaveGame.Exists()) {
+    if (GameData.Exists()) {
       PrimaryText.text = "Continue";
       OnPrimary = () => ContinueGameHopper.Hop();
 

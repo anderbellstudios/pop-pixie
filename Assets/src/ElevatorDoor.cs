@@ -3,37 +3,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ElevatorDoor : AInspectable, ISerializableComponent {
-  public string[] SerializableFields { get; } = { "HasKeycard" };
-
+public class ElevatorDoor : AInspectable {
   public bool SingletonInstance = true;
   public static ElevatorDoor Current;
 
-  public string NextLevel;
+  public int ElevatorRide = 0;
   public SceneChangeHopper SceneChangeHopper;
-
-  public bool HasKeycard = false;
-  public void GotKeycard() => HasKeycard = true;
 
   void Awake() {
     if (SingletonInstance)
       Current = this;
+
+    if (ElevatorRide < 1)
+      throw new Exception("ElevatorRide must be set to a value greater than 0");
   }
 
-  void Start() {
-    InGamePrompt.Current.RegisterSource(100, () =>
-      (_Nearby && !HasKeycard)
-      ? "Find a <color=#ffff00>keycard</color> to use the <color=#ffff00>elevator</color>"
-      : null
-    );
-
-    AInspectableStart();
-  }
-
-  public override bool IsInspectable() => HasKeycard;
+  public override bool IsInspectable() => LevelObjectives.Current.UsedAccessTerminal;
 
   public override String AInspectablePromptText()
     => "Press [Inspect] to use the <color=#ffff00>elevator</color>";
+
+  public override String AInspectableUninspectableText()
+    => "Use an <color=#ffff00>Access Terminal</color> to gain access to higher floors";
 
   public override void OnInspect() {
     DialoguePromptManager.Current.Prompt(
@@ -41,7 +32,8 @@ public class ElevatorDoor : AInspectable, ISerializableComponent {
       "Advance",
       "Do not",
       () => {
-        ElevatorData.NextLevel = NextLevel;
+        ElevatorData.ElevatorRide = ElevatorRide;
+        ElevatorData.WillArriveFromLevel();
         SceneChangeHopper.Hop();
       },
       () => { }

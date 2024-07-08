@@ -1,0 +1,101 @@
+name: Build and package macOS
+
+# To create a signing certificate:
+#   1. openssl req -newkey rsa:2048 -keyout pop-pixie.key -out pop-pixie.csr
+#   2. Sign with Apple as a Developer ID Application
+#   3. openssl x509 -in pop-pixie.cer -inform DER -out pop-pixie.pem -outform PEM
+#   4. openssl pkcs12 -export -legacy -out pop-pixie.p12 -inkey pop-pixie.key -in pop-pixie.pem # You must specify an export password
+#   5. base64 -i pop-pixie.p12 | gh secret set MACOS_CERTIFICATE
+#   6. gh secret set MACOS_CERTIFICATE_PWD # The export password
+#   7. security find-identity -v # Get the short alphanumeric string in brackets
+#   8. gh secret set MACOS_IDENTITY_ID
+
+# To create an App Store Connect API key:
+#   1. Create a developer key at https://appstoreconnect.apple.com/access/integrations/api
+#   2. gh secret set APP_STORE_CONNECT_ISSUER_UUID
+#   3. gh secret set APP_STORE_CONNECT_API_KEY
+#   4. base64 -i AuthKey_**********.p8 | gh secret set APP_STORE_CONNECT_PASSWORD
+
+on: workflow_call
+
+jobs:
+  build:
+    name: 'Build for macOS'
+    uses: ./.github/workflows/build.yml
+    with:
+      target_platform: StandaloneOSX
+    secrets: inherit
+
+  package_macos:
+    name: Package macOS build
+    needs: build
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: installers/macos
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: ${{ needs.build.outputs.artifact_name }}
+          run-id: ${{ needs.build.outputs.run_id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: installers/macos/public
+
+      - name: Create Applications shortcut
+        run: ln -s /Applications installers/macos/public/Applications
+
+      - name: Fix app permissions
+        run: 'chmod +x "installers/macos/public/Pop Pixie.app/Contents/MacOS/Pop Pixie"'
+
+      # https://localazy.com/blog/how-to-automatically-sign-macos-apps-using-github-actions
+
+      - name: Prepare certificate step 1
+        run: 'echo $MACOS_CERTIFICATE | base64 --decode > certificate.p12'
+        env:
+          MACOS_CERTIFICATE: ${{ secrets.MACOS_CERTIFICATE }}
+
+      - name: Prepare certificate step 2
+        run: 'security create-keychain -p password build.keychain'
+
+      - name: Prepare certificate step 3
+        run: 'security default-keychain -s build.keychain'
+
+      - name: Prepare certificate step 4
+        run: 'security unlock-keychain -p password build.keychain'
+
+      - name: Prepare certificate step 5
+        run: 'security import certificate.p12 -P $MACOS_CERTIFICATE_PWD -k build.keychain -T /usr/bin/codesign'
+        env:
+          MACOS_CERTIFICATE_PWD: ${{ secrets.MACOS_CERTIFICATE_PWD }}
+
+      - name: Prepare certificate step 6
+        run: 'security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k password build.keychain'
+
+      - name: Sign app
+        run: '/usr/bin/codesign --deep --force --verify --timestamp -s $MACOS_IDENTITY_ID --options runtime --entitlements installers/macos/pop-pixie.entitlements "installers/macos/public/Pop Pixie.app" -v'
+        env:
+          MACOS_IDENTITY_ID: ${{ secrets.MACOS_IDENTITY_ID }}
+
+      - name: Zip app
+        run: 'ditto -c -k --sequesterRsrc --keepParent "installers/macos/public/Pop Pixie.app" pop-pixie-macos.zip'
+
+      - name: Prepare App Store Connect password
+        run: 'echo $APP_STORE_CONNECT_PASSWORD | base64 --decode > app-store-connect-key.p8'
+        env:
+          APP_STORE_CONNECT_PASSWORD: ${{ secrets.APP_STORE_CONNECT_PASSWORD }}
+
+      - name: Notarize app
+        run: 'xcrun notarytool submit pop-pixie-macos.zip --issuer $APP_STORE_CONNECT_ISSUER_UUID --key-id $APP_STORE_CONNECT_API_KEY --key app-store-connect-key.p8 --wait'
+        env:
+          APP_STORE_CONNECT_ISSUER_UUID: ${{ secrets.APP_STORE_CONNECT_ISSUER_UUID }}
+          APP_STORE_CONNECT_API_KEY: ${{ secrets.APP_STORE_CONNECT_API_KEY }}
+
+      - name: Create DMG
+        run: 'hdiutil create -srcfolder installers/macos/public -volname "Install Pop Pixie" "Install Pop Pixie.dmg"'
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: 'macOS DMG'
+          path: 'Install Pop Pixie.dmg'

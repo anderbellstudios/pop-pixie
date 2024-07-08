@@ -11,5 +11,4 @@ public class PlayingTime : MonoBehaviour {
 
     time += Time.deltaTime;
   }
-
 }

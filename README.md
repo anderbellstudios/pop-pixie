@@ -59,6 +59,14 @@ Move from `/Assets/Rewired` to `/Assets/vendor/Rewired`
 
 **When there are no more compile errors, Rewired will prompt you to begin installation. Please skip this step.**
 
+#### Retro: CRT TV (Asset Store, paid)
+
+We use Retro: CRT TV for the CRT effect in Pop Pixie. Without it, Access Terminal screens won't render correctly, but will still be legible.
+
+Purchase from https://assetstore.unity.com/packages/vfx/shaders/fullscreen-camera-effects/retro-crt-tv-241411
+
+Move from `/Assets/FronkonGames` to `/Assets/vendor/FronkonGames`
+
 #### Pixel Art City Backgrounds (third-party, paid)
 
 The city background used in some scenes in Pop Pixie is modified from the Pixel Art City Backgrounds asset pack by edermunizz. Due to the license under which this asset pack is sold, we're unable to include our modified version of the city background in this GitHub repo. The game will still run without the background, but some scenes will be rendered incorrectly.
@@ -115,19 +123,6 @@ If there are compiled binaries for multiple .NET versions, use the latest 4.x ve
 
 Place any assemblies in `/Assets/vendor/JsonDotNet`
 
-#### CrossSceneReference (GitHub, free)
-
-We use CrossSceneReference as part of Pop Pixie's scene serialisation system (soon to be deprecated).
-
-Add by running the following in the root of the project:
-
-```bash
-git clone https://github.com/Unity-Technologies/guid-based-reference
-mv guid-based-reference/Assets/CrossSceneReference Assets/vendor/CrossSceneReference
-rm -rf guid-based-reference
-rm -r Assets/vendor/CrossSceneReference/{Tests,Documentation~,Samples}
-```
-
 #### Summary
 
 If you installed all of those dependencies correctly, `ruby Assets/vendor/validate.rb` should have no output and there should be no compile errors in the Unity console. (It's safe to ignore any warnings.)
@@ -138,15 +133,12 @@ Unity may have modified `ProjectSettings/ProjectSettings.asset` when starting up
 
 At this point, `git status` should report that the working tree is clean. Please try to resolve any inconsistencies if this is not the case.
 
-### Set the environment
-
-Pop Pixie has various environments (separate versions of Unity config files) and provides a script to switch between them. Run the following in the root of the project to set the environment to `develop`:
-
-```bash
-gem install tty-prompt # First time only
-ruby setenv.rb
-```
-
 ### What's next?
 
 You should now be ready to begin work on Pop Pixie. Open a Unity scene from `/Assets/Unity/Scenes` to get started.
+
+### Updating the app version
+
+When updating the app verison, it should be modified in `ProjectSettings.asset` and `pop-pixie.iss`.
+
+The in-game version checker uses https://github.com/anderbellstudios/pop-pixie/blob/version/VERSION.

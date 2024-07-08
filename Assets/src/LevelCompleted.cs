@@ -2,10 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelCompleted : MonoBehaviour, ISerializableComponent {
-
-  public string[] SerializableFields { get; } = { "KeycardDialoguePlayed" };
-
+public class LevelCompleted : MonoBehaviour {
   public ElevatorBarrier ElevatorBarrier;
   public DialogueManager Dialogue;
   public float Delay = 1.5f;

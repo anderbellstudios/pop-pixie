@@ -4,7 +4,6 @@ using UnityEngine;
 using Rewired;
 
 public class InputMode : MonoBehaviour {
-
   public enum Mode { MouseAndKeyboard, Joystick };
   public static Mode Current = Mode.MouseAndKeyboard;
   public static bool ReceivedInput = false;
@@ -32,5 +31,4 @@ public class InputMode : MonoBehaviour {
       ReceivedInput = true;
     }
   }
-
 }

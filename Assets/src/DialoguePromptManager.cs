@@ -9,7 +9,6 @@ public class DialoguePromptManager : MonoBehaviour {
 
   public DialoguePromptBoxController DialoguePromptBox;
 
-  private bool Open = false;
   private Action OnPositiveAnswer;
   private Action OnNegativeAnswer;
 
@@ -29,7 +28,6 @@ public class DialoguePromptManager : MonoBehaviour {
 
     StateManager.AddState(State.NotPlaying);
     DialoguePromptBox.Show();
-    Open = true;
 
     DialoguePromptBox.SetQuestion(question);
     DialoguePromptBox.SetAnswers(positiveAnswer, negativeAnswer);
@@ -47,7 +45,6 @@ public class DialoguePromptManager : MonoBehaviour {
 
   void Exit() {
     DialoguePromptBox.Hide();
-    Open = false;
     StateManager.RemoveState(State.NotPlaying);
   }
 }

@@ -1,0 +1,16 @@
+name: Development builds
+
+on: push
+
+jobs:
+  windows_build:
+    if: ${{ github.ref == 'refs/heads/develop' }}
+    name: 'Build for Windows'
+    uses: ./.github/workflows/windows.yml
+    secrets: inherit
+
+  macos_build:
+    if: ${{ github.ref == 'refs/heads/develop' }}
+    name: 'Build for macOS'
+    uses: ./.github/workflows/macos.yml
+    secrets: inherit

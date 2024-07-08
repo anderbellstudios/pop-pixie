@@ -11,7 +11,8 @@ public class ContinueGameHopper : MonoBehaviour {
   }
 
   public void Hop() {
-    SaveGame.ReadAutoSave();
-    SceneData.Load();
+    GameData.Load();
+    ElevatorData.WillArriveFromLoad();
+    SceneEvents.Current.ChangeScene("Elevator", true);
   }
 }

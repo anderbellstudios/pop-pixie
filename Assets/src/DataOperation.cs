@@ -7,7 +7,6 @@ using UnityEngine;
 using Newtonsoft.Json;
 
 public class DataOperation {
-
   AData Data;
   string FileName;
 
@@ -17,6 +16,7 @@ public class DataOperation {
   }
 
   public void Write() {
+    Data.BeforeWrite();
     string json = JsonConvert.SerializeObject(Data.Dictionary);
     File.WriteAllText(Path(), json);
   }
@@ -24,6 +24,7 @@ public class DataOperation {
   public void Read() {
     string json = File.ReadAllText(Path());
     Data.Dictionary = JsonConvert.DeserializeObject<Dictionary<string, object>>(json);
+    Data.AfterRead();
   }
 
   public bool Exists() {
@@ -31,7 +32,6 @@ public class DataOperation {
   }
 
   string Path() {
-    return System.IO.Path.Combine(Application.persistentDataPath, FileName + ".v2.json");
+    return System.IO.Path.Combine(Application.persistentDataPath, FileName + ".json");
   }
-
 }

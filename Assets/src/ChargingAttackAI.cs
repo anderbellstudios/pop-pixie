@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ChargingAttackAI : AEnemyAI, IRequiresLineOfMovementAI {
-
   public float Speed;
   public float Damage;
   public float WiggleAmplitude;
   public float PreparingAttackInterval;
   public float GiveUpInterval;
+  public Transform WiggleTransform;
 
   public SoundController SoundPlayer;
   public List<AudioClip> Sounds;
@@ -35,8 +35,8 @@ public class ChargingAttackAI : AEnemyAI, IRequiresLineOfMovementAI {
   }
 
   public override void WhileInControl() {
-    var randomAngle = Random.Range(-WiggleAmplitude, WiggleAmplitude);
-    transform.rotation = Quaternion.Euler(0, 0, randomAngle);
+    float randomAngle = Random.Range(-WiggleAmplitude, WiggleAmplitude);
+    SetWiggleAngle(randomAngle);
 
     if (PreparingAttackTimer.Elapsed())
       ApplyMovement(TargetDirection() * Speed);
@@ -46,7 +46,7 @@ public class ChargingAttackAI : AEnemyAI, IRequiresLineOfMovementAI {
   }
 
   public override void ControlRelinquished() {
-    transform.rotation = Quaternion.identity;
+    SetWiggleAngle(0f);
   }
 
   public override void LocalOnCollisionEnter2D(Collision2D col) {
@@ -55,10 +55,19 @@ public class ChargingAttackAI : AEnemyAI, IRequiresLineOfMovementAI {
     }
   }
 
-  void PerformAttack() {
-    DamageTarget(Damage);
+  void SetWiggleAngle(float angle) {
+    (WiggleTransform ?? transform).rotation = Quaternion.Euler(0, 0, angle);
+  }
 
-    if (ShouldPlaySound()) {
+  void PerformAttack() {
+    bool isCounterAttack = DamageTarget(Damage, true);
+
+    if (isCounterAttack) {
+      HitPoints hp = GetComponent<HitPoints>();
+      hp.Damage(Damage * 2);
+      if (hp.Dead)
+        return;
+    } else if (ShouldPlaySound()) {
       // Play attack sound
       int i = Random.Range(0, Sounds.Count);
       var sound = Sounds[i];
@@ -71,5 +80,4 @@ public class ChargingAttackAI : AEnemyAI, IRequiresLineOfMovementAI {
   bool ShouldPlaySound() {
     return UnityEngine.Random.value < ChanceToPlaySound;
   }
-
 }

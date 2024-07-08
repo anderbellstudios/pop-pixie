@@ -5,21 +5,19 @@ using UnityEngine;
 public class ConfigData : AData {
   public static ConfigData Current = new ConfigData();
 
-  private bool loadData = true;
+  private bool LoadData = true;
 
   public override void BeforeFetch() {
-    if (loadData && DataOperation().Exists()) {
-      loadData = false;
-      DataOperation().Read();
+    if (LoadData && ConfigDataOperation.Exists()) {
+      LoadData = false;
+      ConfigDataOperation.Read();
     }
   }
 
   public override void AfterUpdate() {
-    DataOperation().Write();
+    ConfigDataOperation.Write();
   }
 
-  DataOperation DataOperation() {
-    return new DataOperation(this, "config");
-  }
-
+  public static string FileName = "config";
+  private DataOperation ConfigDataOperation => new DataOperation(this, FileName);
 }

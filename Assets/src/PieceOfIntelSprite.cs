@@ -3,10 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PieceOfIntelSprite : AInspectable, ISerializableComponent {
-
-  public string[] SerializableFields { get; } = { "Collected" };
-
+public class PieceOfIntelSprite : AInspectable {
   public bool Collected = false;
   public LoreItem LoreItem;
   public CaptionLine CaptionLineAfterClose;
@@ -33,6 +30,6 @@ public class PieceOfIntelSprite : AInspectable, ISerializableComponent {
   }
 
   public override String AInspectablePromptText() {
-    return "Press [Inspect] to steal <color=#ffff00>Piece of Intel</color>";
+    return "Press [Inspect] to steal a <color=#ffff00>Piece of Intel</color>";
   }
 }

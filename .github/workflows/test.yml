@@ -1,0 +1,33 @@
+name: Test
+
+on: push
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install vendor
+        run: |
+          curl ${{ secrets.VENDOR_URL }} -o vendor.zip
+          yarn vendor:unpack
+          rm vendor.zip
+
+      # - uses: actions/cache@v3
+      #   with:
+      #     path: Library
+      #     key: Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
+      #     restore-keys: |
+      #       Library-
+
+      - name: Run tests
+        uses: game-ci/unity-test-runner@v4
+        env:
+          # gh secret set UNITY_LICENSE < /Library/Application\ Support/Unity/Unity_lic.ulf
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          githubToken: ${{ secrets.GITHUB_TOKEN }}

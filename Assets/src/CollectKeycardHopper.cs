@@ -6,7 +6,7 @@ public class CollectKeycardHopper : MonoBehaviour {
   public DialogueHopper GotKeycardDialogue;
 
   public void Hop() {
-    ElevatorDoor.Current.GotKeycard();
+    LevelObjectives.Current.GotKeycard = true;
     GotKeycardDialogue.Hop();
   }
 }

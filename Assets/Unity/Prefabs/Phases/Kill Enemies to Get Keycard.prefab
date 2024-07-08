@@ -1,79 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2621817371094694004
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8985073877216380941}
-  - component: {fileID: 5373348399482277005}
-  - component: {fileID: 7558745700850742543}
-  m_Layer: 0
-  m_Name: Collect Pieces of Intel Reminder
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8985073877216380941
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2621817371094694004}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6244751698504387523}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5373348399482277005
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2621817371094694004}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ea938bedff164618b9b573e5f14a504, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Running: 0
-  Event:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7558745700850742543}
-        m_TargetAssemblyTypeName: CollectPiecesOfIntelReminder, Assembly-CSharp
-        m_MethodName: Activate
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &7558745700850742543
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2621817371094694004}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a937fecf034c241fd93dc398396751d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ActivateOnStart: 0
 --- !u!1 &6244751698504387526
 GameObject:
   m_ObjectHideFlags: 0
@@ -85,7 +11,6 @@ GameObject:
   - component: {fileID: 6244751698504387523}
   - component: {fileID: 6244751698504387525}
   - component: {fileID: 6244751698504387524}
-  - component: {fileID: 5949924248314216574}
   m_Layer: 0
   m_Name: Kill Enemies to Get Keycard
   m_TagString: Untagged
@@ -108,7 +33,6 @@ Transform:
   - {fileID: 360260085806140161}
   - {fileID: 1881214018046797138}
   - {fileID: 6244751698746815611}
-  - {fileID: 8985073877216380941}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -158,7 +82,6 @@ MonoBehaviour:
   - {fileID: 5612154044423838245}
   - {fileID: 1679188397748852556}
   - {fileID: 6244751698746815608}
-  - {fileID: 5373348399482277005}
   PhaseId: 0
   OnPhaseFinished:
     m_PersistentCalls:
@@ -175,19 +98,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &5949924248314216574
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6244751698504387526}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98bbc2c1e63e98543830eec78d976795, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  serializedGuid: 
+  OnLastPhaseFinished:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &6244751698746815612
 GameObject:
   m_ObjectHideFlags: 0
@@ -276,15 +189,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DialogueSequence:
+    DialogueMusicFadeBehaviour:
+      EnterBehaviour: 4
+      ExitBehaviour: 3
     Pages:
     - Speaker: 
       Face: {fileID: 21300000, guid: 64ee94cb654a24d94ab691e0dba149e2, type: 3}
       AudioClip: {fileID: 0}
-      Text: 'The enemy dropped a <color=#ffff00>keycard</color>.
-
-
-        Use the
-        <color=#ffff00>elevator</color> to advance to the next floor.'
+      AutoAdvanceDelay: 0
+      Text: The enemy dropped a <color=#ffff00>Keycard</color>.
   OnFinish:
     m_PersistentCalls:
       m_Calls: []

@@ -5,14 +5,22 @@ using UnityEngine;
 public delegate void PhaseFinishedDelegate();
 
 public abstract class APhase : MonoBehaviour {
-
   private PhaseFinishedDelegate _FinishedCallback;
   public bool Running = false;
 
   public void Begin(PhaseFinishedDelegate finishedCallback) {
     _FinishedCallback = finishedCallback;
-    Running = true;
-    LocalBegin();
+
+    if (SceneEvents.Current.IsRetry && SkipOnRetry()) {
+      PhaseFinished();
+    } else {
+      Running = true;
+      LocalBegin();
+    }
+  }
+
+  public virtual bool SkipOnRetry() {
+    return false;
   }
 
   public virtual void LocalBegin() {
