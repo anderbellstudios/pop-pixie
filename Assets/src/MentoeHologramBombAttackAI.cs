@@ -16,7 +16,13 @@ public class MentoeHologramBombAttackAI : ARepeatedAttackAI {
   }
 
   public override void PerformAttack() {
-    Vector3 predictedPlayerPosition = ((Vector3)TargetHeading()) + (PlayerGameObject.EstimatedVelocity * PredictiveAimLeadTime);
+    Vector3 targetHeading = (Vector3)TargetHeading();
+
+    bool predictPosition = Random.value < 0.75f;
+
+    if (predictPosition) {
+      targetHeading += PlayerGameObject.EstimatedVelocity * PredictiveAimLeadTime;
+    }
 
     GameObject bombGameObject = Instantiate(
       BombPrefab,
@@ -24,7 +30,7 @@ public class MentoeHologramBombAttackAI : ARepeatedAttackAI {
       transform.rotation
     );
 
-    bombGameObject.GetComponent<Rigidbody2D>().velocity = BombVelocityCoefficient * predictedPlayerPosition;
+    bombGameObject.GetComponent<Rigidbody2D>().velocity = BombVelocityCoefficient * targetHeading;
     BulletData bulletData = bombGameObject.GetComponent<BulletData>();
     bulletData.Originator = gameObject;
     bulletData.Damage = 100;
