@@ -52,7 +52,7 @@ jobs:
       # https://localazy.com/blog/how-to-automatically-sign-macos-apps-using-github-actions
 
       - name: Prepare certificate step 1
-        run: 'echo $MACOS_CERTIFICATE | base64 - --decode > certificate.p12'
+        run: 'echo $MACOS_CERTIFICATE | base64 --decode > certificate.p12'
         env:
           MACOS_CERTIFICATE: ${{ secrets.MACOS_CERTIFICATE }}
 
@@ -82,7 +82,7 @@ jobs:
         run: 'ditto -c -k --sequesterRsrc --keepParent "installers/macos/public/Pop Pixie.app" pop-pixie-macos.zip'
 
       - name: Prepare App Store Connect password
-        run: 'echo $APP_STORE_CONNECT_PASSWORD | base64 - --decode > app-store-connect-key.p8'
+        run: 'echo $APP_STORE_CONNECT_PASSWORD | base64 --decode > app-store-connect-key.p8'
         env:
           APP_STORE_CONNECT_PASSWORD: ${{ secrets.APP_STORE_CONNECT_PASSWORD }}
 
