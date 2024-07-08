@@ -35,6 +35,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7620059038153698697}
+  - {fileID: 5007950809446146748}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -172,6 +173,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ExpandSpeed: 2
   Lifetime: 30
+  OnDamagedPlayer:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4953919415047829631}
+        m_TargetAssemblyTypeName: SoundHopper, Assembly-CSharp
+        m_MethodName: Hop
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &9152054768216355035
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -211,6 +227,93 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ffec57cdabff4a9393c1369fc31f1c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &6127829292248731056
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 145702683587674037}
+    m_Modifications:
+    - target: {fileID: 1186061867552009996, guid: 583bbe636a139433d854b0ad783de470,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1186061867552009996, guid: 583bbe636a139433d854b0ad783de470,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1186061867552009996, guid: 583bbe636a139433d854b0ad783de470,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1186061867552009996, guid: 583bbe636a139433d854b0ad783de470,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1186061867552009996, guid: 583bbe636a139433d854b0ad783de470,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1186061867552009996, guid: 583bbe636a139433d854b0ad783de470,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1186061867552009996, guid: 583bbe636a139433d854b0ad783de470,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1186061867552009996, guid: 583bbe636a139433d854b0ad783de470,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1186061867552009996, guid: 583bbe636a139433d854b0ad783de470,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1186061867552009996, guid: 583bbe636a139433d854b0ad783de470,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1186061867552009996, guid: 583bbe636a139433d854b0ad783de470,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7728953236701340300, guid: 583bbe636a139433d854b0ad783de470,
+        type: 3}
+      propertyPath: m_Name
+      value: Laser Damage
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 583bbe636a139433d854b0ad783de470, type: 3}
+--- !u!114 &4953919415047829631 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1276127487615448527, guid: 583bbe636a139433d854b0ad783de470,
+    type: 3}
+  m_PrefabInstance: {fileID: 6127829292248731056}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 788d3c5f8850b4c9f96eaec097fbd4f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &5007950809446146748 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1186061867552009996, guid: 583bbe636a139433d854b0ad783de470,
+    type: 3}
+  m_PrefabInstance: {fileID: 6127829292248731056}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &9033756932925551709
 PrefabInstance:
   m_ObjectHideFlags: 0
