@@ -1,5 +1,7 @@
 {
   "scripts": {
+    "vendor:pack": "cd Assets/vendor && zip -r ../../vendor.zip */",
+    "vendor:unpack": "cd Assets/vendor && unzip ../../vendor.zip",
     "set-env": "ruby setenv.rb",
     "vendor:validate": "ruby Assets/vendor/validate.rb",
     "find-unused": "ruby find_unused.rb",
