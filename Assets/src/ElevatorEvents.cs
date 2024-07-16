@@ -19,6 +19,6 @@ public class ElevatorEvents : MonoBehaviour {
   }
 
   public void Continue() {
-    SceneEvents.Current.ChangeScene(NextLevel, true);
+    SceneEvents.Current.ChangeScene(NextLevel, true, true);
   }
 }

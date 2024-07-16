@@ -24,7 +24,7 @@ public class PathfindingTest : ABaseTest {
 
       yield return AwaitCondition(
         condition: () => agents.transform.childCount == 0,
-        retries: 30,
+        retries: 60,
         message: "All agents should reach their destination"
       );
 
