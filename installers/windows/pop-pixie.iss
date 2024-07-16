@@ -3,7 +3,7 @@
 
 #define MySourceDir "../../public"
 #define MyAppName "Pop Pixie"
-#define MyAppVersion "1.0.0"
+#define MyAppVersion "0.1.0"
 #define MyAppPublisher "Anderbell Studios"
 #define MyAppURL "https://anderbell.studio/"
 #define MyAppExeName "Pop Pixie.exe"
