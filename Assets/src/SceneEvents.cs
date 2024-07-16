@@ -47,9 +47,18 @@ public class SceneEvents : MonoBehaviour {
     OnFadeIn.Invoke();
   }
 
-  public void ChangeScene(string sceneName, bool fadeOutMusic = false, bool popLogoAnimation = false) {
+  public void ChangeScene(
+    string sceneName,
+    bool fadeOutMusic = false,
+    bool popLogoAnimation = false,
+    float overrideFadeOutDuration = -1
+  ) {
     if (FadingOut || (WaitForFadeInBeforePermittingExit && FadingIn))
       return;
+
+    if (overrideFadeOutDuration >= 0f) {
+      FadeOutDuration = overrideFadeOutDuration;
+    }
 
     NewSceneName = sceneName;
 

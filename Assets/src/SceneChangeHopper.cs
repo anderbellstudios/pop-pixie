@@ -6,12 +6,14 @@ public class SceneChangeHopper : MonoBehaviour {
   public string SceneName;
   public bool FadeOutMusic = false;
   public bool PopLogoAnimation = false;
+  public float OverrideFadeOutDuration = -1f;
 
   public void Hop() {
     SceneEvents.Current.ChangeScene(
       SceneName,
       fadeOutMusic: FadeOutMusic,
-      popLogoAnimation: PopLogoAnimation
+      popLogoAnimation: PopLogoAnimation,
+      overrideFadeOutDuration: OverrideFadeOutDuration
     );
   }
 }
