@@ -12,7 +12,7 @@ public class MainMenuTest : ABaseTest {
     SceneManager.LoadScene("Main Menu");
     yield return new WaitForSeconds(0.5f);
     ClickByText("New game");
-    yield return AwaitSceneChange("Level 1");
+    yield return AwaitSceneChange("Intro Cutscene");
   }
 
   [UnityTest]
@@ -42,7 +42,7 @@ public class MainMenuTest : ABaseTest {
     ClickByText("Cancel");
     ClickByText("New game");
     ClickByText("Reset progress");
-    yield return AwaitSceneChange("Level 1");
+    yield return AwaitSceneChange("Intro Cutscene");
 
     Assert.AreEqual(ElevatorData.ElevatorRide, 0);
   }

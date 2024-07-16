@@ -21,8 +21,14 @@ public class ClosetAnimation : APhase {
   }
 
   public override bool SkipOnRetry() {
-    RollOutOfCloset();
+    FinishEarly();
     return true;
+  }
+
+  public void FinishEarly() {
+    if (!Running)
+      return;
+    RollOutOfCloset();
   }
 
   public override void LocalBegin() {
@@ -45,6 +51,9 @@ public class ClosetAnimation : APhase {
   }
 
   void NextRattleOnOff() {
+    if (!Running)
+      return;
+
     if (RattleOnOffIndex >= RattleOnOffDurations.Count) {
       Rattling = false;
       RollOutOfCloset();
