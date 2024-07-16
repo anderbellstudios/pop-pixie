@@ -2,11 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Holoring : MonoBehaviour {
   public float ExpandSpeed;
   public float Lifetime;
   public Action<float> DamageBoss;
+  public UnityEvent OnDamagedPlayer;
 
   private bool IsCounterAttacked = false;
 
@@ -32,6 +34,11 @@ public class Holoring : MonoBehaviour {
   public void HandleCollidedWithPlayer() {
     if (IsCounterAttacked)
       return;
+
     IsCounterAttacked = PlayerGameObject.Current.GetComponent<HitPoints>().Damage(1, true);
+
+    if (!IsCounterAttacked) {
+      OnDamagedPlayer.Invoke();
+    }
   }
 }
