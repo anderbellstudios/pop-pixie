@@ -464,6 +464,7 @@ GameObject:
   - component: {fileID: 892144359}
   - component: {fileID: 892144358}
   - component: {fileID: 892144357}
+  - component: {fileID: 892144361}
   - component: {fileID: 892144360}
   m_Layer: 0
   m_Name: Main Camera
@@ -590,6 +591,19 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!114 &892144361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 892144356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81ec4155f4ecb47ed9a74c27680abd2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attenuationObject: {fileID: 0}
 --- !u!1001 &1052052272
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1387,6 +1401,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SceneName: Training Game Main Menu
   FadeOutMusic: 1
+  OverrideFadeOutDuration: -1
 --- !u!1001 &1991424485
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1593,6 +1608,69 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1991424485}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2030896972
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2030896974}
+  - component: {fileID: 2030896973}
+  m_Layer: 0
+  m_Name: TEST
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2030896973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2030896972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21de8f37da58c45fba33e4d9413bf3f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -281162678
+      Data2: 1115099943
+      Data3: -117855833
+      Data4: 1446258482
+    Path: event:/Main Menu
+  Event: 
+  PlayEvent: 1
+  StopEvent: 2
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
+--- !u!4 &2030896974
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2030896972}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.6640944, y: -0.6873603, z: -0.37011603}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &312484254216410540
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2483,6 +2561,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SceneName: Main Menu
   FadeOutMusic: 1
+  OverrideFadeOutDuration: -1
 --- !u!114 &3724210461037096592
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4974,3 +5053,4 @@ SceneRoots:
   - {fileID: 8084225094774549413}
   - {fileID: 7504176990844784159}
   - {fileID: 1137455268}
+  - {fileID: 2030896974}
