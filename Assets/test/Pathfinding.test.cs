@@ -10,6 +10,8 @@ public class PathfindingTest : ABaseTest {
   [UnityTest]
   public IEnumerator CompletesLevel() {
     for (int i = 0; i < 5; i++) {
+      Debug.LogFormat("PathfindingTest: Pass {0} of 5", i + 1);
+
       LoadSceneNotInBuildSettings("Assets/Unity/Scenes/Test Pathfinding.unity");
       yield return AwaitSceneChange("Test Pathfinding");
 
@@ -23,7 +25,11 @@ public class PathfindingTest : ABaseTest {
       }
 
       yield return AwaitCondition(
-        condition: () => agents.transform.childCount == 0,
+        condition: () => {
+          int remainingAgents = agents.transform.childCount;
+          Debug.LogFormat("PathfindingTest: {0} remaining agents", remainingAgents);
+          return remainingAgents == 0;
+        },
         retries: 60,
         message: "All agents should reach their destination"
       );
