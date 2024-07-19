@@ -18,7 +18,7 @@ jobs:
       # PulseAudio does not work in Docker container
       - name: Patch FMOD to disable sound
         run: |
-          sed -i '' \
+          sed -i'' \
           's/result = coreSystem.setOutput(outputType);/result = coreSystem.setOutput(FMOD.OUTPUTTYPE.NOSOUND);/' \
           Assets/Plugins/FMOD/src/RuntimeManager.cs
 
