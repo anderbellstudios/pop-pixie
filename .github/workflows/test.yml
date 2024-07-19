@@ -23,7 +23,7 @@ jobs:
       #       Library-
 
       - name: Run tests
-        uses: 12joan/ci-unity-test-runner@fix/annotation-point
+        uses: 12joan/ci-unity-test-runner@main
         env:
           # gh secret set UNITY_LICENSE < /Library/Application\ Support/Unity/Unity_lic.ulf
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
