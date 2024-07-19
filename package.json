@@ -1,7 +1,7 @@
 {
   "scripts": {
     "vendor:validate": "ruby Assets/vendor/validate.rb",
-    "vendor:pack": "cd Assets/vendor && { rm -r FMOD 2>/dev/null || true; } && cp -r ../Plugins/FMOD FMOD && zip -r ../../vendor.zip */",
+    "vendor:pack": "cd Assets/vendor && { rm -r FMOD 2>/dev/null || true; } && cp -r ../Plugins/FMOD FMOD && zip -r ../../vendor.zip */ && rm -r FMOD",
     "vendor:unpack": "cd Assets/vendor && unzip ../../vendor.zip && { rm -r ../Plugins/FMOD 2>/dev/null || true; } && mv FMOD ../Plugins/FMOD",
     "find-unused": "ruby find_unused.rb",
     "used-by": "ruby used_by.rb",
