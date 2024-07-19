@@ -28,9 +28,6 @@ public class PathfindingTest : ABaseTest {
         condition: () => {
           int remainingAgents = agents.transform.childCount;
           Debug.LogFormat("PathfindingTest: {0} remaining agents:", remainingAgents);
-          foreach (Transform agentTransform in agents.transform) {
-            Debug.LogFormat("  {0} {1}", agentTransform.name, agentTransform.localPosition);
-          }
           return remainingAgents == 0;
         },
         retries: 60,
