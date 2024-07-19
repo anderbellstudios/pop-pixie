@@ -15,6 +15,13 @@ jobs:
           yarn vendor:unpack
           rm vendor.zip
 
+      # PulseAudio does not work in Docker container
+      - name: Patch FMOD to disable sound
+        run: |
+          sed -i '' \
+          's/result = coreSystem.setOutput(outputType);/result = coreSystem.setOutput(FMOD.OUTPUTTYPE.NOSOUND);/' \
+          Assets/Plugins/FMOD/src/RuntimeManager.cs
+
       # - uses: actions/cache@v3
       #   with:
       #     path: Library
