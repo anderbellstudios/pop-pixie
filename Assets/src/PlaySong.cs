@@ -21,10 +21,11 @@ public class PlaySong : MonoBehaviour {
 
   public void Play() {
     // If the song is already playing, nothing to do
-    if (CurrentSongGuid == EventGuid) return;
+    if (CurrentSongGuid == EventGuid)
+      return;
 
     if (CurrentSongGuid != null) {
-      Debug.LogWarning("Another song is already playing. Stopping it abruptly."); 
+      Debug.LogWarning("Another song is already playing. Stopping it abruptly.");
       CurrentSongEventInstance?.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
       CurrentSongEventInstance?.release();
     }
