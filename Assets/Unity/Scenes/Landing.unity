@@ -1608,69 +1608,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1991424485}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &2030896972
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2030896974}
-  - component: {fileID: 2030896973}
-  m_Layer: 0
-  m_Name: TEST
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &2030896973
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2030896972}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21de8f37da58c45fba33e4d9413bf3f5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CollisionTag: 
-  EventReference:
-    Guid:
-      Data1: -281162678
-      Data2: 1115099943
-      Data3: -117855833
-      Data4: 1446258482
-    Path: event:/Main Menu
-  Event: 
-  PlayEvent: 1
-  StopEvent: 2
-  AllowFadeout: 1
-  TriggerOnce: 0
-  Preload: 0
-  NonRigidbodyVelocity: 0
-  Params: []
-  OverrideAttenuation: 0
-  OverrideMinDistance: 1
-  OverrideMaxDistance: 20
---- !u!4 &2030896974
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2030896972}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.6640944, y: -0.6873603, z: -0.37011603}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &312484254216410540
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4665,6 +4602,31 @@ PrefabInstance:
       propertyPath: m_Name
       value: Scene Essentials
       objectReference: {fileID: 0}
+    - target: {fileID: 3329458233906024356, guid: 310bd337419114b4595e5056c7463838,
+        type: 3}
+      propertyPath: EventReference.Path
+      value: event:/Songs/Main Menu
+      objectReference: {fileID: 0}
+    - target: {fileID: 3329458233906024356, guid: 310bd337419114b4595e5056c7463838,
+        type: 3}
+      propertyPath: EventReference.Guid.Data1
+      value: -281162678
+      objectReference: {fileID: 0}
+    - target: {fileID: 3329458233906024356, guid: 310bd337419114b4595e5056c7463838,
+        type: 3}
+      propertyPath: EventReference.Guid.Data2
+      value: 1115099943
+      objectReference: {fileID: 0}
+    - target: {fileID: 3329458233906024356, guid: 310bd337419114b4595e5056c7463838,
+        type: 3}
+      propertyPath: EventReference.Guid.Data3
+      value: -117855833
+      objectReference: {fileID: 0}
+    - target: {fileID: 3329458233906024356, guid: 310bd337419114b4595e5056c7463838,
+        type: 3}
+      propertyPath: EventReference.Guid.Data4
+      value: 1446258482
+      objectReference: {fileID: 0}
     - target: {fileID: 5636461190564298426, guid: 310bd337419114b4595e5056c7463838,
         type: 3}
       propertyPath: m_RootOrder
@@ -4745,6 +4707,11 @@ PrefabInstance:
       propertyPath: Song.IntroClip
       value: 
       objectReference: {fileID: 8300000, guid: 29184a808ba8d4b90aa8334e4cc7d121, type: 3}
+    - target: {fileID: 8911313453706982732, guid: 310bd337419114b4595e5056c7463838,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5053,4 +5020,3 @@ SceneRoots:
   - {fileID: 8084225094774549413}
   - {fileID: 7504176990844784159}
   - {fileID: 1137455268}
-  - {fileID: 2030896974}

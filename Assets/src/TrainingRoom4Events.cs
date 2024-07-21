@@ -9,7 +9,7 @@ public class TrainingRoom4Events : MonoBehaviour {
   public GameObject HologremsContainer;
   public SoundHopper StartedFinishedSound;
   public float StartedFinishedSoundDuration;
-  public SongHopper RaceSong;
+  public PlaySong PlaySong;
   public float DelayAfterRaceFinished;
   public DialogueHopper GoodTimeDialogue, BadTimeDialogue;
 
@@ -51,7 +51,7 @@ public class TrainingRoom4Events : MonoBehaviour {
       RaceFinished = false;
       RaceStartedTime = PlayingTime.time;
       StartedFinishedSound.Hop();
-      AsyncTimer.BaseTime.SetTimeout(() => RaceSong.Hop(), StartedFinishedSoundDuration);
+      AsyncTimer.BaseTime.SetTimeout(PlaySong.Play, StartedFinishedSoundDuration);
     }
   }
 
@@ -64,7 +64,7 @@ public class TrainingRoom4Events : MonoBehaviour {
       RaceFinished = true;
       RaceFinishedTime = PlayingTime.time;
       StartedFinishedSound.Hop();
-      AsyncTimer.BaseTime.SetTimeout(() => RaceSong.Stop(), StartedFinishedSoundDuration);
+      AsyncTimer.BaseTime.SetTimeout(PlaySong.Stop, StartedFinishedSoundDuration);
 
       if (!SimulationResultData.ObstacleCourseBestTime.HasValue || ElapsedTime() < SimulationResultData.ObstacleCourseBestTime)
         SimulationResultData.ObstacleCourseBestTime = (int)ElapsedTime();
