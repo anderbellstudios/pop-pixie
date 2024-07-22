@@ -9,7 +9,7 @@ public class CaptionLine {
   public float Duration;
 
   public DialogueMusicFadeBehaviour DialogueMusicFadeBehaviour = new DialogueMusicFadeBehaviour(
-    DialogueMusicFadeBehaviour.BehaviourType.SetLow,
-    DialogueMusicFadeBehaviour.BehaviourType.SetHigh
+    DialogueMusicFadeBehaviour.BehaviourType.FadeDown,
+    DialogueMusicFadeBehaviour.BehaviourType.FadeUp
   );
 }

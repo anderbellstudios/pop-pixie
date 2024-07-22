@@ -97,6 +97,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6615023386636940910}
   - component: {fileID: 2212458560925783485}
+  - component: {fileID: 6534865678891330039}
+  - component: {fileID: 8390715810104790229}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -131,6 +133,71 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc2ab2fb169844f23b72d37e5e8371a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SingletonInstance: 1
+  MuffleSnapshot: {fileID: 6534865678891330039}
+  DuringDialogueSnapshot: {fileID: 8390715810104790229}
+--- !u!114 &6534865678891330039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3486712850228759336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21de8f37da58c45fba33e4d9413bf3f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 1565919684
+      Data2: 1223765966
+      Data3: 453701028
+      Data4: -134848890
+    Path: snapshot:/Muffle
+  Event: 
+  PlayEvent: 0
+  StopEvent: 2
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 0
+  OverrideMaxDistance: 0
+--- !u!114 &8390715810104790229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3486712850228759336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21de8f37da58c45fba33e4d9413bf3f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 827922412
+      Data2: 1207055301
+      Data3: 705791650
+      Data4: -2018383196
+    Path: snapshot:/During dialogue
+  Event: 
+  PlayEvent: 0
+  StopEvent: 2
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 0
+  OverrideMaxDistance: 0
 --- !u!1 &5901163442172780055
 GameObject:
   m_ObjectHideFlags: 0
