@@ -8,6 +8,8 @@ public class PlaySound : MonoBehaviour {
   public FMODUnity.StudioEventEmitter EventEmitter;
   public bool Pausable = false; // TODO
 
+  public FMOD.Studio.EventInstance EventInstance => EventEmitter.EventInstance;
+
   private ProgrammerInstrumentUtils ProgrammerInstrumentUtils;
 
   void Start() {

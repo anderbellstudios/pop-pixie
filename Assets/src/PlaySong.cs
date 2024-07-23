@@ -10,8 +10,9 @@ public class PlaySong : MonoBehaviour {
   public bool PlayOnStart = true;
   public FMODUnity.StudioEventEmitter EventEmitter;
 
+  public FMOD.Studio.EventInstance EventInstance => EventEmitter.EventInstance;
+
   private FMOD.GUID EventGuid => EventEmitter.EventReference.Guid;
-  private FMOD.Studio.EventInstance EventInstance => EventEmitter.EventInstance;
 
   void Start() {
     if (PlayOnStart) {
