@@ -2,16 +2,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using TMPro;
 
 public class TrainingRoom4Events : MonoBehaviour {
   public TMP_Text TimerText;
   public GameObject HologremsContainer;
-  public SoundHopper StartedFinishedSound;
-  public float StartedFinishedSoundDuration;
-  public PlaySong PlaySong;
   public float DelayAfterRaceFinished;
   public DialogueHopper GoodTimeDialogue, BadTimeDialogue;
+  public UnityEvent OnStart, OnFinish, OnStartOrFinish;
 
   bool RaceInProgress = false;
   bool RaceFinished = false;
@@ -50,8 +49,8 @@ public class TrainingRoom4Events : MonoBehaviour {
       RaceInProgress = true;
       RaceFinished = false;
       RaceStartedTime = PlayingTime.time;
-      StartedFinishedSound.Hop();
-      AsyncTimer.BaseTime.SetTimeout(PlaySong.Play, StartedFinishedSoundDuration);
+      OnStart.Invoke();
+      OnStartOrFinish.Invoke();
     }
   }
 
@@ -63,8 +62,8 @@ public class TrainingRoom4Events : MonoBehaviour {
       RaceInProgress = false;
       RaceFinished = true;
       RaceFinishedTime = PlayingTime.time;
-      StartedFinishedSound.Hop();
-      AsyncTimer.BaseTime.SetTimeout(PlaySong.Stop, StartedFinishedSoundDuration);
+      OnFinish.Invoke();
+      OnStartOrFinish.Invoke();
 
       if (!SimulationResultData.ObstacleCourseBestTime.HasValue || ElapsedTime() < SimulationResultData.ObstacleCourseBestTime)
         SimulationResultData.ObstacleCourseBestTime = (int)ElapsedTime();
