@@ -11,7 +11,7 @@ public class FireBullets : MonoBehaviour {
   public GameObject BulletPrefab;
   public float BulletSpeed;
   public float BulletDamage;
-  public AudioClip FireSound;
+  public string ShootSoundKey;
   public UnityEvent OnStopFiring;
 
   Func<Vector3> GetDirection;
@@ -57,7 +57,7 @@ public class FireBullets : MonoBehaviour {
       getDirection: GetDirection,
       speed: BulletSpeed,
       damage: BulletDamage,
-      sound: FireSound
+      soundKey: ShootSoundKey
     );
   }
 }

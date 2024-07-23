@@ -4,8 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class WeaponReload : MonoBehaviour {
-
-  public SoundController SoundController;
+  public PlaySound PlaySound;
   public HUDBar ReloadBar;
   public MovementManager MovementManager;
 
@@ -38,8 +37,7 @@ public class WeaponReload : MonoBehaviour {
       if (CanReload()) {
         ReloadBar.Progress = ReloadTimer.Progress();
       } else {
-        ReloadTimer.Stop();
-        SoundController.Stop();
+        Interrupt();
       }
     }
 
@@ -48,14 +46,14 @@ public class WeaponReload : MonoBehaviour {
 
   public void Interrupt() {
     ReloadTimer.Stop();
-    SoundController.Stop();
+    PlaySound.Stop();
   }
 
   void BeginReload() {
-    Weapon weapon = CurrentWeapon().Weapon;
+    PlayerWeapon weapon = CurrentWeapon();
     ReloadTimer.Interval = weapon.ReloadDuration;
     ReloadTimer.Reset();
-    SoundController.Play(weapon.ReloadSound);
+    PlaySound.Play(weapon.ReloadSoundKey);
   }
 
   bool InProgress() {

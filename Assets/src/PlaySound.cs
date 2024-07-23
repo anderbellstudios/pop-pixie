@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlaySound : MonoBehaviour {
   public bool PlayOnStart = false;
+  public string DefaultProgrammerInstrumentKey = "";
   public FMODUnity.StudioEventEmitter EventEmitter;
   public bool Pausable = false; // TODO
 
@@ -20,11 +21,19 @@ public class PlaySound : MonoBehaviour {
   public void Play(string programmerInstrumentKey = "") {
     EventEmitter.Play();
 
+    if (programmerInstrumentKey == "") {
+      programmerInstrumentKey = DefaultProgrammerInstrumentKey;
+    }
+
     if (programmerInstrumentKey != "") {
       ProgrammerInstrumentUtils.LinkSound(
         EventEmitter.EventInstance,
         programmerInstrumentKey
       );
     }
+  }
+
+  public void Stop() {
+    EventEmitter.Stop();
   }
 }
