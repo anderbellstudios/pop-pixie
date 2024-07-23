@@ -47,8 +47,16 @@ public class AudioFadeOut : MonoBehaviour {
 
   void UpdateLevels() {
     float volume = GetVolume();
-    FMODUnity.RuntimeManager.StudioSystem.setParameterByName("Master volume", IgnoreMusic ? 1f : volume);
-    FMODUnity.RuntimeManager.StudioSystem.setParameterByName("Non-music volume", IgnoreMusic ? volume : 1f);
+
+    FMODUnity.RuntimeManager.StudioSystem.setParameterByName(
+      "Master volume",
+      AudioManager.ConvertVolumeToParam(IgnoreMusic ? 1f : volume)
+    );
+
+    FMODUnity.RuntimeManager.StudioSystem.setParameterByName(
+      "Non-music volume",
+      AudioManager.ConvertVolumeToParam(IgnoreMusic ? volume : 1f)
+    );
   }
 }
 
