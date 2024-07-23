@@ -64,10 +64,12 @@ public class PlayerWeapon {
   public int Capacity => Weapon.Capacity;
   public float Scatter => Weapon.Scatter;
   public float BulletSpeed => Weapon.BulletSpeed;
+  public float ReloadDuration => Weapon.ReloadDuration;
   public GameObject BulletPrefab => Weapon.BulletPrefab;
   public Sprite Sprite => Weapon.Sprite;
   public Sprite InHandSprite => Weapon.InHandSprite;
-  public AudioClip ShootSound => Weapon.ShootSound;
+  public string ReloadSoundKey => Weapon.ReloadSoundKey;
+  public string ShootSoundKey => Weapon.ShootSoundKey;
 
   public float CooldownInterval()
     => 1.0f / FireRate;

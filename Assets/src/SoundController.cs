@@ -46,7 +46,6 @@ public class SoundController : MonoBehaviour {
   void Update() {
     Player.volume = BaseVolume
       * SoundVolume
-      * AudioFadeOut.Current.FadeLevel()
       * (float)(UseVoiceVolume ? OptionsData.VoiceVolume : OptionsData.SoundsVolume);
   }
 }

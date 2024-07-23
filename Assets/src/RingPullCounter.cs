@@ -1,17 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using TMPro;
 
 public class RingPullCounter : MonoBehaviour {
-
   public TMP_Text Text;
 
   public Transform PulseTarget;
   public float PulseDuration;
   public float PulseAmplitude;
-  public AudioClip PulseSound;
-  public SoundController PulseSoundController;
+  public UnityEvent OnPulse;
 
   IntervalTimer PulseTimer;
 
@@ -26,7 +25,7 @@ public class RingPullCounter : MonoBehaviour {
 
     if (RingPullsData.ShouldPulse) {
       RingPullsData.ShouldPulse = false;
-      PulseSoundController.Play(PulseSound);
+      OnPulse.Invoke();
       PulseTimer.Reset();
     }
 
@@ -35,5 +34,4 @@ public class RingPullCounter : MonoBehaviour {
       PulseTarget.localScale = new Vector2(scale, scale);
     }
   }
-
 }

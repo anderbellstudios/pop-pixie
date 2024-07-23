@@ -6,6 +6,7 @@ $REQUIRED_LIBRARIES = %{
   TMP_Typewriter
   Main Menu Background
   FronkonGames
+  ../Plugins/FMOD
 }.lines.map(&:strip).reject(&:empty?)
 
 $REQUIRED_LIBRARIES.each do |library|

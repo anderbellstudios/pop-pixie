@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class FireBullet : MonoBehaviour {
-  public SoundController SoundController;
+  public PlaySound PlaySound;
 
-  public void Fire(GameObject prefab, Func<Vector3> getDirection, float speed, float damage, AudioClip sound = null) {
+  public void Fire(GameObject prefab, Func<Vector3> getDirection, float speed, float damage, string soundKey = "") {
     Vector3 direction = getDirection();
 
     if (direction.magnitude == 0)
@@ -22,7 +22,8 @@ public class FireBullet : MonoBehaviour {
 
     bullet.GetComponent<Rigidbody2D>().velocity = speed * direction.normalized;
 
-    if (sound != null)
-      SoundController.Play(sound);
+    if (soundKey != "") {
+      PlaySound.Play(soundKey);
+    }
   }
 }

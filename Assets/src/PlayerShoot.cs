@@ -49,7 +49,7 @@ public class PlayerShoot : MonoBehaviour {
       ),
       speed: weapon.BulletSpeed,
       damage: weapon.Damage,
-      sound: weapon.ShootSound
+      soundKey: weapon.ShootSoundKey
     );
   }
 

@@ -5,8 +5,8 @@ using UnityEngine;
 [System.Serializable]
 public class DialogueSequence {
   public DialogueMusicFadeBehaviour DialogueMusicFadeBehaviour = new DialogueMusicFadeBehaviour(
-    DialogueMusicFadeBehaviour.BehaviourType.SetLow,
-    DialogueMusicFadeBehaviour.BehaviourType.SetHigh
+    DialogueMusicFadeBehaviour.BehaviourType.FadeDown,
+    DialogueMusicFadeBehaviour.BehaviourType.FadeUp
   );
 
   public List<DialoguePage> Pages;

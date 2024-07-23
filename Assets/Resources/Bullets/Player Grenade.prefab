@@ -5,6 +5,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 1342220361781266560}
     m_Modifications:
     - target: {fileID: 1356455460705657680, guid: 0f9694677d1fa4289a5134b76ad0ac3b,
@@ -128,6 +129,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0f9694677d1fa4289a5134b76ad0ac3b, type: 3}
 --- !u!114 &806368496070313561 stripped
 MonoBehaviour:
@@ -141,13 +145,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddfa6958f93054948986689109c8e6e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &8849490894390556505 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7540818889992053163, guid: 0f9694677d1fa4289a5134b76ad0ac3b,
+    type: 3}
+  m_PrefabInstance: {fileID: 1326850805818185458}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7085529991590022584
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 690955644357252318, guid: b117f5693f1104574a772da1174c9c5f,
+        type: 3}
+      propertyPath: PlayOnStart
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 690955644357252318, guid: b117f5693f1104574a772da1174c9c5f,
+        type: 3}
+      propertyPath: DefaultProgrammerInstrumentKey
+      value: Grenade Pre-explode/Pop Pop About Pre-explode
+      objectReference: {fileID: 0}
     - target: {fileID: 3071084885076420444, guid: b117f5693f1104574a772da1174c9c5f,
         type: 3}
       propertyPath: m_Emitting
@@ -245,16 +266,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7713868978431852629, guid: b117f5693f1104574a772da1174c9c5f,
         type: 3}
-      propertyPath: ExplosionSound
-      value: 
-      objectReference: {fileID: 5495424432857747467, guid: c8fa02f3277224f2e9f5c12fef642099,
-        type: 3}
-    - target: {fileID: 7713868978431852629, guid: b117f5693f1104574a772da1174c9c5f,
-        type: 3}
       propertyPath: GrenadeWaitingBeforeThrow
       value: 
       objectReference: {fileID: 4016499961716203954}
     m_RemovedComponents: []
+    m_RemovedGameObjects:
+    - {fileID: 3013420204348506714, guid: b117f5693f1104574a772da1174c9c5f, type: 3}
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 8139233446999180600, guid: b117f5693f1104574a772da1174c9c5f,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8849490894390556505}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b117f5693f1104574a772da1174c9c5f, type: 3}
 --- !u!224 &1342220361781266560 stripped
 RectTransform:

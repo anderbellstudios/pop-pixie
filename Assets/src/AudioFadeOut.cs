@@ -6,25 +6,57 @@ public class AudioFadeOut : MonoBehaviour {
   public bool SingletonInstance = true;
   public static AudioFadeOut Current;
 
-  private IntervalTimer FadeOutTimer;
-  private bool IgnoreMusic = false;
+  private float StartTime = -1f;
+  private float Duration = 1f;
+  private bool IgnoreMusic = true;
 
   void Awake() {
     if (SingletonInstance)
       Current = this;
+  }
 
-    FadeOutTimer = new IntervalTimer();
+  void Start() {
+    UpdateLevels();
   }
 
   public void FadeOut(float duration, bool ignoreMusic = true) {
-    FadeOutTimer.Interval = duration;
-    FadeOutTimer.Reset();
+    StartTime = Time.time;
+    Duration = duration * 0.9f; // Prevent pop
     IgnoreMusic = ignoreMusic;
+
+    PlaySong currentSong = PlaySong.Current;
+    if (!ignoreMusic && currentSong) {
+      AsyncTimer.BaseTime.SetTimeout(() => {
+        PlaySong.Current.Stop();
+      }, Duration);
+    }
   }
 
-  public float FadeLevel(bool isMusic = false) {
-    return FadeOutTimer.Started && (!isMusic || !IgnoreMusic)
-      ? 1f - FadeOutTimer.Progress()
-      : 1f;
+  void Update() {
+    if (StartTime >= 0f) {
+      UpdateLevels();
+    }
+  }
+
+  float GetVolume() {
+    if (StartTime < 0f)
+      return 1f;
+    float progress = (Time.time - StartTime!) / Duration;
+    return 1f - Mathf.Clamp(progress, 0f, 1f);
+  }
+
+  void UpdateLevels() {
+    float volume = GetVolume();
+
+    FMODUnity.RuntimeManager.StudioSystem.setParameterByName(
+      "Master volume",
+      AudioManager.ConvertVolumeToParam(IgnoreMusic ? 1f : volume)
+    );
+
+    FMODUnity.RuntimeManager.StudioSystem.setParameterByName(
+      "Non-music volume",
+      AudioManager.ConvertVolumeToParam(IgnoreMusic ? volume : 1f)
+    );
   }
 }
+

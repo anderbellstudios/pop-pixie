@@ -15,6 +15,13 @@ jobs:
           yarn vendor:unpack
           rm vendor.zip
 
+      # PulseAudio does not work in Docker container
+      - name: Patch FMOD to disable sound
+        run: |
+          sed -i'' \
+          's/result = coreSystem.setOutput(outputType);/result = coreSystem.setOutput(FMOD.OUTPUTTYPE.NOSOUND);/' \
+          Assets/Plugins/FMOD/src/RuntimeManager.cs
+
       # - uses: actions/cache@v3
       #   with:
       #     path: Library
@@ -23,7 +30,7 @@ jobs:
       #       Library-
 
       - name: Run tests
-        uses: game-ci/unity-test-runner@v4
+        uses: 12joan/ci-unity-test-runner@main
         env:
           # gh secret set UNITY_LICENSE < /Library/Application\ Support/Unity/Unity_lic.ulf
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
@@ -31,3 +38,10 @@ jobs:
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload results
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: Test results
+          path: artifacts

@@ -6,8 +6,6 @@ using UnityEngine;
 public class BulletEmitter : MonoBehaviour {
 
   public MonoBehaviour DirectionManager;
-  public bool ShouldPlayPewSound = false;
-  public SoundController SoundController;
 
   private Weapon Weapon;
 
@@ -19,8 +17,6 @@ public class BulletEmitter : MonoBehaviour {
     Weapon = weapon;
 
     InstantiateBullet();
-    if (ShouldPlayPewSound)
-      PlayPewSound();
   }
 
   void InstantiateBullet() {
@@ -43,10 +39,6 @@ public class BulletEmitter : MonoBehaviour {
     bulletData.CounterAttackSpeed = Speed();
     bulletData.GetDirection = () => dm.Direction;
     bullet.GetComponent<Rigidbody2D>().velocity = Speed() * direction.normalized;
-  }
-
-  void PlayPewSound() {
-    SoundController.Play(Weapon.ShootSound);
   }
 
   float Speed() {
