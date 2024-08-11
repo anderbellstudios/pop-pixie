@@ -10,10 +10,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Install vendor
-        run: |
-          curl ${{ secrets.VENDOR_URL }} -o vendor.zip
-          yarn vendor:unpack
-          rm vendor.zip
+        run: ./install_vendor.sh ${{ secrets.vendor_url }}
 
       # PulseAudio does not work in Docker container
       - name: Patch FMOD to disable sound
