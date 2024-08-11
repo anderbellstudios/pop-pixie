@@ -1,7 +1,8 @@
 #!/bin/bash
 
-VERSION=v1
+VERSION=v2
 
+# v2: Add FMOD
 # v1: Initial version
 
 set -e
