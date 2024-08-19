@@ -6,7 +6,7 @@ public class PlaySound : MonoBehaviour {
   public bool PlayOnStart = false;
   public string DefaultProgrammerInstrumentKey = "";
   public FMODUnity.StudioEventEmitter EventEmitter;
-  public bool Pausable = false; // TODO
+  public bool PauseWhenNotPlaying = false;
 
   public FMOD.Studio.EventInstance EventInstance => EventEmitter.EventInstance;
 
@@ -17,6 +17,12 @@ public class PlaySound : MonoBehaviour {
 
     if (PlayOnStart) {
       Play();
+    }
+
+    if (PauseWhenNotPlaying) {
+      StateManager.AddListener(() => {
+        EventInstance.setPaused(!StateManager.Playing);
+      });
     }
   }
 
