@@ -29,8 +29,10 @@ public class PreloadProgrammerSounds : MonoBehaviour {
   }
 
   public static void PreloadSound(string key) {
-    if (key == null || key.Length == 0) return;
-    if (Current.SoundDataByKey.ContainsKey(key)) return;
+    if (key == null || key.Length == 0)
+      return;
+    if (Current.SoundDataByKey.ContainsKey(key))
+      return;
 
     MODE soundMode =
       MODE.LOOP_NORMAL |
