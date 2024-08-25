@@ -12,6 +12,10 @@ public class SoundController : MonoBehaviour {
   private float SoundVolume = 1f;
   private bool PausedDueToNotPlaying = false;
 
+  void Awake() {
+    Debug.Log("SoundController is deprecated. Please use PlaySound instead.");
+  }
+
   public void Play(AudioClip sound, float volume = 1f) {
     SoundVolume = volume;
 
