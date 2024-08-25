@@ -9,7 +9,7 @@ public class CaptionLineManager : MonoBehaviour {
   public static CaptionLineManager Current;
 
   public float FadeInDuration, FadeOutDuration;
-  public SoundController SoundController;
+  public PlaySound PlaySound;
   public TMP_Text BackgroundText, Text;
 
   private CaptionLine CaptionLine = null;
@@ -29,8 +29,9 @@ public class CaptionLineManager : MonoBehaviour {
 
     SetText(CaptionLine.Text);
 
-    if (CaptionLine.AudioClip != null)
-      SoundController.Play(CaptionLine.AudioClip);
+    if (CaptionLine.HasAudioClip()) {
+      PlaySound.Play(CaptionLine.VoiceLineKey, doNotPause: CaptionLine.DoNotPauseWhenNotPlaying);
+    }
 
     Timer.Interval = captionLine.Duration + FadeOutDuration;
     Timer.Reset();

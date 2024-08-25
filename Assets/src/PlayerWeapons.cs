@@ -16,6 +16,13 @@ public class PlayerWeapons : MonoBehaviour {
       Current = this;
   }
 
+  void Start() {
+    AllWeapons.ForEach(weapon => {
+      PreloadProgrammerSounds.PreloadSound(weapon.ShootSoundKey);
+      PreloadProgrammerSounds.PreloadSound(weapon.ReloadSoundKey);
+    });
+  }
+
   private List<PlayerWeapon> _AvailableWeapons;
 
   public List<PlayerWeapon> AvailableWeapons() {

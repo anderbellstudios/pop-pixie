@@ -8,7 +8,7 @@ public class DialogueManager : MonoBehaviour {
   public static DialogueManager Current;
 
   public DialogueBoxController DialogueBox;
-  public SoundController SoundController;
+  public PlaySound PlaySound;
   public float TypewriterSpeed;
   public float ContinuePromptDelay;
 
@@ -86,10 +86,9 @@ public class DialogueManager : MonoBehaviour {
     DialoguePreprocessor preprocessor = new DialoguePreprocessor(TypewriterSpeed);
     DialogueBox.WriteBody(preprocessor.Preprocess(CurrentPage.Text), TypewriterSpeed);
 
+    PlaySound.Stop();
     if (CurrentPage.HasAudioClip()) {
-      SoundController.Play(CurrentPage.AudioClip);
-    } else {
-      SoundController.Stop();
+      PlaySound.Play(CurrentPage.VoiceLineKey);
     }
 
     if (CurrentPage.ShouldAutoAdvance()) {
@@ -106,7 +105,7 @@ public class DialogueManager : MonoBehaviour {
   }
 
   void Exit() {
-    SoundController.Stop();
+    PlaySound.Stop();
     DialogueBox.Hide();
     Open = false;
     StateManager.RemoveState(State.NotPlaying);

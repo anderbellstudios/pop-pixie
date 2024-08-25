@@ -6,12 +6,11 @@ using UnityEngine;
 public class DialoguePage {
   public string Speaker;
   public Sprite Face;
-  public AudioClip AudioClip;
+  public string VoiceLineKey;
   public float AutoAdvanceDelay;
   [TextArea] public string Text;
 
-  public bool HasAudioClip()
-    => AudioClip != null;
+  public bool HasAudioClip() => VoiceLineKey.Length > 0;
 
   public bool ShouldAutoAdvance()
     => AutoAdvanceDelay > 0;

@@ -19,6 +19,10 @@ public class MentoeHologramBulletsAttackAI : AEnemyAI {
   private Vector3 ReferenceDirection;
   private float CurrentRotations;
 
+  void Start() {
+    PreloadProgrammerSounds.PreloadSound(ShootSoundKey);
+  }
+
   public override void ControlGained() {
     AngleTimer = new IntervalTimer() {
       TimeClass = "PlayingTime",
