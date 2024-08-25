@@ -652,7 +652,9 @@ MonoBehaviour:
   CaptionLine:
     Text: <color=#ff0000>Mr Mentoe</color>
     AudioClip: {fileID: 8300000, guid: ac265adafb5004a1cb38a94815dc484c, type: 3}
+    VoiceLineKey: Voice/Training/R5/3
     Duration: 2.15
+    DoNotPauseWhenNotPlaying: 1
     DialogueMusicFadeBehaviour:
       EnterBehaviour: 2
       ExitBehaviour: 2
@@ -3187,6 +3189,16 @@ PrefabInstance:
       propertyPath: CaptionLine.AudioClip
       value: 
       objectReference: {fileID: 8300000, guid: 7a954b649bcb84e0b995249ad693c45b, type: 3}
+    - target: {fileID: 5130155323799688325, guid: 355d3d9f32d464463883a5572f6fa988,
+        type: 3}
+      propertyPath: CaptionLine.VoiceLineKey
+      value: Voice/Training/R5/4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5130155323799688325, guid: 355d3d9f32d464463883a5572f6fa988,
+        type: 3}
+      propertyPath: CaptionLine.DoNotPauseWhenNotPlaying
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5130155323799688325, guid: 355d3d9f32d464463883a5572f6fa988,
         type: 3}
       propertyPath: CaptionLine.DialogueMusicFadeBehaviour.ExitBehaviour
@@ -8696,6 +8708,16 @@ PrefabInstance:
       propertyPath: DialogueSequence.Pages.Array.data[2].AudioClip
       value: 
       objectReference: {fileID: 8300000, guid: 99b70b15448554a27828e89a4d26418c, type: 3}
+    - target: {fileID: 6769439293733673370, guid: d15ee1ea31e624a2690b5667f5f345e3,
+        type: 3}
+      propertyPath: DialogueSequence.Pages.Array.data[0].VoiceLineKey
+      value: Voice/Training/R5/1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6769439293733673370, guid: d15ee1ea31e624a2690b5667f5f345e3,
+        type: 3}
+      propertyPath: DialogueSequence.Pages.Array.data[1].VoiceLineKey
+      value: Voice/Training/R5/2
+      objectReference: {fileID: 0}
     - target: {fileID: 6769439293733673370, guid: d15ee1ea31e624a2690b5667f5f345e3,
         type: 3}
       propertyPath: DialogueSequence.DialogueMusicFadeBehaviour.EnterBehaviour

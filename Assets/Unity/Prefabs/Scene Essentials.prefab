@@ -73,6 +73,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 8126764513842570387}
   - {fileID: 5057945110183178123}
   - {fileID: 6615023386636940910}
   - {fileID: 7666138669704742642}
@@ -198,6 +199,78 @@ MonoBehaviour:
   OverrideAttenuation: 0
   OverrideMinDistance: 0
   OverrideMaxDistance: 0
+--- !u!1 &4378987014728455638
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8126764513842570387}
+  - component: {fileID: 1986377155457363445}
+  m_Layer: 0
+  m_Name: PreloadProgrammerSounds
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8126764513842570387
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4378987014728455638}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5636461190564298426}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1986377155457363445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4378987014728455638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7b55530bc7734a42bfcc1335ac881ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShootEvent:
+    Guid:
+      Data1: 1182023466
+      Data2: 1221854897
+      Data3: 910982292
+      Data4: -1590259666
+    Path: event:/SFX/Shoot
+  ReloadEvent:
+    Guid:
+      Data1: 1001062778
+      Data2: 1242485317
+      Data3: 338401943
+      Data4: 234324015
+    Path: event:/SFX/Reload
+  DialogueEvent:
+    Guid:
+      Data1: -2032903114
+      Data2: 1339230257
+      Data3: 1604049808
+      Data4: 800015665
+    Path: event:/Voice/Dialogue
+  CaptionLineEvent:
+    Guid:
+      Data1: 184148365
+      Data2: 1154925481
+      Data3: -361684095
+      Data4: -507591138
+    Path: event:/Voice/Caption Line
 --- !u!1 &5901163442172780055
 GameObject:
   m_ObjectHideFlags: 0

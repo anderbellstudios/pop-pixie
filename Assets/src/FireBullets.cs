@@ -19,6 +19,10 @@ public class FireBullets : MonoBehaviour {
   float BeganFiringAt;
   int BulletsFired;
 
+  void Start() {
+    PreloadProgrammerSounds.PreloadSound(ShootSoundKey);
+  }
+
   public void BeginFiring(Func<Vector3> getDirection) {
     GetDirection = getDirection;
     Firing = true;

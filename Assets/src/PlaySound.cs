@@ -11,8 +11,11 @@ public class PlaySound : MonoBehaviour {
   public FMOD.Studio.EventInstance EventInstance => EventEmitter.EventInstance;
 
   private ProgrammerInstrumentUtils ProgrammerInstrumentUtils;
+  private bool OverridePauseWhenNotPlaying = false;
 
   void Start() {
+    PreloadProgrammerSounds.PreloadSound(DefaultProgrammerInstrumentKey);
+
     ProgrammerInstrumentUtils = new ProgrammerInstrumentUtils();
 
     if (PlayOnStart) {
@@ -21,7 +24,7 @@ public class PlaySound : MonoBehaviour {
 
     if (PauseWhenNotPlaying) {
       StateManager.AddListener(() => {
-        EventInstance.setPaused(!StateManager.Playing);
+        EventInstance.setPaused(!OverridePauseWhenNotPlaying && !StateManager.Playing);
       });
     }
   }
@@ -39,6 +42,11 @@ public class PlaySound : MonoBehaviour {
         programmerInstrumentKey
       );
     }
+  }
+
+  public void Play(string programmerInstrumentKey, bool doNotPause) {
+    OverridePauseWhenNotPlaying = doNotPause;
+    Play(programmerInstrumentKey);
   }
 
   public void Stop() {
