@@ -12,6 +12,7 @@ public class PieceOfIntelSprite : AInspectable {
 
   void Start() {
     PreloadProgrammerSounds.PreloadCaptionLine(CaptionLineAfterClose);
+    AInspectableStart();
   }
 
   void Update() {
