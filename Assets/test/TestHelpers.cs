@@ -290,8 +290,8 @@ public abstract class ABaseTest {
   }
 
   protected IEnumerator TakePercyScreenshot(string name) {
-    // // Cannot read pixels during a frame
-    // yield return new WaitForEndOfFrame();
+    // Cannot read pixels during a frame
+    yield return new WaitForEndOfFrame();
 
     // Texture2D renderedTexture = new Texture2D(Screen.width, Screen.height);
     // renderedTexture.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
