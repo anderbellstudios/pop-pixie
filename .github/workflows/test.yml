@@ -32,6 +32,9 @@ jobs:
         with:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Debug
+        run: find .
+
       - name: Upload screenshots to Percy
         run: yarn percy:upload
         env:
