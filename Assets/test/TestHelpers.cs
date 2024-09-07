@@ -291,7 +291,8 @@ public abstract class ABaseTest {
 
   protected void TakePercyScreenshot(string name) {
     // Relative to project root; does not support absolute paths
-    ScreenCapture.CaptureScreenshot("Percy/" + name + ".png");
+    // ScreenCapture.CaptureScreenshot("Percy/" + name + ".png");
+    ScreenCapture.CaptureScreenshot("Landing.png");
   }
 }
 #endif
