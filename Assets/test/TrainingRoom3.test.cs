@@ -16,12 +16,15 @@ public class TrainingRoom3Test : ABaseTest {
 
   [UnityTest]
   public IEnumerator CompletesLevel() {
+    yield return TakePercyScreenshot("TrainingRoom3.1");
+
     yield return ScriptedMovement(new[]{
       "Junction1",
       "Door1Out",
     });
 
     yield return GoThroughDoor();
+    yield return TakePercyScreenshot("TrainingRoom3.2");
     KillAllEnemies(GameObject.Find("HologremsRoom1").transform);
 
     yield return ScriptedMovement(new[]{
@@ -44,6 +47,7 @@ public class TrainingRoom3Test : ABaseTest {
     });
 
     yield return GoThroughDoor();
+    yield return TakePercyScreenshot("TrainingRoom3.3");
     KillAllEnemies(GameObject.Find("HologremsRoom2").transform);
 
     yield return ScriptedMovement(new[]{
@@ -68,6 +72,7 @@ public class TrainingRoom3Test : ABaseTest {
     });
 
     yield return GoThroughDoor();
+    yield return TakePercyScreenshot("TrainingRoom3.4");
     KillAllEnemies(GameObject.Find("HologremsRoom3").transform);
 
     yield return ScriptedMovement(new[]{
@@ -91,6 +96,7 @@ public class TrainingRoom3Test : ABaseTest {
     });
 
     yield return GoThroughDoor();
+    yield return TakePercyScreenshot("TrainingRoom3.5");
     KillAllEnemies(GameObject.Find("HologremsRoom4").transform);
 
     yield return ScriptedMovement(new[]{

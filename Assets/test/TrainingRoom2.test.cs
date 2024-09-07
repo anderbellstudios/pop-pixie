@@ -16,6 +16,7 @@ public class TrainingRoom2Test : ABaseTest {
 
   [UnityTest]
   public IEnumerator CompletesLevel() {
+    yield return TakePercyScreenshot("TrainingRoom2");
     MoveRight();
     yield return new WaitForSeconds(0.25f);
     yield return PressButton("Roll");
