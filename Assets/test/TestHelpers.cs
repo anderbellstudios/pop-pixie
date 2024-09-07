@@ -290,9 +290,25 @@ public abstract class ABaseTest {
   }
 
   protected void TakePercyScreenshot(string name) {
-    // Relative to project root; does not support absolute paths
-    // ScreenCapture.CaptureScreenshot("Percy/" + name + ".png");
-    ScreenCapture.CaptureScreenshot("Landing.png");
+    Camera camera = Camera.main;
+    camera.backgroundColor = Color.black;
+
+    RenderTexture screenTexture = new RenderTexture(Screen.width, Screen.height, 16);
+    RenderTexture previousTargetTexture = camera.targetTexture;
+
+    camera.targetTexture = screenTexture;
+    RenderTexture.active = screenTexture;
+    camera.Render();
+
+    Texture2D renderedTexture = new Texture2D(Screen.width, Screen.height);
+
+    renderedTexture.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
+
+    camera.targetTexture = previousTargetTexture;
+    RenderTexture.active = null;
+
+    byte[] byteArray = renderedTexture.EncodeToPNG();
+    System.IO.File.WriteAllBytes("./Percy/" + name + ".png", byteArray);
   }
 }
 #endif
