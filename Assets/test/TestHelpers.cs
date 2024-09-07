@@ -310,7 +310,9 @@ public abstract class ABaseTest {
     Camera camera = Camera.main;
 
     // Ensure the camera has a solid background
-    camera.backgroundColor = Color.black;
+    Color backgroundColor = camera.backgroundColor;
+    backgroundColor.a = 1;
+    camera.backgroundColor = backgroundColor;
 
     RenderTexture screenTexture = new RenderTexture(Screen.width, Screen.height, 16);
     RenderTexture previousTargetTexture = camera.targetTexture;
