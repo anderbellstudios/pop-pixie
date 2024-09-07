@@ -289,25 +289,12 @@ public abstract class ABaseTest {
     yield return AwaitPlayingState();
   }
 
-  protected void TakePercyScreenshot(string name) {
-    Camera camera = Camera.main;
-
-    // Ensure the camera has a solid background
-    camera.backgroundColor = Color.black;
-
-    RenderTexture screenTexture = new RenderTexture(Screen.width, Screen.height, 16);
-    RenderTexture previousTargetTexture = camera.targetTexture;
-
-    camera.targetTexture = screenTexture;
-    RenderTexture.active = screenTexture;
-    camera.Render();
+  protected IEnumerator TakePercyScreenshot(string name) {
+    // Cannot read pixels during a frame
+    yield return new WaitForEndOfFrame();
 
     Texture2D renderedTexture = new Texture2D(Screen.width, Screen.height);
     renderedTexture.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
-
-    // Clean up
-    camera.targetTexture = previousTargetTexture;
-    RenderTexture.active = null;
 
     byte[] byteArray = renderedTexture.EncodeToPNG();
     System.IO.File.WriteAllBytes("./Percy/" + name + ".png", byteArray);

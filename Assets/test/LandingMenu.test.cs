@@ -17,7 +17,7 @@ public class LandingMenuTest : ABaseTest {
   public IEnumerator PercyScreenshot() {
     // Wait for background to be visible
     yield return new WaitForSeconds(0.5f);
-    TakePercyScreenshot("Landing");
+    yield return TakePercyScreenshot("Landing");
   }
 
   [UnityTest]
