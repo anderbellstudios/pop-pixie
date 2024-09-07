@@ -290,14 +290,28 @@ public abstract class ABaseTest {
   }
 
   protected IEnumerator TakePercyScreenshot(string name) {
-    // Cannot read pixels during a frame
-    yield return new WaitForEndOfFrame();
+    Camera camera = Camera.main;
 
-    // Texture2D renderedTexture = new Texture2D(Screen.width, Screen.height);
-    // renderedTexture.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
+    // Ensure the camera has a solid background
+    camera.backgroundColor = Color.black;
 
-    // byte[] byteArray = renderedTexture.EncodeToPNG();
-    // System.IO.File.WriteAllBytes("./Percy/" + name + ".png", byteArray);
+    RenderTexture screenTexture = new RenderTexture(Screen.width, Screen.height, 16);
+    RenderTexture previousTargetTexture = camera.targetTexture;
+
+    camera.targetTexture = screenTexture;
+    RenderTexture.active = screenTexture;
+    camera.Render();
+
+    Texture2D renderedTexture = new Texture2D(Screen.width, Screen.height);
+    renderedTexture.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
+
+    // Clean up
+    camera.targetTexture = previousTargetTexture;
+    RenderTexture.active = null;
+
+    byte[] byteArray = renderedTexture.EncodeToPNG();
+    System.IO.File.WriteAllBytes("./Percy/" + name + ".png", byteArray);
+
     yield return null;
   }
 }
