@@ -23,7 +23,7 @@ jobs:
       #       Library-
 
       - name: Run tests
-        uses: 12joan/ci-unity-test-runner@debug/list-all-files
+        uses: game-ci/unity-test-runner@v4
         env:
           # gh secret set UNITY_LICENSE < /Library/Application\ Support/Unity/Unity_lic.ulf
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
@@ -31,9 +31,6 @@ jobs:
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Debug
-        run: find .
 
       - name: Upload screenshots to Percy
         run: yarn percy:upload

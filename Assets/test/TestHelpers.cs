@@ -291,6 +291,8 @@ public abstract class ABaseTest {
 
   protected void TakePercyScreenshot(string name) {
     Camera camera = Camera.main;
+
+    // Ensure the camera has a solid background
     camera.backgroundColor = Color.black;
 
     RenderTexture screenTexture = new RenderTexture(Screen.width, Screen.height, 16);
@@ -301,9 +303,9 @@ public abstract class ABaseTest {
     camera.Render();
 
     Texture2D renderedTexture = new Texture2D(Screen.width, Screen.height);
-
     renderedTexture.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
 
+    // Clean up
     camera.targetTexture = previousTargetTexture;
     RenderTexture.active = null;
 
