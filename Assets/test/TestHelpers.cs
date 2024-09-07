@@ -22,6 +22,8 @@ public abstract class ABaseTest {
     Bob.TestMode = true;
     OscillateOpacity.TestMode = true;
     HologramWalls.TestMode = true;
+    DisableInTestMode.TestMode = true;
+    SetMaterialInTestMode.TestMode = true;
     yield return null;
   }
 
