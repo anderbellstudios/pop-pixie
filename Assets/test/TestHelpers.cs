@@ -290,6 +290,7 @@ public abstract class ABaseTest {
   }
 
   protected void TakePercyScreenshot(string name) {
+    System.IO.File.WriteAllText("/github/workspace/Percy/test.txt", "It works");
     ScreenCapture.CaptureScreenshot(
       "/github/workspace/Percy/Landing.png"
     );
