@@ -291,7 +291,7 @@ public abstract class ABaseTest {
 
   protected void TakePercyScreenshot(string name) {
     ScreenCapture.CaptureScreenshot(
-      System.IO.Path.Combine(".", "Percy", name + ".png")
+      "/github/workspace/Percy/Landing.png"
     );
   }
 }
