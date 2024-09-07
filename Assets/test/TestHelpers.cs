@@ -289,6 +289,19 @@ public abstract class ABaseTest {
     yield return AwaitPlayingState();
   }
 
+  /**
+   * Save a screenshot of the game to the Percy directory.
+   *
+   * Note that this approach will fail to capture any canvas whose render mode
+   * is set to Screen Space - Overlay. Changing any such canvases to Screen
+   * Space - Camera will fix this.
+   *
+   * Problems with other approaches for taking screenshots:
+   * - ScreenCapture.CaptureScreenshot fails silently in CI
+   * - Texture2D.ReadPixels without setting the active render texture and
+   *   calling Camera.Render doesn't have the problem with Screen Space -
+   *   Overlay, but requires WaitForEndOfFrame, which isn't supported in CI
+   */
   protected IEnumerator TakePercyScreenshot(string name) {
     Camera camera = Camera.main;
 
