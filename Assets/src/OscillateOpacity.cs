@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class OscillateOpacity : MonoBehaviour {
+  public static bool TestMode = false;
+
   public Image Image;
   public SpriteRenderer SpriteRenderer;
 
@@ -18,6 +20,8 @@ public class OscillateOpacity : MonoBehaviour {
   }
 
   void Update() {
+    if (TestMode) return;
+
     float t = (Time.time + Offset) * Speed;
 
     Color color = new Color(

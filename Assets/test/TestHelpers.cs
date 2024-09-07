@@ -18,6 +18,10 @@ public abstract class ABaseTest {
     GameData.FileName = "game-test-" + runId;
     ConfigData.FileName = "config-test-" + runId;
     WrappedInput.TestMode = true;
+    Revolve.TestMode = true;
+    Bob.TestMode = true;
+    OscillateOpacity.TestMode = true;
+    HologramWalls.TestMode = true;
     yield return null;
   }
 
