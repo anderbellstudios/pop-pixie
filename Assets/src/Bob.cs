@@ -22,7 +22,8 @@ public class Bob : MonoBehaviour {
   }
 
   void Update() {
-    if (TestMode) return;
+    if (TestMode)
+      return;
     transform.localPosition =
       InitialPosition +
       Direction *

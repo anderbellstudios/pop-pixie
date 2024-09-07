@@ -20,7 +20,8 @@ public class OscillateOpacity : MonoBehaviour {
   }
 
   void Update() {
-    if (TestMode) return;
+    if (TestMode)
+      return;
 
     float t = (Time.time + Offset) * Speed;
 

@@ -9,19 +9,22 @@ public class Revolve : MonoBehaviour {
   public bool RandomInitialRotation;
 
   void Start() {
-    if (TestMode) return;
+    if (TestMode)
+      return;
     if (RandomInitialRotation) {
       gameObject.transform.Rotate(0, Random.Range(0, 360), 0);
     }
   }
 
   void OnDisable() {
-    if (TestMode) return;
+    if (TestMode)
+      return;
     gameObject.transform.rotation = Quaternion.identity;
   }
 
   void Update() {
-    if (TestMode) return;
+    if (TestMode)
+      return;
     gameObject.transform.Rotate(0, Speed * Time.deltaTime, 0);
   }
 }
