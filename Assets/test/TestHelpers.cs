@@ -288,5 +288,11 @@ public abstract class ABaseTest {
     yield return PressButton("Inspect");
     yield return AwaitPlayingState();
   }
+
+  protected void TakePercyScreenshot(string name) {
+    ScreenCapture.CaptureScreenshot(
+      System.IO.Path.Combine(".", "Percy", name + ".png")
+    );
+  }
 }
 #endif

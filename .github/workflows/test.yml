@@ -28,3 +28,9 @@ jobs:
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload screenshots to Percy
+        run: yarn percy:upload
+        env:
+          # gh secret set PERCY_TOKEN <a Percy Web token>
+          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}

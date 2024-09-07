@@ -14,6 +14,13 @@ public class LandingMenuTest : ABaseTest {
   }
 
   [UnityTest]
+  public IEnumerator PercyScreenshot() {
+    // Wait for background to be visible
+    yield return new WaitForSeconds(0.5f);
+    TakePercyScreenshot("Landing");
+  }
+
+  [UnityTest]
   public IEnumerator OpensMainMenu() {
     ClickByText("Begin");
     yield return AwaitSceneChange("Main Menu");
