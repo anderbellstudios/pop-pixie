@@ -10530,7 +10530,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1844793465}
   - component: {fileID: 1844793464}
-  - component: {fileID: 1844793477}
   - component: {fileID: 1844793466}
   - component: {fileID: 1844793468}
   - component: {fileID: 1844793470}
@@ -10538,9 +10537,9 @@ GameObject:
   - component: {fileID: 1844793475}
   - component: {fileID: 1844793469}
   - component: {fileID: 1844793472}
-  - component: {fileID: 1844793476}
   - component: {fileID: 1844793471}
   - component: {fileID: 1844793473}
+  - component: {fileID: 1844793476}
   m_Layer: 8
   m_Name: Mentoe Hologram
   m_TagString: Enemy
@@ -10824,25 +10823,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 1844793463}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a628a830cb9b649a597b771bed282a54, type: 3}
+  m_Script: {fileID: 11500000, guid: d89f4377151484630937ec1edb156a68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Behaviours:
-  - {fileID: 1844793472}
---- !u!114 &1844793477
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1844793463}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4824e741221046999a4ac820ce86adf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SpriteRenderer: {fileID: 1844793464}
-  Material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  OnAwake:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1844793472}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnStart:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &1868525967
 PrefabInstance:
   m_ObjectHideFlags: 0

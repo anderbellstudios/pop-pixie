@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7502846902899155351}
   - component: {fileID: 7502846902899155350}
-  - component: {fileID: 6006646516947629165}
   - component: {fileID: 7502846902899155349}
   - component: {fileID: 7502846902899155348}
   - component: {fileID: 7502846902899155347}
@@ -20,7 +19,7 @@ GameObject:
   - component: {fileID: 7522963241708092909}
   - component: {fileID: 2502290945357498677}
   - component: {fileID: 1206468412823782861}
-  - component: {fileID: 1983372849436761344}
+  - component: {fileID: 352077758297914187}
   m_Layer: 16
   m_Name: Hologrem
   m_TagString: Enemy
@@ -97,20 +96,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6006646516947629165
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7502846902899155345}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4824e741221046999a4ac820ce86adf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SpriteRenderer: {fileID: 7502846902899155350}
-  Material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!114 &7502846902899155349
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -309,7 +294,7 @@ MonoBehaviour:
   ParameterName: Offset
   MinValue: 0
   MaxValue: 1
---- !u!114 &1983372849436761344
+--- !u!114 &352077758297914187
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -318,11 +303,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 7502846902899155345}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a628a830cb9b649a597b771bed282a54, type: 3}
+  m_Script: {fileID: 11500000, guid: d89f4377151484630937ec1edb156a68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Behaviours:
-  - {fileID: 2502290945357498677}
+  OnAwake:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2502290945357498677}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnStart:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &6274157969597315464
 PrefabInstance:
   m_ObjectHideFlags: 0
