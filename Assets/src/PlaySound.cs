@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlaySound : MonoBehaviour {
   public bool PlayOnStart = false;
   public string DefaultProgrammerInstrumentKey = "";
   public FMODUnity.StudioEventEmitter EventEmitter;
   public bool PauseWhenNotPlaying = false;
+  public UnityEvent OnPlay;
 
   public FMOD.Studio.EventInstance EventInstance => EventEmitter.EventInstance;
 
@@ -42,6 +44,8 @@ public class PlaySound : MonoBehaviour {
         programmerInstrumentKey
       );
     }
+
+    OnPlay.Invoke();
   }
 
   public void Play(string programmerInstrumentKey, bool doNotPause) {
