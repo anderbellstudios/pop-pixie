@@ -7,5 +7,9 @@ public class HologramWalls : MonoBehaviour {
 
   void Awake() {
     Renderer.material.SetFloat("_UnitsWidth", transform.lossyScale.x);
+
+    if (TestMode.Enabled) {
+      Renderer.material.SetFloat("_Speed", 0f);
+    }
   }
 }

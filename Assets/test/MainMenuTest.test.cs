@@ -8,6 +8,13 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuTest : ABaseTest {
   [UnityTest]
+  public IEnumerator PercyScreenshot() {
+    SceneManager.LoadScene("Main Menu");
+    yield return new WaitForSeconds(0.5f);
+    yield return TakePercyScreenshot("MainMenu");
+  }
+
+  [UnityTest]
   public IEnumerator StartsNewGameFirstTime() {
     SceneManager.LoadScene("Main Menu");
     yield return new WaitForSeconds(0.5f);

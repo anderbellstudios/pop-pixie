@@ -9,6 +9,11 @@
     "lint:fix": "./format_changed.sh",
     "lint:all": "yarn lint:all:fix --verify-no-changes",
     "lint": "yarn lint:fix --verify-no-changes",
-    "test": "./test.sh"
+    "test": "./test.sh",
+    "percy:clean": "rm ./Percy/*.png",
+    "percy:upload": "percy upload ./Percy"
+  },
+  "devDependencies": {
+    "@percy/cli": "^1.29.3"
   }
 }

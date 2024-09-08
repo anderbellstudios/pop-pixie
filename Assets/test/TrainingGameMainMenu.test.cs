@@ -14,6 +14,12 @@ public class TrainingGameMainMenu : ABaseTest {
   }
 
   [UnityTest]
+  public IEnumerator PercyScreenshot() {
+    yield return TakePercyScreenshot("TrainingGameMainMenu");
+    yield return null;
+  }
+
+  [UnityTest]
   public IEnumerator StartsMissionTraining() {
     Click(GameObject.Find("Mission Training game"));
     yield return AwaitSceneChange("Training Game Tower Scene");

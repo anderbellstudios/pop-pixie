@@ -16,6 +16,7 @@ public class TrainingRoom1Test : ABaseTest {
 
   [UnityTest]
   public IEnumerator CompletesLevel() {
+    yield return TakePercyScreenshot("TrainingRoom1");
     AssertHasText("Press.*to reload", regex: true);
     yield return PressButton("Reload");
     yield return new WaitForSeconds(1.25f);

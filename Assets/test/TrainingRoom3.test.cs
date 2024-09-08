@@ -16,13 +16,20 @@ public class TrainingRoom3Test : ABaseTest {
 
   [UnityTest]
   public IEnumerator CompletesLevel() {
+    Transform room;
+
+    yield return TakePercyScreenshot("TrainingRoom3.1");
+
     yield return ScriptedMovement(new[]{
       "Junction1",
       "Door1Out",
     });
 
+    room = GameObject.Find("HologremsRoom1").transform;
+    PreventEnemyMovement(room);
     yield return GoThroughDoor();
-    KillAllEnemies(GameObject.Find("HologremsRoom1").transform);
+    yield return TakePercyScreenshot("TrainingRoom3.2");
+    KillAllEnemies(room);
 
     yield return ScriptedMovement(new[]{
       "Room1Mid",
@@ -43,8 +50,11 @@ public class TrainingRoom3Test : ABaseTest {
       "Door2Out",
     });
 
+    room = GameObject.Find("HologremsRoom2").transform;
+    PreventEnemyMovement(room);
     yield return GoThroughDoor();
-    KillAllEnemies(GameObject.Find("HologremsRoom2").transform);
+    yield return TakePercyScreenshot("TrainingRoom3.3");
+    KillAllEnemies(room);
 
     yield return ScriptedMovement(new[]{
       "Room2Mid",
@@ -67,8 +77,11 @@ public class TrainingRoom3Test : ABaseTest {
       "Door3Out",
     });
 
+    room = GameObject.Find("HologremsRoom3").transform;
+    PreventEnemyMovement(room);
     yield return GoThroughDoor();
-    KillAllEnemies(GameObject.Find("HologremsRoom3").transform);
+    yield return TakePercyScreenshot("TrainingRoom3.4");
+    KillAllEnemies(room);
 
     yield return ScriptedMovement(new[]{
       "Room3Mid",
@@ -90,8 +103,11 @@ public class TrainingRoom3Test : ABaseTest {
       "Door4Out",
     });
 
+    room = GameObject.Find("HologremsRoom4").transform;
+    PreventEnemyMovement(room);
     yield return GoThroughDoor();
-    KillAllEnemies(GameObject.Find("HologremsRoom4").transform);
+    yield return TakePercyScreenshot("TrainingRoom3.5");
+    KillAllEnemies(room);
 
     yield return ScriptedMovement(new[]{
       "Room4Mid",
