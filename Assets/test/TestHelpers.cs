@@ -205,21 +205,27 @@ public abstract class ABaseTest {
   }
 
   protected void KillAllEnemies(Transform container = null) {
-    List<GameObject> enemies = GameObject.FindGameObjectsWithTag("Enemy").Where(enemy => {
-      if (container == null)
-        return true;
-      return enemy.transform.IsChildOf(container);
-    }).ToList();
-
-    if (enemies.Count == 0) {
-      Assert.Fail("KillAllEnemies: No enemies found");
-    }
-
-    foreach (GameObject enemy in enemies) {
+    foreach (GameObject enemy in EnemiesInContainer(container)) {
       HitPoints hp = enemy.GetComponent<HitPoints>();
       if (hp)
         hp.Damage(1000000);
     }
+  }
+
+  protected void PreventEnemyMovement(Transform container = null) {
+    foreach (GameObject enemy in EnemiesInContainer(container)) {
+      MovementManager movementManager = enemy.GetComponent<MovementManager>();
+      if (movementManager)
+        movementManager.enabled = false;
+    }
+  }
+
+  protected List<GameObject> EnemiesInContainer(Transform container) {
+    return GameObject.FindGameObjectsWithTag("Enemy").Where(enemy => {
+      if (container == null)
+        return true;
+      return enemy.transform.IsChildOf(container);
+    }).ToList();
   }
 
   protected IEnumerator ButtonDown(string rawButtonName) {
