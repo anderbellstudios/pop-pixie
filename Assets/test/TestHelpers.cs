@@ -17,13 +17,7 @@ public abstract class ABaseTest {
     string runId = System.Guid.NewGuid().ToString();
     GameData.FileName = "game-test-" + runId;
     ConfigData.FileName = "config-test-" + runId;
-    WrappedInput.TestMode = true;
-    Revolve.TestMode = true;
-    Bob.TestMode = true;
-    OscillateOpacity.TestMode = true;
-    HologramWalls.TestMode = true;
-    DisableInTestMode.TestMode = true;
-    SetMaterialInTestMode.TestMode = true;
+    TestMode.Enabled = true;
     yield return null;
   }
 

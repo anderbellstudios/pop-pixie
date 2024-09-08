@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Bob : MonoBehaviour {
-  public static bool TestMode = false;
-
   public Vector3 Direction = new Vector3(0, 1, 0);
   public float Speed;
   public float Amplitude;
@@ -22,7 +20,7 @@ public class Bob : MonoBehaviour {
   }
 
   void Update() {
-    if (TestMode)
+    if (TestMode.Enabled)
       return;
     transform.localPosition =
       InitialPosition +

@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class DisableInTestMode : MonoBehaviour {
-  public static bool TestMode;
-
   public List<Behaviour> Behaviours;
 
   void Awake() {
-    if (TestMode) {
+    if (TestMode.Enabled) {
       Behaviours.ForEach(behaviour => {
         behaviour.enabled = false;
       });

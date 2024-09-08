@@ -5,8 +5,6 @@ using UnityEngine;
 using Rewired;
 
 public class WrappedInput : MonoBehaviour {
-  public static bool TestMode = false;
-
   public static Dictionary<string, Nullable<bool>>
     GetButtonOverrides = new Dictionary<string, Nullable<bool>>(),
     GetButtonDownOverrides = new Dictionary<string, Nullable<bool>>(),
@@ -43,7 +41,7 @@ public class WrappedInput : MonoBehaviour {
   }
 
   private static Nullable<T> Overridden<T>(string rawInput, Dictionary<string, Nullable<T>> dict) where T : struct {
-    if (!TestMode)
+    if (!TestMode.Enabled)
       return null;
 
     string input = rawInput.ToLower();

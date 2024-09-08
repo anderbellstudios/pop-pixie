@@ -10,6 +10,8 @@ public class Oscillate : MonoBehaviour {
   public float OscillationScale;
 
   void Update() {
+    if (TestMode.Enabled)
+      return;
     Transform.localScale = new Vector3(
       Scale(),
       Scale()
