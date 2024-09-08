@@ -16,6 +16,8 @@ public class Level1Test : ABaseTest {
 
   [UnityTest]
   public IEnumerator CompletesLevel() {
+    // Wait for camera to settle
+    yield return new WaitForSeconds(1f);
     yield return TakePercyScreenshot("Level1.1");
 
     yield return ScriptedMovement(new[] {
