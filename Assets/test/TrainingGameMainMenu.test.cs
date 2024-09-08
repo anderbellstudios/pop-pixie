@@ -15,6 +15,8 @@ public class TrainingGameMainMenu : ABaseTest {
 
   [UnityTest]
   public IEnumerator PercyScreenshot() {
+    // Wait for zoom to settle
+    yield return new WaitForSeconds(1f);
     yield return TakePercyScreenshot("TrainingGameMainMenu");
     yield return null;
   }

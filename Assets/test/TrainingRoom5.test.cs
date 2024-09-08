@@ -17,6 +17,8 @@ public class TrainingRoom5Test : ABaseTest {
 
   [UnityTest]
   public IEnumerator CompletesLevel() {
+    // Wait for camera to settle
+    yield return new WaitForSeconds(1f);
     yield return TakePercyScreenshot("TrainingRoom5");
     KillAllEnemies();
     yield return AwaitSceneChange("Training Game Results Screen");
