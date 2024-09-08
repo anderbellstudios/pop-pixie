@@ -18,6 +18,9 @@ public class OscillateOpacity : MonoBehaviour {
   }
 
   void Update() {
+    if (TestMode.Enabled)
+      return;
+
     float t = (Time.time + Offset) * Speed;
 
     Color color = new Color(

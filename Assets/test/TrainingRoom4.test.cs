@@ -33,6 +33,7 @@ public class TrainingRoom4Test : ABaseTest {
 
   [UnityTest]
   public IEnumerator CompletesLevel() {
+    yield return TakePercyScreenshot("TrainingRoom4");
     yield return GoAroundLevel();
     yield return AwaitText("00:41", retryInterval: 0.5f, retries: 80);
     MoveUp();

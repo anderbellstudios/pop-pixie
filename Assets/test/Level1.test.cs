@@ -16,11 +16,15 @@ public class Level1Test : ABaseTest {
 
   [UnityTest]
   public IEnumerator CompletesLevel() {
+    yield return TakePercyScreenshot("Level1.1");
+
     yield return ScriptedMovement(new[] {
       "Middle",
       "Top",
       "Elevator"
     });
+
+    yield return TakePercyScreenshot("Level1.2");
 
     AssertHasText("Use an.*Access Terminal.*to", regex: true);
 
@@ -46,7 +50,11 @@ public class Level1Test : ABaseTest {
 
     yield return PressButton("Inspect");
 
+    yield return new WaitForSeconds(1f);
+    yield return TakePercyScreenshot("Level1.AccessTerminal");
+
     yield return AwaitText("Mentoes Tower brochure", retries: 60);
+    yield return TakePercyScreenshot("Level1.MentoesBrochure");
 
     yield return PressButton("Cancel");
     yield return AwaitPlayingState();
@@ -60,6 +68,7 @@ public class Level1Test : ABaseTest {
     yield return PressButton("Inspect");
 
     AssertHasText("Presence board");
+    yield return TakePercyScreenshot("Level1.PresenceBoard");
 
     yield return PressButton("Cancel");
 

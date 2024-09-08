@@ -21,10 +21,11 @@ public class VersionInfo : MonoBehaviour {
     InvokeRepeating("FetchLatestVersion", 0f, 3f);
   }
 
-  void FetchLatestVersion() {
+  async void FetchLatestVersion() {
     try {
       using (WebClient client = new WebClient()) {
-        LatestVersion = client.DownloadString(VersionURL).Trim();
+        string result = await client.DownloadStringTaskAsync(VersionURL);
+        LatestVersion = result.Trim();
 
         UpdateButton.SetActive(
           new Version(CurrentVersion) < new Version(LatestVersion)

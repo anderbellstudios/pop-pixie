@@ -19,12 +19,8 @@ jobs:
           's/result = coreSystem.setOutput(outputType);/result = coreSystem.setOutput(FMOD.OUTPUTTYPE.NOSOUND);/' \
           Assets/Plugins/FMOD/src/RuntimeManager.cs
 
-      # - uses: actions/cache@v3
-      #   with:
-      #     path: Library
-      #     key: Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
-      #     restore-keys: |
-      #       Library-
+      - name: Install Yarn dependencies
+        run: yarn install
 
       - name: Run tests
         uses: 12joan/ci-unity-test-runner@main
@@ -35,6 +31,13 @@ jobs:
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload screenshots to Percy
+        run: yarn percy:upload
+        if: always()
+        env:
+          # gh secret set PERCY_TOKEN <a Percy Web token>
+          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
 
       - name: Upload results
         uses: actions/upload-artifact@v3

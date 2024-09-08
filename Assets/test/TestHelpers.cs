@@ -17,7 +17,7 @@ public abstract class ABaseTest {
     string runId = System.Guid.NewGuid().ToString();
     GameData.FileName = "game-test-" + runId;
     ConfigData.FileName = "config-test-" + runId;
-    WrappedInput.TestMode = true;
+    TestMode.Enabled = true;
     yield return null;
   }
 
@@ -205,21 +205,27 @@ public abstract class ABaseTest {
   }
 
   protected void KillAllEnemies(Transform container = null) {
-    List<GameObject> enemies = GameObject.FindGameObjectsWithTag("Enemy").Where(enemy => {
-      if (container == null)
-        return true;
-      return enemy.transform.IsChildOf(container);
-    }).ToList();
-
-    if (enemies.Count == 0) {
-      Assert.Fail("KillAllEnemies: No enemies found");
-    }
-
-    foreach (GameObject enemy in enemies) {
+    foreach (GameObject enemy in EnemiesInContainer(container)) {
       HitPoints hp = enemy.GetComponent<HitPoints>();
       if (hp)
         hp.Damage(1000000);
     }
+  }
+
+  protected void PreventEnemyMovement(Transform container = null) {
+    foreach (GameObject enemy in EnemiesInContainer(container)) {
+      MovementManager movementManager = enemy.GetComponent<MovementManager>();
+      if (movementManager)
+        movementManager.enabled = false;
+    }
+  }
+
+  protected List<GameObject> EnemiesInContainer(Transform container) {
+    return GameObject.FindGameObjectsWithTag("Enemy").Where(enemy => {
+      if (container == null)
+        return true;
+      return enemy.transform.IsChildOf(container);
+    }).ToList();
   }
 
   protected IEnumerator ButtonDown(string rawButtonName) {
@@ -287,6 +293,47 @@ public abstract class ABaseTest {
     yield return AwaitText("Press.*to go through", regex: true);
     yield return PressButton("Inspect");
     yield return AwaitPlayingState();
+  }
+
+  /**
+   * Save a screenshot of the game to the Percy directory.
+   *
+   * Note that this approach will fail to capture any canvas whose render mode
+   * is set to Screen Space - Overlay. Changing any such canvases to Screen
+   * Space - Camera will fix this.
+   *
+   * Problems with other approaches for taking screenshots:
+   * - ScreenCapture.CaptureScreenshot fails silently in CI
+   * - Texture2D.ReadPixels without setting the active render texture and
+   *   calling Camera.Render doesn't have the problem with Screen Space -
+   *   Overlay, but requires WaitForEndOfFrame, which isn't supported in CI
+   */
+  protected IEnumerator TakePercyScreenshot(string name) {
+    Camera camera = Camera.main;
+
+    // Ensure the camera has a solid background
+    Color backgroundColor = camera.backgroundColor;
+    backgroundColor.a = 1;
+    camera.backgroundColor = backgroundColor;
+
+    RenderTexture screenTexture = new RenderTexture(Screen.width, Screen.height, 16);
+    RenderTexture previousTargetTexture = camera.targetTexture;
+
+    camera.targetTexture = screenTexture;
+    RenderTexture.active = screenTexture;
+    camera.Render();
+
+    Texture2D renderedTexture = new Texture2D(Screen.width, Screen.height);
+    renderedTexture.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
+
+    // Clean up
+    camera.targetTexture = previousTargetTexture;
+    RenderTexture.active = null;
+
+    byte[] byteArray = renderedTexture.EncodeToPNG();
+    System.IO.File.WriteAllBytes("./Percy/" + name + ".png", byteArray);
+
+    yield return null;
   }
 }
 #endif

@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 7522963241708092909}
   - component: {fileID: 2502290945357498677}
   - component: {fileID: 1206468412823782861}
+  - component: {fileID: 352077758297914187}
   m_Layer: 16
   m_Name: Hologrem
   m_TagString: Enemy
@@ -33,6 +34,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7502846902899155345}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -6.925389, y: -9.023649, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -40,7 +42,6 @@ Transform:
   m_Children:
   - {fileID: 4783798083562566629}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7502846902899155350
 SpriteRenderer:
@@ -120,6 +121,25 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -161,6 +181,12 @@ Rigidbody2D:
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
@@ -268,11 +294,42 @@ MonoBehaviour:
   ParameterName: Offset
   MinValue: 0
   MaxValue: 1
+--- !u!114 &352077758297914187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7502846902899155345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d89f4377151484630937ec1edb156a68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnAwake:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2502290945357498677}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnStart:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &6274157969597315464
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 7502846902899155351}
     m_Modifications:
     - target: {fileID: 1545084783249869420, guid: e1e165f91d38040f9b97c57f63429240,
@@ -351,6 +408,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7502846902899155350}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e1e165f91d38040f9b97c57f63429240, type: 3}
 --- !u!114 &4783798083562566628 stripped
 MonoBehaviour:
