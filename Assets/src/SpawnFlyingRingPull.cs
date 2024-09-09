@@ -14,7 +14,7 @@ public class SpawnFlyingRingPull : MonoBehaviour {
   int AlreadyDropped = 0;
 
   void Awake() {
-    Parent = GameObject.Find("HUD").transform;
+    Parent = GameObject.Find("Flying Ring Pull Canvas").transform;
   }
 
   public void Instantiate() {
