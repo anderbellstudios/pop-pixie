@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PassiveSounds : MonoBehaviour {
   public GameObject EnemyGameObject;
-  public SoundController SoundPlayer;
+  // public SoundController SoundPlayer;
   public List<AudioClip> Sounds;
   public float MinInterval, MaxInterval;
 
@@ -34,7 +34,8 @@ public class PassiveSounds : MonoBehaviour {
     // random sampling methods. 
     int i = UnityEngine.Random.Range(0, Sounds.Count);
     var sound = Sounds[i];
-    SoundPlayer.Play(sound);
+    Debug.LogError("PassiveSounds is using deprecated SoundController");
+    // SoundPlayer.Play(sound);
 
     UpdatePlayInterval();
   }
