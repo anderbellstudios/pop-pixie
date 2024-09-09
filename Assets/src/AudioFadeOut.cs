@@ -24,10 +24,9 @@ public class AudioFadeOut : MonoBehaviour {
     Duration = duration * 0.9f; // Prevent pop
     IgnoreMusic = ignoreMusic;
 
-    PlaySong currentSong = PlaySong.Current;
-    if (!ignoreMusic && currentSong) {
+    if (!ignoreMusic) {
       AsyncTimer.BaseTime.SetTimeout(() => {
-        PlaySong.Current.Stop();
+        PlaySong.Stop();
       }, Duration);
     }
   }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlaySong : MonoBehaviour {
-  public static PlaySong Current;
   private static FMOD.GUID? CurrentSongGuid = null;
   private static FMOD.Studio.EventInstance? CurrentSongEventInstance = null;
 
@@ -33,14 +32,13 @@ public class PlaySong : MonoBehaviour {
 
     EventEmitter.Play();
 
-    Current = this;
     CurrentSongGuid = EventGuid;
     CurrentSongEventInstance = EventInstance;
   }
 
-  public void Stop() {
-    EventEmitter.Stop();
-    Current = null;
+  public static void Stop() {
+    CurrentSongEventInstance?.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+    CurrentSongEventInstance?.release();
     CurrentSongGuid = null;
     CurrentSongEventInstance = null;
   }
