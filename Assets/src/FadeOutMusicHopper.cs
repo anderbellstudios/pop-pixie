@@ -6,6 +6,6 @@ public class FadeOutMusicHopper : MonoBehaviour {
   public float Duration;
 
   public void Hop() {
-    MusicController.Current.FadeOut(Duration);
+    AudioFadeOut.Current.FadeOut(Duration, false);
   }
 }
