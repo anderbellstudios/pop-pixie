@@ -22,6 +22,8 @@ All audio (music, sound effects, voice clips), images, and text (dialogue and na
 
 This applies to:
 
+- Everything under `/FMOD/Assets`
+- Everything under `/FMOD/Audio Table`
 - Everything under `/Assets/audio`
 - Everything under `/Assets/images`
 - The contents of all "caption lines" and "dialogue pages" found inside any Unity scene
