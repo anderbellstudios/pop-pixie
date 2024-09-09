@@ -1,5 +1,68 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1500695101208812820
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2167426100120924952}
+  - component: {fileID: 9121149959437121460}
+  m_Layer: 0
+  m_Name: Muffle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2167426100120924952
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1500695101208812820}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6615023386636940910}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9121149959437121460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1500695101208812820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 1565919684
+      Data2: 1223765966
+      Data3: 453701028
+      Data4: -134848890
+    Path: snapshot:/Muffle
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 0
+  OverrideMaxDistance: 0
 --- !u!1 &1618759812932714978
 GameObject:
   m_ObjectHideFlags: 0
@@ -98,8 +161,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6615023386636940910}
   - component: {fileID: 2212458560925783485}
-  - component: {fileID: 6534865678891330039}
-  - component: {fileID: 8390715810104790229}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -119,7 +180,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2167426100120924952}
+  - {fileID: 824084155806746146}
   m_Father: {fileID: 5636461190564298426}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2212458560925783485
@@ -135,70 +198,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SingletonInstance: 1
-  MuffleSnapshot: {fileID: 6534865678891330039}
-  DuringDialogueSnapshot: {fileID: 8390715810104790229}
---- !u!114 &6534865678891330039
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3486712850228759336}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21de8f37da58c45fba33e4d9413bf3f5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CollisionTag: 
-  EventReference:
-    Guid:
-      Data1: 1565919684
-      Data2: 1223765966
-      Data3: 453701028
-      Data4: -134848890
-    Path: snapshot:/Muffle
-  Event: 
-  PlayEvent: 0
-  StopEvent: 2
-  AllowFadeout: 1
-  TriggerOnce: 0
-  Preload: 0
-  NonRigidbodyVelocity: 0
-  Params: []
-  OverrideAttenuation: 0
-  OverrideMinDistance: 0
-  OverrideMaxDistance: 0
---- !u!114 &8390715810104790229
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3486712850228759336}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21de8f37da58c45fba33e4d9413bf3f5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CollisionTag: 
-  EventReference:
-    Guid:
-      Data1: 827922412
-      Data2: 1207055301
-      Data3: 705791650
-      Data4: -2018383196
-    Path: snapshot:/During dialogue
-  Event: 
-  PlayEvent: 0
-  StopEvent: 2
-  AllowFadeout: 1
-  TriggerOnce: 0
-  Preload: 0
-  NonRigidbodyVelocity: 0
-  Params: []
-  OverrideAttenuation: 0
-  OverrideMinDistance: 0
-  OverrideMaxDistance: 0
+  MuffleSnapshot: {fileID: 9121149959437121460}
+  DuringDialogueSnapshot: {fileID: 5273453133661591358}
 --- !u!1 &4378987014728455638
 GameObject:
   m_ObjectHideFlags: 0
@@ -243,34 +244,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7b55530bc7734a42bfcc1335ac881ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShootEvent:
-    Guid:
-      Data1: 1182023466
-      Data2: 1221854897
-      Data3: 910982292
-      Data4: -1590259666
-    Path: event:/SFX/Shoot
-  ReloadEvent:
-    Guid:
-      Data1: 1001062778
-      Data2: 1242485317
-      Data3: 338401943
-      Data4: 234324015
-    Path: event:/SFX/Reload
-  DialogueEvent:
-    Guid:
-      Data1: -2032903114
-      Data2: 1339230257
-      Data3: 1604049808
-      Data4: 800015665
-    Path: event:/Voice/Dialogue
-  CaptionLineEvent:
-    Guid:
-      Data1: 184148365
-      Data2: 1154925481
-      Data3: -361684095
-      Data4: -507591138
-    Path: event:/Voice/Caption Line
 --- !u!1 &5901163442172780055
 GameObject:
   m_ObjectHideFlags: 0
@@ -361,6 +334,69 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SingletonInstance: 1
+--- !u!1 &6093049263461184383
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 824084155806746146}
+  - component: {fileID: 5273453133661591358}
+  m_Layer: 0
+  m_Name: During Dialogue
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &824084155806746146
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6093049263461184383}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6615023386636940910}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5273453133661591358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6093049263461184383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 827922412
+      Data2: 1207055301
+      Data3: 705791650
+      Data4: -2018383196
+    Path: snapshot:/During dialogue
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 0
+  OverrideMaxDistance: 0
 --- !u!1 &6506319332816091191
 GameObject:
   m_ObjectHideFlags: 0
