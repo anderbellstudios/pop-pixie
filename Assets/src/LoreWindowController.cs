@@ -10,6 +10,7 @@ public class LoreWindowController : MonoBehaviour {
   public TMP_Text Title;
   public Image Image;
   public AspectRatioFitter AspectRatioFitter;
+  public RectTransform CanvasTransform;
   public RectTransform ContentTransform;
   public RectTransform InnerContentTransform;
   public GameObject LoreWindow;
@@ -61,27 +62,18 @@ public class LoreWindowController : MonoBehaviour {
 
   public float GetZoom() => Scale;
 
-  public void SetZoomOnScreenPoint(float scale, Vector2 screenPoint) {
-    Vector2 contentPoint = ScreenPointToContentPoint(screenPoint);
+  public void SetZoom(float scale) {
+    Vector2 contentPoint = ContentTransform.InverseTransformPoint(
+      ContentTransform.parent.TransformPoint(Vector2.zero)
+    );
     Translation -= contentPoint * (scale - Scale);
     Scale = scale;
     UpdateTransform();
   }
 
-  public void SetZoomOnScreenPoint(Func<float, float> scaleFn, Vector2 screenPoint) {
-    SetZoomOnScreenPoint(scaleFn(Scale), screenPoint);
-  }
-
-  public void SetZoom(float scale) {
-    SetZoomOnScreenPoint(scale, CenterOfContentArea);
-  }
-
   public void SetZoom(Func<float, float> scaleFn) {
-    SetZoomOnScreenPoint(scaleFn, CenterOfContentArea);
+    SetZoom(scaleFn(Scale));
   }
-
-  public Vector2 CenterOfContentArea
-    => ContentTransform.parent.TransformPoint(Vector2.zero);
 
   public void ResetZoom() {
     SetZoom(1);
@@ -92,11 +84,37 @@ public class LoreWindowController : MonoBehaviour {
     ResetPan();
   }
 
-  public Vector2 ScreenPointToContentPoint(Vector2 screenPoint)
-    => ContentTransform.InverseTransformPoint(screenPoint);
+  private Vector2 ScreenPointToCanvasPoint(Vector2 screenPoint, bool adjustOrigin = true) {
+    Vector2 viewportPoint = Camera.main.ScreenToViewportPoint(screenPoint);
 
-  public Vector2 ScreenVectorToContentVector(Vector2 screenVector)
-    => ContentTransform.InverseTransformVector(screenVector);
+    if (adjustOrigin) {
+      viewportPoint -= Vector2.one / 2f;
+    }
+
+    Rect canvasRect = CanvasTransform.rect;
+
+    return new Vector2(
+      viewportPoint.x * canvasRect.width,
+      viewportPoint.y * canvasRect.height
+    );
+  }
+
+  private Vector2 ScreenVectorToCanvasVector(Vector2 screenVector)
+    => ScreenPointToCanvasPoint(screenVector, false);
+
+  private Vector2 ScreenPointToContentPoint(Vector2 screenPoint)
+    => ContentTransform.InverseTransformPoint(
+      CanvasTransform.TransformPoint(
+        ScreenPointToCanvasPoint(screenPoint)
+      )
+    );
+
+  private Vector2 ScreenVectorToContentVector(Vector2 screenVector)
+    => ContentTransform.InverseTransformVector(
+      CanvasTransform.TransformVector(
+        ScreenVectorToCanvasVector(screenVector)
+      )
+    );
 
   private void UpdateTransform() {
     ClampTranslation();
