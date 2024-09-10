@@ -30,13 +30,13 @@ public class LoreWindowUserInput : MonoBehaviour {
     }
 
     if (WrappedInput.GetButtonDown("Click")) {
-      PreviousMousePosition = Input.mousePosition;
+      PreviousMousePosition = WrappedInput.MousePosition;
       IsMouseDown = true;
       TotalMouseMovement = 0;
     }
 
     if (IsMouseDown) {
-      Vector2 mousePosition = Input.mousePosition;
+      Vector2 mousePosition = WrappedInput.MousePosition;
       Vector2 delta = mousePosition - PreviousMousePosition;
       TotalMouseMovement += delta.magnitude;
       PreviousMousePosition = mousePosition;
@@ -76,7 +76,7 @@ public class LoreWindowUserInput : MonoBehaviour {
     int nextZoomLevelIndex = (nearestZoomLevelIndex + 1) % ClickZoomLevels.Count;
     float nextZoomLevel = ClickZoomLevels[nextZoomLevelIndex];
 
-    LoreWindow.CenterOnScreenPoint(Input.mousePosition);
+    LoreWindow.CenterOnScreenPoint(WrappedInput.MousePosition);
     LoreWindow.SetZoom(nextZoomLevel);
   }
 

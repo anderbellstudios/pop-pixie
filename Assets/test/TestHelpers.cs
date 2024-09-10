@@ -256,29 +256,51 @@ public abstract class ABaseTest {
     yield return ButtonUp(buttonName);
   }
 
-  protected void MoveRight() {
-    WrappedInput.AxisOverrides["horizontal"] = 1f;
-    WrappedInput.AxisOverrides["vertical"] = 0f;
+  protected void Move(float x, float y) {
+    WrappedInput.AxisOverrides["horizontal"] = x;
+    WrappedInput.AxisOverrides["vertical"] = y;
   }
 
-  protected void MoveLeft() {
-    WrappedInput.AxisOverrides["horizontal"] = -1f;
-    WrappedInput.AxisOverrides["vertical"] = 0f;
+  protected void MoveUp() => Move(0f, 1f);
+  protected void MoveDown() => Move(0f, -1f);
+  protected void MoveLeft() => Move(-1f, 0f);
+  protected void MoveRight() => Move(1f, 0f);
+  protected void StopMoving() => Move(0f, 0f);
+
+  protected IEnumerator Move(float x, float y, float duration) {
+    Move(x, y);
+    yield return new WaitForSeconds(duration);
+    StopMoving();
   }
 
-  protected void MoveUp() {
-    WrappedInput.AxisOverrides["horizontal"] = 0f;
-    WrappedInput.AxisOverrides["vertical"] = 1f;
+  protected void Zoom(float zoomAxis) {
+    WrappedInput.AxisOverrides["zoom"] = zoomAxis;
   }
 
-  protected void MoveDown() {
-    WrappedInput.AxisOverrides["horizontal"] = 0f;
-    WrappedInput.AxisOverrides["vertical"] = -1f;
+  protected void StopZooming() => Zoom(0f);
+
+  protected IEnumerator Zoom(float zoomAxis, float duration) {
+    Zoom(zoomAxis);
+    yield return new WaitForSeconds(duration);
+    StopZooming();
   }
 
-  protected void StopMoving() {
-    WrappedInput.AxisOverrides["horizontal"] = 0f;
-    WrappedInput.AxisOverrides["vertical"] = 0f;
+  protected void SetMousePosition(float x, float y) {
+    WrappedInput.MousePositionOverride = Camera.main.ViewportToScreenPoint(new Vector2(x, y));
+  }
+
+  protected IEnumerator Drag(float x1, float y1, float x2, float y2) {
+    SetMousePosition(x1, y1);
+    yield return ButtonDown("Click");
+    yield return null;
+    SetMousePosition(x2, y2);
+    yield return null;
+    yield return ButtonUp("Click");
+  }
+
+  protected IEnumerator ClickAt(float x, float y) {
+    SetMousePosition(x, y);
+    yield return PressButton("Click");
   }
 
   protected IEnumerator AdvanceDialogue() {
