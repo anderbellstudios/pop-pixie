@@ -50,7 +50,7 @@ To check which dependencies are currently missing, run `ruby Assets/vendor/valid
 
 When adding a dependency purchased through the Asset Store, import it using Unity's Package Manager under My Assets. Generally, it's safe to uncheck any directories labelled "Documentation" and "Examples", and including these in the import may increase compile time.
 
-Unity will automatically place these dependencies in `/Assets`, but you should move them into `/Assets/vendor` to ensure they aren't committed to Git. We will reject any PR that includes non-MIT licensable dependencies.
+Unity will automatically place these dependencies in `/Assets`, but you should move them into `/Assets/vendor` to ensure they aren't committed to Git. FMOD is an exception to this, and may be placed in `/Assets/Plugins`, which is the default location.
 
 #### Rewired (Asset Store, paid, free trial available)
 
@@ -69,6 +69,20 @@ We use Retro: CRT TV for the CRT effect in Pop Pixie. Without it, Access Termina
 Purchase from https://assetstore.unity.com/packages/vfx/shaders/fullscreen-camera-effects/retro-crt-tv-241411
 
 Move from `/Assets/FronkonGames` to `/Assets/vendor/FronkonGames`
+
+#### FMOD for Unity (Asset Store, free)
+
+We use FMOD for all audio in Pop Pixie. Without it, the game will not compile and there will be no audio.
+
+Get from https://assetstore.unity.com/packages/tools/audio/fmod-for-unity-161631
+
+Import to `/Assets/Plugins`, which is the default location.
+
+When you import FMOD, it will make a minor change to `/Assets/Resources/FMODStudioSettings.asset`. This change is harmless, but should not be committed. Revert the change using Git.
+
+```bash
+$ git checkout -- Assets/Resources/FMODStudioSettings.asset
+```
 
 #### Pixel Art City Backgrounds (third-party, paid)
 
