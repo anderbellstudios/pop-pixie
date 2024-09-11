@@ -26,7 +26,7 @@ public class AccessTerminalManager : MonoBehaviour {
 
   public void Open(AccessTerminalConfig config, System.Action onClose = null) {
     LsCommand.CommandResult = config.Filename;
-    OpenCommand.Command = "open Documents/" + config.Filename;
+    OpenCommand.Command = "open " + config.Filename;
 
     InternalOnClose = onClose;
     SetIsOpen(true);
