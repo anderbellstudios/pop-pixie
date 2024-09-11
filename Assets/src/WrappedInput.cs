@@ -10,11 +10,15 @@ public class WrappedInput : MonoBehaviour {
     GetButtonDownOverrides = new Dictionary<string, Nullable<bool>>(),
     GetButtonUpOverrides = new Dictionary<string, Nullable<bool>>();
 
+  public static Nullable<Vector3> MousePositionOverride = null;
+
   public static Dictionary<string, float?> AxisOverrides = new Dictionary<string, float?>();
 
-  public static Player Player {
-    get => ReInput.players.GetPlayer(0);
-  }
+  public static Player Player
+    => ReInput.players.GetPlayer(0);
+
+  public static Vector3 MousePosition
+    => MousePositionOverride ?? Input.mousePosition;
 
   public static bool GetButton(string buttonName) {
     return Overridden<bool>(buttonName, GetButtonOverrides) ?? Player.GetButton(buttonName);
