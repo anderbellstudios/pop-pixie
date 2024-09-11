@@ -3,42 +3,40 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MultipleWeaponDirectionManager : MonoBehaviour, IDirectionManager {
-
-  public Vector3 Direction { get; set; }
+  public Vector3 Direction => GetDirection();
 
   public GameObject Arrow;
 
   public JoystickWeaponDirectionManager JoystickWeaponDirectionManager;
   public CursorWeaponDirectionManager CursorWeaponDirectionManager;
 
-  // Use this for initialization
-  void Start() {
-    Direction = Vector3.up;
+  private Vector3 CachedDirection = Vector3.up;
+
+  void Update() {
+    var rotation = Quaternion.FromToRotation(
+      new Vector3(0, 1, 0),
+      Direction
+    );
+
+    Arrow.transform.rotation = Quaternion.Slerp(
+      Arrow.transform.rotation,
+      rotation,
+      0.3f
+    );
   }
 
-  // Update is called once per frame
-  void Update() {
+  Vector3 GetDirection() {
     if (!StateManager.Playing)
-      return;
+      return CachedDirection;
 
-    var newDirection = InputMode.IsJoystick()
+    Vector3 newDirection = InputMode.IsJoystick()
       ? JoystickWeaponDirectionManager.Direction
       : CursorWeaponDirectionManager.Direction;
 
-    if (newDirection.magnitude > 0) {
-      Direction = newDirection;
+    if (newDirection.magnitude == 0)
+      return CachedDirection;
 
-      var rotation = Quaternion.FromToRotation(
-        new Vector3(0, 1, 0),
-        Direction
-      );
-
-      Arrow.transform.rotation = Quaternion.Slerp(
-        Arrow.transform.rotation,
-        rotation,
-        0.3f
-      );
-    }
+    CachedDirection = newDirection;
+    return newDirection;
   }
-
 }

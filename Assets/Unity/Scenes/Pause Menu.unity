@@ -139,6 +139,7 @@ GameObject:
   m_Component:
   - component: {fileID: 67319751}
   - component: {fileID: 67319750}
+  - component: {fileID: 67319754}
   - component: {fileID: 67319749}
   - component: {fileID: 67319748}
   - component: {fileID: 67319753}
@@ -199,7 +200,7 @@ Canvas:
   m_GameObject: {fileID: 67319747}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -210,8 +211,8 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 3
+  m_SortingLayerID: -12606309
+  m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!224 &67319751
 RectTransform:
@@ -263,6 +264,19 @@ MonoBehaviour:
   BeforeInitialVisible: 0
   InitialVisible: 1
   Duration: 0.1
+--- !u!114 &67319754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 67319747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b89bd8f8a07c4d348f2a7a1bd3f9242, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Canvas: {fileID: 67319750}
 --- !u!1 &136608893
 GameObject:
   m_ObjectHideFlags: 0
@@ -273,6 +287,7 @@ GameObject:
   m_Component:
   - component: {fileID: 136608897}
   - component: {fileID: 136608896}
+  - component: {fileID: 136608898}
   - component: {fileID: 136608895}
   - component: {fileID: 136608894}
   m_Layer: 5
@@ -331,7 +346,7 @@ Canvas:
   m_GameObject: {fileID: 136608893}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -342,8 +357,8 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 4
+  m_SortingLayerID: -1064770901
+  m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!224 &136608897
 RectTransform:
@@ -365,6 +380,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &136608898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 136608893}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b89bd8f8a07c4d348f2a7a1bd3f9242, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Canvas: {fileID: 136608896}
 --- !u!224 &142056443 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3306428634692517601, guid: 3e7cd6a5b54a245bda338f9f9a573947,
@@ -1216,6 +1244,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -25
       objectReference: {fileID: 0}
+    - target: {fileID: 8731137495527220683, guid: 88b312d3ed3c646a6bdfd60b468bb6cc,
+        type: 3}
+      propertyPath: CanvasTransform
+      value: 
+      objectReference: {fileID: 136608897}
     - target: {fileID: 8912304697400698121, guid: 88b312d3ed3c646a6bdfd60b468bb6cc,
         type: 3}
       propertyPath: m_Pivot.x

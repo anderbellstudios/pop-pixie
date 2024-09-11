@@ -159,3 +159,7 @@ You should now be ready to begin work on Pop Pixie. Open a Unity scene from `/As
 When updating the app verison, it should be modified in `ProjectSettings.asset` and `pop-pixie.iss`.
 
 The in-game version checker uses https://github.com/anderbellstudios/pop-pixie/blob/version/VERSION.
+
+## Other
+
+This project is tested with BrowserStack.

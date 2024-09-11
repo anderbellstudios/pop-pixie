@@ -25,19 +25,23 @@ public class LoreWindowUserInput : MonoBehaviour {
       LoreWindow.Pan(panAxes * PanSpeed * Time.deltaTime);
     }
 
+    if (WrappedInput.GetButtonDown("Reload")) {
+      LoreWindow.ResetZoomAndPan();
+    }
+
     if (WrappedInput.GetButtonDown("Click")) {
-      PreviousMousePosition = GetViewportMousePosition();
+      PreviousMousePosition = WrappedInput.MousePosition;
       IsMouseDown = true;
       TotalMouseMovement = 0;
     }
 
     if (IsMouseDown) {
-      Vector2 mousePosition = GetViewportMousePosition();
+      Vector2 mousePosition = WrappedInput.MousePosition;
       Vector2 delta = mousePosition - PreviousMousePosition;
       TotalMouseMovement += delta.magnitude;
       PreviousMousePosition = mousePosition;
 
-      LoreWindow.ViewportPan(-delta);
+      LoreWindow.ScreenPan(-delta);
     }
 
     if (WrappedInput.GetButtonUp("Click")) {
@@ -72,7 +76,7 @@ public class LoreWindowUserInput : MonoBehaviour {
     int nextZoomLevelIndex = (nearestZoomLevelIndex + 1) % ClickZoomLevels.Count;
     float nextZoomLevel = ClickZoomLevels[nextZoomLevelIndex];
 
-    LoreWindow.CenterOnContentPoint(GetContentMousePosition());
+    LoreWindow.CenterOnScreenPoint(WrappedInput.MousePosition);
     LoreWindow.SetZoom(nextZoomLevel);
   }
 
@@ -83,10 +87,4 @@ public class LoreWindowUserInput : MonoBehaviour {
       MaxZoom
     ));
   }
-
-  Vector2 GetViewportMousePosition()
-    => LoreWindow.ScreenPointToViewportPoint(Input.mousePosition);
-
-  Vector2 GetContentMousePosition()
-    => LoreWindow.ScreenPointToContentPoint(Input.mousePosition);
 }
