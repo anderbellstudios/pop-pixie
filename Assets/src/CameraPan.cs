@@ -24,7 +24,7 @@ public class CameraPan : MonoBehaviour {
 
   public void Perform() {
     InitialPosition = Camera.transform.position;
-    InitialSize = Camera.GetComponent<Camera>().orthographicSize;
+    InitialSize = Camera.orthographicSize;
 
     if (PauseGameplay)
       StateManager.AddState(State.NotPlaying);
@@ -48,6 +48,8 @@ public class CameraPan : MonoBehaviour {
     if (PauseGameplay)
       StateManager.RemoveState(State.NotPlaying);
 
+    Camera.transform.position = DestinationCamera.transform.position;
+    Camera.orthographicSize = DestinationCamera.orthographicSize;
     Camera.GetComponent<FollowsPlayer>().enabled = FollowPlayerAfterPan;
 
     OnFinish.Invoke();
@@ -64,7 +66,7 @@ public class CameraPan : MonoBehaviour {
   float InterpolatedSize() {
     return Mathf.Lerp(
       InitialSize,
-      DestinationCamera.GetComponent<Camera>().orthographicSize,
+      DestinationCamera.orthographicSize,
       Timer.Progress()
     );
   }
