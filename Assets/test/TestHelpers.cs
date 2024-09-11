@@ -24,6 +24,8 @@ public abstract class ABaseTest {
   [UnityTearDown]
   public IEnumerator CommonTearDown() {
     StopMoving();
+    StopZooming();
+    ClearMousePosition();
     yield return null;
   }
 
@@ -287,6 +289,10 @@ public abstract class ABaseTest {
 
   protected void SetMousePosition(float x, float y) {
     WrappedInput.MousePositionOverride = Camera.main.ViewportToScreenPoint(new Vector2(x, y));
+  }
+
+  protected void ClearMousePosition() {
+    WrappedInput.MousePositionOverride = null;
   }
 
   protected IEnumerator Drag(float x1, float y1, float x2, float y2) {
