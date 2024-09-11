@@ -323,6 +323,19 @@ public abstract class ABaseTest {
     yield return AwaitPlayingState();
   }
 
+  protected IEnumerator SnapPixie(float increment) {
+    Transform pixieTransform = PlayerGameObject.Current.transform;
+
+    pixieTransform.position = new Vector3(
+      Mathf.Round(pixieTransform.position.x / increment) * increment,
+      Mathf.Round(pixieTransform.position.y / increment) * increment,
+      pixieTransform.position.z
+    );
+
+    // Wait for camera to adjust
+    yield return null;
+  }
+
   /**
    * Save a screenshot of the game to the Percy directory.
    *
