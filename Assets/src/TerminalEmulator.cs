@@ -57,11 +57,19 @@ public class TerminalEmulator : MonoBehaviour {
     Print(text + "\n");
   }
 
-  public void Clear() {
+  public void PrintShell() {
+    Print("amanda@localhost:~$ ");
+  }
+
+  public void Clear(bool printShell) {
     Buffer = "";
     BufferWasUpdated();
     CurrentColumn = 0;
     CurrentRow = 0;
     transform.localPosition = InitialPosition;
+
+    if (printShell) {
+      PrintShell();
+    }
   }
 }

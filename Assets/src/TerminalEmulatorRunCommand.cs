@@ -7,7 +7,6 @@ public class TerminalEmulatorRunCommand : MonoBehaviour {
   public TerminalEmulator TerminalEmulator;
   public float DelayBetweenChars;
   public float DelayBeforeStart, DelayBeforeEnter;
-  public bool PrintShellBefore = false;
   public bool PrintShellAfter = true;
   public string Command;
   [TextArea] public string CommandResult;
@@ -16,8 +15,6 @@ public class TerminalEmulatorRunCommand : MonoBehaviour {
   private int CurrentOffset = 0;
 
   public void Hop() {
-    if (PrintShellBefore)
-      PrintShell();
     CurrentOffset = 0;
     AsyncTimer.BaseTime.SetTimeout(PrintNextChar, DelayBeforeStart);
   }
@@ -46,11 +43,7 @@ public class TerminalEmulatorRunCommand : MonoBehaviour {
 
   private void Finished() {
     if (PrintShellAfter)
-      PrintShell();
+      TerminalEmulator.PrintShell();
     OnFinish.Invoke();
-  }
-
-  private void PrintShell() {
-    TerminalEmulator.Print("amanda@localhost:~$ ");
   }
 }

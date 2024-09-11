@@ -75,11 +75,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TerminalEmulator: {fileID: 2714620028624835293}
   DelayBetweenChars: 0.1
-  DelayBeforeStart: 1
-  DelayBeforeEnter: 0.5
-  PrintShellBefore: 0
+  DelayBeforeStart: 0.1
+  DelayBeforeEnter: 0.1
   PrintShellAfter: 1
-  Command: open Documents/secret-file.eml
+  Command: open secret-file.eml
   CommandResult: 
   OnFinish:
     m_PersistentCalls:
@@ -402,7 +401,7 @@ GameObject:
   - component: {fileID: 5916650324914729405}
   - component: {fileID: 752584345627078421}
   m_Layer: 0
-  m_Name: 'Command: ls Documents'
+  m_Name: 'Command: cd Documents'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -465,12 +464,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TerminalEmulator: {fileID: 2714620028624835293}
   DelayBetweenChars: 0.1
-  DelayBeforeStart: 1
-  DelayBeforeEnter: 0.5
-  PrintShellBefore: 0
+  DelayBeforeStart: 0.1
+  DelayBeforeEnter: 0.1
   PrintShellAfter: 1
-  Command: ls Documents
-  CommandResult: secret-file.eml
+  Command: cd Documents
+  CommandResult: 
   OnFinish:
     m_PersistentCalls:
       m_Calls:
@@ -561,107 +559,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!1 &2615883377258043911
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7067348028957923122}
-  - component: {fileID: 7142642308642192134}
-  - component: {fileID: 8243353355903481948}
-  m_Layer: 0
-  m_Name: 'Command: ls'
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7067348028957923122
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2615883377258043911}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4121297156136113197}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7142642308642192134
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2615883377258043911}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a94167ac35e9f4fe18a589ba2c7400b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Running: 0
-  OnBegin:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8243353355903481948}
-        m_TargetAssemblyTypeName: TerminalEmulatorRunCommand, Assembly-CSharp
-        m_MethodName: Hop
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &8243353355903481948
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2615883377258043911}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47dfd0a20c73f4425b0222b25f7a41d6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TerminalEmulator: {fileID: 2714620028624835293}
-  DelayBetweenChars: 0.1
-  DelayBeforeStart: 1.5
-  DelayBeforeEnter: 0.5
-  PrintShellBefore: 1
-  PrintShellAfter: 1
-  Command: ls
-  CommandResult: 'Desktop     Music       Templates
-
-    Documents   Pictures   
-    Videos
-
-    Downloads   Public'
-  OnFinish:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7142642308642192134}
-        m_TargetAssemblyTypeName: WaitPhase, Assembly-CSharp
-        m_MethodName: StopWaiting
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1 &3373723017223078919
 GameObject:
   m_ObjectHideFlags: 0
@@ -733,6 +630,101 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
+        m_CallState: 2
+--- !u!1 &3619212163795817959
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7171543468730636200}
+  - component: {fileID: 3610773857078140344}
+  - component: {fileID: 7762202604327773164}
+  m_Layer: 0
+  m_Name: 'Command: ls'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7171543468730636200
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3619212163795817959}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4121297156136113197}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3610773857078140344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3619212163795817959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a94167ac35e9f4fe18a589ba2c7400b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Running: 0
+  OnBegin:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7762202604327773164}
+        m_TargetAssemblyTypeName: TerminalEmulatorRunCommand, Assembly-CSharp
+        m_MethodName: Hop
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &7762202604327773164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3619212163795817959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47dfd0a20c73f4425b0222b25f7a41d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TerminalEmulator: {fileID: 2714620028624835293}
+  DelayBetweenChars: 0.1
+  DelayBeforeStart: 0.1
+  DelayBeforeEnter: 0.1
+  PrintShellAfter: 1
+  Command: ls
+  CommandResult: secret-file.eml
+  OnFinish:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3610773857078140344}
+        m_TargetAssemblyTypeName: WaitPhase, Assembly-CSharp
+        m_MethodName: StopWaiting
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &3700730442938610834
 GameObject:
@@ -1523,7 +1515,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  LsCommand: {fileID: 752584345627078421}
+  LsCommand: {fileID: 7762202604327773164}
   OpenCommand: {fileID: 171949050165120223}
 --- !u!114 &1779553991972596586
 MonoBehaviour:
@@ -1670,8 +1662,9 @@ Transform:
   - {fileID: 2551230726310806049}
   - {fileID: 8689787297048331380}
   - {fileID: 8002807907002039631}
-  - {fileID: 7067348028957923122}
+  - {fileID: 4571236362755376934}
   - {fileID: 2944236664548423724}
+  - {fileID: 7171543468730636200}
   - {fileID: 2863701731187379070}
   - {fileID: 9099167903760245565}
   - {fileID: 102358291675457989}
@@ -1704,8 +1697,9 @@ MonoBehaviour:
   - {fileID: 3328454835740373055}
   - {fileID: 8488886571295684202}
   - {fileID: 8248831925449265449}
-  - {fileID: 7142642308642192134}
+  - {fileID: 3613731458483434808}
   - {fileID: 5916650324914729405}
+  - {fileID: 3610773857078140344}
   - {fileID: 5506861937381481346}
   - {fileID: 8291261202142515491}
   - {fileID: 4667558481447140228}
@@ -1999,14 +1993,14 @@ MonoBehaviour:
       - m_Target: {fileID: 2714620028624835293}
         m_TargetAssemblyTypeName: TerminalEmulator, Assembly-CSharp
         m_MethodName: Clear
-        m_Mode: 1
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!1 &7861322165854093653
 GameObject:
@@ -4024,3 +4018,104 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8e4bfb50dc174effb4367a9fd17d3c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &8341495521131556708
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 4121297156136113197}
+    m_Modifications:
+    - target: {fileID: 4748056685757717084, guid: 24a536b2882654803a737a63d5cbcaf2,
+        type: 3}
+      propertyPath: Delay
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4748056685757717084, guid: 24a536b2882654803a737a63d5cbcaf2,
+        type: 3}
+      propertyPath: PauseGameplay
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5346401874578123340, guid: 24a536b2882654803a737a63d5cbcaf2,
+        type: 3}
+      propertyPath: m_Name
+      value: Delay Phase
+      objectReference: {fileID: 0}
+    - target: {fileID: 5526685007657887810, guid: 24a536b2882654803a737a63d5cbcaf2,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5526685007657887810, guid: 24a536b2882654803a737a63d5cbcaf2,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5526685007657887810, guid: 24a536b2882654803a737a63d5cbcaf2,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5526685007657887810, guid: 24a536b2882654803a737a63d5cbcaf2,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5526685007657887810, guid: 24a536b2882654803a737a63d5cbcaf2,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5526685007657887810, guid: 24a536b2882654803a737a63d5cbcaf2,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5526685007657887810, guid: 24a536b2882654803a737a63d5cbcaf2,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5526685007657887810, guid: 24a536b2882654803a737a63d5cbcaf2,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5526685007657887810, guid: 24a536b2882654803a737a63d5cbcaf2,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5526685007657887810, guid: 24a536b2882654803a737a63d5cbcaf2,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5526685007657887810, guid: 24a536b2882654803a737a63d5cbcaf2,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 24a536b2882654803a737a63d5cbcaf2, type: 3}
+--- !u!114 &3613731458483434808 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4748056685757717084, guid: 24a536b2882654803a737a63d5cbcaf2,
+    type: 3}
+  m_PrefabInstance: {fileID: 8341495521131556708}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8e4bfb50dc174effb4367a9fd17d3c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &4571236362755376934 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5526685007657887810, guid: 24a536b2882654803a737a63d5cbcaf2,
+    type: 3}
+  m_PrefabInstance: {fileID: 8341495521131556708}
+  m_PrefabAsset: {fileID: 0}
