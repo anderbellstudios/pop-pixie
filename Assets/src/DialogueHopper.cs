@@ -8,6 +8,10 @@ public class DialogueHopper : MonoBehaviour {
 
   [SerializeField] public UnityEvent OnFinish;
 
+  void Start() {
+    PreloadProgrammerSounds.PreloadDialogue(DialogueSequence);
+  }
+
   public void Hop() {
     DialogueManager.Current.Play(DialogueSequence, () => {
       OnFinish.Invoke();

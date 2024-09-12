@@ -1,7 +1,9 @@
 #!/bin/bash
 
-VERSION=v1
+VERSION=v3
 
+# v3: Upgrade FMOD to 2.02.23
+# v2: Add FMOD
 # v1: Initial version
 
 set -e

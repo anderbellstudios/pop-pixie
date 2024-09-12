@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class TrashCan : AInspectable {
   public DialogueHopper FirstDialogue, SecondDialogue, FinalDialogue;
@@ -16,7 +17,7 @@ public class TrashCan : AInspectable {
   public float JumpDuration;
   public float TrashCanWobbleSpeed, TrashCanWobbleAmplitude, PopPixieWobbleSpeed, PopPixieWobbleAmplitude;
   public float DigDuration;
-  public SoundHopper DigSound;
+  public UnityEvent OnBeginDigging;
 
   enum JumpDirectionEnum { In, Out };
 
@@ -107,7 +108,7 @@ public class TrashCan : AInspectable {
   void BeginDigging() {
     DigTimer.Reset();
     Digging = true;
-    DigSound.Hop();
+    OnBeginDigging.Invoke();
   }
 
   void EndDigging() {

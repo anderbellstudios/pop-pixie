@@ -10,6 +10,11 @@ public class PieceOfIntelSprite : AInspectable {
   public GameObject SpriteGameObject;
   public CircleCollider2D ColliderBehaviour;
 
+  void Start() {
+    PreloadProgrammerSounds.PreloadCaptionLine(CaptionLineAfterClose);
+    AInspectableStart();
+  }
+
   void Update() {
     AInspectableUpdate();
 

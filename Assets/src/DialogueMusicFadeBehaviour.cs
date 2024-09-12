@@ -4,10 +4,7 @@ using UnityEngine;
 
 [System.Serializable]
 public class DialogueMusicFadeBehaviour {
-  public enum BehaviourType { FadeUp, FadeDown, Ignore, SetHigh, SetLow }
-
-  public static float FadeDuration = 0.5f;
-  public static float FadedVolume = 0.25f;
+  public enum BehaviourType { FadeUp, FadeDown, Ignore }
 
   public BehaviourType EnterBehaviour, ExitBehaviour;
 
@@ -21,20 +18,12 @@ public class DialogueMusicFadeBehaviour {
 
   private void ApplyBehaviour(BehaviourType behaviour) {
     switch (behaviour) {
-      case BehaviourType.SetHigh:
-        MusicController.Current.SetFadeLevel(1f);
-        break;
-
-      case BehaviourType.SetLow:
-        MusicController.Current.SetFadeLevel(FadedVolume);
-        break;
-
       case BehaviourType.FadeUp:
-        MusicController.Current.FadeTo(1f, FadeDuration);
+        AudioManager.Current.SetDuringDialogue(false);
         break;
 
       case BehaviourType.FadeDown:
-        MusicController.Current.FadeTo(FadedVolume, FadeDuration);
+        AudioManager.Current.SetDuringDialogue(true);
         break;
 
       case BehaviourType.Ignore:

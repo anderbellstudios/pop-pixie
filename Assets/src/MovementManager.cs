@@ -2,20 +2,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public delegate float SpeedModifier(float s);
 
 public class MovementManager : MonoBehaviour {
-
   public List<SpeedModifier> SpeedModifiers = new List<SpeedModifier>();
-
   public Animator Animator;
-
-  public SoundController SoundController;
-  public List<AudioClip> FootstepSounds;
-  private int currentFootstepSound = 0;
-
   public Rigidbody2D rb;
+  public UnityEvent OnFootstep;
 
   public Vector2 _Movement, VisualMovement;
   public Vector2 Movement {
@@ -45,9 +40,8 @@ public class MovementManager : MonoBehaviour {
     _Movement = Vector2.zero;
   }
 
-  public void OnFootstepDown() {
-    SoundController.Play(FootstepSounds[currentFootstepSound]);
-    currentFootstepSound = (currentFootstepSound + 1) % FootstepSounds.Count;
+  public void DispatchFootstepDown() {
+    OnFootstep.Invoke();
   }
 
   bool StatePermitsMovement() {
@@ -67,5 +61,4 @@ public class MovementManager : MonoBehaviour {
 
     return speed;
   }
-
 }

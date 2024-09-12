@@ -3,9 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
 public abstract class AData {
   public Dictionary<string, object> Dictionary;
+  public UnityEvent OnChange = new UnityEvent();
 
   public AData() {
     Clear();
@@ -33,6 +35,7 @@ public abstract class AData {
 
   public void Set(string key, object val) {
     Dictionary[key] = val;
+    OnChange.Invoke();
     AfterUpdate();
   }
 

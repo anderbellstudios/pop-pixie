@@ -19,7 +19,7 @@ public class Weapon : ScriptableObject {
   public GameObject BulletPrefab;
   public Sprite Sprite;
   public Sprite InHandSprite;
-  public AudioClip ReloadSound, ShootSound;
+  public string ReloadSoundKey, ShootSoundKey;
 
   public float CooldownInterval()
     => 1.0f / FireRate;

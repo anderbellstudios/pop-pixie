@@ -7,11 +7,14 @@ using UnityEngine.Events;
 public class PlayerShoot : MonoBehaviour {
   public MonoBehaviour AimDirection;
   public FireBullet FireBullet;
-  public UnityEvent OnFailedToShoot;
+  public PlaySound PlaySound;
+  public string NoBulletsSoundKey;
 
   private IntervalTimer FireTimer;
 
   void Start() {
+    PreloadProgrammerSounds.PreloadSound(NoBulletsSoundKey);
+
     FireTimer = new IntervalTimer() {
       TimeClass = "PlayingTime"
     };
@@ -33,7 +36,7 @@ public class PlayerShoot : MonoBehaviour {
       if (weapon.HasBullets()) {
         Fire(weapon);
       } else {
-        OnFailedToShoot.Invoke();
+        PlaySound.Play(NoBulletsSoundKey);
       }
     }
   }
@@ -49,7 +52,7 @@ public class PlayerShoot : MonoBehaviour {
       ),
       speed: weapon.BulletSpeed,
       damage: weapon.Damage,
-      sound: weapon.ShootSound
+      soundKey: weapon.ShootSoundKey
     );
   }
 

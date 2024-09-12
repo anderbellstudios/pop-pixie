@@ -10,7 +10,7 @@ public class ChargingAttackAI : AEnemyAI, IRequiresLineOfMovementAI {
   public float GiveUpInterval;
   public Transform WiggleTransform;
 
-  public SoundController SoundPlayer;
+  // public SoundController SoundPlayer;
   public List<AudioClip> Sounds;
   public float ChanceToPlaySound = 0f;
 
@@ -71,7 +71,8 @@ public class ChargingAttackAI : AEnemyAI, IRequiresLineOfMovementAI {
       // Play attack sound
       int i = Random.Range(0, Sounds.Count);
       var sound = Sounds[i];
-      SoundPlayer.Play(sound);
+      Debug.LogError("ChargingAttackAI is using deprecated SoundController");
+      // SoundPlayer.Play(sound);
     }
 
     RelinquishControlTo(WhenAttackFinished);

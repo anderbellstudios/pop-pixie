@@ -12,18 +12,18 @@ jobs:
       - name: Install vendor
         run: ./install_vendor.sh ${{ secrets.vendor_url }}
 
+      # PulseAudio does not work in Docker container
+      - name: Patch FMOD to disable sound
+        run: |
+          sed -i'' \
+          's/result = coreSystem.setOutput(outputType);/result = coreSystem.setOutput(FMOD.OUTPUTTYPE.NOSOUND);/' \
+          Assets/Plugins/FMOD/src/RuntimeManager.cs
+
       - name: Install Yarn dependencies
         run: yarn install
 
-      # - uses: actions/cache@v3
-      #   with:
-      #     path: Library
-      #     key: Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
-      #     restore-keys: |
-      #       Library-
-
       - name: Run tests
-        uses: game-ci/unity-test-runner@v4
+        uses: 12joan/ci-unity-test-runner@main
         env:
           # gh secret set UNITY_LICENSE < /Library/Application\ Support/Unity/Unity_lic.ulf
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
@@ -34,6 +34,14 @@ jobs:
 
       - name: Upload screenshots to Percy
         run: yarn percy:upload
+        if: always()
         env:
           # gh secret set PERCY_TOKEN <a Percy Web token>
           PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+
+      - name: Upload results
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: Test results
+          path: artifacts

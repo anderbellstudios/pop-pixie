@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="MixerGroup" id="{29d1d2b8-38e3-49eb-8ba8-d32fe31a9999}">
+		<property name="name">
+			<value>Continuous SFX</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{cb7f9bf4-2ddc-4361-8f79-80789fdc69d9}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{a3332ff8-8dea-45be-afd6-4b4407f3f5be}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{d14a77e2-7f06-47c5-9789-e131ba005e5e}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{cb7f9bf4-2ddc-4361-8f79-80789fdc69d9}">
+		<relationship name="effects">
+			<destination>{1156f3d5-5cbe-48e0-b13d-a4aa7ceb9715}</destination>
+			<destination>{2ad5c85d-12b4-45ba-9fde-c12a9a5bdd8b}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{a3332ff8-8dea-45be-afd6-4b4407f3f5be}" />
+	<object class="LowpassEffect" id="{1156f3d5-5cbe-48e0-b13d-a4aa7ceb9715}">
+		<property name="bypass">
+			<value>true</value>
+		</property>
+		<property name="cutoff">
+			<value>22000</value>
+		</property>
+	</object>
+	<object class="MixerBusFader" id="{2ad5c85d-12b4-45ba-9fde-c12a9a5bdd8b}" />
+</objects>

@@ -2,13 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
 public class MenuSound : MonoBehaviour {
   public static MenuSound current
     => EventSystem.current.gameObject.GetComponent<MenuSound>();
 
-  public SoundHopper SoundHopper;
+  public UnityEvent OnPlay;
 
   public void HandleSelectionChanged(GameObject currentSelected, GameObject previousSelected) {
     String currentSelectedMenuName = MenuNameForGameObject(currentSelected);
@@ -23,7 +24,7 @@ public class MenuSound : MonoBehaviour {
   }
 
   public void Play() {
-    SoundHopper.Hop();
+    OnPlay.Invoke();
   }
 
   private String MenuNameForGameObject(GameObject go) {

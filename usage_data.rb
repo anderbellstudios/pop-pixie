@@ -1,6 +1,7 @@
 require 'yaml'
 
 module UsageData
+  DO_NOT_SEARCH_DIRS = %w[vendor Plugins]
   GUID_REFERENCING_EXTENSIONS = %w[.unity .prefab .mat .asset .controller]
   IDENTIFIER_REFERENCING_EXTENSIONS = %w[.cs]
   IGNORE_UNUSED_EXTENSIONS = %w[.unity .preset .otf .ttf .asset .txt .asmdef]
@@ -65,7 +66,7 @@ module UsageData
 
     def used?
       path.end_with?(*IGNORE_UNUSED_EXTENSIONS) ||
-        path.include?(*IGNORE_UNUSED_DIRS) ||
+        IGNORE_UNUSED_DIRS.any? { path.include?(_1) } ||
         used_by.any?
     end
   end
@@ -73,7 +74,9 @@ module UsageData
   def self.search_dirs
     @@search_dirs ||= Dir.glob(
       File.expand_path('./Assets/*', __dir__)
-    ).filter { |f| File.directory?(f) && File.basename(f) != 'vendor' }
+    ).filter do |f|
+      File.directory?(f) && !DO_NOT_SEARCH_DIRS.any? { f.include?(_1) }
+    end
   end
 
   def self.find_matching_pattern(pattern)
