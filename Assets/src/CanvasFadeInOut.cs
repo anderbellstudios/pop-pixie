@@ -17,6 +17,11 @@ public class CanvasFadeInOut : MonoBehaviour {
     TargetOpacity = InitialVisible ? 1f : 0f;
   }
 
+  public void SetOpacity(float opacity) {
+    Opacity = opacity;
+    TargetOpacity = opacity;
+  }
+
   public void Fade(float target) {
     TargetOpacity = target;
   }
