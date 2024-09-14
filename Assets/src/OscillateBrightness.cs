@@ -19,6 +19,9 @@ public class OscillateBrightness : MonoBehaviour {
   }
 
   void Update() {
+    if (TestMode.Enabled)
+      return;
+
     float t = (Time.time + Offset) * Speed;
     float v = AnimationCurve.Evaluate(t % 1);
 
