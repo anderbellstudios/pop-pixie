@@ -12,26 +12,28 @@ public class PieceOfIntelSprite : AInspectable {
 
   void Start() {
     PreloadProgrammerSounds.PreloadCaptionLine(CaptionLineAfterClose);
+    if (LoreItemData.AlreadyRead(LoreItem)) {
+      WasCollected();
+    }
     AInspectableStart();
   }
 
-  void Update() {
-    AInspectableUpdate();
-
-    SpriteGameObject.SetActive(!Collected);
-    ColliderBehaviour.enabled = !Collected;
-  }
-
   public override void OnInspect() {
-    Collected = true;
-
+    WasCollected();
     LoreItemData.RecordRead(LoreItem);
+
     StateManager.AddState(State.NotPlaying);
 
     LoreManager.Current.Open(LoreItem, () => {
       StateManager.RemoveState(State.NotPlaying);
       CaptionLineManager.Current.Play(CaptionLineAfterClose);
     });
+  }
+
+  private void WasCollected() {
+    Collected = true;
+    SpriteGameObject.SetActive(false);
+    ColliderBehaviour.enabled = false;
   }
 
   public override String AInspectablePromptText() {

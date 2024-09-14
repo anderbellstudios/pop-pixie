@@ -3,47 +3,66 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class Damageable : MonoBehaviour {
+  public PersistentId PersistentId;
   public HitPoints OverrideHitPoints;
   public SpriteRenderer SpriteRenderer;
   public Sprite[] WorkingFrames;
   public Sprite DestroyedFrame;
   public SpawnFlyingRingPull SpawnFlyingRingPull;
   public List<Behaviour> DisableComponents;
+  public UnityEvent OnStopWorking;
 
-  bool StoppedWorking = false;
+  private bool StoppedWorking = false;
+  private HitPoints HitPoints => OverrideHitPoints ?? GetComponent<HitPoints>();
+  private string Id => PersistentId.Id;
 
   void Awake() {
-    HitPoints hitPoints = OverrideHitPoints ?? GetComponent<HitPoints>();
+    if (DisableComponents.Count > 0) {
+      Debug.LogError("Damageable.DisableComponents is deprecated. Use OnStopWorking instead.");
+    }
 
-    hitPoints.OnUpdate.AddListener(hp => {
-      if (hp.Current == 0) {
-        if (!StoppedWorking)
+    OrderedStart.Add(() => {
+      if (ActivatedData.IsActivated(Id)) {
+        HitPoints.Current = 0;
+        HitPoints.Dead = true;
+      }
+
+      HitPoints.OnUpdate.AddListener(hp => {
+        if (hp.Current == 0) {
           StopWorking();
-        SetSprite(DestroyedFrame);
-      } else {
-        int frames_count = WorkingFrames.Length;
-        float increment = hp.Maximum / frames_count;
-        int frame_no = frames_count - (int)Math.Ceiling(hp.Current / increment);
-        SetSprite(WorkingFrames[frame_no]);
-      }
-    });
+        } else {
+          int frames_count = WorkingFrames.Length;
+          float increment = hp.Maximum / frames_count;
+          int frame_no = frames_count - (int)Math.Ceiling(hp.Current / increment);
+          SetSprite(WorkingFrames[frame_no]);
+        }
+      });
 
-    hitPoints.OnBecomeZero.AddListener(hp => {
-      if (SpawnFlyingRingPull != null) {
-        SpawnFlyingRingPull.Instantiate();
-      }
-    });
+      HitPoints.OnBecomeZero.AddListener(hp => {
+        if (SpawnFlyingRingPull != null) {
+          SpawnFlyingRingPull.Instantiate();
+        }
+      });
+    }, OrderedStart.Between(
+      HitPoints.InitStartOrder,
+      HitPoints.UpdateStartOrder
+    ));
   }
 
-  void SetSprite(Sprite sprite) {
-    SpriteRenderer.sprite = sprite;
-  }
-
-  void StopWorking() {
+  private void StopWorking() {
+    if (StoppedWorking)
+      return;
     StoppedWorking = true;
+    ActivatedData.RecordActivation(Id);
+    SetSprite(DestroyedFrame);
     DisableComponents.ForEach(comp => comp.enabled = false);
+    OnStopWorking.Invoke();
+  }
+
+  private void SetSprite(Sprite sprite) {
+    SpriteRenderer.sprite = sprite;
   }
 }

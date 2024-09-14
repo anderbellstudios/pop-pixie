@@ -4,8 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
+using Newtonsoft.Json;
 
 public abstract class AData {
+  public class MemorySave {
+    public string Json;
+  }
+
   public Dictionary<string, object> Dictionary;
   public UnityEvent OnChange = new UnityEvent();
 
@@ -37,6 +42,24 @@ public abstract class AData {
     Dictionary[key] = val;
     OnChange.Invoke();
     AfterUpdate();
+  }
+
+  public string Serialize() {
+    return JsonConvert.SerializeObject(Dictionary);
+  }
+
+  public void Deserialize(string json) {
+    Dictionary = JsonConvert.DeserializeObject<Dictionary<string, object>>(json);
+  }
+
+  public MemorySave ToMemorySave() {
+    return new MemorySave() {
+      Json = Serialize()
+    };
+  }
+
+  public void LoadMemorySave(MemorySave save) {
+    Deserialize(save.Json);
   }
 
   public virtual void BeforeWrite() {

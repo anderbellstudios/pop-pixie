@@ -5,7 +5,6 @@ using System.Linq;
 using UnityEngine;
 
 public class LoreItemData {
-
   public static void RecordRead(LoreItem loreItem) {
     if (loreItem.UniqueId == null)
       return;
@@ -23,12 +22,11 @@ public class LoreItemData {
     return CoerceJson.To<List<String>>(loreItemIds);
   }
 
-  static bool AlreadyRead(LoreItem loreItem) {
+  public static bool AlreadyRead(LoreItem loreItem) {
     return AlreadyRead(loreItem.UniqueId);
   }
 
-  static bool AlreadyRead(string loreItemId) {
+  public static bool AlreadyRead(string loreItemId) {
     return ReadLoreItems().Any(id => id == loreItemId);
   }
-
 }

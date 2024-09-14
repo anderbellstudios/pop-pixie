@@ -2822,6 +2822,7 @@ GameObject:
   - component: {fileID: 742429441}
   - component: {fileID: 742429443}
   - component: {fileID: 742429444}
+  - component: {fileID: 742429445}
   m_Layer: 8
   m_Name: Protective Enclosure
   m_TagString: Enemy
@@ -2841,6 +2842,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8538966f9f284f789bf9c660ea84e4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PersistentId: {fileID: 742429445}
   OverrideHitPoints: {fileID: 0}
   SpriteRenderer: {fileID: 742429439}
   WorkingFrames:
@@ -2849,6 +2851,9 @@ MonoBehaviour:
   DestroyedFrame: {fileID: 1739192182, guid: ea096a664e01948d1809031b00afab66, type: 3}
   SpawnFlyingRingPull: {fileID: 0}
   DisableComponents: []
+  OnStopWorking:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!212 &742429439
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3031,6 +3036,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HitPointses:
   - {fileID: 742429441}
+--- !u!114 &742429445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 742429436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b22024f5d714d4455b6b0e9c87ccc3cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Id: GlobalObjectId_V1-2-08a08a50b3f9f40b986b39b3289a101a-742429436-0
 --- !u!1 &773223462
 GameObject:
   m_ObjectHideFlags: 0

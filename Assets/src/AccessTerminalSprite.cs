@@ -7,10 +7,19 @@ public class AccessTerminalSprite : AInspectable {
   public AccessTerminalConfig Config;
   public UnityEvent OnAccess;
 
+  void Start() {
+    // Handle the case where it's already been used
+    if (LevelObjectives.UsedAccessTerminal) {
+      OnAccess.Invoke();
+    }
+
+    AInspectableStart();
+  }
+
   public override void OnInspect() {
     OnAccess.Invoke();
 
-    LevelObjectives.Current.UsedAccessTerminal = true;
+    LevelObjectives.UsedAccessTerminal = true;
     LoreItemData.RecordRead(Config.LoreItem);
     StateManager.AddState(State.NotPlaying);
 
@@ -25,8 +34,8 @@ public class AccessTerminalSprite : AInspectable {
     => "Press [Inspect] to use the <color=#ffff00>Access Terminal</color>";
 
   public override string AInspectableUninspectableText()
-    => LevelObjectives.Current.UsedAccessTerminal ? null : "Find a <color=#ffff00>Keycard</color> to use the <color=#ffff00>Access Terminal</color>";
+    => LevelObjectives.UsedAccessTerminal ? null : "Find a <color=#ffff00>Keycard</color> to use the <color=#ffff00>Access Terminal</color>";
 
   public override bool IsInspectable()
-    => LevelObjectives.Current.GotKeycard && !LevelObjectives.Current.UsedAccessTerminal;
+    => LevelObjectives.GotKeycard && !LevelObjectives.UsedAccessTerminal;
 }
