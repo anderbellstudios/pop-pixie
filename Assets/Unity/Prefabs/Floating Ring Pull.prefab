@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4962247846515283619}
   - component: {fileID: 4962247846515283677}
   - component: {fileID: 4962247846515283678}
+  - component: {fileID: 432851965242784679}
   m_Layer: 9
   m_Name: Floating Ring Pull
   m_TagString: Untagged
@@ -33,7 +34,6 @@ RectTransform:
   m_Children:
   - {fileID: 4962247848274108752}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -50,6 +50,25 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -68,6 +87,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 513a09899c2894880a80faa824f7050e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PersistentId: {fileID: 432851965242784679}
   SpawnFlyingRingPull: {fileID: 4962247846515283678}
 --- !u!114 &4962247846515283678
 MonoBehaviour:
@@ -84,6 +104,19 @@ MonoBehaviour:
   Prefab: {fileID: 7948105521332548041, guid: 1aafa0728c97f43a99e0a21d933646a1, type: 3}
   Amount: 1
   Interval: 0.05
+--- !u!114 &432851965242784679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4962247846515283618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b22024f5d714d4455b6b0e9c87ccc3cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Id: GlobalObjectId_V1-2-00000000000000000000000000000000-4962247846515283618-0
 --- !u!1 &4962247848274108758
 GameObject:
   m_ObjectHideFlags: 0
@@ -109,6 +142,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4962247848274108758}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
@@ -116,7 +150,6 @@ Transform:
   m_Children:
   - {fileID: 5775473014201304881}
   m_Father: {fileID: 3102942806688826490}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4962247848274108754
 MonoBehaviour:
@@ -178,7 +211,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4962247848274108752}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}

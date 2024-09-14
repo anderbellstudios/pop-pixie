@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 using UnityEngine;
-using Newtonsoft.Json;
 
 public class DataOperation {
   AData Data;
@@ -17,13 +16,12 @@ public class DataOperation {
 
   public void Write() {
     Data.BeforeWrite();
-    string json = JsonConvert.SerializeObject(Data.Dictionary);
-    File.WriteAllText(Path(), json);
+    File.WriteAllText(Path(), Data.Serialize());
   }
 
   public void Read() {
     string json = File.ReadAllText(Path());
-    Data.Dictionary = JsonConvert.DeserializeObject<Dictionary<string, object>>(json);
+    Data.Deserialize(json);
     Data.AfterRead();
   }
 

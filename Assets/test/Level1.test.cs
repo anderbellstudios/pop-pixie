@@ -19,7 +19,7 @@ public class Level1Test : ABaseTest {
   public IEnumerator CompletesLevel() {
     // Wait for camera to settle
     yield return new WaitForSeconds(1f);
-    yield return SnapPixie(0.1f);
+    yield return SnapPlayer(0.1f);
     yield return TakePercyScreenshot("Level1.1");
 
     yield return ScriptedMovement(new[] {
@@ -36,13 +36,7 @@ public class Level1Test : ABaseTest {
 
     AssertHasText("Find a.*Keycard.*to", regex: true);
 
-    KillAllEnemies();
-
-    yield return new WaitForSeconds(1.5f);
-
-    AssertHasText("The enemy dropped a.*Keycard", regex: true);
-
-    yield return AdvanceDialogue();
+    yield return KillAllEnemiesAndAwaitKeycard();
 
     yield return ScriptedMovement(new[] { "Intel", "Elevator" });
 

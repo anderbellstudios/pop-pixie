@@ -80,17 +80,23 @@ public class HitPoints : MonoBehaviour {
     return false;
   }
 
+  public static float InitStartOrder = 1;
+  public static float UpdateStartOrder => OrderedStart.After(InitStartOrder);
+
   void Awake() {
     if (IsPlayer) {
       PlayerHitPoints = this;
     }
-  }
 
-  void Start() {
-    Current = Maximum;
-    LastDamaged = -1000000f;
-    LastDamageAmount = 0f;
-    OnUpdate.Invoke(this);
+    OrderedStart.Add(() => {
+      Current = Maximum;
+      LastDamaged = -1000000f;
+      LastDamageAmount = 0f;
+    }, InitStartOrder);
+
+    OrderedStart.Add(() => {
+      OnUpdate.Invoke(this);
+    }, UpdateStartOrder);
   }
 
   void Update() {

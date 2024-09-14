@@ -16,6 +16,8 @@ public class ElevatorRide : MonoBehaviour {
   }
 
   public void BeginRide() {
+    CheckpointData.Reset();
+
     PhaseScheduler scheduler = ElevatorData.ArrivedFromShop ? FromShopPhaseScheduler : StandardPhaseScheduler;
 
     if (scheduler == null) {

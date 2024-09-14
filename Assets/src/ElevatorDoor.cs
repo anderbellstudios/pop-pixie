@@ -18,7 +18,7 @@ public class ElevatorDoor : AInspectable {
       throw new Exception("ElevatorRide must be set to a value greater than 0");
   }
 
-  public override bool IsInspectable() => LevelObjectives.Current.UsedAccessTerminal;
+  public override bool IsInspectable() => LevelObjectives.UsedAccessTerminal;
 
   public override String AInspectablePromptText()
     => "Press [Inspect] to use the <color=#ffff00>elevator</color>";

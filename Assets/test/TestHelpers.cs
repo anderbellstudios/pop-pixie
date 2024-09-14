@@ -18,6 +18,9 @@ public abstract class ABaseTest {
     GameData.FileName = "game-test-" + runId;
     ConfigData.FileName = "config-test-" + runId;
     TestMode.Enabled = true;
+    GameData.Current.Clear();
+    ConfigData.Current.Clear();
+    CheckpointData.Reset();
     yield return null;
   }
 
@@ -31,7 +34,7 @@ public abstract class ABaseTest {
 
   protected void LoadSceneNotInBuildSettings(string scenePath) {
     EditorSceneManager.LoadSceneAsyncInPlayMode(
-      "Assets/Unity/Scenes/Test Pathfinding.unity",
+      scenePath,
       new LoadSceneParameters(LoadSceneMode.Single)
     );
   }
@@ -167,31 +170,30 @@ public abstract class ABaseTest {
     return player;
   }
 
-  protected IEnumerator ScriptedMovement(string[] anchorNames) {
-    GameObject player = Player();
-
+  protected Vector3 GetAnchorPosition(string anchorName) {
     GameObject anchorContainer = GameObject.Find("ScriptedMovementAnchors");
 
     if (anchorContainer == null) {
-      Assert.Fail("ScriptedMovement: ScriptedMovementAnchors not found");
+      Assert.Fail("ScriptedMovementAnchors not found");
     }
+
+    Transform anchor = anchorContainer.transform.Find(anchorName);
+
+    if (anchor == null) {
+      Assert.Fail("Anchor not found: " + anchorName);
+    }
+
+    return anchor.position;
+  }
+
+  protected IEnumerator ScriptedMovement(string[] anchorNames) {
+    ScriptedMovement scriptedMovement = Player().GetComponent<ScriptedMovement>();
+    scriptedMovement.ScriptedMovementState = false;
 
     bool finished = false;
 
-    ScriptedMovement scriptedMovement = player.GetComponent<ScriptedMovement>();
-
-    scriptedMovement.ScriptedMovementState = false;
-
     scriptedMovement.FollowPath(
-      path: anchorNames.Select(anchorName => {
-        Transform anchor = anchorContainer.transform.Find(anchorName);
-
-        if (anchor == null) {
-          Assert.Fail("ScriptedMovement: Anchor not found: " + anchorName);
-        }
-
-        return anchor.position;
-      }).ToList(),
+      path: anchorNames.Select(GetAnchorPosition).ToList(),
       speed: 20f,
       onComplete: () => {
         scriptedMovement.ScriptedMovementState = true;
@@ -206,12 +208,34 @@ public abstract class ABaseTest {
     yield return ScriptedMovement(new[] { anchorName });
   }
 
+  protected IEnumerator DieAndResume() {
+    string sceneName = SceneManager.GetActiveScene().name;
+    string scenePath = SceneManager.GetActiveScene().path;
+
+    HitPoints.PlayerHitPoints.Damage(1000000);
+    yield return AwaitSceneChange("Game Over");
+
+    // Clicking "Try again" may not work if the scene is not in build settings
+    GameData.LoadOrReset();
+    GameOverData.IsRetry = true;
+    LoadSceneNotInBuildSettings(scenePath);
+
+    yield return AwaitSceneChange(sceneName);
+  }
+
   protected void KillAllEnemies(Transform container = null) {
     foreach (GameObject enemy in EnemiesInContainer(container)) {
       HitPoints hp = enemy.GetComponent<HitPoints>();
       if (hp)
         hp.Damage(1000000);
     }
+  }
+
+  protected IEnumerator KillAllEnemiesAndAwaitKeycard(Transform container = null) {
+    KillAllEnemies(container);
+    yield return new WaitForSeconds(1.5f);
+    AssertHasText("The enemy dropped a.*Keycard", regex: true);
+    yield return AdvanceDialogue();
   }
 
   protected void PreventEnemyMovement(Transform container = null) {
@@ -323,13 +347,17 @@ public abstract class ABaseTest {
     yield return AwaitPlayingState();
   }
 
-  protected IEnumerator SnapPixie(float increment) {
-    Transform pixieTransform = PlayerGameObject.Current.transform;
+  protected void AssertPlayerPosition(Vector3 position) {
+    Assert.AreEqual(position, Player().transform.position);
+  }
 
-    pixieTransform.position = new Vector3(
-      Mathf.Round(pixieTransform.position.x / increment) * increment,
-      Mathf.Round(pixieTransform.position.y / increment) * increment,
-      pixieTransform.position.z
+  protected IEnumerator SnapPlayer(float increment) {
+    Transform playerTransform = Player().transform;
+
+    playerTransform.position = new Vector3(
+      Mathf.Round(playerTransform.position.x / increment) * increment,
+      Mathf.Round(playerTransform.position.y / increment) * increment,
+      playerTransform.position.z
     );
 
     // Wait for camera to adjust
