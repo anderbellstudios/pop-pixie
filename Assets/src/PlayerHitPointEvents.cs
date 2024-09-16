@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 public class PlayerHitPointEvents : MonoBehaviour {
   public HitPoints OverrideHitPoints;
   public HUDBar HealthBar;
-  public ScreenFade Fader;
   public string GameOverScene = "Game Over";
 
   void Awake() {
@@ -17,19 +16,17 @@ public class PlayerHitPointEvents : MonoBehaviour {
     });
 
     hitPoints.OnDecrease.AddListener(hp => {
-      Fader.Flash("red", 2.0f);
+      ScreenFade.DamageFlash();
     });
 
     hitPoints.OnBecomeZero.AddListener(hp => {
-      StateManager.AddState(State.PlayerDying);
-      Fader.Fade("to black", 2.0f);
-      AudioFadeOut.Current.FadeOut(1.0f);
-      Invoke("GameOverScreen", 2.0f);
+      SpinsOnDeath.Begin();
+      GameOverData.ResumeLevel = SceneManager.GetActiveScene().name;
+      SceneEvents.Current.ChangeScene(
+        GameOverScene,
+        fadeOutMusic: true,
+        overrideFadeOutDuration: 2f
+      );
     });
-  }
-
-  void GameOverScreen() {
-    GameOverData.ResumeLevel = SceneManager.GetActiveScene().name;
-    SceneManager.LoadScene(GameOverScene);
   }
 }
