@@ -9,7 +9,6 @@ public class SceneEvents : MonoBehaviour {
   public bool SingletonInstance = true;
   public static SceneEvents Current;
 
-  public ScreenFade Fader;
   public bool ShouldFadeIn = true, ShouldFadeOut = true, WaitForFadeInBeforePermittingExit = false, PauseGameplayDuringFadeOut = false;
   public float FadeInDelay, FadeInDuration, FadeOutDuration, PostFadeOutDelay;
   public bool IsRetry = false;
@@ -31,13 +30,13 @@ public class SceneEvents : MonoBehaviour {
   void Start() {
     if (ShouldFadeIn) {
       FadingIn = true;
-      Fader.Fade("to black", 0.0f);
+      ScreenFade.FadeOut(0f);
       Invoke("FadeIn", FadeInDelay);
     }
   }
 
   void FadeIn() {
-    Fader.Fade("from black", FadeInDuration);
+    ScreenFade.FadeIn(FadeInDuration);
     Invoke("AfterFadeIn", FadeInDuration);
   }
 
@@ -64,7 +63,7 @@ public class SceneEvents : MonoBehaviour {
         StateManager.AddState(State.NotPlaying);
 
       AudioFadeOut.Current.FadeOut(FadeOutDuration, !fadeOutMusic);
-      Fader.Fade("to black", FadeOutDuration);
+      ScreenFade.FadeOut(FadeOutDuration);
       Invoke("LoadNewScene", FadeOutDuration + PostFadeOutDelay);
     } else {
       LoadNewScene();
