@@ -120,7 +120,7 @@ public abstract class AEnemyAI : MonoBehaviour {
     Timers.ForEach(global::AsyncTimer.PlayingTime.ClearTimeout);
   }
 
-  protected class DoNotUseAsyncTimerInEnemyAI {}
+  protected class DoNotUseAsyncTimerInEnemyAI { }
   protected DoNotUseAsyncTimerInEnemyAI AsyncTimer
     => new DoNotUseAsyncTimerInEnemyAI();
 }
