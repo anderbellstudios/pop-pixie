@@ -27,12 +27,15 @@ public class VersionInfo : MonoBehaviour {
         string result = await client.DownloadStringTaskAsync(VersionURL);
         LatestVersion = result.Trim();
 
-        UpdateButton.SetActive(
-          new Version(CurrentVersion) < new Version(LatestVersion)
-        );
+        // Scene may have unloaded
+        if (UpdateButton != null) {
+          UpdateButton.SetActive(
+            new Version(CurrentVersion) < new Version(LatestVersion)
+          );
 
-        UpdateText();
-        CancelInvoke();
+          UpdateText();
+          CancelInvoke();
+        }
       }
     } catch (WebException e) {
       Debug.Log(e);

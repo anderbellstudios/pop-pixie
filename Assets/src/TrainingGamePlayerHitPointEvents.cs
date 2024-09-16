@@ -18,7 +18,7 @@ public class TrainingGamePlayerHitPointEvents : MonoBehaviour {
       Active = true;
       ActivatedAt = Time.time;
 
-      ScreenFade.Current.Flash("red", 2f);
+      ScreenFade.DamageFlash();
 
       AsyncTimer.BaseTime.SetTimeout(() => {
         Active = false;

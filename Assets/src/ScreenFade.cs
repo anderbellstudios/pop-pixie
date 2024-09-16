@@ -4,55 +4,33 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ScreenFade : MonoBehaviour {
-  public bool SingletonInstance = false;
+  public bool SingletonInstance = true;
   public static ScreenFade Current;
 
-  private Image image;
+  private Image Image;
 
   void Awake() {
     if (SingletonInstance)
       Current = this;
 
-    image = gameObject.GetComponent<Image>();
+    Image = gameObject.GetComponent<Image>();
   }
 
-  public void Flash(string colour, float duration) {
-    switch (colour) {
-      case "red":
-        Flash(new Color32(255, 0, 0, 100), duration);
-        break;
-    }
+  public static void DamageFlash() {
+    Fade(0.4f, 0f, Color.red, 2f);
   }
 
-  public void Flash(Color32 colour, float duration) {
-    Fade(1.0f, 0.0f, colour, duration);
+  public static void FadeIn(float duration) {
+    Fade(1f, 0f, Color.black, duration);
   }
 
-  public void Fade(string fade, float duration) {
-    switch (fade) {
-      case "to black":
-        Fade(
-          0.0f,
-          1.0f,
-          new Color32(0, 0, 0, 255),
-          duration
-        );
-        break;
-
-      case "from black":
-        Fade(
-          1.0f,
-          0.0f,
-          new Color32(0, 0, 0, 255),
-          duration
-        );
-        break;
-    }
+  public static void FadeOut(float duration) {
+    Fade(0f, 1f, Color.black, duration);
   }
 
-  public void Fade(float u, float v, Color32 colour, float duration) {
-    image.color = colour;
-    image.CrossFadeAlpha(u, 0.0f, false);
-    image.CrossFadeAlpha(v, duration, false);
+  private static void Fade(float fromOpacity, float toOpacity, Color color, float duration) {
+    Current.Image.color = color;
+    Current.Image.CrossFadeAlpha(fromOpacity, 0f, false);
+    Current.Image.CrossFadeAlpha(toOpacity, duration, false);
   }
 }

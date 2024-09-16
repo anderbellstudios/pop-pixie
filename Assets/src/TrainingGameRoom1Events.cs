@@ -5,11 +5,10 @@ using System.Linq;
 using UnityEngine;
 
 public class TrainingGameRoom1Events : MonoBehaviour {
-  public ScreenFade Fader;
   public List<GameObject> Targets;
 
   void Start() {
-    Fader.Fade("to black", 0.0f);
+    ScreenFade.FadeOut(0f);
 
     SimulationResultData.StartedTime = PlayingTime.time;
     SimulationResultData.NumberOfHitsTaken = 0;
@@ -28,6 +27,6 @@ public class TrainingGameRoom1Events : MonoBehaviour {
   }
 
   public void FadeIn() {
-    Fader.Fade("from black", 1f);
+    ScreenFade.FadeIn(1f);
   }
 }
