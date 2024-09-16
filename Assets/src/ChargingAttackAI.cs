@@ -16,33 +16,26 @@ public class ChargingAttackAI : AEnemyAI, IRequiresLineOfMovementAI {
 
   public AEnemyAI WhenAttackFinished;
 
-  IntervalTimer PreparingAttackTimer;
-  IntervalTimer GiveUpTimer;
+  private bool Preparing;
 
   public override void ControlGained() {
-    PreparingAttackTimer = new IntervalTimer() {
-      TimeClass = "PlayingTime",
-      Interval = PreparingAttackInterval
-    };
+    Preparing = true;
 
-    GiveUpTimer = new IntervalTimer() {
-      TimeClass = "PlayingTime",
-      Interval = PreparingAttackInterval + GiveUpInterval
-    };
+    SetTimeout(() => {
+      Preparing = false;
 
-    PreparingAttackTimer.Reset();
-    GiveUpTimer.Reset();
+      SetTimeout(() => {
+        RelinquishControlTo(WhenAttackFinished);
+      }, GiveUpInterval);
+    }, PreparingAttackInterval);
   }
 
   public override void WhileInControl() {
     float randomAngle = Random.Range(-WiggleAmplitude, WiggleAmplitude);
     SetWiggleAngle(randomAngle);
 
-    if (PreparingAttackTimer.Elapsed())
+    if (!Preparing)
       ApplyMovement(TargetDirection() * Speed);
-
-    if (GiveUpTimer.Elapsed())
-      RelinquishControlTo(WhenAttackFinished);
   }
 
   public override void ControlRelinquished() {
@@ -55,11 +48,11 @@ public class ChargingAttackAI : AEnemyAI, IRequiresLineOfMovementAI {
     }
   }
 
-  void SetWiggleAngle(float angle) {
+  private void SetWiggleAngle(float angle) {
     (WiggleTransform ?? transform).rotation = Quaternion.Euler(0, 0, angle);
   }
 
-  void PerformAttack() {
+  private void PerformAttack() {
     bool isCounterAttack = DamageTarget(Damage, true);
 
     if (isCounterAttack) {
@@ -78,7 +71,5 @@ public class ChargingAttackAI : AEnemyAI, IRequiresLineOfMovementAI {
     RelinquishControlTo(WhenAttackFinished);
   }
 
-  bool ShouldPlaySound() {
-    return UnityEngine.Random.value < ChanceToPlaySound;
-  }
+  private bool ShouldPlaySound() => Random.value < ChanceToPlaySound;
 }

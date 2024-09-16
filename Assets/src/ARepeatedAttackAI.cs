@@ -8,38 +8,29 @@ public abstract class ARepeatedAttackAI : AEnemyAI {
 
   public AEnemyAI WhenFinished;
 
-  IntervalTimer AttackTimer;
-  int RemainingAttacks;
+  private float CurrentAttackInterval;
 
   public override void ControlGained() {
-    AttackTimer = new IntervalTimer() {
-      TimeClass = "PlayingTime",
-      Interval = AttackInterval
-    };
-
-    AttackTimer.Start();
-
-    RemainingAttacks = Random.Range(MinAttacks, MaxAttacks);
-
+    // Ignore changes to AttackInterval while attack is in progress
+    CurrentAttackInterval = AttackInterval;
+    int attacks = Random.Range(MinAttacks, MaxAttacks);
+    PerformAttackAndScheduleNext(attacks);
     LocalControlGained();
   }
 
   public virtual void LocalControlGained() { }
 
-  public override void WhileInControl() {
-    AttackTimer.IfElapsed(PerformAttackAndDecrementCounter);
-    LocalWhileInControl();
-  }
-
-  public virtual void LocalWhileInControl() { }
-
-  void PerformAttackAndDecrementCounter() {
-    if (RemainingAttacks > 0) {
-      PerformAttack();
-      RemainingAttacks--;
-    } else {
+  private void PerformAttackAndScheduleNext(int remainingAttacks) {
+    if (remainingAttacks == 0) {
       EndAttack();
+      return;
     }
+
+    PerformAttack();
+
+    SetTimeout(() => {
+      PerformAttackAndScheduleNext(remainingAttacks - 1);
+    }, CurrentAttackInterval);
   }
 
   protected void EndAttack() {

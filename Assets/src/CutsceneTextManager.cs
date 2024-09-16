@@ -12,14 +12,13 @@ public class CutsceneTextManager : MonoBehaviour {
   public TMP_Text Text;
   public TMP_Typewriter Typewriter;
 
-  private IntervalTimer FadeOutTimer;
+  private bool FadingOut;
+  private float FadeOutStartTime, FadeOutDuration;
   private Action OnFadeOut;
 
   void Awake() {
     if (SingletonInstance)
       Current = this;
-
-    FadeOutTimer = new IntervalTimer();
   }
 
   public void Write(
@@ -49,18 +48,20 @@ public class CutsceneTextManager : MonoBehaviour {
   }
 
   void FadeOut(float duration, Action onFadeOut) {
-    FadeOutTimer.Interval = duration;
-    FadeOutTimer.Reset();
+    FadingOut = true;
+    FadeOutStartTime = Time.time;
+    FadeOutDuration = duration;
     OnFadeOut = onFadeOut;
   }
 
   void Update() {
-    if (FadeOutTimer.Started) {
-      SetOpacity(1 - FadeOutTimer.Progress());
+    if (FadingOut) {
+      float progress = Mathf.Clamp01((Time.time - FadeOutStartTime) / FadeOutDuration);
+      SetOpacity(1f - progress);
 
-      if (FadeOutTimer.Elapsed()) {
-        SetOpacity(0);
-        FadeOutTimer.Stop();
+      if (progress >= 1f) {
+        FadingOut = false;
+        SetOpacity(0f);
         OnFadeOut();
       }
     }

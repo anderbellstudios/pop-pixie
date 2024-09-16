@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CirclingAroundTargetAI : AEnemyAI, IRequiresLineOfMovementAI {
-
   public float TooFarThreshold, ApproachToDistance;
   public float TooCloseThreshold, BackOffToDistance;
 
@@ -15,27 +14,17 @@ public class CirclingAroundTargetAI : AEnemyAI, IRequiresLineOfMovementAI {
 
   public AEnemyAI WhenAttacking;
 
-  bool AdjustingDistance;
-  int CircleDirection;
-
-  IntervalTimer AttackTimer;
+  private bool AdjustingDistance;
+  private int CircleDirection;
 
   public override void ControlGained() {
-    float attackIntervalRandomModifier = Random.Range(
-      -AttackIntervalRandomness / 2,
-        AttackIntervalRandomness / 2
-    );
+    float duration = AttackInterval + (Random.Range(-1f, 1f) * AttackIntervalRandomness / 2f);
 
-    AttackTimer = new IntervalTimer() {
-      TimeClass = "PlayingTime",
-      Interval = AttackInterval + attackIntervalRandomModifier
-    };
+    SetTimeout(() => {
+      RelinquishControlTo(WhenAttacking);
+    }, duration);
 
-    AttackTimer.Reset();
-
-    var random = Random.Range(-1f, 1f);
-
-    if (random > 0) {
+    if (Random.value > 0.5f) {
       CircleDirection = 1;
     } else {
       CircleDirection = -1;
@@ -48,31 +37,29 @@ public class CirclingAroundTargetAI : AEnemyAI, IRequiresLineOfMovementAI {
     }
 
     if (AdjustingDistance) {
-
-      if (TargetDistance() > ApproachToDistance) {
-        ApplyMovement(TargetDirection() * ApproachSpeed);
-      } else if (TargetDistance() < BackOffToDistance) {
-        ApplyMovement(-TargetDirection() * BackOffSpeed);
-      } else {
-        AdjustingDistance = false;
-      }
-
+      AdjustDistance();
     } else {
-
-      ApplyMovement(
-        Vector2.Perpendicular(TargetDirection()) * CircleSpeed * CircleDirection
-      );
-
+      Circle();
     }
+  }
 
-    AttackTimer.IfElapsed(
-      () => RelinquishControlTo(WhenAttacking)
+  private void AdjustDistance() {
+    if (TargetDistance() > ApproachToDistance) {
+      ApplyMovement(TargetDirection() * ApproachSpeed);
+    } else if (TargetDistance() < BackOffToDistance) {
+      ApplyMovement(-TargetDirection() * BackOffSpeed);
+    } else {
+      AdjustingDistance = false;
+    }
+  }
+
+  private void Circle() {
+    ApplyMovement(
+      Vector2.Perpendicular(TargetDirection()) * CircleSpeed * CircleDirection
     );
-
   }
 
   public override void LocalOnCollisionEnter2D(Collision2D _) {
     CircleDirection *= -1;
   }
-
 }
