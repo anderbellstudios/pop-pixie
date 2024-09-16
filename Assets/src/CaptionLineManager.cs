@@ -13,13 +13,13 @@ public class CaptionLineManager : MonoBehaviour {
   public TMP_Text BackgroundText, Text;
 
   private CaptionLine CaptionLine = null;
-  private IntervalTimer Timer;
+  private bool Running;
+  private Func<float> GetTime;
+  private float StartTime;
 
   void Awake() {
     if (SingletonInstance)
       Current = this;
-
-    Timer = new IntervalTimer();
 
     SetOpacity(0);
   }
@@ -33,29 +33,34 @@ public class CaptionLineManager : MonoBehaviour {
       PlaySound.Play(CaptionLine.VoiceLineKey, doNotPause: CaptionLine.DoNotPauseWhenNotPlaying);
     }
 
-    Timer.Interval = captionLine.Duration + FadeOutDuration;
-    Timer.Reset();
+    GetTime = CaptionLine.DoNotPauseWhenNotPlaying
+      ? () => Time.time
+      : () => PlayingTime.time;
+
+    Running = true;
+    StartTime = GetTime();
 
     CaptionLine.DialogueMusicFadeBehaviour.ApplyEnterBehaviour();
   }
 
   void Update() {
-    if (Timer.Started) {
-      float time = Timer.TimeSinceElapsed();
+    if (!Running)
+      return;
 
-      if (time < FadeInDuration) {
-        SetOpacity(time / FadeInDuration);
-      } else if (time < CaptionLine.Duration) {
-        SetOpacity(1);
-      } else {
-        SetOpacity(1 - (time - CaptionLine.Duration) / FadeOutDuration);
-      }
+    float time = GetTime() - StartTime;
 
-      Timer.IfElapsed(() => {
-        Timer.Stop();
-        SetOpacity(0);
-        CaptionLine.DialogueMusicFadeBehaviour.ApplyExitBehaviour();
-      });
+    if (time < FadeInDuration) {
+      SetOpacity(time / FadeInDuration);
+    } else if (time < CaptionLine.Duration) {
+      SetOpacity(1);
+    } else {
+      SetOpacity(1 - (time - CaptionLine.Duration) / FadeOutDuration);
+    }
+
+    if (time >= CaptionLine.Duration + FadeOutDuration) {
+      Running = false;
+      SetOpacity(0);
+      CaptionLine.DialogueMusicFadeBehaviour.ApplyExitBehaviour();
     }
   }
 

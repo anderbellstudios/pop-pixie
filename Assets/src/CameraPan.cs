@@ -14,13 +14,8 @@ public class CameraPan : MonoBehaviour {
 
   private Vector3 InitialPosition;
   private float InitialSize;
-  private IntervalTimer Timer;
-
-  void Awake() {
-    Timer = new IntervalTimer() {
-      Interval = Duration
-    };
-  }
+  private float StartTime;
+  private bool Running = false;
 
   public void Perform() {
     InitialPosition = Camera.transform.position;
@@ -29,22 +24,26 @@ public class CameraPan : MonoBehaviour {
     if (PauseGameplay)
       StateManager.AddState(State.NotPlaying);
 
-    Timer.Reset();
+    StartTime = Time.time;
+    Running = true;
   }
 
   void Update() {
-    Timer.UnlessElapsed(() => {
-      Camera.transform.position = InterpolatedPosition();
-      Camera.GetComponent<Camera>().orthographicSize = InterpolatedSize();
-    });
+    if (!Running)
+      return;
 
-    Timer.IfElapsed(() => {
+    float progress = Mathf.Clamp01((Time.time - StartTime) / Duration);
+    Camera.transform.position = InterpolatedPosition(progress);
+    Camera.GetComponent<Camera>().orthographicSize = InterpolatedSize(progress);
+
+    if (progress >= 1f) {
       Finished();
-      Timer.Stop();
-    });
+    }
   }
 
   void Finished() {
+    Running = false;
+
     if (PauseGameplay)
       StateManager.RemoveState(State.NotPlaying);
 
@@ -55,19 +54,15 @@ public class CameraPan : MonoBehaviour {
     OnFinish.Invoke();
   }
 
-  Vector3 InterpolatedPosition() {
-    return Vector3.Lerp(
-      InitialPosition,
-      DestinationCamera.transform.position,
-      Timer.Progress()
-    );
-  }
+  Vector3 InterpolatedPosition(float progress) => Vector3.Lerp(
+    InitialPosition,
+    DestinationCamera.transform.position,
+    progress
+  );
 
-  float InterpolatedSize() {
-    return Mathf.Lerp(
-      InitialSize,
-      DestinationCamera.orthographicSize,
-      Timer.Progress()
-    );
-  }
+  float InterpolatedSize(float progress) => Mathf.Lerp(
+    InitialSize,
+    DestinationCamera.orthographicSize,
+    progress
+  );
 }

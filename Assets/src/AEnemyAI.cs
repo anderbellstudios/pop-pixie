@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class AEnemyAI : MonoBehaviour {
-
   public bool StartsInControl;
   public bool InControl;
 
   private LowPriorityBehaviour LowPriorityBehaviour;
+  private List<AsyncTimer.EnqueuedEvent> Timers = new();
 
   void Start() {
     LowPriorityBehaviour = new LowPriorityBehaviour();
@@ -35,6 +35,7 @@ public abstract class AEnemyAI : MonoBehaviour {
 
   public void RelinquishControl() {
     InControl = false;
+    ClearTimers();
     ControlRelinquished();
   }
 
@@ -107,4 +108,19 @@ public abstract class AEnemyAI : MonoBehaviour {
     return 1f;
   }
 
+  public void SetTimeout(System.Action callback, float timeout) {
+    Timers.Add(global::AsyncTimer.PlayingTime.SetTimeout(callback, timeout, gameObject));
+  }
+
+  public void SetInterval(System.Action callback, float interval) {
+    Timers.Add(global::AsyncTimer.PlayingTime.SetInterval(callback, interval, gameObject));
+  }
+
+  private void ClearTimers() {
+    Timers.ForEach(global::AsyncTimer.PlayingTime.ClearTimeout);
+  }
+
+  protected class DoNotUseAsyncTimerInEnemyAI {}
+  protected DoNotUseAsyncTimerInEnemyAI AsyncTimer
+    => new DoNotUseAsyncTimerInEnemyAI();
 }

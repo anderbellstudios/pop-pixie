@@ -7,9 +7,9 @@ public class AmandaScreen : MonoBehaviour {
   public SpriteRenderer SpriteRenderer;
   public Sprite BrokenSprite;
   public GameObject OverrideGameObject;
-  public int OverrideInterval;
+  public float OverrideInterval;
 
-  private IntervalTimer OverrideTimer;
+  private float StartTime;
   private bool Destroyed = false;
 
   void Awake() {
@@ -18,18 +18,13 @@ public class AmandaScreen : MonoBehaviour {
       Destroyed = true;
     });
 
-    OverrideTimer = new IntervalTimer() {
-      TimeClass = "PlayingTime",
-      Interval = OverrideInterval
-    };
-
-    OverrideTimer.Reset();
+    StartTime = PlayingTime.time;
   }
 
   void Update() {
     if (OverrideGameObject != null) {
-      OverrideGameObject.SetActive(!Destroyed && OverrideTimer.Progress() > 0.5);
-      OverrideTimer.IfElapsed(() => OverrideTimer.Reset());
+      float progress = ((PlayingTime.time - StartTime) / OverrideInterval) % 1f;
+      OverrideGameObject.SetActive(!Destroyed && progress > 0.5);
     }
   }
 }

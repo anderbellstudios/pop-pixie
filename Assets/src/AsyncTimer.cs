@@ -10,17 +10,15 @@ public abstract class AsyncTimer : MonoBehaviour {
     public bool Repeating;
     public float Time;
     public float? Interval;
+    public bool IsBoundToGameObject;
+    public GameObject BoundGameObject;
     public System.Action Callback;
-
-    public EnqueuedEvent(bool repeating, float time, float? interval, System.Action callback) {
-      Repeating = repeating;
-      Time = time;
-      Interval = interval;
-      Callback = callback;
-    }
 
     // Return true if the event should be removed from the queue
     public bool Update(float currentTime) {
+      if (IsBoundToGameObject && BoundGameObject == null)
+        return true;
+
       if (Time > currentTime)
         return false;
 
@@ -52,14 +50,28 @@ public abstract class AsyncTimer : MonoBehaviour {
     EnqueuedEvents.RemoveAll(enqueuedEvent => enqueuedEvent.Update(currentTime));
   }
 
-  public EnqueuedEvent SetTimeout(System.Action callback, float timeout) {
-    EnqueuedEvent enqueuedEvent = new EnqueuedEvent(false, CurrentTime + timeout, null, callback);
+  public EnqueuedEvent SetTimeout(System.Action callback, float timeout, GameObject bindToGameObject = null) {
+    EnqueuedEvent enqueuedEvent = new EnqueuedEvent() {
+      Repeating = false,
+      Time = CurrentTime + timeout,
+      Interval = null,
+      Callback = callback,
+      IsBoundToGameObject = bindToGameObject != null,
+      BoundGameObject = bindToGameObject
+    };
     EnqueuedEvents.Add(enqueuedEvent);
     return enqueuedEvent;
   }
 
-  public EnqueuedEvent SetInterval(System.Action callback, float interval) {
-    EnqueuedEvent enqueuedEvent = new EnqueuedEvent(true, CurrentTime + interval, interval, callback);
+  public EnqueuedEvent SetInterval(System.Action callback, float interval, GameObject bindToGameObject = null) {
+    EnqueuedEvent enqueuedEvent = new EnqueuedEvent() {
+      Repeating = true,
+      Time = CurrentTime + interval,
+      Interval = interval,
+      Callback = callback,
+      IsBoundToGameObject = bindToGameObject != null,
+      BoundGameObject = bindToGameObject
+    };
     EnqueuedEvents.Add(enqueuedEvent);
     return enqueuedEvent;
   }
