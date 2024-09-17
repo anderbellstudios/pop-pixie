@@ -6,13 +6,15 @@ using UnityEngine;
 public class RollAllowed : MonoBehaviour {
   public float Cooldown;
 
-  private float LastRolled = -1000000;
+  private Stopwatch Stopwatch = null;
 
   public bool CanRoll() {
-    return (PlayingTime.time - LastRolled) > Cooldown;
+    if (Stopwatch == null)
+      return true;
+    return Stopwatch.Time() > Cooldown;
   }
 
   public void DidRoll() {
-    LastRolled = PlayingTime.time;
+    Stopwatch = new Stopwatch.PlayingTime();
   }
 }

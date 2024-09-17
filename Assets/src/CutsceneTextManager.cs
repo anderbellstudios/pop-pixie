@@ -12,8 +12,8 @@ public class CutsceneTextManager : MonoBehaviour {
   public TMP_Text Text;
   public TMP_Typewriter Typewriter;
 
-  private bool FadingOut;
-  private float FadeOutStartTime, FadeOutDuration;
+  private Stopwatch FadeOutStopwatch = null;
+  private float FadeOutDuration;
   private Action OnFadeOut;
 
   void Awake() {
@@ -48,19 +48,18 @@ public class CutsceneTextManager : MonoBehaviour {
   }
 
   void FadeOut(float duration, Action onFadeOut) {
-    FadingOut = true;
-    FadeOutStartTime = Time.time;
+    FadeOutStopwatch = new Stopwatch.BaseTime();
     FadeOutDuration = duration;
     OnFadeOut = onFadeOut;
   }
 
   void Update() {
-    if (FadingOut) {
-      float progress = Mathf.Clamp01((Time.time - FadeOutStartTime) / FadeOutDuration);
+    if (FadeOutStopwatch != null) {
+      float progress = FadeOutStopwatch.Progress(FadeOutDuration);
       SetOpacity(1f - progress);
 
       if (progress >= 1f) {
-        FadingOut = false;
+        FadeOutStopwatch = null;
         SetOpacity(0f);
         OnFadeOut();
       }

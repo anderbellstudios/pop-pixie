@@ -10,16 +10,15 @@ public class GrenadePredictedPosition : MonoBehaviour {
   public float AnimateInDuration;
   public float Drag = 10f;
 
-  private float CreatedTime;
+  private Stopwatch Stopwatch;
 
   void Awake() {
-    CreatedTime = PlayingTime.time;
+    Stopwatch = new Stopwatch.PlayingTime();
     transform.localScale = Vector3.zero;
   }
 
   void Update() {
-    float scale = Mathf.Clamp(Age() / AnimateInDuration, 0f, 1f);
-    transform.localScale = Vector3.one * scale;
+    transform.localScale = Vector3.one * Stopwatch.Progress(AnimateInDuration);
   }
 
   public void Hide() {
@@ -53,8 +52,7 @@ public class GrenadePredictedPosition : MonoBehaviour {
     );
 
     float safeThrowTime = explodeTime - throwDuration;
-
-    ExplodeDurationIndicator.fillAmount = Mathf.Clamp(Age() / safeThrowTime, 0f, 1f);
+    ExplodeDurationIndicator.fillAmount = Stopwatch.Progress(safeThrowTime);
   }
 
   private float GetMaxDistance(Vector3 direction, float speed) {
@@ -73,6 +71,4 @@ public class GrenadePredictedPosition : MonoBehaviour {
 
     return maxDistance;
   }
-
-  private float Age() => PlayingTime.time - CreatedTime;
 }
