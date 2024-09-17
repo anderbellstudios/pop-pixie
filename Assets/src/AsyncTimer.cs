@@ -47,7 +47,18 @@ public abstract class AsyncTimer : MonoBehaviour {
 
   void Update() {
     float currentTime = CurrentTime;
-    EnqueuedEvents.RemoveAll(enqueuedEvent => enqueuedEvent.Update(currentTime));
+    /**
+     * A previous version of this code used EnqueuedEvents.RemoveAll. This was
+     * causing problems since RemoveAll doesn't expect the list to be mutated
+     * by the predicate, causing the wrong EnqueuedEvent to be removed in some
+     * circumstances.
+     */
+    List<EnqueuedEvent> enqueuedEvents = new List<EnqueuedEvent>(EnqueuedEvents);
+    enqueuedEvents.ForEach(enqueuedEvent => {
+      if (enqueuedEvent.Update(currentTime)) {
+        EnqueuedEvents.Remove(enqueuedEvent);
+      }
+    });
   }
 
   public EnqueuedEvent SetTimeout(System.Action callback, float timeout, GameObject bindToGameObject = null) {
