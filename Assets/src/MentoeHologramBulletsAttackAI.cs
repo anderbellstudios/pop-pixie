@@ -15,7 +15,7 @@ public class MentoeHologramBulletsAttackAI : AEnemyAI {
 
   public AEnemyAI WhenFinished;
 
-  private IntervalTimer AngleTimer, FireTimer;
+  private Stopwatch AngleStopwatch;
   private Vector3 ReferenceDirection;
   private float CurrentRotations;
 
@@ -24,41 +24,31 @@ public class MentoeHologramBulletsAttackAI : AEnemyAI {
   }
 
   public override void ControlGained() {
-    AngleTimer = new IntervalTimer() {
-      TimeClass = "PlayingTime",
-      Interval = Duration
-    };
-
-    AngleTimer.Reset();
-
-    FireTimer = new IntervalTimer() {
-      TimeClass = "PlayingTime",
-      Interval = 1f / BulletsPerSecond
-    };
-
-    FireTimer.Start();
-
     ReferenceDirection = TargetDirection();
     CurrentRotations = Rotations;
-  }
 
-  public override void WhileInControl() {
-    if (AngleTimer.Elapsed()) {
+    AngleStopwatch = new Stopwatch.PlayingTime();
+
+    SetTimeout(() => {
       RelinquishControlTo(WhenFinished);
-    } else {
-      FireTimer.IfElapsed(() => {
-        // Add 15deg to the angle to avoid shooting the player right away
-        float angle = Mathf.Lerp(0, 360 * CurrentRotations, AngleTimer.Progress()) + 15;
+    }, Duration);
 
-        FireBulletInDirection(Quaternion.Euler(0, 0, angle + 0) * Vector3.right, true);
-        FireBulletInDirection(Quaternion.Euler(0, 0, angle + 90) * Vector3.right, false);
-        FireBulletInDirection(Quaternion.Euler(0, 0, angle + 180) * Vector3.right, false);
-        FireBulletInDirection(Quaternion.Euler(0, 0, angle + 270) * Vector3.right, false);
-      });
-    }
+    SetInterval(FireBullets, 1f / BulletsPerSecond);
   }
 
-  void FireBulletInDirection(Vector3 direction, bool playFireSound) {
+  private void FireBullets() {
+    float progress = AngleStopwatch.Progress(Duration);
+
+    // Add 15deg to the angle to avoid shooting the player right away
+    float angle = Mathf.Lerp(0, 360 * CurrentRotations, progress) + 15;
+
+    FireBulletInDirection(Quaternion.Euler(0, 0, angle + 0) * Vector3.right, true);
+    FireBulletInDirection(Quaternion.Euler(0, 0, angle + 90) * Vector3.right, false);
+    FireBulletInDirection(Quaternion.Euler(0, 0, angle + 180) * Vector3.right, false);
+    FireBulletInDirection(Quaternion.Euler(0, 0, angle + 270) * Vector3.right, false);
+  }
+
+  private void FireBulletInDirection(Vector3 direction, bool playFireSound) {
     FireBullet.Fire(
       prefab: BulletPrefab,
       getDirection: () => direction.normalized,

@@ -9,25 +9,26 @@ public class FadeImage : MonoBehaviour {
   public float Duration;
   public AnimationCurve AnimationCurve;
 
-  private IntervalTimer Timer;
+  private Stopwatch Stopwatch;
 
   void Start() {
-    Timer = new IntervalTimer() {
-      Interval = Duration
-    };
-
     if (PerformOnStart)
       Perform();
   }
 
   public void Perform() {
-    Timer.Reset();
+    Stopwatch = new Stopwatch.BaseTime();
   }
 
   void Update() {
-    if (Timer.Started) {
-      Image.color = new Color(1, 1, 1, AnimationCurve.Evaluate(Timer.Progress()));
-      Timer.IfElapsed(() => Timer.Stop());
+    if (Stopwatch == null)
+      return;
+
+    float progress = Stopwatch.Progress(Duration);
+    Image.color = new Color(1, 1, 1, AnimationCurve.Evaluate(progress));
+
+    if (progress >= 1f) {
+      Stopwatch = null;
     }
   }
 }
