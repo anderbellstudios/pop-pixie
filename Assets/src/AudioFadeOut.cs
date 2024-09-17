@@ -6,7 +6,7 @@ public class AudioFadeOut : MonoBehaviour {
   public bool SingletonInstance = true;
   public static AudioFadeOut Current;
 
-  private float StartTime = -1f;
+  private Stopwatch Stopwatch = null;
   private float Duration = 1f;
   private bool IgnoreMusic = true;
 
@@ -20,7 +20,7 @@ public class AudioFadeOut : MonoBehaviour {
   }
 
   public void FadeOut(float duration, bool ignoreMusic = true) {
-    StartTime = Time.time;
+    Stopwatch = new Stopwatch.BaseTime();
     Duration = duration * 0.9f; // Prevent pop
     IgnoreMusic = ignoreMusic;
 
@@ -32,20 +32,13 @@ public class AudioFadeOut : MonoBehaviour {
   }
 
   void Update() {
-    if (StartTime >= 0f) {
+    if (Stopwatch != null) {
       UpdateLevels();
     }
   }
 
-  float GetVolume() {
-    if (StartTime < 0f)
-      return 1f;
-    float progress = (Time.time - StartTime!) / Duration;
-    return 1f - Mathf.Clamp(progress, 0f, 1f);
-  }
-
   void UpdateLevels() {
-    float volume = GetVolume();
+    float volume = 1f - (Stopwatch?.Progress(Duration) ?? 0f);
 
     FMODUnity.RuntimeManager.StudioSystem.setParameterByName(
       "Master volume",

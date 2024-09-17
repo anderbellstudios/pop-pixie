@@ -6,15 +6,15 @@ public class FireHintPrompt : MonoBehaviour {
   public GameObject Enemy;
   public float TimeBeforeShow;
 
-  private float StartTime;
+  private Stopwatch Stopwatch;
 
   void Start() {
+    Stopwatch = new Stopwatch.PlayingTime();
+
     InGamePrompt.Current.RegisterSource(99, () =>
-      !EnemyUtils.IsDead(Enemy) && PlayingTime.time - StartTime > TimeBeforeShow
+      !EnemyUtils.IsDead(Enemy) && Stopwatch.Time() > TimeBeforeShow
       ? "Aim and press [Fire] to destroy your enemy"
       : null
     );
-
-    StartTime = PlayingTime.time;
   }
 }

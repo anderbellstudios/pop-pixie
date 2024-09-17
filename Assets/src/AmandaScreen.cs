@@ -9,7 +9,7 @@ public class AmandaScreen : MonoBehaviour {
   public GameObject OverrideGameObject;
   public float OverrideInterval;
 
-  private float StartTime;
+  private Stopwatch OverrideStopwatch;
   private bool Destroyed = false;
 
   void Awake() {
@@ -18,12 +18,12 @@ public class AmandaScreen : MonoBehaviour {
       Destroyed = true;
     });
 
-    StartTime = PlayingTime.time;
+    OverrideStopwatch = new Stopwatch.PlayingTime();
   }
 
   void Update() {
     if (OverrideGameObject != null) {
-      float progress = ((PlayingTime.time - StartTime) / OverrideInterval) % 1f;
+      float progress = OverrideStopwatch.LoopedProgress(OverrideInterval);
       OverrideGameObject.SetActive(!Destroyed && progress > 0.5);
     }
   }

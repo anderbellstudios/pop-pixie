@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class TrainingGamePlayerHitPointEvents : MonoBehaviour {
-  private bool Active = false;
-  private float ActivatedAt;
+  private Stopwatch SlowdownStopwatch = null;
 
   void Awake() {
     HitPoints hp = GetComponent<HitPoints>();
@@ -13,23 +12,25 @@ public class TrainingGamePlayerHitPointEvents : MonoBehaviour {
     hp.OnDecrease.AddListener(hp => {
       SimulationResultData.NumberOfHitsTaken++;
 
-      if (Active)
+      if (SlowdownStopwatch != null)
         return;
-      Active = true;
-      ActivatedAt = Time.time;
+
+      SlowdownStopwatch = new Stopwatch.BaseTime();
 
       ScreenFade.DamageFlash();
-
-      AsyncTimer.BaseTime.SetTimeout(() => {
-        Active = false;
-      }, 2f);
     });
 
     movementManager.SpeedModifiers.Add((s) => {
-      if (!Active)
+      if (SlowdownStopwatch == null)
         return s;
-      float progress = (Time.time - ActivatedAt) / 2;
-      float k = (1 - Mathf.Cos(progress * Mathf.PI)) / 2;
+
+      float progress = SlowdownStopwatch.Progress(2f);
+      float k = (1f - Mathf.Cos(progress * Mathf.PI)) / 2f;
+
+      if (progress >= 1f) {
+        SlowdownStopwatch = null;
+      }
+
       return s * k;
     });
   }

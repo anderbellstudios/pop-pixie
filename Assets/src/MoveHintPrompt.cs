@@ -6,16 +6,16 @@ public class MoveHintPrompt : MonoBehaviour {
   public float SpeedThreshold;
   public float TimeBeforeShow;
 
-  private float LastMoved;
+  private Stopwatch Stopwatch;
 
   void Start() {
-    InGamePrompt.Current.RegisterSource(100, () =>
-      PlayingTime.time - LastMoved > TimeBeforeShow
-      ? HintText()
-      : null
-    );
+    Stopwatch = new Stopwatch.PlayingTime();
 
-    LastMoved = PlayingTime.time;
+    InGamePrompt.Current.RegisterSource(100, () =>
+      Stopwatch.Time() > TimeBeforeShow
+        ? HintText()
+        : null
+    );
   }
 
   void Update() {
@@ -23,7 +23,7 @@ public class MoveHintPrompt : MonoBehaviour {
       return;
 
     if (PlayerGameObject.EstimatedVelocity.magnitude >= SpeedThreshold)
-      LastMoved = PlayingTime.time;
+      Stopwatch.Reset();
   }
 
   string HintText() => InputMode.IsJoystick()

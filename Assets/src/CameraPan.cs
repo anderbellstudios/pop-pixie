@@ -14,7 +14,7 @@ public class CameraPan : MonoBehaviour {
 
   private Vector3 InitialPosition;
   private float InitialSize;
-  private float StartTime;
+  private Stopwatch Stopwatch;
   private bool Running = false;
 
   public void Perform() {
@@ -24,7 +24,7 @@ public class CameraPan : MonoBehaviour {
     if (PauseGameplay)
       StateManager.AddState(State.NotPlaying);
 
-    StartTime = Time.time;
+    Stopwatch = new Stopwatch.BaseTime();
     Running = true;
   }
 
@@ -32,7 +32,7 @@ public class CameraPan : MonoBehaviour {
     if (!Running)
       return;
 
-    float progress = Mathf.Clamp01((Time.time - StartTime) / Duration);
+    float progress = Stopwatch.Progress(Duration);
     Camera.transform.position = InterpolatedPosition(progress);
     Camera.GetComponent<Camera>().orthographicSize = InterpolatedSize(progress);
 
