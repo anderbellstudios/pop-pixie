@@ -15,20 +15,16 @@ public class LandingMenuBackground : MonoBehaviour {
 
   public List<Sprite> Images;
 
-  private IntervalTimer AnimationTimer;
+  private Stopwatch AnimationStopwatch;
   private int CurrentImageIndex = -1;
 
   void Start() {
-    AnimationTimer = new IntervalTimer() {
-      Interval = Duration
-    };
-
+    AnimationStopwatch = new Stopwatch.BaseTime();
     NextImage();
-    AnimationTimer.Reset();
   }
 
   void Update() {
-    float progress = AnimationTimer.Progress();
+    float progress = AnimationStopwatch.Progress(Duration);
 
     float altitude = AltitudeCurve.Evaluate(progress) * AltitudeAmplitude;
     Transform.localPosition = new Vector3(0, altitude, 0);
@@ -38,10 +34,13 @@ public class LandingMenuBackground : MonoBehaviour {
     color.a = opacity;
     Image.color = color;
 
-    AnimationTimer.IfElapsed(NextImage);
+    if (progress >= 1f) {
+      AnimationStopwatch.Reset();
+      NextImage();
+    }
   }
 
-  void NextImage() {
+  private void NextImage() {
     CurrentImageIndex = (CurrentImageIndex + 1) % Images.Count;
     Image.sprite = Images[CurrentImageIndex];
   }

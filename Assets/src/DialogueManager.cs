@@ -18,19 +18,19 @@ public class DialogueManager : MonoBehaviour {
   private bool Open = false;
   private Action OnFinish;
   private ButtonPressHelper ButtonPressHelper = new MultipleButtonPressHelper();
-  private IntervalTimer ContinuePromptTimer = new IntervalTimer();
+  private AsyncTimer.EnqueuedEvent ContinuePromptTimer;
 
   void Awake() {
     if (SingletonInstance)
       Current = this;
 
-    ContinuePromptTimer = new IntervalTimer() {
-      Interval = ContinuePromptDelay
-    };
-
     DialogueBox.Hide();
 
-    DialogueBox.OnFinished.AddListener(() => ContinuePromptTimer.Reset());
+    DialogueBox.OnFinished.AddListener(() => {
+      ContinuePromptTimer = AsyncTimer.BaseTime.SetTimeout(() => {
+        DialogueBox.SetContinuePromptVisible(true);
+      }, ContinuePromptDelay);
+    });
   }
 
   public void Play(DialogueSequence dialogueSequence, Action onFinish) {
@@ -64,12 +64,13 @@ public class DialogueManager : MonoBehaviour {
     if (Debug.isDebugBuild && ButtonPressHelper.GetButtonPress("cancel")) {
       Exit();
     }
-
-    DialogueBox.SetContinuePromptVisible(ContinuePromptTimer.Elapsed());
   }
 
   void NextPage() {
     CurrentPageIndex += 1;
+
+    DialogueBox.SetContinuePromptVisible(false);
+    AsyncTimer.BaseTime.ClearTimeout(ContinuePromptTimer);
 
     if (CurrentPageIndex >= DialogueSequence.PageCount) {
       Exit();
@@ -100,8 +101,6 @@ public class DialogueManager : MonoBehaviour {
         }
       }, CurrentPage.AutoAdvanceDelay);
     }
-
-    ContinuePromptTimer.Stop();
   }
 
   void Exit() {

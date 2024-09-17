@@ -14,13 +14,12 @@ public class DelayPhase : APhase {
   );
   public UnityEvent OnBegin, OnFinish;
 
-  private IntervalTimer Timer;
+  private Stopwatch Stopwatch;
 
   public override void LocalBegin() {
-    Timer = new IntervalTimer() {
-      TimeClass = UsePlayingTime ? "PlayingTime" : "Time",
-      Interval = Delay
-    };
+    Stopwatch = UsePlayingTime
+      ? new Stopwatch.PlayingTime()
+      : new Stopwatch.BaseTime();
 
 #if UNITY_EDITOR
     Debug.Assert(!(UsePlayingTime && PauseGameplay), "DelayPhase cannot use playing time AND pause gameplay");
@@ -29,23 +28,23 @@ public class DelayPhase : APhase {
     if (PauseGameplay)
       StateManager.AddState(State.NotPlaying);
 
-    Timer.Reset();
-
     DialogueMusicFadeBehaviour.ApplyEnterBehaviour();
     OnBegin.Invoke();
   }
 
   public override void WhilePhaseRunning() {
-    if (HUDBar != null)
-      HUDBar.Progress = Timer.Progress();
+    float progress = Stopwatch.Progress(Delay);
 
-    Timer.IfElapsed(() => {
+    if (HUDBar != null)
+      HUDBar.Progress = progress;
+
+    if (progress >= 1f) {
       if (PauseGameplay)
         StateManager.RemoveState(State.NotPlaying);
 
       DialogueMusicFadeBehaviour.ApplyExitBehaviour();
       OnFinish.Invoke();
       PhaseFinished();
-    });
+    };
   }
 }

@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEngine.Events;
 
 public class Laser : AFireable {
-
   public LaserBeam LaserBeam;
   public LineRenderer LineRenderer;
   public float SweepDuration;
@@ -73,5 +72,4 @@ public class Laser : AFireable {
   float SweepProgress() {
     return SweepTimer.TimeSinceElapsed() / SweepDuration;
   }
-
 }

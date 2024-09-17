@@ -4,19 +4,14 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Explosion : MonoBehaviour {
-
   public Image Image;
   public float Duration;
   public GameObject ExplosionGameObject;
 
-  IntervalTimer Timer;
+  private Stopwatch Stopwatch;
 
   void Start() {
-    Timer = new IntervalTimer() {
-      Interval = Duration
-    };
-
-    Timer.Reset();
+    Stopwatch = new Stopwatch.BaseTime();
   }
 
   void Update() {
@@ -26,20 +21,11 @@ public class Explosion : MonoBehaviour {
     colour.a = Alpha();
     Image.color = colour;
 
-    if (Timer.Elapsed())
+    if (Progress() >= 1f)
       Destroy(ExplosionGameObject);
   }
 
-  float Scale() {
-    return Mathf.Lerp(0.2f, 1f, Progress());
-  }
-
-  float Alpha() {
-    return Mathf.Lerp(1f, 0.75f, Progress());
-  }
-
-  float Progress() {
-    return Timer.TimeSinceElapsed() / Duration;
-  }
-
+  private float Scale() => Mathf.Lerp(0.2f, 1f, Progress());
+  private float Alpha() => Mathf.Lerp(1f, 0.75f, Progress());
+  private float Progress() => Stopwatch.Progress(Duration);
 }

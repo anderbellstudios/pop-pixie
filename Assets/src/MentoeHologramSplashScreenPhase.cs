@@ -32,14 +32,10 @@ public class MentoeHologramSplashScreenPhase : APhase {
 
   public GameObject SplashScreenGameObject;
 
-  private IntervalTimer AnimationTimer;
+  private Stopwatch AnimationStopwatch;
   private Vector3 MentoeInitialPosition, TextInitialPosition;
 
   void Start() {
-    AnimationTimer = new IntervalTimer() {
-      Interval = Duration
-    };
-
     MentoeInitialPosition = MentoeTransform.localPosition;
     TextInitialPosition = TextTransform.localPosition;
 
@@ -48,21 +44,22 @@ public class MentoeHologramSplashScreenPhase : APhase {
 
   public override void LocalBegin() {
     StateManager.AddState(State.NotPlaying);
-    AnimationTimer.Reset();
-
-    Invoke("PlayCaptionLine", DelayBeforeCaptionLine);
-  }
-
-  void PlayCaptionLine() {
-    CaptionLine.Perform();
+    AnimationStopwatch = new Stopwatch.BaseTime();
+    AsyncTimer.BaseTime.SetTimeout(PlayCaptionLine, DelayBeforeCaptionLine);
+    AsyncTimer.BaseTime.SetTimeout(PhaseFinished, Duration);
   }
 
   public override void WhilePhaseRunning() {
-    UpdateWithProgress(Mathf.Clamp(AnimationTimer.Progress(), 0f, 1f));
-    AnimationTimer.IfElapsed(PhaseFinished);
+    UpdateWithProgress(AnimationStopwatch.Progress(Duration));
   }
 
-  void UpdateWithProgress(float progress) {
+  public override void AfterFinished() {
+    UpdateWithProgress(1);
+    SplashScreenGameObject.SetActive(false);
+    StateManager.RemoveState(State.NotPlaying);
+  }
+
+  private void UpdateWithProgress(float progress) {
     HologramWalls.ForEach(wall => {
       wall.sizeDelta = new Vector2(
         wall.sizeDelta.x,
@@ -87,9 +84,7 @@ public class MentoeHologramSplashScreenPhase : APhase {
     BackgroundImage.color = new Color(0, 0, 0, BackgroundOpacityCurve.Evaluate(progress));
   }
 
-  public override void AfterFinished() {
-    UpdateWithProgress(1);
-    SplashScreenGameObject.SetActive(false);
-    StateManager.RemoveState(State.NotPlaying);
+  private void PlayCaptionLine() {
+    CaptionLine.Perform();
   }
 }
