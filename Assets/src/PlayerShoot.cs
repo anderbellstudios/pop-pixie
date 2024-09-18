@@ -10,29 +10,29 @@ public class PlayerShoot : MonoBehaviour {
   public PlaySound PlaySound;
   public string NoBulletsSoundKey;
 
-  private IntervalTimer FireTimer;
+  private EquippedWeapon EquippedWeapon;
+  private Stopwatch CanFireStopwatch = null;
+
+  void Awake() {
+    EquippedWeapon = gameObject.GetComponent<EquippedWeapon>();
+
+    EquippedWeapon.OnChangeWeapon.AddListener(() => {
+      CanFireStopwatch = null;
+    });
+  }
 
   void Start() {
     PreloadProgrammerSounds.PreloadSound(NoBulletsSoundKey);
-
-    FireTimer = new IntervalTimer() {
-      TimeClass = "PlayingTime"
-    };
-
-    FireTimer.Start();
   }
 
   void Update() {
     if (!StateManager.Playing)
       return;
 
-    PlayerWeapon weapon = PlayerWeapon();
+    PlayerWeapon weapon = EquippedWeapon.CurrentWeapon;
+    float cooldown = weapon.CooldownInterval();
 
-    FireTimer.Interval = weapon.CooldownInterval();
-
-    if (WrappedInput.GetButton("Fire") && FireTimer.Elapsed()) {
-      FireTimer.Reset();
-
+    if (WrappedInput.GetButton("Fire") && CanFire(cooldown)) {
       if (weapon.HasBullets()) {
         Fire(weapon);
       } else {
@@ -41,7 +41,11 @@ public class PlayerShoot : MonoBehaviour {
     }
   }
 
-  void Fire(PlayerWeapon weapon) {
+  private bool CanFire(float cooldown) =>
+    CanFireStopwatch == null || CanFireStopwatch.Time() >= cooldown;
+
+  private void Fire(PlayerWeapon weapon) {
+    CanFireStopwatch = new Stopwatch.PlayingTime();
     weapon.ExpendBullet();
 
     FireBullet.Fire(
@@ -55,7 +59,4 @@ public class PlayerShoot : MonoBehaviour {
       soundKey: weapon.ShootSoundKey
     );
   }
-
-  PlayerWeapon PlayerWeapon()
-    => gameObject.GetComponent<EquippedWeapon>().CurrentWeapon;
 }

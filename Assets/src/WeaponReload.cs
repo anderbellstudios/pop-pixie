@@ -8,63 +8,60 @@ public class WeaponReload : MonoBehaviour {
   public HUDBar ReloadBar;
   public MovementManager MovementManager;
 
-  IntervalTimer ReloadTimer;
+  private Stopwatch ReloadStopwatch = null;
 
-  // Use this for initialization
   void Start() {
-    ReloadTimer = new IntervalTimer() {
-      TimeClass = "PlayingTime"
-    };
-
     // Reduce speed by half when reload is InProgress
     MovementManager.SpeedModifiers.Add(
       s => InProgress() ? 0.5f * s : s
     );
-
   }
 
-  // Update is called once per frame
   void Update() {
     if (!StateManager.Playing)
       return;
 
-    ReloadTimer.IfElapsed(CurrentWeapon().Reload);
+    PlayerWeapon weapon = CurrentWeapon();
+    float progress = ReloadStopwatch?.Progress(weapon.ReloadDuration) ?? 0f;
 
-    if (WrappedInput.GetButtonDown("Reload") && !InProgress() && CanReload())
+    if (progress >= 1f) {
+      weapon.Reload();
+      StopReloading();
+    }
+
+    if (WrappedInput.GetButtonDown("Reload") && !InProgress() && CanReload()) {
       BeginReload();
+    }
 
     if (InProgress()) {
       if (CanReload()) {
-        ReloadBar.Progress = ReloadTimer.Progress();
+        ReloadBar.Progress = progress;
       } else {
-        Interrupt();
+        InterruptReloading();
       }
     }
 
     ReloadBar.Visible = InProgress();
   }
 
-  public void Interrupt() {
-    ReloadTimer.Stop();
-    PlaySound.Stop();
-  }
-
-  void BeginReload() {
+  private void BeginReload() {
     PlayerWeapon weapon = CurrentWeapon();
-    ReloadTimer.Interval = weapon.ReloadDuration;
-    ReloadTimer.Reset();
+    ReloadStopwatch = new Stopwatch.PlayingTime();
     PlaySound.Play(weapon.ReloadSoundKey);
   }
 
-  bool InProgress() {
-    return ReloadTimer.Started && !ReloadTimer.Elapsed();
+  public void InterruptReloading() {
+    StopReloading();
+    PlaySound.Stop();
   }
 
-  bool CanReload() {
-    return !CurrentWeapon().Full();
+  private void StopReloading() {
+    ReloadStopwatch = null;
   }
 
-  PlayerWeapon CurrentWeapon() {
-    return gameObject.GetComponent<EquippedWeapon>().CurrentWeapon;
-  }
+  private bool InProgress() => ReloadStopwatch != null;
+  private bool CanReload() => !CurrentWeapon().Full();
+
+  private PlayerWeapon CurrentWeapon()
+    => gameObject.GetComponent<EquippedWeapon>().CurrentWeapon;
 }

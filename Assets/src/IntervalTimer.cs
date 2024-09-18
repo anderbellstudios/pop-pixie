@@ -6,13 +6,16 @@ using UnityEngine;
 public delegate void TimerDelegate();
 
 public class IntervalTimer {
-
   public float Interval;
   public string TimeClass = "Time";
 
   public bool Started;
 
   private float LastElapsed = -1000000f;
+
+  public IntervalTimer() {
+    Debug.Log("IntervalTimer is deprecated. Please use AsyncTimer or Stopwatch instead.");
+  }
 
   public void Start() {
     Started = true;
@@ -65,5 +68,4 @@ public class IntervalTimer {
         return 0f;
     }
   }
-
 }

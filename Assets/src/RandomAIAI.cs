@@ -7,28 +7,15 @@ public class RandomAIAI : AEnemyAI {
   public float Interval = 0f;
   public int LastAI = -1;
 
-  private IntervalTimer IntervalTimer;
-
   public override void ControlGained() {
     if (Interval > 0) {
-      IntervalTimer = new IntervalTimer() {
-        TimeClass = "PlayingTime",
-        Interval = Interval
-      };
-
-      IntervalTimer.Reset();
+      SetInterval(RelinquishControlToRandomAI, Interval);
     } else {
       RelinquishControlToRandomAI();
     }
   }
 
-  public override void WhileInControl() {
-    if (Interval > 0) {
-      IntervalTimer.IfElapsed(RelinquishControlToRandomAI);
-    }
-  }
-
-  void RelinquishControlToRandomAI() {
+  private void RelinquishControlToRandomAI() {
     int i = LastAI;
 
     while (i == LastAI) {
