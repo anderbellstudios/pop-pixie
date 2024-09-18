@@ -74,7 +74,7 @@ public class ClosetAnimation : APhase {
 
     GameObject player = PlayerGameObject.Current;
     ScriptedMovement scriptedMovement = player.GetComponent<ScriptedMovement>();
-    Roll roll = player.GetComponent<Roll>();
+    Roll roll = player.GetComponentInChildren<Roll>();
 
     roll.StartRolling();
 

@@ -6,16 +6,14 @@ using UnityEngine.Events;
 
 public class PlayerShoot : MonoBehaviour {
   public MonoBehaviour AimDirection;
+  public EquippedWeapon EquippedWeapon;
   public FireBullet FireBullet;
   public PlaySound PlaySound;
   public string NoBulletsSoundKey;
 
-  private EquippedWeapon EquippedWeapon;
   private Stopwatch CanFireStopwatch = null;
 
   void Awake() {
-    EquippedWeapon = gameObject.GetComponent<EquippedWeapon>();
-
     EquippedWeapon.OnChangeWeapon.AddListener(() => {
       CanFireStopwatch = null;
     });
