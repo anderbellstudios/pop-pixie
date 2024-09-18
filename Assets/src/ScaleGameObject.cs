@@ -8,26 +8,27 @@ public class ScaleGameObject : MonoBehaviour {
   public float Duration;
   public AnimationCurve AnimationCurve;
 
-  private IntervalTimer Timer;
+  private Stopwatch Stopwatch = null;
 
   void Start() {
-    Timer = new IntervalTimer() {
-      Interval = Duration
-    };
-
     if (PerformOnStart)
       Perform();
   }
 
   public void Perform() {
-    Timer.Reset();
+    Stopwatch = new Stopwatch.BaseTime();
   }
 
   void Update() {
-    if (Timer.Started) {
-      float scale = AnimationCurve.Evaluate(Timer.Progress());
-      Transform.localScale = new Vector3(scale, scale, scale);
-      Timer.IfElapsed(() => Timer.Stop());
+    if (Stopwatch == null)
+      return;
+
+    float progress = Stopwatch.Progress(Duration);
+    float scale = AnimationCurve.Evaluate(progress);
+    Transform.localScale = scale * Vector3.one;
+
+    if (progress >= 1f) {
+      Stopwatch = null;
     }
   }
 }

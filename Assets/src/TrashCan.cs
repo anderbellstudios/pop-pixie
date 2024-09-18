@@ -22,29 +22,17 @@ public class TrashCan : AInspectable {
   enum JumpDirectionEnum { In, Out };
 
   private int Stage;
-
   private bool Jumping = false;
-  private AnimationCurve JumpXCurve, JumpYCurve, JumpRotationCurve;
-  private IntervalTimer JumpTimer;
-  private JumpDirectionEnum JumpDirection;
-
   private bool Digging = false;
-  private IntervalTimer DigTimer;
+  private AnimationCurve JumpXCurve, JumpYCurve, JumpRotationCurve;
+  private Stopwatch JumpStopwatch;
+  private JumpDirectionEnum JumpDirection;
 
   void Awake() {
     Stage = 0;
-
-    JumpTimer = new IntervalTimer() {
-      Interval = JumpDuration
-    };
-
     JumpXCurve = new AnimationCurve();
     JumpYCurve = new AnimationCurve();
     JumpRotationCurve = new AnimationCurve();
-
-    DigTimer = new IntervalTimer() {
-      Interval = DigDuration
-    };
   }
 
   void Start() {
@@ -95,28 +83,35 @@ public class TrashCan : AInspectable {
     BeginJumping(JumpDirectionEnum.In);
   }
 
-  void BeginJumping(JumpDirectionEnum jumpDirection) {
-    JumpTimer.Reset();
+  private void BeginJumping(JumpDirectionEnum jumpDirection) {
+    JumpStopwatch = new Stopwatch.BaseTime();
     JumpDirection = jumpDirection;
     Jumping = true;
   }
 
-  void EndJumping() {
+  private void EndJumping() {
     Jumping = false;
   }
 
-  void BeginDigging() {
-    DigTimer.Reset();
+  private void BeginDigging() {
     Digging = true;
     OnBeginDigging.Invoke();
+
+    AsyncTimer.BaseTime.SetTimeout(() => {
+      EndDigging();
+      SpawnFlyingRingPull.Instantiate();
+      TrashCanFrontSprite.sprite = TrashCanFrontSpriteEmpty;
+      TrashCanBackSprite.sprite = TrashCanBackSpriteEmpty;
+      BeginJumping(JumpDirectionEnum.Out);
+    }, DigDuration);
   }
 
-  void EndDigging() {
+  private void EndDigging() {
     Digging = false;
     SetTrashCanAngle(0);
   }
 
-  void SetCutscene(bool inControl) {
+  private void SetCutscene(bool inControl) {
     PlayerGameObject.Current.transform.localScale = inControl ? Vector3.zero : Vector3.one;
     PopPixieSpriteRenderer.enabled = inControl;
 
@@ -127,11 +122,11 @@ public class TrashCan : AInspectable {
     }
   }
 
-  void SetTrashCanAngle(float angle) {
+  private void SetTrashCanAngle(float angle) {
     PivotTransform.localRotation = Quaternion.Euler(0, 0, angle);
   }
 
-  void SetPopPixieAngle(float angle) {
+  private void SetPopPixieAngle(float angle) {
     PopPixieSpriteTransform.localRotation = Quaternion.Euler(0, 0, angle);
   }
 
@@ -147,22 +142,28 @@ public class TrashCan : AInspectable {
     }
   }
 
-  void HandleJumping() {
-    float progress = JumpDirection == JumpDirectionEnum.In
-      ? JumpTimer.Progress()
-      : 1 - JumpTimer.Progress();
+  private void HandleJumping() {
+    float progress = JumpStopwatch.Progress(JumpDuration);
 
-    PopPixieSpriteRenderer.sortingLayerName = progress < 0.5 ? "Character" : "Level elements";
+    float directedProgress = JumpDirection == JumpDirectionEnum.In
+      ? progress
+      : 1f - progress;
+
+    PopPixieSpriteRenderer.sortingLayerName = directedProgress < 0.5 ? "Character" : "Level elements";
 
     PopPixieSpriteTransform.position = new Vector3(
-      JumpXCurve.Evaluate(progress),
-      JumpYCurve.Evaluate(progress),
+      JumpXCurve.Evaluate(directedProgress),
+      JumpYCurve.Evaluate(directedProgress),
       0
     );
 
-    PopPixieSpriteTransform.localRotation = Quaternion.Euler(0, 0, JumpRotationCurve.Evaluate(progress));
+    PopPixieSpriteTransform.localRotation = Quaternion.Euler(
+      0,
+      0,
+      JumpRotationCurve.Evaluate(directedProgress)
+    );
 
-    JumpTimer.IfElapsed(() => {
+    if (progress >= 1f) {
       EndJumping();
 
       if (JumpDirection == JumpDirectionEnum.In) {
@@ -171,19 +172,11 @@ public class TrashCan : AInspectable {
       } else {
         SetCutscene(false);
       }
-    });
+    }
   }
 
-  void HandleDigging() {
+  private void HandleDigging() {
     SetTrashCanAngle(TrashCanWobbleAmplitude * Mathf.Sin(TrashCanWobbleSpeed * Time.time));
     SetPopPixieAngle(180 + PopPixieWobbleAmplitude * Mathf.Sin(PopPixieWobbleSpeed * Time.time));
-
-    DigTimer.IfElapsed(() => {
-      EndDigging();
-      SpawnFlyingRingPull.Instantiate();
-      TrashCanFrontSprite.sprite = TrashCanFrontSpriteEmpty;
-      TrashCanBackSprite.sprite = TrashCanBackSpriteEmpty;
-      BeginJumping(JumpDirectionEnum.Out);
-    });
   }
 }

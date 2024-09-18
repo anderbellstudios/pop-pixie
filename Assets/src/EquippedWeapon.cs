@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class EquippedWeapon : MonoBehaviour {
   public bool SingletonInstance = true;
@@ -12,6 +12,7 @@ public class EquippedWeapon : MonoBehaviour {
   public PlayerWeapons PlayerWeapons;
   public PlayerWeapon CurrentWeapon;
   public float TapToChangeDuration;
+  public UnityEvent OnChangeWeapon;
 
   private WeaponInfoController WeaponInfoController;
   private bool ListeningForTap = false;
@@ -46,7 +47,7 @@ public class EquippedWeapon : MonoBehaviour {
     WeaponInfoController.SetAmmunition(CurrentWeapon.Ammunition, CurrentWeapon.Capacity);
 
     if (StateManager.Playing && WrappedInput.GetButtonDown("Change Weapon")) {
-      WeaponReload.Interrupt();
+      WeaponReload.InterruptReloading();
 
       ListeningForTap = true;
 
@@ -86,6 +87,8 @@ public class EquippedWeapon : MonoBehaviour {
   }
 
   public void SetWeaponByIndex(int index, bool setLast = true) {
+    OnChangeWeapon.Invoke();
+
     CurrentWeapon = AvailableWeapons.Count > index
       ? AvailableWeapons[index]
       : AvailableWeapons[0];

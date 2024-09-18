@@ -12,26 +12,36 @@ public class RingPullCounter : MonoBehaviour {
   public float PulseAmplitude;
   public UnityEvent OnPulse;
 
-  IntervalTimer PulseTimer;
+  private int PreviousAmount;
+  private Stopwatch PulseStopwatch = null;
 
-  void Awake() {
-    PulseTimer = new IntervalTimer() {
-      Interval = PulseDuration
-    };
+  void Start() {
+    PreviousAmount = RingPulls();
+    UpdateRingPulls();
   }
 
   void Update() {
-    Text.text = RingPullsData.Amount().ToString() + " <sprite=\"Ring Pull Icon\" name=\"Ring Pull\">";
+    if (RingPulls() != PreviousAmount) {
+      UpdateRingPulls();
+      PreviousAmount = RingPulls();
+    }
 
     if (RingPullsData.ShouldPulse) {
       RingPullsData.ShouldPulse = false;
       OnPulse.Invoke();
-      PulseTimer.Reset();
+      PulseStopwatch = new Stopwatch.BaseTime();
     }
 
-    if (PulseTimer.Started) {
-      float scale = 1 + PulseAmplitude * (1 - PulseTimer.Progress());
-      PulseTarget.localScale = new Vector2(scale, scale);
+    if (PulseStopwatch != null) {
+      float progress = PulseStopwatch.Progress(PulseDuration);
+      float scale = 1f + PulseAmplitude * (1f - progress);
+      PulseTarget.localScale = scale * Vector2.one;
     }
+  }
+
+  private int RingPulls() => RingPullsData.Amount();
+
+  private void UpdateRingPulls() {
+    Text.text = RingPulls().ToString() + " <sprite=\"Ring Pull Icon\" name=\"Ring Pull\">";
   }
 }
