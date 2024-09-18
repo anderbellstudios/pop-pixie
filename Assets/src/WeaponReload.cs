@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class WeaponReload : MonoBehaviour {
-  public PlaySound PlaySound;
+  public EquippedWeapon EquippedWeapon;
   public MovementManager MovementManager;
+  public PlaySound PlaySound;
 
   private Stopwatch ReloadStopwatch = null;
 
@@ -60,7 +61,5 @@ public class WeaponReload : MonoBehaviour {
 
   private bool InProgress() => ReloadStopwatch != null;
   private bool CanReload() => !CurrentWeapon().Full();
-
-  private PlayerWeapon CurrentWeapon()
-    => gameObject.GetComponent<EquippedWeapon>().CurrentWeapon;
+  private PlayerWeapon CurrentWeapon() => EquippedWeapon.CurrentWeapon;
 }

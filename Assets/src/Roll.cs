@@ -6,6 +6,7 @@ using UnityEngine;
 public class Roll : MonoBehaviour {
   public static bool HasRolled;
 
+  public GameObject GameObject;
   public RollAllowed RollAllowed;
   public MonoBehaviour DirectionManager;
   public MovementManager MovementManager;
@@ -61,7 +62,7 @@ public class Roll : MonoBehaviour {
 
   void UpdateLayer() {
     bool rollingLayer = Rolling && PlayerIsMoving();
-    gameObject.layer = LayerMask.NameToLayer(rollingLayer ? "PlayerRolling" : "Player");
+    GameObject.layer = LayerMask.NameToLayer(rollingLayer ? "PlayerRolling" : "Player");
   }
 
   Vector2 Direction() {
