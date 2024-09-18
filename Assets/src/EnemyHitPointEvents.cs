@@ -18,8 +18,8 @@ public class EnemyHitPointEvents : MonoBehaviour {
     if (HealthBar != null) {
       hitPoints.OnUpdate.AddListener(hp => {
         float relativeHP = hp.Current / hp.Maximum;
-        HealthBar.Progress = relativeHP;
-        HealthBar.gameObject.SetActive(!HideHealthBarWhenFullOrEmpty || (relativeHP > 0 && relativeHP < 1));
+        HealthBar.SetProgress(relativeHP);
+        HealthBar.SetVisible(!HideHealthBarWhenFullOrEmpty || (relativeHP > 0 && relativeHP < 1));
       });
     }
 

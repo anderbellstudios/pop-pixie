@@ -14,7 +14,7 @@ public class SegmentedProgressBar : MonoBehaviour {
 
   void Update() {
     Segments.ForEach(segment => {
-      segment.HUDBar.Progress = segment.ProgressMetric.Current() / segment.ProgressMetric.Total();
+      segment.HUDBar.SetProgress(segment.ProgressMetric.Current() / segment.ProgressMetric.Total());
     });
   }
 }

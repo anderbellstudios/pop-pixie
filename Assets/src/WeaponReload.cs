@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class WeaponReload : MonoBehaviour {
   public PlaySound PlaySound;
-  public HUDBar ReloadBar;
   public MovementManager MovementManager;
 
   private Stopwatch ReloadStopwatch = null;
@@ -35,13 +34,13 @@ public class WeaponReload : MonoBehaviour {
 
     if (InProgress()) {
       if (CanReload()) {
-        ReloadBar.Progress = progress;
+        HUDBar.Reload?.SetProgress(progress);
       } else {
         InterruptReloading();
       }
     }
 
-    ReloadBar.Visible = InProgress();
+    HUDBar.Reload?.SetVisible(InProgress());
   }
 
   private void BeginReload() {

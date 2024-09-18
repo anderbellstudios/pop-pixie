@@ -5,14 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class PlayerHitPointEvents : MonoBehaviour {
   public HitPoints OverrideHitPoints;
-  public HUDBar HealthBar;
   public string GameOverScene = "Game Over";
 
   void Awake() {
     HitPoints hitPoints = OverrideHitPoints ?? GetComponent<HitPoints>();
 
     hitPoints.OnUpdate.AddListener(hp => {
-      HealthBar.Progress = hp.Current / hp.Maximum;
+      HUDBar.PlayerHitPoints?.SetProgress(hp.Current / hp.Maximum);
     });
 
     hitPoints.OnDecrease.AddListener(hp => {
