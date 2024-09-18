@@ -33,8 +33,6 @@ public class PlayerShoot : MonoBehaviour {
     float cooldown = weapon.CooldownInterval();
 
     if (WrappedInput.GetButton("Fire") && CanFire(cooldown)) {
-      CanFireStopwatch = new Stopwatch.PlayingTime();
-
       if (weapon.HasBullets()) {
         Fire(weapon);
       } else {
@@ -47,6 +45,7 @@ public class PlayerShoot : MonoBehaviour {
     CanFireStopwatch == null || CanFireStopwatch.Time() >= cooldown;
 
   private void Fire(PlayerWeapon weapon) {
+    CanFireStopwatch = new Stopwatch.PlayingTime();
     weapon.ExpendBullet();
 
     FireBullet.Fire(
