@@ -35,8 +35,7 @@ public class DelayPhase : APhase {
   public override void WhilePhaseRunning() {
     float progress = Stopwatch.Progress(Delay);
 
-    if (HUDBar != null)
-      HUDBar.Progress = progress;
+    HUDBar?.SetProgress(progress);
 
     if (progress >= 1f) {
       if (PauseGameplay)

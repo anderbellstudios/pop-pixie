@@ -8,6 +8,6 @@ public class Level3Started : MonoBehaviour {
   public HUDBar BossProgressBar;
 
   void Update() {
-    BossProgressBar.Progress = PhaseScheduler.Progress();
+    BossProgressBar.SetProgress(PhaseScheduler.Progress());
   }
 }
