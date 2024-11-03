@@ -36,7 +36,6 @@ public class MentoeHologramSweepingAttackAI : AEnemyAI {
 
     SetTimeout(() => {
       LaserStopwatch = new Stopwatch.PlayingTime();
-      LineRenderer.enabled = true;
       OnBeginLaser.Invoke();
     }, BeforeLaserDuration);
   }
@@ -58,6 +57,7 @@ public class MentoeHologramSweepingAttackAI : AEnemyAI {
     float angle = Mathf.Lerp(0, 360 - SafeAngle, laserProgress);
     Vector3 direction = Quaternion.Euler(0, 0, StartAngle + angle) * Vector3.right;
 
+    LineRenderer.enabled = true;
     LineRenderer.SetPosition(0, transform.position);
     LineRenderer.SetPosition(1, transform.position + LaserBeamLength * direction);
 
