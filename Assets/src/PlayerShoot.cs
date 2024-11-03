@@ -12,6 +12,7 @@ public class PlayerShoot : MonoBehaviour {
   public string NoBulletsSoundKey;
 
   private Stopwatch CanFireStopwatch = null;
+  private Stopwatch NoBulletsSoundStopwatch = null;
 
   void Awake() {
     EquippedWeapon.OnChangeWeapon.AddListener(() => {
@@ -27,20 +28,30 @@ public class PlayerShoot : MonoBehaviour {
     if (!StateManager.Playing)
       return;
 
+    if (WrappedInput.GetButton("Fire")) {
+      TryToFire();
+    }
+  }
+
+  private void TryToFire() {
     PlayerWeapon weapon = EquippedWeapon.CurrentWeapon;
     float cooldown = weapon.CooldownInterval();
 
-    if (WrappedInput.GetButton("Fire") && CanFire(cooldown)) {
-      if (weapon.HasBullets()) {
-        Fire(weapon);
-      } else {
-        PlaySound.Play(NoBulletsSoundKey);
-      }
+    if (!CanFire(cooldown))
+      return;
+
+    if (weapon.HasBullets()) {
+      Fire(weapon);
+    } else if (ShouldPlayNoBulletsSound(cooldown)) {
+      PlayNoBulletsSound();
     }
   }
 
   private bool CanFire(float cooldown) =>
     CanFireStopwatch == null || CanFireStopwatch.Time() >= cooldown;
+
+  private bool ShouldPlayNoBulletsSound(float cooldown) =>
+    NoBulletsSoundStopwatch == null || NoBulletsSoundStopwatch.Time() >= cooldown;
 
   private void Fire(PlayerWeapon weapon) {
     CanFireStopwatch = new Stopwatch.PlayingTime();
@@ -56,5 +67,10 @@ public class PlayerShoot : MonoBehaviour {
       damage: weapon.Damage,
       soundKey: weapon.ShootSoundKey
     );
+  }
+
+  private void PlayNoBulletsSound() {
+    NoBulletsSoundStopwatch = new Stopwatch.PlayingTime();
+    PlaySound.Play(NoBulletsSoundKey);
   }
 }
