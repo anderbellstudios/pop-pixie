@@ -38,7 +38,7 @@ public class TowerPanSceneEvents : MonoBehaviour {
 
     ContainerTransform.localPosition = new Vector3(
       ContainerTransform.localPosition.x,
-      Mathf.Lerp(PanFrom, PanTo, PanCurve.Evaluate(panProgress)),
+      Mathf.Lerp(PanFrom, PanTo, TestMode.Enabled ? 1f : PanCurve.Evaluate(panProgress)),
       ContainerTransform.localPosition.z
     );
 
