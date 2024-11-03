@@ -309,7 +309,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -80, y: -1050}
+  m_AnchoredPosition: {x: -80, y: 0}
   m_SizeDelta: {x: 1000000, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &197544527
@@ -950,7 +950,6 @@ MonoBehaviour:
   CaptionLine:
     Text: 'The <color=#ff0000>Mentoes Tower</color>: The incarnation of the corporate
       tyranny that is terrorising this country. It must be stopped.'
-    AudioClip: {fileID: 8300000, guid: 63ebd6248ed364924bbef4ac08bb2b97, type: 3}
     VoiceLineKey: Voice/Training/Tower
     Duration: 10
     DoNotPauseWhenNotPlaying: 1
@@ -980,6 +979,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 143544670}
     m_Modifications:
+    - target: {fileID: 9043577342042184340, guid: 29f6971350c1d416b89e422c6e11b925,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9046353654358520288, guid: 29f6971350c1d416b89e422c6e11b925,
         type: 3}
       propertyPath: m_Enabled
@@ -1224,8 +1228,8 @@ Canvas:
   m_GameObject: {fileID: 1797587449}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 197544529}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
