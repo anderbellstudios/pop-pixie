@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class VisionCone : MonoBehaviour {
   public MeshFilter MeshFilter;
@@ -11,8 +11,10 @@ public class VisionCone : MonoBehaviour {
   public float Radius;
   public float DetectCornerThreshold;
   public int DetectCornerIterations;
+  public UnityEvent OnDetectPlayer;
 
   private Mesh Mesh;
+  private bool DetectedPlayerThisFrame = false;
 
   private enum HitResultType { None, Miss, Hit };
 
@@ -22,6 +24,7 @@ public class VisionCone : MonoBehaviour {
 
   void LateUpdate() {
     List<Vector3> arcPoints = new List<Vector3>();
+    DetectedPlayerThisFrame = false;
 
     ScanArc(
       startAngle: CentreAngle - AngularDistance / 2f,
@@ -40,6 +43,10 @@ public class VisionCone : MonoBehaviour {
     );
 
     DrawCone(arcPoints.ToArray());
+
+    if (DetectedPlayerThisFrame) {
+      OnDetectPlayer.Invoke();
+    }
   }
 
   private void ScanArc(
@@ -67,6 +74,10 @@ public class VisionCone : MonoBehaviour {
         direction,
         Radius
       );
+
+      if (hit && hit.collider.tag == "Player") {
+        DetectedPlayerThisFrame = true;
+      }
 
       if (
         onDetectCorner != null &&
