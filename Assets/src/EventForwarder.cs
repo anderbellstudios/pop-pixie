@@ -14,11 +14,13 @@ public class EventForwarder : MonoBehaviour {
   public UnityEvent Events;
 
   void Awake() {
-    if (InvokeOnAwake) Invoke();
+    if (InvokeOnAwake)
+      Invoke();
   }
 
   void Start() {
-    if (InvokeOnStart) Invoke();
+    if (InvokeOnStart)
+      Invoke();
   }
 
   public void Invoke() {
