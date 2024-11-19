@@ -13,10 +13,12 @@ public class VisionCone : MonoBehaviour {
   public float BlindSpotRadius;
   public float DetectCornerThreshold;
   public int DetectCornerIterations;
+  public float DetectPlayerMinDuration;
+  public float DetectPlayerMaxDistanceLeniency;
   public UnityEvent OnDetectPlayer;
 
   private Mesh Mesh;
-  private bool DetectedPlayerThisFrame = false;
+  private Stopwatch SeesPlayerStopwatch;
 
   private enum HitResultType { None, Miss, Hit };
 
@@ -26,9 +28,32 @@ public class VisionCone : MonoBehaviour {
     MeshRenderer.material.SetFloat("_BlindRadius", BlindSpotRadius);
   }
 
+  void Update() {
+    if (!StateManager.Playing) return;
+
+    // We only care about the centre of the player, relative to our own origin
+    Vector2 playerPosition = transform.InverseTransformPoint(
+      PlayerGameObject.Current.transform.position
+    );
+
+    bool seesPlayer = PointIsInsideCone(playerPosition) &&
+      RaycastHitsPlayer(playerPosition.normalized);
+
+    if (seesPlayer) {
+      if (SeesPlayerStopwatch == null) {
+        SeesPlayerStopwatch = new Stopwatch.PlayingTime();
+      }
+
+      if (SeesPlayerStopwatch.Time() >= DetectPlayerMinDuration) {
+        OnDetectPlayer.Invoke();
+      }
+    } else {
+      SeesPlayerStopwatch = null;
+    }
+  }
+
   void LateUpdate() {
     List<Vector3> arcPoints = new List<Vector3>();
-    DetectedPlayerThisFrame = false;
 
     ScanArc(
       startAngle: CentreAngle - AngularDistance / 2f,
@@ -47,10 +72,6 @@ public class VisionCone : MonoBehaviour {
     );
 
     DrawCone(arcPoints.ToArray());
-
-    if (DetectedPlayerThisFrame) {
-      OnDetectPlayer.Invoke();
-    }
   }
 
   private void ScanArc(
@@ -71,17 +92,13 @@ public class VisionCone : MonoBehaviour {
         continue;
 
       float angle = startAngle + angularDistancePerStep * step;
-      Vector3 direction = Quaternion.Euler(0, 0, angle) * Vector3.right;
+      Vector3 direction = DirectionForAngle(angle);
 
       RaycastHit2D hit = Physics2D.Raycast(
         transform.position + direction * BlindSpotRadius,
         direction,
         Radius
       );
-
-      if (hit && hit.collider.tag == "Player") {
-        DetectedPlayerThisFrame = true;
-      }
 
       if (
         onDetectCorner != null &&
@@ -188,5 +205,27 @@ public class VisionCone : MonoBehaviour {
     Mesh.Clear();
     Mesh.vertices = vertices;
     Mesh.triangles = triangles;
+  }
+
+  private Vector3 DirectionForAngle(float angle) =>
+    Quaternion.Euler(0, 0, angle) * Vector3.right;
+
+  private bool PointIsInsideCone(Vector2 point) {
+    float relativeAngle = Vector3.Angle(DirectionForAngle(CentreAngle), point);
+    float distance = point.magnitude;
+
+    return relativeAngle < AngularDistance / 2 &&
+      distance >= BlindSpotRadius &&
+      distance <= Radius - DetectPlayerMaxDistanceLeniency;
+  }
+
+  private bool RaycastHitsPlayer(Vector2 direction) {
+    RaycastHit2D hit = Physics2D.Raycast(
+      transform.position,
+      direction,
+      Radius
+    );
+
+    return hit && hit.collider.tag == "Player";
   }
 }
