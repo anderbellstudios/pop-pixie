@@ -2,6 +2,8 @@ Shader "Custom/VisionConeShader" {
   Properties {
     _MainTex ("Sprite Texture", 2D) = "white" {}
     _Color ("Color", Color) = (1,1,1,1)
+    _Radius ("Radius", float) = 1
+    _BlindRadius ("Blind Spot Radius", float) = 0
   }
 
   SubShader {
@@ -53,6 +55,8 @@ Shader "Custom/VisionConeShader" {
       }
 
       sampler2D _MainTex;
+      float _Radius;
+      float _BlindRadius;
 
       fixed4 SampleSpriteTexture (float2 uv) {
         fixed4 color = tex2D(_MainTex, uv);
@@ -61,7 +65,12 @@ Shader "Custom/VisionConeShader" {
 
       fixed4 frag(v2f IN) : SV_Target {
         fixed4 c = SampleSpriteTexture(IN.texcoord) * IN.color;
-        c.a = 1 - length(IN.local) / 8;
+        float l = length(IN.local);
+        if (l < _BlindRadius) {
+          c.a = 0;
+        } else {
+          c.a = 1 - (l - _BlindRadius) / (_Radius - _BlindRadius);
+        }
         return c;
       }
 

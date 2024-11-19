@@ -5,10 +5,12 @@ using UnityEngine.Events;
 
 public class VisionCone : MonoBehaviour {
   public MeshFilter MeshFilter;
+  public MeshRenderer MeshRenderer;
   public float AngularDistance;
   public int AngleSteps;
   public float CentreAngle;
   public float Radius;
+  public float BlindSpotRadius;
   public float DetectCornerThreshold;
   public int DetectCornerIterations;
   public UnityEvent OnDetectPlayer;
@@ -20,6 +22,8 @@ public class VisionCone : MonoBehaviour {
 
   void Start() {
     Mesh = MeshFilter.mesh;
+    MeshRenderer.material.SetFloat("_Radius", Radius);
+    MeshRenderer.material.SetFloat("_BlindRadius", BlindSpotRadius);
   }
 
   void LateUpdate() {
@@ -70,7 +74,7 @@ public class VisionCone : MonoBehaviour {
       Vector3 direction = Quaternion.Euler(0, 0, angle) * Vector3.right;
 
       RaycastHit2D hit = Physics2D.Raycast(
-        transform.position,
+        transform.position + direction * BlindSpotRadius,
         direction,
         Radius
       );
