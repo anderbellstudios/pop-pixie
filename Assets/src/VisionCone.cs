@@ -29,7 +29,8 @@ public class VisionCone : MonoBehaviour {
   }
 
   void Update() {
-    if (!StateManager.Playing) return;
+    if (!StateManager.Playing)
+      return;
 
     // We only care about the centre of the player, relative to our own origin
     Vector2 playerPosition = transform.InverseTransformPoint(
