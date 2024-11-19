@@ -6,6 +6,7 @@ using UnityEngine.Events;
 public class VisionCone : MonoBehaviour {
   public MeshFilter MeshFilter;
   public MeshRenderer MeshRenderer;
+  public LayerMask BlockingMask;
   public float AngularDistance;
   public int AngleSteps;
   public float CentreAngle;
@@ -19,6 +20,7 @@ public class VisionCone : MonoBehaviour {
 
   private Mesh Mesh;
   private Stopwatch SeesPlayerStopwatch;
+  private LayerMask BlockingAndPlayerMask;
 
   private enum HitResultType { None, Miss, Hit };
 
@@ -26,6 +28,7 @@ public class VisionCone : MonoBehaviour {
     Mesh = MeshFilter.mesh;
     MeshRenderer.material.SetFloat("_Radius", Radius);
     MeshRenderer.material.SetFloat("_BlindRadius", BlindSpotRadius);
+    BlockingAndPlayerMask = BlockingMask | LayerMask.GetMask("Player");
   }
 
   void Update() {
@@ -98,7 +101,8 @@ public class VisionCone : MonoBehaviour {
       RaycastHit2D hit = Physics2D.Raycast(
         transform.position + direction * BlindSpotRadius,
         direction,
-        Radius
+        Radius,
+        BlockingMask
       );
 
       if (
@@ -224,7 +228,8 @@ public class VisionCone : MonoBehaviour {
     RaycastHit2D hit = Physics2D.Raycast(
       transform.position,
       direction,
-      Radius
+      Radius,
+      BlockingAndPlayerMask
     );
 
     return hit && hit.collider.tag == "Player";
