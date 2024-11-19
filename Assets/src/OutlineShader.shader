@@ -6,7 +6,6 @@ Shader "Custom/OutlineShader" {
     [Toggle] _Enabled ("Enabled", Float) = 1
     _OutlineColor ("Outline Color", Color) = (1,1,0,1)
     _OutlineSize ("Outline Size", Float) = 0.01
-    _OpacityProgress ("Opacity Progress", Float) = 1
     _OpacityMin ("Min Opacity", Float) = 0
     _OpacityMax ("Max Opacity", Float) = 1
   }
@@ -63,7 +62,6 @@ Shader "Custom/OutlineShader" {
       fixed4 _Rect;
       float _Enabled;
       fixed4 _OutlineColor;
-      float _OpacityProgress;
       float _OutlineSize;
       float _OpacityMin;
       float _OpacityMax;
@@ -98,7 +96,7 @@ Shader "Custom/OutlineShader" {
             SampleSpriteTexture(IN.texcoord + float2(0, -_OutlineSize)).a == 0 ||
             SampleSpriteTexture(IN.texcoord + float2(_OutlineSize, 0)).a == 0 ||
             SampleSpriteTexture(IN.texcoord + float2(-_OutlineSize, 0)).a == 0
-          ) return lerp(c, _OutlineColor, lerp(_OpacityMin, _OpacityMax, _OpacityProgress));
+          ) return lerp(c, _OutlineColor, lerp(_OpacityMin, _OpacityMax, (_SinTime.w + 1) / 2));
         }
         return c;
       }
