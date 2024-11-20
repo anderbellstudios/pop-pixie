@@ -7,9 +7,8 @@ public class VisionCone : MonoBehaviour {
   public MeshFilter MeshFilter;
   public MeshRenderer MeshRenderer;
   public LayerMask BlockingMask;
-  public float AngularDistance;
+  public float Width;
   public int AngleSteps;
-  public float CentreAngle;
   public float Radius;
   public float BlindSpotRadius;
   public float DetectCornerThreshold;
@@ -24,11 +23,20 @@ public class VisionCone : MonoBehaviour {
 
   private enum HitResultType { None, Miss, Hit };
 
+  public void SetColor(Color color) {
+    MeshRenderer.material.color = color;
+  }
+
+  public void SetYellow() => SetColor(Color.yellow);
+  public void SetRed() => SetColor(Color.red);
+
   void Start() {
     Mesh = MeshFilter.mesh;
     MeshRenderer.material.SetFloat("_Radius", Radius);
     MeshRenderer.material.SetFloat("_BlindRadius", BlindSpotRadius);
-    BlockingAndPlayerMask = BlockingMask | LayerMask.GetMask("Player");
+    BlockingAndPlayerMask = BlockingMask |
+      LayerMask.GetMask("Player") |
+      LayerMask.GetMask("PlayerRolling");
   }
 
   void Update() {
@@ -60,14 +68,14 @@ public class VisionCone : MonoBehaviour {
     List<Vector3> arcPoints = new List<Vector3>();
 
     ScanArc(
-      startAngle: CentreAngle - AngularDistance / 2f,
-      angularDistance: AngularDistance,
+      startAngle: -Width / 2f,
+      angularDistance: Width,
       steps: AngleSteps,
       outList: arcPoints,
       onDetectCorner: DetectCornerIterations > 0
         ? (angle) => ScanArc(
           startAngle: angle,
-          angularDistance: AngularDistance / AngleSteps,
+          angularDistance: Width / AngleSteps,
           steps: DetectCornerIterations,
           skipFirstAndLast: true,
           outList: arcPoints
@@ -99,8 +107,8 @@ public class VisionCone : MonoBehaviour {
       Vector3 direction = DirectionForAngle(angle);
 
       RaycastHit2D hit = Physics2D.Raycast(
-        transform.position + direction * BlindSpotRadius,
-        direction,
+        transform.position,
+        transform.TransformDirection(direction),
         Radius,
         BlockingMask
       );
@@ -216,10 +224,10 @@ public class VisionCone : MonoBehaviour {
     Quaternion.Euler(0, 0, angle) * Vector3.right;
 
   private bool PointIsInsideCone(Vector2 point) {
-    float relativeAngle = Vector3.Angle(DirectionForAngle(CentreAngle), point);
+    float relativeAngle = Vector3.Angle(Vector3.right, point);
     float distance = point.magnitude;
 
-    return relativeAngle < AngularDistance / 2 &&
+    return relativeAngle < Width / 2 &&
       distance >= BlindSpotRadius &&
       distance <= Radius - DetectPlayerMaxDistanceLeniency;
   }
@@ -227,7 +235,7 @@ public class VisionCone : MonoBehaviour {
   private bool RaycastHitsPlayer(Vector2 direction) {
     RaycastHit2D hit = Physics2D.Raycast(
       transform.position,
-      direction,
+      transform.TransformDirection(direction),
       Radius,
       BlockingAndPlayerMask
     );
