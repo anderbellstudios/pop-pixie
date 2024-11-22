@@ -6,6 +6,7 @@ using UnityEngine.Events;
 public class VisionCone : MonoBehaviour {
   public MeshFilter MeshFilter;
   public MeshRenderer MeshRenderer;
+  public SpriteRenderer VisibilityRange;
   public LayerMask BlockingMask;
   public float Width;
   public int AngleSteps;
@@ -37,6 +38,7 @@ public class VisionCone : MonoBehaviour {
     BlockingAndPlayerMask = BlockingMask |
       LayerMask.GetMask("Player") |
       LayerMask.GetMask("PlayerRolling");
+    VisibilityRange.gameObject.transform.localScale = Vector3.one * Radius * 2;
   }
 
   void Update() {
@@ -65,6 +67,13 @@ public class VisionCone : MonoBehaviour {
   }
 
   void LateUpdate() {
+    /**
+     * Optimisation: Do not perform any raycasts if the vision cone cannot
+     * possibly appear on screen.
+     */
+    if (!VisibilityRange.isVisible)
+      return;
+
     List<Vector3> arcPoints = new List<Vector3>();
 
     ScanArc(
