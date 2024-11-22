@@ -21,6 +21,7 @@ public class VisionCone : MonoBehaviour {
   private Mesh Mesh;
   private Stopwatch SeesPlayerStopwatch;
   private LayerMask BlockingAndPlayerMask;
+  private bool FirstRender;
 
   private enum HitResultType { None, Miss, Hit };
 
@@ -39,6 +40,7 @@ public class VisionCone : MonoBehaviour {
       LayerMask.GetMask("Player") |
       LayerMask.GetMask("PlayerRolling");
     VisibilityRange.gameObject.transform.localScale = Vector3.one * Radius * 2;
+    FirstRender = true;
   }
 
   void Update() {
@@ -73,6 +75,15 @@ public class VisionCone : MonoBehaviour {
      */
     if (!VisibilityRange.isVisible)
       return;
+
+    /**
+     * Optimisation: After the first render, do not perform raycasts while
+     * the game is paused, since the result will be the same.
+     */
+    if (!StateManager.Playing && !FirstRender)
+      return;
+
+    FirstRender = false;
 
     List<Vector3> arcPoints = new List<Vector3>();
 
