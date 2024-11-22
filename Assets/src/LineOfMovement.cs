@@ -4,17 +4,37 @@ using System.Linq;
 using UnityEngine;
 
 public class LineOfMovement : MonoBehaviour {
-  public static bool Check(Vector3 start, Vector3 end, int? layerMask = null, GameObject exclude = null) {
+  public static bool Check(
+    Vector3 start,
+    Vector3 end,
+    LayerMask? layerMask = null,
+    GameObject exclude = null,
+    Vector2? capsuleSize = null
+  ) {
     Vector3 direction = end - start;
+    Vector2 safeCapsuleSize = capsuleSize ?? new Vector2(1f, 1.5f);
+    LayerMask safeLayerMask = layerMask ?? CollisionMask.UnwalkableMask;
 
-    RaycastHit2D hit = Physics2D.CircleCastAll(
+    if (exclude) {
+      return !Physics2D.CapsuleCastAll(
+        origin: start,
+        size: safeCapsuleSize,
+        capsuleDirection: CapsuleDirection2D.Vertical,
+        angle: 0f,
+        direction: direction,
+        distance: direction.magnitude,
+        layerMask: safeLayerMask
+      ).Where(hit => hit.collider.gameObject != exclude).FirstOrDefault();
+    }
+
+    return !Physics2D.CapsuleCast(
       origin: start,
-      radius: 0.5f,
+      size: safeCapsuleSize,
+      capsuleDirection: CapsuleDirection2D.Vertical,
+      angle: 0f,
       direction: direction,
       distance: direction.magnitude,
-      layerMask: layerMask ?? LayerMask.GetMask("Default")
-    ).Where(hit => hit.collider.gameObject != exclude).FirstOrDefault();
-
-    return !hit.collider;
+      layerMask: safeLayerMask
+    );
   }
 }

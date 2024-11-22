@@ -7,5 +7,6 @@ public abstract class AMovementEnemyAI : AEnemyAI2 {
     return null;
   }
 
+  protected override bool InternalMovementAllowed() => true;
   protected override AMovementEnemyAI InternalUseMovementAI() => UseMovementAI();
 }

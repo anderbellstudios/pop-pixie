@@ -15,8 +15,21 @@ public abstract class AEnemyAI2 : MonoBehaviour {
     return null;
   }
 
-  public bool IsActive { get; private set; }
+  protected virtual bool InternalMovementAllowed() => false;
+
+  public bool IsActive = false;
+
   private List<AEnemyAI2> ActiveChildAIs = new();
+  private EnemyAIHelper _Helper = null;
+
+  protected EnemyAIHelper Helper {
+    get {
+      if (_Helper == null) {
+        _Helper = MakeHelper();
+      }
+      return _Helper;
+    }
+  }
 
   void Update() {
     if (!StateManager.Playing || !IsActive)
@@ -32,12 +45,9 @@ public abstract class AEnemyAI2 : MonoBehaviour {
     List<AEnemyAI2> childAIs = new();
 
     Action<AEnemyAI2> useChild = (child) => {
-      if (!child)
-        return;
-      if (!ActiveChildAIs.Contains(child)) {
-        ActivateChildAI(child);
+      if (child) {
+        childAIs.Add(child);
       }
-      childAIs.Add(child);
     };
 
     UseChildAIs(useChild);
@@ -47,20 +57,24 @@ public abstract class AEnemyAI2 : MonoBehaviour {
       DeactivateChildAI(child);
     }
 
+    foreach (AEnemyAI2 child in childAIs.Except(ActiveChildAIs)) {
+      ActivateChildAI(child);
+    }
+
     ActiveChildAIs = childAIs;
   }
 
   protected void Activate() {
     IsActive = true;
-    UpdateActiveChildAIs();
     OnActivate();
+    UpdateActiveChildAIs();
   }
 
   protected void Deactivate() {
-    OnDeactivate();
     IsActive = false;
     ActiveChildAIs.ForEach(DeactivateChildAI);
     ActiveChildAIs.Clear();
+    OnDeactivate();
   }
 
   private void ActivateChildAI(AEnemyAI2 child) {
@@ -69,5 +83,29 @@ public abstract class AEnemyAI2 : MonoBehaviour {
 
   private void DeactivateChildAI(AEnemyAI2 child) {
     child.Deactivate();
+  }
+
+  private EnemyAIHelper MakeHelper() => new EnemyAIHelper(
+    gameObject: GetRootTransform().gameObject,
+    movementAllowed: InternalMovementAllowed()
+  );
+
+  // Find the first ancestor tagged "Enemy"
+  private Transform GetRootTransform() {
+    Transform enemy = null;
+    Transform current = transform;
+
+    while (current != null) {
+      if (current.tag == "Enemy") {
+        enemy = current;
+      }
+      current = current.parent;
+    }
+
+#if UNITY_EDITOR
+    Debug.Assert(enemy != null, "Failed to find root transform");
+#endif
+
+    return enemy;
   }
 }
