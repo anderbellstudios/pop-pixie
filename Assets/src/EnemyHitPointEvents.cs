@@ -1,40 +1,70 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class EnemyHitPointEvents : MonoBehaviour {
-  public HitPoints OverrideHitPoints;
+  [UnityEngine.Serialization.FormerlySerializedAs("OverrideHitPoints")]
+  public HitPoints HitPoints;
+
   public Flash Flash;
+  public AEnemyAI2 RootAI;
   public DeathAnimation DeathAnimation;
   public Collider2D Collider;
+
   public HUDBar HealthBar;
   public bool HideHealthBarWhenFullOrEmpty;
 
-  void Awake() {
-    HitPoints hitPoints = OverrideHitPoints ?? GetComponent<HitPoints>();
+  public float SlowOnDamageDuration = 0f;
+  public MovementManager MovementManager;
 
-    if (HealthBar != null) {
-      hitPoints.OnUpdate.AddListener(hp => {
+  private Stopwatch SlowStopwatch = null;
+
+  void Awake() {
+    if (HitPoints == null) {
+      Debug.LogWarning("Automatically attaching HitPoints component is deprecated");
+      HitPoints = GetComponent<HitPoints>();
+    }
+
+    HitPoints.OnUpdate.AddListener(hp => {
+      if (HealthBar != null) {
         float relativeHP = hp.Current / hp.Maximum;
         HealthBar.SetProgress(relativeHP);
         HealthBar.SetVisible(!HideHealthBarWhenFullOrEmpty || (relativeHP > 0 && relativeHP < 1));
-      });
-    }
+      }
+    });
 
-    if (Flash != null) {
-      hitPoints.OnDecrease.AddListener(hp => Flash.BeginFlashing());
-    }
+    HitPoints.OnDecrease.AddListener(hp => {
+      Flash?.BeginFlashing();
 
-    hitPoints.OnBecomeZero.AddListener(hp => {
+      if (SlowOnDamageDuration > 0f) {
+        SlowStopwatch = new Stopwatch.PlayingTime();
+      }
+    });
+
+    HitPoints.OnBecomeZero.AddListener(hp => {
       DisableAIs();
       Collider.enabled = false;
-      DeathAnimation.Play();
+      DeathAnimation?.Play();
+    });
+
+    MovementManager?.SpeedModifiers.Add((speed) => {
+      if (SlowStopwatch == null)
+        return speed;
+
+      float progress = SlowStopwatch.Progress(SlowOnDamageDuration);
+      float factor = (1f - Mathf.Cos(progress * Mathf.PI)) / 2f;
+
+      if (progress >= 1f) {
+        SlowStopwatch = null;
+      }
+
+      return speed * factor;
     });
   }
 
   void DisableAIs() {
+    RootAI?.Deactivate();
+
     foreach (var ai in GetComponents<AEnemyAI>()) {
       if (ai.InControl)
         ai.RelinquishControl();

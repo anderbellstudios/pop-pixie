@@ -70,7 +70,7 @@ public abstract class AEnemyAI2 : MonoBehaviour {
     UpdateActiveChildAIs();
   }
 
-  protected void Deactivate() {
+  public void Deactivate() {
     IsActive = false;
     ActiveChildAIs.ForEach(DeactivateChildAI);
     ActiveChildAIs.Clear();
