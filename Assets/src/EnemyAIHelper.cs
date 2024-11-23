@@ -7,6 +7,7 @@ public class EnemyAIHelper {
   public GameObject GameObject;
 
   private AEnemyAI2 AI;
+  private HitPoints HitPoints;
   private MovementManager MovementManager;
   private NavigateToPoint NavigateToPoint;
   private CapsuleCollider2D CapsuleCollider2D;
@@ -17,6 +18,7 @@ public class EnemyAIHelper {
   public EnemyAIHelper(AEnemyAI2 ai, GameObject gameObject, bool movementAllowed) {
     AI = ai;
     GameObject = gameObject;
+    HitPoints = gameObject.GetComponent<HitPoints>();
     MovementManager = gameObject.GetComponent<MovementManager>();
     NavigateToPoint = gameObject.GetComponent<NavigateToPoint>();
     CapsuleCollider2D = gameObject.GetComponent<CapsuleCollider2D>();
@@ -86,6 +88,14 @@ public class EnemyAIHelper {
     OnCollisionComponent.OnCollide.AddListener(() => {
       if (AI.IsActive) {
         handler(OnCollisionComponent.LastCollider);
+      }
+    });
+  }
+
+  public void OnDamage(Action handler) {
+    HitPoints.OnDecrease.AddListener(_ => {
+      if (AI.IsActive) {
+        handler();
       }
     });
   }

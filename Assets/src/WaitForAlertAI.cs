@@ -8,6 +8,12 @@ public class WaitForAlertAI : AGenericEnemyAI {
   public bool RequiresLineOfSight = true;
   public UnityEvent OnAlert;
 
+  void Start() {
+    Helper.OnDamage(() => {
+      OnAlert.Invoke();
+    });
+  }
+
   protected override void WhileActive() {
     if (IsAlert()) {
       OnAlert.Invoke();
