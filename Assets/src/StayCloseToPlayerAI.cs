@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class StayCloseToPlayerAI : AMovementEnemyAI {
-  public float Speed;
+  [field: SerializeField]
+  public override float Speed { get; set; }
 
-  public NavigateToPlayerAI NavigateToPlayerAI;
-  public MoveTowardsPlayerAI MoveTowardsPlayerAI;
+  public AMovementEnemyAI CannotMoveToPlayerAI, CanMoveToPlayerAI;
 
   private LowPriorityBehaviour LowPriorityBehaviour;
   private bool CanMoveToPlayer = false;
@@ -16,8 +16,8 @@ public class StayCloseToPlayerAI : AMovementEnemyAI {
   }
 
   protected override void OnActivate() {
-    NavigateToPlayerAI.Speed = Speed;
-    MoveTowardsPlayerAI.Speed = Speed;
+    CannotMoveToPlayerAI.Speed = Speed;
+    CanMoveToPlayerAI.Speed = Speed;
   }
 
   protected override void WhileActive() {
@@ -27,5 +27,5 @@ public class StayCloseToPlayerAI : AMovementEnemyAI {
   }
 
   protected override AMovementEnemyAI UseMovementAI()
-    => CanMoveToPlayer ? MoveTowardsPlayerAI : NavigateToPlayerAI;
+    => CanMoveToPlayer ? CanMoveToPlayerAI : CannotMoveToPlayerAI;
 }

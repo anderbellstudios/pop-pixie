@@ -284,7 +284,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1739642664}
-  - {fileID: 2137879173}
+  - {fileID: 702649501}
   m_Father: {fileID: 1023789628}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &385110505
@@ -300,9 +300,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsActive: 0
-  Speed: 8
-  NavigateToPlayerAI: {fileID: 1739642665}
-  MoveTowardsPlayerAI: {fileID: 2137879174}
+  <Speed>k__BackingField: 8
+  CannotMoveToPlayerAI: {fileID: 1739642665}
+  CanMoveToPlayerAI: {fileID: 702649502}
 --- !u!1001 &554069363
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -434,6 +434,57 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 566639263}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &702649500
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 702649501}
+  - component: {fileID: 702649502}
+  m_Layer: 8
+  m_Name: Circle Player AI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &702649501
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 702649500}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 385110504}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &702649502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 702649500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9d30466085c642a7b61d3d9be2c2a6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsActive: 0
+  <Speed>k__BackingField: 0
+  TooFarDistance: 6
+  ApproachToDistance: 3.75
+  TooCloseDistance: 2.25
+  BackOffToDistance: 3
+  CircleSpeed: 3.5
 --- !u!1001 &774354365
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1340,6 +1391,7 @@ GameObject:
   - component: {fileID: 1222674212}
   - component: {fileID: 1222674210}
   - component: {fileID: 1222674209}
+  - component: {fileID: 1222674214}
   m_Layer: 8
   m_Name: Melee Gremlin
   m_TagString: Enemy
@@ -1480,6 +1532,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MovementManager: {fileID: 1222674211}
   ScriptedMovementState: 0
+--- !u!114 &1222674214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1222674207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af644c78b649545e2aa9d2598cc2ffce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnCollide:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &1606542707
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1649,7 +1716,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsActive: 0
-  Speed: 0
+  <Speed>k__BackingField: 0
 --- !u!1001 &1841393287
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1929,52 +1996,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2137879172
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2137879173}
-  - component: {fileID: 2137879174}
-  m_Layer: 8
-  m_Name: Move Towards Player AI
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2137879173
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2137879172}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 385110504}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2137879174
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2137879172}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae823e05fdfae40fa8573f065f82a88f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IsActive: 0
-  Speed: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

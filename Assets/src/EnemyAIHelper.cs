@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,17 +6,21 @@ using UnityEngine;
 public class EnemyAIHelper {
   public GameObject GameObject;
 
+  private AEnemyAI2 AI;
   private MovementManager MovementManager;
   private NavigateToPoint NavigateToPoint;
   private CapsuleCollider2D CapsuleCollider2D;
+  private OnCollision OnCollisionComponent;
   private bool MovementAllowed;
   private LayerMask LineOfSightMask, LineOfMovementMask;
 
-  public EnemyAIHelper(GameObject gameObject, bool movementAllowed) {
+  public EnemyAIHelper(AEnemyAI2 ai, GameObject gameObject, bool movementAllowed) {
+    AI = ai;
     GameObject = gameObject;
     MovementManager = gameObject.GetComponent<MovementManager>();
     NavigateToPoint = gameObject.GetComponent<NavigateToPoint>();
     CapsuleCollider2D = gameObject.GetComponent<CapsuleCollider2D>();
+    OnCollisionComponent = gameObject.GetComponent<OnCollision>();
     MovementAllowed = movementAllowed;
 
     // Can see through anything except "Default"
@@ -76,6 +81,14 @@ public class EnemyAIHelper {
     end: PlayerPosition,
     capsuleSize: CapsuleCollider2D.size
   );
+
+  public void OnAnyCollision(Action<Collider2D> handler) {
+    OnCollisionComponent.OnCollide.AddListener(() => {
+      if (AI.IsActive) {
+        handler(OnCollisionComponent.LastCollider);
+      }
+    });
+  }
 
   private void CheckMovementAllowed() {
 #if UNITY_EDITOR

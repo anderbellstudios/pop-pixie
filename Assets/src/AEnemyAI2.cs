@@ -86,6 +86,7 @@ public abstract class AEnemyAI2 : MonoBehaviour {
   }
 
   private EnemyAIHelper MakeHelper() => new EnemyAIHelper(
+    ai: this,
     gameObject: GetRootTransform().gameObject,
     movementAllowed: InternalMovementAllowed()
   );
