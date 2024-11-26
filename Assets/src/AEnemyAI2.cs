@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
 public abstract class AEnemyAI2 : MonoBehaviour {
   protected virtual void WhileActive() { }
@@ -18,6 +19,9 @@ public abstract class AEnemyAI2 : MonoBehaviour {
   protected virtual bool InternalMovementAllowed() => false;
 
   public bool IsActive = false;
+
+  [NonSerialized]
+  public UnityEvent OnFinish = new();
 
   private List<AEnemyAI2> ActiveChildAIs = new();
   private EnemyAIHelper _Helper = null;
@@ -74,6 +78,7 @@ public abstract class AEnemyAI2 : MonoBehaviour {
     IsActive = false;
     ActiveChildAIs.ForEach(DeactivateChildAI);
     ActiveChildAIs.Clear();
+    Helper.Deactivate();
     OnDeactivate();
   }
 

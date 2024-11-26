@@ -23,6 +23,8 @@ public class CirclePlayerAI : AMovementEnemyAI {
   }
 
   protected override void OnActivate() {
+    AdjustingDistance = false;
+
     if (Random.value > 0.5f) {
       CircleDirection = 1;
     } else {

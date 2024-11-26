@@ -14,6 +14,7 @@ public class EnemyAIHelper {
   private OnCollision OnCollisionComponent;
   private bool MovementAllowed;
   private LayerMask LineOfSightMask, LineOfMovementMask;
+  private List<AsyncTimer.EnqueuedEvent> Timers = new();
 
   public EnemyAIHelper(AEnemyAI2 ai, GameObject gameObject, bool movementAllowed) {
     AI = ai;
@@ -35,6 +36,7 @@ public class EnemyAIHelper {
   public GameObject Player => PlayerGameObject.Current;
   public Transform PlayerTransform => Player.transform;
   public Vector3 PlayerPosition => PlayerTransform.position;
+  public HitPoints PlayerHitPoints => Player.GetComponent<HitPoints>();
 
   public Vector3 VectorToPlayer => PlayerPosition - Position;
   public Vector3 DirectionToPlayer => VectorToPlayer.normalized;
@@ -92,12 +94,55 @@ public class EnemyAIHelper {
     });
   }
 
+  public void OnPlayerCollision(Action handler) {
+    OnAnyCollision(collider => {
+      if (collider.tag == "Player") {
+        handler();
+      }
+    });
+  }
+
   public void OnDamage(Action handler) {
     HitPoints.OnDecrease.AddListener(_ => {
       if (AI.IsActive) {
         handler();
       }
     });
+  }
+
+  public bool DamagePlayer(float damage, bool canBeCounterAttacked) {
+    return PlayerHitPoints.Damage(damage, canBeCounterAttacked);
+  }
+
+  public void KillSelf() {
+    HitPoints.Damage(Mathf.Infinity);
+  }
+
+  public AsyncTimer.EnqueuedEvent SetTimeout(System.Action callback, float timeout) {
+    AsyncTimer.EnqueuedEvent timer = AsyncTimer.PlayingTime.SetTimeout(callback, timeout, GameObject);
+    Timers.Add(timer);
+    return timer;
+  }
+
+  public AsyncTimer.EnqueuedEvent SetInterval(System.Action callback, float interval) {
+    AsyncTimer.EnqueuedEvent timer = AsyncTimer.PlayingTime.SetInterval(callback, interval, GameObject);
+    Timers.Add(timer);
+    return timer;
+  }
+
+  public void ClearTimeout(AsyncTimer.EnqueuedEvent timer) {
+    AsyncTimer.PlayingTime.ClearTimeout(timer);
+    Timers.Remove(timer);
+  }
+
+  private void ClearTimers() {
+    Timers.ForEach(AsyncTimer.PlayingTime.ClearTimeout);
+    Timers.Clear();
+  }
+
+  // Called by AEnemyAI2
+  public void Deactivate() {
+    ClearTimers();
   }
 
   private void CheckMovementAllowed() {
