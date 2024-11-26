@@ -78,7 +78,7 @@ public abstract class AEnemyAI2 : MonoBehaviour {
     IsActive = false;
     ActiveChildAIs.ForEach(DeactivateChildAI);
     ActiveChildAIs.Clear();
-    Helper.Deactivate();
+    _Helper?.Deactivate();
     OnDeactivate();
   }
 
