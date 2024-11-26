@@ -9,6 +9,8 @@ public class CirclePlayerAI : AMovementEnemyAI {
   public float TooFarDistance, ApproachToDistance;
   public float TooCloseDistance, BackOffToDistance;
   public float CircleSpeed;
+  public float RepulsionFactor;
+  public float MaxRepulsionDistance;
 
   private bool AdjustingDistance;
   private int AdjustingDirection, CircleDirection;
@@ -41,6 +43,8 @@ public class CirclePlayerAI : AMovementEnemyAI {
       AdjustingDistance = false;
     }
 
+    RepelFromOtherEnemies();
+
     if (AdjustingDistance) {
       AdjustDistance();
     } else {
@@ -65,6 +69,19 @@ public class CirclePlayerAI : AMovementEnemyAI {
 
   private bool ShouldStopAdjusting(float distance)
     => distance > BackOffToDistance && distance < ApproachToDistance;
+
+  private void RepelFromOtherEnemies() {
+    Vector2 repulsion = Vector2.zero;
+    Helper.OtherEnemies().ForEach(enemy => {
+      Vector2 toEnemy = enemy.transform.position - Helper.Position;
+      Vector2 directionToEnemy = toEnemy.normalized;
+      float distanceToEnemy = toEnemy.magnitude;
+      if (distanceToEnemy < MaxRepulsionDistance) {
+        repulsion += -1f * RepulsionFactor * directionToEnemy / distanceToEnemy;
+      }
+    });
+    Helper.MoveWithVelocity(repulsion);
+  }
 
   private void AdjustDistance() {
     Helper.MoveWithVelocity(Helper.DirectionToPlayer * AdjustingDirection * Speed);

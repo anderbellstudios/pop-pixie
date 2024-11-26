@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class EnemyAIHelper {
@@ -117,6 +118,11 @@ public class EnemyAIHelper {
   public void KillSelf() {
     HitPoints.Damage(Mathf.Infinity);
   }
+
+  public List<GameObject> OtherEnemies() => GameObject
+    .FindGameObjectsWithTag("Enemy")
+    .Where(enemy => enemy != GameObject)
+    .ToList();
 
   public AsyncTimer.EnqueuedEvent SetTimeout(System.Action callback, float timeout) {
     AsyncTimer.EnqueuedEvent timer = AsyncTimer.PlayingTime.SetTimeout(callback, timeout, GameObject);
