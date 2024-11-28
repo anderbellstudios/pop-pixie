@@ -12,24 +12,40 @@ public class ElectricBarrier : MonoBehaviour {
   public GameObject LineRendererGameObject;
   public int Points;
   public float Amplitude;
+  public int Passes = 1;
   public Color Color;
   public List<WidthAndOpacity> LineRendererData;
 
-  private List<LineRenderer> LineRenderers = new();
+  private LineRenderer[,] LineRenderersByPass;
 
   void Start() {
-    LineRendererData.ForEach(data => {
-      GameObject newGameObject = Instantiate(LineRendererGameObject, transform);
-      LineRenderer lineRenderer = newGameObject.GetComponent<LineRenderer>();
-      Color color = new Color(Color.r, Color.g, Color.b, data.Opacity);
-      lineRenderer.startColor = color;
-      lineRenderer.endColor = color;
-      lineRenderer.startWidth = data.Width;
-      lineRenderer.endWidth = data.Width;
-      lineRenderer.positionCount = Points + 2;
-      LineRenderers.Add(lineRenderer);
-    });
+    LineRenderersByPass = new LineRenderer[Passes, LineRendererData.Count];
 
+    /**
+     * For each pass, provision a number of LineRenderers equal to the length
+     * of the LineRendererData list.
+     */
+    for (int pass = 0; pass < Passes; pass++) {
+      for (int i = 0; i < LineRendererData.Count; i++) {
+        WidthAndOpacity data = LineRendererData[i];
+
+        GameObject newGameObject = Instantiate(LineRendererGameObject, transform);
+        LineRenderer lineRenderer = newGameObject.GetComponent<LineRenderer>();
+
+        Color color = new Color(Color.r, Color.g, Color.b, data.Opacity);
+        lineRenderer.startColor = color;
+        lineRenderer.endColor = color;
+
+        lineRenderer.startWidth = data.Width;
+        lineRenderer.endWidth = data.Width;
+
+        lineRenderer.positionCount = Points + 2;
+
+        LineRenderersByPass[pass, i] = lineRenderer;
+      }
+    }
+
+    // Deactivate the template game object
     LineRendererGameObject.SetActive(false);
 
     Render();
@@ -51,25 +67,44 @@ public class ElectricBarrier : MonoBehaviour {
       return matrix * pointWithW;
     };
 
-    System.Action<int, Vector3> setPoint = (index, point) => {
-      LineRenderers.ForEach(lineRenderer => {
-        lineRenderer.SetPosition(index, transformPoint(point));
-      });
+    System.Action<int, int, Vector3> setPoint = (pass, pointIndex, point) => {
+      for (
+        int lineRendererIndex = 0;
+        lineRendererIndex < LineRendererData.Count;
+        lineRendererIndex++
+      ) {
+        LineRenderer lineRenderer = LineRenderersByPass[pass, lineRendererIndex];
+        lineRenderer.SetPosition(pointIndex, transformPoint(point));
+      }
     };
 
+    /**
+     * Divide the horizontal distance into equal chunks with Points vertices
+     * between the start and end points.
+     */
     float xDistancePerPoint = 1f / (Points + 1);
 
-    setPoint(0, Vector3.zero);
-    setPoint(Points + 1, Vector3.right);
+    for (int pass = 0; pass < Passes; pass++) {
+      // Start point
+      setPoint(pass, 0, Vector3.zero);
 
-    for (int i = 1; i < Points + 1; i++) {
-      Vector3 point = new Vector3(
-        xDistancePerPoint * i,
-        Random.Range(-Amplitude / 2f, Amplitude / 2f),
-        1f
-      );
+      /**
+       * Since the 0th point of the pass has already been handled, skip to the
+       * 1th point, which is the first of the Points vertices between the start
+       * and end points. Stop just before the end point of the current pass.
+       */
+      for (int i = 1; i <= Points; i++) {
+        Vector3 point = new Vector3(
+          xDistancePerPoint * i,
+          Random.Range(-Amplitude / 2f, Amplitude / 2f),
+          Random.Range(-Amplitude / 2f, Amplitude / 2f)
+        );
 
-      setPoint(i, point);
+        setPoint(pass, i, point);
+      }
+
+      // End point
+      setPoint(pass, Points + 1, Vector3.right);
     }
   }
 

@@ -4695,7 +4695,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: -876546973899608171, guid: ca8f42ea77e7f4eab86c3eaa96647111, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4716,9 +4716,7 @@ LineRenderer:
   m_SortingLayerID: -78808081
   m_SortingLayer: 5
   m_SortingOrder: 0
-  m_Positions:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 1}
+  m_Positions: []
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -4767,8 +4765,8 @@ LineRenderer:
       m_ColorSpace: 0
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
-    numCornerVertices: 0
-    numCapVertices: 0
+    numCornerVertices: 5
+    numCapVertices: 5
     alignment: 0
     textureMode: 0
     textureScale: {x: 1, y: 1}
@@ -5733,19 +5731,20 @@ MonoBehaviour:
   Terminal1: {fileID: 124146957}
   Terminal2: {fileID: 1924415722}
   LineRendererGameObject: {fileID: 1651412307}
-  Points: 6
+  Points: 5
   Amplitude: 1.5
-  Color: {r: 0.49019608, g: 0.87058824, b: 1, a: 1}
+  Passes: 2
+  Color: {r: 0.7058824, g: 1, b: 1, a: 1}
   LineRendererData:
-  - Width: 0.8
-    Opacity: 0.0625
-  - Width: 0.6
+  - Width: 1
     Opacity: 0.125
-  - Width: 0.4
-    Opacity: 0.1875
-  - Width: 0.2
+  - Width: 0.75
     Opacity: 0.25
-  - Width: 0.05
+  - Width: 0.5
+    Opacity: 0.375
+  - Width: 0.25
+    Opacity: 0.5
+  - Width: 0.0625
     Opacity: 1
 --- !u!1 &2099970651
 GameObject:
