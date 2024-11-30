@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 public class VisionCone : MonoBehaviour {
+  public bool Static;
   public MeshFilter MeshFilter;
   public MeshRenderer MeshRenderer;
   public SpriteRenderer VisibilityRange;
@@ -78,9 +79,10 @@ public class VisionCone : MonoBehaviour {
 
     /**
      * Optimisation: After the first render, do not perform raycasts while
-     * the game is paused, since the result will be the same.
+     * the game is paused, or at all if the vision cone is static, since the
+     * result will be the same.
      */
-    if (!StateManager.Playing && !FirstRender)
+    if (!FirstRender && (Static || !StateManager.Playing))
       return;
 
     FirstRender = false;

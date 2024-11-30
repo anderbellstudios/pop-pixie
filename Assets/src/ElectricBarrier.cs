@@ -52,7 +52,7 @@ public class ElectricBarrier : MonoBehaviour {
   }
 
   void Update() {
-    if (!StateManager.Playing)
+    if (!StateManager.Enabled(StateFeatures.BackgroundAnimations))
       return;
 
     Render();
