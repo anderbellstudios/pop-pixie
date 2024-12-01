@@ -64,7 +64,7 @@ public abstract class AEnemyAI : MonoBehaviour {
   }
 
   public void ApplyMovement(Vector2 movement) {
-    GetComponent<MovementManager>().Movement += movement * Time.deltaTime;
+    GetComponent<MovementManager>().Move(movement * Time.deltaTime);
   }
 
   public GameObject Target

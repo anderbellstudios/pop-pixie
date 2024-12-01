@@ -10,16 +10,26 @@ public class MovementManager : MonoBehaviour {
   public List<SpeedModifier> SpeedModifiers = new List<SpeedModifier>();
   public Animator Animator;
   public Rigidbody2D rb;
+  public Vector2 ConveyorContactOffset = Vector2.zero;
   public UnityEvent OnFootstep;
 
-  public Vector2 _Movement, VisualMovement;
-  public Vector2 Movement {
-    get { return _Movement; }
+  public Vector2 Movement { get; private set; }
 
-    set {
-      Vector2 diff = value - _Movement;
-      _Movement = value;
-      VisualMovement += diff;
+  private Vector2 VisualMovement;
+
+  public void Move(
+    Vector2 amount,
+    bool skipVisualMovement = false,
+    bool skipSpeedModifiers = false
+  ) {
+    Vector2 modifiedAmount = amount * (
+      skipSpeedModifiers ? 1f : ModifiedSpeed()
+    );
+
+    Movement += modifiedAmount;
+
+    if (!skipVisualMovement) {
+      VisualMovement += modifiedAmount;
     }
   }
 
@@ -27,7 +37,7 @@ public class MovementManager : MonoBehaviour {
     if (Animator != null) {
       Animator.SetInteger("Movement Direction", VisualMovement.x > 0 ? 1 : -1);
       Animator.SetBool("Walking", StatePermitsMovement() && VisualMovement.magnitude > 0);
-      Animator.SetFloat("Speed", Velocity(VisualMovement).magnitude / Time.deltaTime);
+      Animator.SetFloat("Speed", VisualMovement.magnitude / Time.deltaTime);
     }
 
     VisualMovement = Vector2.zero;
@@ -35,9 +45,9 @@ public class MovementManager : MonoBehaviour {
 
   void FixedUpdate() {
     if (StatePermitsMovement())
-      rb.MovePosition(rb.position + Velocity(Movement));
+      rb.MovePosition(rb.position + Movement);
 
-    _Movement = Vector2.zero;
+    Movement = Vector2.zero;
   }
 
   public void DispatchFootstepDown() {
@@ -46,10 +56,6 @@ public class MovementManager : MonoBehaviour {
 
   bool StatePermitsMovement() {
     return StateManager.Enabled(StateFeatures.Movement);
-  }
-
-  Vector2 Velocity(Vector2 movement) {
-    return ModifiedSpeed() * movement;
   }
 
   float ModifiedSpeed() {

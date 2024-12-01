@@ -19,7 +19,7 @@ public class PlayerMovable : MonoBehaviour, IDirectionManager {
     ).normalized;
 
     if (!Roll.Rolling)
-      MovementManager.Movement += Speed * (Vector2)Direction * Time.deltaTime;
+      MovementManager.Move(Speed * (Vector2)Direction * Time.deltaTime);
   }
 
 }
