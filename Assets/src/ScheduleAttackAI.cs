@@ -18,14 +18,14 @@ public class ScheduleAttackAI : AMovementEnemyAI {
   private float LastAttacked;
 
   void Start() {
-    AttackAI.OnFinish.AddListener(StopAttack);
-
     if (InterruptWhenDamaged) {
       Helper.OnDamage(() => {
         if (Attacking) {
           StopAttack();
         } else {
+          // Reset attack timer
           UnscheduleAttack();
+          ScheduleAttack();
         }
       });
     }
@@ -38,6 +38,14 @@ public class ScheduleAttackAI : AMovementEnemyAI {
     PreviouslyWithinRange = false;
     Attacking = false;
     LastAttacked = -Mathf.Infinity;
+  }
+
+  protected override void OnChildFinish(AEnemyAI2 child) {
+    if (child == AttackAI) {
+      StopAttack();
+    } else {
+      OnFinish();
+    }
   }
 
   protected override void WhileActive() {
@@ -58,6 +66,8 @@ public class ScheduleAttackAI : AMovementEnemyAI {
     ? AttackAI : NormalAI;
 
   private bool WithinRange => Helper.DistanceToPlayer <= MaxDistance;
+
+  public AMovementEnemyAI IfDamaged, IfNotDamaged;
 
   private void OnEnterRange() {
     if (!Attacking && AttackTimer == null) {

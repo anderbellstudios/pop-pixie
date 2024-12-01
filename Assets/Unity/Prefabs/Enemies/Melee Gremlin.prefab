@@ -1,0 +1,185 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7395253680585668139
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2090889806084682781}
+  - component: {fileID: 3686116009034848923}
+  m_Layer: 8
+  m_Name: Melee Gremlin Attack AI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2090889806084682781
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7395253680585668139}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7674314308645791106}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3686116009034848923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7395253680585668139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c31c6bec115b4cb380070bbd7a5cdec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsActive: 0
+  <Speed>k__BackingField: 11
+  Damage: 15
+  WiggleAmplitude: 10
+  BeforeAttackDuration: 0.5
+  GiveUpDuration: 1
+--- !u!1001 &8161433874373683611
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4399600734961214489, guid: 104942a13dd3f4497992f707511fee7d,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4399600734961214489, guid: 104942a13dd3f4497992f707511fee7d,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4399600734961214489, guid: 104942a13dd3f4497992f707511fee7d,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4399600734961214489, guid: 104942a13dd3f4497992f707511fee7d,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4399600734961214489, guid: 104942a13dd3f4497992f707511fee7d,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4399600734961214489, guid: 104942a13dd3f4497992f707511fee7d,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4399600734961214489, guid: 104942a13dd3f4497992f707511fee7d,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4399600734961214489, guid: 104942a13dd3f4497992f707511fee7d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4399600734961214489, guid: 104942a13dd3f4497992f707511fee7d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4399600734961214489, guid: 104942a13dd3f4497992f707511fee7d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6683697602069921621, guid: 104942a13dd3f4497992f707511fee7d,
+        type: 3}
+      propertyPath: CircleSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6683697602069921621, guid: 104942a13dd3f4497992f707511fee7d,
+        type: 3}
+      propertyPath: TooFarDistance
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6683697602069921621, guid: 104942a13dd3f4497992f707511fee7d,
+        type: 3}
+      propertyPath: TooCloseDistance
+      value: 2.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6683697602069921621, guid: 104942a13dd3f4497992f707511fee7d,
+        type: 3}
+      propertyPath: BackOffToDistance
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6683697602069921621, guid: 104942a13dd3f4497992f707511fee7d,
+        type: 3}
+      propertyPath: ApproachToDistance
+      value: 3.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 7238508906334667609, guid: 104942a13dd3f4497992f707511fee7d,
+        type: 3}
+      propertyPath: m_Name
+      value: Melee Gremlin AI
+      objectReference: {fileID: 0}
+    - target: {fileID: 7343680986649598625, guid: 104942a13dd3f4497992f707511fee7d,
+        type: 3}
+      propertyPath: AttackAI
+      value: 
+      objectReference: {fileID: 3686116009034848923}
+    - target: {fileID: 7343680986649598625, guid: 104942a13dd3f4497992f707511fee7d,
+        type: 3}
+      propertyPath: MaxDistance
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7343680986649598625, guid: 104942a13dd3f4497992f707511fee7d,
+        type: 3}
+      propertyPath: AttackInterval
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7343680986649598625, guid: 104942a13dd3f4497992f707511fee7d,
+        type: 3}
+      propertyPath: RandomnessFactor
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7343680986649598625, guid: 104942a13dd3f4497992f707511fee7d,
+        type: 3}
+      propertyPath: MinDelayBeforeAttack
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8188467070782874524, guid: 104942a13dd3f4497992f707511fee7d,
+        type: 3}
+      propertyPath: m_Name
+      value: Melee Gremlin
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 2000610790513937433, guid: 104942a13dd3f4497992f707511fee7d,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2090889806084682781}
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 104942a13dd3f4497992f707511fee7d, type: 3}
+--- !u!4 &7674314308645791106 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2000610790513937433, guid: 104942a13dd3f4497992f707511fee7d,
+    type: 3}
+  m_PrefabInstance: {fileID: 8161433874373683611}
+  m_PrefabAsset: {fileID: 0}

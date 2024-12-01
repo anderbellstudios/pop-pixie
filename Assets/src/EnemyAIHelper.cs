@@ -6,9 +6,9 @@ using UnityEngine;
 
 public class EnemyAIHelper {
   public GameObject GameObject;
+  public HitPoints HitPoints;
 
   private AEnemyAI2 AI;
-  private HitPoints HitPoints;
   private MovementManager MovementManager;
   private NavigateToPoint NavigateToPoint;
   private CapsuleCollider2D CapsuleCollider2D;

@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IfDamagedAI : AEnemyAI {
-  public HitPoints HitPoints;
-  public AEnemyAI IfDamaged, IfNotDamaged;
+public class IfDamagedAI : AMovementEnemyAI {
+  public AMovementEnemyAI IfDamaged, IfNotDamaged;
 
-  public override void ControlGained() {
-    bool isDamaged = HitPoints.Current < HitPoints.Maximum;
-    RelinquishControlTo(isDamaged ? IfDamaged : IfNotDamaged);
-  }
+  protected override AMovementEnemyAI UseMovementAI()
+    => IsDamaged() ? IfDamaged : IfNotDamaged;
+
+  private bool IsDamaged()
+    => Helper.HitPoints.Current < Helper.HitPoints.Maximum;
 }

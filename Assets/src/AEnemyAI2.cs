@@ -20,11 +20,9 @@ public abstract class AEnemyAI2 : MonoBehaviour {
 
   public bool IsActive = false;
 
-  [NonSerialized]
-  public UnityEvent OnFinish = new();
-
   private List<AEnemyAI2> ActiveChildAIs = new();
   private EnemyAIHelper _Helper = null;
+  private AEnemyAI2 Parent = null;
 
   protected EnemyAIHelper Helper {
     get {
@@ -68,8 +66,9 @@ public abstract class AEnemyAI2 : MonoBehaviour {
     ActiveChildAIs = childAIs;
   }
 
-  protected void Activate() {
+  protected void Activate(AEnemyAI2 parent = null) {
     IsActive = true;
+    Parent = parent;
     OnActivate();
     UpdateActiveChildAIs();
   }
@@ -82,8 +81,16 @@ public abstract class AEnemyAI2 : MonoBehaviour {
     OnDeactivate();
   }
 
+  protected virtual void OnChildFinish(AEnemyAI2 child) {
+    OnFinish();
+  }
+
+  protected void OnFinish() {
+    Parent?.OnChildFinish(this);
+  }
+
   private void ActivateChildAI(AEnemyAI2 child) {
-    child.Activate();
+    child.Activate(this);
   }
 
   private void DeactivateChildAI(AEnemyAI2 child) {

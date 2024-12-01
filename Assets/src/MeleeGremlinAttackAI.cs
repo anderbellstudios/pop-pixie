@@ -22,7 +22,7 @@ public class MeleeGremlinAttackAI : AMovementEnemyAI {
         Helper.KillSelf();
       }
 
-      OnFinish.Invoke();
+      OnFinish();
     });
 
     WiggleTransform = Helper.Transform.Find("Sprite");
@@ -36,9 +36,7 @@ public class MeleeGremlinAttackAI : AMovementEnemyAI {
     }, BeforeAttackDuration);
 
     if (GiveUpDuration != Mathf.Infinity) {
-      Helper.SetTimeout(() => {
-        OnFinish.Invoke();
-      }, GiveUpDuration);
+      Helper.SetTimeout(OnFinish, GiveUpDuration);
     }
   }
 
