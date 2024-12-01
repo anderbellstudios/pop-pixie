@@ -38,12 +38,15 @@ public class HitPoints : MonoBehaviour {
     OnUpdate.Invoke(this);
   }
 
-  public void Decrease(float damage) {
+  public void Decrease(float damage, bool ignoreDamageReduction = false) {
     if (Dead)
       return;
 
     if (!InfiniteHP) {
-      Increase(-damage * (float)(IsPlayer ? 1M - AssistModeData.DamageReduction : 1M));
+      float damageReductionFactor = ignoreDamageReduction
+        ? 1f
+        : (float)(IsPlayer ? 1M - AssistModeData.DamageReduction : 1M);
+      Increase(-damage * damageReductionFactor);
     }
 
     OnDecrease.Invoke(this);
@@ -65,16 +68,21 @@ public class HitPoints : MonoBehaviour {
   }
 
   // Returns true on counter attack
-  public bool Damage(float damage, bool canBeCounterAttacked = false) {
+  public bool Damage(
+    float damage,
+    bool canBeCounterAttacked = false,
+    bool ignoreCanBeDamaged = false,
+    bool ignoreDamageReduction = false
+  ) {
     if (canBeCounterAttacked && IsCounterAttack()) {
       OnCounterAttack.Invoke(this);
       return true;
     }
 
-    if (CanBeDamaged(damage)) {
+    if (ignoreDamageReduction || CanBeDamaged(damage)) {
       LastDamaged = PlayingTime.time;
       LastDamageAmount = damage;
-      Decrease(damage);
+      Decrease(damage, ignoreDamageReduction: ignoreDamageReduction);
     }
 
     return false;
