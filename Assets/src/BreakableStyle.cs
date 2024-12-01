@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BreakableStyle : MonoBehaviour {
-  public float Speed = 1f;
   public SpriteRenderer SpriteRenderer;
 
   void Awake() {
@@ -17,10 +16,6 @@ public class BreakableStyle : MonoBehaviour {
     );
 
     SpriteRenderer.material.SetVector("_Rect", rect);
-  }
-
-  void Update() {
-    SpriteRenderer.material.SetFloat("_OpacityProgress", (Mathf.Sin(Time.time * Speed * Mathf.PI) + 1f) / 2f);
   }
 
   public void DisableOutline() {
