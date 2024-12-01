@@ -81,8 +81,10 @@ public class ScriptedMovement : MonoBehaviour {
 
     float avoidCollisionFactor = AvoidCollisionFactor(direction);
 
-    MovementManager.Movement += (Vector2)(
-      direction.normalized * Mathf.Min(Speed * avoidCollisionFactor * DeltaTime, direction.magnitude)
+    MovementManager.Move(
+      direction.normalized * Mathf.Min(
+        Speed * avoidCollisionFactor * DeltaTime, direction.magnitude
+      )
     );
 
     DeltaTime = 0f;

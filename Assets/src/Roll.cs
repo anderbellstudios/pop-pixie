@@ -34,7 +34,7 @@ public class Roll : MonoBehaviour {
     }
 
     if (StateManager.Enabled(StateFeatures.Movement) && Rolling) {
-      MovementManager.Movement += Speed * Direction() * Time.deltaTime;
+      MovementManager.Move(Speed * Direction() * Time.deltaTime);
       UpdateLayer();
     }
   }
