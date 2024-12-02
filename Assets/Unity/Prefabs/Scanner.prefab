@@ -300,6 +300,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a57015c7b82f4708974edc402c72693, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Static: 0
   MeshFilter: {fileID: 5051784168234225361}
   MeshRenderer: {fileID: 4801023499800843114}
   VisibilityRange: {fileID: 1692489761998917168}
@@ -307,11 +308,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   Width: 45
-  AngleSteps: 5
+  AngleSteps: 20
   Radius: 8
   BlindSpotRadius: 0
-  DetectCornerThreshold: 0.01
-  DetectCornerIterations: 30
+  DetectCornerThreshold: 0.002
+  DetectCornerIterations: 10
   DetectPlayerMinDuration: 0.025
   DetectPlayerMaxDistanceLeniency: 0.75
   OnDetectPlayer:

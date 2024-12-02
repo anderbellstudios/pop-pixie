@@ -146,6 +146,13 @@ public class VisionCone : MonoBehaviour {
           ? transform.InverseTransformPoint(hit.point)
           : direction * Radius;
 
+#if UNITY_EDITOR
+      Debug.DrawLine(
+        transform.position,
+        transform.TransformPoint(point)
+      );
+#endif
+
       outList.Add(point);
 
       previousPreviousHit = previousHit;
