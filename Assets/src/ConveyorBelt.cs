@@ -10,6 +10,8 @@ public class ConveyorBelt : MonoBehaviour {
   public bool Reverse;
 
   private List<GameObject> TouchingGameObjects = new();
+  private bool MovedThisFixedUpdate = false;
+  private float DeltaTime = 0;
 
   void OnTriggerEnter2D(Collider2D collider) {
     TouchingGameObjects.Add(collider.gameObject);
@@ -24,11 +26,40 @@ public class ConveyorBelt : MonoBehaviour {
     Animator.SetFloat("Speed", StateManager.Playing ? realSpeed : 0f);
 
     if (StateManager.Playing) {
-      Vector2 velocity = transform.TransformDirection(Vector2.down * realSpeed);
+      DeltaTime += Time.deltaTime;
+
+      /**
+       * Move each object at most once per fixed update, ensuring that the
+       * logic preventing objects from overshooting works correctly. Changing
+       * this method from Update to FixedUpdate doesn't work for unfathomable
+       * reasons.
+       */
+      if (MovedThisFixedUpdate)
+        return;
+
+      MovedThisFixedUpdate = true;
+
+      Vector2 direction = transform.TransformDirection(Vector2.down);
+      Vector2 maxDisplacement = direction * realSpeed * DeltaTime;
+
+      DeltaTime = 0;
 
       EligibleMovementManagers().ForEach(movementManager => {
+        Vector2 newPosition =
+          movementManager.ConveyorContactPoint + maxDisplacement;
+
+        // Do not overshoot by more than 0.01 units
+        if (!InContact(newPosition)) {
+          newPosition =
+            (Vector2)Collider2D.bounds.ClosestPoint(newPosition) +
+            direction * 0.01f;
+        }
+
+        Vector2 displacement =
+          newPosition - movementManager.ConveyorContactPoint;
+
         movementManager.Move(
-          velocity * Time.deltaTime,
+          displacement,
           skipVisualMovement: true,
           skipSpeedModifiers: true
         );
@@ -36,15 +67,17 @@ public class ConveyorBelt : MonoBehaviour {
     }
   }
 
+  void FixedUpdate() {
+    MovedThisFixedUpdate = false;
+  }
+
   private List<MovementManager> EligibleMovementManagers() => TouchingGameObjects
     .Select(gameObject => gameObject.GetComponent<MovementManager>())
-    .Where(movementManager => movementManager != null)
-    .Where(InContact)
+    .Where(movementManager =>
+      movementManager != null &&
+      InContact(movementManager.ConveyorContactPoint)
+    )
     .ToList();
 
-  private bool InContact(MovementManager movementManager)
-    => Collider2D.bounds.Contains(
-      movementManager.transform.position +
-      (Vector3)movementManager.ConveyorContactOffset
-    );
+  private bool InContact(Vector3 point) => Collider2D.bounds.Contains(point);
 }
