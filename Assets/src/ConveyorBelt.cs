@@ -10,8 +10,13 @@ public class ConveyorBelt : MonoBehaviour {
   public bool Reverse;
 
   private List<GameObject> TouchingGameObjects = new();
+  private MovementManager PlayerMovementManager;
   private bool MovedThisFixedUpdate = false;
   private float DeltaTime = 0;
+
+  void Start() {
+    PlayerMovementManager = PlayerGameObject.Current.GetComponent<MovementManager>();
+  }
 
   void OnTriggerEnter2D(Collider2D collider) {
     TouchingGameObjects.Add(collider.gameObject);
@@ -21,7 +26,11 @@ public class ConveyorBelt : MonoBehaviour {
     TouchingGameObjects.Remove(collider.gameObject);
   }
 
-  void Update() {
+  /**
+   * LateUpdate so that other scripts can adjust the speed for the current
+   * frame.
+   */
+  void LateUpdate() {
     float realSpeed = Speed * (Reverse ? -1f : 1f);
     Animator.SetFloat("Speed", StateManager.Playing ? realSpeed : 0f);
 
@@ -70,6 +79,9 @@ public class ConveyorBelt : MonoBehaviour {
   void FixedUpdate() {
     MovedThisFixedUpdate = false;
   }
+
+  public bool PlayerInContact()
+    => InContact(PlayerMovementManager.ConveyorContactPoint);
 
   private List<MovementManager> EligibleMovementManagers() => TouchingGameObjects
     .Select(gameObject => gameObject.GetComponent<MovementManager>())
