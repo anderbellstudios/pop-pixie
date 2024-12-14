@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class MentoeHologramSweepingAttackAI : AEnemyAI {
+public class MentoeHologramSweepingAttackAI : AMovementEnemyAI {
   public float SafeAngle;
   public float BeforeLaserDuration, LaserDuration, LaserBeamLength;
   public AnimationCurve DangerZoneExpandCurve;
@@ -14,13 +14,11 @@ public class MentoeHologramSweepingAttackAI : AEnemyAI {
   public UnityEvent OnBeginLaser;
   public DamageMultiHitPointEntity DamageBoss;
 
-  public AEnemyAI WhenFinished;
-
   private Stopwatch DangerZoneExpandStopwatch, LaserStopwatch;
   private float CurrentDangerZoneExpandDuration, CurrentLaserDuration;
   private float StartAngle, PreviousAngle;
 
-  public override void ControlGained() {
+  protected override void OnActivate() {
     DangerZoneExpandStopwatch = new Stopwatch.PlayingTime();
     LaserStopwatch = null;
 
@@ -33,14 +31,20 @@ public class MentoeHologramSweepingAttackAI : AEnemyAI {
     DangerZoneImage.enabled = true;
     DangerZoneImage.fillAmount = 1 - (SafeAngle / 360);
     DangerZoneTransform.localRotation = Quaternion.Euler(0, 0, StartAngle - SafeAngle);
+    DangerZoneTransform.localScale = Vector3.zero;
 
-    SetTimeout(() => {
+    Helper.SetTimeout(() => {
       LaserStopwatch = new Stopwatch.PlayingTime();
       OnBeginLaser.Invoke();
     }, BeforeLaserDuration);
   }
 
-  public override void WhileInControl() {
+  protected override void OnDeactivate() {
+    LineRenderer.enabled = false;
+    DangerZoneImage.enabled = false;
+  }
+
+  protected override void WhileActive() {
     float dangerZoneProgress = DangerZoneExpandStopwatch.Progress(CurrentDangerZoneExpandDuration);
     DangerZoneTransform.localScale = DangerZoneExpandCurve.Evaluate(dangerZoneProgress) * Vector3.one;
 
@@ -50,7 +54,7 @@ public class MentoeHologramSweepingAttackAI : AEnemyAI {
     float laserProgress = LaserStopwatch.Progress(CurrentLaserDuration);
 
     if (laserProgress >= 1f) {
-      RelinquishControlTo(WhenFinished);
+      OnFinish();
       return;
     }
 
@@ -61,24 +65,21 @@ public class MentoeHologramSweepingAttackAI : AEnemyAI {
     LineRenderer.SetPosition(0, transform.position);
     LineRenderer.SetPosition(1, transform.position + LaserBeamLength * direction);
 
-    Vector3 targetDirection = TargetDirection();
-    float targetAngle = ((Mathf.Atan2(targetDirection.y, targetDirection.x) * Mathf.Rad2Deg) - StartAngle + 360) % 360;
+    Vector3 playerDirection = Helper.DirectionToPlayer;
 
-    if ((PreviousAngle <= targetAngle) && (targetAngle <= angle)) {
-      bool isCounterAttack = DamageTarget(1, true);
+    float playerAngle = (
+      (
+        Mathf.Atan2(playerDirection.y, playerDirection.x) *
+        Mathf.Rad2Deg
+      ) - StartAngle + 360
+    ) % 360;
+
+    if (PreviousAngle <= playerAngle && playerAngle <= angle) {
+      bool isCounterAttack = Helper.DamagePlayer(1, true);
       if (isCounterAttack)
         DamageBoss.Damage(150);
     }
 
     PreviousAngle = angle;
-  }
-
-  public override void ControlRelinquished() {
-    LineRenderer.enabled = false;
-    DangerZoneImage.enabled = false;
-  }
-
-  public void LaserFinished() {
-    RelinquishControlTo(WhenFinished);
   }
 }

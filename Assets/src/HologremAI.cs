@@ -2,31 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HologremAI : AEnemyAI, IRequiresLineOfMovementAI {
+public class HologremAI : AMovementEnemyAI {
+  [field: SerializeField]
+  public override float Speed { get; set; }
 
-  public float Speed;
-
-  public override void WhileInControl() {
-    if (LineOfMovement())
-      ApplyMovement(TargetDirection() * Speed);
+  void Start() {
+    Activate();
+    Helper.OnPlayerCollision(PerformAttack);
   }
 
-  public override void LocalOnCollisionEnter2D(Collision2D col) {
-    if (col.gameObject == Target)
-      PerformAttack();
+  protected override void WhileActive() {
+    if (Helper.CanMoveToPlayer()) {
+      Helper.MoveTowardsPlayer(Speed);
+    }
   }
 
-  void PerformAttack() {
-    bool isCounterAttack = Target.GetComponent<HitPoints>().Damage(1, true);
+  private void PerformAttack() {
+    bool isCounterAttack = Helper.DamagePlayer(1, true);
 
     if (isCounterAttack) {
       DamageHitPointsInRadius.Invoke(
         damage: 1,
-        origin: transform.position,
+        origin: Helper.Position,
         radius: 5
       );
     } else {
-      Destroy(gameObject);
+      Destroy(Helper.GameObject);
     }
   }
 }

@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public static class CollisionMask {
-  private static Dictionary<int, int> Cache = new Dictionary<int, int>();
+  private static Dictionary<int, LayerMask> Cache = new();
 
-  public static int ForLayer(int ownLayer) {
+  public static LayerMask ForLayer(int ownLayer) {
     if (Cache.ContainsKey(ownLayer))
       return Cache[ownLayer];
 
-    int mask = 0;
+    LayerMask mask = 0;
 
     for (int otherLayer = 0; otherLayer < 32; otherLayer++) {
       if (!Physics2D.GetIgnoreLayerCollision(ownLayer, otherLayer)) {
@@ -20,5 +20,19 @@ public static class CollisionMask {
     Cache.Add(ownLayer, mask);
 
     return mask;
+  }
+
+  private static LayerMask? _UnwalkableMask;
+
+  public static LayerMask UnwalkableMask {
+    get {
+      if (!_UnwalkableMask.HasValue) {
+        _UnwalkableMask = LayerMask.GetMask("Default")
+          | LayerMask.GetMask("RollToPass")
+          | LayerMask.GetMask("WalkBoundary");
+      }
+
+      return _UnwalkableMask.Value;
+    }
   }
 }

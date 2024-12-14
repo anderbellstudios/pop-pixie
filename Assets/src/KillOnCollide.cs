@@ -18,11 +18,6 @@ public class KillOnCollide : MonoBehaviour {
       return;
 
     HitPoints hitPoints = gameObject.GetComponent<HitPoints>();
-
-    hitPoints?.Damage(
-      Mathf.Infinity,
-      ignoreCanBeDamaged: true,
-      ignoreDamageReduction: true
-    );
+    hitPoints?.Kill();
   }
 }

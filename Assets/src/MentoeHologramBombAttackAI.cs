@@ -8,19 +8,19 @@ public class MentoeHologramBombAttackAI : ARepeatedAttackAI {
 
   void Start() {
     HitPoints.PlayerHitPoints.OnDecrease.AddListener(hitPoints => {
-      if (InControl) {
-        EndAttack();
+      if (IsActive) {
+        OnFinish();
       }
     });
   }
 
-  public override void PerformAttack() {
-    Vector3 targetHeading = (Vector3)TargetHeading();
+  protected override void PerformAttack() {
+    Vector3 toPlayer = Helper.VectorToPlayer;
 
     bool predictPosition = Random.value < 0.75f;
 
     if (predictPosition) {
-      targetHeading += PlayerGameObject.EstimatedVelocity * PredictiveAimLeadTime;
+      toPlayer += PlayerGameObject.EstimatedVelocity * PredictiveAimLeadTime;
     }
 
     GameObject bombGameObject = Instantiate(
@@ -32,7 +32,7 @@ public class MentoeHologramBombAttackAI : ARepeatedAttackAI {
     Rigidbody2D rb = bombGameObject.GetComponent<Rigidbody2D>();
 
     rb.velocity = DragUtils.VelocityForDisplacement(
-      displacement: targetHeading,
+      displacement: toPlayer,
       drag: rb.drag
     );
 
