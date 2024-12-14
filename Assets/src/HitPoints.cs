@@ -88,6 +88,14 @@ public class HitPoints : MonoBehaviour {
     return false;
   }
 
+  public void Kill() {
+    Damage(
+      Mathf.Infinity,
+      ignoreCanBeDamaged: true,
+      ignoreDamageReduction: true
+    );
+  }
+
   public static float InitStartOrder = 1;
   public static float UpdateStartOrder => OrderedStart.After(InitStartOrder);
 
@@ -98,7 +106,7 @@ public class HitPoints : MonoBehaviour {
 
     OrderedStart.Add(() => {
       Current = Maximum;
-      LastDamaged = -1000000f;
+      LastDamaged = -Mathf.Infinity;
       LastDamageAmount = 0f;
     }, InitStartOrder);
 

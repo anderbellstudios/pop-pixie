@@ -8,13 +8,13 @@ public class MentoeHologramHoloringAttackAI : ARepeatedAttackAI {
 
   void Start() {
     InGamePrompt.Current.RegisterSource(98, () =>
-      InControl
+      IsActive
       ? "Press <size=150%>[Roll]</size> while moving to <color=#ffff00>roll</color>"
       : null
     );
   }
 
-  public override void PerformAttack() {
+  protected override void PerformAttack() {
     GameObject holoringGameObject = Instantiate(HoloringPrefab, transform);
     Holoring holoring = holoringGameObject.GetComponent<Holoring>();
     holoring.DamageBoss = (damage) => DamageBoss.Damage(damage);

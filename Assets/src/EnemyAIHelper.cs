@@ -49,7 +49,7 @@ public class EnemyAIHelper {
 
   public void MoveWithDisplacement(Vector2 displacement) {
     CheckMovementAllowed();
-    MovementManager.Movement += displacement;
+    MovementManager.Move(displacement);
   }
 
   public void MoveTowardsPlayer(float speed) {
