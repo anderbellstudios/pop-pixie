@@ -33,6 +33,8 @@ public class MovementManager : MonoBehaviour {
     }
   }
 
+  public Vector2 ConveyorContactPoint => rb.position + ConveyorContactOffset;
+
   void Update() {
     if (Animator != null) {
       Animator.SetInteger("Movement Direction", VisualMovement.x > 0 ? 1 : -1);

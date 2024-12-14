@@ -24,8 +24,6 @@ public class VisionCone : MonoBehaviour {
   private LayerMask BlockingAndPlayerMask;
   private bool FirstRender;
 
-  private enum HitResultType { None, Miss, Hit };
-
   public void SetColor(Color color) {
     MeshRenderer.material.color = color;
   }
@@ -87,140 +85,43 @@ public class VisionCone : MonoBehaviour {
 
     FirstRender = false;
 
-    List<Vector3> arcPoints = new List<Vector3>();
-
-    ScanArc(
-      startAngle: -Width / 2f,
-      angularDistance: Width,
-      steps: AngleSteps,
-      outList: arcPoints,
-      onDetectCorner: DetectCornerIterations > 0
-        ? (angle) => ScanArc(
-          startAngle: angle,
-          angularDistance: Width / AngleSteps,
-          steps: DetectCornerIterations,
-          skipFirstAndLast: true,
-          outList: arcPoints
-        )
-        : null
+    ScanArc scanArc = new ScanArc(
+      angleSteps: AngleSteps,
+      detectCornerThreshold: DetectCornerThreshold,
+      detectCornerIterations: DetectCornerIterations,
+      raycast: RaycastForScan
     );
 
-    DrawCone(arcPoints.ToArray());
+    DrawCone(scanArc.Scan(-Width / 2f, Width / 2f));
   }
 
-  private void ScanArc(
-    float startAngle,
-    float angularDistance,
-    float steps,
-    List<Vector3> outList,
-    bool skipFirstAndLast = false,
-    System.Action<float> onDetectCorner = null
-  ) {
-    float angularDistancePerStep = angularDistance / steps;
+  private ScanArc.RaycastResult RaycastForScan(float angle) {
+    Vector3 direction = DirectionForAngle(angle);
 
-    RaycastHit2D? previousPreviousHit = null;
-    RaycastHit2D? previousHit = null;
+    RaycastHit2D hit = Physics2D.Raycast(
+      transform.position,
+      transform.TransformDirection(direction),
+      Radius,
+      BlockingMask
+    );
 
-    for (int step = 0; step < steps + 1; step++) {
-      if (skipFirstAndLast && (step == 0 || step == steps))
-        continue;
+#if UNITY_EDITOR
+    Debug.DrawLine(
+      transform.position,
+      transform.position +
+        transform.TransformDirection(direction) *
+        (hit ? hit.distance : Radius)
+    );
+#endif
 
-      float angle = startAngle + angularDistancePerStep * step;
-      Vector3 direction = DirectionForAngle(angle);
-
-      RaycastHit2D hit = Physics2D.Raycast(
-        transform.position,
-        transform.TransformDirection(direction),
-        Radius,
-        BlockingMask
+    if (hit) {
+      return ScanArc.RaycastResult.Hit(
+        hit.collider.gameObject,
+        transform.InverseTransformPoint(hit.point)
       );
-
-      if (
-        onDetectCorner != null &&
-        ShouldDetectCorner(previousPreviousHit, previousHit, hit)
-      ) {
-        onDetectCorner(angle - angularDistancePerStep);
-      }
-
-      Vector3 point = hit
-          ? transform.InverseTransformPoint(hit.point)
-          : direction * Radius;
-
-      outList.Add(point);
-
-      previousPreviousHit = previousHit;
-      previousHit = hit;
-    }
-  }
-
-  private bool ShouldDetectCorner(
-    RaycastHit2D? previousPreviousHit,
-    RaycastHit2D? previousHit,
-    RaycastHit2D hit
-  ) {
-    HitResultType currentResultType = ToHitResultType(hit);
-    HitResultType previousResultType = ToHitResultType(previousHit);
-    HitResultType previousPreviousResultType = ToHitResultType(previousPreviousHit);
-
-    /**
-     * Never detect corner on the first angle, since there's no previous
-     * angle to scan from.
-     */
-    if (previousResultType == HitResultType.None)
-      return false;
-
-    /**
-     * Detect corner on Hit -> Miss. This is the only case where we detect on a
-     * Miss.
-     */
-    if (currentResultType == HitResultType.Miss) {
-      return previousResultType == HitResultType.Hit;
     }
 
-    // Detect corner on Miss -> Hit
-    if (previousResultType == HitResultType.Miss)
-      return true;
-
-    /**
-     * Detect corner on non-Hit -> Hit -> Hit, since there isn't enough
-     * information to check if the previous two hits are part of the same line.
-     */
-    if (previousPreviousResultType != HitResultType.Hit)
-      return true;
-
-    // All three are hits, so check if they form a straight line
-    return !PointsFormLine(
-      previousPreviousHit.Value.point,
-      previousHit.Value.point,
-      hit.point
-    );
-  }
-
-  private HitResultType ToHitResultType(RaycastHit2D? hit) => hit.HasValue
-    ? ToHitResultType(hit.Value)
-    : HitResultType.None;
-
-  private HitResultType ToHitResultType(RaycastHit2D hit) => hit
-    ? HitResultType.Hit
-    : HitResultType.Miss;
-
-  private bool PointsFormLine(Vector2 a, Vector2 b, Vector2 c) {
-    // Handle vertical lines as a special case
-    if (
-      Mathf.Abs(a.x - b.x) <= DetectCornerThreshold &&
-      Mathf.Abs(a.x - c.x) <= DetectCornerThreshold
-    )
-      return true;
-
-    // Line between A and B
-    float gradient = (b.y - a.y) / (b.x - a.x);
-    float yIntersect = a.y - gradient * a.x;
-
-    // Expected y for C
-    float expectedY = gradient * c.x + yIntersect;
-
-    float delta = Mathf.Abs(c.y - expectedY);
-    return delta <= DetectCornerThreshold;
+    return ScanArc.RaycastResult.Miss(Radius, direction);
   }
 
   private void DrawCone(Vector3[] arcPoints) {
