@@ -3,11 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Crouch : MonoBehaviour {
+  public static Crouch Current;
+
+  public GameObject GameObject;
   public MovementManager MovementManager;
   public Animator Animator;
+  public Roll Roll;
+  public SpriteRenderer AimingArrow;
   public float SpeedMultiplier;
 
   public bool Crouching { get; private set; }
+
+  private bool _InCrouchZone = false;
+  public bool InCrouchZone => Crouching && _InCrouchZone;
+
+  void Awake() {
+    Current = this;
+  }
 
   void Start() {
     MovementManager.SpeedModifiers.Add(
@@ -26,11 +38,24 @@ public class Crouch : MonoBehaviour {
       SetCrouching(false);
   }
 
+  public void SetInCrouchZone(bool inCrouchZone) {
+    _InCrouchZone = inCrouchZone;
+    UpdateAimingArrowEnabled();
+  }
+
   private void SetCrouching(bool crouching) {
     Crouching = crouching;
     Animator.SetBool("Crouching", crouching);
+    GameObject.layer = LayerMask.NameToLayer(
+      crouching ? "PlayerCrouching" : "Player"
+    );
+    UpdateAimingArrowEnabled();
   }
 
-  private bool CanCrouch() => true;
-  private bool CanUncrouch() => true;
+  private void UpdateAimingArrowEnabled() {
+    AimingArrow.enabled = !InCrouchZone;
+  }
+
+  private bool CanCrouch() => !Roll.Rolling;
+  private bool CanUncrouch() => !InCrouchZone;
 }

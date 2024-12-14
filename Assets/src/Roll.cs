@@ -62,7 +62,9 @@ public class Roll : MonoBehaviour {
 
   void UpdateLayer() {
     bool rollingLayer = Rolling && PlayerIsMoving();
-    GameObject.layer = LayerMask.NameToLayer(rollingLayer ? "PlayerRolling" : "Player");
+    GameObject.layer = LayerMask.NameToLayer(
+      rollingLayer ? "PlayerRolling" : "Player"
+    );
   }
 
   Vector2 Direction() {
