@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MentoeHologramBulletsAttackAI : AEnemyAI {
+public class MentoeHologramBulletsAttackAI : AMovementEnemyAI {
   public FireBullet FireBullet;
 
   public float Rotations;
@@ -13,8 +13,6 @@ public class MentoeHologramBulletsAttackAI : AEnemyAI {
   public float BulletDamage;
   public string ShootSoundKey;
 
-  public AEnemyAI WhenFinished;
-
   private Stopwatch AngleStopwatch;
   private Vector3 ReferenceDirection;
   private float CurrentRotations;
@@ -23,17 +21,14 @@ public class MentoeHologramBulletsAttackAI : AEnemyAI {
     PreloadProgrammerSounds.PreloadSound(ShootSoundKey);
   }
 
-  public override void ControlGained() {
-    ReferenceDirection = TargetDirection();
+  protected override void OnActivate() {
+    ReferenceDirection = Helper.DirectionToPlayer;
     CurrentRotations = Rotations;
 
     AngleStopwatch = new Stopwatch.PlayingTime();
 
-    SetTimeout(() => {
-      RelinquishControlTo(WhenFinished);
-    }, Duration);
-
-    SetInterval(FireBullets, 1f / BulletsPerSecond);
+    Helper.SetTimeout(OnFinish, Duration);
+    Helper.SetInterval(FireBullets, 1f / BulletsPerSecond);
   }
 
   private void FireBullets() {

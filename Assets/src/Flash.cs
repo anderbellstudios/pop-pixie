@@ -4,27 +4,27 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Flash : MonoBehaviour {
-
-  public float Duration;
+  public int Flashes = 3;
+  public float FlashDuration = 0.2f;
   public Renderer Target;
-  public bool DefaultEnabled = true;
+
+  private Stopwatch Stopwatch = null;
 
   public void BeginFlashing() {
-    if (Duration > 0)
-      StartCoroutine(Coroutine());
+    Stopwatch = new Stopwatch.BaseTime();
   }
 
-  private IEnumerator Coroutine() {
-    int flashes = (int)(Duration / 0.2f);
+  void Update() {
+    if (Stopwatch == null)
+      return;
 
-    for (var n = 0; n < flashes; n++) {
+    float time = Stopwatch.Time();
+
+    Target.enabled = (time / FlashDuration) % 1f < 0.5f;
+
+    if (time > Flashes * FlashDuration) {
       Target.enabled = true;
-      yield return new WaitForSeconds(0.1f);
-      Target.enabled = false;
-      yield return new WaitForSeconds(0.1f);
+      Stopwatch = null;
     }
-
-    Target.enabled = DefaultEnabled;
   }
-
 }

@@ -212,7 +212,7 @@ public abstract class ABaseTest {
     string sceneName = SceneManager.GetActiveScene().name;
     string scenePath = SceneManager.GetActiveScene().path;
 
-    HitPoints.PlayerHitPoints.Damage(1000000);
+    HitPoints.PlayerHitPoints.Kill();
     yield return AwaitSceneChange("Game Over");
 
     // Clicking "Try again" may not work if the scene is not in build settings
@@ -226,8 +226,7 @@ public abstract class ABaseTest {
   protected void KillAllEnemies(Transform container = null) {
     foreach (GameObject enemy in EnemiesInContainer(container)) {
       HitPoints hp = enemy.GetComponent<HitPoints>();
-      if (hp)
-        hp.Damage(1000000);
+      hp?.Kill();
     }
   }
 
