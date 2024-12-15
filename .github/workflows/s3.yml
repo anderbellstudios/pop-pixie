@@ -21,7 +21,7 @@ jobs:
           name: Windows Installer
           run-id: ${{ github.run_id }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          path: build/windows
+          path: build
 
       - name: Download macOS build
         uses: actions/download-artifact@v4
@@ -29,7 +29,7 @@ jobs:
           name: macOS DMG
           run-id: ${{ github.run_id }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          path: build/macos
+          path: build
 
       - name: Upload to S3
         run: |
