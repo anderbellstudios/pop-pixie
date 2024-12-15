@@ -23,16 +23,32 @@ public static class CollisionMask {
   }
 
   private static LayerMask? _UnwalkableMask;
+  public static LayerMask UnwalkableMask => (
+    _UnwalkableMask ?? (_UnwalkableMask = GetUnwalkableMask())
+  ).Value;
 
-  public static LayerMask UnwalkableMask {
-    get {
-      if (!_UnwalkableMask.HasValue) {
-        _UnwalkableMask = LayerMask.GetMask("Default")
-          | LayerMask.GetMask("RollToPass")
-          | LayerMask.GetMask("WalkBoundary");
-      }
+  private static LayerMask GetUnwalkableMask() =>
+    LayerMask.GetMask("Default") |
+    LayerMask.GetMask("RollToPass") |
+    LayerMask.GetMask("CrouchToPass") |
+    LayerMask.GetMask("WalkBoundary");
 
-      return _UnwalkableMask.Value;
-    }
-  }
+  private static LayerMask? _OpaqueMask;
+  public static LayerMask OpaqueMask => (
+    _OpaqueMask ?? (_OpaqueMask = GetOpaqueMask())
+  ).Value;
+
+  private static LayerMask GetOpaqueMask() =>
+    LayerMask.GetMask("Default") |
+    LayerMask.GetMask("CrouchToPass");
+
+  private static LayerMask? _PlayerMask;
+  public static LayerMask PlayerMask => (
+    _PlayerMask ?? (_PlayerMask = GetPlayerMask())
+  ).Value;
+
+  private static LayerMask GetPlayerMask() =>
+    LayerMask.GetMask("Player") |
+    LayerMask.GetMask("PlayerRolling") |
+    LayerMask.GetMask("PlayerCrouching");
 }

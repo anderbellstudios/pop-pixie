@@ -9,14 +9,17 @@ public class LineOfMovement : MonoBehaviour {
     Vector3 end,
     LayerMask? layerMask = null,
     GameObject exclude = null,
+    GameObject target = null,
     Vector2? capsuleSize = null
   ) {
     Vector3 direction = end - start;
     Vector2 safeCapsuleSize = capsuleSize ?? new Vector2(1f, 1.5f);
     LayerMask safeLayerMask = layerMask ?? CollisionMask.UnwalkableMask;
 
+    RaycastHit2D hit;
+
     if (exclude) {
-      return !Physics2D.CapsuleCastAll(
+      hit = Physics2D.CapsuleCastAll(
         origin: start,
         size: safeCapsuleSize,
         capsuleDirection: CapsuleDirection2D.Vertical,
@@ -24,17 +27,23 @@ public class LineOfMovement : MonoBehaviour {
         direction: direction,
         distance: direction.magnitude,
         layerMask: safeLayerMask
-      ).Where(hit => hit.collider.gameObject != exclude).FirstOrDefault();
+      ).Where(hit => hit && hit.collider.gameObject != exclude).FirstOrDefault();
+    } else {
+      hit = Physics2D.CapsuleCast(
+        origin: start,
+        size: safeCapsuleSize,
+        capsuleDirection: CapsuleDirection2D.Vertical,
+        angle: 0f,
+        direction: direction,
+        distance: direction.magnitude,
+        layerMask: safeLayerMask
+      );
     }
 
-    return !Physics2D.CapsuleCast(
-      origin: start,
-      size: safeCapsuleSize,
-      capsuleDirection: CapsuleDirection2D.Vertical,
-      angle: 0f,
-      direction: direction,
-      distance: direction.magnitude,
-      layerMask: safeLayerMask
-    );
+    if (target) {
+      return hit && hit.collider.gameObject == target;
+    }
+
+    return !hit;
   }
 }

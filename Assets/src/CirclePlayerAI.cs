@@ -93,7 +93,7 @@ public class CirclePlayerAI : AMovementEnemyAI {
     // Check if we're 1 unit away from losing line of movement
     LowPriorityBehaviour.EveryNFrames(10, () => {
       Vector3 testPoint = Helper.Position + direction;
-      if (!LineOfMovement.Check(testPoint, Helper.PlayerPosition)) {
+      if (!Helper.CanMoveToPlayer(start: testPoint)) {
         CircleDirection *= -1;
         direction *= -1;
       }
