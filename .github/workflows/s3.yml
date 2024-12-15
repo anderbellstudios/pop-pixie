@@ -1,0 +1,43 @@
+name: Upload to S3
+
+# 1. Deploy an S3-compatible file upload server such as Minio
+# 2. Create the following GitHub secrets:
+#    - AWS_ACCESS_KEY_ID
+#    - AWS_SECRET_ACCESS_KEY
+#    - AWS_REGION (e.g. us-east-1)
+#    - AWS_ENDPOINT_URL (e.g. https://minio.example.com)
+#    - S3_BUCKET
+
+on: workflow_call
+
+jobs:
+  s3:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download Windows build
+        uses: actions/download-artifact@v4
+        with:
+          name: Windows Installer
+          run-id: ${{ github.run_id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: build
+
+      - name: Download macOS build
+        uses: actions/download-artifact@v4
+        with:
+          name: macOS DMG
+          run-id: ${{ github.run_id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: build
+
+      - name: Upload to S3
+        run: |
+          aws s3 cp './build/Install Pop Pixie.exe' $BASE_PATH/windows --content-disposition 'attachment; filename=Install Pop Pixie.exe'
+          aws s3 cp './build/Install Pop Pixie.dmg' $BASE_PATH/macos --content-disposition 'attachment; filename=Install Pop Pixie.dmg'
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ${{ secrets.AWS_REGION }}
+          AWS_ENDPOINT_URL: ${{ secrets.AWS_ENDPOINT_URL }}
+          BASE_PATH: s3://${{ secrets.S3_BUCKET }}/${{ github.ref == 'refs/heads/develop' && 'develop' || 'pull-request' }}

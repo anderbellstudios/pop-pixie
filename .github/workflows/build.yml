@@ -7,13 +7,6 @@ on:
         required: true
         type: string
 
-    outputs:
-      artifact_name:
-        value: ${{ jobs.build.outputs.artifact_name }}
-
-      run_id:
-        value: ${{ github.run_id }}
-
 jobs:
   build:
     name: Build ${{ inputs.target_platform }}
@@ -26,13 +19,6 @@ jobs:
 
       - name: Install vendor
         run: ./install_vendor.sh ${{ secrets.vendor_url }}
-
-      # - uses: actions/cache@v3
-      #   with:
-      #     path: Library
-      #     key: Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
-      #     restore-keys: |
-      #       Library-
 
       - uses: game-ci/unity-builder@v4
         env:
@@ -48,6 +34,3 @@ jobs:
         with:
           name: Build-${{ inputs.target_platform }}
           path: build/${{ inputs.target_platform }}
-
-      - id: output_artifact_name
-        run: echo "artifact_name=Build-${{ inputs.target_platform }}" >> $GITHUB_OUTPUT

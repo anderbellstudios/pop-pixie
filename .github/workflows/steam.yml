@@ -1,0 +1,54 @@
+name: Upload to Steam
+
+# 1. In Pop Pixie > Steamworks Settings > SteamPipe > Depots, create a depot
+#    each for Windows and macOS.
+# 2. For each depot, subtract the app ID from its ID; the result of this
+#    subtraction is the depot's index. For example, if the app ID is 125000 and
+#    the Windows and macOS depots have IDs 125001 and 125002 respectively, then
+#    their respective indices are 1 and 2. Edit the depot[X]Path lines in this
+#    workflow such that X is the correct index for each depot.
+# 3. In Pop Pixie > Steamworks Settings > SteamPipe > Builds, create app
+#    branches named develop and pull-request.
+# 4. In Pop Pixie > Steamworks Settings > Installation > General Installation,
+#    create a launch option each for Windows and macOS. The executables should
+#    be as follows:
+#      Windows: Pop Pixie/Pop Pixie.exe
+#      macOS: Pop Pixie.app/Contents/MacOS/Pop Pixie
+# 5. In Pop Pixie > Associated Packages & DLC, ensure that all packages you
+#    intend to use include the Pop Pixie app and both depots created in step 1.
+# 6. Follow the steps in https://game.ci/docs/github/deployment/steam/#4-setup-steam-authentication
+#    and create the STEAM_USERNAME, and STEAM_CONFIG_VDF and STEAM_APP_ID
+#    secrets as required.
+
+on: workflow_call
+
+jobs:
+  steam:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download Windows build
+        uses: actions/download-artifact@v4
+        with:
+          name: Build-StandaloneWindows64
+          run-id: ${{ github.run_id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: build/windows
+
+      - name: Download macOS build
+        uses: actions/download-artifact@v4
+        with:
+          name: Build-StandaloneOSX
+          run-id: ${{ github.run_id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: build/macos
+
+      - uses: game-ci/steam-deploy@v3
+        with:
+          username: ${{ secrets.STEAM_USERNAME }}
+          configVdf: ${{ secrets.STEAM_CONFIG_VDF}}
+          appId: ${{ secrets.STEAM_APP_ID }}
+          rootPath: build
+          depot1Path: windows
+          depot3Path: macos
+          releaseBranch: ${{ github.ref == 'refs/heads/develop' && 'develop' || 'pull-request' }}
