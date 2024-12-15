@@ -27,4 +27,4 @@ jobs:
           rootPath: build
           depot1Path: windows
           depot2Path: macOS
-          releaseBranch: pull-request
+          releaseBranch: ${{ github.ref == 'refs/heads/develop' && 'develop' || 'pull-request' }}
