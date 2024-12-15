@@ -2,6 +2,10 @@ name: Development builds
 
 on: push
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   windows_build:
     # if: ${{ github.ref == 'refs/heads/develop' }}
