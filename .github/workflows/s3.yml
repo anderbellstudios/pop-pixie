@@ -33,7 +33,6 @@ jobs:
 
       - name: Upload to S3
         run: |
-          find .
           aws s3 cp './build/Install Pop Pixie.exe' $BASE_PATH/windows --content-disposition 'attachment; filename=Install Pop Pixie.exe'
           aws s3 cp './build/Install Pop Pixie.dmg' $BASE_PATH/macos --content-disposition 'attachment; filename=Install Pop Pixie.dmg'
         env:
@@ -41,4 +40,4 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: ${{ secrets.AWS_REGION }}
           AWS_ENDPOINT_URL: ${{ secrets.AWS_ENDPOINT_URL }}
-          BASE_PATH: s3://${{ secrets.S3_BUCKET }}/${{ github.ref == 'refs/heads/develop' && 'develop' || 'pull_request' }}
+          BASE_PATH: s3://${{ secrets.S3_BUCKET }}/${{ github.ref == 'refs/heads/develop' && 'develop' || 'pull-request' }}
