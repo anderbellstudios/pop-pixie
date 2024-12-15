@@ -18,7 +18,7 @@ jobs:
       - name: Download Windows build
         uses: actions/download-artifact@v4
         with:
-          name: Build-StandaloneWindows64
+          name: Windows Installer
           run-id: ${{ github.run_id }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path: build/windows
@@ -26,7 +26,7 @@ jobs:
       - name: Download macOS build
         uses: actions/download-artifact@v4
         with:
-          name: Build-StandaloneOSX
+          name: macOS DMG
           run-id: ${{ github.run_id }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path: build/macos
