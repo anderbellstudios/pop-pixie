@@ -24,3 +24,9 @@ jobs:
     needs: [windows_build, macos_build]
     uses: ./.github/workflows/steam.yml
     secrets: inherit
+
+  s3:
+    name: 'Upload to S3'
+    needs: [windows_build, macos_build]
+    uses: ./.github/workflows/s3.yml
+    secrets: inherit

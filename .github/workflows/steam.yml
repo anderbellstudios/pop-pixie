@@ -35,13 +35,13 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path: build/windows
 
-      - name: Download macOS Artifact
+      - name: Download macOS build
         uses: actions/download-artifact@v4
         with:
           name: Build-StandaloneOSX
           run-id: ${{ github.run_id }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          path: build/macOS
+          path: build/macos
 
       - uses: game-ci/steam-deploy@v3
         with:
@@ -50,5 +50,5 @@ jobs:
           appId: ${{ secrets.STEAM_APP_ID }}
           rootPath: build
           depot1Path: windows
-          depot3Path: macOS
+          depot3Path: macos
           releaseBranch: ${{ github.ref == 'refs/heads/develop' && 'develop' || 'pull-request' }}
