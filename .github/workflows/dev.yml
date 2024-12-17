@@ -16,11 +16,14 @@ jobs:
     name: 'Prepare'
     runs-on: ubuntu-latest
     steps:
-      - run: |
+      - id: initial_scene
+        run: |
           initial_scene=$(echo $PR_DESCRIPTION | grep -Eo 'Initial scene: [A-Za-z_]+' | cut -b 16-)
           echo "initial_scene=$initial_scene" | tee -a $GITHUB_OUTPUT
         env:
           PR_DESCRIPTION: ${{ github.event.pull_request.body }}
+    outputs:
+      initial_scene: steps.initial_scene.outputs.initial_scene
 
   windows_build:
     name: 'Build for Windows'
