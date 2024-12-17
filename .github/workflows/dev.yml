@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          initial_scene=${echo $PR_DESCRIPTION | grep 'Initial scene: ' | cut -b 15}
+          initial_scene=$(echo $PR_DESCRIPTION | grep 'Initial scene: ' | cut -b 15)
           echo "initial_scene=$(initialScene)\n" | tee $GITHUB_OUTPUT
         env:
           PR_DESCRIPTION: ${{ github.event.pull_request.description }}
