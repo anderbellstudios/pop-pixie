@@ -15,6 +15,7 @@ jobs:
   prepare:
     name: 'Prepare'
     runs-on: ubuntu-latest
+    if: ${{ !contains(github.event.pull_request.body, 'No build') }}
     steps:
       - id: initial_scene
         run: |
