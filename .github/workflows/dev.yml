@@ -18,7 +18,7 @@ jobs:
     steps:
       - run: |
           initial_scene=$(echo $PR_DESCRIPTION | grep 'Initial scene: ' | cut -b 15)
-          echo "initial_scene=$(initialScene)\n" | tee $GITHUB_OUTPUT
+          echo "initial_scene=$initial_scene\n" | tee $GITHUB_OUTPUT
         env:
           PR_DESCRIPTION: ${{ github.event.pull_request.description }}
 
