@@ -1,11 +1,13 @@
 name: Development builds
 
-on:
-  push:
-    branches:
-      - develop
-  pull_request:
-    types: [opened, synchronize, edited]
+on: push
+
+  # on:
+  #   push:
+  #     branches:
+  #       - develop
+  #   pull_request:
+  #     types: [opened, synchronize, edited]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
