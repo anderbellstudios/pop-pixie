@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -6,8 +7,7 @@ using TMPro;
 public class LandingMenuEvents : AMenu {
   public AMenu OptionsMenu;
   public SceneChangeHopper SceneChangeHopper;
-  public GameObject DebugModeIndicator;
-  public TMP_Text EDCIndicatorText;
+  public TMP_Text DebugModeIndicator, EDCIndicator;
 
   // Only enforce resolution when launching the game
   public static bool AppliedResolutionData = false;
@@ -18,11 +18,20 @@ public class LandingMenuEvents : AMenu {
       ResolutionData.Apply();
     }
 
-    DebugModeIndicator.SetActive(Debug.isDebugBuild);
+    if (Debug.isDebugBuild) {
+      DebugModeIndicator.gameObject.SetActive(true);
+
+      String branchName = BuildMetaData.BranchName;
+      String commitHash = BuildMetaData.CommitHash;
+
+      if (branchName != null && commitHash != null) {
+        DebugModeIndicator.text += $" ({branchName}, {commitHash.Substring(0, 7)})";
+      }
+    }
 
     if (EnhancedDataCollection.Enabled) {
-      EDCIndicatorText.gameObject.SetActive(true);
-      EDCIndicatorText.text += EnhancedDataCollection.ClientID;
+      EDCIndicator.gameObject.SetActive(true);
+      EDCIndicator.text += EnhancedDataCollection.ClientID;
     }
   }
 

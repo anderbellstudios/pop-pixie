@@ -6,6 +6,15 @@ on:
       target_platform:
         required: true
         type: string
+      initial_scene:
+        required: true
+        type: string
+      branch_name:
+        required: true
+        type: string
+      commit_hash:
+        required: true
+        type: string
 
 jobs:
   build:
@@ -29,6 +38,8 @@ jobs:
           buildName: 'Pop Pixie'
           targetPlatform: ${{ inputs.target_platform }}
           versioning: None
+          buildMethod: DevelopmentBuild.Build
+          customParameters: ${{ inputs.initial_scene && format('-initialScene {0}', inputs.initial_scene) || '' }} -branchName ${{ inputs.branch_name }} -commitHash ${{ inputs.commit_hash }}
 
       - uses: actions/upload-artifact@v4
         with:

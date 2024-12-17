@@ -1,21 +1,50 @@
 name: Development builds
 
-on: push
+on:
+  push:
+    branches:
+      - develop
+  pull_request:
+    types: [opened, synchronize, edited]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
+  prepare:
+    name: 'Prepare'
+    runs-on: ubuntu-latest
+    if: ${{ !contains(github.event.pull_request.body, 'No build') }}
+    steps:
+      - id: initial_scene
+        run: |
+          initial_scene=$(echo $PR_DESCRIPTION | grep -Eo 'Initial scene: [A-Za-z ]+' | cut -b 16- | sed -e 's/ /_/g')
+          echo "initial_scene=$initial_scene" | tee -a $GITHUB_OUTPUT
+        env:
+          PR_DESCRIPTION: ${{ github.event.pull_request.body }}
+    outputs:
+      initial_scene: ${{ steps.initial_scene.outputs.initial_scene }}
+
   windows_build:
     name: 'Build for Windows'
+    needs: prepare
     uses: ./.github/workflows/windows.yml
     secrets: inherit
+    with:
+      initial_scene: ${{ needs.prepare.outputs.initial_scene }}
+      branch_name: ${{ github.head_ref || github.ref_name }}
+      commit_hash: ${{ github.event.pull_request.head.sha || github.sha }}
 
   macos_build:
     name: 'Build for macOS'
+    needs: prepare
     uses: ./.github/workflows/macos.yml
     secrets: inherit
+    with:
+      initial_scene: ${{ needs.prepare.outputs.initial_scene }}
+      branch_name: ${{ github.head_ref || github.ref_name }}
+      commit_hash: ${{ github.event.pull_request.head.sha || github.sha }}
 
   steam:
     name: 'Upload to Steam'
