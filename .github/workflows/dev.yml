@@ -28,7 +28,7 @@ jobs:
     uses: ./.github/workflows/windows.yml
     secrets: inherit
     with:
-      initial_scene: ${{ needs.outputs.initial_scene }}
+      initial_scene: ${{ needs.prepare.outputs.initial_scene }}
       branch_name: ${{ github.head_ref || github.ref_name }}
       commit_hash: ${{ github.sha }}
 
@@ -38,7 +38,7 @@ jobs:
     uses: ./.github/workflows/macos.yml
     secrets: inherit
     with:
-      initial_scene: ${{ needs.outputs.initial_scene }}
+      initial_scene: ${{ needs.prepare.outputs.initial_scene }}
       branch_name: ${{ github.head_ref || github.ref_name }}
       commit_hash: ${{ github.sha }}
 
