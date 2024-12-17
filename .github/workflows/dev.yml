@@ -1,21 +1,46 @@
 name: Development builds
 
-on: push
+on:
+  push:
+    branches:
+      - develop
+  pull_request:
+    types: [open, synchronize]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
+  prepare:
+    name: 'Prepare'
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          initial_scene=${echo $PR_DESCRIPTION | grep 'Initial scene: ' | cut -b 15}
+          echo "initial_scene=$(initialScene)\n" | tee $GITHUB_OUTPUT
+        with:
+          PR_DESCRIPTION: ${{ github.event.pull_request.description }}
+
   windows_build:
     name: 'Build for Windows'
+    needs: prepare
     uses: ./.github/workflows/windows.yml
     secrets: inherit
+    with:
+      initial_scene: ${{ needs.outputs.initial_scene }}
+      branch_name: ${{ github.head_ref || github.ref_name }}
+      commit_hash: ${{ github.sha }}
 
   macos_build:
     name: 'Build for macOS'
+    needs: prepare
     uses: ./.github/workflows/macos.yml
     secrets: inherit
+    with:
+      initial_scene: ${{ needs.outputs.initial_scene }}
+      branch_name: ${{ github.head_ref || github.ref_name }}
+      commit_hash: ${{ github.sha }}
 
   steam:
     name: 'Upload to Steam'

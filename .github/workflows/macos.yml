@@ -16,7 +16,18 @@ name: Build and package macOS
 #   3. gh secret set APP_STORE_CONNECT_API_KEY
 #   4. base64 -i AuthKey_**********.p8 | gh secret set APP_STORE_CONNECT_PASSWORD
 
-on: workflow_call
+on:
+  workflow_call:
+    inputs:
+      initial_scene:
+        required: true
+        type: string
+      branch_name:
+        required: true
+        type: string
+      commit_hash:
+        required: true
+        type: string
 
 jobs:
   build:
@@ -24,6 +35,9 @@ jobs:
     uses: ./.github/workflows/build.yml
     with:
       target_platform: StandaloneOSX
+      initial_scene: ${{ inputs.initial_scene }}
+      branch_name: ${{ inputs.branch_name }}
+      commit_hash: ${{ inputs.commit_hash }}
     secrets: inherit
 
   package_macos:
