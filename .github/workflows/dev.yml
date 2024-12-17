@@ -19,7 +19,7 @@ jobs:
       - run: |
           initial_scene=${echo $PR_DESCRIPTION | grep 'Initial scene: ' | cut -b 15}
           echo "initial_scene=$(initialScene)\n" | tee $GITHUB_OUTPUT
-        with:
+        env:
           PR_DESCRIPTION: ${{ github.event.pull_request.description }}
 
   windows_build:
