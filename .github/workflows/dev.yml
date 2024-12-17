@@ -23,7 +23,7 @@ jobs:
         env:
           PR_DESCRIPTION: ${{ github.event.pull_request.body }}
     outputs:
-      initial_scene: steps.initial_scene.outputs.initial_scene
+      initial_scene: ${{ steps.initial_scene.outputs.initial_scene }}
 
   windows_build:
     name: 'Build for Windows'
