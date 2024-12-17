@@ -33,7 +33,7 @@ jobs:
     with:
       initial_scene: ${{ needs.prepare.outputs.initial_scene }}
       branch_name: ${{ github.head_ref || github.ref_name }}
-      commit_hash: ${{ github.sha }}
+      commit_hash: ${{ github.event.pull_request.head.sha || github.sha }}
 
   macos_build:
     name: 'Build for macOS'
@@ -43,7 +43,7 @@ jobs:
     with:
       initial_scene: ${{ needs.prepare.outputs.initial_scene }}
       branch_name: ${{ github.head_ref || github.ref_name }}
-      commit_hash: ${{ github.sha }}
+      commit_hash: ${{ github.event.pull_request.head.sha || github.sha }}
 
   steam:
     name: 'Upload to Steam'

@@ -21,7 +21,7 @@ public class LandingMenuEvents : AMenu {
     if (Debug.isDebugBuild) {
       DebugModeIndicator.gameObject.SetActive(true);
 
-      String branchName = BuildMetaData.Test;
+      String branchName = BuildMetaData.BranchName;
       String commitHash = BuildMetaData.CommitHash;
 
       if (branchName != null && commitHash != null) {

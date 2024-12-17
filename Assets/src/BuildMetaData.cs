@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public static class BuildMetaData {
-  public static String Test = "x";
   public static String BranchName => Read("branch_name");
   public static String CommitHash => Read("commit_hash");
 
