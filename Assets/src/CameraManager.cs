@@ -27,7 +27,7 @@ public class CameraManager : MonoBehaviour {
   void Start() {
     DefaultState = PreviousState = TargetState = CameraState.FromCamera(
       Camera,
-      StartsRelativeToPlayer
+      StartsRelativeToPlayer && PlayerGameObject.Current != null
     );
 
     ZPosition = Camera.transform.position.z;
