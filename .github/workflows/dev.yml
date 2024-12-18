@@ -15,11 +15,11 @@ jobs:
   prepare:
     name: 'Prepare'
     runs-on: ubuntu-latest
-    if: ${{ !contains(github.event.pull_request.body, 'No build') }}
+    if: ${{ github.ref == 'refs/heads/develop' || contains(github.event.pull_request.body, '#build') }}
     steps:
       - id: initial_scene
         run: |
-          initial_scene=$(echo $PR_DESCRIPTION | grep -Eo 'Initial scene: [A-Za-z ]+' | cut -b 16- | sed -e 's/ /_/g')
+          initial_scene=$(echo $PR_DESCRIPTION | grep -Eo '#build [A-Za-z ]+' | cut -b 8- | sed -e 's/ /_/g')
           echo "initial_scene=$initial_scene" | tee -a $GITHUB_OUTPUT
         env:
           PR_DESCRIPTION: ${{ github.event.pull_request.body }}
