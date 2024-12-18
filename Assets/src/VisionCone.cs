@@ -35,9 +35,7 @@ public class VisionCone : MonoBehaviour {
     Mesh = MeshFilter.mesh;
     MeshRenderer.material.SetFloat("_Radius", Radius);
     MeshRenderer.material.SetFloat("_BlindRadius", BlindSpotRadius);
-    BlockingAndPlayerMask = BlockingMask |
-      LayerMask.GetMask("Player") |
-      LayerMask.GetMask("PlayerRolling");
+    BlockingAndPlayerMask = BlockingMask | CollisionMask.PlayerMask;
     VisibilityRange.gameObject.transform.localScale = Vector3.one * Radius * 2;
     FirstRender = true;
   }

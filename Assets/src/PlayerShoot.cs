@@ -7,6 +7,7 @@ using UnityEngine.Events;
 public class PlayerShoot : MonoBehaviour {
   public MonoBehaviour AimDirection;
   public EquippedWeapon EquippedWeapon;
+  public Crouch Crouch;
   public FireBullet FireBullet;
   public PlaySound PlaySound;
   public string NoBulletsSoundKey;
@@ -48,7 +49,8 @@ public class PlayerShoot : MonoBehaviour {
   }
 
   private bool CanFire(float cooldown) =>
-    CanFireStopwatch == null || CanFireStopwatch.Time() >= cooldown;
+    !Crouch.InCrouchZone &&
+    (CanFireStopwatch == null || CanFireStopwatch.Time() >= cooldown);
 
   private bool ShouldPlayNoBulletsSound(float cooldown) =>
     NoBulletsSoundStopwatch == null || NoBulletsSoundStopwatch.Time() >= cooldown;

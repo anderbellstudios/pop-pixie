@@ -14,7 +14,6 @@ public class EnemyAIHelper {
   private CapsuleCollider2D CapsuleCollider2D;
   private OnCollision OnCollisionComponent;
   private bool MovementAllowed;
-  private LayerMask LineOfSightMask, LineOfMovementMask;
   private List<AsyncTimer.EnqueuedEvent> Timers = new();
 
   public EnemyAIHelper(AEnemyAI2 ai, GameObject gameObject, bool movementAllowed) {
@@ -26,9 +25,6 @@ public class EnemyAIHelper {
     CapsuleCollider2D = gameObject.GetComponent<CapsuleCollider2D>();
     OnCollisionComponent = gameObject.GetComponent<OnCollision>();
     MovementAllowed = movementAllowed;
-
-    // Can see through anything except "Default"
-    LineOfSightMask = LayerMask.GetMask("Default");
   }
 
   public Transform Transform => GameObject.transform;
@@ -78,14 +74,17 @@ public class EnemyAIHelper {
     Position,
     DirectionToPlayer,
     DistanceToPlayer,
-    LineOfSightMask
+    CollisionMask.OpaqueMask
   );
 
-  public bool CanMoveToPlayer() => LineOfMovement.Check(
-    start: Position,
-    end: PlayerPosition,
-    capsuleSize: CapsuleCollider2D.size
-  );
+  public bool CanMoveToPlayer(Vector3? start = null)
+    => LineOfMovement.Check(
+      start: start ?? Position,
+      end: PlayerPosition,
+      capsuleSize: CapsuleCollider2D.size,
+      target: Player,
+      layerMask: CollisionMask.UnwalkableMask | CollisionMask.PlayerMask
+    );
 
   public void OnAnyCollision(Action<Collider2D> handler) {
     OnCollisionComponent.OnCollide.AddListener(() => {

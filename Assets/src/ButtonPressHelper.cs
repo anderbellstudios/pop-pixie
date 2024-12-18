@@ -3,6 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
+/**
+ * Ensures that a button has been up for one frame while the game object was
+ * listening for it before detecting a press. This prevents a single button
+ * press from activating multiple things in the same frame due to a state
+ * change. For example, closing a dialogue box using the space key should not
+ * trigger a roll.
+ */
+
 public abstract class ButtonPressHelper {
   public abstract void Clear();
 

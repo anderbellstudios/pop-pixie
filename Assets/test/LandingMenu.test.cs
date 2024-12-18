@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 public class LandingMenuTest : ABaseTest {
   [UnitySetUp]
   public IEnumerator Init() {
-    SceneManager.LoadScene(0);
+    SceneManager.LoadScene("Landing");
     yield return new WaitForSeconds(0.5f);
   }
 
