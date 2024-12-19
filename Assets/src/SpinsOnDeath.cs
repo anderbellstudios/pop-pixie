@@ -19,6 +19,7 @@ public class SpinsOnDeath : MonoBehaviour {
 
   public static void Begin() {
     Current.enabled = true;
+    CameraManager.Current.enabled = false;
   }
 
   void Update() {
