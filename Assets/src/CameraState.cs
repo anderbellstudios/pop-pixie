@@ -7,6 +7,7 @@ public class CameraState {
   public float Size;
   public Vector2 Position;
   public bool RelativeToPlayer = false;
+  public System.Func<Vector2> GetOffset = () => Vector2.zero;
 
   public static CameraState FromCamera(Camera camera, bool relativeToPlayer)
     => new CameraState {
@@ -24,12 +25,14 @@ public class CameraState {
     };
 
   public Vector2 AbsolutePosition => RelativeToPlayer
-    ? RelativeToAbsolute(Position)
-    : Position;
+    ? RelativeToAbsolute(OffsetPosition)
+    : OffsetPosition;
 
   public Vector2 RelativePosition => RelativeToPlayer
-    ? Position
-    : AbsoluteToRelative(Position);
+    ? OffsetPosition
+    : AbsoluteToRelative(OffsetPosition);
+
+  private Vector2 OffsetPosition => Position + GetOffset();
 
   private static Vector2 AbsoluteToRelative(Vector2 position)
     => position - PlayerPosition;
