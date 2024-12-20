@@ -4,82 +4,34 @@ using System.Linq;
 using UnityEngine;
 
 public class ClosetAnimation : APhase {
-  public GameObject PlayerSpriteGroup;
-  public Transform RattleTransform;
-  public Sprite ClosetOpenSprite;
-  public SpriteRenderer ClosetSpriteRenderer, DoorSpriteRenderer;
-  public BoxCollider2D ClosetCollider;
-  public float RattleAmplitude;
+  public Door Door;
+  public float DelayBeforeRoll;
   public float RollDistance, RollSpeed;
-  public List<float> RattleOnOffDurations;
-
-  private bool Rattling = false;
-  private int RattleOnOffIndex = 0;
-
-  void Awake() {
-    PlayerSpriteGroup.SetActive(false);
-  }
 
   public override bool SkipOnRetry() {
-    FinishEarly();
-    return true;
-  }
-
-  public void FinishEarly() {
-    if (!Running)
-      return;
-    RollOutOfCloset();
+    DelayBeforeRoll = 0f;
+    return false;
   }
 
   public override void LocalBegin() {
     StateManager.AddState(State.ScriptedMovement);
-    NextRattleOnOff();
-  }
-
-  public override void WhilePhaseRunning() {
-    if (Rattling) {
-      float randomAngle = Random.Range(-RattleAmplitude, RattleAmplitude);
-      RattleTransform.rotation = Quaternion.Euler(0, 0, randomAngle);
-    } else {
-      RattleTransform.rotation = Quaternion.identity;
-    }
+    AsyncTimer.BaseTime.SetTimeout(RollOutOfCloset, DelayBeforeRoll);
   }
 
   public override void AfterFinished() {
     StateManager.RemoveState(State.ScriptedMovement);
-    ClosetCollider.enabled = true;
+    Door.Close();
   }
 
-  void NextRattleOnOff() {
-    if (!Running)
-      return;
-
-    if (RattleOnOffIndex >= RattleOnOffDurations.Count) {
-      Rattling = false;
-      RollOutOfCloset();
-      return;
-    }
-
-    float duration = RattleOnOffDurations[RattleOnOffIndex++];
-
-    AsyncTimer.BaseTime.SetTimeout(() => {
-      Rattling = !Rattling;
-      NextRattleOnOff();
-    }, duration);
-  }
-
-  void RollOutOfCloset() {
-    ClosetSpriteRenderer.sprite = ClosetOpenSprite;
-    DoorSpriteRenderer.enabled = true;
+  private void RollOutOfCloset() {
+    Door.Open();
 
     GameObject player = PlayerGameObject.Current;
     ScriptedMovement scriptedMovement = player.GetComponent<ScriptedMovement>();
     Roll roll = player.GetComponentInChildren<Roll>();
 
-    roll.StartRolling();
-
     AsyncTimer.BaseTime.SetTimeout(() => {
-      PlayerSpriteGroup.SetActive(true);
+      roll.StartRolling();
 
       scriptedMovement.FollowPath(
         new List<Vector3>() {
