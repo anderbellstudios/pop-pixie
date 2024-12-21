@@ -235,6 +235,7 @@ GameObject:
   - component: {fileID: 5633569635942151663}
   - component: {fileID: 5633569635942151649}
   - component: {fileID: 3086422471175238755}
+  - component: {fileID: 8486463336291640574}
   m_Layer: 15
   m_Name: Beam
   m_TagString: Untagged
@@ -301,7 +302,7 @@ SpriteRenderer:
   m_SortingLayer: 2
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: dde82fa72012f48cdbac8b8d80101279, type: 3}
-  m_Color: {r: 0.54901963, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -347,7 +348,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.4, y: 7}
+    oldSize: {x: 1.2666667, y: 7}
     newSize: {x: 0.4, y: 6.0666666}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -410,6 +411,24 @@ MonoBehaviour:
   LaserHumTransform: {fileID: 2727955123760763624}
   MinY: -3.5
   MaxY: 3.5
+--- !u!114 &8486463336291640574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5633569635942151661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68a817e8c6bf94c38be7b0ea3a19cc6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Transform: {fileID: 5633569635942151662}
+  BaseScale: 1
+  OscillationSpeed: 60
+  OscillationScale: 0.1
+  XAxis: 1
+  YAxis: 0
 --- !u!1 &5633569635997688980
 GameObject:
   m_ObjectHideFlags: 0
