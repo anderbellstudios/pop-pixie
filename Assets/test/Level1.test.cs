@@ -22,8 +22,11 @@ public class Level1Test : ABaseTest {
     yield return SnapPlayer(0.1f);
     yield return TakePercyScreenshot("Level1.1");
 
+    // Prevent enemy from moving for Percy screenshot
+    ImmobiliseAllEnemies();
+    DisableEnemyColliders();
+
     yield return ScriptedMovement(new[] {
-      "Middle",
       "Top",
       "Elevator"
     });

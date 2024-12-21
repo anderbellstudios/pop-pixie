@@ -230,6 +230,24 @@ public abstract class ABaseTest {
     }
   }
 
+  protected void ImmobiliseAllEnemies(Transform container = null) {
+    foreach (GameObject enemy in EnemiesInContainer(container)) {
+      MovementManager movementManager = enemy.GetComponent<MovementManager>();
+      if (movementManager) {
+        movementManager.enabled = false;
+      }
+    }
+  }
+
+  protected void DisableEnemyColliders(Transform container = null) {
+    foreach (GameObject enemy in EnemiesInContainer(container)) {
+      Collider2D collider = enemy.GetComponent<Collider2D>();
+      if (collider) {
+        collider.enabled = false;
+      }
+    }
+  }
+
   protected IEnumerator KillAllEnemiesAndAwaitKeycard(Transform container = null) {
     KillAllEnemies(container);
     yield return new WaitForSeconds(1.5f);
