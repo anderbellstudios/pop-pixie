@@ -8,7 +8,7 @@ public class Door : MonoBehaviour {
 
   public PlaySound PlaySound;
   public BoxCollider2D DoorCollider;
-  public SpriteRenderer OpenSprite, ClosedSprite;
+  public GameObject OpenSprite, ClosedSprite;
 
   void Start() {
     SetIsOpen(IsOpen);
@@ -28,7 +28,7 @@ public class Door : MonoBehaviour {
     IsOpen = _IsOpen = isOpen;
     PlaySound.EventInstance.setParameterByName("Is Open", isOpen ? 1f : 0f);
     DoorCollider.enabled = !isOpen;
-    OpenSprite.enabled = isOpen;
-    ClosedSprite.enabled = !isOpen;
+    OpenSprite.SetActive(isOpen);
+    ClosedSprite.SetActive(!isOpen);
   }
 }
