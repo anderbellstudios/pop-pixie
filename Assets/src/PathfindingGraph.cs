@@ -16,6 +16,10 @@ public class PathfindingGraph : MonoBehaviour {
     PathfindingNodes = GetComponentsInChildren<PathfindingNode>();
   }
 
+  void OnDestroy() {
+    Current = null;
+  }
+
   public void Recompute() {
     RecomputeVersion++;
     foreach (PathfindingNode node in PathfindingNodes) {
