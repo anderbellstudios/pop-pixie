@@ -7,6 +7,14 @@ public class EnemyUtils {
   public static bool IsDead(GameObject enemyGO)
     => enemyGO == null || GetDeadFlag(enemyGO);
 
-  static bool GetDeadFlag(GameObject enemyGO)
+  public static List<GameObject> InContainer(Transform container) {
+    return GameObject.FindGameObjectsWithTag("Enemy").Where(enemy => {
+      if (container == null)
+        return true;
+      return enemy.transform.IsChildOf(container);
+    }).ToList();
+  }
+
+  private static bool GetDeadFlag(GameObject enemyGO)
     => enemyGO.GetComponent<HitPoints>().Dead;
 }

@@ -4,9 +4,11 @@ using System.Linq;
 using UnityEngine;
 
 public class TargetsDestroyedMonitor : AMonitor {
-  public List<GameObject> Targets;
+  public Transform OptionalContainer;
 
   public override bool TestCondition() {
-    return Targets.All(t => EnemyUtils.IsDead(t));
+    return EnemyUtils
+      .InContainer(OptionalContainer)
+      .All(t => EnemyUtils.IsDead(t));
   }
 }

@@ -224,14 +224,14 @@ public abstract class ABaseTest {
   }
 
   protected void KillAllEnemies(Transform container = null) {
-    foreach (GameObject enemy in EnemiesInContainer(container)) {
+    foreach (GameObject enemy in EnemyUtils.InContainer(container)) {
       HitPoints hp = enemy.GetComponent<HitPoints>();
       hp?.Kill();
     }
   }
 
   protected void ImmobiliseAllEnemies(Transform container = null) {
-    foreach (GameObject enemy in EnemiesInContainer(container)) {
+    foreach (GameObject enemy in EnemyUtils.InContainer(container)) {
       MovementManager movementManager = enemy.GetComponent<MovementManager>();
       if (movementManager) {
         movementManager.enabled = false;
@@ -240,7 +240,7 @@ public abstract class ABaseTest {
   }
 
   protected void DisableEnemyColliders(Transform container = null) {
-    foreach (GameObject enemy in EnemiesInContainer(container)) {
+    foreach (GameObject enemy in EnemyUtils.InContainer(container)) {
       Collider2D collider = enemy.GetComponent<Collider2D>();
       if (collider) {
         collider.enabled = false;
@@ -256,19 +256,11 @@ public abstract class ABaseTest {
   }
 
   protected void PreventEnemyMovement(Transform container = null) {
-    foreach (GameObject enemy in EnemiesInContainer(container)) {
+    foreach (GameObject enemy in EnemyUtils.InContainer(container)) {
       MovementManager movementManager = enemy.GetComponent<MovementManager>();
       if (movementManager)
         movementManager.enabled = false;
     }
-  }
-
-  protected List<GameObject> EnemiesInContainer(Transform container) {
-    return GameObject.FindGameObjectsWithTag("Enemy").Where(enemy => {
-      if (container == null)
-        return true;
-      return enemy.transform.IsChildOf(container);
-    }).ToList();
   }
 
   protected IEnumerator ButtonDown(string rawButtonName) {

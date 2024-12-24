@@ -31,7 +31,8 @@ public static class CollisionMask {
     LayerMask.GetMask("Default") |
     LayerMask.GetMask("RollToPass") |
     LayerMask.GetMask("CrouchToPass") |
-    LayerMask.GetMask("WalkBoundary");
+    LayerMask.GetMask("WalkBoundary") |
+    LayerMask.GetMask("TransparentWall");
 
   private static LayerMask? _OpaqueMask;
   public static LayerMask OpaqueMask => (
