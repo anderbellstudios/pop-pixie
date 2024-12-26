@@ -11,6 +11,7 @@ public class FallingDebris : MonoBehaviour {
   public GameObject Explosion;
   public float Distance;
   public float Duration;
+  public float MaxRotationSpeed;
   public float DamageRadius, Damage;
   public float FadeOutDuration;
   public Vector3 CounterAttackTarget;
@@ -19,16 +20,24 @@ public class FallingDebris : MonoBehaviour {
   private enum StateType { Falling, FadingOut, CounterAttacking };
   private StateType State = StateType.Falling;
   private Stopwatch Stopwatch;
+  private float RotationSpeed;
 
   void Start() {
     Stopwatch = new Stopwatch.PlayingTime();
     SetRadiusIndicatorRadius(DamageRadius);
     UpdateFalling();
+    RotationSpeed = Random.Range(-MaxRotationSpeed, MaxRotationSpeed);
   }
 
   void Update() {
     if (!StateManager.Playing)
       return;
+
+    DebrisSpriteRenderer.transform.Rotate(
+      0f,
+      0f,
+      RotationSpeed * Time.deltaTime
+    );
 
     switch (State) {
       case StateType.Falling:
@@ -95,9 +104,11 @@ public class FallingDebris : MonoBehaviour {
     if (isCounterAttack) {
       CanvasGroup.gameObject.SetActive(false);
       State = StateType.CounterAttacking;
+      RotationSpeed *= 5f;
     } else {
       Explode();
       State = StateType.FadingOut;
+      RotationSpeed = 0f;
     }
 
     Stopwatch.Reset();
@@ -106,6 +117,7 @@ public class FallingDebris : MonoBehaviour {
   private void FinishCounterAttacking() {
     Explode();
     State = StateType.FadingOut;
+    RotationSpeed = 0f;
     Stopwatch.Reset();
   }
 
