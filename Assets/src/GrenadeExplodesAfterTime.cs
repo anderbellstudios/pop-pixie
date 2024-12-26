@@ -80,6 +80,6 @@ public class GrenadeExplodesAfterTime : MonoBehaviour {
   private bool WaitingToThrow() => (GrenadeWaitingBeforeThrow != null) && GrenadeWaitingBeforeThrow.Waiting;
 
   private void SetRadiusIndicatorRadius(float radius) {
-    RadiusIndicator.localScale = new Vector3(2 * radius, 2 * radius, 2 * radius);
+    RadiusIndicator.localScale = 2f * radius * Vector3.one;
   }
 }
