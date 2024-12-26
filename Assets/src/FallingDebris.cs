@@ -14,8 +14,9 @@ public class FallingDebris : MonoBehaviour {
   public float MaxRotationSpeed;
   public float DamageRadius, Damage;
   public float FadeOutDuration;
-  public Vector3 CounterAttackTarget;
+  public HitPoints CounterAttackHitPoints;
   public float CounterAttackDuration;
+  public float CounterAttackDamage;
 
   private enum StateType { Falling, FadingOut, CounterAttacking };
   private StateType State = StateType.Falling;
@@ -84,7 +85,7 @@ public class FallingDebris : MonoBehaviour {
 
     SetSpriteWorldPosition(Vector3.Lerp(
       transform.position,
-      CounterAttackTarget,
+      CounterAttackHitPoints.transform.position,
       progress
     ));
 
@@ -116,6 +117,7 @@ public class FallingDebris : MonoBehaviour {
 
   private void FinishCounterAttacking() {
     Explode();
+    CounterAttackHitPoints.Damage(CounterAttackDamage, isDestructive: true);
     State = StateType.FadingOut;
     RotationSpeed = 0f;
     Stopwatch.Reset();

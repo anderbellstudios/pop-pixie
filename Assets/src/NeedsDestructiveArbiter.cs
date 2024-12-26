@@ -2,10 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DamageDuringPhaseArbiter : ACanBeDamagedArbiter {
-  public APhase Phase;
-
+public class NeedsDestructiveArbiter : ACanBeDamagedArbiter {
   public override bool CanBeDamaged(HitPoints.DamageContext ctx) {
-    return Phase.Running;
+    return ctx.IsDestructive;
   }
 }

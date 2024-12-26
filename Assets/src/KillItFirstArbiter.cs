@@ -5,7 +5,7 @@ using UnityEngine;
 public class KillItFirstArbiter : ACanBeDamagedArbiter {
   public GameObject Predecessor;
 
-  public override bool CanBeDamaged(HitPoints hp, float damage) {
+  public override bool CanBeDamaged(HitPoints.DamageContext ctx) {
     return EnemyUtils.IsDead(Predecessor);
   }
 }

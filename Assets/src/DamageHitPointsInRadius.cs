@@ -9,6 +9,7 @@ public static class DamageHitPointsInRadius {
     Vector3 origin,
     float radius,
     bool canBeCounterAttacked = false,
+    bool isDestructive = false,
     AnimationCurve damageCurve = null,
     Func<GameObject, bool> shouldDamage = null
   ) {
@@ -45,7 +46,8 @@ public static class DamageHitPointsInRadius {
 
         isCounterAttack = hitPoints.Damage(
           damage * damageMultiplier,
-          canBeCounterAttacked
+          canBeCounterAttacked: canBeCounterAttacked,
+          isDestructive: isDestructive
         );
       }
     }

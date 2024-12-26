@@ -5,9 +5,11 @@ using UnityEngine;
 
 public class GremlinBarricade : MonoBehaviour {
   public GameObject FallingDebris;
+  public HitPoints HitPoints;
   public float XRange, MinY, MaxY;
   public float MinInterval, MaxInterval;
   public float MinDistanceBetweenDebris;
+  public float Damage, CounterAttackDamage;
 
   private List<GameObject> ThrownObjects = new();
 
@@ -15,11 +17,17 @@ public class GremlinBarricade : MonoBehaviour {
     ScheduleThrow();
   }
 
+  void OnDisable() {
+    ThrownObjects.ForEach(Destroy);
+  }
+
   private void ScheduleThrow() {
+    float interval = Random.Range(MinInterval, MaxInterval);
+
     AsyncTimer.PlayingTime.SetTimeout(() => {
       Throw();
       ScheduleThrow();
-    }, Random.Range(MinInterval, MaxInterval));
+    }, interval, bindToBehaviour: this);
   }
 
   private void Throw() {
@@ -35,7 +43,9 @@ public class GremlinBarricade : MonoBehaviour {
 
     FallingDebris fallingDebris = thrownObject.GetComponent<FallingDebris>();
     fallingDebris.Distance = transform.position.y - position.y;
-    fallingDebris.CounterAttackTarget = transform.position;
+    fallingDebris.Damage = Damage;
+    fallingDebris.CounterAttackHitPoints = HitPoints;
+    fallingDebris.CounterAttackDamage = CounterAttackDamage;
 
     ThrownObjects.Add(thrownObject);
   }

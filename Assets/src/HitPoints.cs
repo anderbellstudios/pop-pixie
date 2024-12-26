@@ -9,6 +9,12 @@ using UnityEngine.Events;
 public class HitPoints : MonoBehaviour {
   public static HitPoints PlayerHitPoints;
 
+  public class DamageContext {
+    public HitPoints HitPoints;
+    public float Damage;
+    public bool IsDestructive;
+  }
+
   public bool IsPlayer = false;
   public float Maximum;
   public bool InfiniteHP = false;
@@ -57,9 +63,15 @@ public class HitPoints : MonoBehaviour {
     }
   }
 
-  bool CanBeDamaged(float damage) {
-    return CanBeDamagedArbiters.ToArray().All(
-      arbiter => arbiter.CanBeDamaged(this, damage)
+  bool CanBeDamaged(float damage, bool isDestructive) {
+    DamageContext ctx = new DamageContext {
+      HitPoints = this,
+      Damage = damage,
+      IsDestructive = isDestructive
+    };
+
+    return CanBeDamagedArbiters.All(
+      arbiter => arbiter.CanBeDamaged(ctx)
     );
   }
 
@@ -71,6 +83,7 @@ public class HitPoints : MonoBehaviour {
   public bool Damage(
     float damage,
     bool canBeCounterAttacked = false,
+    bool isDestructive = false,
     bool ignoreCanBeDamaged = false,
     bool ignoreDamageReduction = false
   ) {
@@ -79,7 +92,7 @@ public class HitPoints : MonoBehaviour {
       return true;
     }
 
-    if (ignoreDamageReduction || CanBeDamaged(damage)) {
+    if (ignoreDamageReduction || CanBeDamaged(damage, isDestructive)) {
       LastDamaged = PlayingTime.time;
       LastDamageAmount = damage;
       Decrease(damage, ignoreDamageReduction: ignoreDamageReduction);
