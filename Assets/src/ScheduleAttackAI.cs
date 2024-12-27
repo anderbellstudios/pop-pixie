@@ -20,6 +20,9 @@ public class ScheduleAttackAI : AMovementEnemyAI {
   void Start() {
     if (InterruptWhenDamaged) {
       Helper.OnDamage(() => {
+        if (AvoidingInterruption)
+          return;
+
         if (Attacking) {
           StopAttack();
         } else {
@@ -67,8 +70,6 @@ public class ScheduleAttackAI : AMovementEnemyAI {
 
   private bool WithinRange => Helper.DistanceToPlayer <= MaxDistance;
 
-  public AMovementEnemyAI IfDamaged, IfNotDamaged;
-
   private void OnEnterRange() {
     if (!Attacking && AttackTimer == null) {
       ScheduleAttack();
@@ -80,7 +81,7 @@ public class ScheduleAttackAI : AMovementEnemyAI {
       UnscheduleAttack();
     }
 
-    if (Attacking && InterruptWhenOutOfRange) {
+    if (Attacking && InterruptWhenOutOfRange && !AvoidingInterruption) {
       StopAttack();
     }
   }

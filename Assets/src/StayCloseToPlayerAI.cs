@@ -22,7 +22,9 @@ public class StayCloseToPlayerAI : AMovementEnemyAI {
 
   protected override void WhileActive() {
     LowPriorityBehaviour.EveryNFrames(10, () => {
-      CanMoveToPlayer = Helper.CanMoveToPlayer();
+      if (!AvoidingInterruption) {
+        CanMoveToPlayer = Helper.CanMoveToPlayer();
+      }
     });
   }
 

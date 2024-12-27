@@ -52,4 +52,13 @@ public static class CollisionMask {
     LayerMask.GetMask("Player") |
     LayerMask.GetMask("PlayerRolling") |
     LayerMask.GetMask("PlayerCrouching");
+
+  private static LayerMask? _BulletMask;
+  public static LayerMask BulletMask => (
+    _BulletMask ?? (_BulletMask = GetBulletMask())
+  ).Value;
+
+  private static LayerMask GetBulletMask() =>
+    LayerMask.GetMask("PlayerBullet") |
+    LayerMask.GetMask("EnemyBullet");
 }
