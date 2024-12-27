@@ -44,7 +44,7 @@ public static class DamageHitPointsInRadius {
           ? 1f
           : damageCurve.Evaluate(distance / radius);
 
-        isCounterAttack = hitPoints.Damage(
+        isCounterAttack |= hitPoints.Damage(
           damage * damageMultiplier,
           canBeCounterAttacked: canBeCounterAttacked,
           isDestructive: isDestructive
