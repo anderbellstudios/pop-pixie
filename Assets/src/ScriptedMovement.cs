@@ -25,7 +25,13 @@ public class ScriptedMovement : MonoBehaviour {
     LowPriorityBehaviour = new LowPriorityBehaviour();
   }
 
-  public Action FollowPath(List<Vector3> path, float speed, Action onComplete, bool skipAhead = false, float? avoidCollisionDistance = null) {
+  public Action FollowPath(
+    List<Vector3> path,
+    float speed,
+    Action onComplete,
+    bool skipAhead = false,
+    float? avoidCollisionDistance = null
+  ) {
     Path = path;
     SkipAhead = skipAhead;
     AvoidCollisionDistance = avoidCollisionDistance;
@@ -37,12 +43,15 @@ public class ScriptedMovement : MonoBehaviour {
 
     int currentFollowPathId = ++FollowPathId;
 
-    CollisionLayerMask = CollisionMask.ForLayer(MovementManager.gameObject.layer);
+    CollisionLayerMask = CollisionMask.ForLayer(
+      MovementManager.gameObject.layer
+    );
 
     if (ScriptedMovementState)
       StateManager.AddState(State.ScriptedMovement);
 
-    TrySkipAhead();
+    if (SkipAhead)
+      TrySkipAhead();
 
     return () => {
       if (currentFollowPathId == FollowPathId) {
@@ -141,7 +150,14 @@ public class ScriptedMovement : MonoBehaviour {
     if (!gameObjectAhead)
       return 1f;
 
-    float distanceAhead = (gameObjectAhead.transform.position - transform.position).magnitude;
-    return 1f - Mathf.Clamp((float)AvoidCollisionDistance / Mathf.Pow(distanceAhead, 2f), 0f, 1.25f);
+    float distanceAhead = (
+      gameObjectAhead.transform.position - transform.position
+    ).magnitude;
+
+    return 1f - Mathf.Clamp(
+      (float)AvoidCollisionDistance / Mathf.Pow(distanceAhead, 2f),
+      0f,
+      1.25f
+    );
   }
 }
