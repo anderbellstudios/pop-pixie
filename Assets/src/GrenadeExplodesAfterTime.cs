@@ -11,6 +11,7 @@ public class GrenadeExplodesAfterTime : MonoBehaviour {
   public float Radius;
   public float DamageExplodingInHand;
   public bool DamagesPlayer = true, DamagesEnemies = true;
+  public bool IsDestructive = true;
   public float VelocityCoefficient;
   public AnimationCurve DamageCurve;
   public Transform RadiusIndicator;
@@ -47,6 +48,7 @@ public class GrenadeExplodesAfterTime : MonoBehaviour {
       origin: transform.position,
       radius: Radius,
       canBeCounterAttacked: true,
+      isDestructive: IsDestructive,
       damageCurve: DamageCurve,
       shouldDamage: (go) => {
         if (!DamagesPlayer && go.tag == "Player")
@@ -80,6 +82,6 @@ public class GrenadeExplodesAfterTime : MonoBehaviour {
   private bool WaitingToThrow() => (GrenadeWaitingBeforeThrow != null) && GrenadeWaitingBeforeThrow.Waiting;
 
   private void SetRadiusIndicatorRadius(float radius) {
-    RadiusIndicator.localScale = new Vector3(2 * radius, 2 * radius, 2 * radius);
+    RadiusIndicator.localScale = 2f * radius * Vector3.one;
   }
 }

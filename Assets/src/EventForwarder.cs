@@ -11,6 +11,8 @@ using UnityEngine.Events;
  */
 public class EventForwarder : MonoBehaviour {
   public bool InvokeOnAwake, InvokeOnStart;
+  public float Delay = 0f;
+  public bool DelayUsesPlayingTime;
   public UnityEvent Events;
 
   void Awake() {
@@ -24,6 +26,12 @@ public class EventForwarder : MonoBehaviour {
   }
 
   public void Invoke() {
-    Events.Invoke();
+    if (Delay == 0f) {
+      Events.Invoke();
+    } else if (DelayUsesPlayingTime) {
+      AsyncTimer.PlayingTime.SetTimeout(Events.Invoke, Delay);
+    } else {
+      AsyncTimer.BaseTime.SetTimeout(Events.Invoke, Delay);
+    }
   }
 }

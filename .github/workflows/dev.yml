@@ -19,7 +19,7 @@ jobs:
     steps:
       - id: initial_scene
         run: |
-          initial_scene=$(echo $PR_DESCRIPTION | grep -Eo '#build [A-Za-z ]+' | cut -b 8- | sed -e 's/ /_/g')
+          initial_scene=$(echo $PR_DESCRIPTION | grep -Eo '#build [A-Za-z0-9 ]+' | cut -b 8- | sed -e 's/ /_/g')
           echo "initial_scene=$initial_scene" | tee -a $GITHUB_OUTPUT
         env:
           PR_DESCRIPTION: ${{ github.event.pull_request.body }}

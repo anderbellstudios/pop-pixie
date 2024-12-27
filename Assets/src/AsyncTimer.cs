@@ -12,11 +12,15 @@ public abstract class AsyncTimer : MonoBehaviour {
     public float? Interval;
     public bool IsBoundToGameObject;
     public GameObject BoundGameObject;
+    public Behaviour BoundBehaviour;
     public System.Action Callback;
 
     // Return true if the event should be removed from the queue
     public bool Update(float currentTime) {
       if (IsBoundToGameObject && BoundGameObject == null)
+        return true;
+
+      if (BoundBehaviour && !BoundBehaviour.enabled)
         return true;
 
       if (Time > currentTime)
@@ -61,27 +65,39 @@ public abstract class AsyncTimer : MonoBehaviour {
     });
   }
 
-  public EnqueuedEvent SetTimeout(System.Action callback, float timeout, GameObject bindToGameObject = null) {
+  public EnqueuedEvent SetTimeout(
+    System.Action callback,
+    float timeout,
+    GameObject bindToGameObject = null,
+    Behaviour bindToBehaviour = null
+  ) {
     EnqueuedEvent enqueuedEvent = new EnqueuedEvent() {
       Repeating = false,
       Time = CurrentTime + timeout,
       Interval = null,
       Callback = callback,
       IsBoundToGameObject = bindToGameObject != null,
-      BoundGameObject = bindToGameObject
+      BoundGameObject = bindToGameObject,
+      BoundBehaviour = bindToBehaviour
     };
     EnqueuedEvents.Add(enqueuedEvent);
     return enqueuedEvent;
   }
 
-  public EnqueuedEvent SetInterval(System.Action callback, float interval, GameObject bindToGameObject = null) {
+  public EnqueuedEvent SetInterval(
+    System.Action callback,
+    float interval,
+    GameObject bindToGameObject = null,
+    Behaviour bindToBehaviour = null
+  ) {
     EnqueuedEvent enqueuedEvent = new EnqueuedEvent() {
       Repeating = true,
       Time = CurrentTime + interval,
       Interval = interval,
       Callback = callback,
       IsBoundToGameObject = bindToGameObject != null,
-      BoundGameObject = bindToGameObject
+      BoundGameObject = bindToGameObject,
+      BoundBehaviour = bindToBehaviour
     };
     EnqueuedEvents.Add(enqueuedEvent);
     return enqueuedEvent;
