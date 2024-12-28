@@ -14,7 +14,7 @@ public class TestPathfindingGoal : MonoBehaviour {
 
     if (Door != null && Count == OpenDoorThreshold) {
       Destroy(Door);
-      PathfindingGraph.Current.Recompute();
+      PathfindingGraph.Recompute();
     }
 
     if (Destroys) {

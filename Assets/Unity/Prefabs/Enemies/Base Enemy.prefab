@@ -192,11 +192,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Animator: {fileID: 0}
   rb: {fileID: 1867361173708942006}
+  ConveyorContactOffset: {x: 0, y: 0}
   OnFootstep:
     m_PersistentCalls:
       m_Calls: []
-  _Movement: {x: 0, y: 0}
-  VisualMovement: {x: 0, y: 0}
 --- !u!114 &7919403477427766447
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -211,6 +210,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MovementManager: {fileID: 5768021714915035133}
   ScriptedMovementState: 0
+  AvoidCollisionLayerMask:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!114 &3506017249261938202
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -327,6 +329,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af644c78b649545e2aa9d2598cc2ffce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StandardCollisions: 1
+  TriggerCollisions: 0
   OnCollide:
     m_PersistentCalls:
       m_Calls: []
@@ -382,6 +386,7 @@ MonoBehaviour:
   Collider: {fileID: 968148448589429987}
   HealthBar: {fileID: 7603264350138550232}
   HideHealthBarWhenFullOrEmpty: 1
+  SlowOnDamage: 1
   SlowOnDamageDuration: 1
   MovementManager: {fileID: 5768021714915035133}
 --- !u!1 &8243312718787930165

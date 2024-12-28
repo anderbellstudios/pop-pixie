@@ -20,7 +20,11 @@ public class PathfindingGraph : MonoBehaviour {
     Current = null;
   }
 
-  public void Recompute() {
+  public static void Recompute() {
+    Current?.LocalRecompute();
+  }
+
+  protected void LocalRecompute() {
     RecomputeVersion++;
     foreach (PathfindingNode node in PathfindingNodes) {
       node.GraphWasRecomputed();
