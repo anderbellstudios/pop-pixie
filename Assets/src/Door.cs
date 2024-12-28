@@ -30,6 +30,6 @@ public class Door : MonoBehaviour {
     DoorCollider.enabled = !isOpen;
     OpenSprite.SetActive(isOpen);
     ClosedSprite.SetActive(!isOpen);
-    PathfindingGraph.Current?.Recompute();
+    PathfindingGraph.Recompute();
   }
 }

@@ -124,6 +124,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MovementManager: {fileID: 5844531949291595967}
   ScriptedMovementState: 0
+  AvoidCollisionLayerMask:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!114 &5844531949291595967
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137,11 +140,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Animator: {fileID: 0}
-  SoundController: {fileID: 0}
-  FootstepSounds: []
   rb: {fileID: 5844531949291595964}
-  _Movement: {x: 0, y: 0}
-  VisualMovement: {x: 0, y: 0}
+  ConveyorContactOffset: {x: 0, y: 0}
+  OnFootstep:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!50 &5844531949291595964
 Rigidbody2D:
   serializedVersion: 4

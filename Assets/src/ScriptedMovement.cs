@@ -7,6 +7,7 @@ using UnityEngine;
 public class ScriptedMovement : MonoBehaviour {
   public MovementManager MovementManager;
   public bool ScriptedMovementState;
+  public LayerMask AvoidCollisionLayerMask;
 
   private bool Running = false;
   private List<Vector3> Path;
@@ -16,7 +17,6 @@ public class ScriptedMovement : MonoBehaviour {
   private float Speed;
   private float DeltaTime;
   private Action OnComplete;
-  private int CollisionLayerMask;
   private int FollowPathId = -1;
 
   private LowPriorityBehaviour LowPriorityBehaviour;
@@ -43,10 +43,6 @@ public class ScriptedMovement : MonoBehaviour {
 
     int currentFollowPathId = ++FollowPathId;
 
-    CollisionLayerMask = CollisionMask.ForLayer(
-      MovementManager.gameObject.layer
-    );
-
     if (ScriptedMovementState)
       StateManager.AddState(State.ScriptedMovement);
 
@@ -70,11 +66,11 @@ public class ScriptedMovement : MonoBehaviour {
     if (SkipAhead)
       LowPriorityBehaviour.EveryNFrames(10, TrySkipAhead);
 
+    DeltaTime += Time.deltaTime;
+
     // Prevent enqueueing movement multiple times per FixedUpdate
     if (MovementManager.Movement != Vector2.zero)
       return;
-
-    DeltaTime += Time.deltaTime;
 
     Vector3 destination = Path[PathIndex];
     Vector3 direction = destination - transform.position;
@@ -118,7 +114,6 @@ public class ScriptedMovement : MonoBehaviour {
       if (LineOfMovement.Check(
         transform.position,
         Path[i],
-        layerMask: CollisionLayerMask,
         exclude: MovementManager.gameObject
       )) {
         PathIndex = i;
@@ -140,7 +135,7 @@ public class ScriptedMovement : MonoBehaviour {
       radius: 0.5f,
       direction: direction,
       distance: direction.magnitude,
-      layerMask: CollisionLayerMask
+      layerMask: AvoidCollisionLayerMask
     )
       .Where(hit => hit.collider.gameObject != MovementManager.gameObject)
       .FirstOrDefault()
