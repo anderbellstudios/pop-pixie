@@ -46,7 +46,7 @@ public class VisionCone : MonoBehaviour {
 
     // We only care about the centre of the player, relative to our own origin
     Vector2 playerPosition = transform.InverseTransformPoint(
-      PlayerGameObject.Current.transform.position
+      PlayerGameObject.Position
     );
 
     bool seesPlayer = PointIsInsideCone(playerPosition) &&

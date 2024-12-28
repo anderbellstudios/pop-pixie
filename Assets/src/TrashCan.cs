@@ -64,7 +64,7 @@ public class TrashCan : AInspectable {
   public void BeginAnimation() {
     Stage++;
 
-    Vector3 playerPosition = PlayerGameObject.Current.transform.position;
+    Vector3 playerPosition = PlayerGameObject.Position;
 
     PopPixieSpriteTransform.position = playerPosition;
 

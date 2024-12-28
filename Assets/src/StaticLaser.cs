@@ -14,7 +14,7 @@ public class StaticLaser : MonoBehaviour {
     if (!StateManager.Playing)
       return;
 
-    float relativePlayerY = transform.InverseTransformPoint(PlayerGameObject.Current.transform.position).y;
+    float relativePlayerY = transform.InverseTransformPoint(PlayerGameObject.Position).y;
     LaserHumTransform.localPosition = new Vector3(0, Mathf.Clamp(relativePlayerY, MinY, MaxY), 0);
   }
 }

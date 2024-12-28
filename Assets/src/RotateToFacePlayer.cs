@@ -7,7 +7,7 @@ public class RotateToFacePlayer : MonoBehaviour {
     if (!StateManager.Playing)
       return;
 
-    Vector3 toPlayer = PlayerGameObject.Current.transform.position - transform.position;
+    Vector3 toPlayer = PlayerGameObject.Position - transform.position;
 
     transform.rotation = Quaternion.Euler(
       0,
