@@ -17,4 +17,10 @@ public class OnCollideWithPlayer : MonoBehaviour {
       OnCollide.Invoke();
     }
   }
+
+  void OnCollisionStay2D(Collision2D collision) {
+    if (collision.gameObject.tag == "Player") {
+      OnCollide.Invoke();
+    }
+  }
 }

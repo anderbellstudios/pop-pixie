@@ -23,4 +23,11 @@ public class OnCollision : MonoBehaviour {
       OnCollide.Invoke();
     }
   }
+
+  void OnCollisionStay2D(Collision2D collision) {
+    if (StandardCollisions) {
+      LastCollider = collision.collider;
+      OnCollide.Invoke();
+    }
+  }
 }
