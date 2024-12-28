@@ -14,7 +14,8 @@ public class EnemyHitPointEvents : MonoBehaviour {
   public HUDBar HealthBar;
   public bool HideHealthBarWhenFullOrEmpty;
 
-  public float SlowOnDamageDuration = 0f;
+  public bool SlowOnDamage = true;
+  public float SlowOnDamageDuration;
   public MovementManager MovementManager;
 
   private Stopwatch SlowStopwatch = null;
@@ -36,7 +37,7 @@ public class EnemyHitPointEvents : MonoBehaviour {
     HitPoints.OnDecrease.AddListener(hp => {
       Flash?.BeginFlashing();
 
-      if (SlowOnDamageDuration > 0f) {
+      if (SlowOnDamage) {
         SlowStopwatch = new Stopwatch.PlayingTime();
       }
     });
@@ -48,7 +49,7 @@ public class EnemyHitPointEvents : MonoBehaviour {
     });
 
     MovementManager?.SpeedModifiers.Add((speed) => {
-      if (SlowStopwatch == null)
+      if (!SlowOnDamage || SlowStopwatch == null)
         return speed;
 
       float progress = SlowStopwatch.Progress(SlowOnDamageDuration);

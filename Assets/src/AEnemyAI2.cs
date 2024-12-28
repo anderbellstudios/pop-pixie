@@ -11,6 +11,8 @@ public abstract class AEnemyAI2 : MonoBehaviour {
   protected virtual void OnDeactivate() { }
   protected virtual void UseChildAIs(Action<AGenericEnemyAI> useChild) { }
 
+  protected virtual bool ShouldAvoidInterruption() => false;
+
   // Used only by AMovementEnemyAI
   protected virtual AMovementEnemyAI InternalUseMovementAI() {
     return null;
@@ -96,6 +98,16 @@ public abstract class AEnemyAI2 : MonoBehaviour {
   private void DeactivateChildAI(AEnemyAI2 child) {
     child.Deactivate();
   }
+
+  protected bool AnyDescendant(Func<AEnemyAI2, bool> condition) {
+    if (condition(this))
+      return true;
+
+    return ActiveChildAIs.Any(child => child.AnyDescendant(condition));
+  }
+
+  protected bool AvoidingInterruption
+    => AnyDescendant(ai => ai.ShouldAvoidInterruption());
 
   private EnemyAIHelper MakeHelper() => new EnemyAIHelper(
     ai: this,
