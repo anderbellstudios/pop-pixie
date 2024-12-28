@@ -11,7 +11,7 @@ public class Turret : MonoBehaviour {
 
   private bool CoolingDown = false;
   private Vector3 VirtualPlayerDirection = Vector3.up;
-  private int GunIndex = 0; 
+  private int GunIndex = 0;
 
   void Update() {
     if (!StateManager.Playing)
@@ -57,7 +57,7 @@ public class Turret : MonoBehaviour {
     );
 
     AsyncTimer.PlayingTime.SetTimeout(
-      StopFiring, 
+      StopFiring,
       FireDuration,
       bindToBehaviour: this
     );
