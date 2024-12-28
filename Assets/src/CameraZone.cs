@@ -32,7 +32,7 @@ public class CameraZone : MonoBehaviour {
 
   private Vector2 GetOffset() {
     Bounds bounds = Collider.bounds;
-    Vector2 playerPosition = PlayerGameObject.Current.transform.position;
+    Vector2 playerPosition = PlayerGameObject.Position;
 
     return new Vector2(
       DynamicOffsetX.Evaluate(

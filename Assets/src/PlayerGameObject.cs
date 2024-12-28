@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerGameObject : MonoBehaviour {
   public static GameObject Current;
 
+  public static Vector3 Position => Current.transform.position;
   public static Vector3 EstimatedVelocity => Vector3.ClampMagnitude(EstimatedDirection, Speed);
 
   private static float Speed;

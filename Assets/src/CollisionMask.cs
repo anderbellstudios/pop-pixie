@@ -59,6 +59,7 @@ public static class CollisionMask {
   ).Value;
 
   private static LayerMask GetBulletMask() =>
+    LayerMask.GetMask("GenericBullet") |
     LayerMask.GetMask("PlayerBullet") |
     LayerMask.GetMask("EnemyBullet");
 }

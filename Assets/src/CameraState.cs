@@ -41,5 +41,5 @@ public class CameraState {
     => position + PlayerPosition;
 
   private static Vector2 PlayerPosition
-    => PlayerGameObject.Current.transform.position;
+    => PlayerGameObject.Position;
 }

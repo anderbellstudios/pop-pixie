@@ -128,7 +128,7 @@ public class ChargerGremlinAttackAI : AMovementEnemyAI {
   }
 
   private bool IsBullet(int layer)
-    => ((2 << layer) & CollisionMask.BulletMask) != 0;
+    => ((1 << layer) & CollisionMask.BulletMask) != 0;
 
   private void DisableSlowOnDamage() {
     PreviousSlowOnDamage = HitPointEvents.SlowOnDamage;

@@ -6,33 +6,38 @@ using UnityEngine.Events;
 
 public class FireBullets : MonoBehaviour {
   public FireBullet FireBullet;
-  public float Duration = -1;
   public float BulletsPerSecond = 1;
   public GameObject BulletPrefab;
   public float BulletSpeed;
   public float BulletDamage;
+  public float CounterAttackDamage;
   public string ShootSoundKey;
-  public UnityEvent OnStopFiring;
 
-  Func<Vector3> GetDirection;
-  bool Firing;
-  float BeganFiringAt;
-  int BulletsFired;
+  public bool Firing { get; private set; }
+
+  private Func<Vector3> GetDirection, GetTarget, GetOrigin;
+  private int BulletsFired;
+  private Stopwatch Stopwatch;
 
   void Start() {
     PreloadProgrammerSounds.PreloadSound(ShootSoundKey);
   }
 
-  public void BeginFiring(Func<Vector3> getDirection) {
+  public void BeginFiring(
+    Func<Vector3> getDirection = null,
+    Func<Vector3> getTarget = null,
+    Func<Vector3> getOrigin = null
+  ) {
     GetDirection = getDirection;
+    GetTarget = getTarget;
+    GetOrigin = getOrigin;
     Firing = true;
-    BeganFiringAt = PlayingTime.time;
     BulletsFired = 0;
+    Stopwatch = new Stopwatch.PlayingTime();
   }
 
   public void StopFiring() {
     Firing = false;
-    OnStopFiring.Invoke();
   }
 
 
@@ -40,13 +45,7 @@ public class FireBullets : MonoBehaviour {
     if (!Firing || !StateManager.Playing)
       return;
 
-    float timeSinceBegan = PlayingTime.time - BeganFiringAt;
-
-    if (Duration > 0 && timeSinceBegan > Duration) {
-      StopFiring();
-      return;
-    }
-
+    float timeSinceBegan = Stopwatch.Time();
     int expectedBulletsFired = (int)Mathf.Floor(timeSinceBegan * BulletsPerSecond);
 
     if (expectedBulletsFired > BulletsFired) {
@@ -59,8 +58,11 @@ public class FireBullets : MonoBehaviour {
     FireBullet.Fire(
       prefab: BulletPrefab,
       getDirection: GetDirection,
+      getTarget: GetTarget,
+      origin: GetOrigin == null ? null : GetOrigin(),
       speed: BulletSpeed,
       damage: BulletDamage,
+      counterAttackDamage: CounterAttackDamage,
       soundKey: ShootSoundKey
     );
   }
