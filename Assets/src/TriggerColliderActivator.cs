@@ -14,7 +14,7 @@ public class TriggerColliderActivator : AActivator {
     CollidingObjects.Remove(col.gameObject);
   }
 
-  public override bool IsActivated(AEnemyAI ai) {
+  public override bool IsActivated(ALegacyEnemyAI ai) {
     return CollidingObjects.Contains(ai.Target);
   }
 

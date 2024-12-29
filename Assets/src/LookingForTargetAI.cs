@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LookingForTargetAI : AEnemyAI {
+public class LookingForTargetAI : ALegacyEnemyAI {
   public NavigateToPoint NavigateToPoint;
-  public AEnemyAI WhenTargetFound;
+  public ALegacyEnemyAI WhenTargetFound;
 
   public override void ControlGained() {
     UpdateNavigateToPoint();

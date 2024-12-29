@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class AEnemyAI : MonoBehaviour {
+public abstract class ALegacyEnemyAI : MonoBehaviour {
   public bool StartsInControl;
   public bool InControl;
 
@@ -58,7 +58,7 @@ public abstract class AEnemyAI : MonoBehaviour {
 
   // Utility methods
 
-  public void RelinquishControlTo(AEnemyAI ai) {
+  public void RelinquishControlTo(ALegacyEnemyAI ai) {
     RelinquishControl();
     ai.GainControl();
   }

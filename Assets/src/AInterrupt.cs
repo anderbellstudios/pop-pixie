@@ -13,7 +13,7 @@ public abstract class AInterrupt : MonoBehaviour {
   public virtual void LocalStart() { }
 
   void Update() {
-    AEnemyAI ai = GetComponents<AEnemyAI>().Where(x => x.InControl).FirstOrDefault();
+    ALegacyEnemyAI ai = GetComponents<ALegacyEnemyAI>().Where(x => x.InControl).FirstOrDefault();
 
     if (ai == null)
       return;
@@ -26,10 +26,10 @@ public abstract class AInterrupt : MonoBehaviour {
   }
 
   public virtual Type OnlyAIsMatching() {
-    return typeof(AEnemyAI);
+    return typeof(ALegacyEnemyAI);
   }
 
-  public abstract bool ShouldInterrupt(AEnemyAI ai);
-  public abstract AEnemyAI InterruptAI();
+  public abstract bool ShouldInterrupt(ALegacyEnemyAI ai);
+  public abstract ALegacyEnemyAI InterruptAI();
 
 }
