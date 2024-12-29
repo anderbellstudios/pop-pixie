@@ -8,7 +8,7 @@ public class EnemyAIHelper {
   public GameObject GameObject;
   public HitPoints HitPoints;
 
-  private AEnemyAI2 AI;
+  private AEnemyAI AI;
   private MovementManager MovementManager;
   private NavigateToPoint NavigateToPoint;
   private CapsuleCollider2D CapsuleCollider2D;
@@ -16,7 +16,7 @@ public class EnemyAIHelper {
   private bool MovementAllowed;
   private List<AsyncTimer.EnqueuedEvent> Timers = new();
 
-  public EnemyAIHelper(AEnemyAI2 ai, GameObject gameObject, bool movementAllowed) {
+  public EnemyAIHelper(AEnemyAI ai, GameObject gameObject, bool movementAllowed) {
     AI = ai;
     GameObject = gameObject;
     HitPoints = gameObject.GetComponent<HitPoints>();
@@ -145,7 +145,7 @@ public class EnemyAIHelper {
     Timers.Clear();
   }
 
-  // Called by AEnemyAI2
+  // Called by AEnemyAI
   public void Deactivate() {
     ClearTimers();
   }

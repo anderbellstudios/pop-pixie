@@ -43,7 +43,7 @@ public class ScheduleAttackAI : AMovementEnemyAI {
     LastAttacked = -Mathf.Infinity;
   }
 
-  protected override void OnChildFinish(AEnemyAI2 child) {
+  protected override void OnChildFinish(AEnemyAI child) {
     if (child == AttackAI) {
       StopAttack();
     } else {

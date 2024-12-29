@@ -7,7 +7,7 @@ public class EnemyHitPointEvents : MonoBehaviour {
   public HitPoints HitPoints;
 
   public Flash Flash;
-  public AEnemyAI2 RootAI;
+  public AEnemyAI RootAI;
   public DeathAnimation DeathAnimation;
   public Collider2D Collider;
 

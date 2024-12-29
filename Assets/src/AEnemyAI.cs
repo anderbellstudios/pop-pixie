@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
-public abstract class AEnemyAI2 : MonoBehaviour {
+public abstract class AEnemyAI : MonoBehaviour {
   protected virtual void WhileActive() { }
   protected virtual void OnActivate() { }
   protected virtual void OnDeactivate() { }
@@ -22,9 +22,9 @@ public abstract class AEnemyAI2 : MonoBehaviour {
 
   public bool IsActive = false;
 
-  private List<AEnemyAI2> ActiveChildAIs = new();
+  private List<AEnemyAI> ActiveChildAIs = new();
   private EnemyAIHelper _Helper = null;
-  private AEnemyAI2 Parent = null;
+  private AEnemyAI Parent = null;
 
   protected EnemyAIHelper Helper {
     get {
@@ -46,9 +46,9 @@ public abstract class AEnemyAI2 : MonoBehaviour {
     if (!IsActive)
       return;
 
-    List<AEnemyAI2> childAIs = new();
+    List<AEnemyAI> childAIs = new();
 
-    Action<AEnemyAI2> useChild = (child) => {
+    Action<AEnemyAI> useChild = (child) => {
       if (child) {
         childAIs.Add(child);
       }
@@ -57,18 +57,18 @@ public abstract class AEnemyAI2 : MonoBehaviour {
     UseChildAIs(useChild);
     useChild(InternalUseMovementAI());
 
-    foreach (AEnemyAI2 child in ActiveChildAIs.Except(childAIs)) {
+    foreach (AEnemyAI child in ActiveChildAIs.Except(childAIs)) {
       DeactivateChildAI(child);
     }
 
-    foreach (AEnemyAI2 child in childAIs.Except(ActiveChildAIs)) {
+    foreach (AEnemyAI child in childAIs.Except(ActiveChildAIs)) {
       ActivateChildAI(child);
     }
 
     ActiveChildAIs = childAIs;
   }
 
-  protected void Activate(AEnemyAI2 parent = null) {
+  protected void Activate(AEnemyAI parent = null) {
     IsActive = true;
     Parent = parent;
     OnActivate();
@@ -83,7 +83,7 @@ public abstract class AEnemyAI2 : MonoBehaviour {
     OnDeactivate();
   }
 
-  protected virtual void OnChildFinish(AEnemyAI2 child) {
+  protected virtual void OnChildFinish(AEnemyAI child) {
     OnFinish();
   }
 
@@ -91,15 +91,15 @@ public abstract class AEnemyAI2 : MonoBehaviour {
     Parent?.OnChildFinish(this);
   }
 
-  private void ActivateChildAI(AEnemyAI2 child) {
+  private void ActivateChildAI(AEnemyAI child) {
     child.Activate(this);
   }
 
-  private void DeactivateChildAI(AEnemyAI2 child) {
+  private void DeactivateChildAI(AEnemyAI child) {
     child.Deactivate();
   }
 
-  protected bool AnyDescendant(Func<AEnemyAI2, bool> condition) {
+  protected bool AnyDescendant(Func<AEnemyAI, bool> condition) {
     if (condition(this))
       return true;
 
