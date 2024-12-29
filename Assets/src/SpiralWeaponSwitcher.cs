@@ -32,6 +32,9 @@ public class SpiralWeaponSwitcher : AWeaponSwitcherUI {
 
   public override void OnOpen(List<PlayerWeapon> availableWeapons, int equippedWeaponIndex) {
     Weapons = availableWeapons;
+
+    // Animate on open
+    CurrentAngle = TargetAngle - Mathf.PI * 4f;
   }
 
   public override int OnClose() => WeaponIndexForItemIndex(
@@ -57,6 +60,7 @@ public class SpiralWeaponSwitcher : AWeaponSwitcherUI {
     CurrentAngle = Mathf.Lerp(CurrentAngle, TargetAngle, 0.3f);
 
     int currentItemIndex = ClosestItemIndexForAngle(CurrentAngle);
+    int targetItemIndex = ClosestItemIndexForAngle(TargetAngle);
 
     int firstItemIndex = currentItemIndex - BeforeAfterCount;
     int lastItemIndex = currentItemIndex + BeforeAfterCount;
@@ -84,7 +88,7 @@ public class SpiralWeaponSwitcher : AWeaponSwitcherUI {
 
       weaponTile.SetOpacity(
         opacity: Mathf.Clamp01(1f - Mathf.Abs(position.z - 1f) * 2f),
-        selected: i == currentItemIndex
+        selected: i == targetItemIndex
       );
     }
   }
