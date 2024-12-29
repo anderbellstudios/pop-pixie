@@ -46,7 +46,7 @@ module UsageData
 
     def referenced_identifiers
       return [] unless path.end_with?(*IDENTIFIER_REFERENCING_EXTENSIONS)
-      @referenced_identifiers ||= contents.scan(/\b[A-Z][A-Za-z]+\b/).flatten.uniq
+      @referenced_identifiers ||= contents.scan(/\b[A-Z][A-Za-z0-9]+\b/).flatten.uniq
     end
 
     def uses?(file)

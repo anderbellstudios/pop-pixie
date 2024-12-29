@@ -1,126 +1,136 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
 public abstract class AEnemyAI : MonoBehaviour {
-  public bool StartsInControl;
-  public bool InControl;
+  protected virtual void WhileActive() { }
+  protected virtual void OnActivate() { }
+  protected virtual void OnDeactivate() { }
+  protected virtual void UseChildAIs(Action<AGenericEnemyAI> useChild) { }
 
-  private LowPriorityBehaviour LowPriorityBehaviour;
-  private List<AsyncTimer.EnqueuedEvent> Timers = new();
+  protected virtual bool ShouldAvoidInterruption() => false;
 
-  void Start() {
-    LowPriorityBehaviour = new LowPriorityBehaviour();
-
-    LocalStart();
-
-    if (StartsInControl)
-      GainControl();
+  // Used only by AMovementEnemyAI
+  protected virtual AMovementEnemyAI InternalUseMovementAI() {
+    return null;
   }
 
-  public virtual void LocalStart() { }
+  protected virtual bool InternalMovementAllowed() => false;
 
-  public void GainControl() {
-    InControl = true;
-    ControlGained();
+  public bool IsActive = false;
+
+  private List<AEnemyAI> ActiveChildAIs = new();
+  private EnemyAIHelper _Helper = null;
+  private AEnemyAI Parent = null;
+
+  protected EnemyAIHelper Helper {
+    get {
+      if (_Helper == null) {
+        _Helper = MakeHelper();
+      }
+      return _Helper;
+    }
   }
 
   void Update() {
-    if (!StateManager.Playing)
+    if (!StateManager.Playing || !IsActive)
+      return;
+    WhileActive();
+    UpdateActiveChildAIs();
+  }
+
+  public void UpdateActiveChildAIs() {
+    if (!IsActive)
       return;
 
-    if (InControl)
-      WhileInControl();
+    List<AEnemyAI> childAIs = new();
+
+    Action<AEnemyAI> useChild = (child) => {
+      if (child) {
+        childAIs.Add(child);
+      }
+    };
+
+    UseChildAIs(useChild);
+    useChild(InternalUseMovementAI());
+
+    foreach (AEnemyAI child in ActiveChildAIs.Except(childAIs)) {
+      DeactivateChildAI(child);
+    }
+
+    foreach (AEnemyAI child in childAIs.Except(ActiveChildAIs)) {
+      ActivateChildAI(child);
+    }
+
+    ActiveChildAIs = childAIs;
   }
 
-  public void RelinquishControl() {
-    InControl = false;
-    ClearTimers();
-    ControlRelinquished();
+  protected void Activate(AEnemyAI parent = null) {
+    IsActive = true;
+    Parent = parent;
+    OnActivate();
+    UpdateActiveChildAIs();
   }
 
-  public virtual void ControlGained() {
+  public void Deactivate() {
+    IsActive = false;
+    ActiveChildAIs.ForEach(DeactivateChildAI);
+    ActiveChildAIs.Clear();
+    _Helper?.Deactivate();
+    OnDeactivate();
   }
 
-  public virtual void WhileInControl() {
+  protected virtual void OnChildFinish(AEnemyAI child) {
+    OnFinish();
   }
 
-  public virtual void ControlRelinquished() {
+  protected void OnFinish() {
+    Parent?.OnChildFinish(this);
   }
 
-  void OnCollisionEnter2D(Collision2D col) {
-    if (InControl)
-      LocalOnCollisionEnter2D(col);
+  private void ActivateChildAI(AEnemyAI child) {
+    child.Activate(this);
   }
 
-  public virtual void LocalOnCollisionEnter2D(Collision2D col) {
+  private void DeactivateChildAI(AEnemyAI child) {
+    child.Deactivate();
   }
 
-  // Utility methods
+  protected bool AnyDescendant(Func<AEnemyAI, bool> condition) {
+    if (condition(this))
+      return true;
 
-  public void RelinquishControlTo(AEnemyAI ai) {
-    RelinquishControl();
-    ai.GainControl();
+    return ActiveChildAIs.Any(child => child.AnyDescendant(condition));
   }
 
-  public void ApplyMovement(Vector2 movement) {
-    GetComponent<MovementManager>().Move(movement * Time.deltaTime);
+  protected bool AvoidingInterruption
+    => AnyDescendant(ai => ai.ShouldAvoidInterruption());
+
+  private EnemyAIHelper MakeHelper() => new EnemyAIHelper(
+    ai: this,
+    gameObject: GetRootTransform().gameObject,
+    movementAllowed: InternalMovementAllowed()
+  );
+
+  // Find the first ancestor tagged "Enemy"
+  private Transform GetRootTransform() {
+    Transform enemy = null;
+    Transform current = transform;
+
+    while (current != null) {
+      if (current.tag == "Enemy") {
+        enemy = current;
+      }
+      current = current.parent;
+    }
+
+#if UNITY_EDITOR
+    Debug.Assert(enemy != null, "Failed to find root transform");
+#endif
+
+    return enemy;
   }
-
-  public GameObject Target
-    => PlayerGameObject.Current;
-
-  public bool DamageTarget(float damage, bool canBeCounterAttacked = false) {
-    return Target.GetComponent<HitPoints>().Damage(damage, canBeCounterAttacked);
-  }
-
-  public Vector2 TargetHeading() {
-    return Target.transform.position - transform.position;
-  }
-
-  public float TargetDistance() {
-    return TargetHeading().magnitude;
-  }
-
-  public Vector2 TargetDirection() {
-    return TargetHeading().normalized;
-  }
-
-  private bool _LineOfMovement;
-
-  public bool LineOfMovement() {
-    LowPriorityBehaviour.EveryNFrames(10, () => {
-      var hit = Physics2D.CircleCast(
-          transform.position,
-          WidthRequiredForMovement() / 2,
-          TargetDirection(),
-          Mathf.Infinity,
-          IgnoreEnemyLayerMask.Mask
-          );
-
-      _LineOfMovement = hit.collider.gameObject == Target;
-    });
-
-    return _LineOfMovement;
-  }
-
-  public float WidthRequiredForMovement() {
-    return 1f;
-  }
-
-  public void SetTimeout(System.Action callback, float timeout) {
-    Timers.Add(global::AsyncTimer.PlayingTime.SetTimeout(callback, timeout, gameObject));
-  }
-
-  public void SetInterval(System.Action callback, float interval) {
-    Timers.Add(global::AsyncTimer.PlayingTime.SetInterval(callback, interval, gameObject));
-  }
-
-  private void ClearTimers() {
-    Timers.ForEach(global::AsyncTimer.PlayingTime.ClearTimeout);
-  }
-
-  protected class DoNotUseAsyncTimerInEnemyAI { }
-  protected DoNotUseAsyncTimerInEnemyAI AsyncTimer
-    => new DoNotUseAsyncTimerInEnemyAI();
 }

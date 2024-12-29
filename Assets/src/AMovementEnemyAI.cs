@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class AMovementEnemyAI : AEnemyAI2 {
+public abstract class AMovementEnemyAI : AEnemyAI {
   public virtual float Speed {
     get {
       throw new System.NotImplementedException("Cannot get Speed on AI that doesn't implmenet it");

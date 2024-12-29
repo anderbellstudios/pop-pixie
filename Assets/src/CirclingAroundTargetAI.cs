@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CirclingAroundTargetAI : AEnemyAI, IRequiresLineOfMovementAI {
+public class CirclingAroundTargetAI : ALegacyEnemyAI, IRequiresLineOfMovementAI {
   public float TooFarThreshold, ApproachToDistance;
   public float TooCloseThreshold, BackOffToDistance;
 
@@ -12,7 +12,7 @@ public class CirclingAroundTargetAI : AEnemyAI, IRequiresLineOfMovementAI {
   public float AttackInterval;
   public float AttackIntervalRandomness;
 
-  public AEnemyAI WhenAttacking;
+  public ALegacyEnemyAI WhenAttacking;
 
   private bool AdjustingDistance;
   private int CircleDirection;

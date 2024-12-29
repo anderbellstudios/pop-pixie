@@ -17,7 +17,7 @@ public class CycleRandomAI : AMovementEnemyAI {
     ScheduleChangeAI();
   }
 
-  protected override void OnChildFinish(AEnemyAI2 child) {
+  protected override void OnChildFinish(AEnemyAI child) {
     ScheduleChangeAI();
   }
 

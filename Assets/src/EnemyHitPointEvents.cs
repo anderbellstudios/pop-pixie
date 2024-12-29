@@ -7,7 +7,7 @@ public class EnemyHitPointEvents : MonoBehaviour {
   public HitPoints HitPoints;
 
   public Flash Flash;
-  public AEnemyAI2 RootAI;
+  public AEnemyAI RootAI;
   public DeathAnimation DeathAnimation;
   public Collider2D Collider;
 
@@ -66,7 +66,7 @@ public class EnemyHitPointEvents : MonoBehaviour {
   void DisableAIs() {
     RootAI?.Deactivate();
 
-    foreach (var ai in GetComponents<AEnemyAI>()) {
+    foreach (var ai in GetComponents<ALegacyEnemyAI>()) {
       if (ai.InControl)
         ai.RelinquishControl();
     }

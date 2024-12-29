@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChargingAttackAI : AEnemyAI, IRequiresLineOfMovementAI {
+public class ChargingAttackAI : ALegacyEnemyAI, IRequiresLineOfMovementAI {
   public float Speed;
   public float Damage;
   public float WiggleAmplitude;
@@ -14,7 +14,7 @@ public class ChargingAttackAI : AEnemyAI, IRequiresLineOfMovementAI {
   public List<AudioClip> Sounds;
   public float ChanceToPlaySound = 0f;
 
-  public AEnemyAI WhenAttackFinished;
+  public ALegacyEnemyAI WhenAttackFinished;
 
   private bool Preparing;
 

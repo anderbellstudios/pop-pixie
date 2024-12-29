@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class LostLineOfMovementInterrupt : AInterrupt {
   public float Delay;
-  public AEnemyAI WhenLostLineOfMovement;
+  public ALegacyEnemyAI WhenLostLineOfMovement;
 
   private Stopwatch Stopwatch;
 
@@ -17,14 +17,14 @@ public class LostLineOfMovementInterrupt : AInterrupt {
     Stopwatch = new Stopwatch.PlayingTime();
   }
 
-  public override bool ShouldInterrupt(AEnemyAI ai) {
+  public override bool ShouldInterrupt(ALegacyEnemyAI ai) {
     if (ai.LineOfMovement())
       Stopwatch.Reset();
 
     return Stopwatch.Time() >= Delay;
   }
 
-  public override AEnemyAI InterruptAI() {
+  public override ALegacyEnemyAI InterruptAI() {
     return WhenLostLineOfMovement;
   }
 }
