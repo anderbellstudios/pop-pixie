@@ -15,7 +15,7 @@ public class FireBullets : MonoBehaviour {
 
   public bool Firing { get; private set; }
 
-  private Func<Vector3> GetDirection, GetTarget, GetOrigin;
+  private Func<Vector3> GetDirection, GetTarget;
   private int BulletsFired;
   private Stopwatch Stopwatch;
 
@@ -30,7 +30,6 @@ public class FireBullets : MonoBehaviour {
   ) {
     GetDirection = getDirection;
     GetTarget = getTarget;
-    GetOrigin = getOrigin;
     Firing = true;
     BulletsFired = 0;
     Stopwatch = new Stopwatch.PlayingTime();
@@ -59,7 +58,6 @@ public class FireBullets : MonoBehaviour {
       prefab: BulletPrefab,
       getDirection: GetDirection,
       getTarget: GetTarget,
-      origin: GetOrigin == null ? null : GetOrigin(),
       speed: BulletSpeed,
       damage: BulletDamage,
       counterAttackDamage: CounterAttackDamage,

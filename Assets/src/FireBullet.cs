@@ -14,7 +14,6 @@ public class FireBullet : MonoBehaviour {
     Func<Vector3> getDirection = null,
     Func<Vector3> getTarget = null,
     float? counterAttackDamage = null,
-    Vector3? origin = null,
     string soundKey = ""
   ) {
 #if UNITY_EDITOR
@@ -23,10 +22,10 @@ public class FireBullet : MonoBehaviour {
     }
 #endif
 
-    Vector3 safeOrigin = origin ?? transform.position;
+    Vector3 origin = transform.position;
 
     if (getDirection == null) {
-      getDirection = () => getTarget() - safeOrigin;
+      getDirection = () => getTarget() - origin;
     }
 
     Vector3 direction = getDirection();
@@ -34,7 +33,7 @@ public class FireBullet : MonoBehaviour {
     if (direction.magnitude == 0)
       return;
 
-    GameObject bullet = Instantiate(prefab, safeOrigin, Quaternion.identity);
+    GameObject bullet = Instantiate(prefab, origin, Quaternion.identity);
 
     BulletData bulletData = bullet.GetComponent<BulletData>();
     bulletData.Damage = damage;
