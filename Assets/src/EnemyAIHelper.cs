@@ -86,17 +86,23 @@ public class EnemyAIHelper {
       layerMask: CollisionMask.UnwalkableMask | CollisionMask.PlayerMask
     );
 
+  public bool CollisionWasPlayer { get; private set; }
+  public bool CollisionWasStay { get; private set; }
+
   public void OnAnyCollision(Action<Collider2D> handler) {
     OnCollisionComponent.OnCollide.AddListener(() => {
       if (AI.IsActive) {
-        handler(OnCollisionComponent.LastCollider);
+        Collider2D collider = OnCollisionComponent.LastCollider;
+        CollisionWasPlayer = collider.tag == "Player";
+        CollisionWasStay = OnCollisionComponent.WasStay;
+        handler(collider);
       }
     });
   }
 
   public void OnPlayerCollision(Action handler) {
     OnAnyCollision(collider => {
-      if (collider.tag == "Player") {
+      if (CollisionWasPlayer) {
         handler();
       }
     });

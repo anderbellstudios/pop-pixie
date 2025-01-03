@@ -6,6 +6,7 @@ public class ChargerGremlinAttackAI : AMovementEnemyAI {
   [field: SerializeField]
   public override float Speed { get; set; }
 
+  public SpriteRenderer DirectionIndicator;
   public float PrepareSpeed, RecoverSpeed;
   public float WiggleAmplitude;
   public float PrepareWiggleSpeed, ChargeWiggleSpeed, RecoverWiggleSpeed;
@@ -19,6 +20,7 @@ public class ChargerGremlinAttackAI : AMovementEnemyAI {
   private bool PreviousSlowOnDamage;
   private float WigglePhase;
   private Vector2 Direction;
+  private Vector2 ChargeStartPosition;
   private Stopwatch Stopwatch;
 
   void Start() {
@@ -26,7 +28,12 @@ public class ChargerGremlinAttackAI : AMovementEnemyAI {
       if (State != StateType.Charging)
         return;
 
+      // Do not stop charging when hit by bullet
       if (IsBullet(collider.gameObject.layer))
+        return;
+
+      // Do not stop charging when touching a wall
+      if (Helper.CollisionWasStay && !Helper.CollisionWasPlayer)
         return;
 
       HitPoints hitPoints = collider.gameObject.GetComponent<HitPoints>();
@@ -39,9 +46,7 @@ public class ChargerGremlinAttackAI : AMovementEnemyAI {
         }
       }
 
-      SetState(StateType.Recovering);
-
-      Helper.SetTimeout(OnFinish, RecoverDuration);
+      BeginRecovering();
     });
 
     WiggleTransform = Helper.Transform.Find("Sprite");
@@ -52,26 +57,13 @@ public class ChargerGremlinAttackAI : AMovementEnemyAI {
   }
 
   protected override void OnActivate() {
-    SetState(StateType.Preparing);
-
-    Helper.SetTimeout(() => {
-      SetState(StateType.Charging);
-      DisableSlowOnDamage();
-    }, PrepareDuration);
-
-    if (MaxChargeDuration != Mathf.Infinity) {
-      Helper.SetTimeout(() => {
-        if (State == StateType.Charging) {
-          OnFinish();
-        }
-      }, PrepareDuration + MaxChargeDuration);
-    }
-
+    BeginPreparing();
     WigglePhase = 0f;
   }
 
   protected override void OnDeactivate() {
     SetWiggleAngle(0f);
+    HideDirectionIndicator();
     ResetSlowOnDamage();
   }
 
@@ -94,16 +86,52 @@ public class ChargerGremlinAttackAI : AMovementEnemyAI {
     }
   }
 
+  private void BeginPreparing() {
+    SetState(StateType.Preparing);
+    Helper.SetTimeout(BeginCharging, PrepareDuration);
+    ShowDirectionIndicator();
+  }
+
+  private void BeginCharging() {
+    SetState(StateType.Charging);
+    DisableSlowOnDamage();
+
+    if (MaxChargeDuration != Mathf.Infinity) {
+      Helper.SetTimeout(() => {
+        if (State == StateType.Charging) {
+          GiveUpCharging();
+        }
+      }, MaxChargeDuration);
+    }
+  }
+
+  private void BeginRecovering() {
+    HideDirectionIndicator();
+    SetState(StateType.Recovering);
+    Helper.SetTimeout(FinishRecovering, RecoverDuration);
+  }
+
+  private void GiveUpCharging() {
+    OnFinish();
+  }
+
+  private void FinishRecovering() {
+    OnFinish();
+  }
+
   private void WhilePreparing() {
     Direction = Helper.DirectionToPlayer;
+    ChargeStartPosition = Helper.Position;
     float progress = Stopwatch.Progress(PrepareDuration);
     Helper.MoveWithVelocity(-1f * (1f - progress) * PrepareSpeed * Direction);
     Wiggle(PrepareWiggleSpeed * progress);
+    UpdateDirectionIndicator();
   }
 
   private void WhileCharging() {
     Helper.MoveWithVelocity(Speed * Direction);
     Wiggle(ChargeWiggleSpeed);
+    UpdateDirectionIndicator();
   }
 
   private void WhileRecovering() {
@@ -137,5 +165,40 @@ public class ChargerGremlinAttackAI : AMovementEnemyAI {
 
   private void ResetSlowOnDamage() {
     HitPointEvents.SlowOnDamage = PreviousSlowOnDamage;
+  }
+
+  private void ShowDirectionIndicator() {
+    DirectionIndicator.gameObject.SetActive(true);
+    UpdateDirectionIndicator();
+  }
+
+  private void UpdateDirectionIndicator() {
+    float maxDistance = Speed * MaxChargeDuration;
+
+    RaycastHit2D hit = Physics2D.Raycast(
+      ChargeStartPosition,
+      Direction,
+      maxDistance,
+      CollisionMask.UnwalkableMask
+    );
+
+    Vector2 chargeVector = hit
+      ? hit.point - ChargeStartPosition
+      : Direction * maxDistance;
+
+    DirectionIndicator.transform.localRotation =
+      Quaternion.FromToRotation(Vector3.right, Direction);
+
+    DirectionIndicator.transform.position =
+      ChargeStartPosition + chargeVector / 2f;
+
+    DirectionIndicator.size = new Vector2(
+      chargeVector.magnitude,
+      DirectionIndicator.size.y
+    );
+  }
+
+  private void HideDirectionIndicator() {
+    DirectionIndicator.gameObject.SetActive(false);
   }
 }

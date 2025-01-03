@@ -9,10 +9,12 @@ public class OnCollision : MonoBehaviour {
   public UnityEvent OnCollide;
 
   public Collider2D LastCollider { get; private set; }
+  public bool WasStay { get; private set; }
 
   void OnTriggerEnter2D(Collider2D collider) {
     if (TriggerCollisions) {
       LastCollider = collider;
+      WasStay = false;
       OnCollide.Invoke();
     }
   }
@@ -20,6 +22,7 @@ public class OnCollision : MonoBehaviour {
   void OnCollisionEnter2D(Collision2D collision) {
     if (StandardCollisions) {
       LastCollider = collision.collider;
+      WasStay = false;
       OnCollide.Invoke();
     }
   }
@@ -27,6 +30,7 @@ public class OnCollision : MonoBehaviour {
   void OnCollisionStay2D(Collision2D collision) {
     if (StandardCollisions) {
       LastCollider = collision.collider;
+      WasStay = true;
       OnCollide.Invoke();
     }
   }
