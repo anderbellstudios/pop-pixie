@@ -33,17 +33,20 @@ public abstract class AInspectable : MonoBehaviour {
   }
 
   public void AInspectableStart() {
-    InGamePrompt.Current.RegisterSource(1000, () => {
-      if (IsInspectImminent()) {
-        return AInspectablePromptText();
-      }
+    InGamePrompt.Current.RegisterSource(
+      InGamePrompt.Priority.Inspect,
+      () => {
+        if (IsInspectImminent()) {
+          return AInspectablePromptText();
+        }
 
-      if (IsPlayingAndNearby()) {
-        return AInspectableUninspectableText();
-      }
+        if (IsPlayingAndNearby()) {
+          return AInspectableUninspectableText();
+        }
 
-      return null;
-    });
+        return null;
+      }
+    );
   }
 
   public virtual String AInspectablePromptText() {

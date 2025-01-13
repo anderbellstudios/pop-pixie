@@ -6,6 +6,18 @@ using UnityEngine.UI;
 using TMPro;
 
 public class InGamePrompt : MonoBehaviour {
+  // Lower entries take precedence
+  public enum Priority {
+    TutorialRoll,
+    TutorialFire,
+    CollectIntel,
+    TutorialMove,
+    UrgentRoll,
+    Uncrouch,
+    Reload,
+    Inspect
+  }
+
   public delegate String InGamePromptSource();
 
   public bool SingletonInstance = true;
@@ -23,8 +35,8 @@ public class InGamePrompt : MonoBehaviour {
     LowPriorityBehaviour = new LowPriorityBehaviour();
   }
 
-  public void RegisterSource(int priority, InGamePromptSource source) {
-    Sources.Add((priority, source));
+  public void RegisterSource(Priority priority, InGamePromptSource source) {
+    Sources.Add(((int)priority, source));
   }
 
   void Update() {

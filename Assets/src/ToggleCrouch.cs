@@ -7,6 +7,15 @@ public class ToggleCrouch : MonoBehaviour {
 
   private ButtonPressHelper ButtonPressHelper = new SingleButtonPressHelper();
 
+  void Start() {
+    InGamePrompt.Current.RegisterSource(
+      InGamePrompt.Priority.Uncrouch,
+      () => Crouch.Crouching
+        ? "Press [Crouch] to stop crouching"
+        : null
+    );
+  }
+
   void Update() {
     if (StateManager.Playing) {
       if (ButtonPressHelper.GetButtonPress("Crouch")) {
