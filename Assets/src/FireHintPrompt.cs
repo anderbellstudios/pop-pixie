@@ -11,10 +11,11 @@ public class FireHintPrompt : MonoBehaviour {
   void Start() {
     Stopwatch = new Stopwatch.PlayingTime();
 
-    InGamePrompt.Current.RegisterSource(99, () =>
-      !EnemyUtils.IsDead(Enemy) && Stopwatch.Time() > TimeBeforeShow
-      ? "Aim and press [Fire] to destroy your enemy"
-      : null
+    InGamePrompt.Current.RegisterSource(
+      InGamePrompt.Priority.TutorialFire,
+      () => !EnemyUtils.IsDead(Enemy) && Stopwatch.Time() > TimeBeforeShow
+        ? "Aim and press [Fire] to destroy your enemy"
+        : null
     );
   }
 }

@@ -7,10 +7,11 @@ public class RollPastLaserHint : MonoBehaviour {
   private bool PastLaser = false;
 
   void Start() {
-    InGamePrompt.Current.RegisterSource(100, () =>
-      PastLaser
-      ? null
-      : "Press [Roll] while moving to <color=#ffff00>roll</color>"
+    InGamePrompt.Current.RegisterSource(
+      InGamePrompt.Priority.TutorialRoll,
+      () => PastLaser
+        ? null
+        : "Press [Roll] while moving to <color=#ffff00>roll</color>"
     );
   }
 

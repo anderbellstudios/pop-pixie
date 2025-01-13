@@ -29,8 +29,9 @@ public class EquippedWeapon : MonoBehaviour {
 
     SetWeaponByIndex(index: CurrentWeaponIndex, setLast: false);
 
-    InGamePrompt.Current.RegisterSource(200, () =>
-      CurrentWeapon.Ammunition == 0
+    InGamePrompt.Current.RegisterSource(
+      InGamePrompt.Priority.Reload,
+      () => CurrentWeapon.Ammunition == 0
         ? "Press [Reload] to reload your weapon"
         : null
     );

@@ -11,10 +11,9 @@ public class MoveHintPrompt : MonoBehaviour {
   void Start() {
     Stopwatch = new Stopwatch.PlayingTime();
 
-    InGamePrompt.Current.RegisterSource(100, () =>
-      Stopwatch.Time() > TimeBeforeShow
-        ? HintText()
-        : null
+    InGamePrompt.Current.RegisterSource(
+      InGamePrompt.Priority.TutorialMove,
+      () => Stopwatch.Time() > TimeBeforeShow ? HintText() : null
     );
   }
 
