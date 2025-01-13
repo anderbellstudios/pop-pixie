@@ -44,11 +44,14 @@ public class GrenadePredictedPosition : MonoBehaviour {
 
     RadiusIndicator.localScale = Vector3.one * radius;
 
-    // The time required for the grenade to get far enough away
+    /**
+     * The time required for the grenade to get far enough away (explosion
+     * radius plus half player's height).
+     */
     float throwDuration = DragUtils.TimeUntilDisplacement(
       speed: speed,
       drag: Drag,
-      displacement: radius
+      displacement: radius + 0.75f
     );
 
     float safeThrowTime = explodeTime - throwDuration;
