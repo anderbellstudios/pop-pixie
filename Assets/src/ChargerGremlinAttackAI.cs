@@ -95,6 +95,7 @@ public class ChargerGremlinAttackAI : AMovementEnemyAI {
   private void BeginCharging() {
     SetState(StateType.Charging);
     DisableSlowOnDamage();
+    HideDirectionIndicator();
 
     if (MaxChargeDuration != Mathf.Infinity) {
       Helper.SetTimeout(() => {
@@ -106,7 +107,6 @@ public class ChargerGremlinAttackAI : AMovementEnemyAI {
   }
 
   private void BeginRecovering() {
-    HideDirectionIndicator();
     SetState(StateType.Recovering);
     Helper.SetTimeout(FinishRecovering, RecoverDuration);
   }
@@ -125,13 +125,12 @@ public class ChargerGremlinAttackAI : AMovementEnemyAI {
     float progress = Stopwatch.Progress(PrepareDuration);
     Helper.MoveWithVelocity(-1f * (1f - progress) * PrepareSpeed * Direction);
     Wiggle(PrepareWiggleSpeed * progress);
-    UpdateDirectionIndicator();
+    UpdateDirectionIndicator(progress);
   }
 
   private void WhileCharging() {
     Helper.MoveWithVelocity(Speed * Direction);
     Wiggle(ChargeWiggleSpeed);
-    UpdateDirectionIndicator();
   }
 
   private void WhileRecovering() {
@@ -169,25 +168,21 @@ public class ChargerGremlinAttackAI : AMovementEnemyAI {
 
   private void ShowDirectionIndicator() {
     DirectionIndicator.gameObject.SetActive(true);
-    UpdateDirectionIndicator();
+    UpdateDirectionIndicator(0f);
   }
 
-  private void UpdateDirectionIndicator() {
+  private void UpdateDirectionIndicator(float progress) {
     float maxDistance = Speed * MaxChargeDuration;
 
-    RaycastHit2D hit = Physics2D.Raycast(
-      ChargeStartPosition,
-      Direction,
-      maxDistance,
-      CollisionMask.UnwalkableMask
+    Vector2 chargeVector = Vector2.ClampMagnitude(
+      Helper.VectorToPlayer,
+      maxDistance
+    ) * progress;
+
+    DirectionIndicator.transform.localRotation = Quaternion.FromToRotation(
+      Vector3.right,
+      chargeVector.normalized
     );
-
-    Vector2 chargeVector = hit
-      ? hit.point - ChargeStartPosition
-      : Direction * maxDistance;
-
-    DirectionIndicator.transform.localRotation =
-      Quaternion.FromToRotation(Vector3.right, Direction);
 
     DirectionIndicator.transform.position =
       ChargeStartPosition + chargeVector / 2f;
