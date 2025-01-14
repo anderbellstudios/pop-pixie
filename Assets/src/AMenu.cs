@@ -23,6 +23,17 @@ public abstract class AMenu : MonoBehaviour {
   protected Button LastClickedButton;
 
   void Start() {
+    ProvisionButtons();
+
+    LocalStartBeforeSelect();
+
+    SetVisible(StartsVisible);
+    SetFocus(StartsInFocus);
+
+    LocalStart();
+  }
+
+  public void ProvisionButtons() {
     _Buttons = LocalInitButtons();
 
     LastClickedButton = FirstSelected ?? Buttons.FirstOrDefault();
@@ -33,13 +44,6 @@ public abstract class AMenu : MonoBehaviour {
         LastClickedButton = button;
       })
     );
-
-    LocalStartBeforeSelect();
-
-    SetVisible(StartsVisible);
-    SetFocus(StartsInFocus);
-
-    LocalStart();
   }
 
   public virtual List<Button> LocalInitButtons() {
