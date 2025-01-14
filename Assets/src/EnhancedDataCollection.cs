@@ -40,4 +40,14 @@ public static class EnhancedDataCollection {
       request.Dispose();
     };
   }
+
+  [RuntimeInitializeOnLoadMethod]
+  static void RunOnStart() {
+    Application.wantsToQuit += OnQuit;
+  }
+
+  private static bool OnQuit() {
+    LogIfEnabled(() => "Application.wantsToQuit");
+    return true;
+  }
 }
