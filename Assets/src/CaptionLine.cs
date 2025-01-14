@@ -7,7 +7,7 @@ public class CaptionLine {
   [TextArea] public string Text;
   public string VoiceLineKey;
   public float Duration;
-  public bool DoNotPauseWhenNotPlaying = false;
+  public bool IgnorePause = false;
 
   public DialogueMusicFadeBehaviour DialogueMusicFadeBehaviour = new DialogueMusicFadeBehaviour(
     DialogueMusicFadeBehaviour.BehaviourType.FadeDown,

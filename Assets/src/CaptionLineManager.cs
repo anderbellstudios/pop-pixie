@@ -13,9 +13,10 @@ public class CaptionLineManager : MonoBehaviour {
   public TMP_Text BackgroundText, Text;
 
   private CaptionLine CaptionLine = null;
+  private Queue<CaptionLine> CaptionLineQueue = new();
   private bool Running;
-  private Func<float> GetTime;
   private float StartTime;
+  private float CurrentTime;
 
   void Awake() {
     if (SingletonInstance)
@@ -25,20 +26,23 @@ public class CaptionLineManager : MonoBehaviour {
   }
 
   public void Play(CaptionLine captionLine) {
+    if (Running) {
+      if (captionLine != CaptionLine && !CaptionLineQueue.Contains(captionLine)) {
+        CaptionLineQueue.Enqueue(captionLine);
+      }
+      return;
+    }
+
     CaptionLine = captionLine;
 
     SetText(CaptionLine.Text);
 
     if (CaptionLine.HasAudioClip()) {
-      PlaySound.Play(CaptionLine.VoiceLineKey, doNotPause: CaptionLine.DoNotPauseWhenNotPlaying);
+      PlaySound.Play(CaptionLine.VoiceLineKey, doNotPause: CaptionLine.IgnorePause);
     }
 
-    GetTime = CaptionLine.DoNotPauseWhenNotPlaying
-      ? () => Time.time
-      : () => PlayingTime.time;
-
     Running = true;
-    StartTime = GetTime();
+    StartTime = CurrentTime;
 
     CaptionLine.DialogueMusicFadeBehaviour.ApplyEnterBehaviour();
   }
@@ -47,7 +51,9 @@ public class CaptionLineManager : MonoBehaviour {
     if (!Running)
       return;
 
-    float time = GetTime() - StartTime;
+    UpdateTime();
+
+    float time = CurrentTime - StartTime;
 
     if (time < FadeInDuration) {
       SetOpacity(time / FadeInDuration);
@@ -61,6 +67,18 @@ public class CaptionLineManager : MonoBehaviour {
       Running = false;
       SetOpacity(0);
       CaptionLine.DialogueMusicFadeBehaviour.ApplyExitBehaviour();
+      PlayEnqueued();
+    }
+  }
+
+  void UpdateTime() {
+    if (
+      Running && (
+        CaptionLine.IgnorePause ||
+        !StateManager.Enabled(StateFeatures.PauseSounds)
+      )
+    ) {
+      CurrentTime += Time.deltaTime;
     }
   }
 
@@ -71,5 +89,11 @@ public class CaptionLineManager : MonoBehaviour {
 
   void SetOpacity(float opacity) {
     BackgroundText.color = Text.color = new Color(1, 1, 1, opacity);
+  }
+
+  void PlayEnqueued() {
+    if (CaptionLineQueue.Count > 0) {
+      Play(CaptionLineQueue.Dequeue());
+    }
   }
 }

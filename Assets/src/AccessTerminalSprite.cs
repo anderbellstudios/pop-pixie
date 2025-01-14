@@ -21,11 +21,11 @@ public class AccessTerminalSprite : AInspectable {
 
     LevelObjectives.UsedAccessTerminal = true;
     LoreItemData.RecordRead(Config.LoreItem);
-    StateManager.AddState(State.NotPlaying);
+    StateManager.AddState(State.NotPlayingContinueSounds);
 
     AccessTerminalManager.Current.Open(Config, () => {
       LoreManager.Current.Open(Config.LoreItem, () => {
-        StateManager.RemoveState(State.NotPlaying);
+        StateManager.RemoveState(State.NotPlayingContinueSounds);
       });
     });
   }
