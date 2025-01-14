@@ -12,12 +12,14 @@ public enum StateFeatures {
   BackgroundAnimations = 2,
   Movement = 4,
   PlayerDeathAnimation = 8,
-  MuffleSounds = 16
+  MuffleSounds = 16,
+  PauseSounds = 32
 };
 
 public enum State {
   Playing,
   NotPlaying,
+  NotPlayingContinueSounds,
   ScriptedMovement,
   Paused,
   PlayerDying
@@ -32,10 +34,15 @@ public class StateManager : MonoBehaviour {
     StateFeatures.None
   );
 
-  static (StateFeatures Enabled, StateFeatures Disabled) NotPlayingState = (
+  static (StateFeatures Enabled, StateFeatures Disabled) NotPlayingContinueSoundsState = (
     StateFeatures.None,
     StateFeatures.Playing | StateFeatures.Movement
   );
+
+  static (StateFeatures Enabled, StateFeatures Disabled) NotPlayingState = InheritFrom(NotPlayingContinueSoundsState, (
+    StateFeatures.PauseSounds,
+    StateFeatures.None
+  ));
 
   static (StateFeatures Enabled, StateFeatures Disabled) ScriptedMovementState = (
     StateFeatures.Movement,
@@ -59,6 +66,9 @@ public class StateManager : MonoBehaviour {
 
       case State.NotPlaying:
         return NotPlayingState;
+
+      case State.NotPlayingContinueSounds:
+        return NotPlayingContinueSoundsState;
 
       case State.ScriptedMovement:
         return ScriptedMovementState;

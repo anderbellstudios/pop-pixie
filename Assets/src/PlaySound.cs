@@ -7,13 +7,13 @@ public class PlaySound : MonoBehaviour {
   public bool PlayOnStart = false;
   public string DefaultProgrammerInstrumentKey = "";
   public FMODUnity.StudioEventEmitter EventEmitter;
-  public bool PauseWhenNotPlaying = false;
+  public bool Pausable = false;
   public UnityEvent OnPlay;
 
   public FMOD.Studio.EventInstance EventInstance => EventEmitter.EventInstance;
 
   private ProgrammerInstrumentUtils ProgrammerInstrumentUtils;
-  private bool OverridePauseWhenNotPlaying = false;
+  private bool OverridePausable = false;
 
   void Start() {
     PreloadProgrammerSounds.PreloadSound(DefaultProgrammerInstrumentKey);
@@ -24,9 +24,12 @@ public class PlaySound : MonoBehaviour {
       Play();
     }
 
-    if (PauseWhenNotPlaying) {
+    if (Pausable) {
       StateManager.AddListener(() => {
-        EventInstance.setPaused(!OverridePauseWhenNotPlaying && !StateManager.Playing);
+        EventInstance.setPaused(
+          !OverridePausable &&
+          StateManager.Enabled(StateFeatures.PauseSounds)
+        );
       });
     }
   }
@@ -49,7 +52,7 @@ public class PlaySound : MonoBehaviour {
   }
 
   public void Play(string programmerInstrumentKey, bool doNotPause) {
-    OverridePauseWhenNotPlaying = doNotPause;
+    OverridePausable = doNotPause;
     Play(programmerInstrumentKey);
   }
 
