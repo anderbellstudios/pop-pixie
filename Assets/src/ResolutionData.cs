@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ResolutionData {
@@ -10,7 +11,7 @@ public class ResolutionData {
     }
 
     get {
-      return (int)ConfigData.Current.Fetch("resolution-width", orSetEqualTo: (int)(Display.main.renderingWidth * 0.75f));
+      return (int)ConfigData.Current.Fetch("resolution-width", orSetEqualTo: DefaultResolution().width);
     }
   }
 
@@ -20,7 +21,7 @@ public class ResolutionData {
     }
 
     get {
-      return (int)ConfigData.Current.Fetch("resolution-height", orSetEqualTo: (int)(Display.main.renderingHeight * 0.75f));
+      return (int)ConfigData.Current.Fetch("resolution-height", orSetEqualTo: DefaultResolution().height);
     }
   }
 
@@ -42,5 +43,20 @@ public class ResolutionData {
 #else
     Screen.SetResolution(Width, Height, Fullscreen);
 #endif
+  }
+
+  private static Resolution DefaultResolution() {
+    List<Resolution> validResolutions = Screen.resolutions.Where(resolution =>
+      resolution.width <= Display.main.systemWidth &&
+      resolution.height <= Display.main.systemHeight
+    ).ToList();
+
+    // Should never happen
+    if (validResolutions.Count == 0) {
+      return Screen.resolutions[0];
+    }
+
+    // Default to the median supported resolution 
+    return validResolutions[validResolutions.Count / 2];
   }
 }
