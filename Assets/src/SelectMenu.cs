@@ -39,7 +39,7 @@ public class SelectMenu : AMenu {
           : OptionButtons[i + 1]
       };
     }
-    
+
     ProvisionButtons();
   }
 
