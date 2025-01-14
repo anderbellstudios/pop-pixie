@@ -9,13 +9,13 @@ public class LandingMenuEvents : AMenu {
   public SceneChangeHopper SceneChangeHopper;
   public TMP_Text DebugModeIndicator, EDCIndicator;
 
-  // Only enforce resolution when launching the game
-  public static bool AppliedResolutionData = false;
+  public static bool FirstTime = true;
 
   public override void LocalStart() {
-    if (!AppliedResolutionData) {
-      AppliedResolutionData = true;
+    if (FirstTime) {
       ResolutionData.Apply();
+      AudioOutput.Initialise();
+      FirstTime = false;
     }
 
     if (Debug.isDebugBuild) {
