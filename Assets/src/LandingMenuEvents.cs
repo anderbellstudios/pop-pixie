@@ -11,7 +11,7 @@ public class LandingMenuEvents : AMenu {
 
   public static bool FirstTime = true;
 
-  public override void LocalStart() {
+  protected override void LocalStart() {
     if (FirstTime) {
       ResolutionData.Apply();
       AudioOutput.Initialise();

@@ -7,7 +7,7 @@ using UnityEngine;
 public class AssistMenuEvents : AMenu {
   public StepperInput DamageReductionStepper;
 
-  public override void LocalStart() {
+  protected override void LocalStart() {
     DamageReductionStepper.Options = Enumerable.Range(0, 11).Select(n =>
       String.Format("{0}%", n * 10)
     ).ToList();
@@ -26,7 +26,7 @@ public class AssistMenuEvents : AMenu {
     UpdateSteppers();
   }
 
-  void UpdateSteppers() {
+  private void UpdateSteppers() {
     DamageReductionStepper.Value = (int)(AssistModeData.DamageReduction * 10);
     DamageReductionStepper.UpdateLabel();
   }

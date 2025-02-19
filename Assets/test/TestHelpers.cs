@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using UnityEngine.TestTools;
 using UnityEngine.SceneManagement;
 using UnityEditor.SceneManagement;
@@ -32,27 +33,32 @@ public abstract class ABaseTest {
     yield return null;
   }
 
-  protected void LoadSceneNotInBuildSettings(string scenePath) {
-    EditorSceneManager.LoadSceneAsyncInPlayMode(
+  protected void LoadSceneNotInBuildSettings(string scenePath)
+    => EditorSceneManager.LoadSceneAsyncInPlayMode(
       scenePath,
       new LoadSceneParameters(LoadSceneMode.Single)
     );
-  }
 
-  protected List<GameObject> FindAllByText(string pattern, bool regex = false) {
-    return GameObject.FindObjectsOfType<GameObject>().Where(go => {
-      TMP_Text textComponent = go.GetComponent<TMP_Text>();
-      if (!textComponent)
-        return false;
-      string text = textComponent.text ?? "";
-      return regex
-        ? Regex.IsMatch(text, pattern)
-        : text == pattern;
-    }).ToList();
-  }
+  protected List<GameObject> FindAllByText(
+    string pattern,
+    bool regex = false,
+    bool includeInactive = false
+  ) => GameObject.FindObjectsOfType<GameObject>(includeInactive).Where(go => {
+    TMP_Text textComponent = go.GetComponent<TMP_Text>();
+    if (!textComponent)
+      return false;
+    string text = textComponent.text ?? "";
+    return regex
+      ? Regex.IsMatch(text, pattern)
+      : text == pattern;
+  }).ToList();
 
-  protected GameObject FindByText(string text, bool regex = false) {
-    List<GameObject> matchingGameObjects = FindAllByText(text, regex);
+  protected GameObject FindByText(
+    string text,
+    bool regex = false,
+    bool includeInactive = false
+  ) {
+    List<GameObject> matchingGameObjects = FindAllByText(text, regex, includeInactive);
 
     if (matchingGameObjects.Count == 0) {
       return null;
@@ -64,6 +70,12 @@ public abstract class ABaseTest {
 
     return matchingGameObjects[0];
   }
+
+  protected Button FindButtonByText(
+    string text,
+    bool regex = false,
+    bool includeInactive = false
+  ) => FindByText(text, regex, includeInactive)?.GetComponentInParent<Button>();
 
   protected void AssertHasText(GameObject go, string expected, bool regex = false) {
     if (go == null) {
@@ -86,14 +98,29 @@ public abstract class ABaseTest {
     }
   }
 
-  protected void AssertHasText(string expected, bool regex = false) {
-    int matchCount = FindAllByText(expected, regex).Count;
+  protected void AssertHasText(
+    string expected,
+    bool regex = false,
+    bool includeInactive = false
+  ) {
+    int matchCount = FindAllByText(expected, regex, includeInactive).Count;
     Assert.AreEqual(1, matchCount, "AssertHasText: Found " + matchCount + " GameObjects with text: " + expected);
   }
 
-  protected void RefuteHasText(string expected, bool regex = false) {
-    int matchCount = FindAllByText(expected, regex).Count;
+  protected void RefuteHasText(
+    string expected,
+    bool regex = false,
+    bool includeInactive = false
+  ) {
+    int matchCount = FindAllByText(expected, regex, includeInactive).Count;
     Assert.AreEqual(0, matchCount, "RefuteHasText: Found " + matchCount + " GameObjects with text: " + expected);
+  }
+
+  protected void Click(Button button) {
+    if (button == null) {
+      Assert.Fail("Click: Button is null");
+    }
+    button.onClick.Invoke();
   }
 
   protected void Click(GameObject go) {
@@ -107,16 +134,78 @@ public abstract class ABaseTest {
       Assert.Fail("Click: GameObject is not inside a Button");
     }
 
-    button.onClick.Invoke();
+    Click(button);
   }
 
-  protected void ClickByText(string text, bool regex = false) {
-    Click(FindByText(text, regex));
+  protected void ClickByText(
+    string text,
+    bool regex = false,
+    bool includeInactive = false
+  ) => Click(FindByText(text, regex, includeInactive));
+
+  protected void Hover(GameObject go) {
+    if (go == null) {
+      Assert.Fail("Hover: GameObject is null");
+    }
+
+    GameObject previous = EventSystem.current.currentSelectedGameObject;
+    if (previous != null) {
+      Unhover(previous);
+    }
+
+    PointerEventData pointerEvent = new PointerEventData(EventSystem.current);
+    pointerEvent.pointerEnter = go;
+    ExecuteEvents.ExecuteHierarchy(go, pointerEvent, ExecuteEvents.pointerEnterHandler);
   }
 
-  protected string GetActiveScene() {
-    return SceneManager.GetActiveScene().name;
+  protected void Hover(Button button) {
+    if (button == null) {
+      Assert.Fail("Hover: Button is null");
+    }
+    Hover(button.gameObject);
   }
+
+  protected void Unhover(GameObject go) {
+    PointerEventData pointerEvent = new PointerEventData(EventSystem.current);
+    ExecuteEvents.ExecuteHierarchy(go, pointerEvent, ExecuteEvents.pointerExitHandler);
+  }
+
+  protected void HoverByText(
+    string text,
+    bool regex = false,
+    bool includeInactive = false
+  ) => Hover(FindByText(text, regex, includeInactive));
+
+  protected void AssertSelected(GameObject go)
+    => Assert.AreEqual(
+        go,
+        EventSystem.current.currentSelectedGameObject,
+        "AssertSelected: Expected GameObject was not selected"
+      );
+
+  protected void AssertSelected(Button button)
+    => AssertSelected(button.gameObject);
+
+  protected void RefuteSelected(GameObject go)
+    => Assert.AreNotEqual(
+        go,
+        EventSystem.current.currentSelectedGameObject,
+        "RefuteSelected: GameObject was selected"
+      );
+
+  protected void RefuteSelected(Button button)
+    => RefuteSelected(button.gameObject);
+
+  protected GameObject StepperValueByLabel(string text) {
+    GameObject label = FindByText(text);
+    if (label == null) {
+      Assert.Fail("StepperValueByLabel: No matching label");
+    }
+    return label.transform.parent.Find("Value").gameObject;
+  }
+
+  protected string GetActiveScene()
+    => SceneManager.GetActiveScene().name;
 
   protected IEnumerator AwaitCondition(
     System.Func<bool> condition,
@@ -144,9 +233,15 @@ public abstract class ABaseTest {
     );
   }
 
-  protected IEnumerator AwaitText(string text, bool regex = false, float retryInterval = 1f, int retries = 10) {
+  protected IEnumerator AwaitText(
+    string text,
+    bool regex = false,
+    bool includeInactive = false,
+    float retryInterval = 1f,
+    int retries = 10
+  ) {
     yield return AwaitCondition(
-      condition: () => !!FindByText(text, regex),
+      condition: () => !!FindByText(text, regex, includeInactive),
       message: "AwaitText: Timed out waiting for text: " + text,
       retryInterval: retryInterval,
       retries: retries
@@ -302,10 +397,22 @@ public abstract class ABaseTest {
   protected void MoveRight() => Move(1f, 0f);
   protected void StopMoving() => Move(0f, 0f);
 
+  protected IEnumerator MoveUpAndWait() => MoveAndWait(0f, 1f);
+  protected IEnumerator MoveDownAndWait() => MoveAndWait(0f, -1f);
+  protected IEnumerator MoveLeftAndWait() => MoveAndWait(-1f, 0f);
+  protected IEnumerator MoveRightAndWait() => MoveAndWait(1f, 0f);
+
   protected IEnumerator Move(float x, float y, float duration) {
     Move(x, y);
     yield return new WaitForSeconds(duration);
     StopMoving();
+  }
+
+  protected IEnumerator MoveAndWait(float x, float y) {
+    Move(x, y);
+    yield return null;
+    StopMoving();
+    yield return new WaitForSeconds(0.25f);
   }
 
   protected void Zoom(float zoomAxis) {
@@ -320,25 +427,42 @@ public abstract class ABaseTest {
     StopZooming();
   }
 
-  protected void SetMousePosition(float x, float y) {
-    WrappedInput.MousePositionOverride = Camera.main.ViewportToScreenPoint(new Vector2(x, y));
+  protected void SetMousePosition(Vector2 position) {
+    WrappedInput.MousePositionOverride = position;
   }
+
+  protected void SetMousePosition(float x, float y)
+    => SetMousePosition(new Vector2(x, y));
+
+  protected void SetViewportMousePosition(Vector2 position) {
+    SetMousePosition(Camera.main.ViewportToScreenPoint(position));
+  }
+
+  protected void SetViewportMousePosition(float x, float y)
+    => SetViewportMousePosition(new Vector2(x, y));
 
   protected void ClearMousePosition() {
     WrappedInput.MousePositionOverride = null;
   }
 
-  protected IEnumerator Drag(float x1, float y1, float x2, float y2) {
-    SetMousePosition(x1, y1);
+  protected IEnumerator MoveMouseSlightly() {
+    SetMousePosition(WrappedInput.MousePosition + Vector3.right);
+    yield return null;
+    SetMousePosition(WrappedInput.MousePosition - Vector3.right);
+    yield return null;
+  }
+
+  protected IEnumerator DragViewport(float x1, float y1, float x2, float y2) {
+    SetViewportMousePosition(x1, y1);
     yield return ButtonDown("Click");
     yield return null;
-    SetMousePosition(x2, y2);
+    SetViewportMousePosition(x2, y2);
     yield return null;
     yield return ButtonUp("Click");
   }
 
-  protected IEnumerator ClickAt(float x, float y) {
-    SetMousePosition(x, y);
+  protected IEnumerator ClickAtViewport(float x, float y) {
+    SetViewportMousePosition(x, y);
     yield return PressButton("Click");
   }
 
@@ -356,9 +480,8 @@ public abstract class ABaseTest {
     yield return AwaitPlayingState();
   }
 
-  protected void AssertPlayerPosition(Vector3 position) {
-    Assert.AreEqual(position, Player().transform.position);
-  }
+  protected void AssertPlayerPosition(Vector3 position)
+    => Assert.AreEqual(position, Player().transform.position);
 
   protected IEnumerator SnapPlayer(float increment) {
     Transform playerTransform = Player().transform;
