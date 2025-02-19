@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ElevatorMotion : MonoBehaviour {
-
   public float Amplitude;
   public float CorrectingFactor;
   public float MinInterval, MaxInterval;
@@ -13,7 +12,6 @@ public class ElevatorMotion : MonoBehaviour {
   private DateTime LastWobbled;
   private float WobbleInterval;
 
-  // Update is called once per frame
   void Update() {
     if (ShouldWobble()) {
       UpdateWobbleInterval();
@@ -49,5 +47,4 @@ public class ElevatorMotion : MonoBehaviour {
   float RandomNoise() {
     return Amplitude * (UnityEngine.Random.value - 0.5f);
   }
-
 }
