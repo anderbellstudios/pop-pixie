@@ -9,6 +9,10 @@ concurrency:
 jobs:
   test:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        group: [0, 1, 2, 3, 4, 5]
 
     steps:
       - uses: actions/checkout@v4
@@ -26,6 +30,18 @@ jobs:
       - name: Install Yarn dependencies
         run: yarn install
 
+      - name: Get tests for the current group
+        id: get_tests
+        run: |
+          tests=$(cat Assets/test/*.test.cs |
+            perl -ne 'm/public class (\w+) : ABaseTest/ && print "$1\n"' |
+            awk "NR % $GROUP_COUNT == $GROUP" |
+            paste -sd ';' -)
+          echo "tests=$tests" | tee -a $GITHUB_OUTPUT
+        env:
+          GROUP_COUNT: 6
+          GROUP: ${{ matrix.group }}
+
       - name: Run tests
         uses: 12joan/ci-unity-test-runner@main
         env:
@@ -35,17 +51,18 @@ jobs:
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
+          customParameters: -testFilter ${{ steps.get_tests.outputs.tests }}
 
-      - name: Upload screenshots to Percy
-        run: yarn percy:upload
-        if: always()
-        env:
-          # gh secret set PERCY_TOKEN <a Percy Web token>
-          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+      # - name: Upload screenshots to Percy
+      #   run: yarn percy:upload
+      #   if: always()
+      #   env:
+      #     # gh secret set PERCY_TOKEN <a Percy Web token>
+      #     PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
 
       - name: Upload results
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: Test results
+          name: Test results (${{ matrix.group }})
           path: artifacts
