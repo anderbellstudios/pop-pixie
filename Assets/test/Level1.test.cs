@@ -110,20 +110,20 @@ public class Level1Test : ABaseTest {
     AssertLoreWindowPanAndZoom(-37f, 0f, 8f, "Pan right while zoomed in");
 
     yield return PressButton("Reload");
-    yield return Drag(
+    yield return DragViewport(
       0.25f, 0.5f,
       0.3f, 0.5f
     );
     AssertLoreWindowPanAndZoom(40f, 0f, 1f, "Pan with mouse");
 
     yield return PressButton("Reload");
-    yield return ClickAt(0.5f, 0.5f);
+    yield return ClickAtViewport(0.5f, 0.5f);
     AssertLoreWindowPanAndZoom(0f, null, 2f, "Zoom with mouse 1");
 
-    yield return ClickAt(0.5f, 0.5f);
+    yield return ClickAtViewport(0.5f, 0.5f);
     AssertLoreWindowPanAndZoom(0f, null, 4f, "Zoom with mouse 2");
 
-    yield return ClickAt(0.5f, 0.5f);
+    yield return ClickAtViewport(0.5f, 0.5f);
     AssertLoreWindowPanAndZoom(0f, null, 1f, "Zoom with mouse 3");
   }
 
