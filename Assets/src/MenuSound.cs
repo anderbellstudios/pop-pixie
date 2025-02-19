@@ -11,26 +11,28 @@ public class MenuSound : MonoBehaviour {
 
   public UnityEvent OnPlay;
 
-  public void HandleSelectionChanged(GameObject currentSelected, GameObject previousSelected) {
-    String currentSelectedMenuName = MenuNameForGameObject(currentSelected);
-    String previousSelectedMenuName = MenuNameForGameObject(previousSelected);
+  void Start() {
+    SelectionChangeListener.AddListener(HandleSelectionChange, gameObject);
+  }
 
-#if UNITY_EDITOR
-    Debug.Assert(currentSelectedMenuName != "", "Menu name cannot be empty");
-#endif
+  private void HandleSelectionChange(GameObject current, GameObject previous) {
+    if (current == null || previous == null)
+      return;
 
-    if (currentSelectedMenuName == previousSelectedMenuName && currentSelectedMenuName != null)
+    MenuButton currentMenuButton = current.GetComponent<MenuButton>();
+    MenuButton previousMenuButton = previous.GetComponent<MenuButton>();
+
+    if (currentMenuButton == null || previousMenuButton == null)
+      return;
+
+    if (
+      currentMenuButton.MenuSoundEnabled &&
+      currentMenuButton.Menu == previousMenuButton.Menu
+    )
       Play();
   }
 
   public void Play() {
     OnPlay.Invoke();
-  }
-
-  private String MenuNameForGameObject(GameObject go) {
-    if (go == null)
-      return null;
-
-    return go.GetComponent<ShouldPlayMenuSound>()?.MenuName;
   }
 }

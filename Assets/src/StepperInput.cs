@@ -23,12 +23,10 @@ public class StepperInput : MonoBehaviour {
     UpdateLabel();
   }
 
-  public void OnSelect(BaseEventData eventData) {
-    Selected = true;
-  }
-
-  public void OnDeselect(BaseEventData eventData) {
-    Selected = false;
+  void Start() {
+    SelectionChangeListener.AddListener((currentSelected, previousSelected) => {
+      Selected = currentSelected == Button.gameObject;
+    }, gameObject);
   }
 
   void Update() {

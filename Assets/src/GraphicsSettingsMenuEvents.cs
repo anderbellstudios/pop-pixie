@@ -11,7 +11,7 @@ public class GraphicsSettingsMenuEvents : AMenu {
   private Resolution Resolution;
   private bool Fullscreen;
 
-  public override void LocalStart() {
+  protected override void LocalStart() {
     ResolutionStepper.Options = Screen.resolutions.Select(resolution => $"{resolution.width}x{resolution.height}").ToList();
 
     ResolutionStepper.Value = Array.FindIndex(Screen.resolutions, resolution =>
@@ -32,11 +32,11 @@ public class GraphicsSettingsMenuEvents : AMenu {
     Fullscreen = ResolutionData.Fullscreen;
   }
 
-  public void ResolutionChanged(int index, string label) {
+  private void ResolutionChanged(int index, string label) {
     Resolution = Screen.resolutions[index];
   }
 
-  public void FullscreenChanged(int index, string label) {
+  private void FullscreenChanged(int index, string label) {
     Fullscreen = index == 1;
   }
 

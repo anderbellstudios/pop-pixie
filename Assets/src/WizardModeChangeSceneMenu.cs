@@ -9,9 +9,7 @@ public class WizardModeChangeSceneMenu : AMenu {
   public GameObject ButtonPrefab;
   public Transform ButtonContainer;
 
-  public override List<Button> LocalInitButtons() {
-    List<Button> buttons = new List<Button>();
-
+  protected override void LocalStart() {
     for (int i = 0; i < SceneManager.sceneCountInBuildSettings; i++) {
       string scenePath = SceneUtility.GetScenePathByBuildIndex(i);
       string sceneName = System.IO.Path.GetFileNameWithoutExtension(scenePath);
@@ -25,9 +23,7 @@ public class WizardModeChangeSceneMenu : AMenu {
         SceneEvents.Current.ChangeScene(sceneName);
       });
 
-      buttons.Add(buttonController.Button);
+      RegisterButton(buttonController.Button);
     }
-
-    return buttons;
   }
 }

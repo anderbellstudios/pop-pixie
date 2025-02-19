@@ -12,14 +12,14 @@ public class OptionsMenuEvents : AMenu {
 
   private EnumeratorButton<String> ButtonIconsButton;
 
-  public override void LocalStart() {
+  protected override void LocalStart() {
     ControllerIconsStepper.Value = ControllerIconsStepper.ValueForLabel(ControllerTypeData.GetControllerType());
     ControllerIconsStepper.UpdateLabel();
 
     ControllerIconsStepper.OnChange.AddListener(ControllerIconsChanged);
   }
 
-  public override void LocalUpdate() {
+  protected override void LocalUpdate() {
     if (WrappedInput.Player.controllers.Joysticks.Count() >= 1)
       ControllerIconsGameObject.SetActive(true);
   }
@@ -32,7 +32,7 @@ public class OptionsMenuEvents : AMenu {
     OpenNestedMenu(AudioSettingsMenu);
   }
 
-  public void ControllerIconsChanged(int index, string label) {
+  private void ControllerIconsChanged(int index, string label) {
     ControllerTypeData.SetControllerType(label);
   }
 }

@@ -13,9 +13,7 @@ public class DiscoveredItemsMenuEvents : AMenu {
   public ScrollRect ScrollRect;
   public LoreManager LoreManager;
 
-  public override List<Button> LocalInitButtons() {
-    List<Button> buttons = new List<Button>();
-
+  protected override void LocalStart() {
     foreach (Transform child in MenuItemContainer) {
       Destroy(child.gameObject);
     }
@@ -36,13 +34,11 @@ public class DiscoveredItemsMenuEvents : AMenu {
         scrollRect: ScrollRect
       );
 
-      buttons.Add(discoveredItemButton.Button);
+      RegisterButton(discoveredItemButton.Button);
     }
-
-    return buttons;
   }
 
-  public void LoreItemButtonClicked(Button button, LoreItem loreItem) {
+  private void LoreItemButtonClicked(Button button, LoreItem loreItem) {
     SetFocus(false);
     SetVisible(false);
 

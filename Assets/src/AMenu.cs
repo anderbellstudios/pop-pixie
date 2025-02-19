@@ -8,50 +8,100 @@ using UnityEngine.EventSystems;
 
 public abstract class AMenu : MonoBehaviour {
   public bool StartsVisible, StartsInFocus, HideWhenNestedMenuOpen;
+  public Vector2Int NavigationSteps = Vector2Int.up;
   public Button FirstSelected = null;
   public GameObject MenuRoot;
   public List<String> CloseMenuControls = new List<String>() { "Cancel" };
 
-  private List<Button> _Buttons;
-  protected List<Button> Buttons
-    => _Buttons.Where(b => b != null).ToList();
+  private List<Button> _Buttons = new();
 
-  private bool _Visible, _InFocus, _CloseNextFrame;
-
+  private bool _Initialized, _Visible, _InFocus, _CloseNextFrame;
   private AMenu _ParentMenu = null;
+  private Button LastClickedButton;
 
-  protected Button LastClickedButton;
+  protected List<Button> GetActiveButtons()
+    => _Buttons.Where(b => b != null && b.enabled && b.gameObject.activeInHierarchy).ToList();
 
   void Start() {
-    ProvisionButtons();
-
-    LocalStartBeforeSelect();
+    if (RegisterButtonsAutomatically()) {
+      Array.ForEach(
+        MenuRoot.GetComponentsInChildren<Button>(true),
+        RegisterButton
+      );
+    }
 
     SetVisible(StartsVisible);
     SetFocus(StartsInFocus);
 
     LocalStart();
+
+    UpdateNavigation();
+    _Initialized = true;
   }
 
-  public void ProvisionButtons() {
-    _Buttons = LocalInitButtons();
+  protected virtual bool RegisterButtonsAutomatically() => true;
 
-    LastClickedButton = FirstSelected ?? Buttons.FirstOrDefault();
-
-    Buttons.ForEach(button =>
-      button.onClick.AddListener(() => {
-        MenuSound.current.Play();
-        LastClickedButton = button;
-      })
-    );
+  protected void ClearButtons() {
+    _Buttons.ForEach(button => Destroy(button.gameObject));
+    _Buttons.Clear();
+    LastClickedButton = null;
   }
 
-  public virtual List<Button> LocalInitButtons() {
-    return MenuRoot.GetComponentsInChildren<Button>(true).ToList();
+  protected void RegisterButton(Button button) {
+    MenuButton mb = button.GetComponent<MenuButton>();
+    mb?.SetMenu(this);
+
+    _Buttons.Add(button);
+
+    button.onClick.AddListener(() => {
+      MenuSound.current.Play();
+      LastClickedButton = button;
+    });
+
+    LocalRegisterButton(button);
   }
 
-  public virtual void LocalStartBeforeSelect() { }
-  public virtual void LocalStart() { }
+  protected virtual void LocalRegisterButton(Button button) { }
+
+  protected void UpdateNavigation() {
+    if (NavigationSteps.Equals(Vector2Int.zero))
+      return;
+
+    List<Button> navigableButtons = GetActiveButtons()
+      .Where(b => b.GetComponent<MenuButton>()?.NavigationEnabled ?? false)
+      .ToList();
+
+    Func<int, int, Button> getRelativeButton = (int i, int delta) => {
+      if (delta == 0)
+        return null;
+      int j = i + delta;
+      if (j < 0)
+        return navigableButtons.First();
+      if (j >= navigableButtons.Count)
+        return navigableButtons.Last();
+      return navigableButtons[j];
+    };
+
+    for (int i = 0; i < navigableButtons.Count; i++) {
+      Button button = navigableButtons[i];
+
+      button.navigation = new Navigation {
+        mode = Navigation.Mode.Explicit,
+        selectOnUp = getRelativeButton(i, -NavigationSteps.y),
+        selectOnDown = getRelativeButton(i, NavigationSteps.y),
+        selectOnLeft = getRelativeButton(i, -NavigationSteps.x),
+        selectOnRight = getRelativeButton(i, NavigationSteps.x)
+      };
+    }
+  }
+
+  public void ActiveButtonsChanged() {
+    if (_Initialized) {
+      UpdateNavigation();
+    }
+  }
+
+  protected virtual void LocalStart() { }
 
   void Update() {
     if (_InFocus) {
@@ -68,7 +118,7 @@ public abstract class AMenu : MonoBehaviour {
     }
   }
 
-  public virtual void LocalUpdate() { }
+  protected virtual void LocalUpdate() { }
 
   public void Open() => Open(null);
 
@@ -81,7 +131,7 @@ public abstract class AMenu : MonoBehaviour {
     LocalOpen();
   }
 
-  public virtual void LocalOpen() { }
+  protected virtual void LocalOpen() { }
 
   public void OpenNestedMenu(AMenu menu) {
     SetFocus(false);
@@ -96,6 +146,8 @@ public abstract class AMenu : MonoBehaviour {
     SetFocus(false);
     SetVisible(false);
 
+    LastClickedButton = null;
+
     if (_ParentMenu != null) {
       if (_ParentMenu.HideWhenNestedMenuOpen)
         _ParentMenu.SetVisible(true);
@@ -104,12 +156,11 @@ public abstract class AMenu : MonoBehaviour {
     }
 
     LocalClose();
-
   }
 
-  public virtual void LocalClose() { }
+  protected virtual void LocalClose() { }
 
-  public void SetVisible(bool visible) {
+  protected void SetVisible(bool visible) {
     MenuRoot.SetActive(visible);
 
     bool wasVisible = _Visible;
@@ -127,17 +178,17 @@ public abstract class AMenu : MonoBehaviour {
     LocalBecameVisible();
   }
 
-  public virtual void LocalBecameVisible() { }
+  protected virtual void LocalBecameVisible() { }
 
   void LostVisibility() {
     EnhancedDataCollection.LogIfEnabled(() => "Menu closed: " + gameObject.name);
     LocalLostVisibility();
   }
 
-  public virtual void LocalLostVisibility() { }
+  protected virtual void LocalLostVisibility() { }
 
-  public void SetFocus(bool focus) {
-    Buttons.ForEach(b => b.interactable = focus);
+  protected void SetFocus(bool focus) {
+    GetActiveButtons().ForEach(b => b.interactable = focus);
     _InFocus = focus;
 
     if (focus) {
@@ -148,14 +199,15 @@ public abstract class AMenu : MonoBehaviour {
   }
 
   void GainedFocus() {
-    LastClickedButton?.Select();
-    LastClickedButton?.OnSelect(null);
+    Button selectedButton = LastClickedButton ?? FirstSelected ?? GetActiveButtons().FirstOrDefault();
+    selectedButton?.Select();
+    selectedButton?.OnSelect(null);
 
     LocalGainedFocus();
   }
 
-  public virtual void LocalGainedFocus() { }
+  protected virtual void LocalGainedFocus() { }
 
   void LostFocus() { LocalLostFocus(); }
-  public virtual void LocalLostFocus() { }
+  protected virtual void LocalLostFocus() { }
 }

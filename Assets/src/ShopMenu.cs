@@ -19,22 +19,23 @@ public class ShopMenu : AMenu {
 
   private bool Leaving = false;
 
-  public override void LocalStartBeforeSelect() {
-    Buttons.ForEach(button => {
-      ShopWeaponTile weaponTile = button.gameObject.GetComponent<ShopWeaponTile>();
-
-      weaponTile.ClickHandler = () => {
-        if (Leaving)
-          return;
-
-        if (weaponTile.Bought)
-          AttemptSell(weaponTile);
-        else
-          AttemptBuy(weaponTile);
-      };
-    });
-
+  protected override void LocalStart() {
     WelcomeLine.Perform();
+    SelectionChangeListener.AddListener(HandleSelectionChange, gameObject);
+  }
+
+  protected override void LocalRegisterButton(Button button) {
+    ShopWeaponTile weaponTile = button.gameObject.GetComponent<ShopWeaponTile>();
+
+    weaponTile.ClickHandler = () => {
+      if (Leaving)
+        return;
+
+      if (weaponTile.Bought)
+        AttemptSell(weaponTile);
+      else
+        AttemptBuy(weaponTile);
+    };
   }
 
   void AttemptBuy(ShopWeaponTile weaponTile) {
@@ -63,7 +64,7 @@ public class ShopMenu : AMenu {
     weaponTile.Bought = buy;
   }
 
-  public void HandleSelectionChanged(GameObject currentSelected, GameObject previousSelected) {
+  private void HandleSelectionChange(GameObject currentSelected, GameObject previousSelected) {
     ShopWeaponTile weaponTile = currentSelected?.GetComponent<ShopWeaponTile>();
 
     if (weaponTile != null) {
@@ -102,7 +103,7 @@ public class ShopMenu : AMenu {
     }
   }
 
-  public override void LocalUpdate() {
+  protected override void LocalUpdate() {
     if (Leaving)
       return;
 

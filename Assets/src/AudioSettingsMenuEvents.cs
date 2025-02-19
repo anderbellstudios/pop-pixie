@@ -9,7 +9,7 @@ public class AudioSettingsMenuEvents : AMenu {
   public StepperInput MusicVolumeStepper, SoundsVolumeStepper, VoiceVolumeStepper;
   public SelectMenu SelectAudioOutput;
 
-  public override void LocalStart() {
+  protected override void LocalStart() {
     MusicVolumeStepper.Options = SoundsVolumeStepper.Options = VoiceVolumeStepper.Options =
       Enumerable.Range(0, 11).Select(n => String.Format("{0}%", n * 10)).ToList();
 
@@ -56,15 +56,15 @@ public class AudioSettingsMenuEvents : AMenu {
     OpenNestedMenu(SelectAudioOutput);
   }
 
-  public void MusicVolumeChanged(int index, string label) {
+  private void MusicVolumeChanged(int index, string label) {
     OptionsData.MusicVolume = ((decimal)index) * 0.1M;
   }
 
-  public void SoundsVolumeChanged(int index, string label) {
+  private void SoundsVolumeChanged(int index, string label) {
     OptionsData.SoundsVolume = ((decimal)index) * 0.1M;
   }
 
-  public void VoiceVolumeChanged(int index, string label) {
+  private void VoiceVolumeChanged(int index, string label) {
     OptionsData.VoiceVolume = ((decimal)index) * 0.1M;
   }
 }

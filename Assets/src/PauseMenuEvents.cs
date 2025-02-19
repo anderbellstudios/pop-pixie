@@ -8,7 +8,7 @@ using UnityEngine.UI;
 using TMPro;
 
 public class PauseMenuEvents : AMenu {
-  public override void LocalClose() {
+  protected override void LocalClose() {
     StateManager.RemoveState(State.Paused);
     SceneManager.UnloadSceneAsync("Pause Menu");
   }
