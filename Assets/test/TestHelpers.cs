@@ -523,6 +523,7 @@ public abstract class ABaseTest {
     foreach (TestResolution resolution in TestResolution.ScreenshotResolutions) {
       resolution.Apply();
       yield return null;
+      yield return null;
 
       RenderTexture screenTexture = new RenderTexture(Screen.width, Screen.height, 16);
       RenderTexture previousTargetTexture = camera.targetTexture;
