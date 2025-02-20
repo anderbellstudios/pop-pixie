@@ -227,6 +227,11 @@ public abstract class ABaseTest {
   }
 
   protected IEnumerator AwaitSceneChange(string sceneName, float retryInterval = 1f, int retries = 10) {
+    // If we're already in the scene, wait to ensure it's reloaded
+    if (GetActiveScene() == sceneName) {
+      yield return new WaitForSeconds(1f);
+    }
+
     yield return AwaitCondition(
       condition: () => GetActiveScene() == sceneName,
       message: "AwaitSceneChange: Timed out waiting for scene change to " + sceneName,
