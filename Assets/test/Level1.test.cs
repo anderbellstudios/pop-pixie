@@ -63,6 +63,7 @@ public class Level1Test : ABaseTest {
     AssertHasText("1.*undiscovered.*Piece of Intel", regex: true);
 
     yield return ScriptedMovement("Intel");
+    yield return new WaitForSeconds(0.5f);
 
     AssertHasText("Press.*to steal", regex: true);
 
