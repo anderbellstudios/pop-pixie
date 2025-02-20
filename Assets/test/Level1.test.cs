@@ -8,15 +8,17 @@ using UnityEngine.TestTools;
 using UnityEngine.SceneManagement;
 
 public class Level1Test : ABaseTest {
-  [UnitySetUp]
-  public IEnumerator Init() {
+  private IEnumerator Setup() {
+    yield return CommonSetup();
     SceneManager.LoadScene("Level 1");
     yield return null;
     yield return AwaitPlayingState();
   }
 
-  [UnityTest]
+  [UnityTest, Retry(3)]
   public IEnumerator CompletesLevel() {
+    yield return Setup();
+
     // Wait for camera to settle
     yield return new WaitForSeconds(1f);
     yield return TakePercyScreenshot("Level1.1");

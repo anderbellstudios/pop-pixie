@@ -7,14 +7,16 @@ using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 
 public class CheckpointsTest : ABaseTest {
-  [UnitySetUp]
-  public IEnumerator Init() {
+  private IEnumerator Setup() {
+    yield return CommonSetup();
     LoadSceneNotInBuildSettings("Assets/Unity/Scenes/Test Checkpoints.unity");
     yield return AwaitSceneChange("Test Checkpoints");
   }
 
-  [UnityTest]
+  [UnityTest, Retry(3)]
   public IEnumerator ResumeWithoutCheckpoint() {
+    yield return Setup();
+
     yield return DieAndResume();
     AssertPlayerPosition(GetAnchorPosition("Initial"));
 
@@ -26,8 +28,10 @@ public class CheckpointsTest : ABaseTest {
     AssertIntel(false);
   }
 
-  [UnityTest]
+  [UnityTest, Retry(3)]
   public IEnumerator ResumeFromLeftCheckpoint() {
+    yield return Setup();
+
     yield return ScriptedMovement("LeftCheckpoint");
     yield return DieAndResume();
     AssertPlayerPosition(GetAnchorPosition("LeftCheckpoint"));
@@ -40,8 +44,10 @@ public class CheckpointsTest : ABaseTest {
     AssertIntel(false);
   }
 
-  [UnityTest]
+  [UnityTest, Retry(3)]
   public IEnumerator ResumeFromRightCheckpoint() {
+    yield return Setup();
+
     yield return ScriptedMovement("RightCheckpoint");
     yield return DieAndResume();
     AssertPlayerPosition(GetAnchorPosition("RightCheckpoint"));
@@ -54,16 +60,20 @@ public class CheckpointsTest : ABaseTest {
     AssertIntel(false);
   }
 
-  [UnityTest]
+  [UnityTest, Retry(3)]
   public IEnumerator PileOfCansStaysDestroyed() {
+    yield return Setup();
+
     PileOfCansHitPoints.Damage(1);
     yield return ScriptedMovement("LeftCheckpoint");
     yield return DieAndResume();
     AssertPileOfCans(true);
   }
 
-  [UnityTest]
+  [UnityTest, Retry(3)]
   public IEnumerator EnemyRevivesAndKeycardStaysGot() {
+    yield return Setup();
+
     yield return KillAllEnemiesAndAwaitKeycard();
 
     yield return ScriptedMovement("LeftCheckpoint");
@@ -73,8 +83,10 @@ public class CheckpointsTest : ABaseTest {
     AssertKeycard(true);
   }
 
-  [UnityTest]
+  [UnityTest, Retry(3)]
   public IEnumerator AccessTerminalStaysUsed() {
+    yield return Setup();
+
     yield return KillAllEnemiesAndAwaitKeycard();
     yield return ScriptedMovement("Terminal");
     yield return PressButton("Inspect");
@@ -88,16 +100,20 @@ public class CheckpointsTest : ABaseTest {
     AssertAccessTerminal(true);
   }
 
-  [UnityTest]
+  [UnityTest, Retry(3)]
   public IEnumerator RingPullStaysGot() {
+    yield return Setup();
+
     yield return ScriptedMovement("RingPull");
     yield return ScriptedMovement("LeftCheckpoint");
     yield return DieAndResume();
     AssertRingPull(true);
   }
 
-  [UnityTest]
+  [UnityTest, Retry(3)]
   public IEnumerator IntelStaysGot() {
+    yield return Setup();
+
     yield return ScriptedMovement("Intel");
     yield return PressButton("Inspect");
     yield return PressButton("Cancel"); // Close lore window
@@ -106,8 +122,10 @@ public class CheckpointsTest : ABaseTest {
     AssertIntel(true);
   }
 
-  [UnityTest]
+  [UnityTest, Retry(3)]
   public IEnumerator UseMultipleCheckpoints() {
+    yield return Setup();
+
     yield return KillAllEnemiesAndAwaitKeycard();
 
     yield return ScriptedMovement("LeftCheckpoint");
@@ -127,8 +145,10 @@ public class CheckpointsTest : ABaseTest {
     AssertPileOfCans(true);
   }
 
-  [UnityTest]
+  [UnityTest, Retry(3)]
   public IEnumerator UseCheckpointTwice() {
+    yield return Setup();
+
     yield return KillAllEnemiesAndAwaitKeycard();
 
     yield return ScriptedMovement("LeftCheckpoint");

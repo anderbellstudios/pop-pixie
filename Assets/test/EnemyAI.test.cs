@@ -10,7 +10,7 @@ public class EnemyAITest : ABaseTest {
   private GameObject GameObject;
 
   [SetUp]
-  public void SetUp() {
+  public void Setup() {
     GameObject = new GameObject();
     Ticks = 0;
   }

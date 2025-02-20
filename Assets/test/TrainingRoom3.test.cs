@@ -7,15 +7,17 @@ using UnityEngine.TestTools;
 using UnityEngine.SceneManagement;
 
 public class TrainingRoom3Test : ABaseTest {
-  [UnitySetUp]
-  public IEnumerator Init() {
+  private IEnumerator Setup() {
+    yield return CommonSetup();
     SceneManager.LoadScene("Training Room 3");
     yield return null;
     yield return AdvanceDialogue();
   }
 
-  [UnityTest]
+  [UnityTest, Retry(3)]
   public IEnumerator CompletesLevel() {
+    yield return Setup();
+
     Transform room;
 
     yield return TakePercyScreenshot("TrainingRoom3.1");

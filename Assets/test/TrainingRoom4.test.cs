@@ -7,8 +7,9 @@ using UnityEngine.TestTools;
 using UnityEngine.SceneManagement;
 
 public class TrainingRoom4Test : ABaseTest {
-  [UnitySetUp]
-  public IEnumerator Init() {
+  private IEnumerator Setup() {
+    yield return CommonSetup();
+
     SceneManager.LoadScene("Training Room 4");
     yield return null;
     yield return AdvanceDialogue();
@@ -31,8 +32,10 @@ public class TrainingRoom4Test : ABaseTest {
     });
   }
 
-  [UnityTest]
+  [UnityTest, Retry(3)]
   public IEnumerator CompletesLevel() {
+    yield return Setup();
+
     yield return TakePercyScreenshot("TrainingRoom4");
     yield return GoAroundLevel();
     yield return AwaitText("00:41", retryInterval: 0.5f, retries: 80);

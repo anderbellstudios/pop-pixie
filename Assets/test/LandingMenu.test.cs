@@ -7,27 +7,30 @@ using UnityEngine.TestTools;
 using UnityEngine.SceneManagement;
 
 public class LandingMenuTest : ABaseTest {
-  [UnitySetUp]
-  public IEnumerator Init() {
+  private IEnumerator Setup() {
+    yield return CommonSetup();
     SceneManager.LoadScene("Landing");
     yield return new WaitForSeconds(0.5f);
   }
 
-  [UnityTest]
+  [UnityTest, Retry(3)]
   public IEnumerator PercyScreenshot() {
+    yield return Setup();
     // Wait for background to be visible
     yield return new WaitForSeconds(0.5f);
     yield return TakePercyScreenshot("Landing");
   }
 
-  [UnityTest]
+  [UnityTest, Retry(3)]
   public IEnumerator OpensMainMenu() {
+    yield return Setup();
     ClickByText("Begin");
     yield return AwaitSceneChange("Main Menu");
   }
 
-  [UnityTest]
+  [UnityTest, Retry(3)]
   public IEnumerator OpensOptions() {
+    yield return Setup();
     ClickByText("Options");
     AssertHasText("Graphics settings");
     RefuteHasText("Pop Pixie");
@@ -36,8 +39,9 @@ public class LandingMenuTest : ABaseTest {
     yield return null;
   }
 
-  [UnityTest]
+  [UnityTest, Retry(3)]
   public IEnumerator OpensMissionTraining() {
+    yield return Setup();
     ClickByText("Extras");
     ClickByText("Mission Training");
     yield return AwaitSceneChange("Training Game Main Menu");

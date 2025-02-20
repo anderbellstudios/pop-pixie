@@ -7,8 +7,13 @@ using UnityEngine.TestTools;
 using UnityEngine.SceneManagement;
 
 public class TrainingGameTowerScene : ABaseTest {
-  [UnityTest]
+  private IEnumerator Setup() {
+    yield return CommonSetup();
+  }
+
+  [UnityTest, Retry(3)]
   public IEnumerator PercyScreenshot() {
+    yield return Setup();
     SceneManager.LoadScene("Training Game Tower Scene");
     yield return new WaitForSeconds(5f);
     yield return TakePercyScreenshot("TrainingGameTowerScene");

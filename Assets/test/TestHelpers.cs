@@ -14,8 +14,7 @@ using UnityEditor.SceneManagement;
 using TMPro;
 
 public abstract class ABaseTest {
-  [UnitySetUp]
-  public IEnumerator CommonSetUp() {
+  protected IEnumerator CommonSetup() {
     string runId = System.Guid.NewGuid().ToString();
     GameData.FileName = "game-test-" + runId;
     ConfigData.FileName = "config-test-" + runId;
