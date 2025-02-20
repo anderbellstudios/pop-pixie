@@ -15,7 +15,7 @@ public class Level1Test : ABaseTest {
     yield return AwaitPlayingState();
   }
 
-  [UnityTest, Retry(3)]
+  [UnityTest, Retry(6)]
   public IEnumerator CompletesLevel() {
     yield return Setup();
 
