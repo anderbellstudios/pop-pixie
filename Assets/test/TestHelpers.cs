@@ -517,6 +517,17 @@ public abstract class ABaseTest {
     float timeScale = Time.timeScale;
     Time.timeScale = 0f;
 
+    // Reset scale of selected button
+    GameObject selected = EventSystem.current.currentSelectedGameObject;
+    Animator animator = selected?.GetComponent<Animator>();
+    if (animator != null) {
+      animator.enabled = false;
+    }
+    TMP_Text text = selected?.GetComponentInChildren<TMP_Text>();
+    if (text != null) {
+      text.transform.localScale = Vector3.one;
+    }
+
     Camera camera = Camera.main;
 
     // Ensure the camera has a solid background
@@ -555,6 +566,10 @@ public abstract class ABaseTest {
 
     TestResolution.TestDefault.Apply();
     yield return null;
+
+    if (animator != null) {
+      animator.enabled = true;
+    }
 
     Time.timeScale = timeScale;
   }
