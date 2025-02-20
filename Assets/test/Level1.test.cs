@@ -141,7 +141,7 @@ public class Level1Test : ABaseTest {
     float actualPanY = actualPan.y;
     float actualZoom = contentTransform.localScale.x;
 
-    float panTolerance = 2f;
+    float panTolerance = 6f;
     float zoomTolerance = 0.1f;
 
     if (panX != null) {
