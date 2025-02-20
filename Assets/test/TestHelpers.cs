@@ -387,6 +387,7 @@ public abstract class ABaseTest {
     yield return ButtonDown(buttonName);
     yield return new WaitForSeconds(duration);
     yield return ButtonUp(buttonName);
+    yield return null;
   }
 
   protected void Move(float x, float y) {
