@@ -1,4 +1,5 @@
 #if UNITY_EDITOR
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +23,7 @@ public abstract class ABaseTest {
     GameData.Current.Clear();
     ConfigData.Current.Clear();
     CheckpointData.Reset();
+    TestResolution.TestDefault.Apply();
     yield return null;
   }
 
@@ -30,6 +32,7 @@ public abstract class ABaseTest {
     StopMoving();
     StopZooming();
     ClearMousePosition();
+    TestResolution.Default.Apply();
     yield return null;
   }
 
@@ -384,6 +387,7 @@ public abstract class ABaseTest {
     yield return ButtonDown(buttonName);
     yield return new WaitForSeconds(duration);
     yield return ButtonUp(buttonName);
+    yield return null;
   }
 
   protected void Move(float x, float y) {
@@ -510,6 +514,17 @@ public abstract class ABaseTest {
    *   Overlay, but requires WaitForEndOfFrame, which isn't supported in CI
    */
   protected IEnumerator TakePercyScreenshot(string name) {
+    // Reset scale of selected button
+    GameObject selected = EventSystem.current.currentSelectedGameObject;
+    Animator animator = selected?.GetComponent<Animator>();
+    if (animator != null) {
+      animator.enabled = false;
+    }
+    TMP_Text text = selected?.GetComponentInChildren<TMP_Text>();
+    if (text != null) {
+      text.transform.localScale = Vector3.one;
+    }
+
     Camera camera = Camera.main;
 
     // Ensure the camera has a solid background
@@ -517,24 +532,41 @@ public abstract class ABaseTest {
     backgroundColor.a = 1;
     camera.backgroundColor = backgroundColor;
 
-    RenderTexture screenTexture = new RenderTexture(Screen.width, Screen.height, 16);
-    RenderTexture previousTargetTexture = camera.targetTexture;
+    foreach (TestResolution resolution in TestResolution.ScreenshotResolutions) {
+      resolution.Apply();
+      yield return null;
+      yield return null;
 
-    camera.targetTexture = screenTexture;
-    RenderTexture.active = screenTexture;
-    camera.Render();
+      RenderTexture screenTexture = new RenderTexture(Screen.width, Screen.height, 16);
+      RenderTexture previousTargetTexture = camera.targetTexture;
 
-    Texture2D renderedTexture = new Texture2D(Screen.width, Screen.height);
-    renderedTexture.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
+      camera.targetTexture = screenTexture;
+      RenderTexture.active = screenTexture;
+      camera.Render();
 
-    // Clean up
-    camera.targetTexture = previousTargetTexture;
-    RenderTexture.active = null;
+      Texture2D renderedTexture = new Texture2D(Screen.width, Screen.height);
+      renderedTexture.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
 
-    byte[] byteArray = renderedTexture.EncodeToPNG();
-    System.IO.File.WriteAllBytes("./Percy/" + name + ".png", byteArray);
+      // Clean up
+      camera.targetTexture = previousTargetTexture;
+      RenderTexture.active = null;
 
+      string path = String.Format(
+        "./Percy/{0}-{1}.png",
+        name,
+        resolution.ShortName
+      );
+
+      byte[] byteArray = renderedTexture.EncodeToPNG();
+      System.IO.File.WriteAllBytes(path, byteArray);
+    }
+
+    TestResolution.TestDefault.Apply();
     yield return null;
+
+    if (animator != null) {
+      animator.enabled = true;
+    }
   }
 }
 #endif

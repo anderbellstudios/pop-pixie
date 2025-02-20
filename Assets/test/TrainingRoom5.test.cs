@@ -11,6 +11,14 @@ public class TrainingRoom5Test : ABaseTest {
   public IEnumerator Init() {
     SceneManager.LoadScene("Training Room 5");
     yield return null;
+
+    GameObject
+      .Find("Mentoe Hologram")
+      .transform
+      .Find("AI")
+      .gameObject
+      .SetActive(false);
+
     yield return AdvanceDialogue();
     yield return AwaitPlayingState();
   }

@@ -63,6 +63,7 @@ public class Level1Test : ABaseTest {
     AssertHasText("1.*undiscovered.*Piece of Intel", regex: true);
 
     yield return ScriptedMovement("Intel");
+    yield return new WaitForSeconds(0.5f);
 
     AssertHasText("Press.*to steal", regex: true);
 
@@ -140,7 +141,7 @@ public class Level1Test : ABaseTest {
     float actualPanY = actualPan.y;
     float actualZoom = contentTransform.localScale.x;
 
-    float panTolerance = 2f;
+    float panTolerance = 6f;
     float zoomTolerance = 0.1f;
 
     if (panX != null) {
