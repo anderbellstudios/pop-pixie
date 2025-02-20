@@ -21,8 +21,8 @@ public class TestResolution {
   );
 
   private static readonly TestResolution Aspect32x9 = new TestResolution(
-    width: 5120,
-    height: 1440,
+    width: 1920,
+    height: 540,
     aspectWidth: 32,
     aspectHeight: 9
   );
