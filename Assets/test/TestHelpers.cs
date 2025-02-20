@@ -4,26 +4,16 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Reflection;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.TestTools;
 using UnityEngine.SceneManagement;
-using UnityEditor;
 using UnityEditor.SceneManagement;
-
 using TMPro;
 
 public abstract class ABaseTest {
-  private const string DefaultTestResolution = "16:9";
-  private static readonly string[] ScreenshotResolutions = {
-    "4:3",
-    "16:9",
-    "32:9",
-  };
-
   [UnitySetUp]
   public IEnumerator CommonSetUp() {
     string runId = System.Guid.NewGuid().ToString();
@@ -33,7 +23,7 @@ public abstract class ABaseTest {
     GameData.Current.Clear();
     ConfigData.Current.Clear();
     CheckpointData.Reset();
-    SetResolution(DefaultTestResolution);
+    TestResolution.TestDefault.Apply();
     yield return null;
   }
 
@@ -42,7 +32,7 @@ public abstract class ABaseTest {
     StopMoving();
     StopZooming();
     ClearMousePosition();
-    SetResolution("Free Aspect");
+    TestResolution.Default.Apply();
     yield return null;
   }
 
@@ -530,8 +520,8 @@ public abstract class ABaseTest {
     backgroundColor.a = 1;
     camera.backgroundColor = backgroundColor;
 
-    foreach (string resolution in ScreenshotResolutions) {
-      SetResolution(resolution);
+    foreach (TestResolution resolution in TestResolution.ScreenshotResolutions) {
+      resolution.Apply();
       yield return null;
 
       RenderTexture screenTexture = new RenderTexture(Screen.width, Screen.height, 16);
@@ -551,65 +541,15 @@ public abstract class ABaseTest {
       string path = String.Format(
         "./Percy/{0}-{1}.png",
         name,
-        resolution.Replace(':', 'x')
+        resolution.ShortName
       );
 
       byte[] byteArray = renderedTexture.EncodeToPNG();
       System.IO.File.WriteAllBytes(path, byteArray);
     }
 
-    SetResolution(DefaultTestResolution);
-
+    TestResolution.TestDefault.Apply();
     yield return null;
-  }
-
-  private void SetResolution(string key) {
-    var GameViewSizes = typeof(Editor)
-      .Assembly
-      .GetType("UnityEditor.GameViewSizes");
-
-    var gameViewSizes = typeof(ScriptableSingleton<>)
-      .MakeGenericType(GameViewSizes)
-      .GetProperty("instance")
-      .GetValue(null, null);
-
-    var group = GameViewSizes.GetMethod("GetGroup").Invoke(
-      gameViewSizes,
-      new object[] { (int)GameViewSizeGroupType.Standalone }
-    );
-
-    string[] displayTexts = group
-      .GetType()
-      .GetMethod("GetDisplayTexts")
-      .Invoke(group, null) as string[];
-
-    int index = Array.FindIndex(displayTexts, (displayText) =>
-      displayText == key ||
-      displayText.StartsWith("Test " + key)
-    );
-
-    if (index == -1) {
-      throw new System.Exception(
-        String.Format(
-          "Resolution not found: {0}. Available resolutions: {1}",
-          key,
-          String.Join(", ", displayTexts)
-        )
-      );
-    }
-
-    var GameView = typeof(Editor)
-      .Assembly
-      .GetType("UnityEditor.GameView");
-
-    var window = EditorWindow.GetWindow(GameView);
-
-    GameView
-      .GetProperty(
-        "selectedSizeIndex",
-        BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic
-      )
-      .SetValue(window, index, null);
   }
 }
 #endif
