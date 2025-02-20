@@ -514,9 +514,6 @@ public abstract class ABaseTest {
    *   Overlay, but requires WaitForEndOfFrame, which isn't supported in CI
    */
   protected IEnumerator TakePercyScreenshot(string name) {
-    float timeScale = Time.timeScale;
-    Time.timeScale = 0f;
-
     // Reset scale of selected button
     GameObject selected = EventSystem.current.currentSelectedGameObject;
     Animator animator = selected?.GetComponent<Animator>();
@@ -570,8 +567,6 @@ public abstract class ABaseTest {
     if (animator != null) {
       animator.enabled = true;
     }
-
-    Time.timeScale = timeScale;
   }
 }
 #endif
