@@ -26,7 +26,7 @@ public class TrainingRoom2Test : ABaseTest {
     MoveRight();
     yield return new WaitForSeconds(0.25f);
     yield return PressButton("Roll");
-    yield return new WaitForSeconds(1f);
+    yield return new WaitForSeconds(0.85f);
     yield return PressButton("Roll");
     yield return new WaitForSeconds(1f);
     yield return AdvanceDialogue();
