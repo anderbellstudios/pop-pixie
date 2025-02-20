@@ -12,11 +12,6 @@ public class TrainingRoom2Test : ABaseTest {
   public IEnumerator Init() {
     SceneManager.LoadScene("Training Room 2");
     yield return null;
-
-    GameObject.FindObjectsOfType<MovePath>().ToList().ForEach(movePath => {
-      movePath.enabled = false;
-    });
-
     yield return AdvanceDialogue();
   }
 

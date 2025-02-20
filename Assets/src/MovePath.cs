@@ -3,15 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MovePath : MonoBehaviour {
-
   public float Speed;
   public List<Vector3> Points;
   public bool Running;
   public bool LoopInfinitely;
+  public bool DisableInTestmode;
 
   private int PointIndex = 0;
 
   void Update() {
+    if (TestMode.Enabled && DisableInTestmode)
+      return;
+
     if (!StateManager.Playing || !Running)
       return;
 
@@ -36,7 +39,5 @@ public class MovePath : MonoBehaviour {
         Running = false;
       }
     }
-
   }
-
 }
