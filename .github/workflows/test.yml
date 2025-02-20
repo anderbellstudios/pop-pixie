@@ -28,11 +28,12 @@ jobs:
           's/result = coreSystem.setOutput(outputType);/result = coreSystem.setOutput(FMOD.OUTPUTTYPE.NOSOUND);/' \
           Assets/Plugins/FMOD/src/RuntimeManager.cs
 
-      - name: Cache Library
-        uses: actions/cache@v4
-        with:
-          path: Library
-          key: Library
+      # May be causing intermittent error: Unable to find type [UnityEngine.CoreModule.dll]
+      # - name: Cache Library
+      #   uses: actions/cache@v4
+      #   with:
+      #     path: Library
+      #     key: Library
 
       - name: Get tests for the current group
         id: get_tests
