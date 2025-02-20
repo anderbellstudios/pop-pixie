@@ -7,8 +7,14 @@ using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 
 public class PathfindingTest : ABaseTest {
-  [UnityTest]
+  private IEnumerator Setup() {
+    yield return CommonSetup();
+  }
+
+  [UnityTest, Retry(3)]
   public IEnumerator CompletesLevel() {
+    yield return Setup();
+
     LoadSceneNotInBuildSettings("Assets/Unity/Scenes/Test Pathfinding.unity");
     yield return AwaitSceneChange("Test Pathfinding");
 

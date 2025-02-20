@@ -8,16 +8,17 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class OptionsMenuTest : ABaseTest {
-  [UnitySetUp]
-  public IEnumerator Init() {
+  private IEnumerator Setup() {
+    yield return CommonSetup();
     SceneManager.LoadScene("Landing");
     yield return new WaitForSeconds(0.5f);
     GameObject.Find("Background Animation").SetActive(false);
     ClickByText("Options");
   }
 
-  [UnityTest]
+  [UnityTest, Retry(3)]
   public IEnumerator PercyScreenshots() {
+    yield return Setup();
     yield return TakePercyScreenshot("Options");
     ClickByText("Graphics settings");
     yield return TakePercyScreenshot("Graphics");

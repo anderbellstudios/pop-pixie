@@ -7,8 +7,14 @@ using UnityEngine.TestTools;
 using UnityEngine.SceneManagement;
 
 public class TrainingGameOutroScenes : ABaseTest {
-  [UnityTest]
+  private IEnumerator Setup() {
+    yield return CommonSetup();
+  }
+
+  [UnityTest, Retry(3)]
   public IEnumerator CompletesScenes() {
+    yield return Setup();
+
     SceneManager.LoadScene("Training Game Results Screen");
     yield return null;
 

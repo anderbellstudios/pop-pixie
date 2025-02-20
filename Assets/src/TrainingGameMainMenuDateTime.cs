@@ -11,8 +11,14 @@ public class TrainingGameMainMenuDateTime : MonoBehaviour {
     InvokeRepeating("UpdateTime", 0f, 1f);
   }
 
-  void UpdateTime() {
-    DateTime dateTime = DateTime.Now;
-    Text.text = dateTime.ToString("dddd d MMMM\nHH:mm:ss");
+  private void UpdateTime() {
+    Text.text = Time();
+  }
+
+  private string Time() {
+    if (TestMode.Enabled)
+      return "Thursday 20 February\n12:00:00";
+
+    return DateTime.Now.ToString("dddd d MMMM\nHH:mm:ss");
   }
 }

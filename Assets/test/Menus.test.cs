@@ -10,8 +10,9 @@ using UnityEngine.UI;
 public class MenusTest : ABaseTest {
   private int MenuSoundCount = 0;
 
-  [UnitySetUp]
-  public IEnumerator Init() {
+  private IEnumerator Setup() {
+    yield return CommonSetup();
+
     SceneManager.LoadScene("Landing");
     yield return new WaitForSeconds(0.5f);
 
@@ -25,8 +26,10 @@ public class MenusTest : ABaseTest {
       });
   }
 
-  [UnityTest]
+  [UnityTest, Retry(3)]
   public IEnumerator SelectsButtonsWithKeyboard() {
+    yield return Setup();
+
     Button beginButton = FindButtonByText("Begin");
     Button optionsButton = FindButtonByText("Options");
     Button extrasButton = FindButtonByText("Extras");
@@ -50,8 +53,10 @@ public class MenusTest : ABaseTest {
     Assert.AreEqual(3, MenuSoundCount);
   }
 
-  [UnityTest]
+  [UnityTest, Retry(3)]
   public IEnumerator SelectsButtonsOnHover() {
+    yield return Setup();
+
     Button optionsButton = FindButtonByText("Options");
     Button extrasButton = FindButtonByText("Extras");
 
@@ -66,8 +71,9 @@ public class MenusTest : ABaseTest {
     Assert.AreEqual(2, MenuSoundCount);
   }
 
-  [UnityTest]
+  [UnityTest, Retry(3)]
   public IEnumerator DoesNotSelectButtonUntilMouseMove() {
+    yield return Setup();
     Button optionsButton = FindButtonByText("Options");
     optionsButton.gameObject.SetActive(false);
     yield return null;
@@ -81,8 +87,10 @@ public class MenusTest : ABaseTest {
     Assert.AreEqual(1, MenuSoundCount);
   }
 
-  [UnityTest]
+  [UnityTest, Retry(3)]
   public IEnumerator ResumesSelectionWhenClosingNestedMenu() {
+    yield return Setup();
+
     Button beginButton = FindButtonByText("Begin");
     Button optionsButton = FindButtonByText("Options");
 

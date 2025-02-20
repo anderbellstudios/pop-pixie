@@ -12,6 +12,12 @@ public class MultipleWeaponDirectionManager : MonoBehaviour, IDirectionManager {
 
   private Vector3 CachedDirection = Vector3.up;
 
+  void Start() {
+    if (TestMode.Enabled) {
+      Arrow.SetActive(false);
+    }
+  }
+
   void Update() {
     var rotation = Quaternion.FromToRotation(
       new Vector3(0, 1, 0),

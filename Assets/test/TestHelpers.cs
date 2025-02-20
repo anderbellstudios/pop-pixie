@@ -14,8 +14,7 @@ using UnityEditor.SceneManagement;
 using TMPro;
 
 public abstract class ABaseTest {
-  [UnitySetUp]
-  public IEnumerator CommonSetUp() {
+  protected IEnumerator CommonSetup() {
     string runId = System.Guid.NewGuid().ToString();
     GameData.FileName = "game-test-" + runId;
     ConfigData.FileName = "config-test-" + runId;
@@ -228,6 +227,11 @@ public abstract class ABaseTest {
   }
 
   protected IEnumerator AwaitSceneChange(string sceneName, float retryInterval = 1f, int retries = 10) {
+    // If we're already in the scene, wait to ensure it's reloaded
+    if (GetActiveScene() == sceneName) {
+      yield return new WaitForSeconds(1f);
+    }
+
     yield return AwaitCondition(
       condition: () => GetActiveScene() == sceneName,
       message: "AwaitSceneChange: Timed out waiting for scene change to " + sceneName,
@@ -258,10 +262,10 @@ public abstract class ABaseTest {
     );
   }
 
-  protected GameObject Player() {
+  protected GameObject Player(bool allowNull = false) {
     GameObject player = PlayerGameObject.Current;
 
-    if (player == null) {
+    if (player == null && !allowNull) {
       Assert.Fail("Player GameObject does not exist");
     }
 
@@ -488,6 +492,10 @@ public abstract class ABaseTest {
     => Assert.AreEqual(position, Player().transform.position);
 
   protected IEnumerator SnapPlayer(float increment) {
+    GameObject player = Player(allowNull: true);
+    if (player == null)
+      yield break;
+
     Transform playerTransform = Player().transform;
 
     playerTransform.position = new Vector3(
@@ -514,6 +522,8 @@ public abstract class ABaseTest {
    *   Overlay, but requires WaitForEndOfFrame, which isn't supported in CI
    */
   protected IEnumerator TakePercyScreenshot(string name) {
+    yield return SnapPlayer(0.1f);
+
     // Reset scale of selected button
     GameObject selected = EventSystem.current.currentSelectedGameObject;
     Animator animator = selected?.GetComponent<Animator>();

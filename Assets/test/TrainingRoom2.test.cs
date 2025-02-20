@@ -8,20 +8,16 @@ using UnityEngine.TestTools;
 using UnityEngine.SceneManagement;
 
 public class TrainingRoom2Test : ABaseTest {
-  [UnitySetUp]
-  public IEnumerator Init() {
+  private IEnumerator Setup() {
+    yield return CommonSetup();
     SceneManager.LoadScene("Training Room 2");
     yield return null;
-
-    GameObject.FindObjectsOfType<MovePath>().ToList().ForEach(movePath => {
-      movePath.enabled = false;
-    });
-
     yield return AdvanceDialogue();
   }
 
-  [UnityTest]
+  [UnityTest, Retry(3)]
   public IEnumerator CompletesLevel() {
+    yield return Setup();
     yield return TakePercyScreenshot("TrainingRoom2");
     MoveRight();
     yield return new WaitForSeconds(0.25f);

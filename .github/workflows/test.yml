@@ -28,12 +28,11 @@ jobs:
           's/result = coreSystem.setOutput(outputType);/result = coreSystem.setOutput(FMOD.OUTPUTTYPE.NOSOUND);/' \
           Assets/Plugins/FMOD/src/RuntimeManager.cs
 
-      # May be causing intermittent error: Unable to find type [UnityEngine.CoreModule.dll]
-      # - name: Cache Library
-      #   uses: actions/cache@v4
-      #   with:
-      #     path: Library
-      #     key: Library
+      - name: Cache Library
+        uses: actions/cache@v4
+        with:
+          path: Library
+          key: Library-${{ matrix.group }}
 
       - name: Get tests for the current group
         id: get_tests
@@ -48,6 +47,31 @@ jobs:
           GROUP: ${{ matrix.group }}
 
       - name: Run tests
+        id: tests
+        uses: 12joan/ci-unity-test-runner@main
+        continue-on-error: true
+        env:
+          # gh secret set UNITY_LICENSE < /Library/Application\ Support/Unity/Unity_lic.ulf
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+          customParameters: -testFilter ${{ steps.get_tests.outputs.tests }}
+
+      # Caching Library may be causing an intermittent error "Unable to find
+      # type [UnityEngine.CoreModule.dll]". A symptom of this is that
+      # playmode-results.yml is never created. If this happens, delete Library
+      # and re-run the tests.
+      - name: Check if re-run is necessary
+        id: check_rerun
+        if: steps.tests.outcome == 'failure'
+        run: |
+          test -f artifacts/playmode-results.xml && exit 1
+          rm -r Library
+
+      - name: Re-run tests
+        if: steps.check_rerun.outcome == 'success'
         uses: 12joan/ci-unity-test-runner@main
         env:
           # gh secret set UNITY_LICENSE < /Library/Application\ Support/Unity/Unity_lic.ulf
@@ -60,7 +84,6 @@ jobs:
 
       - name: Upload Percy screenshots
         uses: actions/upload-artifact@v4
-        if: always()
         with:
           name: Percy (${{ matrix.group }})
           path: Percy

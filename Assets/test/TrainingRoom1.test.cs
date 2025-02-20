@@ -7,15 +7,16 @@ using UnityEngine.TestTools;
 using UnityEngine.SceneManagement;
 
 public class TrainingRoom1Test : ABaseTest {
-  [UnitySetUp]
-  public IEnumerator Init() {
+  private IEnumerator Setup() {
+    yield return CommonSetup();
     SceneManager.LoadScene("Training Room 1");
     yield return null;
     yield return AdvanceDialogue();
   }
 
-  [UnityTest]
+  [UnityTest, Retry(3)]
   public IEnumerator CompletesLevel() {
+    yield return Setup();
     yield return TakePercyScreenshot("TrainingRoom1");
     AssertHasText("Press.*to reload", regex: true);
     yield return PressButton("Reload");

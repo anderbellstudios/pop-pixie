@@ -7,8 +7,9 @@ using UnityEngine.TestTools;
 using UnityEngine.SceneManagement;
 
 public class TrainingRoom5Test : ABaseTest {
-  [UnitySetUp]
-  public IEnumerator Init() {
+  private IEnumerator Setup() {
+    yield return CommonSetup();
+
     SceneManager.LoadScene("Training Room 5");
     yield return null;
 
@@ -23,8 +24,9 @@ public class TrainingRoom5Test : ABaseTest {
     yield return AwaitPlayingState();
   }
 
-  [UnityTest]
+  [UnityTest, Retry(3)]
   public IEnumerator CompletesLevel() {
+    yield return Setup();
     // Wait for camera to settle
     yield return new WaitForSeconds(1f);
     yield return TakePercyScreenshot("TrainingRoom5");

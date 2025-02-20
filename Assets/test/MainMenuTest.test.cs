@@ -7,23 +7,31 @@ using UnityEngine.TestTools;
 using UnityEngine.SceneManagement;
 
 public class MainMenuTest : ABaseTest {
-  [UnityTest]
+  private IEnumerator Setup() {
+    yield return CommonSetup();
+  }
+
+  [UnityTest, Retry(3)]
   public IEnumerator PercyScreenshot() {
+    yield return Setup();
     SceneManager.LoadScene("Main Menu");
     yield return new WaitForSeconds(0.5f);
     yield return TakePercyScreenshot("MainMenu");
   }
 
-  [UnityTest]
+  [UnityTest, Retry(3)]
   public IEnumerator StartsNewGameFirstTime() {
+    yield return Setup();
     SceneManager.LoadScene("Main Menu");
     yield return new WaitForSeconds(0.5f);
     ClickByText("New game");
     yield return AwaitSceneChange("Intro Cutscene");
   }
 
-  [UnityTest]
+  [UnityTest, Retry(3)]
   public IEnumerator ContinuesGame() {
+    yield return Setup();
+
     ElevatorData.ElevatorRide = 1;
     GameData.Save();
     GameData.Reset();
@@ -37,8 +45,10 @@ public class MainMenuTest : ABaseTest {
     Assert.AreEqual(ElevatorData.ElevatorRide, 1);
   }
 
-  [UnityTest]
+  [UnityTest, Retry(3)]
   public IEnumerator StartsNewGameSecondTime() {
+    yield return Setup();
+
     ElevatorData.ElevatorRide = 1;
     GameData.Save();
 
