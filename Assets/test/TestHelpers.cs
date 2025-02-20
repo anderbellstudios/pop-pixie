@@ -258,10 +258,10 @@ public abstract class ABaseTest {
     );
   }
 
-  protected GameObject Player() {
+  protected GameObject Player(bool allowNull = false) {
     GameObject player = PlayerGameObject.Current;
 
-    if (player == null) {
+    if (player == null && !allowNull) {
       Assert.Fail("Player GameObject does not exist");
     }
 
@@ -488,6 +488,10 @@ public abstract class ABaseTest {
     => Assert.AreEqual(position, Player().transform.position);
 
   protected IEnumerator SnapPlayer(float increment) {
+    GameObject player = Player(allowNull: true);
+    if (player == null)
+      yield break;
+
     Transform playerTransform = Player().transform;
 
     playerTransform.position = new Vector3(
@@ -514,6 +518,8 @@ public abstract class ABaseTest {
    *   Overlay, but requires WaitForEndOfFrame, which isn't supported in CI
    */
   protected IEnumerator TakePercyScreenshot(string name) {
+    yield return SnapPlayer(0.1f);
+
     // Reset scale of selected button
     GameObject selected = EventSystem.current.currentSelectedGameObject;
     Animator animator = selected?.GetComponent<Animator>();

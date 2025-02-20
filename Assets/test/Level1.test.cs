@@ -19,7 +19,6 @@ public class Level1Test : ABaseTest {
   public IEnumerator CompletesLevel() {
     // Wait for camera to settle
     yield return new WaitForSeconds(1f);
-    yield return SnapPlayer(0.1f);
     yield return TakePercyScreenshot("Level1.1");
 
     // Prevent enemy from moving for Percy screenshot
