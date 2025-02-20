@@ -514,6 +514,9 @@ public abstract class ABaseTest {
    *   Overlay, but requires WaitForEndOfFrame, which isn't supported in CI
    */
   protected IEnumerator TakePercyScreenshot(string name) {
+    float timeScale = Time.timeScale;
+    Time.timeScale = 0f;
+
     Camera camera = Camera.main;
 
     // Ensure the camera has a solid background
@@ -552,6 +555,8 @@ public abstract class ABaseTest {
 
     TestResolution.TestDefault.Apply();
     yield return null;
+
+    Time.timeScale = timeScale;
   }
 }
 #endif
