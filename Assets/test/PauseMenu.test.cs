@@ -30,7 +30,10 @@ public class PauseMenuTest : ABaseTest {
     yield return Setup();
     yield return TakePercyScreenshot("Pause");
     ClickByText("Pieces of Intel");
-    yield return TakePercyScreenshot("Pause.Intel");
+    yield return TakePercyScreenshot("Pause.LoreMenu");
+    ClickByText("Mentoes Tower brochure");
+    yield return TakePercyScreenshot("Pause.LoreWindow");
+    yield return PressButton("Cancel");
     yield return PressButton("Cancel");
     ClickByText("Options");
     yield return TakePercyScreenshot("Pause.Options");
