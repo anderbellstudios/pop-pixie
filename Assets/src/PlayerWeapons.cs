@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerWeapons : MonoBehaviour {
-
   public bool SingletonInstance = true;
   public static PlayerWeapons Current;
 
