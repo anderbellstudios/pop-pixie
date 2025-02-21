@@ -57,7 +57,9 @@ public class SpiralWeaponSwitcher : AWeaponSwitcherUI {
       PreviousDirection = direction;
     }
 
-    CurrentAngle = Mathf.Lerp(CurrentAngle, TargetAngle, 0.3f);
+    CurrentAngle = TestMode.Enabled
+      ? TargetAngle
+      : Mathf.Lerp(CurrentAngle, TargetAngle, 0.3f);
 
     int currentItemIndex = ClosestItemIndexForAngle(CurrentAngle);
     int targetItemIndex = ClosestItemIndexForAngle(TargetAngle);
