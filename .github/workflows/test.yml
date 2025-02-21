@@ -68,7 +68,7 @@ jobs:
         if: steps.tests.outcome == 'failure'
         run: |
           test -f artifacts/playmode-results.xml && exit 1
-          rm -r Library
+          sudo rm -rf Library
 
       - name: Re-run tests
         if: steps.check_rerun.outcome == 'success'

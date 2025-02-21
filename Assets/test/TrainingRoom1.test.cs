@@ -11,12 +11,14 @@ public class TrainingRoom1Test : ABaseTest {
     yield return CommonSetup();
     SceneManager.LoadScene("Training Room 1");
     yield return null;
-    yield return AdvanceDialogue();
   }
 
   [UnityTest, Retry(3)]
   public IEnumerator CompletesLevel() {
     yield return Setup();
+    yield return new WaitForSeconds(3f);
+    yield return TakePercyScreenshot("TrainingRoom1.Dialogue");
+    yield return AdvanceDialogue();
     yield return TakePercyScreenshot("TrainingRoom1");
     AssertHasText("Press.*to reload", regex: true);
     yield return PressButton("Reload");

@@ -19,14 +19,15 @@ public class TrainingRoom5Test : ABaseTest {
       .Find("AI")
       .gameObject
       .SetActive(false);
-
-    yield return AdvanceDialogue();
-    yield return AwaitPlayingState();
   }
 
   [UnityTest, Retry(3)]
   public IEnumerator CompletesLevel() {
     yield return Setup();
+    yield return new WaitForSeconds(4.5f);
+    yield return TakePercyScreenshot("TrainingRoom5.Dialogue");
+    yield return AdvanceDialogue();
+    yield return AwaitPlayingState();
     // Wait for camera to settle
     yield return new WaitForSeconds(1f);
     yield return TakePercyScreenshot("TrainingRoom5");
