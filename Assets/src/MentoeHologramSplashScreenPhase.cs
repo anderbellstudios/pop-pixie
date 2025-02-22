@@ -50,7 +50,9 @@ public class MentoeHologramSplashScreenPhase : APhase {
   }
 
   public override void WhilePhaseRunning() {
-    UpdateWithProgress(AnimationStopwatch.Progress(Duration));
+    UpdateWithProgress(
+      TestMode.Enabled ? 0.5f : AnimationStopwatch.Progress(Duration)
+    );
   }
 
   public override void AfterFinished() {

@@ -16,12 +16,16 @@ public class TrainingGameOutroScenes : ABaseTest {
     yield return Setup();
 
     SceneManager.LoadScene("Training Game Results Screen");
-    yield return null;
+    yield return new WaitForSeconds(3f);
+
+    yield return TakePercyScreenshot("TrainingGameResults.Dialogue");
 
     yield return AdvanceDialogue();
     yield return AdvanceDialogue();
 
     yield return AwaitText("Press.*to continue", regex: true);
+
+    yield return TakePercyScreenshot("TrainingGameResults.Continue");
 
     yield return PressButton("Confirm");
     yield return AwaitSceneChange("Training Game Credits");
