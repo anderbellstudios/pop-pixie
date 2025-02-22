@@ -26,6 +26,16 @@ public class PauseMenuTest : ABaseTest {
   }
 
   [UnityTest, Retry(3)]
+  public IEnumerator DiscoveredItemsDebugModeDisabled() {
+    yield return Setup();
+    Assert.IsFalse(
+      GameObject
+        .FindObjectOfType<DiscoveredItemsMenuEvents>(true)
+        .Debug
+    );
+  }
+
+  [UnityTest, Retry(3)]
   public IEnumerator PercyScreenshots() {
     yield return Setup();
     yield return TakePercyScreenshot("Pause");

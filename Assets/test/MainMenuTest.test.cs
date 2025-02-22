@@ -14,9 +14,17 @@ public class MainMenuTest : ABaseTest {
   [UnityTest, Retry(3)]
   public IEnumerator PercyScreenshot() {
     yield return Setup();
+
+    ElevatorData.ElevatorRide = 1;
+    GameData.Save();
+
     SceneManager.LoadScene("Main Menu");
     yield return new WaitForSeconds(0.5f);
+
     yield return TakePercyScreenshot("MainMenu");
+
+    ClickByText("New game");
+    yield return TakePercyScreenshot("MainMenu.Confirm");
   }
 
   [UnityTest, Retry(3)]
