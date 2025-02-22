@@ -60,13 +60,11 @@ public class MenusTest : ABaseTest {
     Button optionsButton = FindButtonByText("Options");
     Button extrasButton = FindButtonByText("Extras");
 
-    Hover(optionsButton);
-    yield return null;
+    yield return Hover(optionsButton);
     AssertSelected(optionsButton);
     Assert.AreEqual(1, MenuSoundCount);
 
-    Hover(extrasButton);
-    yield return null;
+    yield return Hover(extrasButton);
     AssertSelected(extrasButton);
     Assert.AreEqual(2, MenuSoundCount);
   }
@@ -78,8 +76,7 @@ public class MenusTest : ABaseTest {
     optionsButton.gameObject.SetActive(false);
     yield return null;
     optionsButton.gameObject.SetActive(true);
-    Hover(optionsButton);
-    yield return null;
+    yield return Hover(optionsButton);
     RefuteSelected(optionsButton);
     Assert.AreEqual(0, MenuSoundCount);
     yield return MoveMouseSlightly();
@@ -94,8 +91,7 @@ public class MenusTest : ABaseTest {
     Button beginButton = FindButtonByText("Begin");
     Button optionsButton = FindButtonByText("Options");
 
-    Hover(optionsButton);
-    yield return null;
+    yield return Hover(optionsButton);
     Assert.AreEqual(1, MenuSoundCount);
 
     Click(optionsButton);
@@ -103,8 +99,7 @@ public class MenusTest : ABaseTest {
     Assert.AreEqual(2, MenuSoundCount);
 
     ClickByText("< Back");
-    Hover(beginButton);
-    yield return null;
+    yield return Hover(beginButton);
 
     Assert.AreEqual(3, MenuSoundCount);
     AssertSelected(optionsButton);

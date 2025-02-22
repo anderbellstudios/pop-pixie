@@ -145,34 +145,36 @@ public abstract class ABaseTest {
     bool includeInactive = false
   ) => Click(FindByText(text, regex, includeInactive));
 
-  protected void Hover(GameObject go) {
+  protected IEnumerator Hover(GameObject go) {
     if (go == null) {
       Assert.Fail("Hover: GameObject is null");
     }
 
     GameObject previous = EventSystem.current.currentSelectedGameObject;
     if (previous != null) {
-      Unhover(previous);
+      yield return Unhover(previous);
     }
 
     PointerEventData pointerEvent = new PointerEventData(EventSystem.current);
     pointerEvent.pointerEnter = go;
     ExecuteEvents.ExecuteHierarchy(go, pointerEvent, ExecuteEvents.pointerEnterHandler);
+    yield return null;
   }
 
-  protected void Hover(Button button) {
+  protected IEnumerator Hover(Button button) {
     if (button == null) {
       Assert.Fail("Hover: Button is null");
     }
-    Hover(button.gameObject);
+    yield return Hover(button.gameObject);
   }
 
-  protected void Unhover(GameObject go) {
+  protected IEnumerator Unhover(GameObject go) {
     PointerEventData pointerEvent = new PointerEventData(EventSystem.current);
     ExecuteEvents.ExecuteHierarchy(go, pointerEvent, ExecuteEvents.pointerExitHandler);
+    yield return null;
   }
 
-  protected void HoverByText(
+  protected IEnumerator HoverByText(
     string text,
     bool regex = false,
     bool includeInactive = false

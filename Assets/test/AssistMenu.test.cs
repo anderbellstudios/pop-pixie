@@ -18,7 +18,7 @@ public class AssistMenuTest : ABaseTest {
   public IEnumerator PercyScreenshots() {
     yield return Setup();
     yield return TakePercyScreenshot("Assist");
-    HoverByText("Damage reduction");
+    yield return HoverByText("Damage reduction");
     AssertSelected(StepperValueByLabel("Damage reduction"));
     yield return null;
     yield return TakePercyScreenshot("AssistOption");

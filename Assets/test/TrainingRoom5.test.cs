@@ -13,6 +13,10 @@ public class TrainingRoom5Test : ABaseTest {
     SceneManager.LoadScene("Training Room 5");
     yield return null;
 
+    // Hide caption line to prevent flaky screenshot
+    GameObject.Find("Caption Line").SetActive(false);
+
+    // Disable boss AI
     GameObject
       .Find("Mentoe Hologram")
       .transform
