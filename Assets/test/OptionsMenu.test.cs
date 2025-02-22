@@ -15,7 +15,12 @@ public class OptionsMenuTest : ABaseTest {
     GameObject.Find("Background Animation").SetActive(false);
     ClickByText("Options");
     yield return null;
-    GameObject.Find("Controller icons").SetActive(true);
+
+    // Show controller icons stepper
+    GameObject
+      .FindObjectOfType<OptionsMenuEvents>()
+      .ControllerIconsGameObject
+      .SetActive(true);
   }
 
   [UnityTest, Retry(3)]
