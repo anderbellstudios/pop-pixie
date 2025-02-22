@@ -1,6 +1,11 @@
 name: Test
 
-on: push
+on:
+  push:
+    branches:
+      - develop
+  pull_request:
+    types: [opened, synchronize]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -10,6 +15,7 @@ jobs:
   test:
     name: 'Test'
     runs-on: ubuntu-latest
+    if: ${{ github.ref == 'refs/heads/develop' || !contains(github.event.pull_request.body, '#no-test') }}
     strategy:
       fail-fast: false
       matrix:
@@ -99,6 +105,7 @@ jobs:
     name: 'Percy'
     runs-on: ubuntu-latest
     needs: test
+    if: ${{ github.ref == 'refs/heads/develop' || !contains(github.event.pull_request.body, '#no-percy') }}
 
     steps:
       - uses: actions/checkout@v4
