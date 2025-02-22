@@ -12,15 +12,21 @@ public class DiscoveredItemsMenuEvents : AMenu {
   public RectTransform ScrollContentArea;
   public ScrollRect ScrollRect;
   public LoreManager LoreManager;
+  public bool Debug = false;
 
   protected override void LocalStart() {
     foreach (Transform child in MenuItemContainer) {
       Destroy(child.gameObject);
     }
 
-    foreach (string loreItemId in LoreItemData.ReadLoreItems()) {
-      LoreItem loreItem = RegisteredLoreItems.Find(loreItemId);
+    List<LoreItem> loreItems = Debug
+      ? RegisteredLoreItems.LoreItems
+      : LoreItemData
+        .ReadLoreItems()
+        .Select(id => RegisteredLoreItems.Find(id))
+        .ToList();
 
+    foreach (LoreItem loreItem in loreItems) {
       GameObject menuItemGameObject = Instantiate(MenuItemPrefab, MenuItemContainer);
 
       DiscoveredItemButton discoveredItemButton = menuItemGameObject.GetComponent<DiscoveredItemButton>();

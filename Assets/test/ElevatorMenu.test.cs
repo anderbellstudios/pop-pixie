@@ -1,0 +1,22 @@
+#if UNITY_EDITOR
+using System.Collections;
+using System.Collections.Generic;
+using NUnit.Framework;
+using UnityEngine;
+using UnityEngine.TestTools;
+using UnityEngine.SceneManagement;
+
+public class ElevatorMenuTest : ABaseTest {
+  private IEnumerator Setup() {
+    yield return CommonSetup();
+    SceneManager.LoadScene("Elevator");
+    yield return AdvanceDialogue();
+  }
+
+  [UnityTest, Retry(3)]
+  public IEnumerator PercyScreenshots() {
+    yield return Setup();
+    yield return TakePercyScreenshot("Elevator");
+  }
+}
+#endif
