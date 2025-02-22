@@ -27,6 +27,7 @@ public class TrainingRoom5Test : ABaseTest {
     yield return new WaitForSeconds(4.5f);
     yield return TakePercyScreenshot("TrainingRoom5.Dialogue");
     yield return AdvanceDialogue();
+    yield return TakePercyScreenshot("TrainingRoom5.SplashScreen");
     yield return AwaitPlayingState();
     // Wait for camera to settle
     yield return new WaitForSeconds(1f);

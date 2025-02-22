@@ -14,6 +14,8 @@ public class OptionsMenuTest : ABaseTest {
     yield return new WaitForSeconds(0.5f);
     GameObject.Find("Background Animation").SetActive(false);
     ClickByText("Options");
+    yield return null;
+    GameObject.Find("Controller icons").SetActive(true);
   }
 
   [UnityTest, Retry(3)]
