@@ -13,6 +13,9 @@ public class ElevatorMotion : MonoBehaviour {
   private float WobbleInterval;
 
   void Update() {
+    if (TestMode.Enabled)
+      return;
+
     if (ShouldWobble()) {
       UpdateWobbleInterval();
 

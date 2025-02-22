@@ -1945,7 +1945,7 @@ PrefabInstance:
     - target: {fileID: 3432641282340615510, guid: b5c86a1ed5ce34db29ecde0c58d6ef58,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 104.07
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3432641282340615510, guid: b5c86a1ed5ce34db29ecde0c58d6ef58,
         type: 3}
@@ -2135,7 +2135,7 @@ PrefabInstance:
     - target: {fileID: 4924093213178308475, guid: b5c86a1ed5ce34db29ecde0c58d6ef58,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 99.57
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4924093213178308475, guid: b5c86a1ed5ce34db29ecde0c58d6ef58,
         type: 3}
@@ -2210,7 +2210,7 @@ PrefabInstance:
     - target: {fileID: 6032371784328381382, guid: b5c86a1ed5ce34db29ecde0c58d6ef58,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 189.57
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6032371784328381382, guid: b5c86a1ed5ce34db29ecde0c58d6ef58,
         type: 3}
@@ -2380,7 +2380,7 @@ PrefabInstance:
     - target: {fileID: 8249761045108946316, guid: b5c86a1ed5ce34db29ecde0c58d6ef58,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 167.07
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8249761045108946316, guid: b5c86a1ed5ce34db29ecde0c58d6ef58,
         type: 3}
@@ -2480,7 +2480,7 @@ PrefabInstance:
     - target: {fileID: 9166671331200131617, guid: b5c86a1ed5ce34db29ecde0c58d6ef58,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 153.57
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9166671331200131617, guid: b5c86a1ed5ce34db29ecde0c58d6ef58,
         type: 3}
@@ -3363,6 +3363,7 @@ GameObject:
   - component: {fileID: 841506067}
   - component: {fileID: 841506069}
   - component: {fileID: 841506068}
+  - component: {fileID: 841506070}
   m_Layer: 5
   m_Name: Lower wall
   m_TagString: Untagged
@@ -3427,6 +3428,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 841506066}
   m_CullTransparentMesh: 1
+--- !u!114 &841506070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 841506066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ca59c258ace5454b88815fa77b3abe3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Image: {fileID: 841506068}
 --- !u!1 &842217058
 GameObject:
   m_ObjectHideFlags: 0
@@ -9986,6 +10000,7 @@ GameObject:
   - component: {fileID: 1422583727}
   - component: {fileID: 1422583729}
   - component: {fileID: 1422583728}
+  - component: {fileID: 1422583730}
   m_Layer: 5
   m_Name: Upper wall
   m_TagString: Untagged
@@ -10050,6 +10065,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1422583726}
   m_CullTransparentMesh: 1
+--- !u!114 &1422583730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1422583726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ca59c258ace5454b88815fa77b3abe3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Image: {fileID: 1422583728}
 --- !u!1 &1517267771
 GameObject:
   m_ObjectHideFlags: 0
