@@ -13,7 +13,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        group: [0, 1, 2, 3, 4, 5]
+        worker: [0, 1, 2, 3, 4, 5, 6, 7]
 
     steps:
       - uses: actions/checkout@v4
@@ -32,19 +32,19 @@ jobs:
         uses: actions/cache@v4
         with:
           path: Library
-          key: Library-${{ matrix.group }}
+          key: Library-${{ matrix.worker }}
 
-      - name: Get tests for the current group
+      - name: Get tests for the current worker
         id: get_tests
         run: |
           tests=$(cat Assets/test/*.test.cs |
             perl -ne 'm/public class (\w+) : ABaseTest/ && print "$1\n"' |
-            awk "NR % $GROUP_COUNT == $GROUP" |
+            awk "NR % $WORKER_COUNT == $WORKER" |
             paste -sd ';' -)
           echo "tests=$tests" | tee -a $GITHUB_OUTPUT
         env:
-          GROUP_COUNT: 6
-          GROUP: ${{ matrix.group }}
+          WORKER_COUNT: 8
+          WORKER: ${{ matrix.worker }}
 
       - name: Run tests
         id: tests
@@ -85,14 +85,14 @@ jobs:
       - name: Upload Percy screenshots
         uses: actions/upload-artifact@v4
         with:
-          name: Percy (${{ matrix.group }})
+          name: Percy (${{ matrix.worker }})
           path: Percy
 
       - name: Upload results
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: Test results (${{ matrix.group }})
+          name: Test results (${{ matrix.worker }})
           path: artifacts
 
   percy:
