@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3482646268369689892}
   - component: {fileID: 114526782179927072}
   - component: {fileID: 114585739319901706}
+  - component: {fileID: 8833507560049286690}
   m_Layer: 5
   m_Name: HUD
   m_TagString: Untagged
@@ -95,7 +96,7 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 400}
+  m_ReferenceResolution: {x: 600, y: 400}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
@@ -120,6 +121,23 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &8833507560049286690
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1076885735418248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99b34e2a531504031800d7257c65231e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Text: The HUD is designed for a target aspect ratio of 3:2. At this aspect ratio,
+    all HUD components should fit on the screen with no scaling. Any special HUD
+    components in the bottom middle must not be wider than 300px (50% of the width
+    at 3:2). At aspect ratios narrower than 3:2 (such as 4:3), all HUD components
+    shrink automatically.
 --- !u!1 &418900138442258698
 GameObject:
   m_ObjectHideFlags: 0
@@ -443,7 +461,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 160, y: 200}
+  m_SizeDelta: {x: 600, y: 200}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &295057515501806101
 MonoBehaviour:
@@ -458,7 +476,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Parent: {fileID: 224205917627926174}
-  MaxRelativeWidth: 0.2
+  MaxRelativeWidth: 1
   MaxRelativeHeight: 1
 --- !u!1 &3235023672361494308
 GameObject:
@@ -495,7 +513,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 160, y: 200}
+  m_SizeDelta: {x: 600, y: 200}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &4317863011884795833
 MonoBehaviour:
@@ -510,7 +528,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Parent: {fileID: 224205917627926174}
-  MaxRelativeWidth: 0.2
+  MaxRelativeWidth: 1
   MaxRelativeHeight: 1
 --- !u!1 &3447402033157281694
 GameObject:
@@ -773,7 +791,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 400, y: 200}
+  m_SizeDelta: {x: 600, y: 200}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &8899201822366134926
 MonoBehaviour:
@@ -788,7 +806,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Parent: {fileID: 224205917627926174}
-  MaxRelativeWidth: 0.5
+  MaxRelativeWidth: 1
   MaxRelativeHeight: 1
 --- !u!1 &4717676624936982560
 GameObject:
@@ -825,7 +843,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 480, y: 200}
+  m_SizeDelta: {x: 600, y: 200}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &3753194223372784940
 MonoBehaviour:
@@ -840,7 +858,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Parent: {fileID: 224205917627926174}
-  MaxRelativeWidth: 0.6
+  MaxRelativeWidth: 1
   MaxRelativeHeight: 1
 --- !u!1 &4885268572350258790
 GameObject:
@@ -877,7 +895,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 400, y: 200}
+  m_SizeDelta: {x: 600, y: 200}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &2000577596994935790
 MonoBehaviour:
@@ -892,7 +910,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Parent: {fileID: 224205917627926174}
-  MaxRelativeWidth: 0.5
+  MaxRelativeWidth: 1
   MaxRelativeHeight: 1
 --- !u!1 &5698747567608229897
 GameObject:
