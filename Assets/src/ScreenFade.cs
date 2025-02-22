@@ -10,8 +10,12 @@ public class ScreenFade : MonoBehaviour {
   private Image Image;
 
   void Awake() {
-    if (SingletonInstance)
+    if (SingletonInstance) {
+      if (Current != null) {
+        throw new System.Exception("Cannot have multiple singleton instances of ScreenFade");
+      }
       Current = this;
+    }
 
     Image = gameObject.GetComponent<Image>();
   }
