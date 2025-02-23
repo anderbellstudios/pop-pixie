@@ -54,7 +54,7 @@ public abstract class AMenu : MonoBehaviour {
     _Buttons.Add(button);
 
     button.onClick.AddListener(() => {
-      MenuSound.current.Play();
+      MenuSound.Current.Play();
       LastClickedButton = button;
     });
 
@@ -113,6 +113,9 @@ public abstract class AMenu : MonoBehaviour {
       }
 
       if (CloseMenuControls.Any(control => WrappedInput.GetButtonDown(control))) {
+        if (_ParentMenu != null) {
+          MenuSound.Current.Play();
+        }
         _CloseNextFrame = true;
       }
     }
