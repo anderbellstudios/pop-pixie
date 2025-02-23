@@ -17,6 +17,7 @@ public class GrenadeExplodesAfterTime : MonoBehaviour {
   public Transform RadiusIndicator;
   public GameObject Explosion;
   public GameObject ExplosionSound;
+  public GameObject Debris;
 
   private Stopwatch ExplodeStopwatch;
   private Stopwatch RadiusIndicatorStopwatch = null;
@@ -73,6 +74,9 @@ public class GrenadeExplodesAfterTime : MonoBehaviour {
 
     if (ExplosionSound != null)
       Instantiate(ExplosionSound, transform.position, Quaternion.identity);
+
+    if (Debris != null)
+      Instantiate(Debris, transform.position, Quaternion.identity);
 
     Destroy(gameObject);
   }
