@@ -104,5 +104,20 @@ public class MenusTest : ABaseTest {
     Assert.AreEqual(3, MenuSoundCount);
     AssertSelected(optionsButton);
   }
+
+  [UnityTest, Retry(3)]
+  public IEnumerator PlaysMenuSoundWhenClosingNestedMenuWithButton() {
+    yield return Setup();
+
+    Button optionsButton = FindButtonByText("Options");
+
+    Click(optionsButton);
+    yield return null;
+    Assert.AreEqual(1, MenuSoundCount);
+
+    yield return PressButton("Cancel");
+    Assert.AreEqual(2, MenuSoundCount);
+    AssertSelected(optionsButton);
+  }
 }
 #endif

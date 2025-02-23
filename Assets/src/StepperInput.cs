@@ -32,10 +32,10 @@ public class StepperInput : MonoBehaviour {
   void Update() {
     if (Selected) {
       if (WrappedInput.GetButtonDown("Right")) {
-        MenuSound.current.Play();
+        MenuSound.Current.Play();
         IncrementValue();
       } else if (WrappedInput.GetButtonDown("Left")) {
-        MenuSound.current.Play();
+        MenuSound.Current.Play();
         DecrementValue();
       }
     }

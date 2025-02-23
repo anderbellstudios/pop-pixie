@@ -6,7 +6,7 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
 public class MenuSound : MonoBehaviour {
-  public static MenuSound current
+  public static MenuSound Current
     => EventSystem.current.gameObject.GetComponent<MenuSound>();
 
   public UnityEvent OnPlay;
