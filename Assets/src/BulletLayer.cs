@@ -8,17 +8,41 @@ public class BulletLayer : MonoBehaviour {
   public SpriteRenderer SpriteRenderer;
   public TrailRenderer TrailRenderer;
 
-  public int TouchingWalkBoundaries = 0;
+  private int WalkBoundaryLayer;
+  private int TouchingWalkBoundaries = 0;
+  public List<Collider2D> TouchingVerticalFaces { get; private set; } = new();
+
+  void Start() {
+    WalkBoundaryLayer = LayerMask.NameToLayer("WalkBoundary");
+  }
 
   void OnTriggerEnter2D(Collider2D collider) {
-    TouchingWalkBoundaries++;
-    UpdateLayer();
+    if (IsWalkBoundary(collider)) {
+      TouchingWalkBoundaries++;
+      UpdateLayer();
+    }
+
+    if (IsVerticalFace(collider)) {
+      TouchingVerticalFaces.Add(collider);
+    }
   }
 
   void OnTriggerExit2D(Collider2D collider) {
-    TouchingWalkBoundaries--;
-    UpdateLayer();
+    if (IsWalkBoundary(collider)) {
+      TouchingWalkBoundaries--;
+      UpdateLayer();
+    }
+
+    if (IsVerticalFace(collider)) {
+      TouchingVerticalFaces.Remove(collider);
+    }
   }
+
+  private bool IsWalkBoundary(Collider2D collider)
+    => collider.gameObject.layer == WalkBoundaryLayer;
+
+  private bool IsVerticalFace(Collider2D collider)
+    => collider.tag == "Vertical Face";
 
   private void UpdateLayer() {
     string currentLayer = TouchingWalkBoundaries > 0
