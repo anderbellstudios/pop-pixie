@@ -42,7 +42,7 @@ jobs:
           path: public
 
       - name: Compile installer
-        uses: Minionguyjpro/Inno-Setup-Action@v1.2.2
+        uses: anderbellstudios/Inno-Setup-Action@main
         with:
           path: ./installers/windows/pop-pixie.iss
           options: /O+
