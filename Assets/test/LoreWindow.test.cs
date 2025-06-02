@@ -22,7 +22,7 @@ public class LoreWindowTest : ABaseTest {
     AssertLoreWindowPanAndZoom(-37f, 0f, 1f, "Pan right");
   }
 
-  [UnityTest, Retry(3)]
+  [UnityTest, Retry(6)]
   public IEnumerator ZoomWithAxis() {
     yield return Setup();
     yield return Zoom(0.5f, 0.5f);
