@@ -306,6 +306,7 @@ public abstract class ABaseTest {
     );
 
     yield return AwaitCondition(condition: () => finished, retries: 60);
+    yield return new WaitForSeconds(0.5f);
   }
 
   protected IEnumerator ScriptedMovement(string anchorName) {

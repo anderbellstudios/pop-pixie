@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5134895775492932592}
   - component: {fileID: 212368572444835224}
+  - component: {fileID: 320597324177797846}
   m_Layer: 12
   m_Name: Arrow
   m_TagString: Untagged
@@ -70,9 +71,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -78808081
-  m_SortingLayer: 5
-  m_SortingOrder: 2
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 7333510d43a5c42c8a145f793a495e50, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
@@ -84,6 +85,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!210 &320597324177797846
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1214155085074384}
+  m_Enabled: 1
+  m_SortingLayerID: -78808081
+  m_SortingLayer: 5
+  m_SortingOrder: 2
+  m_SortAtRoot: 1
 --- !u!1 &1276747056135348
 GameObject:
   m_ObjectHideFlags: 0
@@ -125,7 +138,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 9137665991470047548}
+  - {fileID: 5777414788354602877}
   - {fileID: 7398465167719172514}
   - {fileID: 1853579377287733731}
   - {fileID: 6882035376013953771}
@@ -279,6 +292,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MovementManager: {fileID: 8156467750406196158}
   ScriptedMovementState: 1
+  AvoidCollisionLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &114081501603769606
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -414,7 +430,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9137665991470047548}
   m_Layer: 12
-  m_Name: Sprite Group
+  m_Name: Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -428,14 +444,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 242307965977937915}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.75, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 996981419884318341}
   - {fileID: 5134895775492932592}
-  m_Father: {fileID: 4143460359601258}
+  m_Father: {fileID: 5777414788354602877}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &250137590851084623
 GameObject:
@@ -1538,6 +1554,51 @@ Transform:
   - {fileID: 4105614814457109767}
   m_Father: {fileID: 4143460359601258}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6708350718134969937
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5777414788354602877}
+  - component: {fileID: 1342775872806632674}
+  m_Layer: 12
+  m_Name: Sprite Group
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5777414788354602877
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6708350718134969937}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.75, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 9137665991470047548}
+  m_Father: {fileID: 4143460359601258}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!210 &1342775872806632674
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6708350718134969937}
+  m_Enabled: 1
+  m_SortingLayerID: 1415191237
+  m_SortingLayer: 4
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
 --- !u!1 &6951680933500146055
 GameObject:
   m_ObjectHideFlags: 0
