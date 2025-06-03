@@ -46,6 +46,8 @@ public class InGamePrompt : MonoBehaviour {
   }
 
   String CurrentText() {
+    if (!StateManager.Playing) return null;
+
     String resultingText = null;
     int highestPriority = 0;
 
