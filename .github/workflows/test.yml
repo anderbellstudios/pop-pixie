@@ -88,6 +88,17 @@ jobs:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
           customParameters: -testFilter ${{ steps.get_tests.outputs.tests }}
 
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+
+      - name: Install Ruby dependencies
+        run: bundle install
+
+      - name: Report test results
+        run: bundle exec ruby report_test_results.rb | tee -a $GITHUB_STEP_SUMMARY
+
       - name: Upload Percy screenshots
         uses: actions/upload-artifact@v4
         with:
