@@ -98,7 +98,9 @@ jobs:
 
       - name: Report test results
         if: always()
-        run: bundle exec ruby report_test_results.rb | tee -a $GITHUB_STEP_SUMMARY
+        run: |
+          bundle exec ruby report_test_results.rb | tee -a results.txt
+          cat results.txt | sed 's/\x1B\[[0-9;]\{1,\}[A-Za-z]//g' >> $GITHUB_STEP_SUMMARY
 
       - name: Upload Percy screenshots
         uses: actions/upload-artifact@v4
