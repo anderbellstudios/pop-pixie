@@ -20,7 +20,7 @@ public class Level2Test : ABaseTest {
     DisableEnemyColliders();
   }
 
-  [UnityTest/*, Retry(3)*/]
+  [UnityTest, Retry(3)]
   public IEnumerator CompletesLevel() {
     yield return Setup();
     yield return TakePercyScreenshot("Level2.1");
