@@ -273,9 +273,10 @@ public abstract class ABaseTest {
     );
   }
 
-  protected IEnumerator AwaitPlayingState() {
+  protected IEnumerator AwaitPlayingState(int retries = 10) {
     yield return AwaitCondition(
       condition: () => StateManager.Playing,
+      retries: retries,
       message: "AwaitText: Timed out waiting for Playing state"
     );
   }
@@ -327,6 +328,36 @@ public abstract class ABaseTest {
 
   protected IEnumerator ScriptedMovement(string anchorName) {
     yield return ScriptedMovement(new[] { anchorName });
+  }
+
+  protected IEnumerator NavigateTo(string anchorName) {
+    ScriptedMovement scriptedMovement = Player().GetComponent<ScriptedMovement>();
+    scriptedMovement.ScriptedMovementState = false;
+
+    bool finished = false;
+
+    Vector3 destination = GetAnchorPosition(anchorName);
+
+    PathfindingGraph graph = PathfindingGraph.Current;
+    if (!graph)
+      Assert.Fail("NavigateTo requires a PathfindingGraph to exist in the scene");
+
+    List<Vector3> path = graph.FindPath(
+      Player().transform.position,
+      destination
+    );
+
+    scriptedMovement.FollowPath(
+      path: path,
+      speed: 20f,
+      onComplete: () => {
+        scriptedMovement.ScriptedMovementState = true;
+        finished = true;
+      }
+    );
+
+    yield return AwaitCondition(condition: () => finished, retries: 60);
+    yield return new WaitForSeconds(0.5f);
   }
 
   protected IEnumerator DieAndResume() {
