@@ -20,10 +20,10 @@ public class TrainingRoom1Test : ABaseTest {
     yield return TakePercyScreenshot("TrainingRoom1.Dialogue");
     yield return AdvanceDialogue();
     yield return TakePercyScreenshot("TrainingRoom1");
-    AssertHasText("Press.*to reload", regex: true);
+    yield return AwaitHasText("Press.*to reload", regex: true);
     yield return PressButton("Reload");
     yield return new WaitForSeconds(1.25f);
-    AssertHasText("Aim and press.*to shoot", regex: true);
+    yield return AwaitHasText("Aim and press.*to shoot", regex: true);
     KillAllEnemies();
     yield return AwaitSceneChange("Training Room 2");
   }

@@ -109,6 +109,22 @@ public abstract class ABaseTest {
     Assert.AreEqual(1, matchCount, "AssertHasText: Found " + matchCount + " GameObjects with text: " + expected);
   }
 
+  protected IEnumerator AwaitHasText(
+    string expected,
+    bool regex = false,
+    bool includeInactive = false
+  ) {
+    yield return AwaitCondition(
+      condition: () => {
+        int matchCount = FindAllByText(expected, regex, includeInactive).Count;
+        if (matchCount > 1)
+          Assert.Fail("AwaitHasText: Found " + matchCount + " GameObjects with text: " + expected);
+        return matchCount == 1;
+      },
+      message: "AwaitHasText: Found 0 GameObjects with text: " + expected
+    );
+  }
+
   protected void RefuteHasText(
     string expected,
     bool regex = false,
@@ -257,9 +273,10 @@ public abstract class ABaseTest {
     );
   }
 
-  protected IEnumerator AwaitPlayingState() {
+  protected IEnumerator AwaitPlayingState(int retries = 10) {
     yield return AwaitCondition(
       condition: () => StateManager.Playing,
+      retries: retries,
       message: "AwaitText: Timed out waiting for Playing state"
     );
   }
@@ -311,6 +328,36 @@ public abstract class ABaseTest {
 
   protected IEnumerator ScriptedMovement(string anchorName) {
     yield return ScriptedMovement(new[] { anchorName });
+  }
+
+  protected IEnumerator NavigateTo(string anchorName) {
+    ScriptedMovement scriptedMovement = Player().GetComponent<ScriptedMovement>();
+    scriptedMovement.ScriptedMovementState = false;
+
+    bool finished = false;
+
+    Vector3 destination = GetAnchorPosition(anchorName);
+
+    PathfindingGraph graph = PathfindingGraph.Current;
+    if (!graph)
+      Assert.Fail("NavigateTo requires a PathfindingGraph to exist in the scene");
+
+    List<Vector3> path = graph.FindPath(
+      Player().transform.position,
+      destination
+    );
+
+    scriptedMovement.FollowPath(
+      path: path,
+      speed: 20f,
+      onComplete: () => {
+        scriptedMovement.ScriptedMovementState = true;
+        finished = true;
+      }
+    );
+
+    yield return AwaitCondition(condition: () => finished, retries: 60);
+    yield return new WaitForSeconds(0.5f);
   }
 
   protected IEnumerator DieAndResume() {
