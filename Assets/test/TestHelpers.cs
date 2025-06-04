@@ -109,6 +109,22 @@ public abstract class ABaseTest {
     Assert.AreEqual(1, matchCount, "AssertHasText: Found " + matchCount + " GameObjects with text: " + expected);
   }
 
+  protected IEnumerator AwaitHasText(
+    string expected,
+    bool regex = false,
+    bool includeInactive = false
+  ) {
+    yield return AwaitCondition(
+      condition: () => {
+        int matchCount = FindAllByText(expected, regex, includeInactive).Count;
+        if (matchCount > 1)
+          Assert.Fail("AwaitHasText: Found " + matchCount + " GameObjects with text: " + expected);
+        return matchCount == 1;
+      },
+      message: "AwaitHasText: Found 0 GameObjects with text: " + expected
+    );
+  }
+
   protected void RefuteHasText(
     string expected,
     bool regex = false,
