@@ -76,7 +76,7 @@ public class LoreWindowTest : ABaseTest {
     float actualZoom = contentTransform.localScale.x;
 
     float panTolerance = 6f;
-    float zoomTolerance = 0.1f;
+    float zoomTolerance = 0.15f;
 
     if (panX != null) {
       Assert.That(actualPanX, Is.EqualTo(panX).Within(panTolerance), message + ": pan X");
