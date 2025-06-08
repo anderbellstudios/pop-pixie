@@ -5,8 +5,10 @@ using UnityEngine;
 public delegate void PhaseFinishedDelegate();
 
 public abstract class APhase : MonoBehaviour {
+  public bool FirstTimeOnly;
+  public bool Running { get; private set; } = false;
+
   private PhaseFinishedDelegate _FinishedCallback;
-  public bool Running = false;
 
   public void Begin(PhaseFinishedDelegate finishedCallback) {
     _FinishedCallback = finishedCallback;
@@ -20,7 +22,7 @@ public abstract class APhase : MonoBehaviour {
   }
 
   public virtual bool SkipOnRetry() {
-    return false;
+    return FirstTimeOnly;
   }
 
   public virtual void LocalBegin() {

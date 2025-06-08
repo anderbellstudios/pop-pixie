@@ -642,7 +642,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BeginFirstPhaseOnStart: 1
-  Running: 0
   Phases:
   - {fileID: 489636736}
   - {fileID: 881401154}
@@ -1156,7 +1155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fea55fc487794f938591645d7f958d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Running: 0
+  FirstTimeOnly: 0
   Door: {fileID: 664420399}
   DelayBeforeRoll: 2
   RollDistance: 5.4
@@ -5777,6 +5776,11 @@ PrefabInstance:
         type: 3}
       propertyPath: FadeInDuration
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2798580579147795095, guid: 9d193d8ac910849ad9065e3aecb6ba39,
+        type: 3}
+      propertyPath: FadeInDurationOnRetry
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 3196517020973298096, guid: 9d193d8ac910849ad9065e3aecb6ba39,
         type: 3}
