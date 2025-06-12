@@ -5,6 +5,7 @@ using UnityEngine.Events;
 
 public class AccessTerminalSprite : AInspectable {
   public AccessTerminalConfig Config;
+  public int LevelIndex = -1;
   public UnityEvent OnAccess;
 
   void Start() {
@@ -20,13 +21,23 @@ public class AccessTerminalSprite : AInspectable {
     OnAccess.Invoke();
 
     LevelObjectives.UsedAccessTerminal = true;
-    LoreItemData.RecordRead(Config.LoreItem);
+
+    if (Config.LoreItem != null)
+      LoreItemData.RecordRead(Config.LoreItem);
+
+    if (LevelIndex > -1)
+      LevelCompletionData.CompleteLevel(LevelIndex);
+
     StateManager.AddState(State.NotPlayingContinueSounds);
 
     AccessTerminalManager.Current.Open(Config, () => {
-      LoreManager.Current.Open(Config.LoreItem, () => {
+      if (Config.LoreItem == null) {
         StateManager.RemoveState(State.NotPlayingContinueSounds);
-      });
+      } else {
+        LoreManager.Current.Open(Config.LoreItem, () => {
+          StateManager.RemoveState(State.NotPlayingContinueSounds);
+        });
+      }
     });
   }
 

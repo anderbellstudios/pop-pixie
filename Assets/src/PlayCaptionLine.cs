@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayCaptionLine : MonoBehaviour {
+  public bool EnqueueIfBusy = true;
   public CaptionLine CaptionLine;
 
   void Start() {
@@ -10,6 +11,6 @@ public class PlayCaptionLine : MonoBehaviour {
   }
 
   public void Perform() {
-    CaptionLineManager.Current.Play(CaptionLine);
+    CaptionLineManager.Current.Play(CaptionLine, enqueueIfBusy: EnqueueIfBusy);
   }
 }

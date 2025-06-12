@@ -25,9 +25,13 @@ public class CaptionLineManager : MonoBehaviour {
     SetOpacity(0);
   }
 
-  public void Play(CaptionLine captionLine) {
+  public void Play(CaptionLine captionLine, bool enqueueIfBusy = true) {
     if (Running) {
-      if (captionLine != CaptionLine && !CaptionLineQueue.Contains(captionLine)) {
+      if (
+        enqueueIfBusy &&
+        captionLine != CaptionLine &&
+        !CaptionLineQueue.Contains(captionLine)
+      ) {
         CaptionLineQueue.Enqueue(captionLine);
       }
       return;

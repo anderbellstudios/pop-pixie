@@ -4,16 +4,8 @@ using UnityEngine;
 using UnityEngine.Events;
 
 public class ElevatorRide : MonoBehaviour {
-  public string NextLevel;
-
   public PhaseScheduler StandardPhaseScheduler, FromShopPhaseScheduler;
   public UnityEvent OnFinish;
-
-  void Awake() {
-    if (NextLevel == "") {
-      throw new System.Exception("NextLevel cannot be empty");
-    }
-  }
 
   public void BeginRide() {
     CheckpointData.Reset();

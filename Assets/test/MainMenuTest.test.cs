@@ -15,7 +15,7 @@ public class MainMenuTest : ABaseTest {
   public IEnumerator PercyScreenshot() {
     yield return Setup();
 
-    ElevatorData.ElevatorRide = 1;
+    LevelCompletionData.CompleteLevel(1);
     GameData.Save();
 
     SceneManager.LoadScene("Main Menu");
@@ -40,24 +40,24 @@ public class MainMenuTest : ABaseTest {
   public IEnumerator ContinuesGame() {
     yield return Setup();
 
-    ElevatorData.ElevatorRide = 1;
+    LevelCompletionData.CompleteLevel(1);
     GameData.Save();
     GameData.Reset();
-    Assert.AreEqual(ElevatorData.ElevatorRide, 0);
+    Assert.AreEqual(LevelCompletionData.LevelCompleted, 0);
 
     SceneManager.LoadScene("Main Menu");
     yield return new WaitForSeconds(0.5f);
 
     ClickByText("Continue");
     yield return AwaitSceneChange("Elevator");
-    Assert.AreEqual(ElevatorData.ElevatorRide, 1);
+    Assert.AreEqual(LevelCompletionData.LevelCompleted, 1);
   }
 
   [UnityTest, Retry(3)]
   public IEnumerator StartsNewGameSecondTime() {
     yield return Setup();
 
-    ElevatorData.ElevatorRide = 1;
+    LevelCompletionData.CompleteLevel(1);
     GameData.Save();
 
     SceneManager.LoadScene("Main Menu");
@@ -69,7 +69,7 @@ public class MainMenuTest : ABaseTest {
     ClickByText("Reset progress");
     yield return AwaitSceneChange("Intro Cutscene");
 
-    Assert.AreEqual(ElevatorData.ElevatorRide, 0);
+    Assert.AreEqual(LevelCompletionData.LevelCompleted, 0);
   }
 }
 #endif

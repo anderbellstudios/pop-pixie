@@ -5,8 +5,6 @@ using UnityEngine;
 public class ElevatorEvents : MonoBehaviour {
   public SavingIndicator SavingIndicator;
 
-  private string NextLevel = "";
-
   void Start() {
     GameData.Save();
 
@@ -14,11 +12,8 @@ public class ElevatorEvents : MonoBehaviour {
       SavingIndicator.Saved();
   }
 
-  public void SetNextLevel(string nextLevel) {
-    NextLevel = nextLevel;
-  }
-
-  public void Continue() {
-    SceneEvents.Current.ChangeScene(NextLevel, true);
+  public void PickLevel(string level) {
+    LevelCompletionData.PlayedElevatorRide();
+    SceneEvents.Current.ChangeScene(level, true);
   }
 }

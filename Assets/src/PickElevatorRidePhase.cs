@@ -7,31 +7,29 @@ public class PickElevatorRidePhase : APhase {
   public int DebugDefaultElevatorRide = 1;
   public List<ElevatorRide> ElevatorRides;
 
+  void Awake() {
+    if (LevelCompletionData.LevelCompleted == 0) {
+#if UNITY_EDITOR
+      Debug.Log("Using DebugDefaultElevatorRide");
+      LevelCompletionData.CompleteLevel(DebugDefaultElevatorRide);
+#else
+      throw new System.Exception("LevelCompleted must be greater than 0");
+#endif
+    }
+  }
+
   public override void LocalBegin() {
-    ElevatorRide ride = ElevatorRides[ElevatorRideIndex()];
+    ElevatorRide ride = ElevatorRides[LevelCompletionData.LevelCompleted];
 
     if (ride == null) {
       throw new System.Exception("ride is null");
     }
 
-    ElevatorEvents.SetNextLevel(ride.NextLevel);
-
-    ride.OnFinish.AddListener(PhaseFinished);
-    ride.BeginRide();
-  }
-
-  private int ElevatorRideIndex() {
-    int ride = ElevatorData.ElevatorRide;
-
-    if (ride == 0) {
-#if UNITY_EDITOR
-      Debug.Log("Using DebugDefaultElevatorRide");
-      return DebugDefaultElevatorRide;
-#else
-      throw new System.Exception("ElevatorRide must be set to a value greater than 0");
-#endif
+    if (LevelCompletionData.PlayElevatorRide) {
+      ride.OnFinish.AddListener(PhaseFinished);
+      ride.BeginRide();
+    } else {
+      PhaseFinished();
     }
-
-    return ride;
   }
 }

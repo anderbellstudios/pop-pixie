@@ -19,6 +19,8 @@ public class ElevatorMenuTest : ABaseTest {
     yield return TakePercyScreenshot("Elevator.Dialogue");
     yield return AdvanceDialogue();
     yield return TakePercyScreenshot("Elevator");
+    ClickByText("Continue");
+    yield return TakePercyScreenshot("Elevator.Panel");
   }
 }
 #endif
