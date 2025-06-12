@@ -17,14 +17,4 @@ public class ElevatorData {
   public static void WillArriveFromLoad() {
     ArrivedFrom = ArrivedFromType.Load;
   }
-
-  public static int ElevatorRide {
-    get {
-      return (int)GameData.Current.Fetch("elevator-ride", orSetEqualTo: 0);
-    }
-
-    set {
-      GameData.Current.Set("elevator-ride", value);
-    }
-  }
 }

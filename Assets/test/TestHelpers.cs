@@ -579,10 +579,11 @@ public abstract class ABaseTest {
     Animator animator = selected?.GetComponent<Animator>();
     if (animator != null) {
       animator.enabled = false;
-    }
-    TMP_Text text = selected?.GetComponentInChildren<TMP_Text>();
-    if (text != null) {
-      text.transform.localScale = Vector3.one;
+
+      TMP_Text text = selected.GetComponentInChildren<TMP_Text>();
+      if (text != null) {
+        text.transform.localScale = Vector3.one;
+      }
     }
 
     Camera camera = Camera.main;

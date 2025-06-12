@@ -12,7 +12,14 @@ public class OscillateBrightness : MonoBehaviour {
   private float Offset, Speed;
   private Color InitialColor;
 
-  void Start() {
+  public void SetColor(Color color) {
+    InitialColor = color;
+
+    if (!this.enabled || TestMode.Enabled)
+      UpdateColor(color);
+  }
+
+  void Awake() {
     Offset = Random.Range(0, 1);
     Speed = Random.Range(MinSpeed, MaxSpeed);
     InitialColor = (Color)(Image?.color ?? SpriteRenderer?.color);
@@ -32,6 +39,10 @@ public class OscillateBrightness : MonoBehaviour {
       InitialColor.a
     );
 
+    UpdateColor(color);
+  }
+
+  private void UpdateColor(Color color) {
     if (Image) {
       Image.color = color;
     }

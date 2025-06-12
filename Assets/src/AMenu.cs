@@ -30,10 +30,10 @@ public abstract class AMenu : MonoBehaviour {
       );
     }
 
+    LocalStart();
+
     SetVisible(StartsVisible);
     SetFocus(StartsInFocus);
-
-    LocalStart();
 
     UpdateNavigation();
     _Initialized = true;
@@ -84,13 +84,18 @@ public abstract class AMenu : MonoBehaviour {
 
     for (int i = 0; i < navigableButtons.Count; i++) {
       Button button = navigableButtons[i];
+      MenuButton menuButton = button.GetComponent<MenuButton>();
 
       button.navigation = new Navigation {
         mode = Navigation.Mode.Explicit,
-        selectOnUp = getRelativeButton(i, -NavigationSteps.y),
-        selectOnDown = getRelativeButton(i, NavigationSteps.y),
-        selectOnLeft = getRelativeButton(i, -NavigationSteps.x),
-        selectOnRight = getRelativeButton(i, NavigationSteps.x)
+        selectOnUp = menuButton.OverrideUp ??
+          getRelativeButton(i, -NavigationSteps.y),
+        selectOnDown = menuButton.OverrideDown ??
+          getRelativeButton(i, NavigationSteps.y),
+        selectOnLeft = menuButton.OverrideLeft ??
+          getRelativeButton(i, -NavigationSteps.x),
+        selectOnRight = menuButton.OverrideRight ??
+          getRelativeButton(i, NavigationSteps.x)
       };
     }
   }
@@ -202,11 +207,10 @@ public abstract class AMenu : MonoBehaviour {
   }
 
   void GainedFocus() {
+    LocalGainedFocus();
     Button selectedButton = LastClickedButton ?? FirstSelected ?? GetActiveButtons().FirstOrDefault();
     selectedButton?.Select();
     selectedButton?.OnSelect(null);
-
-    LocalGainedFocus();
   }
 
   protected virtual void LocalGainedFocus() { }
