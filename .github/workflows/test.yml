@@ -27,6 +27,14 @@ jobs:
       - name: Install vendor
         run: ./install_vendor.sh ${{ secrets.vendor_url }}
 
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+
+      - name: Install Ruby dependencies
+        run: bundle install
+
       # PulseAudio does not work in Docker container
       - name: Patch FMOD to disable sound
         run: |
@@ -87,6 +95,12 @@ jobs:
         with:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
           customParameters: -testFilter ${{ steps.get_tests.outputs.tests }}
+
+      - name: Report test results
+        if: always()
+        run: |
+          bundle exec ruby report_test_results.rb | tee -a results.txt
+          cat results.txt | sed 's/\x1B\[[0-9;]\{1,\}[A-Za-z]//g' >> $GITHUB_STEP_SUMMARY
 
       - name: Upload Percy screenshots
         uses: actions/upload-artifact@v4

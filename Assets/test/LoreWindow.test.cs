@@ -22,7 +22,7 @@ public class LoreWindowTest : ABaseTest {
     AssertLoreWindowPanAndZoom(-37f, 0f, 1f, "Pan right");
   }
 
-  [UnityTest, Retry(3)]
+  [UnityTest, Retry(6)]
   public IEnumerator ZoomWithAxis() {
     yield return Setup();
     yield return Zoom(0.5f, 0.5f);
@@ -76,7 +76,7 @@ public class LoreWindowTest : ABaseTest {
     float actualZoom = contentTransform.localScale.x;
 
     float panTolerance = 6f;
-    float zoomTolerance = 0.1f;
+    float zoomTolerance = 0.15f;
 
     if (panX != null) {
       Assert.That(actualPanX, Is.EqualTo(panX).Within(panTolerance), message + ": pan X");

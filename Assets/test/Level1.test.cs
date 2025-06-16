@@ -31,21 +31,21 @@ public class Level1Test : ABaseTest {
       "Elevator"
     });
     yield return TakePercyScreenshot("Level1.2");
-    AssertHasText("Use an.*Access Terminal.*to", regex: true);
+    yield return AwaitHasText("Use an.*Access Terminal.*to", regex: true);
 
     // Access terminal hint
     yield return ScriptedMovement(new[] { "Intel", "Terminal" });
-    AssertHasText("Find a.*Keycard.*to", regex: true);
+    yield return AwaitHasText("Find a.*Keycard.*to", regex: true);
 
     yield return KillAllEnemiesAndAwaitKeycard();
 
     // Elevator hint
     yield return ScriptedMovement(new[] { "Intel", "Elevator" });
-    AssertHasText("Use an.*Access Terminal.*to", regex: true);
+    yield return AwaitHasText("Use an.*Access Terminal.*to", regex: true);
 
     // Use access terminal
     yield return ScriptedMovement(new[] { "Intel", "Terminal" });
-    AssertHasText("Press.*to use", regex: true);
+    yield return AwaitHasText("Press.*to use", regex: true);
     yield return PressButton("Inspect");
     yield return new WaitForSeconds(1f);
     yield return TakePercyScreenshot("Level1.AccessTerminal");
@@ -54,12 +54,12 @@ public class Level1Test : ABaseTest {
     yield return PressButton("Cancel");
     yield return AwaitPlayingState();
 
-    AssertHasText("1.*undiscovered.*Piece of Intel", regex: true);
+    yield return AwaitHasText("1.*undiscovered.*Piece of Intel", regex: true);
 
     // Intel
     yield return ScriptedMovement("Intel");
     yield return new WaitForSeconds(0.5f);
-    AssertHasText("Press.*to steal", regex: true);
+    yield return AwaitHasText("Press.*to steal", regex: true);
     yield return PressButton("Inspect");
     AssertHasText("Presence board");
     yield return PressButton("Cancel");
@@ -67,7 +67,7 @@ public class Level1Test : ABaseTest {
 
     // Elevator
     yield return ScriptedMovement("Elevator");
-    AssertHasText("Press.*to use", regex: true);
+    yield return AwaitHasText("Press.*to use", regex: true);
     yield return PressButton("Inspect");
     yield return PressButton("Confirm");
 

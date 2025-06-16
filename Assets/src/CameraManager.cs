@@ -72,6 +72,7 @@ public class CameraManager : MonoBehaviour {
   private void FinishedOrInterrupted() {
     if (OnFinishOrInterrupt != null) {
       OnFinishOrInterrupt();
+      OnFinishOrInterrupt = null;
     }
   }
 

@@ -12,7 +12,7 @@ def yellow(str)
   "\e[33m#{str}\e[0m"
 end
 
-results_path = File.expand_path('./tests.xml', __dir__)
+results_path = File.expand_path('./artifacts/playmode-results.xml', __dir__)
 results = Nokogiri::XML(File.open(results_path))
 
 failure_messages = []
@@ -49,7 +49,3 @@ failure_messages.each do |message|
   puts
   puts red(message)
 end
-
-File.delete(results_path)
-
-exit 1 if failure_messages.any?

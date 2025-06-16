@@ -9,8 +9,19 @@ public class SceneEvents : MonoBehaviour {
   public bool SingletonInstance = true;
   public static SceneEvents Current;
 
-  public bool ShouldFadeIn = true, ShouldFadeOut = true, WaitForFadeInBeforePermittingExit = false, PauseGameplayDuringFadeOut = false;
-  public float FadeInDelay, FadeInDuration, FadeOutDuration, PostFadeOutDelay;
+  public bool
+    ShouldFadeIn = true,
+    ShouldFadeOut = true,
+    WaitForFadeInBeforePermittingExit = false,
+    PauseGameplayDuringFadeOut = false;
+
+  public float
+    FadeInDelay,
+    FadeInDuration,
+    FadeInDurationOnRetry = -1f,
+    FadeOutDuration,
+    PostFadeOutDelay;
+
   public bool IsRetry = false;
 
   [SerializeField] public UnityEvent OnFadeIn;
@@ -36,8 +47,12 @@ public class SceneEvents : MonoBehaviour {
   }
 
   void FadeIn() {
-    ScreenFade.FadeIn(FadeInDuration);
-    Invoke("AfterFadeIn", FadeInDuration);
+    float duration = IsRetry && FadeInDurationOnRetry > 0f
+      ? FadeInDurationOnRetry
+      : FadeInDuration;
+
+    ScreenFade.FadeIn(duration);
+    Invoke("AfterFadeIn", duration);
   }
 
   void AfterFadeIn() {
