@@ -1,5 +1,5 @@
 #!/bin/bash
-
+# delete this comment
 # Unzip vendors into folder
 cd Assets/vendor
 unzip ../../vendor.zip
