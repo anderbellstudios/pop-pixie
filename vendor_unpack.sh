@@ -2,7 +2,7 @@
 
 # Unzip vendors into folder
 cd Assets/vendor
-unzip ../../vendor.zip
+unzip -o ../../vendor.zip
 
 # Delete plugins/fmod if exists
 rm -f -r ../Plugins/FMOD
