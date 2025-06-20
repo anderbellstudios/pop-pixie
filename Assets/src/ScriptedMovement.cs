@@ -15,7 +15,6 @@ public class ScriptedMovement : MonoBehaviour {
   private float? AvoidCollisionDistance;
   private int PathIndex = 0;
   private float Speed;
-  private float DeltaTime;
   private Action OnComplete;
   private int FollowPathId = -1;
 
@@ -39,7 +38,6 @@ public class ScriptedMovement : MonoBehaviour {
     Speed = speed;
     OnComplete = onComplete;
     Running = true;
-    DeltaTime = 0f;
 
     int currentFollowPathId = ++FollowPathId;
 
@@ -66,12 +64,6 @@ public class ScriptedMovement : MonoBehaviour {
     if (SkipAhead)
       LowPriorityBehaviour.EveryNFrames(10, TrySkipAhead);
 
-    DeltaTime += Time.deltaTime;
-
-    // Prevent enqueueing movement multiple times per FixedUpdate
-    if (MovementManager.Movement != Vector2.zero)
-      return;
-
     Vector3 destination = Path[PathIndex];
     Vector3 direction = destination - transform.position;
 
@@ -88,11 +80,9 @@ public class ScriptedMovement : MonoBehaviour {
 
     MovementManager.Move(
       direction.normalized * Mathf.Min(
-        Speed * avoidCollisionFactor * DeltaTime, direction.magnitude
+        Speed * avoidCollisionFactor * Time.deltaTime, direction.magnitude
       )
     );
-
-    DeltaTime = 0f;
   }
 
   void FinishedPath() {

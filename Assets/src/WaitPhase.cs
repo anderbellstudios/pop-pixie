@@ -4,8 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 public class WaitPhase : APhase {
-
-  [SerializeField] public UnityEvent OnBegin;
+  public UnityEvent OnBegin;
 
   public override void LocalBegin() {
     OnBegin.Invoke();
@@ -15,5 +14,4 @@ public class WaitPhase : APhase {
     if (Running)
       PhaseFinished();
   }
-
 }

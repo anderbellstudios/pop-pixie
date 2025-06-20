@@ -153,6 +153,54 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!1 &6825878281874802974
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5692111671776397543}
+  - component: {fileID: 7289461456034618388}
+  m_Layer: 0
+  m_Name: Fall From Vertical Face
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5692111671776397543
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6825878281874802974}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 4, y: 4, z: 4}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3154565098136751856}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7289461456034618388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6825878281874802974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c9bd004740ac4b618536fbf095bd18e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BulletLayer: {fileID: 3125628876245582877}
+  Rigidbody: {fileID: 3132916451169411846}
+  GrenadeWaitingBeforeThrow: {fileID: 6190657918269877258}
+  Gravity: 60
 --- !u!1001 &2019188914341765480
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -390,6 +438,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8930779186304927626, guid: d851732923cc64201b6cdb6c0c5701cd,
         type: 3}
       insertIndex: -1
+      addedObject: {fileID: 5692111671776397543}
+    - targetCorrespondingSourceObject: {fileID: 8930779186304927626, guid: d851732923cc64201b6cdb6c0c5701cd,
+        type: 3}
+      insertIndex: -1
       addedObject: {fileID: 8139233446999180600}
     - targetCorrespondingSourceObject: {fileID: 8930779186304927626, guid: d851732923cc64201b6cdb6c0c5701cd,
         type: 3}
@@ -431,6 +483,18 @@ TrailRenderer:
     type: 3}
   m_PrefabInstance: {fileID: 5780304582548719994}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3125628876245582877 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8887768667164724583, guid: d851732923cc64201b6cdb6c0c5701cd,
+    type: 3}
+  m_PrefabInstance: {fileID: 5780304582548719994}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba11cef232bad45e89db8be3b191bde5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!50 &3132916451169411846 stripped
 Rigidbody2D:
   m_CorrespondingSourceObject: {fileID: 8884931971228052092, guid: d851732923cc64201b6cdb6c0c5701cd,
@@ -579,3 +643,4 @@ MonoBehaviour:
     type: 3}
   ExplosionSound: {fileID: 2976656870268503580, guid: d1de24f008aa1453489e4ba94cebbe30,
     type: 3}
+  Debris: {fileID: 0}

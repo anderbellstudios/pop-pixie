@@ -6,6 +6,16 @@ public class DragUtils {
   public static float MaxDisplacement(float speed, float drag)
     => speed / drag;
 
+  public static Vector3 RestingPosition(Rigidbody2D rigidBody) {
+    Vector3 position = rigidBody.transform.position;
+    Vector3 velocity = rigidBody.velocity;
+    Vector3 direction = velocity.normalized;
+    float speed = velocity.magnitude;
+    float drag = rigidBody.drag;
+    Vector3 displacement = direction * MaxDisplacement(speed, drag);
+    return position + displacement;
+  }
+
   public static Vector3 VelocityForDisplacement(
     Vector3 displacement,
     float drag

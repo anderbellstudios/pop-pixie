@@ -10,12 +10,20 @@ public class CameraPan : MonoBehaviour {
 
   public UnityEvent OnFinish;
 
+  private CameraState DefaultState;
+
+  void Start() {
+    DefaultState = CameraState.FromCamera(Camera.main, FollowPlayerAfterPan);
+  }
+
   public void Perform() {
     if (PauseGameplay)
       StateManager.AddState(State.NotPlaying);
 
     CameraManager.Current.AnimateTo(
-      CameraState.FromCamera(DestinationCamera, FollowPlayerAfterPan),
+      DestinationCamera == null
+        ? DefaultState
+        : CameraState.FromCamera(DestinationCamera, FollowPlayerAfterPan),
       Duration,
       Finished
     );
