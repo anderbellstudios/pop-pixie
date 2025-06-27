@@ -24,17 +24,17 @@ public class LandingMenuTest : ABaseTest {
   [UnityTest, Retry(3)]
   public IEnumerator OpensMainMenu() {
     yield return Setup();
-    ClickByText("Begin");
+    yield return ClickByText("Begin");
     yield return AwaitSceneChange("Main Menu");
   }
 
   [UnityTest, Retry(3)]
   public IEnumerator OpensOptions() {
     yield return Setup();
-    ClickByText("Options");
+    yield return ClickByText("Options");
     AssertHasText("Graphics settings");
     RefuteHasText("Pop Pixie");
-    ClickByText("< Back");
+    yield return ClickByText("< Back");
     AssertHasText("Pop Pixie");
     yield return null;
   }
@@ -42,8 +42,8 @@ public class LandingMenuTest : ABaseTest {
   [UnityTest, Retry(3)]
   public IEnumerator OpensMissionTraining() {
     yield return Setup();
-    ClickByText("Extras");
-    ClickByText("Mission Training");
+    yield return ClickByText("Extras");
+    yield return ClickByText("Mission Training");
     yield return AwaitSceneChange("Training Game Main Menu");
   }
 }

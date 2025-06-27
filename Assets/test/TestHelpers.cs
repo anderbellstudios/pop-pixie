@@ -134,10 +134,13 @@ public abstract class ABaseTest {
     Assert.AreEqual(0, matchCount, "RefuteHasText: Found " + matchCount + " GameObjects with text: " + expected);
   }
 
-  protected void Click(Button button) {
+  protected IEnumerator Click(Button button) {
     if (button == null) {
       Assert.Fail("Click: Button is null");
     }
+
+    // Ensure the button is visible before checking if it's raycastable
+    yield return null;
 
     if (!CheckGraphicsRaycast(button.gameObject)) {
       Assert.Fail("Click: Cannot graphics raycast to button. Check that the canvas has a GraphicRaycast component and is in Screen Space: Camera.");
@@ -146,7 +149,7 @@ public abstract class ABaseTest {
     button.onClick.Invoke();
   }
 
-  protected void Click(GameObject go) {
+  protected IEnumerator Click(GameObject go) {
     if (go == null) {
       Assert.Fail("Click: GameObject is null");
     }
@@ -157,14 +160,17 @@ public abstract class ABaseTest {
       Assert.Fail("Click: GameObject is not inside a Button");
     }
 
-    Click(button);
+    yield return Click(button);
   }
 
   protected bool CheckGraphicsRaycast(GameObject go) {
     Canvas canvas = go.GetComponentInParent<Canvas>();
     if (!canvas) return false;
 
-    Vector3 objectPoint = go.transform.position;
+    Vector3 objectPoint = go.transform.TransformPoint(
+      ((RectTransform)go.transform).rect.center
+    );
+
     Vector3 rectPoint = objectPoint / canvas.transform.localScale.x;
     Vector3 worldPoint = canvas.transform.TransformPoint(rectPoint);
     Vector3 screenPoint = RectTransformUtility.WorldToScreenPoint(Camera.main, worldPoint);
@@ -180,7 +186,7 @@ public abstract class ABaseTest {
     return result.gameObject.transform.IsChildOf(go.transform);
   }
 
-  protected void ClickByText(
+  protected IEnumerator ClickByText(
     string text,
     bool regex = false,
     bool includeInactive = false

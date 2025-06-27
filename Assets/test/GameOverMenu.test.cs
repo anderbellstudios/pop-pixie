@@ -17,7 +17,7 @@ public class GameOverTest : ABaseTest {
   public IEnumerator PercyScreenshots() {
     yield return Setup();
     yield return TakePercyScreenshot("GameOver");
-    ClickByText("Assist mode");
+    yield return ClickByText("Assist mode");
     yield return TakePercyScreenshot("GameOver.Assist");
   }
 }

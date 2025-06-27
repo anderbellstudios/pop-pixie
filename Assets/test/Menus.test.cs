@@ -94,11 +94,11 @@ public class MenusTest : ABaseTest {
     yield return Hover(optionsButton);
     Assert.AreEqual(1, MenuSoundCount);
 
-    Click(optionsButton);
+    yield return Click(optionsButton);
     yield return null;
     Assert.AreEqual(2, MenuSoundCount);
 
-    ClickByText("< Back");
+    yield return ClickByText("< Back");
     yield return Hover(beginButton);
 
     Assert.AreEqual(3, MenuSoundCount);
@@ -111,7 +111,7 @@ public class MenusTest : ABaseTest {
 
     Button optionsButton = FindButtonByText("Options");
 
-    Click(optionsButton);
+    yield return Click(optionsButton);
     yield return null;
     Assert.AreEqual(1, MenuSoundCount);
 

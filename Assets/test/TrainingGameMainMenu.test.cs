@@ -25,7 +25,7 @@ public class TrainingGameMainMenu : ABaseTest {
   [UnityTest, Retry(3)]
   public IEnumerator StartsMissionTraining() {
     yield return Setup();
-    Click(GameObject.Find("Mission Training game"));
+    yield return Click(GameObject.Find("Mission Training game"));
     yield return AwaitSceneChange("Training Game Tower Scene");
     yield return AwaitSceneChange("Training Room 1", retries: 30);
   }
@@ -33,7 +33,7 @@ public class TrainingGameMainMenu : ABaseTest {
   [UnityTest, Retry(3)]
   public IEnumerator Quits() {
     yield return Setup();
-    ClickByText("Quit");
+    yield return ClickByText("Quit");
     yield return AwaitSceneChange("Landing");
   }
 }

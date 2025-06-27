@@ -42,14 +42,14 @@ public class TrainingRoom4Test : ABaseTest {
     MoveUp();
     yield return AwaitText("unsatisfactory", regex: true);
     yield return AdvanceDialogue();
-    ClickByText("Try again");
+    yield return ClickByText("Try again");
     StopMoving();
 
     yield return GoAroundLevel();
     MoveUp();
     yield return AwaitText("Congratulations", regex: true);
     yield return AdvanceDialogue();
-    ClickByText("Move on");
+    yield return ClickByText("Move on");
 
     yield return AwaitSceneChange("Training Room 5");
   }
