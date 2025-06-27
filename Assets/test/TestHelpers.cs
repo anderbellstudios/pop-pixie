@@ -139,12 +139,7 @@ public abstract class ABaseTest {
       Assert.Fail("Click: Button is null");
     }
 
-    // Ensure the button is visible before checking if it's raycastable
-    yield return null;
-
-    if (!CheckGraphicsRaycast(button.gameObject)) {
-      Assert.Fail("Click: Cannot graphics raycast to button. Check that the canvas has a GraphicRaycast component and is in Screen Space: Camera.");
-    }
+    yield return CheckGraphicsRaycast(button.gameObject);
 
     button.onClick.Invoke();
   }
@@ -163,16 +158,20 @@ public abstract class ABaseTest {
     yield return Click(button);
   }
 
-  protected bool CheckGraphicsRaycast(GameObject go) {
+  protected IEnumerator CheckGraphicsRaycast(GameObject go) {
+    // Ensure the GameObject is visible
+    yield return null;
+
     Canvas canvas = go.GetComponentInParent<Canvas>();
-    if (!canvas) return false;
+    if (!canvas)
+      Assert.Fail("CheckGraphicsRaycast: GameObject is not inside a Canvas");
 
     Vector3 objectPoint = go.transform.TransformPoint(
       ((RectTransform)go.transform).rect.center
     );
 
     Vector3 rectPoint = objectPoint / canvas.transform.localScale.x;
-    Vector3 worldPoint = canvas.transform.TransformPoint(rectPoint);
+    Vector3 worldPoint = canvas.transform.TransformPoint(rectPoint) - Camera.main.transform.position;
     Vector3 screenPoint = RectTransformUtility.WorldToScreenPoint(Camera.main, worldPoint);
 
     PointerEventData pointerEventData = new PointerEventData(EventSystem.current);
@@ -180,10 +179,13 @@ public abstract class ABaseTest {
     List<RaycastResult> results = new();
     EventSystem.current.RaycastAll(pointerEventData, results);
 
-    if (results.Count < 1) return false;
+    if (results.Count < 1)
+      Assert.Fail(String.Format("CheckGraphicsRaycast: No UI element at screen position {0}", screenPoint));
+
     RaycastResult result = results[0];
 
-    return result.gameObject.transform.IsChildOf(go.transform);
+    if (!result.gameObject.transform.IsChildOf(go.transform))
+      Assert.Fail("CheckGraphicsRaycast: Hit an unexpected GameObject");
   }
 
   protected IEnumerator ClickByText(
