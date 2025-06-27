@@ -134,14 +134,17 @@ public abstract class ABaseTest {
     Assert.AreEqual(0, matchCount, "RefuteHasText: Found " + matchCount + " GameObjects with text: " + expected);
   }
 
-  protected void Click(Button button) {
+  protected IEnumerator Click(Button button) {
     if (button == null) {
       Assert.Fail("Click: Button is null");
     }
+
+    yield return CheckGraphicsRaycast(button.gameObject);
+
     button.onClick.Invoke();
   }
 
-  protected void Click(GameObject go) {
+  protected IEnumerator Click(GameObject go) {
     if (go == null) {
       Assert.Fail("Click: GameObject is null");
     }
@@ -152,10 +155,40 @@ public abstract class ABaseTest {
       Assert.Fail("Click: GameObject is not inside a Button");
     }
 
-    Click(button);
+    yield return Click(button);
   }
 
-  protected void ClickByText(
+  protected IEnumerator CheckGraphicsRaycast(GameObject go) {
+    // Ensure the GameObject is visible
+    yield return null;
+
+    Canvas canvas = go.GetComponentInParent<Canvas>();
+    if (!canvas)
+      Assert.Fail("CheckGraphicsRaycast: GameObject is not inside a Canvas");
+
+    Vector3 objectPoint = go.transform.TransformPoint(
+      ((RectTransform)go.transform).rect.center
+    );
+
+    Vector3 rectPoint = objectPoint / canvas.transform.localScale.x;
+    Vector3 worldPoint = canvas.transform.TransformPoint(rectPoint) - Camera.main.transform.position;
+    Vector3 screenPoint = RectTransformUtility.WorldToScreenPoint(Camera.main, worldPoint);
+
+    PointerEventData pointerEventData = new PointerEventData(EventSystem.current);
+    pointerEventData.position = screenPoint;
+    List<RaycastResult> results = new();
+    EventSystem.current.RaycastAll(pointerEventData, results);
+
+    if (results.Count < 1)
+      Assert.Fail(String.Format("CheckGraphicsRaycast: No UI element at screen position {0}", screenPoint));
+
+    RaycastResult result = results[0];
+
+    if (!result.gameObject.transform.IsChildOf(go.transform))
+      Assert.Fail("CheckGraphicsRaycast: Hit an unexpected GameObject");
+  }
+
+  protected IEnumerator ClickByText(
     string text,
     bool regex = false,
     bool includeInactive = false

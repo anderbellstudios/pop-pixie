@@ -39,19 +39,19 @@ public class PauseMenuTest : ABaseTest {
   public IEnumerator PercyScreenshots() {
     yield return Setup();
     yield return TakePercyScreenshot("Pause");
-    ClickByText("Pieces of Intel");
+    yield return ClickByText("Pieces of Intel");
     yield return TakePercyScreenshot("Pause.LoreMenu");
-    ClickByText("Mentoes Tower brochure");
+    yield return ClickByText("Mentoes Tower brochure");
     yield return TakePercyScreenshot("Pause.LoreWindow");
     yield return PressButton("Cancel");
     yield return PressButton("Cancel");
-    ClickByText("Options");
+    yield return ClickByText("Options");
     yield return TakePercyScreenshot("Pause.Options");
-    ClickByText("< Back");
-    ClickByText("Assist mode");
+    yield return ClickByText("< Back");
+    yield return ClickByText("Assist mode");
     yield return TakePercyScreenshot("Pause.Assist");
-    ClickByText("< Back");
-    ClickByText("Quit game");
+    yield return ClickByText("< Back");
+    yield return ClickByText("Quit game");
     yield return TakePercyScreenshot("Pause.Quit");
   }
 }
