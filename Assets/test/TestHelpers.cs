@@ -138,6 +138,11 @@ public abstract class ABaseTest {
     if (button == null) {
       Assert.Fail("Click: Button is null");
     }
+
+    if (!CheckGraphicsRaycast(button.gameObject)) {
+      Assert.Fail("Click: Cannot graphics raycast to button. Check that the canvas has a GraphicRaycast component and is in Screen Space: Camera.");
+    }
+
     button.onClick.Invoke();
   }
 
@@ -153,6 +158,26 @@ public abstract class ABaseTest {
     }
 
     Click(button);
+  }
+
+  protected bool CheckGraphicsRaycast(GameObject go) {
+    Canvas canvas = go.GetComponentInParent<Canvas>();
+    if (!canvas) return false;
+
+    Vector3 objectPoint = go.transform.position;
+    Vector3 rectPoint = objectPoint / canvas.transform.localScale.x;
+    Vector3 worldPoint = canvas.transform.TransformPoint(rectPoint);
+    Vector3 screenPoint = RectTransformUtility.WorldToScreenPoint(Camera.main, worldPoint);
+
+    PointerEventData pointerEventData = new PointerEventData(EventSystem.current);
+    pointerEventData.position = screenPoint;
+    List<RaycastResult> results = new();
+    EventSystem.current.RaycastAll(pointerEventData, results);
+
+    if (results.Count < 1) return false;
+    RaycastResult result = results[0];
+
+    return result.gameObject.transform.IsChildOf(go.transform);
   }
 
   protected void ClickByText(
