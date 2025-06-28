@@ -19,6 +19,7 @@ public abstract class ABaseTest {
     GameData.FileName = "game-test-" + runId;
     ConfigData.FileName = "config-test-" + runId;
     TestMode.Enabled = true;
+    Shader.SetGlobalInteger("_TestMode", 1);
     GameData.Current.Clear();
     ConfigData.Current.Clear();
     CheckpointData.Reset();

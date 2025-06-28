@@ -65,6 +65,7 @@ Shader "Custom/OutlineShader" {
       float _OutlineSize;
       float _OpacityMin;
       float _OpacityMax;
+      int _TestMode;
 
       float _AlphaSplitEnabled;
 
@@ -96,7 +97,17 @@ Shader "Custom/OutlineShader" {
             SampleSpriteTexture(IN.texcoord + float2(0, -_OutlineSize)).a == 0 ||
             SampleSpriteTexture(IN.texcoord + float2(_OutlineSize, 0)).a == 0 ||
             SampleSpriteTexture(IN.texcoord + float2(-_OutlineSize, 0)).a == 0
-          ) return lerp(c, _OutlineColor, lerp(_OpacityMin, _OpacityMax, (_SinTime.w + 1) / 2));
+          ) {
+            return lerp(
+              c,
+              _OutlineColor,
+              _TestMode ? _OpacityMax : lerp(
+                _OpacityMin,
+                _OpacityMax,
+                (_SinTime.w + 1) / 2
+              )
+            );
+          }
         }
         return c;
       }
