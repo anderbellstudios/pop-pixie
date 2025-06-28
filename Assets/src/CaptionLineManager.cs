@@ -55,12 +55,16 @@ public class CaptionLineManager : MonoBehaviour {
 
     float time = CurrentTime - StartTime;
 
-    if (time < FadeInDuration) {
-      SetOpacity(time / FadeInDuration);
-    } else if (time < CaptionLine.Duration) {
+    if (TestMode.Enabled) {
       SetOpacity(1);
     } else {
-      SetOpacity(1 - (time - CaptionLine.Duration) / FadeOutDuration);
+      if (time < FadeInDuration) {
+        SetOpacity(time / FadeInDuration);
+      } else if (time < CaptionLine.Duration) {
+        SetOpacity(1);
+      } else {
+        SetOpacity(1 - (time - CaptionLine.Duration) / FadeOutDuration);
+      }
     }
 
     if (time >= CaptionLine.Duration + FadeOutDuration) {
