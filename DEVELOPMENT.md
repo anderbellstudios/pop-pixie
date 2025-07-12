@@ -8,68 +8,16 @@ Other source files, such as images, scenes, prefabs and animations should be pla
 
 ## 2	Code style
 
-Note that some older source files don't yet follow this style guide. If you're editing an existing file, feel free to fix the code style. To keep pull requests clean, don't make purely cosmetic changes to files you wouldn't otherwise be modifying.
+### 2.1	Linting
 
-### 2.1	Line length and indentation
+We use a fork of [CSharpier](https://csharpier.com/) for linting.
 
-Generally try to keep lines less than 80 characters long.
-
-If a method definition or call exceeds this, split it into multiple lines.
-
-Each level of nesting should use exactly two spaces of indentation.
-
-```cs
-public class MyClass {
-  public void MyMethodWithLotsOfArguments(
-    string argument1,
-    string argument2,
-    string argument3,
-    // ...
-  ) {
-    SomeMethod(
-      argument1: "One",
-      argument2: "Two",
-      argument3: AnotherMethod(
-        argument4: "Four",
-        argument5: "Five"
-      ),
-      // ...
-    );
-  }
-}
+```
+dotnet tool restore # First time only
+yarn lint:fix # Automatically format *.cs files
 ```
 
-When splitting arrow methods onto multiple lines, place the arrow on the next line with two additional spaces of indentation. If the expression also occupies more than one line, treat the arrow as the first line of the function for the purposes of determining indentation.
-
-```cs
-public class MyClass {
-  public float MyArrowFunction(float a, float b, float c)
-    => SomeMethod(
-      argument1: "One",
-      argument2: "Two",
-      argument3: "Three"
-    );
-}
-```
-
-### 2.2	Curly brackets
-
-Place opening curly brackets on the same line as the statement preceding them.
-
-Optionally, omit curly brackets for single-statement blocks, and place the statement on the following line with two spaces of indentation.
-
-```cs
-// Fine
-if (someCondition) {
-  singleStatement();
-}
-
-// Also fine
-if (someCondition)
-  singleStatement();
-```
-
-### 2.3	Fields and properties
+### 2.2	Fields and properties
 
 By default, use fields instead of properties, since they appear automatically in the Unity inspector.
 
@@ -83,8 +31,6 @@ If a field should be editable in the Unity inspector, make it public. Otherwise,
 
 Public fields should only have default values if the script will be used in multiple scenes or prefabs. For scripts that are used in only one place, do not provide default values.
 
-Public fields should come before private fields, separated by a blank line.
-
 ```cs
 public class MyClass : MonoBehvaiour {
   public float Speed;
@@ -97,7 +43,7 @@ public class MyClass : MonoBehvaiour {
 }
 ```
 
-### 2.4	Methods
+### 2.3	Methods
 
 `Awake`, `Start`, `Update` and other methods provided by Unity should usually appear before other methods. Do not use access modifiers for these methods.
 
@@ -106,8 +52,6 @@ Generally, `Start` should be preferred over `Awake`.
 All other methods should usually be marked as `public`, `private`. Generally, public methods should appear before private methods. If method A calls method B, method A should generally come first.
 
 All methods should start with a capital letter.
-
-There should be a blank line between each pair of methods.
 
 Methods that return a single expression should use arrow syntax. Consider removing the brackets for arrow methods with no parameters, so that they can be accessed like properties.
 
@@ -133,7 +77,7 @@ public class MyClass : MonoBehvaiour {
 }
 ```
 
-### 	2.5	Referencing other scripts and GameObjects
+### 	2.4	Referencing other scripts and GameObjects
 
 Generally, scripts and GameObjects should be connected to one another using public fields in the Unity inspector.
 
@@ -169,7 +113,7 @@ When referencing a script or GameObject that only appears once in a scene, and w
 
 For example, you can access the player's GameObject from any script using `PlayerGameObject.Current`.
 
-#### 2.5.1	Singleton pattern
+#### 2.4.1	Singleton pattern
 
 Define a public static field called `Current` and a public non-static boolean field `SingletonInstance` (defaulting to true) on the singleton class.
 
@@ -192,7 +136,7 @@ MySingleton.Current
 
 **Warning**: Do not try to access `MySingleton.Current` from the `Awake` method of another class. It will sometimes work, depending on the execution order of scripts in the scene, but it cannot be relied upon. Always access singleton objects from `Start` or `Update`. 
 
-### 2.6	Comments
+### 2.5	Comments
 
 Comments less than 80 characters long should use single-line comments.
 
