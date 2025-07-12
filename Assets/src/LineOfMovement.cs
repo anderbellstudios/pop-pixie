@@ -19,15 +19,18 @@ public class LineOfMovement : MonoBehaviour {
     RaycastHit2D hit;
 
     if (exclude) {
-      hit = Physics2D.CapsuleCastAll(
-        origin: start,
-        size: safeCapsuleSize,
-        capsuleDirection: CapsuleDirection2D.Vertical,
-        angle: 0f,
-        direction: direction,
-        distance: direction.magnitude,
-        layerMask: safeLayerMask
-      ).Where(hit => hit && hit.collider.gameObject != exclude).FirstOrDefault();
+      hit = Physics2D
+        .CapsuleCastAll(
+          origin: start,
+          size: safeCapsuleSize,
+          capsuleDirection: CapsuleDirection2D.Vertical,
+          angle: 0f,
+          direction: direction,
+          distance: direction.magnitude,
+          layerMask: safeLayerMask
+        )
+        .Where(hit => hit && hit.collider.gameObject != exclude)
+        .FirstOrDefault();
     } else {
       hit = Physics2D.CapsuleCast(
         origin: start,

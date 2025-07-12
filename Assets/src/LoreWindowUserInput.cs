@@ -7,7 +7,9 @@ public class LoreWindowUserInput : MonoBehaviour {
 
   public float AxisThreshold;
   public float PanSpeed;
-  public float ZoomSpeed, MaxZoom, MinZoom;
+  public float ZoomSpeed,
+    MaxZoom,
+    MinZoom;
   public float ClickZoomThreshold;
   public List<float> ClickZoomLevels;
 
@@ -81,10 +83,8 @@ public class LoreWindowUserInput : MonoBehaviour {
   }
 
   void ChangeZoom(float direction) {
-    LoreWindow.SetZoom((scale) => Mathf.Clamp(
-      scale * (1 + direction * ZoomSpeed * Time.deltaTime),
-      MinZoom,
-      MaxZoom
-    ));
+    LoreWindow.SetZoom(
+      (scale) => Mathf.Clamp(scale * (1 + direction * ZoomSpeed * Time.deltaTime), MinZoom, MaxZoom)
+    );
   }
 }

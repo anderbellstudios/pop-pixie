@@ -5,7 +5,8 @@ using UnityEngine;
 public class Turret : MonoBehaviour {
   public Transform SpriteTransform;
   public FireBullets FireBullets;
-  public float FireDuration, CoolDownDuration;
+  public float FireDuration,
+    CoolDownDuration;
   public float AimSpeed = -1f;
 
   private bool CoolingDown = false;
@@ -34,10 +35,7 @@ public class Turret : MonoBehaviour {
     SpriteTransform.rotation = Quaternion.Euler(
       0,
       0,
-      Mathf.Atan2(
-        VirtualPlayerDirection.y,
-        VirtualPlayerDirection.x
-      ) * Mathf.Rad2Deg
+      Mathf.Atan2(VirtualPlayerDirection.y, VirtualPlayerDirection.x) * Mathf.Rad2Deg
     );
   }
 
@@ -46,15 +44,11 @@ public class Turret : MonoBehaviour {
   }
 
   private void StartFiring() {
-    FireBullets.BeginFiring(
-      getTarget: () => transform.position + DistanceToPlayer * VirtualPlayerDirection
+    FireBullets.BeginFiring(getTarget: () =>
+      transform.position + DistanceToPlayer * VirtualPlayerDirection
     );
 
-    AsyncTimer.PlayingTime.SetTimeout(
-      StopFiring,
-      FireDuration,
-      bindToBehaviour: this
-    );
+    AsyncTimer.PlayingTime.SetTimeout(StopFiring, FireDuration, bindToBehaviour: this);
   }
 
   private void StopFiring() {
@@ -72,10 +66,11 @@ public class Turret : MonoBehaviour {
   private Vector3 DirectionToPlayer => VectorToPlayer.normalized;
   private float DistanceToPlayer => VectorToPlayer.magnitude;
 
-  private bool CanSeePlayer() => !Physics2D.Raycast(
-    transform.position,
-    DirectionToPlayer,
-    DistanceToPlayer,
-    CollisionMask.OpaqueMask
-  );
+  private bool CanSeePlayer() =>
+    !Physics2D.Raycast(
+      transform.position,
+      DirectionToPlayer,
+      DistanceToPlayer,
+      CollisionMask.OpaqueMask
+    );
 }

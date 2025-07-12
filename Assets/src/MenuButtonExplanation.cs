@@ -1,16 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class MenuButtonExplanation : MonoBehaviour {
   public AMenu Menu;
   public TMP_Text Text;
 
   void Start() {
-    SelectionChangeListener.AddListener((currentSelected, previousSelected) => {
-      Text.text = GetExplanation(currentSelected);
-    }, gameObject);
+    SelectionChangeListener.AddListener(
+      (currentSelected, previousSelected) => {
+        Text.text = GetExplanation(currentSelected);
+      },
+      gameObject
+    );
   }
 
   private string GetExplanation(GameObject go) {

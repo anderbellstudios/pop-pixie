@@ -1,16 +1,22 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class SimulationResultsScreenEvents : MonoBehaviour {
-  public TMP_Text CompletionTimeText, NumberOfHitsTakenText, ObstacleCourseBestTimeText;
+  public TMP_Text CompletionTimeText,
+    NumberOfHitsTakenText,
+    ObstacleCourseBestTimeText;
   public WaitPhase WaitForConfirm;
 
-  public Color GoodColor, BadColor;
-  public int GoodCompletionTime, GoodHitsTaken, GoodBestTime;
-  public DialogueHopper GoodDialogue, BadDialogue;
+  public Color GoodColor,
+    BadColor;
+  public int GoodCompletionTime,
+    GoodHitsTaken,
+    GoodBestTime;
+  public DialogueHopper GoodDialogue,
+    BadDialogue;
 
   void Start() {
     SimulationResultData.FinishedTime = PlayingTime.time;
@@ -25,15 +31,24 @@ public class SimulationResultsScreenEvents : MonoBehaviour {
 
     CompletionTimeText.text = TimeSpan.FromSeconds(completionTime).ToString(@"hh\:mm\:ss");
     CompletionTimeText.color = completionTime <= GoodCompletionTime ? GoodColor : BadColor;
-    NotAnalytics.Current.Hit("training-simulation-results:completion-time", goodCompletionTime ? "good" : "bad");
+    NotAnalytics.Current.Hit(
+      "training-simulation-results:completion-time",
+      goodCompletionTime ? "good" : "bad"
+    );
 
     NumberOfHitsTakenText.text = hitsTaken.ToString();
     NumberOfHitsTakenText.color = hitsTaken <= GoodHitsTaken ? GoodColor : BadColor;
-    NotAnalytics.Current.Hit("training-simulation-results:hits-taken", goodHitsTaken ? "good" : "bad");
+    NotAnalytics.Current.Hit(
+      "training-simulation-results:hits-taken",
+      goodHitsTaken ? "good" : "bad"
+    );
 
     ObstacleCourseBestTimeText.text = String.Format("{0}s", bestTime ?? 40);
     ObstacleCourseBestTimeText.color = bestTime <= GoodBestTime ? GoodColor : BadColor;
-    NotAnalytics.Current.Hit("training-simulation-results:obstacle-course-best-time", goodBestTime ? "good" : "bad");
+    NotAnalytics.Current.Hit(
+      "training-simulation-results:obstacle-course-best-time",
+      goodBestTime ? "good" : "bad"
+    );
   }
 
   public void PlayResultsDialogue() {

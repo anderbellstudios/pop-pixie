@@ -70,15 +70,11 @@ public class EnemyAIHelper {
     SetNavigateToPointDestination(PlayerPosition);
   }
 
-  public bool CanSeePlayer() => !Physics2D.Raycast(
-    Position,
-    DirectionToPlayer,
-    DistanceToPlayer,
-    CollisionMask.OpaqueMask
-  );
+  public bool CanSeePlayer() =>
+    !Physics2D.Raycast(Position, DirectionToPlayer, DistanceToPlayer, CollisionMask.OpaqueMask);
 
-  public bool CanMoveToPlayer(Vector3? start = null)
-    => LineOfMovement.Check(
+  public bool CanMoveToPlayer(Vector3? start = null) =>
+    LineOfMovement.Check(
       start: start ?? Position,
       end: PlayerPosition,
       capsuleSize: CapsuleCollider2D.size,
@@ -124,19 +120,25 @@ public class EnemyAIHelper {
     HitPoints.Damage(Mathf.Infinity);
   }
 
-  public List<GameObject> OtherEnemies() => GameObject
-    .FindGameObjectsWithTag("Enemy")
-    .Where(enemy => enemy != GameObject)
-    .ToList();
+  public List<GameObject> OtherEnemies() =>
+    GameObject.FindGameObjectsWithTag("Enemy").Where(enemy => enemy != GameObject).ToList();
 
   public AsyncTimer.EnqueuedEvent SetTimeout(System.Action callback, float timeout) {
-    AsyncTimer.EnqueuedEvent timer = AsyncTimer.PlayingTime.SetTimeout(callback, timeout, GameObject);
+    AsyncTimer.EnqueuedEvent timer = AsyncTimer.PlayingTime.SetTimeout(
+      callback,
+      timeout,
+      GameObject
+    );
     Timers.Add(timer);
     return timer;
   }
 
   public AsyncTimer.EnqueuedEvent SetInterval(System.Action callback, float interval) {
-    AsyncTimer.EnqueuedEvent timer = AsyncTimer.PlayingTime.SetInterval(callback, interval, GameObject);
+    AsyncTimer.EnqueuedEvent timer = AsyncTimer.PlayingTime.SetInterval(
+      callback,
+      interval,
+      GameObject
+    );
     Timers.Add(timer);
     return timer;
   }
@@ -158,7 +160,10 @@ public class EnemyAIHelper {
 
   private void CheckMovementAllowed() {
 #if UNITY_EDITOR
-    Debug.Assert(MovementAllowed, "Only AIs inheriting from AMovementEnemyAI are allowed to perform movement.");
+    Debug.Assert(
+      MovementAllowed,
+      "Only AIs inheriting from AMovementEnemyAI are allowed to perform movement."
+    );
 #endif
   }
 }

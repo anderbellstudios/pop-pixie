@@ -48,19 +48,21 @@ public class EnemyHitPointEvents : MonoBehaviour {
       DeathAnimation?.Play();
     });
 
-    MovementManager?.SpeedModifiers.Add((speed) => {
-      if (!SlowOnDamage || SlowStopwatch == null)
-        return speed;
+    MovementManager?.SpeedModifiers.Add(
+      (speed) => {
+        if (!SlowOnDamage || SlowStopwatch == null)
+          return speed;
 
-      float progress = SlowStopwatch.Progress(SlowOnDamageDuration);
-      float factor = (1f - Mathf.Cos(progress * Mathf.PI)) / 2f;
+        float progress = SlowStopwatch.Progress(SlowOnDamageDuration);
+        float factor = (1f - Mathf.Cos(progress * Mathf.PI)) / 2f;
 
-      if (progress >= 1f) {
-        SlowStopwatch = null;
+        if (progress >= 1f) {
+          SlowStopwatch = null;
+        }
+
+        return speed * factor;
       }
-
-      return speed * factor;
-    });
+    );
   }
 
   void DisableAIs() {

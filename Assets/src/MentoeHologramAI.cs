@@ -9,6 +9,5 @@ public class MentoeHologramAI : AMovementEnemyAI {
     Activate();
   }
 
-  protected override AMovementEnemyAI UseMovementAI()
-    => AttackingAI;
+  protected override AMovementEnemyAI UseMovementAI() => AttackingAI;
 }

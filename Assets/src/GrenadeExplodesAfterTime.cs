@@ -10,7 +10,8 @@ public class GrenadeExplodesAfterTime : MonoBehaviour {
   public float ExplodeTime;
   public float Radius;
   public float DamageExplodingInHand;
-  public bool DamagesPlayer = true, DamagesEnemies = true;
+  public bool DamagesPlayer = true,
+    DamagesEnemies = true;
   public bool IsDestructive = true;
   public float VelocityCoefficient;
   public AnimationCurve DamageCurve;
@@ -60,8 +61,12 @@ public class GrenadeExplodesAfterTime : MonoBehaviour {
       }
     );
 
-    // Send grenade back to originator on counterattack 
-    if (isCounterAttack && BulletData.Originator && BulletData.Originator != PlayerGameObject.Current) {
+    // Send grenade back to originator on counterattack
+    if (
+      isCounterAttack
+      && BulletData.Originator
+      && BulletData.Originator != PlayerGameObject.Current
+    ) {
       Vector3 toOriginator = (BulletData.Originator.transform.position - transform.position);
       Rigidbody.velocity = toOriginator * VelocityCoefficient;
       DamagesEnemies = true;
@@ -69,7 +74,11 @@ public class GrenadeExplodesAfterTime : MonoBehaviour {
       return;
     }
 
-    GameObject ExplosionGameObject = Instantiate(Explosion, transform.position, Quaternion.identity);
+    GameObject ExplosionGameObject = Instantiate(
+      Explosion,
+      transform.position,
+      Quaternion.identity
+    );
     ExplosionGameObject.transform.localScale = new Vector3(2 * Radius, 2 * Radius, 2 * Radius);
 
     if (ExplosionSound != null)
@@ -82,8 +91,11 @@ public class GrenadeExplodesAfterTime : MonoBehaviour {
   }
 
   private float ExplodeProgress() => ExplodeStopwatch.Progress(ExplodeTime);
+
   private float RadiusIndicatorProgress() => RadiusIndicatorStopwatch.Progress(RadiusIndicatorTime);
-  private bool WaitingToThrow() => (GrenadeWaitingBeforeThrow != null) && GrenadeWaitingBeforeThrow.Waiting;
+
+  private bool WaitingToThrow() =>
+    (GrenadeWaitingBeforeThrow != null) && GrenadeWaitingBeforeThrow.Waiting;
 
   private void SetRadiusIndicatorRadius(float radius) {
     RadiusIndicator.localScale = 2f * radius * Vector3.one;

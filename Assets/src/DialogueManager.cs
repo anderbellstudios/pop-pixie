@@ -27,9 +27,12 @@ public class DialogueManager : MonoBehaviour {
     DialogueBox.Hide();
 
     DialogueBox.OnFinished.AddListener(() => {
-      ContinuePromptTimer = AsyncTimer.BaseTime.SetTimeout(() => {
-        DialogueBox.SetContinuePromptVisible(true);
-      }, ContinuePromptDelay);
+      ContinuePromptTimer = AsyncTimer.BaseTime.SetTimeout(
+        () => {
+          DialogueBox.SetContinuePromptVisible(true);
+        },
+        ContinuePromptDelay
+      );
     });
   }
 
@@ -95,11 +98,14 @@ public class DialogueManager : MonoBehaviour {
     if (CurrentPage.ShouldAutoAdvance()) {
       DialoguePage autoAdvancePage = CurrentPage;
 
-      AsyncTimer.BaseTime.SetTimeout(() => {
-        if (CurrentPage == autoAdvancePage) {
-          NextPage();
-        }
-      }, CurrentPage.AutoAdvanceDelay);
+      AsyncTimer.BaseTime.SetTimeout(
+        () => {
+          if (CurrentPage == autoAdvancePage) {
+            NextPage();
+          }
+        },
+        CurrentPage.AutoAdvanceDelay
+      );
     }
   }
 

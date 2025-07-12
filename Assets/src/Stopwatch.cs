@@ -24,7 +24,10 @@ public abstract class Stopwatch {
   }
 
   public float Time() => CurrentTime() - StartTime;
+
   public float UnclampedProgress(float duration) => Time() / duration;
+
   public float LoopedProgress(float duration) => UnclampedProgress(duration) % 1f;
+
   public float Progress(float duration) => Mathf.Clamp01(UnclampedProgress(duration));
 }

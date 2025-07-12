@@ -2,16 +2,20 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 using Rewired;
+using UnityEngine;
 
 public class AudioSettingsMenuEvents : AMenu {
-  public StepperInput MusicVolumeStepper, SoundsVolumeStepper, VoiceVolumeStepper;
+  public StepperInput MusicVolumeStepper,
+    SoundsVolumeStepper,
+    VoiceVolumeStepper;
   public SelectMenu SelectAudioOutput;
 
   protected override void LocalStart() {
-    MusicVolumeStepper.Options = SoundsVolumeStepper.Options = VoiceVolumeStepper.Options =
-      Enumerable.Range(0, 11).Select(n => String.Format("{0}%", n * 10)).ToList();
+    MusicVolumeStepper.Options =
+      SoundsVolumeStepper.Options =
+      VoiceVolumeStepper.Options =
+        Enumerable.Range(0, 11).Select(n => String.Format("{0}%", n * 10)).ToList();
 
     MusicVolumeStepper.Value = (int)(OptionsData.MusicVolume * 10);
     MusicVolumeStepper.UpdateLabel();
@@ -31,26 +35,29 @@ public class AudioSettingsMenuEvents : AMenu {
     List<SelectMenuOption> options = new();
     Guid? currentGuid = OptionsData.AudioOutput;
 
-    options.Add(new SelectMenuOption {
-      Name = "System output",
-      OnSelect = global::AudioOutput.SetToDefault
-    });
+    options.Add(
+      new SelectMenuOption { Name = "System output", OnSelect = global::AudioOutput.SetToDefault }
+    );
 
     int selectedIndex = 0;
     int i = 1;
 
-    global::AudioOutput.GetAll().ForEach(audioOutput => {
-      options.Add(new SelectMenuOption {
-        Name = audioOutput.Name,
-        OnSelect = () => global::AudioOutput.Set(audioOutput.Guid)
+    global::AudioOutput
+      .GetAll()
+      .ForEach(audioOutput => {
+        options.Add(
+          new SelectMenuOption {
+            Name = audioOutput.Name,
+            OnSelect = () => global::AudioOutput.Set(audioOutput.Guid),
+          }
+        );
+
+        if (audioOutput.Guid == currentGuid) {
+          selectedIndex = i;
+        }
+
+        i++;
       });
-
-      if (audioOutput.Guid == currentGuid) {
-        selectedIndex = i;
-      }
-
-      i++;
-    });
 
     SelectAudioOutput.SetOptions(options, selectedIndex);
     OpenNestedMenu(SelectAudioOutput);

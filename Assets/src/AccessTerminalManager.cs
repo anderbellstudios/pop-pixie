@@ -9,8 +9,11 @@ public class AccessTerminalManager : MonoBehaviour {
   public static AccessTerminalManager Current;
 
   public List<GameObject> ActivateOnOpen;
-  public UnityEvent OnOpen, OnClose, OnSkip;
-  public TerminalEmulatorRunCommand LsCommand, OpenCommand;
+  public UnityEvent OnOpen,
+    OnClose,
+    OnSkip;
+  public TerminalEmulatorRunCommand LsCommand,
+    OpenCommand;
 
   private System.Action InternalOnClose;
   private bool IsOpen;

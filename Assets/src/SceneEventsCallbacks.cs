@@ -5,7 +5,8 @@ using UnityEngine.Events;
 
 public class SceneEventsCallbacks : MonoBehaviour {
   public bool CallInAwake = false;
-  public UnityEvent OnFirstTime, OnRetry;
+  public UnityEvent OnFirstTime,
+    OnRetry;
 
   void Awake() {
     if (CallInAwake)

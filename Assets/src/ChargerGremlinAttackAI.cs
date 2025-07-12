@@ -7,13 +7,23 @@ public class ChargerGremlinAttackAI : AMovementEnemyAI {
   public override float Speed { get; set; }
 
   public SpriteRenderer DirectionIndicator;
-  public float PrepareSpeed, RecoverSpeed;
+  public float PrepareSpeed,
+    RecoverSpeed;
   public float WiggleAmplitude;
-  public float PrepareWiggleSpeed, ChargeWiggleSpeed, RecoverWiggleSpeed;
-  public float PrepareDuration, MaxChargeDuration, RecoverDuration;
+  public float PrepareWiggleSpeed,
+    ChargeWiggleSpeed,
+    RecoverWiggleSpeed;
+  public float PrepareDuration,
+    MaxChargeDuration,
+    RecoverDuration;
   public float Damage;
 
-  private enum StateType { Preparing, Charging, Recovering };
+  private enum StateType {
+    Preparing,
+    Charging,
+    Recovering,
+  };
+
   private StateType State = StateType.Preparing;
   private Transform WiggleTransform;
   private EnemyHitPointEvents HitPointEvents;
@@ -24,36 +34,36 @@ public class ChargerGremlinAttackAI : AMovementEnemyAI {
   private Stopwatch Stopwatch;
 
   void Start() {
-    Helper.OnAnyCollision((collider) => {
-      if (State != StateType.Charging)
-        return;
+    Helper.OnAnyCollision(
+      (collider) => {
+        if (State != StateType.Charging)
+          return;
 
-      // Do not stop charging when hit by bullet
-      if (IsBullet(collider.gameObject.layer))
-        return;
+        // Do not stop charging when hit by bullet
+        if (IsBullet(collider.gameObject.layer))
+          return;
 
-      // Do not stop charging when touching a wall
-      if (Helper.CollisionWasStay && !Helper.CollisionWasPlayer)
-        return;
+        // Do not stop charging when touching a wall
+        if (Helper.CollisionWasStay && !Helper.CollisionWasPlayer)
+          return;
 
-      HitPoints hitPoints = collider.gameObject.GetComponent<HitPoints>();
+        HitPoints hitPoints = collider.gameObject.GetComponent<HitPoints>();
 
-      if (hitPoints) {
-        bool isCounterAttack = hitPoints.Damage(Damage, true);
+        if (hitPoints) {
+          bool isCounterAttack = hitPoints.Damage(Damage, true);
 
-        if (isCounterAttack) {
-          Helper.KillSelf();
+          if (isCounterAttack) {
+            Helper.KillSelf();
+          }
         }
-      }
 
-      BeginRecovering();
-    });
+        BeginRecovering();
+      }
+    );
 
     WiggleTransform = Helper.Transform.Find("Sprite");
 
-    HitPointEvents = Helper.Transform
-      .Find("Hit Point Events")
-      .GetComponent<EnemyHitPointEvents>();
+    HitPointEvents = Helper.Transform.Find("Hit Point Events").GetComponent<EnemyHitPointEvents>();
   }
 
   protected override void OnActivate() {
@@ -67,8 +77,7 @@ public class ChargerGremlinAttackAI : AMovementEnemyAI {
     ResetSlowOnDamage();
   }
 
-  protected override bool ShouldAvoidInterruption()
-    => State != StateType.Preparing;
+  protected override bool ShouldAvoidInterruption() => State != StateType.Preparing;
 
   protected override void WhileActive() {
     switch (State) {
@@ -98,11 +107,14 @@ public class ChargerGremlinAttackAI : AMovementEnemyAI {
     HideDirectionIndicator();
 
     if (MaxChargeDuration != Mathf.Infinity) {
-      Helper.SetTimeout(() => {
-        if (State == StateType.Charging) {
-          GiveUpCharging();
-        }
-      }, MaxChargeDuration);
+      Helper.SetTimeout(
+        () => {
+          if (State == StateType.Charging) {
+            GiveUpCharging();
+          }
+        },
+        MaxChargeDuration
+      );
     }
   }
 
@@ -154,8 +166,7 @@ public class ChargerGremlinAttackAI : AMovementEnemyAI {
     WiggleTransform.rotation = Quaternion.Euler(0, 0, angle);
   }
 
-  private bool IsBullet(int layer)
-    => ((1 << layer) & CollisionMask.BulletMask) != 0;
+  private bool IsBullet(int layer) => ((1 << layer) & CollisionMask.BulletMask) != 0;
 
   private void DisableSlowOnDamage() {
     PreviousSlowOnDamage = HitPointEvents.SlowOnDamage;
@@ -174,23 +185,16 @@ public class ChargerGremlinAttackAI : AMovementEnemyAI {
   private void UpdateDirectionIndicator(float progress) {
     float maxDistance = Speed * MaxChargeDuration;
 
-    Vector2 chargeVector = Vector2.ClampMagnitude(
-      Helper.VectorToPlayer,
-      maxDistance
-    ) * progress;
+    Vector2 chargeVector = Vector2.ClampMagnitude(Helper.VectorToPlayer, maxDistance) * progress;
 
     DirectionIndicator.transform.localRotation = Quaternion.FromToRotation(
       Vector3.right,
       chargeVector.normalized
     );
 
-    DirectionIndicator.transform.position =
-      ChargeStartPosition + chargeVector / 2f;
+    DirectionIndicator.transform.position = ChargeStartPosition + chargeVector / 2f;
 
-    DirectionIndicator.size = new Vector2(
-      chargeVector.magnitude,
-      DirectionIndicator.size.y
-    );
+    DirectionIndicator.size = new Vector2(chargeVector.magnitude, DirectionIndicator.size.y);
   }
 
   private void HideDirectionIndicator() {

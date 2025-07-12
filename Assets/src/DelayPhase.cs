@@ -12,17 +12,19 @@ public class DelayPhase : APhase {
     DialogueMusicFadeBehaviour.BehaviourType.Ignore,
     DialogueMusicFadeBehaviour.BehaviourType.Ignore
   );
-  public UnityEvent OnBegin, OnFinish;
+  public UnityEvent OnBegin,
+    OnFinish;
 
   private Stopwatch Stopwatch;
 
   public override void LocalBegin() {
-    Stopwatch = UsePlayingTime
-      ? new Stopwatch.PlayingTime()
-      : new Stopwatch.BaseTime();
+    Stopwatch = UsePlayingTime ? new Stopwatch.PlayingTime() : new Stopwatch.BaseTime();
 
 #if UNITY_EDITOR
-    Debug.Assert(!(UsePlayingTime && PauseGameplay), "DelayPhase cannot use playing time AND pause gameplay");
+    Debug.Assert(
+      !(UsePlayingTime && PauseGameplay),
+      "DelayPhase cannot use playing time AND pause gameplay"
+    );
 #endif
 
     if (PauseGameplay)
@@ -44,6 +46,7 @@ public class DelayPhase : APhase {
       DialogueMusicFadeBehaviour.ApplyExitBehaviour();
       OnFinish.Invoke();
       PhaseFinished();
-    };
+    }
+    ;
   }
 }

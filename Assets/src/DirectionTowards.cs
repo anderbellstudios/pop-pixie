@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class DirectionTowards : MonoBehaviour, IDirectionManager {
-
   public Vector3 Direction { get; set; }
 
   public Transform Target;
@@ -17,5 +16,4 @@ public class DirectionTowards : MonoBehaviour, IDirectionManager {
   void Update() {
     Direction = Target.position - transform.position;
   }
-
 }

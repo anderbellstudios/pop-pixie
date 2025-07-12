@@ -34,7 +34,10 @@ public class AudioVisualiser : MonoBehaviour {
   }
 
   void AttachDSP() {
-    FMOD.RESULT createDSPResult = FMODUnity.RuntimeManager.CoreSystem.createDSPByType(FMOD.DSP_TYPE.FFT, out FFT);
+    FMOD.RESULT createDSPResult = FMODUnity.RuntimeManager.CoreSystem.createDSPByType(
+      FMOD.DSP_TYPE.FFT,
+      out FFT
+    );
     if (createDSPResult != FMOD.RESULT.OK) {
       Debug.LogError("Failed to create FFT DSP");
       return;
@@ -66,31 +69,30 @@ public class AudioVisualiser : MonoBehaviour {
     if (FFT.hasHandle()) {
       IntPtr spectrumDataPointer;
 
-      FMOD.RESULT getSpectrumDataResult = FFT.getParameterData((int)FMOD.DSP_FFT.SPECTRUMDATA, out spectrumDataPointer, out _);
+      FMOD.RESULT getSpectrumDataResult = FFT.getParameterData(
+        (int)FMOD.DSP_FFT.SPECTRUMDATA,
+        out spectrumDataPointer,
+        out _
+      );
       if (getSpectrumDataResult != FMOD.RESULT.OK) {
         Debug.LogError("Failed to get spectrum data from FFT");
       }
 
-      FMOD.DSP_PARAMETER_FFT spectrumData = (FMOD.DSP_PARAMETER_FFT)Marshal.PtrToStructure(spectrumDataPointer, typeof(FMOD.DSP_PARAMETER_FFT));
+      FMOD.DSP_PARAMETER_FFT spectrumData = (FMOD.DSP_PARAMETER_FFT)
+        Marshal.PtrToStructure(spectrumDataPointer, typeof(FMOD.DSP_PARAMETER_FFT));
       spectrumData.getSpectrum(0, ref Spectrum);
     }
 
     for (int i = 0; i < 64; i++) {
       float instantaneous = Mathf.Clamp(
-        Mathf.Log(Spectrum[i] + 1) *
-          EQ.Evaluate(i) *
-          Sensitivity,
+        Mathf.Log(Spectrum[i] + 1) * EQ.Evaluate(i) * Sensitivity,
         0.01f,
         1f
       );
 
       float smoothed = SmoothedSamples[i] = Math.Max(
         instantaneous,
-        Mathf.Lerp(
-          SmoothedSamples[i],
-          instantaneous,
-          Time.deltaTime * DecayRate
-        )
+        Mathf.Lerp(SmoothedSamples[i], instantaneous, Time.deltaTime * DecayRate)
       );
 
       BarTransforms[i].localScale = new Vector3(1, smoothed, 1);

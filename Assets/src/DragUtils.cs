@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class DragUtils {
-  public static float MaxDisplacement(float speed, float drag)
-    => speed / drag;
+  public static float MaxDisplacement(float speed, float drag) => speed / drag;
 
   public static Vector3 RestingPosition(Rigidbody2D rigidBody) {
     Vector3 position = rigidBody.transform.position;
@@ -16,10 +15,8 @@ public class DragUtils {
     return position + displacement;
   }
 
-  public static Vector3 VelocityForDisplacement(
-    Vector3 displacement,
-    float drag
-  ) => drag * displacement;
+  public static Vector3 VelocityForDisplacement(Vector3 displacement, float drag) =>
+    drag * displacement;
 
   public static float TimeUntilDisplacement(float speed, float drag, float displacement) {
     float time = -1f * (1f / drag) * Mathf.Log(1f - (drag * displacement) / speed);

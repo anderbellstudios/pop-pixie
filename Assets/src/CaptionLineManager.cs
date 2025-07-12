@@ -1,16 +1,18 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class CaptionLineManager : MonoBehaviour {
   public bool SingletonInstance = true;
   public static CaptionLineManager Current;
 
-  public float FadeInDuration, FadeOutDuration;
+  public float FadeInDuration,
+    FadeOutDuration;
   public PlaySound PlaySound;
-  public TMP_Text BackgroundText, Text;
+  public TMP_Text BackgroundText,
+    Text;
 
   private CaptionLine CaptionLine = null;
   private Queue<CaptionLine> CaptionLineQueue = new();
@@ -76,12 +78,7 @@ public class CaptionLineManager : MonoBehaviour {
   }
 
   void UpdateTime() {
-    if (
-      Running && (
-        CaptionLine.IgnorePause ||
-        !StateManager.Enabled(StateFeatures.PauseSounds)
-      )
-    ) {
+    if (Running && (CaptionLine.IgnorePause || !StateManager.Enabled(StateFeatures.PauseSounds))) {
       CurrentTime += Time.deltaTime;
     }
   }

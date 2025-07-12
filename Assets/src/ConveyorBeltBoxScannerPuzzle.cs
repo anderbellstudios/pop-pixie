@@ -5,14 +5,19 @@ using UnityEngine;
 using UnityEngine.Events;
 
 public class ConveyorBeltBoxScannerPuzzle : MonoBehaviour {
-  private enum TPuzzleState { Initial, Started, Detected };
+  private enum TPuzzleState {
+    Initial,
+    Started,
+    Detected,
+  };
 
   public GenericInspectable StartPuzzleInspectable;
   public GameObject Box;
   public GameObject Scanner;
   public GameObject ElectricBarrier;
   public OnCollision BoxDestination;
-  public float ConveyorBeltNormalSpeed, ConveyorBeltFastSpeed;
+  public float ConveyorBeltNormalSpeed,
+    ConveyorBeltFastSpeed;
   public List<ConveyorBelt> ConveyorBelts;
   public UnityEvent OnResetScanner;
 
@@ -66,9 +71,7 @@ public class ConveyorBeltBoxScannerPuzzle : MonoBehaviour {
      */
     if (PuzzleState == TPuzzleState.Detected) {
       SetConveyorBeltSpeed(
-        PlayerIsOnConveyorBelt()
-          ? ConveyorBeltNormalSpeed
-          : ConveyorBeltFastSpeed
+        PlayerIsOnConveyorBelt() ? ConveyorBeltNormalSpeed : ConveyorBeltFastSpeed
       );
     }
   }
@@ -79,6 +82,6 @@ public class ConveyorBeltBoxScannerPuzzle : MonoBehaviour {
     });
   }
 
-  private bool PlayerIsOnConveyorBelt()
-    => ConveyorBelts.Any(conveyorBelt => conveyorBelt.PlayerInContact());
+  private bool PlayerIsOnConveyorBelt() =>
+    ConveyorBelts.Any(conveyorBelt => conveyorBelt.PlayerInContact());
 }

@@ -31,18 +31,15 @@ public static class DamageHitPointsInRadius {
        * game object has a collider that touches the origin, use a distance of
        * 0. Otherwise, use the closest point on the collider to the origin.
        */
-      Vector3 closestPoint = collider == null
-        ? gameObject.transform.position
-        : collider.OverlapPoint(origin)
-          ? origin
-          : collider.ClosestPoint(origin);
+      Vector3 closestPoint =
+        collider == null ? gameObject.transform.position
+        : collider.OverlapPoint(origin) ? origin
+        : collider.ClosestPoint(origin);
 
       float distance = (closestPoint - origin).magnitude;
 
       if (distance <= radius) {
-        float damageMultiplier = damageCurve == null
-          ? 1f
-          : damageCurve.Evaluate(distance / radius);
+        float damageMultiplier = damageCurve == null ? 1f : damageCurve.Evaluate(distance / radius);
 
         isCounterAttack |= hitPoints.Damage(
           damage * damageMultiplier,

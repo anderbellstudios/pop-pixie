@@ -14,17 +14,16 @@ public class ActivatedData {
     }
   }
 
-  public static bool IsActivated(string id)
-    => ActivatedIds.Contains(id);
+  public static bool IsActivated(string id) => ActivatedIds.Contains(id);
 
   private static List<String> ActivatedIds {
     get {
-      dynamic activatedIds = GameData.Current.Fetch("activated-ids", orSetEqualTo: new List<String>());
+      dynamic activatedIds = GameData.Current.Fetch(
+        "activated-ids",
+        orSetEqualTo: new List<String>()
+      );
       return CoerceJson.To<List<String>>(activatedIds);
     }
-
-    set {
-      GameData.Current.Set("activated-ids", value);
-    }
+    set { GameData.Current.Set("activated-ids", value); }
   }
 }

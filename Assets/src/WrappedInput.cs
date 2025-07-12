@@ -1,12 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using Rewired;
+using UnityEngine;
 
 public class WrappedInput : MonoBehaviour {
-  public static Dictionary<string, Nullable<bool>>
-    GetButtonOverrides = new Dictionary<string, Nullable<bool>>(),
+  public static Dictionary<string, Nullable<bool>> GetButtonOverrides = new Dictionary<
+      string,
+      Nullable<bool>
+    >(),
     GetButtonDownOverrides = new Dictionary<string, Nullable<bool>>(),
     GetButtonUpOverrides = new Dictionary<string, Nullable<bool>>();
 
@@ -14,11 +16,9 @@ public class WrappedInput : MonoBehaviour {
 
   public static Dictionary<string, float?> AxisOverrides = new Dictionary<string, float?>();
 
-  public static Player Player
-    => ReInput.players.GetPlayer(0);
+  public static Player Player => ReInput.players.GetPlayer(0);
 
-  public static Vector3 MousePosition
-    => MousePositionOverride ?? Input.mousePosition;
+  public static Vector3 MousePosition => MousePositionOverride ?? Input.mousePosition;
 
   public static bool GetButton(string buttonName) {
     return Overridden<bool>(buttonName, GetButtonOverrides) ?? Player.GetButton(buttonName);
@@ -44,7 +44,8 @@ public class WrappedInput : MonoBehaviour {
     }
   }
 
-  private static Nullable<T> Overridden<T>(string rawInput, Dictionary<string, Nullable<T>> dict) where T : struct {
+  private static Nullable<T> Overridden<T>(string rawInput, Dictionary<string, Nullable<T>> dict)
+    where T : struct {
     if (!TestMode.Enabled)
       return null;
 

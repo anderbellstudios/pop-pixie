@@ -27,8 +27,7 @@ public class PlaySound : MonoBehaviour {
     if (Pausable) {
       StateManager.AddListener(() => {
         EventInstance.setPaused(
-          !OverridePausable &&
-          StateManager.Enabled(StateFeatures.PauseSounds)
+          !OverridePausable && StateManager.Enabled(StateFeatures.PauseSounds)
         );
       });
     }
@@ -42,10 +41,7 @@ public class PlaySound : MonoBehaviour {
     }
 
     if (programmerInstrumentKey != "") {
-      ProgrammerInstrumentUtils.LinkSound(
-        EventEmitter.EventInstance,
-        programmerInstrumentKey
-      );
+      ProgrammerInstrumentUtils.LinkSound(EventEmitter.EventInstance, programmerInstrumentKey);
     }
 
     OnPlay.Invoke();

@@ -24,11 +24,13 @@ public class SelectionChangeListener : MonoBehaviour {
     System.Action<GameObject, GameObject> onSelectionChange,
     GameObject bindToGameObject
   ) {
-    Current.OnSelectionChange.AddListener((current, previous) => {
-      if (bindToGameObject != null) {
-        onSelectionChange(current, previous);
+    Current.OnSelectionChange.AddListener(
+      (current, previous) => {
+        if (bindToGameObject != null) {
+          onSelectionChange(current, previous);
+        }
       }
-    });
+    );
   }
 
   void Update() {

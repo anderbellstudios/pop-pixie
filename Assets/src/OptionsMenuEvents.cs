@@ -2,18 +2,21 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 using Rewired;
+using UnityEngine;
 
 public class OptionsMenuEvents : AMenu {
   public StepperInput ControllerIconsStepper;
   public GameObject ControllerIconsGameObject;
-  public AMenu GraphicsSettingsMenu, AudioSettingsMenu;
+  public AMenu GraphicsSettingsMenu,
+    AudioSettingsMenu;
 
   private EnumeratorButton<String> ButtonIconsButton;
 
   protected override void LocalStart() {
-    ControllerIconsStepper.Value = ControllerIconsStepper.ValueForLabel(ControllerTypeData.GetControllerType());
+    ControllerIconsStepper.Value = ControllerIconsStepper.ValueForLabel(
+      ControllerTypeData.GetControllerType()
+    );
     ControllerIconsStepper.UpdateLabel();
 
     ControllerIconsStepper.OnChange.AddListener(ControllerIconsChanged);

@@ -4,6 +4,7 @@ using UnityEngine;
 public class MenuButton : MonoBehaviour {
   public bool MenuSoundEnabled = true;
   public bool NavigationEnabled = true;
+
   [TextArea]
   public string Explanation;
 

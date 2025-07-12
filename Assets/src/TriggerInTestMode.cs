@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.Events;
 
 public class TriggerInTestMode : MonoBehaviour {
-  public UnityEvent OnAwake, OnStart;
+  public UnityEvent OnAwake,
+    OnStart;
 
   void Awake() {
     if (TestMode.Enabled) {

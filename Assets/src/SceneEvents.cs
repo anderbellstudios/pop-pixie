@@ -9,14 +9,12 @@ public class SceneEvents : MonoBehaviour {
   public bool SingletonInstance = true;
   public static SceneEvents Current;
 
-  public bool
-    ShouldFadeIn = true,
+  public bool ShouldFadeIn = true,
     ShouldFadeOut = true,
     WaitForFadeInBeforePermittingExit = false,
     PauseGameplayDuringFadeOut = false;
 
-  public float
-    FadeInDelay,
+  public float FadeInDelay,
     FadeInDuration,
     FadeInDurationOnRetry = -1f,
     FadeOutDuration,
@@ -24,9 +22,11 @@ public class SceneEvents : MonoBehaviour {
 
   public bool IsRetry = false;
 
-  [SerializeField] public UnityEvent OnFadeIn;
+  [SerializeField]
+  public UnityEvent OnFadeIn;
 
-  private bool FadingIn = false, FadingOut = false;
+  private bool FadingIn = false,
+    FadingOut = false;
   private string NewSceneName;
   private bool Asynchronous;
 
@@ -47,9 +47,7 @@ public class SceneEvents : MonoBehaviour {
   }
 
   void FadeIn() {
-    float duration = IsRetry && FadeInDurationOnRetry > 0f
-      ? FadeInDurationOnRetry
-      : FadeInDuration;
+    float duration = IsRetry && FadeInDurationOnRetry > 0f ? FadeInDurationOnRetry : FadeInDuration;
 
     ScreenFade.FadeIn(duration);
     Invoke("AfterFadeIn", duration);
@@ -60,7 +58,12 @@ public class SceneEvents : MonoBehaviour {
     OnFadeIn.Invoke();
   }
 
-  public void ChangeScene(string sceneName, bool fadeOutMusic = false, bool asynchronous = false, float overrideFadeOutDuration = -1) {
+  public void ChangeScene(
+    string sceneName,
+    bool fadeOutMusic = false,
+    bool asynchronous = false,
+    float overrideFadeOutDuration = -1
+  ) {
     if (FadingOut || (WaitForFadeInBeforePermittingExit && FadingIn))
       return;
 
@@ -87,8 +90,7 @@ public class SceneEvents : MonoBehaviour {
 
   void LoadNewScene() {
     if (Asynchronous)
-      SceneManager.LoadSceneAsync(NewSceneName);
-    else
+      SceneManager.LoadSceneAsync(NewSceneName); else
       SceneManager.LoadScene(NewSceneName);
   }
 }

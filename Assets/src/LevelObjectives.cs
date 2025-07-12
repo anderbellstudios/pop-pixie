@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 public static class LevelObjectives {
   public static bool GotKeycard {
     get { return ActivatedData.IsActivated(GotKeycardKey); }
-
     set {
       if (value) {
         ActivatedData.RecordActivation(GotKeycardKey);
@@ -18,7 +17,6 @@ public static class LevelObjectives {
 
   public static bool UsedAccessTerminal {
     get { return ActivatedData.IsActivated(UsedAccessTerminalKey); }
-
     set {
       if (value) {
         ActivatedData.RecordActivation(UsedAccessTerminalKey);

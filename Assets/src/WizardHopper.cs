@@ -9,9 +9,7 @@ public class WizardHopper : MonoBehaviour {
   public List<char> Letters;
 
   void Awake() {
-    Letters = new List<char>(
-      Passphrase.ToCharArray()
-    );
+    Letters = new List<char>(Passphrase.ToCharArray());
   }
 
   void Update() {

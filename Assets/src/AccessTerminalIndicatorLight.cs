@@ -10,19 +10,27 @@ public class AccessTerminalIndicatorLight : MonoBehaviour {
   public float IntermittentBlinkDuration;
 
   private bool ExternalBlinking = false;
+
   public void SetBlinking(bool blinking) => ExternalBlinking = blinking;
 
   private bool IntermittentBlinking = false;
+
   private bool IsBlinking() => ExternalBlinking || IntermittentBlinking;
 
   void Start() {
-    AsyncTimer.BaseTime.SetInterval(() => {
-      IntermittentBlinking = true;
+    AsyncTimer.BaseTime.SetInterval(
+      () => {
+        IntermittentBlinking = true;
 
-      AsyncTimer.BaseTime.SetTimeout(() => {
-        IntermittentBlinking = false;
-      }, IntermittentBlinkDuration);
-    }, IntermittentBlinkInterval);
+        AsyncTimer.BaseTime.SetTimeout(
+          () => {
+            IntermittentBlinking = false;
+          },
+          IntermittentBlinkDuration
+        );
+      },
+      IntermittentBlinkInterval
+    );
   }
 
   void Update() {

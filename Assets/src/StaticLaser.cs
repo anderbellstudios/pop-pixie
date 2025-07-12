@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class StaticLaser : MonoBehaviour {
   public Transform LaserHumTransform;
-  public float MinY, MaxY;
+  public float MinY,
+    MaxY;
 
   public void CollidedWithPlayer() {
     PlayerGameObject.Current.GetComponent<HitPoints>().Damage(1);

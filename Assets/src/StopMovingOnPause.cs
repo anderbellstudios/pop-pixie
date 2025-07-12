@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class StopMovingOnPause : MonoBehaviour {
-
   public Rigidbody2D rb;
 
   public bool WasPlayingLastFrame;
@@ -35,5 +34,4 @@ public class StopMovingOnPause : MonoBehaviour {
 
     WasPlayingLastFrame = StateManager.Playing;
   }
-
 }

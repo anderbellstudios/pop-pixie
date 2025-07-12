@@ -5,20 +5,29 @@ using UnityEngine.UI;
 
 public class FallingDebris : MonoBehaviour {
   public SpriteRenderer DebrisSpriteRenderer;
-  public Image DurationIndicator, RadiusIndicator;
+  public Image DurationIndicator,
+    RadiusIndicator;
   public CanvasGroup CanvasGroup;
-  public AnimationCurve CanvasScaleCurve, SpriteOpacityCurve, DistanceCurve;
+  public AnimationCurve CanvasScaleCurve,
+    SpriteOpacityCurve,
+    DistanceCurve;
   public GameObject Explosion;
   public float Distance;
   public float Duration;
   public float MaxRotationSpeed;
-  public float DamageRadius, Damage;
+  public float DamageRadius,
+    Damage;
   public float FadeOutDuration;
   public HitPoints CounterAttackHitPoints;
   public float CounterAttackDuration;
   public float CounterAttackDamage;
 
-  private enum StateType { Falling, FadingOut, CounterAttacking };
+  private enum StateType {
+    Falling,
+    FadingOut,
+    CounterAttacking,
+  };
+
   private StateType State = StateType.Falling;
   private Stopwatch Stopwatch;
   private float RotationSpeed;
@@ -34,11 +43,7 @@ public class FallingDebris : MonoBehaviour {
     if (!StateManager.Playing)
       return;
 
-    DebrisSpriteRenderer.transform.Rotate(
-      0f,
-      0f,
-      RotationSpeed * Time.deltaTime
-    );
+    DebrisSpriteRenderer.transform.Rotate(0f, 0f, RotationSpeed * Time.deltaTime);
 
     switch (State) {
       case StateType.Falling:
@@ -83,11 +88,9 @@ public class FallingDebris : MonoBehaviour {
   private void UpdateCounterAttacking() {
     float progress = Stopwatch.Progress(CounterAttackDuration);
 
-    SetSpriteWorldPosition(Vector3.Lerp(
-      transform.position,
-      CounterAttackHitPoints.transform.position,
-      progress
-    ));
+    SetSpriteWorldPosition(
+      Vector3.Lerp(transform.position, CounterAttackHitPoints.transform.position, progress)
+    );
 
     if (progress >= 1f) {
       FinishCounterAttacking();

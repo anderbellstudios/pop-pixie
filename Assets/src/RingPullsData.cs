@@ -4,14 +4,10 @@ using System.Linq;
 using UnityEngine;
 
 public class RingPullsData {
-
   public static bool ShouldPulse = false;
 
   public static int Amount() {
-    return (int)GameData.Current.Fetch(
-      "ring-pulls",
-      orSetEqualTo: Debug.isDebugBuild ? 500 : 0
-    );
+    return (int)GameData.Current.Fetch("ring-pulls", orSetEqualTo: Debug.isDebugBuild ? 500 : 0);
   }
 
   public static void SetAmount(int amount) {
@@ -25,5 +21,4 @@ public class RingPullsData {
   public static void Modify(int delta) {
     SetAmount(Amount() + delta);
   }
-
 }

@@ -6,8 +6,7 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
 public class MenuSound : MonoBehaviour {
-  public static MenuSound Current
-    => EventSystem.current.gameObject.GetComponent<MenuSound>();
+  public static MenuSound Current => EventSystem.current.gameObject.GetComponent<MenuSound>();
 
   public UnityEvent OnPlay;
 
@@ -25,10 +24,7 @@ public class MenuSound : MonoBehaviour {
     if (currentMenuButton == null || previousMenuButton == null)
       return;
 
-    if (
-      currentMenuButton.MenuSoundEnabled &&
-      currentMenuButton.Menu == previousMenuButton.Menu
-    )
+    if (currentMenuButton.MenuSoundEnabled && currentMenuButton.Menu == previousMenuButton.Menu)
       Play();
   }
 

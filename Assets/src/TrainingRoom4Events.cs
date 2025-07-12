@@ -1,16 +1,19 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
-using TMPro;
 
 public class TrainingRoom4Events : MonoBehaviour {
   public TMP_Text TimerText;
   public GameObject HologremsContainer;
   public float DelayAfterRaceFinished;
-  public DialogueHopper GoodTimeDialogue, BadTimeDialogue;
-  public UnityEvent OnStart, OnFinish, OnStartOrFinish;
+  public DialogueHopper GoodTimeDialogue,
+    BadTimeDialogue;
+  public UnityEvent OnStart,
+    OnFinish,
+    OnStartOrFinish;
 
   bool RaceInProgress = false;
   bool RaceFinished = false;
@@ -65,7 +68,10 @@ public class TrainingRoom4Events : MonoBehaviour {
       OnFinish.Invoke();
       OnStartOrFinish.Invoke();
 
-      if (!SimulationResultData.ObstacleCourseBestTime.HasValue || ElapsedTime() < SimulationResultData.ObstacleCourseBestTime)
+      if (
+        !SimulationResultData.ObstacleCourseBestTime.HasValue
+        || ElapsedTime() < SimulationResultData.ObstacleCourseBestTime
+      )
         SimulationResultData.ObstacleCourseBestTime = (int)ElapsedTime();
 
       AsyncTimer.PlayingTime.SetTimeout(AfterRaceFinished, DelayAfterRaceFinished);

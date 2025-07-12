@@ -2,8 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Net;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class VersionInfo : MonoBehaviour {
   public TMP_Text Text;
@@ -12,7 +12,8 @@ public class VersionInfo : MonoBehaviour {
   public string VersionURL;
   public string DownloadURL;
 
-  string CurrentVersion, LatestVersion = "--";
+  string CurrentVersion,
+    LatestVersion = "--";
 
   void Awake() {
     CurrentVersion = Application.version;
@@ -29,9 +30,7 @@ public class VersionInfo : MonoBehaviour {
 
         // Scene may have unloaded
         if (UpdateButton != null) {
-          UpdateButton.SetActive(
-            new Version(CurrentVersion) < new Version(LatestVersion)
-          );
+          UpdateButton.SetActive(new Version(CurrentVersion) < new Version(LatestVersion));
 
           UpdateText();
           CancelInvoke();

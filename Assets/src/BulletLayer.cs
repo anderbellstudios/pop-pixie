@@ -38,16 +38,13 @@ public class BulletLayer : MonoBehaviour {
     }
   }
 
-  private bool IsWalkBoundary(Collider2D collider)
-    => collider.gameObject.layer == WalkBoundaryLayer;
+  private bool IsWalkBoundary(Collider2D collider) =>
+    collider.gameObject.layer == WalkBoundaryLayer;
 
-  private bool IsVerticalFace(Collider2D collider)
-    => collider.tag == "Vertical Face";
+  private bool IsVerticalFace(Collider2D collider) => collider.tag == "Vertical Face";
 
   private void UpdateLayer() {
-    string currentLayer = TouchingWalkBoundaries > 0
-      ? TouchingWalkBoundaryLayer
-      : DefaultLayer;
+    string currentLayer = TouchingWalkBoundaries > 0 ? TouchingWalkBoundaryLayer : DefaultLayer;
     SpriteRenderer.sortingLayerName = currentLayer;
     TrailRenderer.sortingLayerName = currentLayer;
   }

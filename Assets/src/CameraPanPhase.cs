@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraPanPhase : APhase {
-
   public CameraPan Pan;
   public bool Cutscene;
   public float DelayBeforePan;
@@ -24,5 +23,4 @@ public class CameraPanPhase : APhase {
       StateManager.RemoveState(State.NotPlaying);
     PhaseFinished();
   }
-
 }

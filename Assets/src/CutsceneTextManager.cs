@@ -1,9 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using TMPro;
 using KoganeUnityLib;
+using TMPro;
+using UnityEngine;
 
 public class CutsceneTextManager : MonoBehaviour {
   public bool SingletonInstance = true;
@@ -40,9 +40,12 @@ public class CutsceneTextManager : MonoBehaviour {
       text: text,
       speed: text.Length / typewriterDuration,
       onComplete: () => {
-        AsyncTimer.BaseTime.SetTimeout(() => {
-          FadeOut(fadeOutDuration, onComplete);
-        }, fadeOutDelay);
+        AsyncTimer.BaseTime.SetTimeout(
+          () => {
+            FadeOut(fadeOutDuration, onComplete);
+          },
+          fadeOutDelay
+        );
       }
     );
   }

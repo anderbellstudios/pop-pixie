@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovable : MonoBehaviour, IDirectionManager {
-
   public MovementManager MovementManager;
   public float Speed;
   public Roll Roll;
@@ -21,5 +20,4 @@ public class PlayerMovable : MonoBehaviour, IDirectionManager {
     if (!Roll.Rolling)
       MovementManager.Move(Speed * (Vector2)Direction * Time.deltaTime);
   }
-
 }

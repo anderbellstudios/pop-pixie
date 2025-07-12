@@ -23,18 +23,11 @@ public class MentoeHologramBombAttackAI : ARepeatedAttackAI {
       toPlayer += PlayerGameObject.EstimatedVelocity * PredictiveAimLeadTime;
     }
 
-    GameObject bombGameObject = Instantiate(
-      BombPrefab,
-      transform.position,
-      transform.rotation
-    );
+    GameObject bombGameObject = Instantiate(BombPrefab, transform.position, transform.rotation);
 
     Rigidbody2D rb = bombGameObject.GetComponent<Rigidbody2D>();
 
-    rb.velocity = DragUtils.VelocityForDisplacement(
-      displacement: toPlayer,
-      drag: rb.drag
-    );
+    rb.velocity = DragUtils.VelocityForDisplacement(displacement: toPlayer, drag: rb.drag);
 
     BulletData bulletData = bombGameObject.GetComponent<BulletData>();
     bulletData.Originator = gameObject;

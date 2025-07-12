@@ -1,19 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.Events;
 using TMPro;
+using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class DialoguePromptBoxController : MonoBehaviour {
-  public TMP_Text Question, PositiveAnswerText, NegativeAnswerText;
-  public Button PositiveAnswerButton, NegativeAnswerButton;
+  public TMP_Text Question,
+    PositiveAnswerText,
+    NegativeAnswerText;
+  public Button PositiveAnswerButton,
+    NegativeAnswerButton;
 
-  public UnityEvent OnPositiveAnswer
-    => PositiveAnswerButton.onClick;
+  public UnityEvent OnPositiveAnswer => PositiveAnswerButton.onClick;
 
-  public UnityEvent OnNegativeAnswer
-    => NegativeAnswerButton.onClick;
+  public UnityEvent OnNegativeAnswer => NegativeAnswerButton.onClick;
 
   public void SetQuestion(string text) {
     Question.text = text;

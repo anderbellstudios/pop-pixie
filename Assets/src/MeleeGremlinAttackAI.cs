@@ -31,9 +31,12 @@ public class MeleeGremlinAttackAI : AMovementEnemyAI {
   protected override void OnActivate() {
     Charging = false;
 
-    Helper.SetTimeout(() => {
-      Charging = true;
-    }, BeforeAttackDuration);
+    Helper.SetTimeout(
+      () => {
+        Charging = true;
+      },
+      BeforeAttackDuration
+    );
 
     if (GiveUpDuration != Mathf.Infinity) {
       Helper.SetTimeout(OnFinish, GiveUpDuration);

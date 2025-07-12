@@ -4,9 +4,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class ExitZone : MonoBehaviour {
-
   public SpriteRenderer SpriteRenderer;
-  public Color InactiveColor, ActiveColor;
+  public Color InactiveColor,
+    ActiveColor;
   public float Delay;
 
   void OnTriggerEnter2D(Collider2D other) {
@@ -26,5 +26,4 @@ public class ExitZone : MonoBehaviour {
   void Leave() {
     SceneManager.LoadScene("Shop");
   }
-
 }

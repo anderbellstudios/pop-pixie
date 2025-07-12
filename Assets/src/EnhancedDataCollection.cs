@@ -13,7 +13,9 @@ public static class EnhancedDataCollection {
 #if ENHANCED_DATA_COLLECTION_BUILD
     true;
 #else
-    Environment.GetCommandLineArgs().Contains("-enhancedDataCollection");
+  Environment
+    .GetCommandLineArgs()
+    .Contains("-enhancedDataCollection");
 #endif
 
   public static readonly string ClientID = Guid.NewGuid().ToString();

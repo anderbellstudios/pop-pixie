@@ -9,7 +9,9 @@ public class CameraManager : MonoBehaviour {
   public Camera Camera;
   public bool StartsRelativeToPlayer = true;
 
-  private CameraState DefaultState, PreviousState, TargetState;
+  private CameraState DefaultState,
+    PreviousState,
+    TargetState;
   private float ZPosition;
   private Stopwatch AnimationStopwatch;
   private float AnimationDuration;
@@ -25,10 +27,10 @@ public class CameraManager : MonoBehaviour {
   }
 
   void Start() {
-    DefaultState = PreviousState = TargetState = CameraState.FromCamera(
-      Camera,
-      StartsRelativeToPlayer && PlayerGameObject.Current != null
-    );
+    DefaultState =
+      PreviousState =
+      TargetState =
+        CameraState.FromCamera(Camera, StartsRelativeToPlayer && PlayerGameObject.Current != null);
 
     ZPosition = Camera.transform.position.z;
   }
@@ -62,11 +64,7 @@ public class CameraManager : MonoBehaviour {
     Camera.orthographicSize = state.Size;
 
     Vector2 position = state.AbsolutePosition;
-    Camera.transform.position = new Vector3(
-      position.x,
-      position.y,
-      ZPosition
-    );
+    Camera.transform.position = new Vector3(position.x, position.y, ZPosition);
   }
 
   private void FinishedOrInterrupted() {
@@ -76,9 +74,8 @@ public class CameraManager : MonoBehaviour {
     }
   }
 
-  private CameraState CurrentState => Animating
-    ? CameraState.Lerp(PreviousState, TargetState, SmoothAnimationProgress)
-    : TargetState;
+  private CameraState CurrentState =>
+    Animating ? CameraState.Lerp(PreviousState, TargetState, SmoothAnimationProgress) : TargetState;
 
   private bool Animating => AnimationStopwatch != null;
   private float SmoothAnimationProgress => Mathf.SmoothStep(0f, 1f, AnimationProgress);

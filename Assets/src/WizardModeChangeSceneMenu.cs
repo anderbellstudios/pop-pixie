@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class WizardModeChangeSceneMenu : AMenu {
   public GameObject ButtonPrefab;
@@ -16,7 +16,8 @@ public class WizardModeChangeSceneMenu : AMenu {
 
       GameObject buttonGameObject = Instantiate(ButtonPrefab, ButtonContainer);
       buttonGameObject.SetActive(true);
-      WizardModeChangeSceneButton buttonController = buttonGameObject.GetComponent<WizardModeChangeSceneButton>();
+      WizardModeChangeSceneButton buttonController =
+        buttonGameObject.GetComponent<WizardModeChangeSceneButton>();
 
       buttonController.SetSceneName(sceneName);
       buttonController.OnClick.AddListener(() => {

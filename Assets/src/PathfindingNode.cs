@@ -19,9 +19,10 @@ public class PathfindingNode : MonoBehaviour {
 
   void RecomputeAdjacentNodes() {
     AdjacentNodes = transform
-      .parent
-      .GetComponentsInChildren<PathfindingNode>()
-      .Where(node => node != this && LineOfMovement.Check(transform.position, node.transform.position))
+      .parent.GetComponentsInChildren<PathfindingNode>()
+      .Where(node =>
+        node != this && LineOfMovement.Check(transform.position, node.transform.position)
+      )
       .ToArray();
   }
 }

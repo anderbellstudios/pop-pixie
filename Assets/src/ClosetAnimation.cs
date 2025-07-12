@@ -6,7 +6,8 @@ using UnityEngine;
 public class ClosetAnimation : APhase {
   public Door Door;
   public float DelayBeforeRoll;
-  public float RollDistance, RollSpeed;
+  public float RollDistance,
+    RollSpeed;
 
   public override bool SkipOnRetry() {
     DelayBeforeRoll = 0f;
@@ -30,16 +31,17 @@ public class ClosetAnimation : APhase {
     ScriptedMovement scriptedMovement = player.GetComponent<ScriptedMovement>();
     Roll roll = player.GetComponentInChildren<Roll>();
 
-    AsyncTimer.BaseTime.SetTimeout(() => {
-      roll.StartRolling();
+    AsyncTimer.BaseTime.SetTimeout(
+      () => {
+        roll.StartRolling();
 
-      scriptedMovement.FollowPath(
-        new List<Vector3>() {
-          player.transform.position + (RollDistance * Vector3.right)
-        },
-        RollSpeed,
-        PhaseFinished
-      );
-    }, 0.1f);
+        scriptedMovement.FollowPath(
+          new List<Vector3>() { player.transform.position + (RollDistance * Vector3.right) },
+          RollSpeed,
+          PhaseFinished
+        );
+      },
+      0.1f
+    );
   }
 }

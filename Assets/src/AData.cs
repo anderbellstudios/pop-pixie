@@ -2,9 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.Events;
-using Newtonsoft.Json;
 
 public abstract class AData {
   public class MemorySave {
@@ -53,24 +53,18 @@ public abstract class AData {
   }
 
   public MemorySave ToMemorySave() {
-    return new MemorySave() {
-      Json = Serialize()
-    };
+    return new MemorySave() { Json = Serialize() };
   }
 
   public void LoadMemorySave(MemorySave save) {
     Deserialize(save.Json);
   }
 
-  public virtual void BeforeWrite() {
-  }
+  public virtual void BeforeWrite() { }
 
-  public virtual void AfterRead() {
-  }
+  public virtual void AfterRead() { }
 
-  public virtual void BeforeFetch() {
-  }
+  public virtual void BeforeFetch() { }
 
-  public virtual void AfterUpdate() {
-  }
+  public virtual void AfterUpdate() { }
 }

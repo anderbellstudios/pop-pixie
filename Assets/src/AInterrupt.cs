@@ -5,7 +5,6 @@ using System.Linq;
 using UnityEngine;
 
 public abstract class AInterrupt : MonoBehaviour {
-
   void Start() {
     LocalStart();
   }
@@ -31,5 +30,4 @@ public abstract class AInterrupt : MonoBehaviour {
 
   public abstract bool ShouldInterrupt(ALegacyEnemyAI ai);
   public abstract ALegacyEnemyAI InterruptAI();
-
 }

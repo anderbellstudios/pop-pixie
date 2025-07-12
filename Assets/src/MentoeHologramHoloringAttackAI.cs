@@ -9,9 +9,10 @@ public class MentoeHologramHoloringAttackAI : ARepeatedAttackAI {
   void Start() {
     InGamePrompt.Current.RegisterSource(
       InGamePrompt.Priority.UrgentRoll,
-      () => IsActive
-        ? "Press <size=150%>[Roll]</size> while moving to <color=#ffff00>roll</color>"
-        : null
+      () =>
+        IsActive
+          ? "Press <size=150%>[Roll]</size> while moving to <color=#ffff00>roll</color>"
+          : null
     );
   }
 

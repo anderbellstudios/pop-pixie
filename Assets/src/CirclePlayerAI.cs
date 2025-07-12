@@ -6,22 +6,27 @@ public class CirclePlayerAI : AMovementEnemyAI {
   [field: SerializeField]
   public override float Speed { get; set; }
 
-  public float TooFarDistance, ApproachToDistance;
-  public float TooCloseDistance, BackOffToDistance;
+  public float TooFarDistance,
+    ApproachToDistance;
+  public float TooCloseDistance,
+    BackOffToDistance;
   public float CircleSpeed;
   public float RepulsionFactor;
   public float MaxRepulsionDistance;
 
   private bool AdjustingDistance;
-  private int AdjustingDirection, CircleDirection;
+  private int AdjustingDirection,
+    CircleDirection;
   private LowPriorityBehaviour LowPriorityBehaviour;
 
   void Start() {
     LowPriorityBehaviour = new LowPriorityBehaviour();
 
-    Helper.OnAnyCollision((Collider2D _) => {
-      CircleDirection *= -1;
-    });
+    Helper.OnAnyCollision(
+      (Collider2D _) => {
+        CircleDirection *= -1;
+      }
+    );
   }
 
   protected override void OnActivate() {
@@ -67,19 +72,21 @@ public class CirclePlayerAI : AMovementEnemyAI {
     return false;
   }
 
-  private bool ShouldStopAdjusting(float distance)
-    => distance > BackOffToDistance && distance < ApproachToDistance;
+  private bool ShouldStopAdjusting(float distance) =>
+    distance > BackOffToDistance && distance < ApproachToDistance;
 
   private void RepelFromOtherEnemies() {
     Vector2 repulsion = Vector2.zero;
-    Helper.OtherEnemies().ForEach(enemy => {
-      Vector2 toEnemy = enemy.transform.position - Helper.Position;
-      Vector2 directionToEnemy = toEnemy.normalized;
-      float distanceToEnemy = toEnemy.magnitude;
-      if (distanceToEnemy < MaxRepulsionDistance) {
-        repulsion += -1f * RepulsionFactor * directionToEnemy / distanceToEnemy;
-      }
-    });
+    Helper
+      .OtherEnemies()
+      .ForEach(enemy => {
+        Vector2 toEnemy = enemy.transform.position - Helper.Position;
+        Vector2 directionToEnemy = toEnemy.normalized;
+        float distanceToEnemy = toEnemy.magnitude;
+        if (distanceToEnemy < MaxRepulsionDistance) {
+          repulsion += -1f * RepulsionFactor * directionToEnemy / distanceToEnemy;
+        }
+      });
     Helper.MoveWithVelocity(repulsion);
   }
 
@@ -88,16 +95,20 @@ public class CirclePlayerAI : AMovementEnemyAI {
   }
 
   private void CirclePlayer() {
-    Vector3 direction = Vector2.Perpendicular(Helper.DirectionToPlayer).normalized * CircleDirection;
+    Vector3 direction =
+      Vector2.Perpendicular(Helper.DirectionToPlayer).normalized * CircleDirection;
 
     // Check if we're 1 unit away from losing line of movement
-    LowPriorityBehaviour.EveryNFrames(10, () => {
-      Vector3 testPoint = Helper.Position + direction;
-      if (!Helper.CanMoveToPlayer(start: testPoint)) {
-        CircleDirection *= -1;
-        direction *= -1;
+    LowPriorityBehaviour.EveryNFrames(
+      10,
+      () => {
+        Vector3 testPoint = Helper.Position + direction;
+        if (!Helper.CanMoveToPlayer(start: testPoint)) {
+          CircleDirection *= -1;
+          direction *= -1;
+        }
       }
-    });
+    );
 
     Helper.MoveWithVelocity(direction * CircleSpeed);
   }
