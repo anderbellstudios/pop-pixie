@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class TrainingGameMoveHint : MonoBehaviour {
-  public GameObject KeyboardAndMouseHint, JoystickHint;
+  public GameObject KeyboardAndMouseHint,
+    JoystickHint;
   private LowPriorityBehaviour LowPriorityBehaviour;
 
   void OnEnable() {
@@ -11,10 +12,13 @@ public class TrainingGameMoveHint : MonoBehaviour {
   }
 
   void Update() {
-    LowPriorityBehaviour.EveryNFrames(10, () => {
-      bool isJoystick = InputMode.IsJoystick();
-      KeyboardAndMouseHint.SetActive(!isJoystick);
-      JoystickHint.SetActive(isJoystick);
-    });
+    LowPriorityBehaviour.EveryNFrames(
+      10,
+      () => {
+        bool isJoystick = InputMode.IsJoystick();
+        KeyboardAndMouseHint.SetActive(!isJoystick);
+        JoystickHint.SetActive(isJoystick);
+      }
+    );
   }
 }

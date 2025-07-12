@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class WrappedBaseInput : BaseInput {
-
   public StandaloneInputModule StandaloneInputModule;
 
   protected override void Awake() {
@@ -22,5 +21,4 @@ public class WrappedBaseInput : BaseInput {
   public override float GetAxisRaw(string axis) {
     return WrappedInput.GetAxis(axis);
   }
-
 }

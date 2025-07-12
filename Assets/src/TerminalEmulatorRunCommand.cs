@@ -6,10 +6,13 @@ using UnityEngine.Events;
 public class TerminalEmulatorRunCommand : MonoBehaviour {
   public TerminalEmulator TerminalEmulator;
   public float DelayBetweenChars;
-  public float DelayBeforeStart, DelayBeforeEnter;
+  public float DelayBeforeStart,
+    DelayBeforeEnter;
   public bool PrintShellAfter = true;
   public string Command;
-  [TextArea] public string CommandResult;
+
+  [TextArea]
+  public string CommandResult;
   public UnityEvent OnFinish;
 
   private int CurrentOffset = 0;
@@ -25,20 +28,26 @@ public class TerminalEmulatorRunCommand : MonoBehaviour {
       return;
     }
 
-    AsyncTimer.BaseTime.SetTimeout(() => {
-      TerminalEmulator.PrintChar(Command[CurrentOffset++]);
-      PrintNextChar();
-    }, DelayBetweenChars);
+    AsyncTimer.BaseTime.SetTimeout(
+      () => {
+        TerminalEmulator.PrintChar(Command[CurrentOffset++]);
+        PrintNextChar();
+      },
+      DelayBetweenChars
+    );
   }
 
   private void FinishedTypingCommand() {
-    AsyncTimer.BaseTime.SetTimeout(() => {
-      TerminalEmulator.PrintLine("");
-      TerminalEmulator.Print(CommandResult);
-      if (CommandResult.Length > 0)
+    AsyncTimer.BaseTime.SetTimeout(
+      () => {
         TerminalEmulator.PrintLine("");
-      Finished();
-    }, DelayBeforeEnter);
+        TerminalEmulator.Print(CommandResult);
+        if (CommandResult.Length > 0)
+          TerminalEmulator.PrintLine("");
+        Finished();
+      },
+      DelayBeforeEnter
+    );
   }
 
   private void Finished() {

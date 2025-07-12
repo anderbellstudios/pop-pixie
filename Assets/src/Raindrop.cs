@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class Raindrop : MonoBehaviour {
   public Vector2 Direction = new Vector2(-1, -1);
-  public float MinSpeed, MaxSpeed;
+  public float MinSpeed,
+    MaxSpeed;
   public float SizeRandomness;
 
   private Vector3 Velocity;
-  private float StartY, MinStartX, MaxStartX, EndY;
+  private float StartY,
+    MinStartX,
+    MaxStartX,
+    EndY;
 
   void Start() {
     if (TestMode.Enabled) {
@@ -45,11 +49,7 @@ public class Raindrop : MonoBehaviour {
     transform.localPosition += Velocity * Time.deltaTime;
 
     if (transform.position.y < EndY) {
-      transform.position = new Vector3(
-        Random.Range(MinStartX, MaxStartX),
-        StartY,
-        0
-      );
+      transform.position = new Vector3(Random.Range(MinStartX, MaxStartX), StartY, 0);
     }
   }
 }

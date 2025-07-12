@@ -4,5 +4,4 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class TrainingRoom5Events : MonoBehaviour {
-}
+public class TrainingRoom5Events : MonoBehaviour { }

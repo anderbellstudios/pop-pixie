@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class CanvasFadeInOut : MonoBehaviour {
   public CanvasGroup CanvasGroup;
@@ -31,12 +31,7 @@ public class CanvasFadeInOut : MonoBehaviour {
   }
 
   float Opacity {
-    get {
-      return CanvasGroup.alpha;
-    }
-
-    set {
-      CanvasGroup.alpha = value;
-    }
+    get { return CanvasGroup.alpha; }
+    set { CanvasGroup.alpha = value; }
   }
 }

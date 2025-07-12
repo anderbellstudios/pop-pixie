@@ -2,5 +2,4 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class AGenericEnemyAI : AEnemyAI {
-}
+public abstract class AGenericEnemyAI : AEnemyAI { }

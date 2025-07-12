@@ -13,17 +13,11 @@ public class TrainingGameDoor : AInspectable {
     Door.Open();
 
     PlayerGameObject
-      .Current
-      .GetComponent<ScriptedMovement>()
-      .FollowPath(
-        MovementPath.Select(t => t.position).ToList(),
-        MovementSpeed,
-        Door.Close
-      );
+      .Current.GetComponent<ScriptedMovement>()
+      .FollowPath(MovementPath.Select(t => t.position).ToList(), MovementSpeed, Door.Close);
   }
 
   public override bool IsInspectable() => !Door.IsOpen;
 
-  public override String AInspectablePromptText()
-    => "Press [Inspect] to go through door";
+  public override String AInspectablePromptText() => "Press [Inspect] to go through door";
 }

@@ -1,17 +1,19 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class MainMenuEvents : AMenu {
-  public TMP_Text PrimaryText, SecondaryText;
+  public TMP_Text PrimaryText,
+    SecondaryText;
   public GameObject SecondaryButton;
   public AMenu ConfirmOverwriteMenu;
   public ContinueGameHopper ContinueGameHopper;
   public NewGameHopper NewGameHopper;
 
-  private Action OnPrimary, OnSecondary;
+  private Action OnPrimary,
+    OnSecondary;
 
   protected override void LocalStart() {
     if (GameData.Exists()) {
@@ -31,5 +33,6 @@ public class MainMenuEvents : AMenu {
   }
 
   public void PrimaryClicked() => OnPrimary.Invoke();
+
   public void SecondaryClicked() => OnSecondary.Invoke();
 }

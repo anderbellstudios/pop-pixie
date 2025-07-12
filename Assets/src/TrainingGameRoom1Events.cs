@@ -21,9 +21,10 @@ public class TrainingGameRoom1Events : MonoBehaviour {
 
     InGamePrompt.Current.RegisterSource(
       InGamePrompt.Priority.TutorialFire,
-      () => Targets.Any(t => EnemyUtils.IsDead(t))
-        ? null
-        : "Aim and press [Fire] to shoot the <color=#ffff00>Hologrems</color>"
+      () =>
+        Targets.Any(t => EnemyUtils.IsDead(t))
+          ? null
+          : "Aim and press [Fire] to shoot the <color=#ffff00>Hologrems</color>"
     );
   }
 

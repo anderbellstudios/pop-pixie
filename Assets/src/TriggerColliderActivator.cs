@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class TriggerColliderActivator : AActivator {
-
   public List<GameObject> CollidingObjects;
 
   void OnTriggerEnter2D(Collider2D col) {
@@ -17,5 +16,4 @@ public class TriggerColliderActivator : AActivator {
   public override bool IsActivated(ALegacyEnemyAI ai) {
     return CollidingObjects.Contains(ai.Target);
   }
-
 }

@@ -20,11 +20,11 @@ public class ElevatorDoor : AInspectable {
 
   public override bool IsInspectable() => LevelObjectives.UsedAccessTerminal;
 
-  public override String AInspectablePromptText()
-    => "Press [Inspect] to use the <color=#ffff00>elevator</color>";
+  public override String AInspectablePromptText() =>
+    "Press [Inspect] to use the <color=#ffff00>elevator</color>";
 
-  public override String AInspectableUninspectableText()
-    => "Use an <color=#ffff00>Access Terminal</color> to gain access to higher floors";
+  public override String AInspectableUninspectableText() =>
+    "Use an <color=#ffff00>Access Terminal</color> to gain access to higher floors";
 
   public override void OnInspect() {
     DialoguePromptManager.Current.Prompt(

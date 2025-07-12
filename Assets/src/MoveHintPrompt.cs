@@ -25,7 +25,8 @@ public class MoveHintPrompt : MonoBehaviour {
       Stopwatch.Reset();
   }
 
-  string HintText() => InputMode.IsJoystick()
-    ? "Use [Move Stick] to move"
-    : "Use [Move Up][Move Left][Move Down][Move Right] to move";
+  string HintText() =>
+    InputMode.IsJoystick()
+      ? "Use [Move Stick] to move"
+      : "Use [Move Up][Move Left][Move Down][Move Right] to move";
 }

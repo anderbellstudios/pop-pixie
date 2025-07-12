@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using Newtonsoft.Json;
+using UnityEngine;
 
 public class GameData : AData {
   public static GameData Current = new GameData();
@@ -12,9 +12,7 @@ public class GameData : AData {
   private const int HASH_VERSION = 2;
 
   public override Dictionary<string, object> LocalDefaultDictionary() {
-    return new Dictionary<string, object> {
-      { "VERSION", LATEST_VERSION }
-    };
+    return new Dictionary<string, object> { { "VERSION", LATEST_VERSION } };
   }
 
   public override void AfterRead() {
@@ -74,6 +72,7 @@ public class GameData : AData {
   }
 
   public static bool Exists() => GameDataOperation.Exists();
+
   public static string FileName = "game";
   private static DataOperation GameDataOperation => new DataOperation(Current, FileName);
 }

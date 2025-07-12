@@ -12,10 +12,7 @@ public class OrderedStart : MonoBehaviour {
 
   // Must only be called from the Awake method
   public static void Add(System.Action callback, float order) {
-    OrderedStartEntry entry = new OrderedStartEntry() {
-      Callback = callback,
-      Order = order
-    };
+    OrderedStartEntry entry = new OrderedStartEntry() { Callback = callback, Order = order };
 
     /**
      * Insertion sort.
@@ -46,9 +43,8 @@ public class OrderedStart : MonoBehaviour {
      */
     int firstGreaterThanIndex = SortedOrderedStartEntries.FindIndex(e => e.Order >= order);
 
-    int insertIndex = firstGreaterThanIndex == -1
-      ? SortedOrderedStartEntries.Count
-      : firstGreaterThanIndex;
+    int insertIndex =
+      firstGreaterThanIndex == -1 ? SortedOrderedStartEntries.Count : firstGreaterThanIndex;
 
     SortedOrderedStartEntries.Insert(insertIndex, entry);
   }
@@ -63,11 +59,9 @@ public class OrderedStart : MonoBehaviour {
 
   // Helpers
 
-  public static float After(params float[] orders)
-    => Mathf.Max(orders) + 1;
+  public static float After(params float[] orders) => Mathf.Max(orders) + 1;
 
-  public static float Before(params float[] orders)
-    => Mathf.Min(orders) - 1;
+  public static float Before(params float[] orders) => Mathf.Min(orders) - 1;
 
   public static float Between(float[] afterOrders, float[] beforeOrders) {
     float maxAfter = Mathf.Max(afterOrders);
@@ -80,6 +74,6 @@ public class OrderedStart : MonoBehaviour {
     return maxAfter + ((minBefore - maxAfter) / 2f);
   }
 
-  public static float Between(float afterOrder, float beforeOrder)
-    => Between(new float[] { afterOrder }, new float[] { beforeOrder });
+  public static float Between(float afterOrder, float beforeOrder) =>
+    Between(new float[] { afterOrder }, new float[] { beforeOrder });
 }

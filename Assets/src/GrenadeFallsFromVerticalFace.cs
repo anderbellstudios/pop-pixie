@@ -42,12 +42,10 @@ public class GrenadeFallsFromVerticalFace : MonoBehaviour {
   private bool WillLandOnVerticalFace => IsOnVerticalFace(RestingPosition);
   private Vector3 RestingPosition => DragUtils.RestingPosition(Rigidbody);
 
-  private bool IsOnVerticalFace(Vector3 point)
-    => VerticalFace.OverlapPoint(point);
+  private bool IsOnVerticalFace(Vector3 point) => VerticalFace.OverlapPoint(point);
 
   private bool TouchingVerticalFace => TouchingVerticalFaces.Count > 0;
   private Collider2D VerticalFace => TouchingVerticalFaces.FirstOrDefault();
 
-  public List<Collider2D> TouchingVerticalFaces
-    => BulletLayer.TouchingVerticalFaces;
+  public List<Collider2D> TouchingVerticalFaces => BulletLayer.TouchingVerticalFaces;
 }

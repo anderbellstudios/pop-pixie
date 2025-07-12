@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 using GlobalPlayingTime = PlayingTime;
 
 public class AsyncTimerPlayingTime : AsyncTimer {

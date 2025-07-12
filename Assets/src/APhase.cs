@@ -25,16 +25,14 @@ public abstract class APhase : MonoBehaviour {
     return FirstTimeOnly;
   }
 
-  public virtual void LocalBegin() {
-  }
+  public virtual void LocalBegin() { }
 
   public virtual void Update() {
     if (Running)
       WhilePhaseRunning();
   }
 
-  public virtual void WhilePhaseRunning() {
-  }
+  public virtual void WhilePhaseRunning() { }
 
   public void PhaseFinished() {
     Running = false;
@@ -42,8 +40,7 @@ public abstract class APhase : MonoBehaviour {
     _FinishedCallback();
   }
 
-  public virtual void AfterFinished() {
-  }
+  public virtual void AfterFinished() { }
 
   public virtual float ProgressBarAllotment() {
     return 0f;

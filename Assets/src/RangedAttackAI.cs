@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class RangedAttackAI : ALegacyEnemyAI, IRequiresLineOfMovementAI {
-
   public BulletEmitter BulletEmitter;
   public Weapon Weapon;
 
@@ -17,5 +16,4 @@ public class RangedAttackAI : ALegacyEnemyAI, IRequiresLineOfMovementAI {
   void PerformAttack() {
     BulletEmitter.Shoot(Weapon);
   }
-
 }

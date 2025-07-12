@@ -14,6 +14,8 @@ public class GenericInspectable : AInspectable {
   }
 
   public override bool IsInspectable() => Inspectable;
+
   public override String AInspectablePromptText() => PromptText;
+
   public override void OnInspect() => OnInspectEvent.Invoke();
 }

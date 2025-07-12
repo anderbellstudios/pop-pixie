@@ -22,9 +22,7 @@ public class Crouch : MonoBehaviour {
   }
 
   void Start() {
-    MovementManager.SpeedModifiers.Add(
-      s => Crouching ? SpeedMultiplier * s : s
-    );
+    MovementManager.SpeedModifiers.Add(s => Crouching ? SpeedMultiplier * s : s);
   }
 
   public void TrySetCrouching(bool crouching) {
@@ -46,9 +44,7 @@ public class Crouch : MonoBehaviour {
   private void SetCrouching(bool crouching) {
     Crouching = crouching;
     Animator.SetBool("Crouching", crouching);
-    GameObject.layer = LayerMask.NameToLayer(
-      crouching ? "PlayerCrouching" : "Player"
-    );
+    GameObject.layer = LayerMask.NameToLayer(crouching ? "PlayerCrouching" : "Player");
     UpdateAimingArrowEnabled();
   }
 
@@ -57,5 +53,6 @@ public class Crouch : MonoBehaviour {
   }
 
   private bool CanCrouch() => !Roll.Rolling;
+
   private bool CanUncrouch() => !InCrouchZone;
 }

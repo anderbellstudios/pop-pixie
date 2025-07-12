@@ -3,13 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MentoeHologramLowHPFightChanges : MonoBehaviour {
-  public HitPoints EnclosureHitPoints, BossHitPoints;
-  public ARepeatedAttackAI HoloringAI, BombAI;
+  public HitPoints EnclosureHitPoints,
+    BossHitPoints;
+  public ARepeatedAttackAI HoloringAI,
+    BombAI;
   public MentoeHologramSweepingAttackAI SweepingAI;
   public MentoeHologramBulletsAttackAI BulletsAI;
-  public float BreakEnclosureSpeedMultiplier, TwoThirdsHPSpeedMultiplier, OneThirdHPSpeedMultiplier;
+  public float BreakEnclosureSpeedMultiplier,
+    TwoThirdsHPSpeedMultiplier,
+    OneThirdHPSpeedMultiplier;
 
-  private bool BelowTwoThirds, BelowOneThird = false;
+  private bool BelowTwoThirds,
+    BelowOneThird = false;
 
   void Awake() {
     EnclosureHitPoints.OnBecomeZero.AddListener(HandleBreakEnclosure);

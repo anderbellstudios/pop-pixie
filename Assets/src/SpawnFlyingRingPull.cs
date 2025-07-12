@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SpawnFlyingRingPull : MonoBehaviour {
-
   public GameObject Prefab;
 
   public int Amount = 1;
@@ -30,5 +29,4 @@ public class SpawnFlyingRingPull : MonoBehaviour {
     if (AlreadyDropped >= Amount)
       CancelInvoke("DropRingPull");
   }
-
 }

@@ -1,16 +1,18 @@
 // Modified from https://forum.unity.com/threads/rigidbodies-inside-circle-collider.212730/
 
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
 
 [ExecuteInEditMode]
 [RequireComponent(typeof(EdgeCollider2D))]
 public class CircleEdgeCollider2D : MonoBehaviour {
-  public float Width, Height = 1.0f;
+  public float Width,
+    Height = 1.0f;
   public int NumPoints = 32;
 
   EdgeCollider2D EdgeCollider;
-  float CurrentWidth, CurrentHeight = 0.0f;
+  float CurrentWidth,
+    CurrentHeight = 0.0f;
 
   /// <summary>
   /// Start this instance.

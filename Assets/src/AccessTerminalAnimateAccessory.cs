@@ -21,13 +21,16 @@ public class AccessTerminalAnimateAccessory : MonoBehaviour {
     int absDeltaPixels = System.Math.Abs(DeltaPixels);
     int direction = DeltaPixels >= 0 ? 1 : -1;
 
-    EnqueuedEvent = AsyncTimer.BaseTime.SetInterval(() => {
-      if (absDeltaPixels-- > 0) {
-        Accessory.localPosition += Vector3.up * direction;
-      } else {
-        AsyncTimer.BaseTime.ClearTimeout(EnqueuedEvent);
-        OnFinish.Invoke();
-      }
-    }, Duration / absDeltaPixels);
+    EnqueuedEvent = AsyncTimer.BaseTime.SetInterval(
+      () => {
+        if (absDeltaPixels-- > 0) {
+          Accessory.localPosition += Vector3.up * direction;
+        } else {
+          AsyncTimer.BaseTime.ClearTimeout(EnqueuedEvent);
+          OnFinish.Invoke();
+        }
+      },
+      Duration / absDeltaPixels
+    );
   }
 }

@@ -15,7 +15,8 @@ public class FireBullets : MonoBehaviour {
 
   public bool Firing { get; private set; }
 
-  private Func<Vector3> GetDirection, GetTarget;
+  private Func<Vector3> GetDirection,
+    GetTarget;
   private int BulletsFired;
   private Stopwatch Stopwatch;
 
@@ -38,7 +39,6 @@ public class FireBullets : MonoBehaviour {
   public void StopFiring() {
     Firing = false;
   }
-
 
   void Update() {
     if (!Firing || !StateManager.Playing)

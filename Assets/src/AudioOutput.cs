@@ -36,11 +36,13 @@ public class AudioOutput {
         out _ // speakermodechannels
       );
 
-      audioOutputs.Add(new AudioOutput {
-        Name = name,
-        Guid = guid,
-        Index = i
-      });
+      audioOutputs.Add(
+        new AudioOutput {
+          Name = name,
+          Guid = guid,
+          Index = i,
+        }
+      );
     }
 
     return audioOutputs;
@@ -48,8 +50,8 @@ public class AudioOutput {
 
   public static AudioOutput GetDefault() => GetAll()[0];
 
-  public static AudioOutput Find(Guid guid)
-    => GetAll().Find(audioOutput => audioOutput.Guid == guid);
+  public static AudioOutput Find(Guid guid) =>
+    GetAll().Find(audioOutput => audioOutput.Guid == guid);
 
   public static void Set(Guid guid) {
     AudioOutput audioOutput = Find(guid);

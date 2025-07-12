@@ -5,7 +5,6 @@ using System.Linq;
 using UnityEngine;
 
 public class GremlinSpawnScheduler : MonoBehaviour {
-
   public bool BeginSpawningOnAwake = false;
 
   public SpawnGremlin SpawnGremlin;
@@ -27,10 +26,7 @@ public class GremlinSpawnScheduler : MonoBehaviour {
     SpawnedGremlins.Clear();
     Spawning = true;
 
-    SpawnTimer = new IntervalTimer() {
-      TimeClass = "PlayingTime",
-      Interval = SpawnInterval
-    };
+    SpawnTimer = new IntervalTimer() { TimeClass = "PlayingTime", Interval = SpawnInterval };
 
     TentativeSpawnNextGremlin();
   }
@@ -57,5 +53,4 @@ public class GremlinSpawnScheduler : MonoBehaviour {
   bool DestroyedAllGremlins() {
     return SpawnedGremlins.All(x => EnemyUtils.IsDead(x));
   }
-
 }

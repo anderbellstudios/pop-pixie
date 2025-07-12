@@ -8,8 +8,10 @@ public class OscillateBrightness : MonoBehaviour {
   public SpriteRenderer SpriteRenderer;
   public AnimationCurve AnimationCurve;
 
-  public float MinSpeed, MaxSpeed;
-  private float Offset, Speed;
+  public float MinSpeed,
+    MaxSpeed;
+  private float Offset,
+    Speed;
   private Color InitialColor;
 
   void Start() {

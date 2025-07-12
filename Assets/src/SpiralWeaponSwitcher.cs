@@ -2,9 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 /**
  * - Weapons are rendered on an infinite helix in 3D space.
@@ -18,10 +18,12 @@ public class SpiralWeaponSwitcher : AWeaponSwitcherUI {
   public int BeforeAfterCount;
   public float Radius;
   public float Stretch;
-  public float JoystickThreshold, CursorThreshold;
+  public float JoystickThreshold,
+    CursorThreshold;
 
   private Vector2 PreviousDirection = Vector2.right;
-  private float TargetAngle, CurrentAngle = 0f;
+  private float TargetAngle,
+    CurrentAngle = 0f;
   private float AngleStep;
   private Dictionary<int, GameObject> ItemGameObjects = new Dictionary<int, GameObject>();
   private List<PlayerWeapon> Weapons;
@@ -37,16 +39,11 @@ public class SpiralWeaponSwitcher : AWeaponSwitcherUI {
     CurrentAngle = TargetAngle - Mathf.PI * 4f;
   }
 
-  public override int OnClose() => WeaponIndexForItemIndex(
-    ClosestItemIndexForAngle(TargetAngle)
-  );
+  public override int OnClose() => WeaponIndexForItemIndex(ClosestItemIndexForAngle(TargetAngle));
 
   void Update() {
     Vector2 direction = InputMode.IsJoystick()
-      ? new Vector2(
-        WrappedInput.GetAxis("Horizontal"),
-        WrappedInput.GetAxis("Vertical")
-      )
+      ? new Vector2(WrappedInput.GetAxis("Horizontal"), WrappedInput.GetAxis("Vertical"))
       : CursorDirection.DirectionFromScreenCenter() / (Screen.height / 2f);
 
     float threshold = InputMode.IsJoystick() ? JoystickThreshold : CursorThreshold;
@@ -57,9 +54,7 @@ public class SpiralWeaponSwitcher : AWeaponSwitcherUI {
       PreviousDirection = direction;
     }
 
-    CurrentAngle = TestMode.Enabled
-      ? TargetAngle
-      : Mathf.Lerp(CurrentAngle, TargetAngle, 0.3f);
+    CurrentAngle = TestMode.Enabled ? TargetAngle : Mathf.Lerp(CurrentAngle, TargetAngle, 0.3f);
 
     int currentItemIndex = ClosestItemIndexForAngle(CurrentAngle);
     int targetItemIndex = ClosestItemIndexForAngle(TargetAngle);
@@ -96,6 +91,7 @@ public class SpiralWeaponSwitcher : AWeaponSwitcherUI {
   }
 
   float AngleForItemIndex(int index) => AngleStep * index;
+
   int ClosestItemIndexForAngle(float angle) => Mathf.RoundToInt(angle / AngleStep);
 
   GameObject GetOrCreateItem(int index) {
@@ -124,18 +120,21 @@ public class SpiralWeaponSwitcher : AWeaponSwitcherUI {
     }
   }
 
-  Vector3 HelixPosition(float radius, float scaleZ, float centerAngle, float angle) => new Vector3(
-    radius * Mathf.Cos(angle),
-    radius * Mathf.Sin(angle),
-    (scaleZ * (angle - centerAngle)) + 1f // 1.0 when centered
-  );
+  Vector3 HelixPosition(float radius, float scaleZ, float centerAngle, float angle) =>
+    new Vector3(
+      radius * Mathf.Cos(angle),
+      radius * Mathf.Sin(angle),
+      (scaleZ * (angle - centerAngle)) + 1f // 1.0 when centered
+    );
 
-  Vector3 Perspective(Vector3 p) => new Vector3(
-    p.x / p.z,
-    p.y / p.z,
-    p.z // For ease of debugging
-  );
+  Vector3 Perspective(Vector3 p) =>
+    new Vector3(
+      p.x / p.z,
+      p.y / p.z,
+      p.z // For ease of debugging
+    );
 
   int WeaponIndexForItemIndex(int index) => PositiveMod(index, Weapons.Count);
+
   int PositiveMod(int x, int m) => (x % m + m) % m;
 }

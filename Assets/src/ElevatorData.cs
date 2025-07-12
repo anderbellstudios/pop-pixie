@@ -1,5 +1,10 @@
 public class ElevatorData {
-  private enum ArrivedFromType { Level, Shop, Load };
+  private enum ArrivedFromType {
+    Level,
+    Shop,
+    Load,
+  };
+
   private static ArrivedFromType ArrivedFrom = ArrivedFromType.Level;
 
   public static bool ArrivedFromLevel => ArrivedFrom == ArrivedFromType.Level;
@@ -19,12 +24,7 @@ public class ElevatorData {
   }
 
   public static int ElevatorRide {
-    get {
-      return (int)GameData.Current.Fetch("elevator-ride", orSetEqualTo: 0);
-    }
-
-    set {
-      GameData.Current.Set("elevator-ride", value);
-    }
+    get { return (int)GameData.Current.Fetch("elevator-ride", orSetEqualTo: 0); }
+    set { GameData.Current.Set("elevator-ride", value); }
   }
 }

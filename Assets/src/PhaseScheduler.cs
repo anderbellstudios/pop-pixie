@@ -10,7 +10,8 @@ public class PhaseScheduler : MonoBehaviour {
   public bool BeginFirstPhaseOnStart = true;
   public List<APhase> Phases;
   public int PhaseId;
-  public UnityEvent OnPhaseFinished, OnLastPhaseFinished;
+  public UnityEvent OnPhaseFinished,
+    OnLastPhaseFinished;
 
   public bool Running { get; private set; } = false;
 

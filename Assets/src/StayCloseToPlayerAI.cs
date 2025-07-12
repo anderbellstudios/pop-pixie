@@ -6,7 +6,8 @@ public class StayCloseToPlayerAI : AMovementEnemyAI {
   [field: SerializeField]
   public override float Speed { get; set; }
 
-  public AMovementEnemyAI CannotMoveToPlayerAI, CanMoveToPlayerAI;
+  public AMovementEnemyAI CannotMoveToPlayerAI,
+    CanMoveToPlayerAI;
 
   private LowPriorityBehaviour LowPriorityBehaviour;
   private bool CanMoveToPlayer = false;
@@ -21,13 +22,16 @@ public class StayCloseToPlayerAI : AMovementEnemyAI {
   }
 
   protected override void WhileActive() {
-    LowPriorityBehaviour.EveryNFrames(10, () => {
-      if (!AvoidingInterruption) {
-        CanMoveToPlayer = Helper.CanMoveToPlayer();
+    LowPriorityBehaviour.EveryNFrames(
+      10,
+      () => {
+        if (!AvoidingInterruption) {
+          CanMoveToPlayer = Helper.CanMoveToPlayer();
+        }
       }
-    });
+    );
   }
 
-  protected override AMovementEnemyAI UseMovementAI()
-    => CanMoveToPlayer ? CanMoveToPlayerAI : CannotMoveToPlayerAI;
+  protected override AMovementEnemyAI UseMovementAI() =>
+    CanMoveToPlayer ? CanMoveToPlayerAI : CannotMoveToPlayerAI;
 }

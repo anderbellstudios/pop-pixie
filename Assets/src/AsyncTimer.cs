@@ -78,7 +78,7 @@ public abstract class AsyncTimer : MonoBehaviour {
       Callback = callback,
       IsBoundToGameObject = bindToGameObject != null,
       BoundGameObject = bindToGameObject,
-      BoundBehaviour = bindToBehaviour
+      BoundBehaviour = bindToBehaviour,
     };
     EnqueuedEvents.Add(enqueuedEvent);
     return enqueuedEvent;
@@ -97,7 +97,7 @@ public abstract class AsyncTimer : MonoBehaviour {
       Callback = callback,
       IsBoundToGameObject = bindToGameObject != null,
       BoundGameObject = bindToGameObject,
-      BoundBehaviour = bindToBehaviour
+      BoundBehaviour = bindToBehaviour,
     };
     EnqueuedEvents.Add(enqueuedEvent);
     return enqueuedEvent;

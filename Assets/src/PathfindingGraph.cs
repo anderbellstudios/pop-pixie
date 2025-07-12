@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-
 using AvoidEdge = System.Func<UnityEngine.Vector3, UnityEngine.Vector3, bool>;
 
 public class PathfindingGraph : MonoBehaviour {
@@ -31,11 +30,7 @@ public class PathfindingGraph : MonoBehaviour {
     }
   }
 
-  public List<Vector3> FindPath(
-    Vector3 startPoint,
-    Vector3 endPoint,
-    AvoidEdge avoidEdge = null
-  ) {
+  public List<Vector3> FindPath(Vector3 startPoint, Vector3 endPoint, AvoidEdge avoidEdge = null) {
     if (LineOfMovement.Check(startPoint, endPoint)) {
       return new List<Vector3> { startPoint, endPoint };
     }
@@ -47,9 +42,9 @@ public class PathfindingGraph : MonoBehaviour {
       return null;
     }
 
-    List<Vector3> path = FindPath(startNode, endNode, avoidEdge)?
-      .Select(node => node.transform.position)?
-      .ToList();
+    List<Vector3> path = FindPath(startNode, endNode, avoidEdge)
+      ?.Select(node => node.transform.position)
+      ?.ToList();
 
     if (path == null) {
       return null;
@@ -67,7 +62,8 @@ public class PathfindingGraph : MonoBehaviour {
     AvoidEdge avoidEdge
   ) {
     List<PathfindingNode> openSet = new List<PathfindingNode>() { startNode };
-    Dictionary<PathfindingNode, PathfindingNode> cameFrom = new Dictionary<PathfindingNode, PathfindingNode>();
+    Dictionary<PathfindingNode, PathfindingNode> cameFrom =
+      new Dictionary<PathfindingNode, PathfindingNode>();
 
     Dictionary<PathfindingNode, float> gScore = new Dictionary<PathfindingNode, float>();
     gScore[startNode] = 0f;
@@ -94,16 +90,18 @@ public class PathfindingGraph : MonoBehaviour {
 
       foreach (PathfindingNode adjacentNode in currentNode.AdjacentNodes) {
         bool avoid =
-          avoidEdge != null &&
-          avoidEdge(currentNode.transform.position, adjacentNode.transform.position);
+          avoidEdge != null
+          && avoidEdge(currentNode.transform.position, adjacentNode.transform.position);
 
         float avoidEdgeMultiplier = avoid ? 100f : 1f;
-        float tentativeGScore = gScore[currentNode] + Distance(currentNode, adjacentNode) * avoidEdgeMultiplier;
+        float tentativeGScore =
+          gScore[currentNode] + Distance(currentNode, adjacentNode) * avoidEdgeMultiplier;
 
         if (tentativeGScore < gScore.GetValueOrDefault(adjacentNode, float.PositiveInfinity)) {
           cameFrom[adjacentNode] = currentNode;
           gScore[adjacentNode] = tentativeGScore;
-          fScore[adjacentNode] = gScore[adjacentNode] + Distance(adjacentNode, endNode) * avoidEdgeMultiplier;
+          fScore[adjacentNode] =
+            gScore[adjacentNode] + Distance(adjacentNode, endNode) * avoidEdgeMultiplier;
 
           if (!openSet.Contains(adjacentNode)) {
             openSet.Add(adjacentNode);

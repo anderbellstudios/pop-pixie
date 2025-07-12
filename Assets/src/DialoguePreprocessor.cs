@@ -15,7 +15,13 @@ public class DialoguePreprocessor {
 
     string output = "";
 
-    foreach (Match match in Regex.Matches(input, @"<(?<command>delay|slow)=(?<amount>[0-9]+)>|<.+?>|.+?", RegexOptions.Singleline)) {
+    foreach (
+      Match match in Regex.Matches(
+        input,
+        @"<(?<command>delay|slow)=(?<amount>[0-9]+)>|<.+?>|.+?",
+        RegexOptions.Singleline
+      )
+    ) {
       Group commandGroup = match.Groups["command"];
 
       if (commandGroup.Success) {

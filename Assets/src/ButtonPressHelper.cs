@@ -47,9 +47,8 @@ public class MultipleButtonPressHelper : ButtonPressHelper {
       ButtonAcceptsPress[button] = false;
   }
 
-  protected override bool GetButtonAcceptsPress(string button) => ButtonAcceptsPress.ContainsKey(button)
-    ? ButtonAcceptsPress[button]
-    : false;
+  protected override bool GetButtonAcceptsPress(string button) =>
+    ButtonAcceptsPress.ContainsKey(button) ? ButtonAcceptsPress[button] : false;
 
   protected override void SetButtonAcceptsPress(string button, bool acceptsPress) {
     ButtonAcceptsPress[button] = acceptsPress;

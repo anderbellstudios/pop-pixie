@@ -25,9 +25,12 @@ public class AudioFadeOut : MonoBehaviour {
     IgnoreMusic = ignoreMusic;
 
     if (!ignoreMusic) {
-      AsyncTimer.BaseTime.SetTimeout(() => {
-        PlaySong.Stop();
-      }, Duration);
+      AsyncTimer.BaseTime.SetTimeout(
+        () => {
+          PlaySong.Stop();
+        },
+        Duration
+      );
     }
   }
 
@@ -51,4 +54,3 @@ public class AudioFadeOut : MonoBehaviour {
     );
   }
 }
-

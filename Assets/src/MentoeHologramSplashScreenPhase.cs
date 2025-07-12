@@ -33,7 +33,8 @@ public class MentoeHologramSplashScreenPhase : APhase {
   public GameObject SplashScreenGameObject;
 
   private Stopwatch AnimationStopwatch;
-  private Vector3 MentoeInitialPosition, TextInitialPosition;
+  private Vector3 MentoeInitialPosition,
+    TextInitialPosition;
 
   void Start() {
     MentoeInitialPosition = MentoeTransform.localPosition;
@@ -50,9 +51,7 @@ public class MentoeHologramSplashScreenPhase : APhase {
   }
 
   public override void WhilePhaseRunning() {
-    UpdateWithProgress(
-      TestMode.Enabled ? 0.5f : AnimationStopwatch.Progress(Duration)
-    );
+    UpdateWithProgress(TestMode.Enabled ? 0.5f : AnimationStopwatch.Progress(Duration));
   }
 
   public override void AfterFinished() {
@@ -69,17 +68,15 @@ public class MentoeHologramSplashScreenPhase : APhase {
       );
     });
 
-    MentoeTransform.localPosition = MentoeInitialPosition + (
-      Vector3.up * MentoeDriftAmplitude * MentoeDriftCurve.Evaluate(progress)
-    );
+    MentoeTransform.localPosition =
+      MentoeInitialPosition
+      + (Vector3.up * MentoeDriftAmplitude * MentoeDriftCurve.Evaluate(progress));
 
     MentoeImage.color = new Color(1, 1, 1, MentoeOpacityCurve.Evaluate(progress));
 
-    TextTransform.localPosition = TextInitialPosition + (
-      TextDriftDirection.normalized
-      * TextDriftAmplitude
-      * TextDriftCurve.Evaluate(progress)
-    );
+    TextTransform.localPosition =
+      TextInitialPosition
+      + (TextDriftDirection.normalized * TextDriftAmplitude * TextDriftCurve.Evaluate(progress));
 
     TextImage.color = new Color(1, 1, 1, TextOpacityCurve.Evaluate(progress));
 

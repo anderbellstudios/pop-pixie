@@ -36,18 +36,10 @@ public class CameraZone : MonoBehaviour {
 
     return new Vector2(
       DynamicOffsetX.Evaluate(
-        2f * Mathf.InverseLerp(
-          bounds.min.x,
-          bounds.max.x,
-          playerPosition.x
-        ) - 1f
+        2f * Mathf.InverseLerp(bounds.min.x, bounds.max.x, playerPosition.x) - 1f
       ),
       DynamicOffsetY.Evaluate(
-        2f * Mathf.InverseLerp(
-          bounds.min.y,
-          bounds.max.y,
-          playerPosition.y
-        ) - 1f
+        2f * Mathf.InverseLerp(bounds.min.y, bounds.max.y, playerPosition.y) - 1f
       )
     );
   }

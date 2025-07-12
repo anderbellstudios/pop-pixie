@@ -23,19 +23,27 @@ public class AccessTerminalSprite : AInspectable {
     LoreItemData.RecordRead(Config.LoreItem);
     StateManager.AddState(State.NotPlayingContinueSounds);
 
-    AccessTerminalManager.Current.Open(Config, () => {
-      LoreManager.Current.Open(Config.LoreItem, () => {
-        StateManager.RemoveState(State.NotPlayingContinueSounds);
-      });
-    });
+    AccessTerminalManager.Current.Open(
+      Config,
+      () => {
+        LoreManager.Current.Open(
+          Config.LoreItem,
+          () => {
+            StateManager.RemoveState(State.NotPlayingContinueSounds);
+          }
+        );
+      }
+    );
   }
 
-  public override string AInspectablePromptText()
-    => "Press [Inspect] to use the <color=#ffff00>Access Terminal</color>";
+  public override string AInspectablePromptText() =>
+    "Press [Inspect] to use the <color=#ffff00>Access Terminal</color>";
 
-  public override string AInspectableUninspectableText()
-    => LevelObjectives.UsedAccessTerminal ? null : "Find a <color=#ffff00>Keycard</color> to use the <color=#ffff00>Access Terminal</color>";
+  public override string AInspectableUninspectableText() =>
+    LevelObjectives.UsedAccessTerminal
+      ? null
+      : "Find a <color=#ffff00>Keycard</color> to use the <color=#ffff00>Access Terminal</color>";
 
-  public override bool IsInspectable()
-    => LevelObjectives.GotKeycard && !LevelObjectives.UsedAccessTerminal;
+  public override bool IsInspectable() =>
+    LevelObjectives.GotKeycard && !LevelObjectives.UsedAccessTerminal;
 }

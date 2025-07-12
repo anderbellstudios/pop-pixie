@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class WaitingForActivationAI : ALegacyEnemyAI {
-
   public AActivator Activator;
   public ALegacyEnemyAI WhenActivated;
 
@@ -12,5 +11,4 @@ public class WaitingForActivationAI : ALegacyEnemyAI {
       RelinquishControlTo(WhenActivated);
     }
   }
-
 }

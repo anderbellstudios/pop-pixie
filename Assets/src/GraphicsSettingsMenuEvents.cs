@@ -2,20 +2,25 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class GraphicsSettingsMenuEvents : AMenu {
-  public StepperInput ResolutionStepper, FullscreenStepper;
+  public StepperInput ResolutionStepper,
+    FullscreenStepper;
 
   private Resolution Resolution;
   private bool Fullscreen;
 
   protected override void LocalStart() {
-    ResolutionStepper.Options = Screen.resolutions.Select(resolution => $"{resolution.width}x{resolution.height}").ToList();
+    ResolutionStepper.Options = Screen
+      .resolutions.Select(resolution => $"{resolution.width}x{resolution.height}")
+      .ToList();
 
-    ResolutionStepper.Value = Array.FindIndex(Screen.resolutions, resolution =>
-      (resolution.width == ResolutionData.Width) && (resolution.height == ResolutionData.Height)
+    ResolutionStepper.Value = Array.FindIndex(
+      Screen.resolutions,
+      resolution =>
+        (resolution.width == ResolutionData.Width) && (resolution.height == ResolutionData.Height)
     );
 
     if (ResolutionStepper.Value == -1)

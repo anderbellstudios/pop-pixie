@@ -20,18 +20,20 @@ public class TrainingGamePlayerHitPointEvents : MonoBehaviour {
       ScreenFade.DamageFlash();
     });
 
-    movementManager.SpeedModifiers.Add((s) => {
-      if (SlowdownStopwatch == null)
-        return s;
+    movementManager.SpeedModifiers.Add(
+      (s) => {
+        if (SlowdownStopwatch == null)
+          return s;
 
-      float progress = SlowdownStopwatch.Progress(2f);
-      float k = (1f - Mathf.Cos(progress * Mathf.PI)) / 2f;
+        float progress = SlowdownStopwatch.Progress(2f);
+        float k = (1f - Mathf.Cos(progress * Mathf.PI)) / 2f;
 
-      if (progress >= 1f) {
-        SlowdownStopwatch = null;
+        if (progress >= 1f) {
+          SlowdownStopwatch = null;
+        }
+
+        return s * k;
       }
-
-      return s * k;
-    });
+    );
   }
 }

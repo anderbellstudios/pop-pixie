@@ -2,5 +2,4 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SimpleMenu : AMenu {
-}
+public class SimpleMenu : AMenu { }

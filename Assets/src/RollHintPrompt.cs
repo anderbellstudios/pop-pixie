@@ -6,9 +6,7 @@ public class RollHintPrompt : MonoBehaviour {
   void Start() {
     InGamePrompt.Current.RegisterSource(
       InGamePrompt.Priority.TutorialRoll,
-      () => Roll.HasRolled
-        ? null
-        : "Press [Roll] while moving to <color=#ffff00>roll</color>"
+      () => Roll.HasRolled ? null : "Press [Roll] while moving to <color=#ffff00>roll</color>"
     );
   }
 }

@@ -4,7 +4,10 @@ using UnityEngine;
 
 [ExecuteInEditMode]
 public class ProportionalPositioner : MonoBehaviour {
-  public RectTransform ModelParent, ModelTarget, Parent, Target;
+  public RectTransform ModelParent,
+    ModelTarget,
+    Parent,
+    Target;
 
   void Update() {
     // Model space

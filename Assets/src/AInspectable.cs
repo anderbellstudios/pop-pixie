@@ -5,7 +5,10 @@ using System.Linq;
 using UnityEngine;
 
 public abstract class AInspectable : MonoBehaviour {
-  public static Dictionary<AInspectable, bool> IsInspectImminentMap = new Dictionary<AInspectable, bool>() { };
+  public static Dictionary<AInspectable, bool> IsInspectImminentMap = new Dictionary<
+    AInspectable,
+    bool
+  >() { };
 
   public static bool ShowButtonPrompt() {
     return IsInspectImminentMap.Values.Any(isTrue => isTrue);
@@ -72,15 +75,14 @@ public abstract class AInspectable : MonoBehaviour {
   }
 
   bool IsInspectImminent() => IsPlayingAndNearby() && IsInspectable();
+
   bool IsPlayingAndNearby() => StateManager.Playing && _Nearby;
 
   public abstract void OnInspect();
 
-  public virtual void OnPlayerOver() {
-  }
+  public virtual void OnPlayerOver() { }
 
-  public virtual void OnPlayerOut() {
-  }
+  public virtual void OnPlayerOut() { }
 
   public virtual bool IsInspectable() {
     return true;

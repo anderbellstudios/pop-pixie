@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class DiscoveredItemsMenuEvents : AMenu {
   public RegisteredLoreItems RegisteredLoreItems;
@@ -21,24 +21,23 @@ public class DiscoveredItemsMenuEvents : AMenu {
 
     List<LoreItem> loreItems = Debug
       ? RegisteredLoreItems.LoreItems
-      : LoreItemData
-        .ReadLoreItems()
-        .Select(id => RegisteredLoreItems.Find(id))
-        .ToList();
+      : LoreItemData.ReadLoreItems().Select(id => RegisteredLoreItems.Find(id)).ToList();
 
     foreach (LoreItem loreItem in loreItems) {
       GameObject menuItemGameObject = Instantiate(MenuItemPrefab, MenuItemContainer);
 
-      DiscoveredItemButton discoveredItemButton = menuItemGameObject.GetComponent<DiscoveredItemButton>();
+      DiscoveredItemButton discoveredItemButton =
+        menuItemGameObject.GetComponent<DiscoveredItemButton>();
 
       discoveredItemButton.SetLoreItem(loreItem);
       discoveredItemButton.ClickCallback = LoreItemButtonClicked;
 
-      discoveredItemButton.SelectCallback = () => ScrollToSelectionHelper.EnsureVisible(
-        targetTransform: (RectTransform)menuItemGameObject.transform,
-        contentArea: ScrollContentArea,
-        scrollRect: ScrollRect
-      );
+      discoveredItemButton.SelectCallback = () =>
+        ScrollToSelectionHelper.EnsureVisible(
+          targetTransform: (RectTransform)menuItemGameObject.transform,
+          contentArea: ScrollContentArea,
+          scrollRect: ScrollRect
+        );
 
       RegisterButton(discoveredItemButton.Button);
     }
@@ -48,9 +47,12 @@ public class DiscoveredItemsMenuEvents : AMenu {
     SetFocus(false);
     SetVisible(false);
 
-    LoreManager.Open(loreItem, () => {
-      SetVisible(true);
-      SetFocus(true);
-    });
+    LoreManager.Open(
+      loreItem,
+      () => {
+        SetVisible(true);
+        SetFocus(true);
+      }
+    );
   }
 }

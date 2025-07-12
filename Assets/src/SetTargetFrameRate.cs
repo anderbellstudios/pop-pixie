@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SetTargetFrameRate : MonoBehaviour {
-
   public int FrameRate;
   private float MovingAverageFrameRate;
 
@@ -19,5 +18,4 @@ public class SetTargetFrameRate : MonoBehaviour {
   void LogFrameRate() {
     EnhancedDataCollection.LogIfEnabled(() => "Frame rate: " + MovingAverageFrameRate);
   }
-
 }

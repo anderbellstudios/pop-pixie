@@ -2,10 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using UnityEngine;
 using FMOD;
 using FMOD.Studio;
 using FMODUnity;
+using UnityEngine;
 
 // https://qa.fmod.com/t/loading-delay-exceeded-warning-when-using-programmer-instrument-and-audio-table/15737/10
 public class PreloadProgrammerSounds : MonoBehaviour {
@@ -34,10 +34,7 @@ public class PreloadProgrammerSounds : MonoBehaviour {
     if (Current.SoundDataByKey.ContainsKey(key))
       return;
 
-    MODE soundMode =
-      MODE.LOOP_NORMAL |
-      MODE.CREATECOMPRESSEDSAMPLE |
-      MODE.NONBLOCKING;
+    MODE soundMode = MODE.LOOP_NORMAL | MODE.CREATECOMPRESSEDSAMPLE | MODE.NONBLOCKING;
 
     SOUND_INFO soundInfo;
     RESULT keyResult = RuntimeManager.StudioSystem.getSoundInfo(key, out soundInfo);
@@ -52,10 +49,7 @@ public class PreloadProgrammerSounds : MonoBehaviour {
     );
     HandleResult(soundResult, "Failed to create sound for key: " + key);
 
-    SoundData soundData = new SoundData() {
-      Sound = sound,
-      SoundInfo = soundInfo
-    };
+    SoundData soundData = new SoundData() { Sound = sound, SoundInfo = soundInfo };
 
     GCHandle soundDataHandle = GCHandle.Alloc(soundData, GCHandleType.Pinned);
     Current.SoundDataByKey[key] = soundDataHandle;

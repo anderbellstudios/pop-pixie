@@ -39,22 +39,18 @@ public abstract class ALegacyEnemyAI : MonoBehaviour {
     ControlRelinquished();
   }
 
-  public virtual void ControlGained() {
-  }
+  public virtual void ControlGained() { }
 
-  public virtual void WhileInControl() {
-  }
+  public virtual void WhileInControl() { }
 
-  public virtual void ControlRelinquished() {
-  }
+  public virtual void ControlRelinquished() { }
 
   void OnCollisionEnter2D(Collision2D col) {
     if (InControl)
       LocalOnCollisionEnter2D(col);
   }
 
-  public virtual void LocalOnCollisionEnter2D(Collision2D col) {
-  }
+  public virtual void LocalOnCollisionEnter2D(Collision2D col) { }
 
   // Utility methods
 
@@ -67,8 +63,7 @@ public abstract class ALegacyEnemyAI : MonoBehaviour {
     GetComponent<MovementManager>().Move(movement * Time.deltaTime);
   }
 
-  public GameObject Target
-    => PlayerGameObject.Current;
+  public GameObject Target => PlayerGameObject.Current;
 
   public bool DamageTarget(float damage, bool canBeCounterAttacked = false) {
     return Target.GetComponent<HitPoints>().Damage(damage, canBeCounterAttacked);
@@ -89,17 +84,20 @@ public abstract class ALegacyEnemyAI : MonoBehaviour {
   private bool _LineOfMovement;
 
   public bool LineOfMovement() {
-    LowPriorityBehaviour.EveryNFrames(10, () => {
-      var hit = Physics2D.CircleCast(
+    LowPriorityBehaviour.EveryNFrames(
+      10,
+      () => {
+        var hit = Physics2D.CircleCast(
           transform.position,
           WidthRequiredForMovement() / 2,
           TargetDirection(),
           Mathf.Infinity,
           IgnoreEnemyLayerMask.Mask
-          );
+        );
 
-      _LineOfMovement = hit.collider.gameObject == Target;
-    });
+        _LineOfMovement = hit.collider.gameObject == Target;
+      }
+    );
 
     return _LineOfMovement;
   }
@@ -121,6 +119,6 @@ public abstract class ALegacyEnemyAI : MonoBehaviour {
   }
 
   protected class DoNotUseAsyncTimerInEnemyAI { }
-  protected DoNotUseAsyncTimerInEnemyAI AsyncTimer
-    => new DoNotUseAsyncTimerInEnemyAI();
+
+  protected DoNotUseAsyncTimerInEnemyAI AsyncTimer => new DoNotUseAsyncTimerInEnemyAI();
 }

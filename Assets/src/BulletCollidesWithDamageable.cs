@@ -25,7 +25,9 @@ public class BulletCollidesWithDamageable : MonoBehaviour {
       bool isCounterAttack = hp.Damage(BulletData.Damage, true);
 
       if (isCounterAttack && BulletData.Originator) {
-        Vector3 toOriginator = (BulletData.Originator.transform.position - transform.position).normalized;
+        Vector3 toOriginator = (
+          BulletData.Originator.transform.position - transform.position
+        ).normalized;
         Rigidbody.velocity = BulletData.CounterAttackSpeed * toOriginator;
         BulletData.Damage = BulletData.CounterAttackDamage;
         gameObject.layer = LayerMask.NameToLayer("PlayerBullet");

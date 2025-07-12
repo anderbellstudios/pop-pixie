@@ -4,7 +4,10 @@ using System.Linq;
 using UnityEngine;
 
 public class MetaMonitor : AMonitor {
-  public enum QuantifierEnum { All, Any };
+  public enum QuantifierEnum {
+    All,
+    Any,
+  };
 
   public List<AMonitor> Monitors;
   public QuantifierEnum Quantifier;

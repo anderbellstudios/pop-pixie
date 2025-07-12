@@ -16,9 +16,7 @@ public class FollowPath : MonoBehaviour {
     ScriptedMovement.FollowPath(
       path: Anchors.Select(anchor => anchor.position).ToList(),
       speed: Speed,
-      avoidCollisionDistance: AvoidCollisions
-        ? AvoidCollisionDistance
-        : null,
+      avoidCollisionDistance: AvoidCollisions ? AvoidCollisionDistance : null,
       onComplete: OnFinish.Invoke
     );
   }

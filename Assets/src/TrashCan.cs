@@ -5,26 +5,41 @@ using UnityEngine;
 using UnityEngine.Events;
 
 public class TrashCan : AInspectable {
-  public DialogueHopper FirstDialogue, SecondDialogue, FinalDialogue;
+  public DialogueHopper FirstDialogue,
+    SecondDialogue,
+    FinalDialogue;
   public ParticleSystem ParticleSystem;
-  public Transform PopPixieSpriteTransform, PivotTransform;
+  public Transform PopPixieSpriteTransform,
+    PivotTransform;
   public SpriteRenderer PopPixieSpriteRenderer;
   public SpawnFlyingRingPull SpawnFlyingRingPull;
-  public SpriteRenderer TrashCanFrontSprite, TrashCanBackSprite;
-  public Sprite TrashCanFrontSpriteEmpty, TrashCanBackSpriteEmpty;
+  public SpriteRenderer TrashCanFrontSprite,
+    TrashCanBackSprite;
+  public Sprite TrashCanFrontSpriteEmpty,
+    TrashCanBackSpriteEmpty;
 
-  public float ZenithOffsetY, FinalOffsetX, FinalOffsetY;
+  public float ZenithOffsetY,
+    FinalOffsetX,
+    FinalOffsetY;
   public float JumpDuration;
-  public float TrashCanWobbleSpeed, TrashCanWobbleAmplitude, PopPixieWobbleSpeed, PopPixieWobbleAmplitude;
+  public float TrashCanWobbleSpeed,
+    TrashCanWobbleAmplitude,
+    PopPixieWobbleSpeed,
+    PopPixieWobbleAmplitude;
   public float DigDuration;
   public UnityEvent OnBeginDigging;
 
-  enum JumpDirectionEnum { In, Out };
+  enum JumpDirectionEnum {
+    In,
+    Out,
+  };
 
   private int Stage;
   private bool Jumping = false;
   private bool Digging = false;
-  private AnimationCurve JumpXCurve, JumpYCurve, JumpRotationCurve;
+  private AnimationCurve JumpXCurve,
+    JumpYCurve,
+    JumpRotationCurve;
   private Stopwatch JumpStopwatch;
   private JumpDirectionEnum JumpDirection;
 
@@ -97,13 +112,16 @@ public class TrashCan : AInspectable {
     Digging = true;
     OnBeginDigging.Invoke();
 
-    AsyncTimer.BaseTime.SetTimeout(() => {
-      EndDigging();
-      SpawnFlyingRingPull.Instantiate();
-      TrashCanFrontSprite.sprite = TrashCanFrontSpriteEmpty;
-      TrashCanBackSprite.sprite = TrashCanBackSpriteEmpty;
-      BeginJumping(JumpDirectionEnum.Out);
-    }, DigDuration);
+    AsyncTimer.BaseTime.SetTimeout(
+      () => {
+        EndDigging();
+        SpawnFlyingRingPull.Instantiate();
+        TrashCanFrontSprite.sprite = TrashCanFrontSpriteEmpty;
+        TrashCanBackSprite.sprite = TrashCanBackSpriteEmpty;
+        BeginJumping(JumpDirectionEnum.Out);
+      },
+      DigDuration
+    );
   }
 
   private void EndDigging() {
@@ -145,11 +163,10 @@ public class TrashCan : AInspectable {
   private void HandleJumping() {
     float progress = JumpStopwatch.Progress(JumpDuration);
 
-    float directedProgress = JumpDirection == JumpDirectionEnum.In
-      ? progress
-      : 1f - progress;
+    float directedProgress = JumpDirection == JumpDirectionEnum.In ? progress : 1f - progress;
 
-    PopPixieSpriteRenderer.sortingLayerName = directedProgress < 0.5 ? "Character" : "Level elements";
+    PopPixieSpriteRenderer.sortingLayerName =
+      directedProgress < 0.5 ? "Character" : "Level elements";
 
     PopPixieSpriteTransform.position = new Vector3(
       JumpXCurve.Evaluate(directedProgress),

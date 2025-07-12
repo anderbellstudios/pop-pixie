@@ -6,7 +6,8 @@ using UnityEngine.Events;
 public class CameraPan : MonoBehaviour {
   public Camera DestinationCamera;
   public float Duration;
-  public bool PauseGameplay, FollowPlayerAfterPan;
+  public bool PauseGameplay,
+    FollowPlayerAfterPan;
 
   public UnityEvent OnFinish;
 

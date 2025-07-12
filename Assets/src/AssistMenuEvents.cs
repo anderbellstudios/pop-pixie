@@ -8,9 +8,10 @@ public class AssistMenuEvents : AMenu {
   public StepperInput DamageReductionStepper;
 
   protected override void LocalStart() {
-    DamageReductionStepper.Options = Enumerable.Range(0, 11).Select(n =>
-      String.Format("{0}%", n * 10)
-    ).ToList();
+    DamageReductionStepper.Options = Enumerable
+      .Range(0, 11)
+      .Select(n => String.Format("{0}%", n * 10))
+      .ToList();
 
     UpdateSteppers();
 

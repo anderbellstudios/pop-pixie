@@ -10,9 +10,7 @@ public class ToggleCrouch : MonoBehaviour {
   void Start() {
     InGamePrompt.Current.RegisterSource(
       InGamePrompt.Priority.Uncrouch,
-      () => Crouch.Crouching
-        ? "Press [Crouch] to stop crouching"
-        : null
+      () => Crouch.Crouching ? "Press [Crouch] to stop crouching" : null
     );
   }
 

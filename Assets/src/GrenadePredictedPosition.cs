@@ -25,19 +25,10 @@ public class GrenadePredictedPosition : MonoBehaviour {
     Destroy(gameObject);
   }
 
-  public void UpdatePosition(
-    Vector3 direction,
-    float speed,
-    float radius,
-    float explodeTime
-  ) {
+  public void UpdatePosition(Vector3 direction, float speed, float radius, float explodeTime) {
     Quaternion rotation = Quaternion.FromToRotation(Vector3.right, direction);
 
-    transform.localRotation = Quaternion.Slerp(
-      transform.localRotation,
-      rotation,
-      0.3f
-    );
+    transform.localRotation = Quaternion.Slerp(transform.localRotation, rotation, 0.3f);
 
     PositionGroup.rotation = Quaternion.identity;
     PositionGroup.localPosition = Vector3.right * GetMaxDistance(direction, speed);

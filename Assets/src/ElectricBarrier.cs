@@ -5,10 +5,12 @@ using UnityEngine;
 public class ElectricBarrier : MonoBehaviour {
   [System.Serializable]
   public struct WidthAndOpacity {
-    public float Width, Opacity;
+    public float Width,
+      Opacity;
   }
 
-  public Transform Terminal1, Terminal2;
+  public Transform Terminal1,
+    Terminal2;
   public GameObject LineRendererGameObject;
   public int Points;
   public float Amplitude;
@@ -118,12 +120,8 @@ public class ElectricBarrier : MonoBehaviour {
   private Matrix4x4 GetMatrix() {
     Vector3 firstToSecond = Terminal2.position - Terminal1.position;
 
-    return Matrix4x4.Translate(Terminal1.position) *
-      Matrix4x4.Rotate(
-        Quaternion.FromToRotation(Vector3.right, firstToSecond)
-      ) *
-      Matrix4x4.Scale(
-        new Vector3(firstToSecond.magnitude, 1f, 1f)
-      );
+    return Matrix4x4.Translate(Terminal1.position)
+      * Matrix4x4.Rotate(Quaternion.FromToRotation(Vector3.right, firstToSecond))
+      * Matrix4x4.Scale(new Vector3(firstToSecond.magnitude, 1f, 1f));
   }
 }

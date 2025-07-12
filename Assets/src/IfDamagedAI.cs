@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class IfDamagedAI : AMovementEnemyAI {
-  public AMovementEnemyAI IfDamaged, IfNotDamaged;
+  public AMovementEnemyAI IfDamaged,
+    IfNotDamaged;
 
-  protected override AMovementEnemyAI UseMovementAI()
-    => IsDamaged() ? IfDamaged : IfNotDamaged;
+  protected override AMovementEnemyAI UseMovementAI() => IsDamaged() ? IfDamaged : IfNotDamaged;
 
-  private bool IsDamaged()
-    => Helper.HitPoints.Current < Helper.HitPoints.Maximum;
+  private bool IsDamaged() => Helper.HitPoints.Current < Helper.HitPoints.Maximum;
 }

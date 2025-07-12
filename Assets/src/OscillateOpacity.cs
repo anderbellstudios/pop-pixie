@@ -7,8 +7,10 @@ public class OscillateOpacity : MonoBehaviour {
   public Image Image;
   public SpriteRenderer SpriteRenderer;
 
-  public float MinSpeed, MaxSpeed;
-  private float Offset, Speed;
+  public float MinSpeed,
+    MaxSpeed;
+  private float Offset,
+    Speed;
   private Color InitialColor;
 
   void Start() {

@@ -6,10 +6,14 @@ using UnityEngine;
 public class GremlinBarricade : MonoBehaviour {
   public GameObject FallingDebris;
   public HitPoints HitPoints;
-  public float XRange, MinY, MaxY;
-  public float MinInterval, MaxInterval;
+  public float XRange,
+    MinY,
+    MaxY;
+  public float MinInterval,
+    MaxInterval;
   public float MinDistanceBetweenDebris;
-  public float Damage, CounterAttackDamage;
+  public float Damage,
+    CounterAttackDamage;
 
   private List<GameObject> ThrownObjects = new();
 
@@ -24,10 +28,14 @@ public class GremlinBarricade : MonoBehaviour {
   private void ScheduleThrow() {
     float interval = Random.Range(MinInterval, MaxInterval);
 
-    AsyncTimer.PlayingTime.SetTimeout(() => {
-      Throw();
-      ScheduleThrow();
-    }, interval, bindToBehaviour: this);
+    AsyncTimer.PlayingTime.SetTimeout(
+      () => {
+        Throw();
+        ScheduleThrow();
+      },
+      interval,
+      bindToBehaviour: this
+    );
   }
 
   private void Throw() {
@@ -35,11 +43,7 @@ public class GremlinBarricade : MonoBehaviour {
 
     Vector3 position = RandomPosition();
 
-    GameObject thrownObject = Instantiate(
-      FallingDebris,
-      position,
-      Quaternion.identity
-    );
+    GameObject thrownObject = Instantiate(FallingDebris, position, Quaternion.identity);
 
     FallingDebris fallingDebris = thrownObject.GetComponent<FallingDebris>();
     fallingDebris.Distance = transform.position.y - position.y;
@@ -58,10 +62,8 @@ public class GremlinBarricade : MonoBehaviour {
     Vector3 position = Vector3.zero;
 
     for (int attempts = 30; attempts >= 0; attempts--) {
-      position = transform.position + new Vector3(
-        Random.Range(-XRange, XRange),
-        -Random.Range(MinY, MaxY)
-      );
+      position =
+        transform.position + new Vector3(Random.Range(-XRange, XRange), -Random.Range(MinY, MaxY));
 
       if (PositionIsGood(position))
         return position;
@@ -71,7 +73,7 @@ public class GremlinBarricade : MonoBehaviour {
   }
 
   private bool PositionIsGood(Vector3 position) =>
-    ThrownObjects.All(thrownObject => (
-      thrownObject.transform.position - position
-    ).magnitude >= MinDistanceBetweenDebris);
+    ThrownObjects.All(thrownObject =>
+      (thrownObject.transform.position - position).magnitude >= MinDistanceBetweenDebris
+    );
 }

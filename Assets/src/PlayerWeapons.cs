@@ -38,7 +38,6 @@ public class PlayerWeapons : MonoBehaviour {
   bool IsAvailable(Weapon weapon) {
     return weapon.StartingWeapon || BoughtWeaponsData.IsBought(weapon.Id);
   }
-
 }
 
 public class PlayerWeapon {
@@ -53,7 +52,8 @@ public class PlayerWeapon {
     }
     get {
       if (!_Ammunition.HasValue)
-        _Ammunition = (int)GameData.Current.Fetch("ammunition-" + Weapon.Id, orSetEqualTo: Weapon.Capacity);
+        _Ammunition = (int)
+          GameData.Current.Fetch("ammunition-" + Weapon.Id, orSetEqualTo: Weapon.Capacity);
 
       return _Ammunition.Value;
     }
@@ -77,18 +77,15 @@ public class PlayerWeapon {
   public string ReloadSoundKey => Weapon.ReloadSoundKey;
   public string ShootSoundKey => Weapon.ShootSoundKey;
 
-  public float CooldownInterval()
-    => 1.0f / FireRate;
+  public float CooldownInterval() => 1.0f / FireRate;
 
-  public bool HasBullets()
-    => Ammunition > 0;
+  public bool HasBullets() => Ammunition > 0;
 
   public void ExpendBullet() {
     Ammunition = Mathf.Max(0, Ammunition - 1);
   }
 
-  public bool Full()
-    => Ammunition == Capacity;
+  public bool Full() => Ammunition == Capacity;
 
   public void Reload() {
     Ammunition = Capacity;

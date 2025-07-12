@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class AActivator : MonoBehaviour {
-
   public virtual bool IsActivated(ALegacyEnemyAI ai) {
     return IsActivated();
   }
@@ -11,5 +10,4 @@ public abstract class AActivator : MonoBehaviour {
   public virtual bool IsActivated() {
     throw new System.NotImplementedException("No implementation provided for IsActivated");
   }
-
 }

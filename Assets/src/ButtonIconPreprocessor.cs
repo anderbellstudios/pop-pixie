@@ -2,8 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 [ExecuteAlways]
 public class ButtonIconPreprocessor : MonoBehaviour, ITextPreprocessor {
@@ -19,20 +19,27 @@ public class ButtonIconPreprocessor : MonoBehaviour, ITextPreprocessor {
   }
 
   void Update() {
-    LowPriorityBehaviour.EveryNFrames(10, () => {
-      string _prefix = WrappedInput.ControllerPrefix() ?? "Kb+M";
+    LowPriorityBehaviour.EveryNFrames(
+      10,
+      () => {
+        string _prefix = WrappedInput.ControllerPrefix() ?? "Kb+M";
 
-      if (_prefix != Prefix) {
-        Prefix = _prefix;
-        GetComponent<TMP_Text>().ForceMeshUpdate(true, true);
+        if (_prefix != Prefix) {
+          Prefix = _prefix;
+          GetComponent<TMP_Text>().ForceMeshUpdate(true, true);
+        }
       }
-    });
+    );
   }
 
   public string PreprocessText(string original) {
     if (string.IsNullOrEmpty(original))
       return original;
 
-    return Regex.Replace(original, @"\[([^\[]*)\]", String.Format("<sprite=\"{0} Button Icons\" name=\"$1\">", Prefix));
+    return Regex.Replace(
+      original,
+      @"\[([^\[]*)\]",
+      String.Format("<sprite=\"{0} Button Icons\" name=\"$1\">", Prefix)
+    );
   }
 }

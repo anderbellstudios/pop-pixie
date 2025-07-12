@@ -6,7 +6,6 @@ using UnityEngine.UI;
 [CreateAssetMenu(menuName = "ScriptableObjects/Weapon", order = 1)]
 [System.Serializable]
 public class Weapon : ScriptableObject {
-
   public string Id;
   public string Name;
   public bool StartingWeapon = false;
@@ -19,8 +18,8 @@ public class Weapon : ScriptableObject {
   public GameObject BulletPrefab;
   public Sprite Sprite;
   public Sprite InHandSprite;
-  public string ReloadSoundKey, ShootSoundKey;
+  public string ReloadSoundKey,
+    ShootSoundKey;
 
-  public float CooldownInterval()
-    => 1.0f / FireRate;
+  public float CooldownInterval() => 1.0f / FireRate;
 }

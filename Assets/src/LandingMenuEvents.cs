@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class LandingMenuEvents : AMenu {
   public AMenu OptionsMenu;
   public SceneChangeHopper SceneChangeHopper;
-  public TMP_Text DebugModeIndicator, EDCIndicator;
+  public TMP_Text DebugModeIndicator,
+    EDCIndicator;
 
   public static bool FirstTime = true;
 
