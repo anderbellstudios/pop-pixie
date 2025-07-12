@@ -18,7 +18,8 @@ name: Upload to Steam
 #    intend to use include the Pop Pixie app and both depots created in step 1.
 # 6. Follow the steps in https://game.ci/docs/github/deployment/steam/#4-setup-steam-authentication
 #    and create the STEAM_USERNAME, and STEAM_CONFIG_VDF and STEAM_APP_ID
-#    secrets as required.
+#    secrets as required. If on macOS, the config.vdf file may be placed in
+#    ~/Library/Application Support/Steam/config/config.vdf.
 
 on: workflow_call
 
