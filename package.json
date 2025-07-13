@@ -5,8 +5,8 @@
     "vendor:unpack": "./vendor_unpack.sh",
     "find-unused": "ruby find_unused.rb",
     "used-by": "ruby used_by.rb",
-    "lint:fix": "dotnet csharpier-abs format Assets/src Assets/test",
-    "lint": "dotnet csharpier-abs check Assets/src Assets/test",
+    "lint:fix": "dotnet csharpier-abs format Assets/src Assets/test Assets/Editor",
+    "lint": "dotnet csharpier-abs check Assets/src Assets/test Assets/Editor",
     "percy:clean": "rm ./Percy/*.png",
     "percy:upload": "percy upload ./Percy",
     "prepare": "husky"
