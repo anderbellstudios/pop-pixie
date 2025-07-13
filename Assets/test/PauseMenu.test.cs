@@ -13,10 +13,9 @@ public class PauseMenuTest : ABaseTest {
     yield return AwaitSceneChange("Test Level");
 
     // Unlock all intel
-    RegisteredLoreItems registeredLoreItems =
-      AssetDatabase.LoadAssetAtPath<RegisteredLoreItems>(
-        "Assets/Unity/Scriptable Objects/Lore Items/Registered Lore Items.asset"
-      );
+    RegisteredLoreItems registeredLoreItems = AssetDatabase.LoadAssetAtPath<RegisteredLoreItems>(
+      "Assets/Unity/Scriptable Objects/Lore Items/Registered Lore Items.asset"
+    );
     foreach (LoreItem loreItem in registeredLoreItems.LoreItems) {
       LoreItemData.RecordRead(loreItem);
     }
@@ -28,11 +27,7 @@ public class PauseMenuTest : ABaseTest {
   [UnityTest, Retry(3)]
   public IEnumerator DiscoveredItemsDebugModeDisabled() {
     yield return Setup();
-    Assert.IsFalse(
-      GameObject
-        .FindObjectOfType<DiscoveredItemsMenuEvents>(true)
-        .Debug
-    );
+    Assert.IsFalse(GameObject.FindObjectOfType<DiscoveredItemsMenuEvents>(true).Debug);
   }
 
   [UnityTest, Retry(3)]

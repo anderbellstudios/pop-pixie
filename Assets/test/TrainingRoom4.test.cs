@@ -24,12 +24,9 @@ public class TrainingRoom4Test : ABaseTest {
 
     KillAllEnemies();
 
-    yield return ScriptedMovement(new[]{
-      "TopRight",
-      "BottomRight",
-      "BottomLeft",
-      "BeforeFinish",
-    });
+    yield return ScriptedMovement(
+      new[] { "TopRight", "BottomRight", "BottomLeft", "BeforeFinish" }
+    );
   }
 
   [UnityTest, Retry(3)]

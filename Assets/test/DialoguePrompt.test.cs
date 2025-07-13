@@ -85,13 +85,7 @@ public class DialoguePromptTest : ABaseTest {
   }
 
   private void AssertClosed() {
-    Assert.IsFalse(
-      DialoguePromptManager
-        .Current
-        .DialoguePromptBox
-        .gameObject
-        .activeSelf
-    );
+    Assert.IsFalse(DialoguePromptManager.Current.DialoguePromptBox.gameObject.activeSelf);
   }
 }
 #endif

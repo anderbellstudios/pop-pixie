@@ -44,10 +44,7 @@ public class LoreWindowTest : ABaseTest {
   [UnityTest, Retry(3)]
   public IEnumerator PanWithMouse() {
     yield return Setup();
-    yield return DragViewport(
-      0.25f, 0.5f,
-      0.3f, 0.5f
-    );
+    yield return DragViewport(0.25f, 0.5f, 0.3f, 0.5f);
     AssertLoreWindowPanAndZoom(53f, 0f, 1f, "Pan with mouse");
   }
 

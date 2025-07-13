@@ -22,9 +22,11 @@ public class EnemyAITest : ABaseTest {
 
   private class MyRootAI : AMovementEnemyAI {
     public MyChildMovementAI ChildMovementAI;
-    public MyChildGenericAI FirstChildAI, SecondChildAI;
+    public MyChildGenericAI FirstChildAI,
+      SecondChildAI;
 
-    public int? ActivatedAt, DeactivatedAt;
+    public int? ActivatedAt,
+      DeactivatedAt;
 
     public void Start() {
       Activate();
@@ -52,11 +54,13 @@ public class EnemyAITest : ABaseTest {
 
   private class MyChildMovementAI : AMovementEnemyAI {
     public MyChildMovementAI ChildMovementAI;
+
     protected override AMovementEnemyAI UseMovementAI() => ChildMovementAI;
   }
 
   private class MyChildGenericAI : AGenericEnemyAI {
-    public int? ActivatedAt, DeactivatedAt;
+    public int? ActivatedAt,
+      DeactivatedAt;
 
     protected override void OnActivate() {
       ActivatedAt = Ticks++;
@@ -158,7 +162,11 @@ public class EnemyAITest : ABaseTest {
 
     Assert.AreEqual(0, rootAI.ActivatedAt, "Parent AI is activated first");
     Assert.AreEqual(1, child1.ActivatedAt);
-    Assert.AreEqual(2, child1.DeactivatedAt, "Previous AI is deactivated before next AI is activated");
+    Assert.AreEqual(
+      2,
+      child1.DeactivatedAt,
+      "Previous AI is deactivated before next AI is activated"
+    );
     Assert.AreEqual(3, child2.ActivatedAt);
     Assert.AreEqual(4, child2.DeactivatedAt, "Child AI is deactivated first");
     Assert.AreEqual(5, rootAI.DeactivatedAt);

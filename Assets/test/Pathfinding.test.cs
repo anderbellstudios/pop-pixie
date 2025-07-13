@@ -19,7 +19,9 @@ public class PathfindingTest : ABaseTest {
     yield return AwaitSceneChange("Test Pathfinding");
 
     GameObject agents = GameObject.Find("Agents");
-    TestPathfindingBadZone badZone = GameObject.Find("BadZone").GetComponent<TestPathfindingBadZone>();
+    TestPathfindingBadZone badZone = GameObject
+      .Find("BadZone")
+      .GetComponent<TestPathfindingBadZone>();
     TestPathfindingGoal split1 = GameObject.Find("Split1").GetComponent<TestPathfindingGoal>();
     TestPathfindingGoal split2 = GameObject.Find("Split2").GetComponent<TestPathfindingGoal>();
 
