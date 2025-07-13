@@ -17,12 +17,7 @@ public class TrainingRoom5Test : ABaseTest {
     GameObject.Find("Caption Line").SetActive(false);
 
     // Disable boss AI
-    GameObject
-      .Find("Mentoe Hologram")
-      .transform
-      .Find("AI")
-      .gameObject
-      .SetActive(false);
+    GameObject.Find("Mentoe Hologram").transform.Find("AI").gameObject.SetActive(false);
   }
 
   [UnityTest, Retry(3)]

@@ -24,7 +24,7 @@ public class WeaponSwitcherTest : ABaseTest {
     LoadSceneNotInBuildSettings("Assets/Unity/Scenes/Test Level.unity");
     yield return AwaitSceneChange("Test Level");
 
-    // Ensure direction is consistent 
+    // Ensure direction is consistent
     SetViewportMousePosition(1f, 0.5f);
 
     yield return ButtonDown("Change Weapon");

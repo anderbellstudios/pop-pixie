@@ -27,19 +27,20 @@ public class TestResolution {
     aspectHeight: 9
   );
 
-  public static readonly TestResolution Default = new TestResolution(
-    freeAspect: true
-  );
+  public static readonly TestResolution Default = new TestResolution(freeAspect: true);
 
   public static readonly TestResolution TestDefault = Aspect16x9;
 
   public static readonly TestResolution[] ScreenshotResolutions = {
     Aspect4x3,
     Aspect16x9,
-    Aspect32x9
+    Aspect32x9,
   };
 
-  private int Width, Height, AspectWidth, AspectHeight;
+  private int Width,
+    Height,
+    AspectWidth,
+    AspectHeight;
   private bool FreeAspect = false;
   private Action Create;
   private Func<int> GetIndex;
@@ -89,16 +90,13 @@ public class TestResolution {
       );
 
       getGroup
-        .ReturnType
-        .GetMethod("AddCustomSize")
+        .ReturnType.GetMethod("AddCustomSize")
         .Invoke(group, new object[] { newGameViewSize });
     };
 
     GetIndex = () => {
-      string[] displayTexts = group
-        .GetType()
-        .GetMethod("GetDisplayTexts")
-        .Invoke(group, null) as string[];
+      string[] displayTexts =
+        group.GetType().GetMethod("GetDisplayTexts").Invoke(group, null) as string[];
 
       return Array.IndexOf(displayTexts, DisplayText);
     };
@@ -113,21 +111,12 @@ public class TestResolution {
     };
   }
 
-  public string ShortName => String.Format(
-    "{0}x{1}",
-    AspectWidth,
-    AspectHeight
-  );
+  public string ShortName => String.Format("{0}x{1}", AspectWidth, AspectHeight);
 
-  private string DisplayText => FreeAspect
-    ? "Free Aspect"
-    : String.Format(
-      "Test {0}:{1} ({2}x{3})",
-      AspectWidth,
-      AspectHeight,
-      Width,
-      Height
-    );
+  private string DisplayText =>
+    FreeAspect
+      ? "Free Aspect"
+      : String.Format("Test {0}:{1} ({2}x{3})", AspectWidth, AspectHeight, Width, Height);
 
   public void Apply() {
     int index = GetIndex();

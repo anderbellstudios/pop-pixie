@@ -17,10 +17,7 @@ public class OptionsMenuTest : ABaseTest {
     yield return null;
 
     // Show controller icons stepper
-    GameObject
-      .FindObjectOfType<OptionsMenuEvents>()
-      .ControllerIconsGameObject
-      .SetActive(true);
+    GameObject.FindObjectOfType<OptionsMenuEvents>().ControllerIconsGameObject.SetActive(true);
   }
 
   [UnityTest, Retry(3)]

@@ -22,10 +22,7 @@ public class TrainingRoom3Test : ABaseTest {
 
     yield return TakePercyScreenshot("TrainingRoom3.1");
 
-    yield return ScriptedMovement(new[]{
-      "Junction1",
-      "Door1Out",
-    });
+    yield return ScriptedMovement(new[] { "Junction1", "Door1Out" });
 
     room = GameObject.Find("HologremsRoom1").transform;
     PreventEnemyMovement(room);
@@ -33,24 +30,24 @@ public class TrainingRoom3Test : ABaseTest {
     yield return TakePercyScreenshot("TrainingRoom3.2");
     KillAllEnemies(room);
 
-    yield return ScriptedMovement(new[]{
-      "Room1Mid",
-      "Room1Intel",
-    });
+    yield return ScriptedMovement(new[] { "Room1Mid", "Room1Intel" });
 
     yield return PressButton("Inspect");
     yield return PressButton("Cancel");
 
-    yield return ScriptedMovement(new[]{
-      "Room1Mid",
-      "Door1In",
-      "Door1Out",
-      "Junction1",
-      "Junction2",
-      "Junction2.1",
-      "Junction2.2",
-      "Door2Out",
-    });
+    yield return ScriptedMovement(
+      new[]
+      {
+        "Room1Mid",
+        "Door1In",
+        "Door1Out",
+        "Junction1",
+        "Junction2",
+        "Junction2.1",
+        "Junction2.2",
+        "Door2Out",
+      }
+    );
 
     room = GameObject.Find("HologremsRoom2").transform;
     PreventEnemyMovement(room);
@@ -58,26 +55,26 @@ public class TrainingRoom3Test : ABaseTest {
     yield return TakePercyScreenshot("TrainingRoom3.3");
     KillAllEnemies(room);
 
-    yield return ScriptedMovement(new[]{
-      "Room2Mid",
-      "Room2Intel",
-    });
+    yield return ScriptedMovement(new[] { "Room2Mid", "Room2Intel" });
 
     yield return PressButton("Inspect");
     yield return PressButton("Cancel");
 
-    yield return ScriptedMovement(new[]{
-      "Room2Mid",
-      "Door2In",
-      "Door2Out",
-      "Junction2.2",
-      "Junction2.1",
-      "Junction2",
-      "Junction3",
-      "Junction3.1",
-      "Junction3.2",
-      "Door3Out",
-    });
+    yield return ScriptedMovement(
+      new[]
+      {
+        "Room2Mid",
+        "Door2In",
+        "Door2Out",
+        "Junction2.2",
+        "Junction2.1",
+        "Junction2",
+        "Junction3",
+        "Junction3.1",
+        "Junction3.2",
+        "Door3Out",
+      }
+    );
 
     room = GameObject.Find("HologremsRoom3").transform;
     PreventEnemyMovement(room);
@@ -85,25 +82,25 @@ public class TrainingRoom3Test : ABaseTest {
     yield return TakePercyScreenshot("TrainingRoom3.4");
     KillAllEnemies(room);
 
-    yield return ScriptedMovement(new[]{
-      "Room3Mid",
-      "Room3Intel",
-    });
+    yield return ScriptedMovement(new[] { "Room3Mid", "Room3Intel" });
 
     yield return PressButton("Inspect");
     yield return PressButton("Cancel");
 
-    yield return ScriptedMovement(new[]{
-      "Room3Mid",
-      "Door3In",
-      "Door3Out",
-      "Junction3.2",
-      "Junction3.1",
-      "Junction3",
-      "Junction4",
-      "Junction4.1",
-      "Door4Out",
-    });
+    yield return ScriptedMovement(
+      new[]
+      {
+        "Room3Mid",
+        "Door3In",
+        "Door3Out",
+        "Junction3.2",
+        "Junction3.1",
+        "Junction3",
+        "Junction4",
+        "Junction4.1",
+        "Door4Out",
+      }
+    );
 
     room = GameObject.Find("HologremsRoom4").transform;
     PreventEnemyMovement(room);
@@ -111,18 +108,12 @@ public class TrainingRoom3Test : ABaseTest {
     yield return TakePercyScreenshot("TrainingRoom3.5");
     KillAllEnemies(room);
 
-    yield return ScriptedMovement(new[]{
-      "Room4Mid",
-      "Room4Intel",
-    });
+    yield return ScriptedMovement(new[] { "Room4Mid", "Room4Intel" });
 
     yield return PressButton("Inspect");
     yield return PressButton("Cancel");
 
-    yield return ScriptedMovement(new[]{
-      "Room4Mid",
-      "Door4In"
-    });
+    yield return ScriptedMovement(new[] { "Room4Mid", "Door4In" });
 
     MoveUp();
     yield return AwaitSceneChange("Training Room 4");

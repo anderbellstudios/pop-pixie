@@ -26,10 +26,7 @@ public class Level1Test : ABaseTest {
     yield return TakePercyScreenshot("Level1.1");
 
     // Elevator hint
-    yield return ScriptedMovement(new[] {
-      "Top",
-      "Elevator"
-    });
+    yield return ScriptedMovement(new[] { "Top", "Elevator" });
     yield return TakePercyScreenshot("Level1.2");
     yield return AwaitHasText("Use an.*Access Terminal.*to", regex: true);
 
