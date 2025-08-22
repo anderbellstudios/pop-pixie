@@ -27,7 +27,7 @@ jobs:
   package_windows:
     name: Package Windows build
     needs: build
-    runs-on: windows-2022
+    runs-on: windows-2025
 
     steps:
       - uses: actions/checkout@v4
@@ -42,7 +42,7 @@ jobs:
           path: public
 
       - name: Compile installer
-        uses: anderbellstudios/Inno-Setup-Action@main
+        uses: Minionguyjpro/Inno-Setup-Action@11b1cb96144a501c6580661c8d0bdf4bb790171c
         with:
           path: ./installers/windows/pop-pixie.iss
           options: /O+
