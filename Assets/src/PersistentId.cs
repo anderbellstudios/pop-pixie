@@ -13,7 +13,8 @@ public class PersistentId : MonoBehaviour {
 
 #if UNITY_EDITOR
   void Update() {
-    if (Application.isPlaying) return;
+    if (Application.isPlaying)
+      return;
     string id = GlobalObjectId.GetGlobalObjectIdSlow(gameObject).ToString();
     if (id != Id) {
       Id = id;

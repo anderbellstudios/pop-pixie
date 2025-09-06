@@ -9,6 +9,10 @@ using UnityEngine.SceneManagement;
 public class TrainingGameOutroScenes : ABaseTest {
   private IEnumerator Setup() {
     yield return CommonSetup();
+    SimulationResultData.StartedTime = 0;
+    PlayingTime.time = 83;
+    SimulationResultData.NumberOfHitsTaken = 16;
+    SimulationResultData.ObstacleCourseBestTime = 40;
   }
 
   [UnityTest, Retry(3)]

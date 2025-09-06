@@ -1,13 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.Events;
-using TMPro;
 using KoganeUnityLib;
+using TMPro;
+using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class DialogueBoxController : MonoBehaviour {
-  public TMP_Text Heading, ContinuePrompt;
+  public TMP_Text Heading,
+    ContinuePrompt;
   public TMP_Typewriter BodyTypewriter;
   public Image FaceImage;
 

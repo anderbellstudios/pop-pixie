@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CirclingAroundTargetAI : ALegacyEnemyAI, IRequiresLineOfMovementAI {
-  public float TooFarThreshold, ApproachToDistance;
-  public float TooCloseThreshold, BackOffToDistance;
+  public float TooFarThreshold,
+    ApproachToDistance;
+  public float TooCloseThreshold,
+    BackOffToDistance;
 
-  public float ApproachSpeed, BackOffSpeed;
+  public float ApproachSpeed,
+    BackOffSpeed;
   public float CircleSpeed;
 
   public float AttackInterval;
@@ -20,9 +23,12 @@ public class CirclingAroundTargetAI : ALegacyEnemyAI, IRequiresLineOfMovementAI 
   public override void ControlGained() {
     float duration = AttackInterval + (Random.Range(-1f, 1f) * AttackIntervalRandomness / 2f);
 
-    SetTimeout(() => {
-      RelinquishControlTo(WhenAttacking);
-    }, duration);
+    SetTimeout(
+      () => {
+        RelinquishControlTo(WhenAttacking);
+      },
+      duration
+    );
 
     if (Random.value > 0.5f) {
       CircleDirection = 1;
@@ -54,9 +60,7 @@ public class CirclingAroundTargetAI : ALegacyEnemyAI, IRequiresLineOfMovementAI 
   }
 
   private void Circle() {
-    ApplyMovement(
-      Vector2.Perpendicular(TargetDirection()) * CircleSpeed * CircleDirection
-    );
+    ApplyMovement(Vector2.Perpendicular(TargetDirection()) * CircleSpeed * CircleDirection);
   }
 
   public override void LocalOnCollisionEnter2D(Collision2D _) {

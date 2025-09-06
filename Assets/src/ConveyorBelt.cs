@@ -53,26 +53,19 @@ public class ConveyorBelt : MonoBehaviour {
 
       DeltaTime = 0;
 
-      EligibleMovementManagers().ForEach(movementManager => {
-        Vector2 newPosition =
-          movementManager.ConveyorContactPoint + maxDisplacement;
+      EligibleMovementManagers()
+        .ForEach(movementManager => {
+          Vector2 newPosition = movementManager.ConveyorContactPoint + maxDisplacement;
 
-        // Do not overshoot by more than 0.01 units
-        if (!InContact(newPosition)) {
-          newPosition =
-            (Vector2)Collider2D.bounds.ClosestPoint(newPosition) +
-            direction * 0.01f;
-        }
+          // Do not overshoot by more than 0.01 units
+          if (!InContact(newPosition)) {
+            newPosition = (Vector2)Collider2D.bounds.ClosestPoint(newPosition) + direction * 0.01f;
+          }
 
-        Vector2 displacement =
-          newPosition - movementManager.ConveyorContactPoint;
+          Vector2 displacement = newPosition - movementManager.ConveyorContactPoint;
 
-        movementManager.Move(
-          displacement,
-          skipVisualMovement: true,
-          skipSpeedModifiers: true
-        );
-      });
+          movementManager.Move(displacement, skipVisualMovement: true, skipSpeedModifiers: true);
+        });
     }
   }
 
@@ -80,16 +73,15 @@ public class ConveyorBelt : MonoBehaviour {
     MovedThisFixedUpdate = false;
   }
 
-  public bool PlayerInContact()
-    => InContact(PlayerMovementManager.ConveyorContactPoint);
+  public bool PlayerInContact() => InContact(PlayerMovementManager.ConveyorContactPoint);
 
-  private List<MovementManager> EligibleMovementManagers() => TouchingGameObjects
-    .Select(gameObject => gameObject.GetComponent<MovementManager>())
-    .Where(movementManager =>
-      movementManager != null &&
-      InContact(movementManager.ConveyorContactPoint)
-    )
-    .ToList();
+  private List<MovementManager> EligibleMovementManagers() =>
+    TouchingGameObjects
+      .Select(gameObject => gameObject.GetComponent<MovementManager>())
+      .Where(movementManager =>
+        movementManager != null && InContact(movementManager.ConveyorContactPoint)
+      )
+      .ToList();
 
   private bool InContact(Vector3 point) => Collider2D.bounds.Contains(point);
 }

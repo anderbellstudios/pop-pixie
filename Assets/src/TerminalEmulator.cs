@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class TerminalEmulator : MonoBehaviour {
   public TMP_Text OutputText;
-  public int Columns, Rows;
+  public int Columns,
+    Rows;
   public float RowHeight;
 
   private Vector3 InitialPosition;

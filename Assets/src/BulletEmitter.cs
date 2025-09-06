@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BulletEmitter : MonoBehaviour {
-
   public MonoBehaviour DirectionManager;
 
   private Weapon Weapon;
@@ -27,11 +26,7 @@ public class BulletEmitter : MonoBehaviour {
       direction = new Vector3(0, 1, 0);
     }
 
-    var bullet = Instantiate(
-      Weapon.BulletPrefab,
-      transform.position,
-      transform.rotation
-    );
+    var bullet = Instantiate(Weapon.BulletPrefab, transform.position, transform.rotation);
 
     BulletData bulletData = bullet.GetComponent<BulletData>();
     bulletData.Damage = Weapon.Damage;
@@ -44,5 +39,4 @@ public class BulletEmitter : MonoBehaviour {
   float Speed() {
     return Weapon.BulletSpeed;
   }
-
 }

@@ -7,8 +7,11 @@ using UnityEngine.Events;
 
 public abstract class AEnemyAI : MonoBehaviour {
   protected virtual void WhileActive() { }
+
   protected virtual void OnActivate() { }
+
   protected virtual void OnDeactivate() { }
+
   protected virtual void UseChildAIs(Action<AGenericEnemyAI> useChild) { }
 
   protected virtual bool ShouldAvoidInterruption() => false;
@@ -106,14 +109,14 @@ public abstract class AEnemyAI : MonoBehaviour {
     return ActiveChildAIs.Any(child => child.AnyDescendant(condition));
   }
 
-  protected bool AvoidingInterruption
-    => AnyDescendant(ai => ai.ShouldAvoidInterruption());
+  protected bool AvoidingInterruption => AnyDescendant(ai => ai.ShouldAvoidInterruption());
 
-  private EnemyAIHelper MakeHelper() => new EnemyAIHelper(
-    ai: this,
-    gameObject: GetRootTransform().gameObject,
-    movementAllowed: InternalMovementAllowed()
-  );
+  private EnemyAIHelper MakeHelper() =>
+    new EnemyAIHelper(
+      ai: this,
+      gameObject: GetRootTransform().gameObject,
+      movementAllowed: InternalMovementAllowed()
+    );
 
   // Find the first ancestor tagged "Enemy"
   private Transform GetRootTransform() {

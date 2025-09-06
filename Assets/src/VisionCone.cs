@@ -29,6 +29,7 @@ public class VisionCone : MonoBehaviour {
   }
 
   public void SetYellow() => SetColor(Color.yellow);
+
   public void SetRed() => SetColor(Color.red);
 
   void Start() {
@@ -45,12 +46,10 @@ public class VisionCone : MonoBehaviour {
       return;
 
     // We only care about the centre of the player, relative to our own origin
-    Vector2 playerPosition = transform.InverseTransformPoint(
-      PlayerGameObject.Position
-    );
+    Vector2 playerPosition = transform.InverseTransformPoint(PlayerGameObject.Position);
 
-    bool seesPlayer = PointIsInsideCone(playerPosition) &&
-      RaycastHitsPlayer(playerPosition.normalized);
+    bool seesPlayer =
+      PointIsInsideCone(playerPosition) && RaycastHitsPlayer(playerPosition.normalized);
 
     if (seesPlayer) {
       if (SeesPlayerStopwatch == null) {
@@ -106,9 +105,7 @@ public class VisionCone : MonoBehaviour {
 #if UNITY_EDITOR
     Debug.DrawLine(
       transform.position,
-      transform.position +
-        transform.TransformDirection(direction) *
-        (hit ? hit.distance : Radius)
+      transform.position + transform.TransformDirection(direction) * (hit ? hit.distance : Radius)
     );
 #endif
 
@@ -141,16 +138,15 @@ public class VisionCone : MonoBehaviour {
     Mesh.triangles = triangles;
   }
 
-  private Vector3 DirectionForAngle(float angle) =>
-    Quaternion.Euler(0, 0, angle) * Vector3.right;
+  private Vector3 DirectionForAngle(float angle) => Quaternion.Euler(0, 0, angle) * Vector3.right;
 
   private bool PointIsInsideCone(Vector2 point) {
     float relativeAngle = Vector3.Angle(Vector3.right, point);
     float distance = point.magnitude;
 
-    return relativeAngle < Width / 2 &&
-      distance >= BlindSpotRadius &&
-      distance <= Radius - DetectPlayerMaxDistanceLeniency;
+    return relativeAngle < Width / 2
+      && distance >= BlindSpotRadius
+      && distance <= Radius - DetectPlayerMaxDistanceLeniency;
   }
 
   private bool RaycastHitsPlayer(Vector2 direction) {

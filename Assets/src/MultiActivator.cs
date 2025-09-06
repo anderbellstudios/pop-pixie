@@ -4,7 +4,6 @@ using System.Linq;
 using UnityEngine;
 
 public class MultiActivator : AActivator {
-
   public bool RequireAll;
   public List<AActivator> Activators;
 
@@ -15,5 +14,4 @@ public class MultiActivator : AActivator {
       return Activators.Any(a => a.IsActivated(ai));
     }
   }
-
 }

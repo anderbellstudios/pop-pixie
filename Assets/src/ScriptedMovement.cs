@@ -79,9 +79,8 @@ public class ScriptedMovement : MonoBehaviour {
     float avoidCollisionFactor = AvoidCollisionFactor(direction);
 
     MovementManager.Move(
-      direction.normalized * Mathf.Min(
-        Speed * avoidCollisionFactor * Time.deltaTime, direction.magnitude
-      )
+      direction.normalized
+        * Mathf.Min(Speed * avoidCollisionFactor * Time.deltaTime, direction.magnitude)
     );
   }
 
@@ -101,11 +100,7 @@ public class ScriptedMovement : MonoBehaviour {
    */
   void TrySkipAhead() {
     for (int i = Path.Count - 1; i > PathIndex; i--) {
-      if (LineOfMovement.Check(
-        transform.position,
-        Path[i],
-        exclude: MovementManager.gameObject
-      )) {
+      if (LineOfMovement.Check(transform.position, Path[i], exclude: MovementManager.gameObject)) {
         PathIndex = i;
         return;
       }
@@ -120,29 +115,24 @@ public class ScriptedMovement : MonoBehaviour {
     if (AvoidCollisionDistance == null)
       return 1f;
 
-    GameObject gameObjectAhead = Physics2D.CircleCastAll(
-      origin: transform.position,
-      radius: 0.5f,
-      direction: direction,
-      distance: direction.magnitude,
-      layerMask: AvoidCollisionLayerMask
-    )
+    GameObject gameObjectAhead = Physics2D
+      .CircleCastAll(
+        origin: transform.position,
+        radius: 0.5f,
+        direction: direction,
+        distance: direction.magnitude,
+        layerMask: AvoidCollisionLayerMask
+      )
       .Where(hit => hit.collider.gameObject != MovementManager.gameObject)
       .FirstOrDefault()
-      .collider?
-      .gameObject;
+      .collider?.gameObject;
 
     if (!gameObjectAhead)
       return 1f;
 
-    float distanceAhead = (
-      gameObjectAhead.transform.position - transform.position
-    ).magnitude;
+    float distanceAhead = (gameObjectAhead.transform.position - transform.position).magnitude;
 
-    return 1f - Mathf.Clamp(
-      (float)AvoidCollisionDistance / Mathf.Pow(distanceAhead, 2f),
-      0f,
-      1.25f
-    );
+    return 1f
+      - Mathf.Clamp((float)AvoidCollisionDistance / Mathf.Pow(distanceAhead, 2f), 0f, 1.25f);
   }
 }

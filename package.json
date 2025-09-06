@@ -2,18 +2,18 @@
   "scripts": {
     "vendor:validate": "ruby Assets/vendor/validate.rb",
     "vendor:pack": "cd Assets/vendor && { rm -r FMOD 2>/dev/null || true; } && cp -r ../Plugins/FMOD FMOD && zip -r ../../vendor.zip */ && rm -r FMOD",
-    "vendor:unpack": "cd Assets/vendor && unzip ../../vendor.zip && { rm -r ../Plugins/FMOD 2>/dev/null || true; } && mv FMOD ../Plugins/FMOD && { rm ../Plugins/FMOD/Resources/FMODStudioSettings.asset{,.meta} || true; }",
+    "vendor:unpack": "./vendor_unpack.sh",
     "find-unused": "ruby find_unused.rb",
     "used-by": "ruby used_by.rb",
-    "lint:all:fix": "./format.sh Assets/src/**/*.cs",
-    "lint:fix": "./format_changed.sh",
-    "lint:all": "yarn lint:all:fix --verify-no-changes",
-    "lint": "yarn lint:fix --verify-no-changes",
+    "lint:fix": "dotnet csharpier-abs format Assets/src Assets/test Assets/Editor",
+    "lint": "dotnet csharpier-abs check Assets/src Assets/test Assets/Editor",
     "percy:clean": "rm ./Percy/*.png",
-    "percy:upload": "percy upload ./Percy"
+    "percy:upload": "percy upload ./Percy",
+    "prepare": "husky"
   },
   "devDependencies": {
-    "@percy/cli": "^1.29.3"
+    "@percy/cli": "^1.29.3",
+    "husky": "^9.1.7"
   },
   "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }

@@ -13,10 +13,9 @@ public class PauseMenuTest : ABaseTest {
     yield return AwaitSceneChange("Test Level");
 
     // Unlock all intel
-    RegisteredLoreItems registeredLoreItems =
-      AssetDatabase.LoadAssetAtPath<RegisteredLoreItems>(
-        "Assets/Unity/Scriptable Objects/Lore Items/Registered Lore Items.asset"
-      );
+    RegisteredLoreItems registeredLoreItems = AssetDatabase.LoadAssetAtPath<RegisteredLoreItems>(
+      "Assets/Unity/Scriptable Objects/Lore Items/Registered Lore Items.asset"
+    );
     foreach (LoreItem loreItem in registeredLoreItems.LoreItems) {
       LoreItemData.RecordRead(loreItem);
     }
@@ -28,30 +27,26 @@ public class PauseMenuTest : ABaseTest {
   [UnityTest, Retry(3)]
   public IEnumerator DiscoveredItemsDebugModeDisabled() {
     yield return Setup();
-    Assert.IsFalse(
-      GameObject
-        .FindObjectOfType<DiscoveredItemsMenuEvents>(true)
-        .Debug
-    );
+    Assert.IsFalse(GameObject.FindObjectOfType<DiscoveredItemsMenuEvents>(true).Debug);
   }
 
   [UnityTest, Retry(3)]
   public IEnumerator PercyScreenshots() {
     yield return Setup();
     yield return TakePercyScreenshot("Pause");
-    ClickByText("Pieces of Intel");
+    yield return ClickByText("Pieces of Intel");
     yield return TakePercyScreenshot("Pause.LoreMenu");
-    ClickByText("Mentoes Tower brochure");
+    yield return ClickByText("Mentoes Tower brochure");
     yield return TakePercyScreenshot("Pause.LoreWindow");
     yield return PressButton("Cancel");
     yield return PressButton("Cancel");
-    ClickByText("Options");
+    yield return ClickByText("Options");
     yield return TakePercyScreenshot("Pause.Options");
-    ClickByText("< Back");
-    ClickByText("Assist mode");
+    yield return ClickByText("< Back");
+    yield return ClickByText("Assist mode");
     yield return TakePercyScreenshot("Pause.Assist");
-    ClickByText("< Back");
-    ClickByText("Quit game");
+    yield return ClickByText("< Back");
+    yield return ClickByText("Quit game");
     yield return TakePercyScreenshot("Pause.Quit");
   }
 }

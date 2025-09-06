@@ -31,9 +31,7 @@ public class EquippedWeapon : MonoBehaviour {
 
     InGamePrompt.Current.RegisterSource(
       InGamePrompt.Priority.Reload,
-      () => CurrentWeapon.Ammunition == 0
-        ? "Press [Reload] to reload your weapon"
-        : null
+      () => CurrentWeapon.Ammunition == 0 ? "Press [Reload] to reload your weapon" : null
     );
 
     StateManager.AddListener(() => {
@@ -52,13 +50,16 @@ public class EquippedWeapon : MonoBehaviour {
 
       ListeningForTap = true;
 
-      TapTimer = AsyncTimer.BaseTime.SetTimeout(() => {
-        // Not a tap, so open the weapon switcher
-        WeaponSwitcher.Current.Show();
-        WeaponSwitcherOpen = true;
+      TapTimer = AsyncTimer.BaseTime.SetTimeout(
+        () => {
+          // Not a tap, so open the weapon switcher
+          WeaponSwitcher.Current.Show();
+          WeaponSwitcherOpen = true;
 
-        ListeningForTap = false;
-      }, TapToChangeDuration);
+          ListeningForTap = false;
+        },
+        TapToChangeDuration
+      );
     }
 
     if (WrappedInput.GetButtonUp("Change Weapon")) {
@@ -90,9 +91,7 @@ public class EquippedWeapon : MonoBehaviour {
   public void SetWeaponByIndex(int index, bool setLast = true) {
     OnChangeWeapon.Invoke();
 
-    CurrentWeapon = AvailableWeapons.Count > index
-      ? AvailableWeapons[index]
-      : AvailableWeapons[0];
+    CurrentWeapon = AvailableWeapons.Count > index ? AvailableWeapons[index] : AvailableWeapons[0];
 
     if (setLast && CurrentWeaponIndex != index) {
       LastWeaponIndex = CurrentWeaponIndex;
@@ -106,23 +105,13 @@ public class EquippedWeapon : MonoBehaviour {
   }
 
   public int CurrentWeaponIndex {
-    get {
-      return EquippedWeaponData.CurrentWeapon;
-    }
-
-    set {
-      EquippedWeaponData.CurrentWeapon = value;
-    }
+    get { return EquippedWeaponData.CurrentWeapon; }
+    set { EquippedWeaponData.CurrentWeapon = value; }
   }
 
   public int LastWeaponIndex {
-    get {
-      return EquippedWeaponData.LastWeapon;
-    }
-
-    set {
-      EquippedWeaponData.LastWeapon = value;
-    }
+    get { return EquippedWeaponData.LastWeapon; }
+    set { EquippedWeaponData.LastWeapon = value; }
   }
 
   public List<PlayerWeapon> AvailableWeapons => PlayerWeapons.AvailableWeapons();

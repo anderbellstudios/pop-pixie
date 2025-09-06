@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
 using System.Linq;
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -25,7 +25,10 @@ public class HitPoints : MonoBehaviour {
   public float LastDamaged;
   public float LastDamageAmount;
   public bool Dead = false;
-  public UnityEvent<HitPoints> OnUpdate, OnDecrease, OnBecomeZero, OnCounterAttack;
+  public UnityEvent<HitPoints> OnUpdate,
+    OnDecrease,
+    OnBecomeZero,
+    OnCounterAttack;
 
   public void Cap() {
     // Make sure HP is between 0 and max
@@ -67,12 +70,10 @@ public class HitPoints : MonoBehaviour {
     DamageContext ctx = new DamageContext {
       HitPoints = this,
       Damage = damage,
-      IsDestructive = isDestructive
+      IsDestructive = isDestructive,
     };
 
-    return CanBeDamagedArbiters.All(
-      arbiter => arbiter.CanBeDamaged(ctx)
-    );
+    return CanBeDamagedArbiters.All(arbiter => arbiter.CanBeDamaged(ctx));
   }
 
   bool IsCounterAttack() {
@@ -102,11 +103,7 @@ public class HitPoints : MonoBehaviour {
   }
 
   public void Kill() {
-    Damage(
-      Mathf.Infinity,
-      ignoreCanBeDamaged: true,
-      ignoreDamageReduction: true
-    );
+    Damage(Mathf.Infinity, ignoreCanBeDamaged: true, ignoreDamageReduction: true);
   }
 
   public static float InitStartOrder = 1;
@@ -117,15 +114,21 @@ public class HitPoints : MonoBehaviour {
       PlayerHitPoints = this;
     }
 
-    OrderedStart.Add(() => {
-      Current = Maximum;
-      LastDamaged = -Mathf.Infinity;
-      LastDamageAmount = 0f;
-    }, InitStartOrder);
+    OrderedStart.Add(
+      () => {
+        Current = Maximum;
+        LastDamaged = -Mathf.Infinity;
+        LastDamageAmount = 0f;
+      },
+      InitStartOrder
+    );
 
-    OrderedStart.Add(() => {
-      OnUpdate.Invoke(this);
-    }, UpdateStartOrder);
+    OrderedStart.Add(
+      () => {
+        OnUpdate.Invoke(this);
+      },
+      UpdateStartOrder
+    );
   }
 
   void Update() {

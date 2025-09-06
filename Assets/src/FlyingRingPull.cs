@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class FlyingRingPull : MonoBehaviour {
-
   public Rigidbody2D rb;
   public float InitialSpeed;
   public float Acceleration;
@@ -31,7 +30,12 @@ public class FlyingRingPull : MonoBehaviour {
       Destroy(gameObject);
     }
 
-    rb.velocity += CameraScale * Acceleration * (1f / Mathf.Sqrt(heading.magnitude)) * Time.deltaTime * heading.normalized;
+    rb.velocity +=
+      CameraScale
+      * Acceleration
+      * (1f / Mathf.Sqrt(heading.magnitude))
+      * Time.deltaTime
+      * heading.normalized;
   }
 
   float ComputeCameraScale() {
@@ -40,5 +44,4 @@ public class FlyingRingPull : MonoBehaviour {
 
     return (b - a).magnitude;
   }
-
 }

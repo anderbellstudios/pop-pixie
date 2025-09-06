@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class TransparentWhenPlayerBehind : MonoBehaviour {
   public SpriteRenderer SpriteRenderer;
-  public float TransparentOpacity, Duration;
+  public float TransparentOpacity,
+    Duration;
 
   private bool IsBehind = false;
   private float TargetOpacity => IsBehind ? TransparentOpacity : 1f;
@@ -26,10 +27,7 @@ public class TransparentWhenPlayerBehind : MonoBehaviour {
   }
 
   private float Opacity {
-    get {
-      return SpriteRenderer.color.a;
-    }
-
+    get { return SpriteRenderer.color.a; }
     set {
       if (Opacity != value) {
         SpriteRenderer.color = new Color(1f, 1f, 1f, value);

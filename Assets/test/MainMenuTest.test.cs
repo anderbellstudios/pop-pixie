@@ -23,7 +23,7 @@ public class MainMenuTest : ABaseTest {
 
     yield return TakePercyScreenshot("MainMenu");
 
-    ClickByText("New game");
+    yield return ClickByText("New game");
     yield return TakePercyScreenshot("MainMenu.Confirm");
   }
 
@@ -32,7 +32,7 @@ public class MainMenuTest : ABaseTest {
     yield return Setup();
     SceneManager.LoadScene("Main Menu");
     yield return new WaitForSeconds(0.5f);
-    ClickByText("New game");
+    yield return ClickByText("New game");
     yield return AwaitSceneChange("Intro Cutscene");
   }
 
@@ -48,7 +48,7 @@ public class MainMenuTest : ABaseTest {
     SceneManager.LoadScene("Main Menu");
     yield return new WaitForSeconds(0.5f);
 
-    ClickByText("Continue");
+    yield return ClickByText("Continue");
     yield return AwaitSceneChange("Elevator");
     Assert.AreEqual(ElevatorData.ElevatorRide, 1);
   }
@@ -63,10 +63,10 @@ public class MainMenuTest : ABaseTest {
     SceneManager.LoadScene("Main Menu");
     yield return new WaitForSeconds(0.5f);
 
-    ClickByText("New game");
-    ClickByText("Cancel");
-    ClickByText("New game");
-    ClickByText("Reset progress");
+    yield return ClickByText("New game");
+    yield return ClickByText("Cancel");
+    yield return ClickByText("New game");
+    yield return ClickByText("Reset progress");
     yield return AwaitSceneChange("Intro Cutscene");
 
     Assert.AreEqual(ElevatorData.ElevatorRide, 0);

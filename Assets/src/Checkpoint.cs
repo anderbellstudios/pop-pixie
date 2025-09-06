@@ -45,7 +45,7 @@ public class Checkpoint : MonoBehaviour {
   }
 
   private void TeleportPlayerToHere() {
-    // Cannot depend on PlayerGameObject in Awake 
+    // Cannot depend on PlayerGameObject in Awake
     Transform player = GameObject.Find("Pixie").transform;
     Transform camera = Camera.main.transform;
     Vector3 offset = camera.position - player.position;

@@ -1,14 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
-public class SelectOnHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, ISelectHandler, IDeselectHandler {
+public class SelectOnHover
+  : MonoBehaviour,
+    IPointerEnterHandler,
+    IPointerExitHandler,
+    ISelectHandler,
+    IDeselectHandler {
   public Button OverrideButton;
 
   private Button Button;
-  private bool BeforeFirstFrame = true, FirstFrame = true;
+  private bool BeforeFirstFrame = true,
+    FirstFrame = true;
   private bool Hovered = false;
   private bool SelectOnMouseMove = false;
   private Vector3 PreviousMousePosition;
@@ -24,11 +30,7 @@ public class SelectOnHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
       FirstFrame = false;
     }
 
-    if (
-      Hovered &&
-      SelectOnMouseMove &&
-      WrappedInput.MousePosition != PreviousMousePosition
-    ) {
+    if (Hovered && SelectOnMouseMove && WrappedInput.MousePosition != PreviousMousePosition) {
       Select();
     }
   }

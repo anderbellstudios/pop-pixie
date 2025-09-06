@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SpawnGremlin : MonoBehaviour {
-
   public GameObject Prefab;
 
   public GameObject Spawn() {
@@ -15,5 +14,4 @@ public class SpawnGremlin : MonoBehaviour {
 
     return gremlin;
   }
-
 }

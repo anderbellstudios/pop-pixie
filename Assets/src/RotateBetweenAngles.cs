@@ -37,9 +37,7 @@ public class RotateBetweenAngles : MonoBehaviour {
     }
   }
 
-  private int PreviousAngleIndex => NextAngleIndex == 0
-    ? Angles.Count - 1
-    : NextAngleIndex - 1;
+  private int PreviousAngleIndex => NextAngleIndex == 0 ? Angles.Count - 1 : NextAngleIndex - 1;
 
   private float Angle {
     set { transform.localRotation = Quaternion.Euler(0, 0, value); }

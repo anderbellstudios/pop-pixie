@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 using RaycastFn = System.Func<float, ScanArc.RaycastResult>;
 
 public class ScanArc {
@@ -9,11 +8,11 @@ public class ScanArc {
     public GameObject GameObject = null;
     public Vector3 Point;
 
-    public static RaycastResult Hit(GameObject gameObject, Vector3 point)
-      => new RaycastResult() { GameObject = gameObject, Point = point };
+    public static RaycastResult Hit(GameObject gameObject, Vector3 point) =>
+      new RaycastResult() { GameObject = gameObject, Point = point };
 
-    public static RaycastResult Miss(float maxDistance, Vector3 direction)
-      => new RaycastResult() { Point = direction.normalized * maxDistance };
+    public static RaycastResult Miss(float maxDistance, Vector3 direction) =>
+      new RaycastResult() { Point = direction.normalized * maxDistance };
 
     public bool IsMiss => GameObject == null;
     public bool IsHit => !IsMiss;
@@ -25,7 +24,8 @@ public class ScanArc {
   private float DetectCornerThreshold;
   private int DetectCornerIterations;
 
-  private RaycastResult PreviousPreviousResult, PreviousResult;
+  private RaycastResult PreviousPreviousResult,
+    PreviousResult;
 
   public ScanArc(
     int angleSteps,
@@ -51,13 +51,14 @@ public class ScanArc {
       steps: AngleSteps,
       outList: arcPoints,
       onDetectCorner: DetectCornerIterations > 0
-        ? (previousAngle, angle) => Pass(
-          startAngle: previousAngle,
-          endAngle: angle,
-          steps: DetectCornerIterations,
-          skipFirstAndLast: true,
-          outList: arcPoints
-        )
+        ? (previousAngle, angle) =>
+          Pass(
+            startAngle: previousAngle,
+            endAngle: angle,
+            steps: DetectCornerIterations,
+            skipFirstAndLast: true,
+            outList: arcPoints
+          )
         : null
     );
 
@@ -81,10 +82,7 @@ public class ScanArc {
       float angle = startAngle + angularDistancePerStep * step;
       RaycastResult result = Raycast(angle);
 
-      if (
-        onDetectCorner != null &&
-        ShouldDetectCorner(result)
-      ) {
+      if (onDetectCorner != null && ShouldDetectCorner(result)) {
         onDetectCorner(angle - angularDistancePerStep, angle);
       }
 
@@ -126,18 +124,14 @@ public class ScanArc {
       return true;
 
     // All three are hits, so check if they form a straight line
-    return !PointsFormLine(
-      PreviousPreviousResult.Point,
-      PreviousResult.Point,
-      result.Point
-    );
+    return !PointsFormLine(PreviousPreviousResult.Point, PreviousResult.Point, result.Point);
   }
 
   private bool PointsFormLine(Vector2 a, Vector2 b, Vector2 c) {
     // Handle vertical lines as a special case
     if (
-      Mathf.Abs(a.x - b.x) <= DetectCornerThreshold &&
-      Mathf.Abs(a.x - c.x) <= DetectCornerThreshold
+      Mathf.Abs(a.x - b.x) <= DetectCornerThreshold
+      && Mathf.Abs(a.x - c.x) <= DetectCornerThreshold
     )
       return true;
 

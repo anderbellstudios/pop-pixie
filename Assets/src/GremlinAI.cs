@@ -6,7 +6,8 @@ using UnityEngine;
 public class GremlinAI : AMovementEnemyAI {
   public bool Alerted = false;
   public WaitForAlertAI WaitForAlertAI;
-  public AMovementEnemyAI UnalertedAI, AlertedAI;
+  public AMovementEnemyAI UnalertedAI,
+    AlertedAI;
 
   void Start() {
     Activate();
@@ -22,6 +23,5 @@ public class GremlinAI : AMovementEnemyAI {
     }
   }
 
-  protected override AMovementEnemyAI UseMovementAI()
-    => Alerted ? AlertedAI : UnalertedAI;
+  protected override AMovementEnemyAI UseMovementAI() => Alerted ? AlertedAI : UnalertedAI;
 }

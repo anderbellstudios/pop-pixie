@@ -1,9 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class InGamePrompt : MonoBehaviour {
   // Lower entries take precedence
@@ -15,7 +15,7 @@ public class InGamePrompt : MonoBehaviour {
     UrgentRoll,
     Uncrouch,
     Reload,
-    Inspect
+    Inspect,
   }
 
   public delegate String InGamePromptSource();
@@ -40,9 +40,12 @@ public class InGamePrompt : MonoBehaviour {
   }
 
   void Update() {
-    LowPriorityBehaviour.EveryNFrames(10, () => {
-      Text.text = CurrentText();
-    });
+    LowPriorityBehaviour.EveryNFrames(
+      10,
+      () => {
+        Text.text = CurrentText();
+      }
+    );
   }
 
   String CurrentText() {

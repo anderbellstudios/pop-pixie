@@ -8,12 +8,13 @@ public class DialoguePage {
   public Sprite Face;
   public string VoiceLineKey;
   public float AutoAdvanceDelay;
-  [TextArea] public string Text;
+
+  [TextArea]
+  public string Text;
 
   public bool HasAudioClip() => VoiceLineKey.Length > 0;
 
-  public bool ShouldAutoAdvance()
-    => AutoAdvanceDelay > 0;
+  public bool ShouldAutoAdvance() => AutoAdvanceDelay > 0;
 
   private int _Hash = 0;
 

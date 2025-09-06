@@ -3,11 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public abstract class AMenu : MonoBehaviour {
-  public bool StartsVisible, StartsInFocus, HideWhenNestedMenuOpen;
+  public bool StartsVisible,
+    StartsInFocus,
+    HideWhenNestedMenuOpen;
   public Vector2Int NavigationSteps = Vector2Int.up;
   public Button FirstSelected = null;
   public GameObject MenuRoot;
@@ -15,19 +17,19 @@ public abstract class AMenu : MonoBehaviour {
 
   private List<Button> _Buttons = new();
 
-  private bool _Initialized, _Visible, _InFocus, _CloseNextFrame;
+  private bool _Initialized,
+    _Visible,
+    _InFocus,
+    _CloseNextFrame;
   private AMenu _ParentMenu = null;
   private Button LastClickedButton;
 
-  protected List<Button> GetActiveButtons()
-    => _Buttons.Where(b => b != null && b.enabled && b.gameObject.activeInHierarchy).ToList();
+  protected List<Button> GetActiveButtons() =>
+    _Buttons.Where(b => b != null && b.enabled && b.gameObject.activeInHierarchy).ToList();
 
   void Start() {
     if (RegisterButtonsAutomatically()) {
-      Array.ForEach(
-        MenuRoot.GetComponentsInChildren<Button>(true),
-        RegisterButton
-      );
+      Array.ForEach(MenuRoot.GetComponentsInChildren<Button>(true), RegisterButton);
     }
 
     SetVisible(StartsVisible);
@@ -90,7 +92,7 @@ public abstract class AMenu : MonoBehaviour {
         selectOnUp = getRelativeButton(i, -NavigationSteps.y),
         selectOnDown = getRelativeButton(i, NavigationSteps.y),
         selectOnLeft = getRelativeButton(i, -NavigationSteps.x),
-        selectOnRight = getRelativeButton(i, NavigationSteps.x)
+        selectOnRight = getRelativeButton(i, NavigationSteps.x),
       };
     }
   }
@@ -202,7 +204,8 @@ public abstract class AMenu : MonoBehaviour {
   }
 
   void GainedFocus() {
-    Button selectedButton = LastClickedButton ?? FirstSelected ?? GetActiveButtons().FirstOrDefault();
+    Button selectedButton =
+      LastClickedButton ?? FirstSelected ?? GetActiveButtons().FirstOrDefault();
     selectedButton?.Select();
     selectedButton?.OnSelect(null);
 
@@ -211,6 +214,9 @@ public abstract class AMenu : MonoBehaviour {
 
   protected virtual void LocalGainedFocus() { }
 
-  void LostFocus() { LocalLostFocus(); }
+  void LostFocus() {
+    LocalLostFocus();
+  }
+
   protected virtual void LocalLostFocus() { }
 }

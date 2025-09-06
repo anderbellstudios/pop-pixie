@@ -48,19 +48,22 @@ public class NavigateToPoint : MonoBehaviour {
   void RecomputePath() {
     PathfindingGraph graph = PathfindingGraph.Current;
     if (!graph)
-      throw new System.Exception("NavigateToPoint requires a PathfindingGraph to exist in the scene");
+      throw new System.Exception(
+        "NavigateToPoint requires a PathfindingGraph to exist in the scene"
+      );
 
     GraphVersion = graph.RecomputeVersion;
 
     Path = graph.FindPath(
       transform.position,
       DestinationPoint,
-      avoidEdge: (Vector3 startPoint, Vector3 endPoint) => !LineOfMovement.Check(
-        startPoint,
-        endPoint,
-        layerMask: CollisionMask.ForLayer(gameObject.layer),
-        exclude: gameObject
-      )
+      avoidEdge: (Vector3 startPoint, Vector3 endPoint) =>
+        !LineOfMovement.Check(
+          startPoint,
+          endPoint,
+          layerMask: CollisionMask.ForLayer(gameObject.layer),
+          exclude: gameObject
+        )
     );
 
     if (Path != null) {

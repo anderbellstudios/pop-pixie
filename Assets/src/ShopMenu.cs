@@ -1,19 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class ShopMenu : AMenu {
   public Image WeaponImage;
-  public TMP_Text
-    ActionButtonHintText,
+  public TMP_Text ActionButtonHintText,
     WeaponNameText,
     DescriptionText,
-    DamageText, FireRateText, CapacityText, BulletSpeedText, ReloadTimeText, PriceText;
+    DamageText,
+    FireRateText,
+    CapacityText,
+    BulletSpeedText,
+    ReloadTimeText,
+    PriceText;
   public RectTransform ScrollContentArea;
   public ScrollRect ScrollRect;
-  public PlayCaptionLine WelcomeLine, BuyLine, SellLine, CannotAffordLine, CannotSellFreeLine;
+  public PlayCaptionLine WelcomeLine,
+    BuyLine,
+    SellLine,
+    CannotAffordLine,
+    CannotSellFreeLine;
   public SceneChangeHopper ToTestingRoom;
   public PhaseScheduler LeaveShop;
 
@@ -32,8 +40,7 @@ public class ShopMenu : AMenu {
         return;
 
       if (weaponTile.Bought)
-        AttemptSell(weaponTile);
-      else
+        AttemptSell(weaponTile); else
         AttemptBuy(weaponTile);
     };
   }
@@ -81,7 +88,8 @@ public class ShopMenu : AMenu {
   public void ShowWeaponInfo(ShopWeaponTile weaponTile) {
     Weapon weapon = weaponTile.Weapon;
 
-    ActionButtonHintText.text = (weaponTile.Bought ? "Sell" : "Buy") + " <size=150%>[Confirm]</size>";
+    ActionButtonHintText.text =
+      (weaponTile.Bought ? "Sell" : "Buy") + " <size=150%>[Confirm]</size>";
     WeaponNameText.text = weapon.Name;
     DescriptionText.text = weaponTile.Description;
     PriceText.text = weaponTile.PriceString();
@@ -91,7 +99,8 @@ public class ShopMenu : AMenu {
       DamageText.text = weapon.Damage.ToString();
       FireRateText.text = weapon.FireRate.ToString();
       CapacityText.text = weapon.Capacity.ToString();
-      BulletSpeedText.text = weapon.BulletSpeed == 0 ? "Not applicable" : weapon.BulletSpeed.ToString();
+      BulletSpeedText.text =
+        weapon.BulletSpeed == 0 ? "Not applicable" : weapon.BulletSpeed.ToString();
       ReloadTimeText.text = weapon.ReloadDuration.ToString();
     } else {
       WeaponImage.sprite = null;

@@ -21,11 +21,7 @@ public class HologremAI : AMovementEnemyAI {
     bool isCounterAttack = Helper.DamagePlayer(1, true);
 
     if (isCounterAttack) {
-      DamageHitPointsInRadius.Invoke(
-        damage: 1,
-        origin: Helper.Position,
-        radius: 5
-      );
+      DamageHitPointsInRadius.Invoke(damage: 1, origin: Helper.Position, radius: 5);
     } else {
       Destroy(Helper.GameObject);
     }

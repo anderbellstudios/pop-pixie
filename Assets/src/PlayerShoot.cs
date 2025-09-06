@@ -49,8 +49,7 @@ public class PlayerShoot : MonoBehaviour {
   }
 
   private bool CanFire(float cooldown) =>
-    !Crouch.InCrouchZone &&
-    (CanFireStopwatch == null || CanFireStopwatch.Time() >= cooldown);
+    !Crouch.InCrouchZone && (CanFireStopwatch == null || CanFireStopwatch.Time() >= cooldown);
 
   private bool ShouldPlayNoBulletsSound(float cooldown) =>
     NoBulletsSoundStopwatch == null || NoBulletsSoundStopwatch.Time() >= cooldown;
@@ -61,10 +60,11 @@ public class PlayerShoot : MonoBehaviour {
 
     FireBullet.Fire(
       prefab: weapon.BulletPrefab,
-      getDirection: () => ScatterDirection.Scatter(
-        ((IDirectionManager)AimDirection).Direction,
-        amount: weapon.Scatter
-      ),
+      getDirection: () =>
+        ScatterDirection.Scatter(
+          ((IDirectionManager)AimDirection).Direction,
+          amount: weapon.Scatter
+        ),
       speed: weapon.BulletSpeed,
       damage: weapon.Damage,
       soundKey: weapon.ShootSoundKey

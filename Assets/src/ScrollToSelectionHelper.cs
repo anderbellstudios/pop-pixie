@@ -2,7 +2,11 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public static class ScrollToSelectionHelper {
-  public static void EnsureVisible(RectTransform targetTransform, RectTransform contentArea, ScrollRect scrollRect) {
+  public static void EnsureVisible(
+    RectTransform targetTransform,
+    RectTransform contentArea,
+    ScrollRect scrollRect
+  ) {
     Canvas.ForceUpdateCanvases();
 
     float targetPositionY =
@@ -17,15 +21,9 @@ public static class ScrollToSelectionHelper {
     float viewportBottomEdge = viewportTopEdge + ((RectTransform)scrollRect.transform).rect.height;
 
     if (targetBottomEdge > viewportBottomEdge) {
-      contentArea.anchoredPosition += new Vector2(
-        0,
-        targetBottomEdge - viewportBottomEdge
-      );
+      contentArea.anchoredPosition += new Vector2(0, targetBottomEdge - viewportBottomEdge);
     } else if (targetTopEdge < viewportTopEdge) {
-      contentArea.anchoredPosition -= new Vector2(
-        0,
-        viewportTopEdge - targetTopEdge
-      );
+      contentArea.anchoredPosition -= new Vector2(0, viewportTopEdge - targetTopEdge);
     }
   }
 }

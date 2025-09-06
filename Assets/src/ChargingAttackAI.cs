@@ -21,13 +21,19 @@ public class ChargingAttackAI : ALegacyEnemyAI, IRequiresLineOfMovementAI {
   public override void ControlGained() {
     Preparing = true;
 
-    SetTimeout(() => {
-      Preparing = false;
+    SetTimeout(
+      () => {
+        Preparing = false;
 
-      SetTimeout(() => {
-        RelinquishControlTo(WhenAttackFinished);
-      }, GiveUpInterval);
-    }, PreparingAttackInterval);
+        SetTimeout(
+          () => {
+            RelinquishControlTo(WhenAttackFinished);
+          },
+          GiveUpInterval
+        );
+      },
+      PreparingAttackInterval
+    );
   }
 
   public override void WhileInControl() {

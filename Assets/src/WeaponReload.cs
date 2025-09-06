@@ -12,9 +12,7 @@ public class WeaponReload : MonoBehaviour {
 
   void Start() {
     // Reduce speed by half when reload is InProgress
-    MovementManager.SpeedModifiers.Add(
-      s => InProgress() ? 0.5f * s : s
-    );
+    MovementManager.SpeedModifiers.Add(s => InProgress() ? 0.5f * s : s);
   }
 
   void Update() {
@@ -60,6 +58,8 @@ public class WeaponReload : MonoBehaviour {
   }
 
   private bool InProgress() => ReloadStopwatch != null;
+
   private bool CanReload() => !CurrentWeapon().Full();
+
   private PlayerWeapon CurrentWeapon() => EquippedWeapon.CurrentWeapon;
 }

@@ -19,6 +19,7 @@ public abstract class ABaseTest {
     GameData.FileName = "game-test-" + runId;
     ConfigData.FileName = "config-test-" + runId;
     TestMode.Enabled = true;
+    Shader.SetGlobalInteger("_TestMode", 1);
     GameData.Current.Clear();
     ConfigData.Current.Clear();
     CheckpointData.Reset();
@@ -35,8 +36,8 @@ public abstract class ABaseTest {
     yield return null;
   }
 
-  protected void LoadSceneNotInBuildSettings(string scenePath)
-    => EditorSceneManager.LoadSceneAsyncInPlayMode(
+  protected void LoadSceneNotInBuildSettings(string scenePath) =>
+    EditorSceneManager.LoadSceneAsyncInPlayMode(
       scenePath,
       new LoadSceneParameters(LoadSceneMode.Single)
     );
@@ -45,21 +46,19 @@ public abstract class ABaseTest {
     string pattern,
     bool regex = false,
     bool includeInactive = false
-  ) => GameObject.FindObjectsOfType<GameObject>(includeInactive).Where(go => {
-    TMP_Text textComponent = go.GetComponent<TMP_Text>();
-    if (!textComponent)
-      return false;
-    string text = textComponent.text ?? "";
-    return regex
-      ? Regex.IsMatch(text, pattern)
-      : text == pattern;
-  }).ToList();
+  ) =>
+    GameObject
+      .FindObjectsOfType<GameObject>(includeInactive)
+      .Where(go => {
+        TMP_Text textComponent = go.GetComponent<TMP_Text>();
+        if (!textComponent)
+          return false;
+        string text = textComponent.text ?? "";
+        return regex ? Regex.IsMatch(text, pattern) : text == pattern;
+      })
+      .ToList();
 
-  protected GameObject FindByText(
-    string text,
-    bool regex = false,
-    bool includeInactive = false
-  ) {
+  protected GameObject FindByText(string text, bool regex = false, bool includeInactive = false) {
     List<GameObject> matchingGameObjects = FindAllByText(text, regex, includeInactive);
 
     if (matchingGameObjects.Count == 0) {
@@ -94,19 +93,22 @@ public abstract class ABaseTest {
 
     if (regex) {
       bool matches = Regex.IsMatch(actual, expected);
-      Assert.IsTrue(matches, "AssertHasText: Text should match pattern: " + expected + ", but was: " + actual);
+      Assert.IsTrue(
+        matches,
+        "AssertHasText: Text should match pattern: " + expected + ", but was: " + actual
+      );
     } else {
       Assert.AreEqual(expected, actual);
     }
   }
 
-  protected void AssertHasText(
-    string expected,
-    bool regex = false,
-    bool includeInactive = false
-  ) {
+  protected void AssertHasText(string expected, bool regex = false, bool includeInactive = false) {
     int matchCount = FindAllByText(expected, regex, includeInactive).Count;
-    Assert.AreEqual(1, matchCount, "AssertHasText: Found " + matchCount + " GameObjects with text: " + expected);
+    Assert.AreEqual(
+      1,
+      matchCount,
+      "AssertHasText: Found " + matchCount + " GameObjects with text: " + expected
+    );
   }
 
   protected IEnumerator AwaitHasText(
@@ -125,23 +127,26 @@ public abstract class ABaseTest {
     );
   }
 
-  protected void RefuteHasText(
-    string expected,
-    bool regex = false,
-    bool includeInactive = false
-  ) {
+  protected void RefuteHasText(string expected, bool regex = false, bool includeInactive = false) {
     int matchCount = FindAllByText(expected, regex, includeInactive).Count;
-    Assert.AreEqual(0, matchCount, "RefuteHasText: Found " + matchCount + " GameObjects with text: " + expected);
+    Assert.AreEqual(
+      0,
+      matchCount,
+      "RefuteHasText: Found " + matchCount + " GameObjects with text: " + expected
+    );
   }
 
-  protected void Click(Button button) {
+  protected IEnumerator Click(Button button) {
     if (button == null) {
       Assert.Fail("Click: Button is null");
     }
+
+    yield return CheckGraphicsRaycast(button.gameObject);
+
     button.onClick.Invoke();
   }
 
-  protected void Click(GameObject go) {
+  protected IEnumerator Click(GameObject go) {
     if (go == null) {
       Assert.Fail("Click: GameObject is null");
     }
@@ -152,10 +157,41 @@ public abstract class ABaseTest {
       Assert.Fail("Click: GameObject is not inside a Button");
     }
 
-    Click(button);
+    yield return Click(button);
   }
 
-  protected void ClickByText(
+  protected IEnumerator CheckGraphicsRaycast(GameObject go) {
+    // Ensure the GameObject is visible
+    yield return null;
+
+    Canvas canvas = go.GetComponentInParent<Canvas>();
+    if (!canvas)
+      Assert.Fail("CheckGraphicsRaycast: GameObject is not inside a Canvas");
+
+    Vector3 objectPoint = go.transform.TransformPoint(((RectTransform)go.transform).rect.center);
+
+    Vector3 rectPoint = objectPoint / canvas.transform.localScale.x;
+    Vector3 worldPoint =
+      canvas.transform.TransformPoint(rectPoint) - Camera.main.transform.position;
+    Vector3 screenPoint = RectTransformUtility.WorldToScreenPoint(Camera.main, worldPoint);
+
+    PointerEventData pointerEventData = new PointerEventData(EventSystem.current);
+    pointerEventData.position = screenPoint;
+    List<RaycastResult> results = new();
+    EventSystem.current.RaycastAll(pointerEventData, results);
+
+    if (results.Count < 1)
+      Assert.Fail(
+        String.Format("CheckGraphicsRaycast: No UI element at screen position {0}", screenPoint)
+      );
+
+    RaycastResult result = results[0];
+
+    if (!result.gameObject.transform.IsChildOf(go.transform))
+      Assert.Fail("CheckGraphicsRaycast: Hit an unexpected GameObject");
+  }
+
+  protected IEnumerator ClickByText(
     string text,
     bool regex = false,
     bool includeInactive = false
@@ -196,25 +232,23 @@ public abstract class ABaseTest {
     bool includeInactive = false
   ) => Hover(FindByText(text, regex, includeInactive));
 
-  protected void AssertSelected(GameObject go)
-    => Assert.AreEqual(
-        go,
-        EventSystem.current.currentSelectedGameObject,
-        "AssertSelected: Expected GameObject was not selected"
-      );
+  protected void AssertSelected(GameObject go) =>
+    Assert.AreEqual(
+      go,
+      EventSystem.current.currentSelectedGameObject,
+      "AssertSelected: Expected GameObject was not selected"
+    );
 
-  protected void AssertSelected(Button button)
-    => AssertSelected(button.gameObject);
+  protected void AssertSelected(Button button) => AssertSelected(button.gameObject);
 
-  protected void RefuteSelected(GameObject go)
-    => Assert.AreNotEqual(
-        go,
-        EventSystem.current.currentSelectedGameObject,
-        "RefuteSelected: GameObject was selected"
-      );
+  protected void RefuteSelected(GameObject go) =>
+    Assert.AreNotEqual(
+      go,
+      EventSystem.current.currentSelectedGameObject,
+      "RefuteSelected: GameObject was selected"
+    );
 
-  protected void RefuteSelected(Button button)
-    => RefuteSelected(button.gameObject);
+  protected void RefuteSelected(Button button) => RefuteSelected(button.gameObject);
 
   protected GameObject StepperValueByLabel(string text) {
     GameObject label = FindByText(text);
@@ -224,8 +258,7 @@ public abstract class ABaseTest {
     return label.transform.parent.Find("Value").gameObject;
   }
 
-  protected string GetActiveScene()
-    => SceneManager.GetActiveScene().name;
+  protected string GetActiveScene() => SceneManager.GetActiveScene().name;
 
   protected IEnumerator AwaitCondition(
     System.Func<bool> condition,
@@ -244,7 +277,11 @@ public abstract class ABaseTest {
     Assert.Fail(message);
   }
 
-  protected IEnumerator AwaitSceneChange(string sceneName, float retryInterval = 1f, int retries = 10) {
+  protected IEnumerator AwaitSceneChange(
+    string sceneName,
+    float retryInterval = 1f,
+    int retries = 10
+  ) {
     // If we're already in the scene, wait to ensure it's reloaded
     if (GetActiveScene() == sceneName) {
       yield return new WaitForSeconds(1f);
@@ -342,10 +379,7 @@ public abstract class ABaseTest {
     if (!graph)
       Assert.Fail("NavigateTo requires a PathfindingGraph to exist in the scene");
 
-    List<Vector3> path = graph.FindPath(
-      Player().transform.position,
-      destination
-    );
+    List<Vector3> path = graph.FindPath(Player().transform.position, destination);
 
     scriptedMovement.FollowPath(
       path: path,
@@ -450,14 +484,21 @@ public abstract class ABaseTest {
   }
 
   protected void MoveUp() => Move(0f, 1f);
+
   protected void MoveDown() => Move(0f, -1f);
+
   protected void MoveLeft() => Move(-1f, 0f);
+
   protected void MoveRight() => Move(1f, 0f);
+
   protected void StopMoving() => Move(0f, 0f);
 
   protected IEnumerator MoveUpAndWait() => MoveAndWait(0f, 1f);
+
   protected IEnumerator MoveDownAndWait() => MoveAndWait(0f, -1f);
+
   protected IEnumerator MoveLeftAndWait() => MoveAndWait(-1f, 0f);
+
   protected IEnumerator MoveRightAndWait() => MoveAndWait(1f, 0f);
 
   protected IEnumerator Move(float x, float y, float duration) {
@@ -489,15 +530,14 @@ public abstract class ABaseTest {
     WrappedInput.MousePositionOverride = position;
   }
 
-  protected void SetMousePosition(float x, float y)
-    => SetMousePosition(new Vector2(x, y));
+  protected void SetMousePosition(float x, float y) => SetMousePosition(new Vector2(x, y));
 
   protected void SetViewportMousePosition(Vector2 position) {
     SetMousePosition(Camera.main.ViewportToScreenPoint(position));
   }
 
-  protected void SetViewportMousePosition(float x, float y)
-    => SetViewportMousePosition(new Vector2(x, y));
+  protected void SetViewportMousePosition(float x, float y) =>
+    SetViewportMousePosition(new Vector2(x, y));
 
   protected void ClearMousePosition() {
     WrappedInput.MousePositionOverride = null;
@@ -538,8 +578,8 @@ public abstract class ABaseTest {
     yield return AwaitPlayingState();
   }
 
-  protected void AssertPlayerPosition(Vector3 position)
-    => Assert.AreEqual(position, Player().transform.position);
+  protected void AssertPlayerPosition(Vector3 position) =>
+    Assert.AreEqual(position, Player().transform.position);
 
   protected IEnumerator SnapPlayer(float increment) {
     GameObject player = Player(allowNull: true);
@@ -611,11 +651,7 @@ public abstract class ABaseTest {
       camera.targetTexture = previousTargetTexture;
       RenderTexture.active = null;
 
-      string path = String.Format(
-        "./Percy/{0}-{1}.png",
-        name,
-        resolution.ShortName
-      );
+      string path = String.Format("./Percy/{0}-{1}.png", name, resolution.ShortName);
 
       byte[] byteArray = renderedTexture.EncodeToPNG();
       System.IO.File.WriteAllBytes(path, byteArray);

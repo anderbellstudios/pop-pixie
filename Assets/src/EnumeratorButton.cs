@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class EnumeratorButton<T> {
-
   List<T> Values;
   int Index;
   Action<T> OnChange;
@@ -25,5 +24,4 @@ public class EnumeratorButton<T> {
   public T Value() {
     return Values[Index];
   }
-
 }

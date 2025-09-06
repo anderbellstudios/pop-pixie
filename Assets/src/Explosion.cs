@@ -26,6 +26,8 @@ public class Explosion : MonoBehaviour {
   }
 
   private float Scale() => Mathf.Lerp(0.2f, 1f, Progress());
+
   private float Alpha() => Mathf.Lerp(1f, 0.75f, Progress());
+
   private float Progress() => Stopwatch.Progress(Duration);
 }

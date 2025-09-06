@@ -4,9 +4,12 @@ using UnityEngine;
 using UnityEngine.Events;
 
 public class OnOff : MonoBehaviour {
-  public bool StartOn, RestartOnEnable;
-  public float OnDuration, OffDuration;
-  public UnityEvent OnTurnOn, OnTurnOff;
+  public bool StartOn,
+    RestartOnEnable;
+  public float OnDuration,
+    OffDuration;
+  public UnityEvent OnTurnOn,
+    OnTurnOff;
 
   private bool On;
   private float Offset;

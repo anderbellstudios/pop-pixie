@@ -7,10 +7,13 @@ public class ScheduleAttackAI : AMovementEnemyAI {
   public override float Speed { get; set; }
 
   public float MaxDistance = Mathf.Infinity;
-  public float AttackInterval, MinDelayBeforeAttack;
+  public float AttackInterval,
+    MinDelayBeforeAttack;
   public float RandomnessFactor;
-  public bool InterruptWhenOutOfRange = true, InterruptWhenDamaged = true;
-  public AMovementEnemyAI NormalAI, AttackAI;
+  public bool InterruptWhenOutOfRange = true,
+    InterruptWhenDamaged = true;
+  public AMovementEnemyAI NormalAI,
+    AttackAI;
 
   private AsyncTimer.EnqueuedEvent AttackTimer;
   private bool PreviouslyWithinRange;
@@ -65,8 +68,7 @@ public class ScheduleAttackAI : AMovementEnemyAI {
     PreviouslyWithinRange = withinRange;
   }
 
-  protected override AMovementEnemyAI UseMovementAI() => Attacking
-    ? AttackAI : NormalAI;
+  protected override AMovementEnemyAI UseMovementAI() => Attacking ? AttackAI : NormalAI;
 
   private bool WithinRange => Helper.DistanceToPlayer <= MaxDistance;
 
@@ -91,15 +93,16 @@ public class ScheduleAttackAI : AMovementEnemyAI {
 
     float randomMultiplier = 1f + Random.Range(-RandomnessFactor, RandomnessFactor);
 
-    float delay = Mathf.Max(
-      MinDelayBeforeAttack,
-      AttackInterval - timeSinceLastAttack
-    ) * randomMultiplier;
+    float delay =
+      Mathf.Max(MinDelayBeforeAttack, AttackInterval - timeSinceLastAttack) * randomMultiplier;
 
-    AttackTimer = Helper.SetTimeout(() => {
-      AttackTimer = null;
-      StartAttack();
-    }, delay);
+    AttackTimer = Helper.SetTimeout(
+      () => {
+        AttackTimer = null;
+        StartAttack();
+      },
+      delay
+    );
   }
 
   private void UnscheduleAttack() {

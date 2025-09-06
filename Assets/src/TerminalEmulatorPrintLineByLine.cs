@@ -6,7 +6,9 @@ using UnityEngine.Events;
 public class TerminalEmulatorPrintLineByLine : MonoBehaviour {
   public TerminalEmulator TerminalEmulator;
   public float DelayBetweenLines = 0.1f;
-  [TextArea] public string Content;
+
+  [TextArea]
+  public string Content;
   public UnityEvent OnFinish;
 
   private List<string> Lines;
@@ -24,9 +26,12 @@ public class TerminalEmulatorPrintLineByLine : MonoBehaviour {
       return;
     }
 
-    AsyncTimer.BaseTime.SetTimeout(() => {
-      TerminalEmulator.PrintLine(Lines[CurrentLine++]);
-      PrintNextLine();
-    }, DelayBetweenLines);
+    AsyncTimer.BaseTime.SetTimeout(
+      () => {
+        TerminalEmulator.PrintLine(Lines[CurrentLine++]);
+        PrintNextLine();
+      },
+      DelayBetweenLines
+    );
   }
 }

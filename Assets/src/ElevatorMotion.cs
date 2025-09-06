@@ -6,7 +6,8 @@ using UnityEngine;
 public class ElevatorMotion : MonoBehaviour {
   public float Amplitude;
   public float CorrectingFactor;
-  public float MinInterval, MaxInterval;
+  public float MinInterval,
+    MaxInterval;
 
   private Vector3 Displacement;
   private DateTime LastWobbled;
@@ -19,11 +20,7 @@ public class ElevatorMotion : MonoBehaviour {
     if (ShouldWobble()) {
       UpdateWobbleInterval();
 
-      Displace(new Vector3(
-        RandomNoise(),
-        RandomNoise(),
-        0
-      ));
+      Displace(new Vector3(RandomNoise(), RandomNoise(), 0));
     }
 
     Displace(CorrectingFactor * -1 * Displacement);
@@ -42,9 +39,7 @@ public class ElevatorMotion : MonoBehaviour {
   void UpdateWobbleInterval() {
     LastWobbled = DateTime.Now;
 
-    WobbleInterval = MinInterval
-      + (MaxInterval - MinInterval)
-      * (UnityEngine.Random.value);
+    WobbleInterval = MinInterval + (MaxInterval - MinInterval) * (UnityEngine.Random.value);
   }
 
   float RandomNoise() {

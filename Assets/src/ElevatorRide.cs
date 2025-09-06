@@ -6,7 +6,8 @@ using UnityEngine.Events;
 public class ElevatorRide : MonoBehaviour {
   public string NextLevel;
 
-  public PhaseScheduler StandardPhaseScheduler, FromShopPhaseScheduler;
+  public PhaseScheduler StandardPhaseScheduler,
+    FromShopPhaseScheduler;
   public UnityEvent OnFinish;
 
   void Awake() {
@@ -18,7 +19,9 @@ public class ElevatorRide : MonoBehaviour {
   public void BeginRide() {
     CheckpointData.Reset();
 
-    PhaseScheduler scheduler = ElevatorData.ArrivedFromShop ? FromShopPhaseScheduler : StandardPhaseScheduler;
+    PhaseScheduler scheduler = ElevatorData.ArrivedFromShop
+      ? FromShopPhaseScheduler
+      : StandardPhaseScheduler;
 
     if (scheduler == null) {
       OnFinish.Invoke();

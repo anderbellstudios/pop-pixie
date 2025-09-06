@@ -4,17 +4,25 @@ using UnityEngine;
 using UnityEngine.Events;
 
 public class DialoguePromptHopper : MonoBehaviour {
-  public string Question, PositiveAnswer, NegativeAnswer;
+  public string Question,
+    PositiveAnswer,
+    NegativeAnswer;
 
-  [SerializeField] public UnityEvent OnPositiveAnswer, OnNegativeAnswer;
+  [SerializeField]
+  public UnityEvent OnPositiveAnswer,
+    OnNegativeAnswer;
 
   public void Hop() {
     DialoguePromptManager.Current.Prompt(
       Question,
       PositiveAnswer,
       NegativeAnswer,
-      () => { OnPositiveAnswer.Invoke(); },
-      () => { OnNegativeAnswer.Invoke(); }
+      () => {
+        OnPositiveAnswer.Invoke();
+      },
+      () => {
+        OnNegativeAnswer.Invoke();
+      }
     );
   }
 }

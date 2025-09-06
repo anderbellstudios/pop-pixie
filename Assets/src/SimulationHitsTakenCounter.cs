@@ -1,13 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class SimulationHitsTakenCounter : MonoBehaviour {
   public TMP_Text ValueText;
 
-  public Color GoodColor, BadColor;
+  public Color GoodColor,
+    BadColor;
   public int GoodHitsTaken;
 
   private LowPriorityBehaviour LowPriorityBehaviour;
@@ -17,12 +18,15 @@ public class SimulationHitsTakenCounter : MonoBehaviour {
   }
 
   void Update() {
-    LowPriorityBehaviour.EveryNFrames(10, () => {
-      int hitsTaken = SimulationResultData.NumberOfHitsTaken;
-      bool goodHitsTaken = hitsTaken <= GoodHitsTaken;
+    LowPriorityBehaviour.EveryNFrames(
+      10,
+      () => {
+        int hitsTaken = SimulationResultData.NumberOfHitsTaken;
+        bool goodHitsTaken = hitsTaken <= GoodHitsTaken;
 
-      ValueText.text = hitsTaken.ToString();
-      ValueText.color = hitsTaken <= GoodHitsTaken ? GoodColor : BadColor;
-    });
+        ValueText.text = hitsTaken.ToString();
+        ValueText.color = hitsTaken <= GoodHitsTaken ? GoodColor : BadColor;
+      }
+    );
   }
 }

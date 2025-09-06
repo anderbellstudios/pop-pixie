@@ -4,7 +4,8 @@ using UnityEngine;
 
 [System.Serializable]
 public class CaptionLine {
-  [TextArea] public string Text;
+  [TextArea]
+  public string Text;
   public string VoiceLineKey;
   public float Duration;
   public bool IgnorePause = false;

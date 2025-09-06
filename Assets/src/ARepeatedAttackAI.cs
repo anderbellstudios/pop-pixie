@@ -4,7 +4,8 @@ using UnityEngine;
 
 public abstract class ARepeatedAttackAI : AMovementEnemyAI {
   public float AttackInterval;
-  public int MinAttacks, MaxAttacks;
+  public int MinAttacks,
+    MaxAttacks;
 
   private float CurrentAttackInterval;
 
@@ -26,9 +27,12 @@ public abstract class ARepeatedAttackAI : AMovementEnemyAI {
 
     PerformAttack();
 
-    Helper.SetTimeout(() => {
-      PerformAttackAndScheduleNext(remainingAttacks - 1);
-    }, CurrentAttackInterval);
+    Helper.SetTimeout(
+      () => {
+        PerformAttackAndScheduleNext(remainingAttacks - 1);
+      },
+      CurrentAttackInterval
+    );
   }
 
   protected abstract void PerformAttack();

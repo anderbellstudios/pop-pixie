@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using UnityEditor;
+using UnityEngine;
 
 [CustomEditor(typeof(PhaseScheduler))]
 public class PhaseSchedulerEditor : Editor {
@@ -24,4 +24,3 @@ public class PhaseSchedulerEditor : Editor {
     }
   }
 }
-

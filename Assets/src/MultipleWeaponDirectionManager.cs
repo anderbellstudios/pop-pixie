@@ -19,16 +19,9 @@ public class MultipleWeaponDirectionManager : MonoBehaviour, IDirectionManager {
   }
 
   void Update() {
-    var rotation = Quaternion.FromToRotation(
-      new Vector3(0, 1, 0),
-      Direction
-    );
+    var rotation = Quaternion.FromToRotation(new Vector3(0, 1, 0), Direction);
 
-    Arrow.transform.rotation = Quaternion.Slerp(
-      Arrow.transform.rotation,
-      rotation,
-      0.3f
-    );
+    Arrow.transform.rotation = Quaternion.Slerp(Arrow.transform.rotation, rotation, 0.3f);
   }
 
   Vector3 GetDirection() {

@@ -24,10 +24,13 @@ public class PieceOfIntelSprite : AInspectable {
 
     StateManager.AddState(State.NotPlaying);
 
-    LoreManager.Current.Open(LoreItem, () => {
-      StateManager.RemoveState(State.NotPlaying);
-      CaptionLineManager.Current.Play(CaptionLineAfterClose);
-    });
+    LoreManager.Current.Open(
+      LoreItem,
+      () => {
+        StateManager.RemoveState(State.NotPlaying);
+        CaptionLineManager.Current.Play(CaptionLineAfterClose);
+      }
+    );
   }
 
   private void WasCollected() {

@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 public class HUDBar : MonoBehaviour {
-  public static HUDBar PlayerHitPoints, Reload;
-  public bool IsPlayerHitPoints, IsReload;
+  public static HUDBar PlayerHitPoints,
+    Reload;
+  public bool IsPlayerHitPoints,
+    IsReload;
 
   [FormerlySerializedAs("Progress")]
   public float DefaultProgress = 1f;

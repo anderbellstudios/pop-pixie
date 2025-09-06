@@ -22,7 +22,13 @@ public class DialoguePromptManager : MonoBehaviour {
     DialoguePromptBox.Hide();
   }
 
-  public void Prompt(string question, string positiveAnswer, string negativeAnswer, Action onPositiveAnswer, Action onNegativeAnswer) {
+  public void Prompt(
+    string question,
+    string positiveAnswer,
+    string negativeAnswer,
+    Action onPositiveAnswer,
+    Action onNegativeAnswer
+  ) {
     OnPositiveAnswer = onPositiveAnswer;
     OnNegativeAnswer = onNegativeAnswer;
 

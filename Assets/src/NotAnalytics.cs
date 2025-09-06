@@ -1,9 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.Networking;
-using Newtonsoft.Json;
 
 /* A note on analytics:
  *
@@ -21,7 +21,9 @@ public class NotAnalytics : MonoBehaviour {
   public bool SingletonInstance = true;
   public static NotAnalytics Current;
 
-  public string Server, AppId, VersionPrefix;
+  public string Server,
+    AppId,
+    VersionPrefix;
 
   void Awake() {
     if (SingletonInstance)

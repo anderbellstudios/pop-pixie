@@ -28,7 +28,7 @@ public class DialoguePromptTest : ABaseTest {
   [UnityTest, Retry(3)]
   public IEnumerator ClickPositiveAnswer() {
     yield return Setup();
-    ClickByText("Positive");
+    yield return ClickByText("Positive");
     Assert.AreEqual("Positive", LastAnswer);
     AssertClosed();
   }
@@ -36,7 +36,7 @@ public class DialoguePromptTest : ABaseTest {
   [UnityTest, Retry(3)]
   public IEnumerator ClickNegativeAnswer() {
     yield return Setup();
-    ClickByText("Negative");
+    yield return ClickByText("Negative");
     Assert.AreEqual("Negative", LastAnswer);
     AssertClosed();
   }
@@ -85,13 +85,7 @@ public class DialoguePromptTest : ABaseTest {
   }
 
   private void AssertClosed() {
-    Assert.IsFalse(
-      DialoguePromptManager
-        .Current
-        .DialoguePromptBox
-        .gameObject
-        .activeSelf
-    );
+    Assert.IsFalse(DialoguePromptManager.Current.DialoguePromptBox.gameObject.activeSelf);
   }
 }
 #endif

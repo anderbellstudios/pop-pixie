@@ -4,9 +4,14 @@ using UnityEngine;
 
 [System.Serializable]
 public class DialogueMusicFadeBehaviour {
-  public enum BehaviourType { FadeUp, FadeDown, Ignore }
+  public enum BehaviourType {
+    FadeUp,
+    FadeDown,
+    Ignore,
+  }
 
-  public BehaviourType EnterBehaviour, ExitBehaviour;
+  public BehaviourType EnterBehaviour,
+    ExitBehaviour;
 
   public DialogueMusicFadeBehaviour(BehaviourType enterBehaviour, BehaviourType exitBehaviour) {
     EnterBehaviour = enterBehaviour;
@@ -14,6 +19,7 @@ public class DialogueMusicFadeBehaviour {
   }
 
   public void ApplyEnterBehaviour() => ApplyBehaviour(EnterBehaviour);
+
   public void ApplyExitBehaviour() => ApplyBehaviour(ExitBehaviour);
 
   private void ApplyBehaviour(BehaviourType behaviour) {

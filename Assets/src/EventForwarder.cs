@@ -10,7 +10,8 @@ using UnityEngine.Events;
  * event a meaningful name and make it discoverable in the hierarchy.
  */
 public class EventForwarder : MonoBehaviour {
-  public bool InvokeOnAwake, InvokeOnStart;
+  public bool InvokeOnAwake,
+    InvokeOnStart;
   public float Delay = 0f;
   public bool DelayUsesPlayingTime;
   public UnityEvent Events;

@@ -1,8 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class TrainingGameMainMenuDateTime : MonoBehaviour {
   public TMP_Text Text;

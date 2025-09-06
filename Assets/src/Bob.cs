@@ -23,9 +23,6 @@ public class Bob : MonoBehaviour {
     if (TestMode.Enabled)
       return;
     transform.localPosition =
-      InitialPosition +
-      Direction *
-      Amplitude *
-      Mathf.Sin(Speed * Time.time + PhaseOffset);
+      InitialPosition + Direction * Amplitude * Mathf.Sin(Speed * Time.time + PhaseOffset);
   }
 }

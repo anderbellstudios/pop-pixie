@@ -1,11 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using TMPro;
 
 public class StepperInput : MonoBehaviour {
   public TMP_Text Text;
@@ -24,9 +24,12 @@ public class StepperInput : MonoBehaviour {
   }
 
   void Start() {
-    SelectionChangeListener.AddListener((currentSelected, previousSelected) => {
-      Selected = currentSelected == Button.gameObject;
-    }, gameObject);
+    SelectionChangeListener.AddListener(
+      (currentSelected, previousSelected) => {
+        Selected = currentSelected == Button.gameObject;
+      },
+      gameObject
+    );
   }
 
   void Update() {
@@ -71,6 +74,5 @@ public class StepperInput : MonoBehaviour {
     Text.text = ValueLabel;
   }
 
-  public int ValueForLabel(string label)
-    => Options.IndexOf(label);
+  public int ValueForLabel(string label) => Options.IndexOf(label);
 }

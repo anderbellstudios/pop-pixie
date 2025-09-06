@@ -6,8 +6,11 @@ public class Lifetime : MonoBehaviour {
   public float Interval;
 
   void Start() {
-    AsyncTimer.PlayingTime.SetTimeout(() => {
-      Destroy(gameObject);
-    }, Interval);
+    AsyncTimer.PlayingTime.SetTimeout(
+      () => {
+        Destroy(gameObject);
+      },
+      Interval
+    );
   }
 }

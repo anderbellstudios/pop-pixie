@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.EventSystems;
 using TMPro;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class LoreWindowController : MonoBehaviour {
   public TMP_Text Title;
@@ -93,27 +93,20 @@ public class LoreWindowController : MonoBehaviour {
 
     Rect canvasRect = CanvasTransform.rect;
 
-    return new Vector2(
-      viewportPoint.x * canvasRect.width,
-      viewportPoint.y * canvasRect.height
-    );
+    return new Vector2(viewportPoint.x * canvasRect.width, viewportPoint.y * canvasRect.height);
   }
 
-  private Vector2 ScreenVectorToCanvasVector(Vector2 screenVector)
-    => ScreenPointToCanvasPoint(screenVector, false);
+  private Vector2 ScreenVectorToCanvasVector(Vector2 screenVector) =>
+    ScreenPointToCanvasPoint(screenVector, false);
 
-  private Vector2 ScreenPointToContentPoint(Vector2 screenPoint)
-    => ContentTransform.InverseTransformPoint(
-      CanvasTransform.TransformPoint(
-        ScreenPointToCanvasPoint(screenPoint)
-      )
+  private Vector2 ScreenPointToContentPoint(Vector2 screenPoint) =>
+    ContentTransform.InverseTransformPoint(
+      CanvasTransform.TransformPoint(ScreenPointToCanvasPoint(screenPoint))
     );
 
-  private Vector2 ScreenVectorToContentVector(Vector2 screenVector)
-    => ContentTransform.InverseTransformVector(
-      CanvasTransform.TransformVector(
-        ScreenVectorToCanvasVector(screenVector)
-      )
+  private Vector2 ScreenVectorToContentVector(Vector2 screenVector) =>
+    ContentTransform.InverseTransformVector(
+      CanvasTransform.TransformVector(ScreenVectorToCanvasVector(screenVector))
     );
 
   private void UpdateTransform() {

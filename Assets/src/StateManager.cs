@@ -13,7 +13,7 @@ public enum StateFeatures {
   Movement = 4,
   PlayerDeathAnimation = 8,
   MuffleSounds = 16,
-  PauseSounds = 32
+  PauseSounds = 32,
 };
 
 public enum State {
@@ -22,7 +22,7 @@ public enum State {
   NotPlayingContinueSounds,
   ScriptedMovement,
   Paused,
-  PlayerDying
+  PlayerDying,
 };
 
 public class StateManager : MonoBehaviour {
@@ -39,25 +39,25 @@ public class StateManager : MonoBehaviour {
     StateFeatures.Playing | StateFeatures.Movement
   );
 
-  static (StateFeatures Enabled, StateFeatures Disabled) NotPlayingState = InheritFrom(NotPlayingContinueSoundsState, (
-    StateFeatures.PauseSounds,
-    StateFeatures.None
-  ));
+  static (StateFeatures Enabled, StateFeatures Disabled) NotPlayingState = InheritFrom(
+    NotPlayingContinueSoundsState,
+    (StateFeatures.PauseSounds, StateFeatures.None)
+  );
 
   static (StateFeatures Enabled, StateFeatures Disabled) ScriptedMovementState = (
     StateFeatures.Movement,
     StateFeatures.Playing
   );
 
-  static (StateFeatures Enabled, StateFeatures Disabled) PausedState = InheritFrom(NotPlayingState, (
-    StateFeatures.MuffleSounds,
-    StateFeatures.BackgroundAnimations
-  ));
+  static (StateFeatures Enabled, StateFeatures Disabled) PausedState = InheritFrom(
+    NotPlayingState,
+    (StateFeatures.MuffleSounds, StateFeatures.BackgroundAnimations)
+  );
 
-  static (StateFeatures Enabled, StateFeatures Disabled) PlayerDyingState = InheritFrom(NotPlayingState, (
-    StateFeatures.PlayerDeathAnimation,
-    StateFeatures.None
-  ));
+  static (StateFeatures Enabled, StateFeatures Disabled) PlayerDyingState = InheritFrom(
+    NotPlayingState,
+    (StateFeatures.PlayerDeathAnimation, StateFeatures.None)
+  );
 
   static (StateFeatures Enabled, StateFeatures Disabled) StateTuple(State state) {
     switch (state) {
@@ -84,41 +84,46 @@ public class StateManager : MonoBehaviour {
     }
   }
 
-  static (StateFeatures Enabled, StateFeatures Disabled) InheritFrom((StateFeatures Enabled, StateFeatures Disabled) a, (StateFeatures Enabled, StateFeatures Disabled) b)
-    => (a.Enabled | b.Enabled, a.Disabled | b.Disabled);
+  static (StateFeatures Enabled, StateFeatures Disabled) InheritFrom(
+    (StateFeatures Enabled, StateFeatures Disabled) a,
+    (StateFeatures Enabled, StateFeatures Disabled) b
+  ) => (a.Enabled | b.Enabled, a.Disabled | b.Disabled);
 
-  static public void ResetStates(List<State> states) {
+  public static void ResetStates(List<State> states) {
     EnhancedDataCollection.LogIfEnabled(() => "Resetting states");
     Current.ActiveStates = states.Select(StateTuple).ToList();
     Current.HandleStateChanged();
   }
 
-  static public void ResetStatesToDefault() {
+  public static void ResetStatesToDefault() {
     ResetStates(new List<State>() { State.Playing });
   }
 
-  static public void AddState(State state) {
+  public static void AddState(State state) {
     EnhancedDataCollection.LogIfEnabled(() => "State added: " + state);
     Current.ActiveStates.Add(StateTuple(state));
     Current.HandleStateChanged();
   }
 
-  static public void RemoveState(State state) {
+  public static void RemoveState(State state) {
     EnhancedDataCollection.LogIfEnabled(() => "State removed: " + state);
     Current.ActiveStates.Remove(StateTuple(state));
     Current.HandleStateChanged();
   }
 
-  static public bool Enabled(StateFeatures flag) {
+  public static bool Enabled(StateFeatures flag) {
     return Current.StateFeaturesCache.HasFlag(flag);
   }
 
-  static public bool Playing => Enabled(StateFeatures.Playing);
+  public static bool Playing => Enabled(StateFeatures.Playing);
 
-  static public void AddListener(UnityAction action) => Current.OnStateChanged.AddListener(action);
-  static public void RemoveListener(UnityAction action) => Current.OnStateChanged.RemoveListener(action);
+  public static void AddListener(UnityAction action) => Current.OnStateChanged.AddListener(action);
 
-  protected List<(StateFeatures Enabled, StateFeatures Disabled)> ActiveStates = new List<(StateFeatures Enabled, StateFeatures Disabled)>();
+  public static void RemoveListener(UnityAction action) =>
+    Current.OnStateChanged.RemoveListener(action);
+
+  protected List<(StateFeatures Enabled, StateFeatures Disabled)> ActiveStates =
+    new List<(StateFeatures Enabled, StateFeatures Disabled)>();
   protected StateFeatures StateFeaturesCache;
   protected UnityEvent OnStateChanged = new UnityEvent();
 

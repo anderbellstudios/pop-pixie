@@ -14,23 +14,22 @@ public class Scaler : MonoBehaviour {
 
   private float Scale() => Mathf.Min(WidthScale(), HeightScale());
 
-  private float WidthScale() => GenericScale(
-    ownSize: Self.sizeDelta.x,
-    parentSize: Parent.sizeDelta.x,
-    maxRelativeSize: MaxRelativeWidth
-  );
+  private float WidthScale() =>
+    GenericScale(
+      ownSize: Self.sizeDelta.x,
+      parentSize: Parent.sizeDelta.x,
+      maxRelativeSize: MaxRelativeWidth
+    );
 
-  private float HeightScale() => GenericScale(
-    ownSize: Self.sizeDelta.y,
-    parentSize: Parent.sizeDelta.y,
-    maxRelativeSize: MaxRelativeHeight
-  );
+  private float HeightScale() =>
+    GenericScale(
+      ownSize: Self.sizeDelta.y,
+      parentSize: Parent.sizeDelta.y,
+      maxRelativeSize: MaxRelativeHeight
+    );
 
-  private float GenericScale(
-    float ownSize,
-    float parentSize,
-    float maxRelativeSize
-  ) => Mathf.Min(1f, maxRelativeSize * parentSize / ownSize);
+  private float GenericScale(float ownSize, float parentSize, float maxRelativeSize) =>
+    Mathf.Min(1f, maxRelativeSize * parentSize / ownSize);
 
   private RectTransform Self => transform as RectTransform;
 }

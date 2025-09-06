@@ -5,7 +5,9 @@ using UnityEngine;
 using UnityEngine.Events;
 
 public abstract class AMonitor : MonoBehaviour {
-  public bool WaitOnAwake = true, WaitInfinitely = false, Waiting;
+  public bool WaitOnAwake = true,
+    WaitInfinitely = false,
+    Waiting;
 
   public UnityEvent Event;
 

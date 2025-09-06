@@ -22,9 +22,7 @@ public class MovementManager : MonoBehaviour {
     bool skipVisualMovement = false,
     bool skipSpeedModifiers = false
   ) {
-    Vector2 modifiedAmount = amount * (
-      skipSpeedModifiers ? 1f : ModifiedSpeed()
-    );
+    Vector2 modifiedAmount = amount * (skipSpeedModifiers ? 1f : ModifiedSpeed());
 
     Movement += modifiedAmount;
 

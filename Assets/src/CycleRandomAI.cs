@@ -10,8 +10,8 @@ public class CycleRandomAI : AMovementEnemyAI {
   private int CurrentIndex = -1;
   private int LastIndex = -1;
 
-  protected override AMovementEnemyAI UseMovementAI()
-    => CurrentIndex == -1 ? null : AIs[CurrentIndex];
+  protected override AMovementEnemyAI UseMovementAI() =>
+    CurrentIndex == -1 ? null : AIs[CurrentIndex];
 
   protected override void OnActivate() {
     ScheduleChangeAI();
@@ -22,9 +22,7 @@ public class CycleRandomAI : AMovementEnemyAI {
   }
 
   private void ScheduleChangeAI() {
-    bool instant = DelayBetweenAIs == 0f || (
-      IsFirst && !InitialDelay
-    );
+    bool instant = DelayBetweenAIs == 0f || (IsFirst && !InitialDelay);
 
     LastIndex = CurrentIndex;
 

@@ -1,19 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class TowerPanSceneEvents : MonoBehaviour {
   public Transform ContainerTransform;
-  public Image DarkenBehind, DarkenFront;
+  public Image DarkenBehind,
+    DarkenFront;
   public PlayCaptionLine PlayCaptionLine;
-  public AnimationCurve PanCurve, DarkenBehindCurve, DarkenFrontCurve;
-  public float
-    DelayBeforePan, PanDuration, PanFrom, PanTo,
+  public AnimationCurve PanCurve,
+    DarkenBehindCurve,
+    DarkenFrontCurve;
+  public float DelayBeforePan,
+    PanDuration,
+    PanFrom,
+    PanTo,
     DelayBeforeCaptionLine,
-    DelayBeforeDarkenBehind, DarkenBehindDuration,
-    DelayBeforeDarkenFront, DarkenFrontDuration,
+    DelayBeforeDarkenBehind,
+    DarkenBehindDuration,
+    DelayBeforeDarkenFront,
+    DarkenFrontDuration,
     DelayBeforeComplete;
   public UnityEvent OnComplete;
 
@@ -32,8 +39,12 @@ public class TowerPanSceneEvents : MonoBehaviour {
       PlayCaptionLine.Perform();
     }
 
-    float darkenBehindProgress = Mathf.Clamp01((elapsedSincePan - DelayBeforeDarkenBehind) / DarkenBehindDuration);
-    float darkenFrontProgress = Mathf.Clamp01((elapsedSincePan - DelayBeforeDarkenFront) / DarkenFrontDuration);
+    float darkenBehindProgress = Mathf.Clamp01(
+      (elapsedSincePan - DelayBeforeDarkenBehind) / DarkenBehindDuration
+    );
+    float darkenFrontProgress = Mathf.Clamp01(
+      (elapsedSincePan - DelayBeforeDarkenFront) / DarkenFrontDuration
+    );
     float elapsedSinceDarken = elapsedSincePan - DelayBeforeDarkenFront - DarkenFrontDuration;
 
     ContainerTransform.localPosition = new Vector3(

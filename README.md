@@ -154,6 +154,15 @@ At this point, `git status` should report that the working tree is clean. Please
 
 You should now be ready to begin work on Pop Pixie. Open a Unity scene from `/Assets/Unity/Scenes` to get started.
 
+### Linting
+
+We use a fork of [CSharpier](https://csharpier.com/) for linting.
+
+```
+dotnet tool restore # First time only
+yarn lint:fix # Automatically format *.cs files
+```
+
 ### Updating the app version
 
 When updating the app verison, it should be modified in `ProjectSettings.asset` and `pop-pixie.iss`.

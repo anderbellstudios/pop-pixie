@@ -23,43 +23,35 @@ public static class CollisionMask {
   }
 
   private static LayerMask? _UnwalkableMask;
-  public static LayerMask UnwalkableMask => (
-    _UnwalkableMask ?? (_UnwalkableMask = GetUnwalkableMask())
-  ).Value;
+  public static LayerMask UnwalkableMask =>
+    (_UnwalkableMask ?? (_UnwalkableMask = GetUnwalkableMask())).Value;
 
   private static LayerMask GetUnwalkableMask() =>
-    LayerMask.GetMask("Default") |
-    LayerMask.GetMask("RollToPass") |
-    LayerMask.GetMask("CrouchToPass") |
-    LayerMask.GetMask("WalkBoundary") |
-    LayerMask.GetMask("TransparentWall");
+    LayerMask.GetMask("Default")
+    | LayerMask.GetMask("RollToPass")
+    | LayerMask.GetMask("CrouchToPass")
+    | LayerMask.GetMask("WalkBoundary")
+    | LayerMask.GetMask("TransparentWall");
 
   private static LayerMask? _OpaqueMask;
-  public static LayerMask OpaqueMask => (
-    _OpaqueMask ?? (_OpaqueMask = GetOpaqueMask())
-  ).Value;
+  public static LayerMask OpaqueMask => (_OpaqueMask ?? (_OpaqueMask = GetOpaqueMask())).Value;
 
   private static LayerMask GetOpaqueMask() =>
-    LayerMask.GetMask("Default") |
-    LayerMask.GetMask("CrouchToPass");
+    LayerMask.GetMask("Default") | LayerMask.GetMask("CrouchToPass");
 
   private static LayerMask? _PlayerMask;
-  public static LayerMask PlayerMask => (
-    _PlayerMask ?? (_PlayerMask = GetPlayerMask())
-  ).Value;
+  public static LayerMask PlayerMask => (_PlayerMask ?? (_PlayerMask = GetPlayerMask())).Value;
 
   private static LayerMask GetPlayerMask() =>
-    LayerMask.GetMask("Player") |
-    LayerMask.GetMask("PlayerRolling") |
-    LayerMask.GetMask("PlayerCrouching");
+    LayerMask.GetMask("Player")
+    | LayerMask.GetMask("PlayerRolling")
+    | LayerMask.GetMask("PlayerCrouching");
 
   private static LayerMask? _BulletMask;
-  public static LayerMask BulletMask => (
-    _BulletMask ?? (_BulletMask = GetBulletMask())
-  ).Value;
+  public static LayerMask BulletMask => (_BulletMask ?? (_BulletMask = GetBulletMask())).Value;
 
   private static LayerMask GetBulletMask() =>
-    LayerMask.GetMask("GenericBullet") |
-    LayerMask.GetMask("PlayerBullet") |
-    LayerMask.GetMask("EnemyBullet");
+    LayerMask.GetMask("GenericBullet")
+    | LayerMask.GetMask("PlayerBullet")
+    | LayerMask.GetMask("EnemyBullet");
 }
