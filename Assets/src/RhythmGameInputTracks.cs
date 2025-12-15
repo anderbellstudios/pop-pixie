@@ -11,14 +11,15 @@ public class RhythmGameInputTracks : MonoBehaviour {
   public GameObject ModelInput;
 
   /**
-   * The amount of leeway added to SpawnY to ensure that inputs are spawned well
-   * before they're due to appear on the screen.
+   * The number of pixels added or subtracted to SpawnY and DespawnY to ensure
+   * that inputs are spawned well before they're due to appear on the screen,
+   * and have time to be marked as misses before they're despawned.
    */
-  private const float SPAWN_Y_LEEWAY = -100f;
+  private const float SPAWN_DESPAWN_LEEWAY = 1080f;
 
   private RhythmGame RhythmGame;
   private bool AfterFirstUpdate = false;
-  private List<SpawnedInput> SpawnedInputs = new();
+  public List<SpawnedInput> SpawnedInputs { get; private set; } = new();
   private float TargetY;
   private float SpawnY;
   private float DespawnY;
@@ -33,8 +34,8 @@ public class RhythmGameInputTracks : MonoBehaviour {
     float inputSize = ModelInput.GetComponent<RectTransform>().rect.height;
     float bottomOfScreen = GetComponent<RectTransform>().rect.yMin;
     float topOfScreen = GetComponent<RectTransform>().rect.yMax;
-    SpawnY = bottomOfScreen - inputSize / 2f + SPAWN_Y_LEEWAY;
-    DespawnY = topOfScreen + inputSize / 2f;
+    SpawnY = bottomOfScreen - inputSize / 2f - SPAWN_DESPAWN_LEEWAY;
+    DespawnY = topOfScreen + inputSize / 2f + SPAWN_DESPAWN_LEEWAY;
 
     float secondsPerBeat = 60f / Song.BeatsPerMinute;
     InputSpeed = PixelsBetweenEachBeat / secondsPerBeat;
@@ -65,10 +66,7 @@ public class RhythmGameInputTracks : MonoBehaviour {
     }
 
     // Despawn off-screen inputs
-    foreach (SpawnedInput spawnedInput in toDespawn) {
-      Destroy(spawnedInput.GameObject);
-      SpawnedInputs.Remove(spawnedInput);
-    }
+    toDespawn.ForEach(DespawnInput);
 
     // Spawn new inputs
     while (LastSpawnedIndex < Inputs.Count - 1) {
@@ -83,9 +81,13 @@ public class RhythmGameInputTracks : MonoBehaviour {
     }
   }
 
+  public void HitInput(RhythmGameInput input) {
+    SpawnedInput spawnedInput = SpawnedInputs.Find(spawnedInput => spawnedInput.Input == input);
+    DespawnInput(spawnedInput);
+  }
+
   private float YPositionForInput(RhythmGameInput input) {
-    float relativeTime = input.Time - CurrentTime;
-    float distanceToTarget = relativeTime * InputSpeed;
+    float distanceToTarget = input.RelativeTime(CurrentTime) * InputSpeed;
     return TargetY - distanceToTarget;
   }
 
@@ -104,6 +106,11 @@ public class RhythmGameInputTracks : MonoBehaviour {
 
     SpawnedInput spawnedInput = new SpawnedInput { Input = input, GameObject = inputGameObject };
     SpawnedInputs.Add(spawnedInput);
+  }
+
+  void DespawnInput(SpawnedInput spawnedInput) {
+    Destroy(spawnedInput.GameObject);
+    SpawnedInputs.Remove(spawnedInput);
   }
 
   private Transform TargetForInputType(RhythmGameInputType inputType) {
@@ -128,7 +135,7 @@ public class RhythmGameInputTracks : MonoBehaviour {
   private List<RhythmGameInput> Inputs => Song.Inputs;
   private float CurrentTime => RhythmGame.CurrentTime;
 
-  class SpawnedInput {
+  public class SpawnedInput {
     public RhythmGameInput Input;
     public GameObject GameObject;
   }
