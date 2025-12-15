@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum RhythmGameInputType {
   Left = 0,
@@ -9,12 +10,12 @@ public enum RhythmGameInputType {
 };
 
 public class RhythmGameInputTracks : MonoBehaviour {
-  public float SpawnInputInterval,
-    InputSpeed;
-  public Transform LeftTarget,
-    DownTarget,
-    UpTarget,
-    RightTarget;
+  public float SpawnInputInterval;
+  public float InputSpeed;
+  public Transform LeftTarget;
+  public Transform DownTarget;
+  public Transform UpTarget;
+  public Transform RightTarget;
   public GameObject ModelInput;
 
   private List<GameObject> SpawnedInputs = new();
@@ -52,6 +53,7 @@ public class RhythmGameInputTracks : MonoBehaviour {
 
     input.transform.localPosition = new Vector2(spawnX, SpawnY);
     input.transform.localRotation = target.localRotation;
+    input.GetComponent<Image>().color = target.GetComponent<Image>().color;
   }
 
   private Transform TargetForInputType(RhythmGameInputType inputType) {
