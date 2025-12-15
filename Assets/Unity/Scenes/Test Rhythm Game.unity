@@ -613,7 +613,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 488498665}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1090514947}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -921,6 +921,119 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 959757541}
   m_CullTransparentMesh: 1
+--- !u!1 &1090514945
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1090514947}
+  - component: {fileID: 1090514946}
+  m_Layer: 0
+  m_Name: Rhythm Game
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1090514946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1090514945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da791d72e319d492e9eb6f6d293b66a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InputTracks: {fileID: 1489695914}
+  Song:
+    BeatsPerMinute: 120
+    Inputs:
+    - Type: 2
+      Time: 2
+    - Type: 2
+      Time: 2.5
+    - Type: 1
+      Time: 3
+    - Type: 1
+      Time: 3.5
+    - Type: 0
+      Time: 4
+    - Type: 3
+      Time: 4.5
+    - Type: 0
+      Time: 5
+    - Type: 3
+      Time: 5.5
+    - Type: 2
+      Time: 6
+    - Type: 2
+      Time: 6.5
+    - Type: 1
+      Time: 7
+    - Type: 1
+      Time: 7.5
+    - Type: 0
+      Time: 8
+    - Type: 3
+      Time: 8.5
+    - Type: 0
+      Time: 9
+    - Type: 3
+      Time: 9.5
+    - Type: 2
+      Time: 10
+    - Type: 2
+      Time: 10.5
+    - Type: 1
+      Time: 11
+    - Type: 1
+      Time: 11.5
+    - Type: 0
+      Time: 12
+    - Type: 3
+      Time: 12.5
+    - Type: 0
+      Time: 13
+    - Type: 3
+      Time: 13.5
+    - Type: 2
+      Time: 14
+    - Type: 2
+      Time: 14.5
+    - Type: 1
+      Time: 15
+    - Type: 1
+      Time: 15.5
+    - Type: 0
+      Time: 16
+    - Type: 3
+      Time: 16.5
+    - Type: 0
+      Time: 17
+    - Type: 3
+      Time: 17.5
+--- !u!4 &1090514947
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1090514945}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 740930168}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1489695912
 GameObject:
   m_ObjectHideFlags: 0
@@ -974,8 +1087,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8112514d52eaa43adb5d0c47e84a79ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpawnInputInterval: 0.5
-  InputSpeed: 360
+  PixelsBetweenEachBeat: 270
   LeftTarget: {fileID: 787737352}
   DownTarget: {fileID: 250930357}
   UpTarget: {fileID: 2014153219}
@@ -1195,4 +1307,4 @@ SceneRoots:
   m_Roots:
   - {fileID: 1945062054}
   - {fileID: 898746627}
-  - {fileID: 740930168}
+  - {fileID: 1090514947}

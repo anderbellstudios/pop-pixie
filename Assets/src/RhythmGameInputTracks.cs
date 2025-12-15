@@ -2,58 +2,108 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum RhythmGameInputType {
-  Left = 0,
-  Down = 1,
-  Up = 2,
-  Right = 3,
-};
-
 public class RhythmGameInputTracks : MonoBehaviour {
-  public float SpawnInputInterval;
-  public float InputSpeed;
+  public float PixelsBetweenEachBeat;
   public Transform LeftTarget;
   public Transform DownTarget;
   public Transform UpTarget;
   public Transform RightTarget;
   public GameObject ModelInput;
 
-  private List<GameObject> SpawnedInputs = new();
-
   /**
-   * The Y coordinate relative to this GameObject at which new inputs are
-   * spawned.
+   * The amount of leeway added to SpawnY to ensure that inputs are spawned well
+   * before they're due to appear on the screen.
    */
+  private const float SPAWN_Y_LEEWAY = -100f;
+
+  private RhythmGame RhythmGame;
+  private bool AfterFirstUpdate = false;
+  private List<SpawnedInput> SpawnedInputs = new();
+  private float TargetY;
   private float SpawnY;
+  private float DespawnY;
+  private float InputSpeed;
+  private int LastSpawnedIndex = -1;
 
-  void Start() {
-    // Spawn inputs just below the bottom of the screen
+  public void Init(RhythmGame rhythmGame) {
+    RhythmGame = rhythmGame;
+
+    TargetY = transform.InverseTransformPoint(LeftTarget.position).y;
+
     float inputSize = ModelInput.GetComponent<RectTransform>().rect.height;
-    SpawnY = GetComponent<RectTransform>().rect.yMin - inputSize / 2f;
+    float bottomOfScreen = GetComponent<RectTransform>().rect.yMin;
+    float topOfScreen = GetComponent<RectTransform>().rect.yMax;
+    SpawnY = bottomOfScreen - inputSize / 2f + SPAWN_Y_LEEWAY;
+    DespawnY = topOfScreen + inputSize / 2f;
 
-    AsyncTimer.BaseTime.SetInterval(SpawnInput, SpawnInputInterval, bindToGameObject: gameObject);
+    float secondsPerBeat = 60f / Song.BeatsPerMinute;
+    InputSpeed = PixelsBetweenEachBeat / secondsPerBeat;
   }
 
   void Update() {
-    Vector3 displacement = Vector2.up * InputSpeed * Time.deltaTime;
+    /**
+     * Do not spawn any inputs during the first update, since the positions can
+     * be incorrect.
+     */
+    if (!AfterFirstUpdate) {
+      AfterFirstUpdate = true;
+      return;
+    }
 
-    SpawnedInputs.ForEach(input => {
-      input.transform.localPosition += displacement;
-    });
+    List<SpawnedInput> toDespawn = new();
+
+    // Update spawned inputs
+    foreach (SpawnedInput spawnedInput in SpawnedInputs) {
+      float y = YPositionForInput(spawnedInput.Input);
+
+      if (y >= DespawnY) {
+        toDespawn.Add(spawnedInput);
+      } else {
+        Transform inputTransform = spawnedInput.GameObject.transform;
+        inputTransform.localPosition = new Vector2(inputTransform.localPosition.x, y);
+      }
+    }
+
+    // Despawn off-screen inputs
+    foreach (SpawnedInput spawnedInput in toDespawn) {
+      Destroy(spawnedInput.GameObject);
+      SpawnedInputs.Remove(spawnedInput);
+    }
+
+    // Spawn new inputs
+    while (LastSpawnedIndex < Inputs.Count - 1) {
+      RhythmGameInput nextInput = Inputs[LastSpawnedIndex + 1];
+
+      if (DueToSpawnInput(nextInput)) {
+        SpawnInput(nextInput);
+        LastSpawnedIndex++;
+      } else {
+        break;
+      }
+    }
   }
 
-  private void SpawnInput() {
-    GameObject input = Instantiate(ModelInput, transform);
-    input.SetActive(true);
-    SpawnedInputs.Add(input);
+  private float YPositionForInput(RhythmGameInput input) {
+    float relativeTime = input.Time - CurrentTime;
+    float distanceToTarget = relativeTime * InputSpeed;
+    return TargetY - distanceToTarget;
+  }
 
-    RhythmGameInputType inputType = (RhythmGameInputType)Random.Range(0, 4);
-    Transform target = TargetForInputType(inputType);
-    float spawnX = target.localPosition.x;
+  private bool DueToSpawnInput(RhythmGameInput input) => YPositionForInput(input) >= SpawnY;
 
-    input.transform.localPosition = new Vector2(spawnX, SpawnY);
-    input.transform.localRotation = target.localRotation;
-    input.GetComponent<Image>().color = target.GetComponent<Image>().color;
+  private void SpawnInput(RhythmGameInput input) {
+    GameObject inputGameObject = Instantiate(ModelInput, transform);
+    inputGameObject.SetActive(true);
+
+    Transform target = TargetForInputType(input.Type);
+    float spawnX = transform.InverseTransformPoint(target.position).x;
+
+    inputGameObject.transform.localPosition = new Vector2(spawnX, SpawnY);
+    inputGameObject.transform.localRotation = target.localRotation;
+    inputGameObject.GetComponent<Image>().color = target.GetComponent<Image>().color;
+
+    SpawnedInput spawnedInput = new SpawnedInput { Input = input, GameObject = inputGameObject };
+    SpawnedInputs.Add(spawnedInput);
   }
 
   private Transform TargetForInputType(RhythmGameInputType inputType) {
@@ -72,5 +122,14 @@ public class RhythmGameInputTracks : MonoBehaviour {
     }
 
     throw new System.ArgumentException("Unexpected input type");
+  }
+
+  private RhythmGameSong Song => RhythmGame.Song;
+  private List<RhythmGameInput> Inputs => Song.Inputs;
+  private float CurrentTime => RhythmGame.CurrentTime;
+
+  class SpawnedInput {
+    public RhythmGameInput Input;
+    public GameObject GameObject;
   }
 }
