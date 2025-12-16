@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public enum RhythmGameInputType {
@@ -30,15 +29,16 @@ public class RhythmGame : MonoBehaviour {
   public RhythmGameSong Song;
   public float MissThreshold;
 
-  private HashSet<RhythmGameInput> MissedInputs = new();
-
-  public float CurrentTime => Time.time;
+  private LinearWindow<RhythmGameInput> PressableInputsWindow;
 
   void Start() {
-    InputTracks.Init(this);
+    PressableInputsWindow = new(Song.Inputs, onExitWindow: MissedInput);
+    InputTracks.Init(Song, getTime: () => CurrentTime);
   }
 
   void Update() {
+    PressableInputsWindow.Update(input => input.RelativeTimeAbs(CurrentTime) <= MissThreshold);
+
     if (WrappedInput.GetButtonDown("Rhythm Game Left")) {
       HandleButtonDown(RhythmGameInputType.Left);
     }
@@ -54,39 +54,36 @@ public class RhythmGame : MonoBehaviour {
     if (WrappedInput.GetButtonDown("Rhythm Game Right")) {
       HandleButtonDown(RhythmGameInputType.Right);
     }
-
-    CheckForLateMisses();
   }
 
   private void HandleButtonDown(RhythmGameInputType inputType) {
-    IEnumerable<RhythmGameInput> eligibleInputs = VisibleInputs.Where(input =>
-      input.Type == inputType && input.RelativeTimeAbs(CurrentTime) <= MissThreshold
-    );
+    /**
+     * If there are multiple matching inputs, return the earliest one so that
+     * inputs are pressed in the correct order.
+     */
+    RhythmGameInput input = PressableInputs.Find(input => input.Type == inputType);
 
-    if (eligibleInputs.Count() == 0) {
-      Debug.Log("Miss (no input found)");
-      return;
-    }
-
-    RhythmGameInput nearestInput = eligibleInputs.Aggregate(
-      (a, b) => a.RelativeTimeAbs(CurrentTime) <= b.RelativeTimeAbs(CurrentTime) ? a : b
-    );
-
-    InputTracks.HitInput(nearestInput);
-  }
-
-  private void CheckForLateMisses() {
-    foreach (RhythmGameInput input in VisibleInputs) {
-      if (MissedInputs.Contains(input))
-        continue;
-
-      if (input.RelativeTime(CurrentTime) < -MissThreshold) {
-        Debug.Log("Miss (input not pressed)");
-        MissedInputs.Add(input);
-      }
+    if (input == null) {
+      MissedInput(inputType);
+    } else {
+      HitInput(input);
     }
   }
 
-  private IEnumerable<RhythmGameInput> VisibleInputs =>
-    InputTracks.SpawnedInputs.Select(spawnedInput => spawnedInput.Input);
+  private void HitInput(RhythmGameInput input) {
+    PressableInputsWindow.RemoveEarly(input);
+    InputTracks.HitInput(input);
+  }
+
+  private void MissedInput(RhythmGameInput input) {
+    Debug.Log("Miss (input not pressed)");
+  }
+
+  private void MissedInput(RhythmGameInputType inputType) {
+    Debug.Log("Miss (no input found)");
+  }
+
+  private float CurrentTime => Time.time;
+
+  private List<RhythmGameInput> PressableInputs => PressableInputsWindow.Current;
 }

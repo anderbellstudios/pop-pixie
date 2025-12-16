@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,17 +18,19 @@ public class RhythmGameInputTracks : MonoBehaviour {
    */
   private const float SPAWN_DESPAWN_LEEWAY = 1080f;
 
-  private RhythmGame RhythmGame;
+  private LinearWindow<RhythmGameInput> VisibleInputsWindow;
+  private Func<float> GetTime;
+  private Dictionary<RhythmGameInput, GameObject> InputGameObjects = new();
+
   private bool AfterFirstUpdate = false;
-  public List<SpawnedInput> SpawnedInputs { get; private set; } = new();
   private float TargetY;
   private float SpawnY;
   private float DespawnY;
   private float InputSpeed;
-  private int LastSpawnedIndex = -1;
 
-  public void Init(RhythmGame rhythmGame) {
-    RhythmGame = rhythmGame;
+  public void Init(RhythmGameSong song, Func<float> getTime) {
+    VisibleInputsWindow = new(song.Inputs, onEnterWindow: SpawnInput, onExitWindow: DespawnInput);
+    GetTime = getTime;
 
     TargetY = transform.InverseTransformPoint(LeftTarget.position).y;
 
@@ -37,7 +40,7 @@ public class RhythmGameInputTracks : MonoBehaviour {
     SpawnY = bottomOfScreen - inputSize / 2f - SPAWN_DESPAWN_LEEWAY;
     DespawnY = topOfScreen + inputSize / 2f + SPAWN_DESPAWN_LEEWAY;
 
-    float secondsPerBeat = 60f / Song.BeatsPerMinute;
+    float secondsPerBeat = 60f / song.BeatsPerMinute;
     InputSpeed = PixelsBetweenEachBeat / secondsPerBeat;
   }
 
@@ -51,39 +54,23 @@ public class RhythmGameInputTracks : MonoBehaviour {
       return;
     }
 
-    List<SpawnedInput> toDespawn = new();
+    VisibleInputsWindow.Update(input => {
+      float y = YPositionForInput(input);
+      return y >= SpawnY && y <= DespawnY;
+    });
 
-    // Update spawned inputs
-    foreach (SpawnedInput spawnedInput in SpawnedInputs) {
-      float y = YPositionForInput(spawnedInput.Input);
-
-      if (y >= DespawnY) {
-        toDespawn.Add(spawnedInput);
-      } else {
-        Transform inputTransform = spawnedInput.GameObject.transform;
+    foreach (RhythmGameInput input in VisibleInputs) {
+      if (InputGameObjects.ContainsKey(input)) {
+        float y = YPositionForInput(input);
+        Transform inputTransform = InputGameObjects[input].transform;
         inputTransform.localPosition = new Vector2(inputTransform.localPosition.x, y);
-      }
-    }
-
-    // Despawn off-screen inputs
-    toDespawn.ForEach(DespawnInput);
-
-    // Spawn new inputs
-    while (LastSpawnedIndex < Inputs.Count - 1) {
-      RhythmGameInput nextInput = Inputs[LastSpawnedIndex + 1];
-
-      if (DueToSpawnInput(nextInput)) {
-        SpawnInput(nextInput);
-        LastSpawnedIndex++;
-      } else {
-        break;
       }
     }
   }
 
   public void HitInput(RhythmGameInput input) {
-    SpawnedInput spawnedInput = SpawnedInputs.Find(spawnedInput => spawnedInput.Input == input);
-    DespawnInput(spawnedInput);
+    DespawnInput(input);
+    VisibleInputsWindow.RemoveEarly(input);
   }
 
   private float YPositionForInput(RhythmGameInput input) {
@@ -91,11 +78,10 @@ public class RhythmGameInputTracks : MonoBehaviour {
     return TargetY - distanceToTarget;
   }
 
-  private bool DueToSpawnInput(RhythmGameInput input) => YPositionForInput(input) >= SpawnY;
-
   private void SpawnInput(RhythmGameInput input) {
     GameObject inputGameObject = Instantiate(ModelInput, transform);
     inputGameObject.SetActive(true);
+    InputGameObjects.Add(input, inputGameObject);
 
     Transform target = TargetForInputType(input.Type);
     float spawnX = transform.InverseTransformPoint(target.position).x;
@@ -103,14 +89,13 @@ public class RhythmGameInputTracks : MonoBehaviour {
     inputGameObject.transform.localPosition = new Vector2(spawnX, SpawnY);
     inputGameObject.transform.localRotation = target.localRotation;
     inputGameObject.GetComponent<Image>().color = target.GetComponent<Image>().color;
-
-    SpawnedInput spawnedInput = new SpawnedInput { Input = input, GameObject = inputGameObject };
-    SpawnedInputs.Add(spawnedInput);
   }
 
-  void DespawnInput(SpawnedInput spawnedInput) {
-    Destroy(spawnedInput.GameObject);
-    SpawnedInputs.Remove(spawnedInput);
+  private void DespawnInput(RhythmGameInput input) {
+    if (InputGameObjects.ContainsKey(input)) {
+      Destroy(InputGameObjects[input]);
+      InputGameObjects.Remove(input);
+    }
   }
 
   private Transform TargetForInputType(RhythmGameInputType inputType) {
@@ -131,12 +116,6 @@ public class RhythmGameInputTracks : MonoBehaviour {
     throw new System.ArgumentException("Unexpected input type");
   }
 
-  private RhythmGameSong Song => RhythmGame.Song;
-  private List<RhythmGameInput> Inputs => Song.Inputs;
-  private float CurrentTime => RhythmGame.CurrentTime;
-
-  public class SpawnedInput {
-    public RhythmGameInput Input;
-    public GameObject GameObject;
-  }
+  public List<RhythmGameInput> VisibleInputs => VisibleInputsWindow.Current;
+  private float CurrentTime => GetTime();
 }
