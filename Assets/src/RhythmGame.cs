@@ -12,10 +12,13 @@ public enum RhythmGameNoteType {
 public class RhythmGameNote {
   public RhythmGameNoteType Type;
   public float Time;
+  public float Duration = 0f;
 
-  public float RelativeTime(float currentTime) => Time - currentTime;
+  public bool IsHold => Duration > 0f;
+  public bool IsInstant => !IsHold;
 
-  public float RelativeTimeAbs(float currentTime) => Mathf.Abs(Time - currentTime);
+  public float RelativeTime(float currentTime, bool end = false) =>
+    Time - currentTime + (end ? Duration : 0f);
 }
 
 [System.Serializable]
@@ -27,9 +30,11 @@ public class RhythmGameSong {
 public class RhythmGame : MonoBehaviour {
   public RhythmGameNotesView NotesView;
   public RhythmGameSong Song;
-  public float MissThreshold;
+
+  public const float MISS_THRESHOLD = 0.16f;
 
   private LinearWindow<RhythmGameNote> PressableNotesWindow;
+  private Dictionary<RhythmGameNoteType, RhythmGameNote> HeldNotes = new();
 
   void Start() {
     PressableNotesWindow = new(Song.Notes, onExitWindow: MissedNote);
@@ -37,7 +42,10 @@ public class RhythmGame : MonoBehaviour {
   }
 
   void Update() {
-    PressableNotesWindow.Update(note => note.RelativeTimeAbs(CurrentTime) <= MissThreshold);
+    PressableNotesWindow.Update(note =>
+      note.RelativeTime(CurrentTime) <= MISS_THRESHOLD
+      && note.RelativeTime(CurrentTime, end: true) >= -MISS_THRESHOLD
+    );
 
     if (WrappedInput.GetButtonDown("Rhythm Game Left")) {
       HandleButtonDown(RhythmGameNoteType.Left);
@@ -53,6 +61,22 @@ public class RhythmGame : MonoBehaviour {
 
     if (WrappedInput.GetButtonDown("Rhythm Game Right")) {
       HandleButtonDown(RhythmGameNoteType.Right);
+    }
+
+    if (WrappedInput.GetButtonUp("Rhythm Game Left")) {
+      HandleButtonUp(RhythmGameNoteType.Left);
+    }
+
+    if (WrappedInput.GetButtonUp("Rhythm Game Down")) {
+      HandleButtonUp(RhythmGameNoteType.Down);
+    }
+
+    if (WrappedInput.GetButtonUp("Rhythm Game Up")) {
+      HandleButtonUp(RhythmGameNoteType.Up);
+    }
+
+    if (WrappedInput.GetButtonUp("Rhythm Game Right")) {
+      HandleButtonUp(RhythmGameNoteType.Right);
     }
   }
 
@@ -70,9 +94,35 @@ public class RhythmGame : MonoBehaviour {
     }
   }
 
+  private void HandleButtonUp(RhythmGameNoteType noteType) {
+    if (HeldNotes.ContainsKey(noteType)) {
+      ReleaseNote(HeldNotes[noteType]);
+    }
+  }
+
   private void HitNote(RhythmGameNote note) {
     PressableNotesWindow.RemoveEarly(note);
     NotesView.HitNote(note);
+
+    if (note.IsHold) {
+      HeldNotes.Add(note.Type, note);
+
+      if (note.RelativeTime(CurrentTime) < -MISS_THRESHOLD) {
+        Debug.Log("Miss (hold note started too late");
+      }
+    }
+  }
+
+  private void ReleaseNote(RhythmGameNote note) {
+    float remainingDuration = note.RelativeTime(CurrentTime, end: true);
+    bool closeEnough = remainingDuration <= MISS_THRESHOLD;
+
+    HeldNotes.Remove(note.Type);
+    NotesView.ReleaseNote(note, closeEnough: closeEnough);
+
+    if (!closeEnough) {
+      Debug.Log("Released note too early");
+    }
   }
 
   private void MissedNote(RhythmGameNote note) {

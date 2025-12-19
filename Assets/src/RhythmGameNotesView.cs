@@ -9,11 +9,11 @@ public class RhythmGameNotesView : MonoBehaviour {
   public Transform DownTarget;
   public Transform UpTarget;
   public Transform RightTarget;
-  public GameObject ModelNote;
+  public RhythmGameNoteSprite NoteSpriteTemplate;
 
   private LinearWindow<RhythmGameNote> VisibleNotesWindow;
   private Func<float> GetTime;
-  private Dictionary<RhythmGameNote, GameObject> NoteGameObjects = new();
+  private Dictionary<RhythmGameNote, RhythmGameNoteSprite> NoteSprites = new();
 
   private bool AfterFirstUpdate = false;
   private float TargetY;
@@ -27,7 +27,7 @@ public class RhythmGameNotesView : MonoBehaviour {
 
     TargetY = transform.InverseTransformPoint(LeftTarget.position).y;
 
-    float noteSize = ModelNote.GetComponent<RectTransform>().rect.height;
+    float noteSize = NoteSpriteTemplate.ArrowHeight;
     float bottomOfScreen = GetComponent<RectTransform>().rect.yMin;
     float topOfScreen = GetComponent<RectTransform>().rect.yMax;
     SpawnY = bottomOfScreen - noteSize / 2f;
@@ -47,47 +47,67 @@ public class RhythmGameNotesView : MonoBehaviour {
       return;
     }
 
-    VisibleNotesWindow.Update(note => {
-      float y = YPositionForNote(note);
-      return y >= SpawnY && y <= DespawnY;
-    });
+    VisibleNotesWindow.Update(note =>
+      YPositionForNote(note) >= SpawnY && YPositionForNote(note, end: true) <= DespawnY
+    );
 
     foreach (RhythmGameNote note in VisibleNotes) {
-      if (NoteGameObjects.ContainsKey(note)) {
+      if (NoteSprites.ContainsKey(note)) {
+        RhythmGameNoteSprite noteSprite = NoteSprites[note];
+
+        // Update note position
         float y = YPositionForNote(note);
-        Transform noteTransform = NoteGameObjects[note].transform;
+        Transform noteTransform = noteSprite.transform;
         noteTransform.localPosition = new Vector2(noteTransform.localPosition.x, y);
+
+        if (noteSprite.IsHolding) {
+          noteSprite.UpdateHolding(CurrentTime);
+        }
       }
     }
   }
 
   public void HitNote(RhythmGameNote note) {
-    DespawnNote(note);
-    VisibleNotesWindow.RemoveEarly(note);
+    if (note.IsInstant) {
+      DespawnNote(note);
+      VisibleNotesWindow.RemoveEarly(note);
+    } else if (NoteSprites.ContainsKey(note)) {
+      NoteSprites[note].StartHolding();
+    }
   }
 
-  private float YPositionForNote(RhythmGameNote note) {
-    float distanceToTarget = note.RelativeTime(CurrentTime) * NoteSpeed;
+  public void ReleaseNote(RhythmGameNote note, bool closeEnough) {
+    if (NoteSprites.ContainsKey(note)) {
+      NoteSprites[note].StopHolding(CurrentTime, closeEnough: closeEnough);
+    }
+  }
+
+  private float YPositionForNote(RhythmGameNote note, bool end = false) {
+    float distanceToTarget = note.RelativeTime(CurrentTime, end: end) * NoteSpeed;
     return TargetY - distanceToTarget;
   }
 
   private void SpawnNote(RhythmGameNote note) {
-    GameObject noteGameObject = Instantiate(ModelNote, transform);
-    noteGameObject.SetActive(true);
-    NoteGameObjects.Add(note, noteGameObject);
-
     Transform target = TargetForNoteType(note.Type);
     float spawnX = transform.InverseTransformPoint(target.position).x;
 
-    noteGameObject.transform.localPosition = new Vector2(spawnX, SpawnY);
-    noteGameObject.transform.localRotation = target.localRotation;
-    noteGameObject.GetComponent<Image>().color = target.GetComponent<Image>().color;
+    GameObject noteSpriteGameObject = Instantiate(NoteSpriteTemplate.gameObject, transform);
+    RhythmGameNoteSprite noteSprite = noteSpriteGameObject.GetComponent<RhythmGameNoteSprite>();
+    noteSprite.transform.localPosition = new Vector2(spawnX, SpawnY);
+    NoteSprites.Add(note, noteSprite);
+
+    noteSprite.Initialize(
+      note: note,
+      color: target.GetComponent<Image>().color,
+      rotation: target.localRotation,
+      trailLength: note.Duration * NoteSpeed
+    );
   }
 
   private void DespawnNote(RhythmGameNote note) {
-    if (NoteGameObjects.ContainsKey(note)) {
-      Destroy(NoteGameObjects[note]);
-      NoteGameObjects.Remove(note);
+    if (NoteSprites.ContainsKey(note)) {
+      Destroy(NoteSprites[note].gameObject);
+      NoteSprites.Remove(note);
     }
   }
 
