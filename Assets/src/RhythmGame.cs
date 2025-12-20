@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Linq;
+using TMPro;
 using UnityEngine;
 
 public enum RhythmGameNoteType {
@@ -29,16 +31,53 @@ public class RhythmGameSong {
 
 public class RhythmGame : MonoBehaviour {
   public RhythmGameNotesView NotesView;
+  public TMP_Text ScoreText;
+  public TMP_Text NoteGradeText;
   public RhythmGameSong Song;
 
-  public const float MISS_THRESHOLD = 0.16f;
+  /**
+   * Constants and scoring algorithm modified from the source code of Friday
+   * Night Funkin' and used under the following license:
+   * https://github.com/FunkinCrew/Funkin/blob/24250549406207988b2718f5a05bf31e5af7629e/LICENSE.md
+   */
+  private const float MISS_THRESHOLD = 0.16f;
+  private const float DROP_THRESHOLD = 0.08f;
+  private const int MAX_NOTE_SCORE = 500;
+  private const int MIN_NOTE_SCORE = 9;
+  private const int MISS_NOTE_SCORE = -100;
+  private const float SCORING_SLOPE = 80f;
+  private const float SCORING_OFFSET = 0.05499f;
+  private const float HOLD_SCORE_PER_SECOND = 250f;
+  private const float DROP_SCORE_PER_SECOND = -125f;
+
+  private readonly (float, string)[] NOTE_GRADES = {
+    (0.012f, "Poppin'"),
+    (0.045f, "Perfect"),
+    (0.09f, "Pretty good"),
+    (0.135f, "Poor"),
+    (MISS_THRESHOLD, "Pathetic"),
+  };
 
   private LinearWindow<RhythmGameNote> PressableNotesWindow;
   private Dictionary<RhythmGameNoteType, RhythmGameNote> HeldNotes = new();
+  private float Score = 0f;
+  private int MaxPossibleScore;
 
   void Start() {
     PressableNotesWindow = new(Song.Notes, onExitWindow: MissedNote);
     NotesView.Init(Song, getTime: () => CurrentTime);
+
+    MaxPossibleScore = Song
+      .Notes.Select(note => {
+        int perfectHitScore = ScoreNoteHit(0f);
+        int holdScore = (int)(note.Duration * HOLD_SCORE_PER_SECOND);
+        return perfectHitScore + holdScore;
+      })
+      .Sum();
+
+    Debug.Log("Max possible score: " + MaxPossibleScore.ToString());
+
+    UpdateScore(0f);
   }
 
   void Update() {
@@ -88,7 +127,7 @@ public class RhythmGame : MonoBehaviour {
     RhythmGameNote note = PressableNotes.Find(note => note.Type == noteType);
 
     if (note == null) {
-      MissedNote(noteType);
+      NoteNotFound(noteType);
     } else {
       HitNote(note);
     }
@@ -106,31 +145,74 @@ public class RhythmGame : MonoBehaviour {
 
     if (note.IsHold) {
       HeldNotes.Add(note.Type, note);
-
-      if (note.RelativeTime(CurrentTime) < -MISS_THRESHOLD) {
-        Debug.Log("Miss (hold note started too late");
-      }
     }
+
+    float relativeTime = Mathf.Abs(note.RelativeTime(CurrentTime));
+    UpdateScore(ScoreNoteHit(relativeTime));
+    ShowNoteGrade(GradeNoteHit(relativeTime));
   }
 
   private void ReleaseNote(RhythmGameNote note) {
     float remainingDuration = note.RelativeTime(CurrentTime, end: true);
-    bool closeEnough = remainingDuration <= MISS_THRESHOLD;
+
+    bool closeEnough = remainingDuration <= DROP_THRESHOLD;
+    if (closeEnough)
+      remainingDuration = 0f;
+
+    float heldDuration = note.Duration - remainingDuration;
 
     HeldNotes.Remove(note.Type);
     NotesView.ReleaseNote(note, closeEnough: closeEnough);
 
-    if (!closeEnough) {
-      Debug.Log("Released note too early");
-    }
+    float holdScore = heldDuration * HOLD_SCORE_PER_SECOND;
+    float dropScore = remainingDuration * DROP_SCORE_PER_SECOND;
+    int scoreChange = (int)(holdScore + dropScore);
+    UpdateScore(scoreChange);
   }
 
   private void MissedNote(RhythmGameNote note) {
-    Debug.Log("Miss (note not pressed)");
+    ShowNoteGrade("Miss");
+    UpdateScore(MISS_NOTE_SCORE);
   }
 
-  private void MissedNote(RhythmGameNoteType noteType) {
-    Debug.Log("Miss (no note found)");
+  private void NoteNotFound(RhythmGameNoteType noteType) {
+    UpdateScore(MISS_NOTE_SCORE);
+  }
+
+  private int ScoreNoteHit(float relativeTime) {
+    /**
+     * Although most misses are handled by MissedNote, this case can arise if a
+     * hold note is pressed late.
+     */
+    if (relativeTime > MISS_THRESHOLD)
+      return MISS_NOTE_SCORE;
+
+    /**
+     * Curve that outputs a value close to 1 at relativeTime = 0 and approaches
+     * 0 at approximately relativeTime = 0.15.
+     */
+    float factor = 1f - 1f / (1f + Mathf.Exp(-SCORING_SLOPE * (relativeTime - SCORING_OFFSET)));
+
+    return (int)(MAX_NOTE_SCORE * factor + MIN_NOTE_SCORE);
+  }
+
+  private string GradeNoteHit(float relativeTime) {
+    foreach (var (threshold, label) in NOTE_GRADES) {
+      if (relativeTime <= threshold)
+        return label;
+    }
+
+    return "Miss";
+  }
+
+  private void UpdateScore(float scoreChange) {
+    Score = Mathf.Max(0f, Score + scoreChange);
+    int maxScoreDigits = Mathf.CeilToInt(Mathf.Log10((float)MaxPossibleScore));
+    ScoreText.text = Score.ToString().PadLeft(maxScoreDigits, '0');
+  }
+
+  private void ShowNoteGrade(string grade) {
+    NoteGradeText.text = grade;
   }
 
   private float CurrentTime => Time.time;
