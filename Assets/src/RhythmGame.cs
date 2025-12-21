@@ -1,76 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
-using MidiParser;
 using TMPro;
 using UnityEngine;
-
-public enum RhythmGameNoteType {
-  Left = 0,
-  Down = 1,
-  Up = 2,
-  Right = 3,
-};
-
-[System.Serializable]
-public class RhythmGameNote {
-  public RhythmGameNoteType Type;
-  public float Time;
-  public float Duration = 0f;
-
-  public bool IsHold => Duration > 0f;
-  public bool IsInstant => !IsHold;
-
-  public float RelativeTime(float currentTime, bool end = false) =>
-    Time - currentTime + (end ? Duration : 0f);
-}
-
-[System.Serializable]
-public class RhythmGameSong {
-  public float BeatsPerMinute;
-  public List<RhythmGameNote> Notes;
-
-  private static readonly Dictionary<int, RhythmGameNoteType> PITCH_TO_NOTE_TYPE = new()
-  {
-    { 65, RhythmGameNoteType.Left },
-    { 69, RhythmGameNoteType.Down },
-    { 72, RhythmGameNoteType.Up },
-    { 76, RhythmGameNoteType.Right },
-  };
-
-  public static RhythmGameSong ParseMidi(string path) {
-    MidiFile midi = new MidiFile(path);
-
-    if (midi.Tracks.Length != 1)
-      throw new System.Exception("MIDI file should have exactly one track");
-
-    MidiTrack track = midi.Tracks[0];
-
-    List<RhythmGameNote> notes = new();
-    float bpm = 120f;
-
-    foreach (MidiEvent midiEvent in track.MidiEvents) {
-      switch (midiEvent.MidiEventType) {
-        case MidiEventType.MetaEvent:
-          if (midiEvent.MetaEventType == MetaEventType.Tempo) {
-            // TODO: Track a list of tempo change events on the song object
-            bpm = (int)midiEvent.Arg2;
-          }
-          break;
-
-        case MidiEventType.NoteOn:
-          RhythmGameNoteType type = PITCH_TO_NOTE_TYPE[midiEvent.Note];
-          float beat = (float)midiEvent.Time / midi.TicksPerQuarterNote;
-          float time = beat * 60f / bpm;
-          notes.Add(new() { Type = type, Time = time });
-          break;
-
-        // TODO: Parse hold notes
-      }
-    }
-
-    return new RhythmGameSong { BeatsPerMinute = bpm, Notes = notes };
-  }
-}
 
 public class RhythmGame : MonoBehaviour {
   public RhythmGameNotesView NotesView;
@@ -106,7 +37,7 @@ public class RhythmGame : MonoBehaviour {
   private int MaxPossibleScore;
 
   void Start() {
-    RhythmGameSong song = RhythmGameSong.ParseMidi(
+    RhythmGameSong song = RhythmGameSongParser.ParseMidi(
       System.IO.Path.Combine(Application.streamingAssetsPath, "Rhythm Game Data", "Demo.mid")
     );
 
@@ -151,7 +82,6 @@ public class RhythmGame : MonoBehaviour {
     if (WrappedInput.GetButtonUp("Rhythm Game Left")) {
       HandleButtonUp(RhythmGameNoteType.Left);
     }
-
     if (WrappedInput.GetButtonUp("Rhythm Game Down")) {
       HandleButtonUp(RhythmGameNoteType.Down);
     }

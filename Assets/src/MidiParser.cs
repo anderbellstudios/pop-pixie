@@ -80,7 +80,7 @@ namespace MidiParser {
       switch (metaEventType) {
         case (byte)MetaEventType.Tempo:
           var mspqn = (data[position + 1] << 16) | (data[position + 2] << 8) | data[position + 3];
-          data1 = (byte)(60000000.0 / mspqn);
+          data1 = (byte)Math.Round(60000000.0 / mspqn);
           position += 4;
           return true;
 
