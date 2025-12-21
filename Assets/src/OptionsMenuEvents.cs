@@ -23,7 +23,7 @@ public class OptionsMenuEvents : AMenu {
   }
 
   protected override void LocalUpdate() {
-    if (WrappedInput.Player.controllers.Joysticks.Count() >= 1)
+    if (WrappedInput.Player.controllers.Joysticks.Count >= 1)
       ControllerIconsGameObject.SetActive(true);
   }
 

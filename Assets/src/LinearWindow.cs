@@ -36,7 +36,7 @@ public class LinearWindow<T> {
         OnExitWindow?.Invoke(item);
       });
 
-    while (LastEnteredWindow < AllItems.Count() - 1) {
+    while (LastEnteredWindow < AllItems.Length - 1) {
       T item = AllItems[LastEnteredWindow + 1];
 
       if (predicate(item)) {

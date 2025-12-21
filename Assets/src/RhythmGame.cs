@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using MidiParser;
 using TMPro;
 using UnityEngine;
 
@@ -25,15 +26,56 @@ public class RhythmGameNote {
 
 [System.Serializable]
 public class RhythmGameSong {
-  public int BeatsPerMinute;
+  public float BeatsPerMinute;
   public List<RhythmGameNote> Notes;
+
+  private static readonly Dictionary<int, RhythmGameNoteType> PITCH_TO_NOTE_TYPE = new()
+  {
+    { 65, RhythmGameNoteType.Left },
+    { 69, RhythmGameNoteType.Down },
+    { 72, RhythmGameNoteType.Up },
+    { 76, RhythmGameNoteType.Right },
+  };
+
+  public static RhythmGameSong ParseMidi(string path) {
+    MidiFile midi = new MidiFile(path);
+
+    if (midi.Tracks.Length != 1)
+      throw new System.Exception("MIDI file should have exactly one track");
+
+    MidiTrack track = midi.Tracks[0];
+
+    List<RhythmGameNote> notes = new();
+    float bpm = 120f;
+
+    foreach (MidiEvent midiEvent in track.MidiEvents) {
+      switch (midiEvent.MidiEventType) {
+        case MidiEventType.MetaEvent:
+          if (midiEvent.MetaEventType == MetaEventType.Tempo) {
+            // TODO: Track a list of tempo change events on the song object
+            bpm = (int)midiEvent.Arg2;
+          }
+          break;
+
+        case MidiEventType.NoteOn:
+          RhythmGameNoteType type = PITCH_TO_NOTE_TYPE[midiEvent.Note];
+          float beat = (float)midiEvent.Time / midi.TicksPerQuarterNote;
+          float time = beat * 60f / bpm;
+          notes.Add(new() { Type = type, Time = time });
+          break;
+
+        // TODO: Parse hold notes
+      }
+    }
+
+    return new RhythmGameSong { BeatsPerMinute = bpm, Notes = notes };
+  }
 }
 
 public class RhythmGame : MonoBehaviour {
   public RhythmGameNotesView NotesView;
   public TMP_Text ScoreText;
   public TMP_Text NoteGradeText;
-  public RhythmGameSong Song;
 
   /**
    * Constants and scoring algorithm modified from the source code of Friday
@@ -64,10 +106,14 @@ public class RhythmGame : MonoBehaviour {
   private int MaxPossibleScore;
 
   void Start() {
-    PressableNotesWindow = new(Song.Notes, onExitWindow: MissedNote);
-    NotesView.Init(Song, getTime: () => CurrentTime);
+    RhythmGameSong song = RhythmGameSong.ParseMidi(
+      System.IO.Path.Combine(Application.streamingAssetsPath, "Rhythm Game Data", "Demo.mid")
+    );
 
-    MaxPossibleScore = Song
+    PressableNotesWindow = new(song.Notes, onExitWindow: MissedNote);
+    NotesView.Init(song, getTime: () => CurrentTime);
+
+    MaxPossibleScore = song
       .Notes.Select(note => {
         int perfectHitScore = ScoreNoteHit(0f);
         int holdScore = (int)(note.Duration * HOLD_SCORE_PER_SECOND);
