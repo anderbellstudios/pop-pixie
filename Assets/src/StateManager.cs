@@ -151,10 +151,6 @@ public class StateManager : MonoBehaviour {
     enable: StateFeatures.PlayerDeathAnimation
   );
 
-  /**
-   * Convert a State enum value to one of the tuples defined above that describe
-   * what should happen in each state.
-   */
   static StateDefinition GetStateDefinition(State state) {
     switch (state) {
       case State.Playing:
