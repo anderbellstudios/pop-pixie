@@ -49,7 +49,9 @@ public class GrenadeExplodesAfterTime : MonoBehaviour {
       damage: WaitingToThrow() ? DamageExplodingInHand : BulletData.Damage,
       origin: transform.position,
       radius: Radius,
-      canBeCounterAttacked: !BulletData.Originator.transform.IsChildOf(PlayerGameObject.Current.transform),
+      canBeCounterAttacked: !BulletData.Originator.transform.IsChildOf(
+        PlayerGameObject.Current.transform
+      ),
       isDestructive: IsDestructive,
       damageCurve: DamageCurve,
       shouldDamage: (go) => {
