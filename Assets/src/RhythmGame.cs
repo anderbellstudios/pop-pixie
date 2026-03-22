@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 
 public class RhythmGame : MonoBehaviour {
+  public FMODUnity.StudioEventEmitter MusicEventEmitter;
   public RhythmGameNotesView NotesView;
   public TMP_Text ScoreText;
   public TMP_Text NoteGradeText;
@@ -191,7 +192,16 @@ public class RhythmGame : MonoBehaviour {
     NoteGradeText.text = grade;
   }
 
-  private float CurrentTime => Time.time;
+  private float CurrentTime {
+    get {
+      /**
+       * getTimelinePosition isn't the most accurate or precise way of getting the playback time of
+       * the current song, but it's the simplest and it seems to produce good enough results.
+       */
+      MusicEventEmitter.EventInstance.getTimelinePosition(out int timelinePosition);
+      return timelinePosition / 1000f;
+    }
+  }
 
   private List<RhythmGameNote> PressableNotes => PressableNotesWindow.Current;
 }
