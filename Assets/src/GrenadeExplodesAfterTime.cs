@@ -49,24 +49,22 @@ public class GrenadeExplodesAfterTime : MonoBehaviour {
       damage: WaitingToThrow() ? DamageExplodingInHand : BulletData.Damage,
       origin: transform.position,
       radius: Radius,
-      canBeCounterAttacked: true,
+      canBeCounterAttacked: !BulletData.Originator.transform.IsChildOf(
+        PlayerGameObject.Current.transform
+      ),
       isDestructive: IsDestructive,
       damageCurve: DamageCurve,
       shouldDamage: (go) => {
-        if (!DamagesPlayer && go.tag == "Player")
+        if (!DamagesPlayer && go.CompareTag("Player"))
           return false;
-        if (!DamagesEnemies && go.tag == "Enemy")
+        if (!DamagesEnemies && go.CompareTag("Enemy"))
           return false;
         return true;
       }
     );
 
     // Send grenade back to originator on counterattack
-    if (
-      isCounterAttack
-      && BulletData.Originator
-      && BulletData.Originator != PlayerGameObject.Current
-    ) {
+    if (isCounterAttack && BulletData.Originator) {
       Vector3 toOriginator = (BulletData.Originator.transform.position - transform.position);
       Rigidbody.velocity = toOriginator * VelocityCoefficient;
       DamagesEnemies = true;
