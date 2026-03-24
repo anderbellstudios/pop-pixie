@@ -67,6 +67,14 @@ public class RhythmGameNotesView : MonoBehaviour {
     }
   }
 
+  public void HandleButtonDown(RhythmGameNoteType noteType) {
+    FlashForNoteType(noteType).SetOpacity(1f);
+  }
+
+  public void HandleButtonUp(RhythmGameNoteType noteType) {
+    FlashForNoteType(noteType).Fade(0f);
+  }
+
   public void HitNote(RhythmGameNote note) {
     if (note.IsInstant) {
       DespawnNote(note);
@@ -98,7 +106,7 @@ public class RhythmGameNotesView : MonoBehaviour {
 
     noteSprite.Initialize(
       note: note,
-      color: target.GetComponent<Image>().color,
+      color: target.Find("Arrow").GetComponent<Image>().color,
       rotation: target.localRotation,
       trailLength: note.Duration * NoteSpeed
     );
@@ -128,6 +136,9 @@ public class RhythmGameNotesView : MonoBehaviour {
 
     throw new System.ArgumentException("Unexpected note type");
   }
+
+  private CanvasFadeInOut FlashForNoteType(RhythmGameNoteType noteType) =>
+    TargetForNoteType(noteType).GetComponentInChildren<CanvasFadeInOut>();
 
   public List<RhythmGameNote> VisibleNotes => VisibleNotesWindow.Current;
   private float CurrentTime => GetTime();

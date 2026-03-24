@@ -114,12 +114,16 @@ public class RhythmGame : MonoBehaviour {
     } else {
       HitNote(note);
     }
+
+    NotesView.HandleButtonDown(noteType);
   }
 
   private void HandleButtonUp(RhythmGameNoteType noteType) {
     if (HeldNotes.ContainsKey(noteType)) {
       ReleaseNote(HeldNotes[noteType]);
     }
+
+    NotesView.HandleButtonUp(noteType);
   }
 
   private void HitNote(RhythmGameNote note) {
