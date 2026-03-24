@@ -10,6 +10,7 @@ public class RhythmGame : MonoBehaviour {
   public RhythmGameNotesView NotesView;
   public TMP_Text ScoreText;
   public TMP_Text NoteGradeText;
+  public float MistakeSoundDebounce;
   public float MistakeSnapshotDuration;
 
   /**
@@ -41,6 +42,7 @@ public class RhythmGame : MonoBehaviour {
   private int MaxPossibleScore;
   private int FMODPreviousTimelinePositionMS = -1;
   private Stopwatch FMODTimelineLastUpdateStopwatch;
+  private Stopwatch MistakeSoundDebounceStopwatch;
   private AsyncTimer.EnqueuedEvent ClearMistakeSnapshot;
 
   void Start() {
@@ -172,7 +174,13 @@ public class RhythmGame : MonoBehaviour {
   }
 
   private void PlayMistakeSound() {
-    MistakeSound.Play();
+    if (
+      MistakeSoundDebounceStopwatch == null
+      || MistakeSoundDebounceStopwatch.Time() >= MistakeSoundDebounce
+    ) {
+      MistakeSound.Play();
+      MistakeSoundDebounceStopwatch = new Stopwatch.BaseTime();
+    }
 
     if (ClearMistakeSnapshot == null) {
       MistakeSnapshot.Play();
