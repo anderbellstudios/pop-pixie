@@ -5,9 +5,12 @@ using UnityEngine;
 
 public class RhythmGame : MonoBehaviour {
   public FMODUnity.StudioEventEmitter MusicEventEmitter;
+  public FMODUnity.StudioEventEmitter MistakeSnapshot;
+  public PlaySound MistakeSound;
   public RhythmGameNotesView NotesView;
   public TMP_Text ScoreText;
   public TMP_Text NoteGradeText;
+  public float MistakeSnapshotDuration;
 
   /**
    * Constants and scoring algorithm modified from the source code of Friday
@@ -38,6 +41,7 @@ public class RhythmGame : MonoBehaviour {
   private int MaxPossibleScore;
   private int FMODPreviousTimelinePositionMS = -1;
   private Stopwatch FMODTimelineLastUpdateStopwatch;
+  private AsyncTimer.EnqueuedEvent ClearMistakeSnapshot;
 
   void Start() {
     RhythmGameSong song = RhythmGameSongParser.ParseMidi(
@@ -135,8 +139,11 @@ public class RhythmGame : MonoBehaviour {
     float remainingDuration = note.RelativeTime(CurrentTime, end: true);
 
     bool closeEnough = remainingDuration <= DROP_THRESHOLD;
-    if (closeEnough)
+    if (closeEnough) {
       remainingDuration = 0f;
+    } else {
+      PlayMistakeSound();
+    }
 
     float heldDuration = note.Duration - remainingDuration;
 
@@ -152,10 +159,30 @@ public class RhythmGame : MonoBehaviour {
   private void MissedNote(RhythmGameNote note) {
     ShowNoteGrade("Miss");
     UpdateScore(MISS_NOTE_SCORE);
+    PlayMistakeSound();
   }
 
   private void NoteNotFound(RhythmGameNoteType noteType) {
     UpdateScore(MISS_NOTE_SCORE);
+    PlayMistakeSound();
+  }
+
+  private void PlayMistakeSound() {
+    MistakeSound.Play();
+
+    if (ClearMistakeSnapshot == null) {
+      MistakeSnapshot.Play();
+    } else {
+      AsyncTimer.BaseTime.ClearTimeout(ClearMistakeSnapshot);
+    }
+
+    ClearMistakeSnapshot = AsyncTimer.BaseTime.SetTimeout(
+      () => {
+        MistakeSnapshot.Stop();
+        ClearMistakeSnapshot = null;
+      },
+      MistakeSnapshotDuration
+    );
   }
 
   private int ScoreNoteHit(float relativeTime) {
