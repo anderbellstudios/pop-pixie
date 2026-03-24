@@ -36,6 +36,8 @@ public class RhythmGame : MonoBehaviour {
   private Dictionary<RhythmGameNoteType, RhythmGameNote> HeldNotes = new();
   private float Score = 0f;
   private int MaxPossibleScore;
+  private int FMODPreviousTimelinePositionMS = -1;
+  private Stopwatch FMODTimelineLastUpdateStopwatch;
 
   void Start() {
     RhythmGameSong song = RhythmGameSongParser.ParseMidi(
@@ -192,14 +194,28 @@ public class RhythmGame : MonoBehaviour {
     NoteGradeText.text = grade;
   }
 
+  /**
+   * The timeline position reported by FMOD updates infrequently, so we smooth
+   * it by tracking the time since it last changed.
+   */
   private float CurrentTime {
     get {
-      /**
-       * getTimelinePosition isn't the most accurate or precise way of getting the playback time of
-       * the current song, but it's the simplest and it seems to produce good enough results.
-       */
+      int timelinePositionMS = FMODTimelinePositionMS;
+
+      if (timelinePositionMS == FMODPreviousTimelinePositionMS) {
+        return FMODPreviousTimelinePositionMS / 1000f + FMODTimelineLastUpdateStopwatch.Time();
+      }
+
+      FMODPreviousTimelinePositionMS = timelinePositionMS;
+      FMODTimelineLastUpdateStopwatch = new Stopwatch.BaseTime();
+      return timelinePositionMS / 1000f;
+    }
+  }
+
+  private int FMODTimelinePositionMS {
+    get {
       MusicEventEmitter.EventInstance.getTimelinePosition(out int timelinePosition);
-      return timelinePosition / 1000f;
+      return timelinePosition;
     }
   }
 
