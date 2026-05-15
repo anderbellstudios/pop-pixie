@@ -16,6 +16,7 @@ public class CollectPiecesOfIntelReminder : MonoBehaviour {
     PiecesOfIntel = FindObjectsOfType<PieceOfIntelSprite>().ToList();
 
     InGamePrompt.Current.RegisterSource(InGamePrompt.Priority.CollectIntel, HintText);
+    NotificationPrompt.Current.SetNotificationPrompt(HintText);
   }
 
   public void Activate() {
