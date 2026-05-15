@@ -10,7 +10,6 @@ public class InGamePrompt : MonoBehaviour {
   public enum Priority {
     TutorialRoll,
     TutorialFire,
-    CollectIntel,
     TutorialMove,
     UrgentRoll,
     Uncrouch,
