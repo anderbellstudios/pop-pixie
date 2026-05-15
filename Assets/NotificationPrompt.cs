@@ -24,7 +24,8 @@ public class NotificationPrompt : MonoBehaviour
     String text = source();
     if(text != null) {
       currentText = text;
-    } else {
+    } 
+    else {
       Debug.Log("text is null");
     }
   }
