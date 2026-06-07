@@ -10,26 +10,39 @@ public class CollectPiecesOfIntelReminder : MonoBehaviour {
   private bool Active = false;
 
   void Start() {
-    if (ActivateOnStart)
+    if (ActivateOnStart) {
       Activate();
+    }
 
     PiecesOfIntel = FindObjectsOfType<PieceOfIntelSprite>().ToList();
-
-    NotificationPrompt.Current.RegisterSource(NotificationPrompt.Priority.CollectIntel, HintText);
   }
 
   public void Activate() {
+    Debug.Log("activate()");
     Active = true;
   }
+  public void Update() {
+    string getIntelHintText = GetHintText();
+    if (!string.IsNullOrEmpty(getIntelHintText)) {
+      //Debug.Log("set objective to intel hint text");
+      NotificationPrompt.Current.SetNewObjective(getIntelHintText);
+    }
+  }
 
-  string HintText() {
-    if (!Active)
+  private string GetHintText() {
+    if (!Active) {
+      //Debug.Log("not active, returning null");
       return null;
-
+    }
+      
+    
     int uncollected = PiecesOfIntel.Count(p => !p.Collected);
 
-    if (uncollected == 0)
+    if (uncollected == 0) {
+      Debug.Log("uncollected=0, returning null");
       return null;
+    }
+      
 
     string verb = uncollected == 1 ? "is" : "are";
     string noun = uncollected == 1 ? "Piece of Intel" : "Pieces of Intel";

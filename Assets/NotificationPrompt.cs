@@ -9,7 +9,7 @@ public class NotificationPrompt : MonoBehaviour
   /*
    Plan:
   NotificationPrompt (rename to ObjectivesNotification, ObjectivesNotificationPrompt ?
-  shows current object, or just completed objective with new objective
+  shows current objective, or just completed objective crossed out with new objective underneath
   - when inactive for a while, show objective
   - when active again, hide
   - completed objective/new object show again
@@ -34,38 +34,41 @@ public class NotificationPrompt : MonoBehaviour
   public float TimeInactiveUntilShowObjective;
   public float TimeUntilHideObjectiveOnceActive;
 
-  private readonly List<(Int32, NotificationPromptSource)> Sources = new();
+  private string CurrentObjectiveText;
+  public void SetNewObjective(string newObjective) {
+    Debug.Log("set new objective to: " + newObjective);
+    CurrentObjectiveText = newObjective;
+  }
 
   void Awake() {
     if (SingletonInstance)
       Current = this;
+    CurrentObjectiveText = "This is a placeholder objective";
   }
 
-  public void RegisterSource(Priority priority, NotificationPromptSource source) {
-    Sources.Add(((int)priority, source));
-  }
   void Update(){
-    Text.text = CurrentText();
-  }
+    //check if inactive for period of time
+    //if so show objective
+    //if not hide objective
+    //take a second to hide objective after becoming active
 
-  String CurrentText() {
-    if (!StateManager.Playing)
-      return null;
-
-    String resultingText = null;
-    int highestPriority = 0;
-
-    foreach ((int priority, NotificationPromptSource source) sourceWithPriority in Sources) {
-      String text = sourceWithPriority.source();
-      int priority = sourceWithPriority.priority;
-
-      if (text != null && (resultingText == null || priority >= highestPriority)) {
-        resultingText = text;
-        highestPriority = priority;
-      }
+    if (!StateManager.Playing) {
+      return;
     }
 
-    return resultingText;
+    if (PlayingTime.time - PlayerGameObject.LastMovedAt > TimeInactiveUntilShowObjective) {
+      Text.text = GetCurrentObjective();
+    } 
+    else {
+      Text.text = null;
+    }
+
+    
   }
 
+  private string GetCurrentObjective() {
+    return CurrentObjectiveText;
+  }
+
+  
 }
