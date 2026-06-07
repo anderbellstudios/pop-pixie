@@ -24,7 +24,7 @@ public class GraphicsSettingsMenuEvents : AMenu {
     );
 
     if (ResolutionStepper.Value == -1)
-      ResolutionStepper.Value = Screen.resolutions.Count() - 1;
+      ResolutionStepper.Value = Screen.resolutions.Length - 1;
 
     Resolution = Screen.resolutions[ResolutionStepper.Value];
 
