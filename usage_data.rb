@@ -3,7 +3,7 @@ require 'yaml'
 module UsageData
   DO_NOT_SEARCH_DIRS = %w[vendor Plugins]
   GUID_REFERENCING_EXTENSIONS = %w[.unity .prefab .mat .asset .controller]
-  IDENTIFIER_REFERENCING_EXTENSIONS = %w[.cs]
+  IDENTIFIER_REFERENCING_EXTENSIONS = %w[.cs .unity .prefab]
   IGNORE_UNUSED_EXTENSIONS = %w[.unity .preset .otf .ttf .asset .txt .asmdef]
   IGNORE_UNUSED_DIRS = %w[Assets/test/]
 
