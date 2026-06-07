@@ -12,11 +12,6 @@ public class MoveHintPrompt : MonoBehaviour {
     );
   }
 
-  void Update() {
-    if (!StateManager.Playing)
-      return;
-  }
-
   string HintText() =>
     InputMode.IsJoystick()
       ? "Use [Move Stick] to move"

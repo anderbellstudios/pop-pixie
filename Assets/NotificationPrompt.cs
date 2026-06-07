@@ -6,6 +6,19 @@ using UnityEngine;
 
 public class NotificationPrompt : MonoBehaviour
 {
+  /*
+   Plan:
+  NotificationPrompt (rename to ObjectivesNotification, ObjectivesNotificationPrompt ?
+  shows current object, or just completed objective with new objective
+  - when inactive for a while, show objective
+  - when active again, hide
+  - completed objective/new object show again
+
+  create another class to store all objectives
+  - if a lot of objectives, might need button to display them all on menu
+   
+   */
+
   // Lower entries take precedence
   public enum Priority {
     CollectIntel,
@@ -18,25 +31,21 @@ public class NotificationPrompt : MonoBehaviour
 
   public delegate String NotificationPromptSource();
 
-  private LowPriorityBehaviour LowPriorityBehaviour;
+  public float TimeInactiveUntilShowObjective;
+  public float TimeUntilHideObjectiveOnceActive;
+
   private readonly List<(Int32, NotificationPromptSource)> Sources = new();
 
   void Awake() {
     if (SingletonInstance)
       Current = this;
-    LowPriorityBehaviour = new LowPriorityBehaviour();
   }
 
   public void RegisterSource(Priority priority, NotificationPromptSource source) {
     Sources.Add(((int)priority, source));
   }
   void Update(){
-    LowPriorityBehaviour.EveryNFrames(
-      10,
-      () => {
-        Text.text = CurrentText();
-      }
-    );
+    Text.text = CurrentText();
   }
 
   String CurrentText() {
