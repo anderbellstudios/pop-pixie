@@ -13,6 +13,7 @@ public class PlayerGameObject : MonoBehaviour {
   private static Vector3 EstimatedDirection;
   private static float TimeMovedAt;
   public float ActiveMovementThreshold;
+
   void Awake() {
     Current = gameObject;
     LastPosition = transform.position;
