@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PieceOfIntelSprite : AInspectable {
   public bool Collected = false;
@@ -9,6 +10,7 @@ public class PieceOfIntelSprite : AInspectable {
   public CaptionLine CaptionLineAfterClose;
   public GameObject SpriteGameObject;
   public CircleCollider2D ColliderBehaviour;
+  public UnityEvent OnCollected;
 
   void Start() {
     PreloadProgrammerSounds.PreloadCaptionLine(CaptionLineAfterClose);
@@ -37,6 +39,7 @@ public class PieceOfIntelSprite : AInspectable {
     Collected = true;
     SpriteGameObject.SetActive(false);
     ColliderBehaviour.enabled = false;
+    OnCollected.Invoke();
   }
 
   public override String AInspectablePromptText() {
