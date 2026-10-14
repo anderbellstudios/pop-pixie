@@ -7,9 +7,9 @@ on:
   pull_request:
     types: [opened, synchronize]
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+# concurrency:
+#   group: ${{ github.workflow }}-${{ github.ref }}
+#   cancel-in-progress: true
 
 jobs:
   test:
@@ -71,9 +71,7 @@ jobs:
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
-          # Disabling crunch compression in an attempt to mitigate
-          # https://github.com/game-ci/docker/issues/243
-          customParameters: -testFilter ${{ steps.get_tests.outputs.tests }} -overrideTextureCompression forceNoCrunchCompression
+          customParameters: -testFilter ${{ steps.get_tests.outputs.tests }}
 
       # Caching Library may be causing an intermittent error "Unable to find
       # type [UnityEngine.CoreModule.dll]". A symptom of this is that
@@ -96,7 +94,7 @@ jobs:
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
-          customParameters: -testFilter ${{ steps.get_tests.outputs.tests }} -overrideTextureCompression forceNoCrunchCompression
+          customParameters: -testFilter ${{ steps.get_tests.outputs.tests }}
 
       - name: Report test results
         if: always()
