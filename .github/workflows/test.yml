@@ -42,6 +42,14 @@ jobs:
           's/result = coreSystem.setOutput(outputType);/result = coreSystem.setOutput(FMOD.OUTPUTTYPE.NOSOUND);/' \
           Assets/Plugins/FMOD/src/RuntimeManager.cs
 
+      # Workaround for https://github.com/game-ci/docker/issues/243
+      - name: Replace Pieces of Intel with placeholder images
+        run: |
+          IFS=$'\n'
+          for file in $(find 'Assets/images/Pieces of Intel' -name '*.png'); do
+            cp .github/ci-placeholder-image.png "$file"
+          done
+
       - name: Cache Library
         uses: actions/cache@v4
         with:
