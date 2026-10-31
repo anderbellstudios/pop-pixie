@@ -62,7 +62,7 @@ jobs:
 
       - name: Run tests
         id: tests
-        uses: 12joan/ci-unity-test-runner@main
+        uses: game-ci/unity-test-runner@v4
         continue-on-error: true
         env:
           # gh secret set UNITY_LICENSE < /Library/Application\ Support/Unity/Unity_lic.ulf
@@ -86,7 +86,7 @@ jobs:
 
       - name: Re-run tests
         if: steps.check_rerun.outcome == 'success'
-        uses: 12joan/ci-unity-test-runner@main
+        uses: game-ci/unity-test-runner@v4
         env:
           # gh secret set UNITY_LICENSE < /Library/Application\ Support/Unity/Unity_lic.ulf
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
