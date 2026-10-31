@@ -47,7 +47,7 @@ jobs:
         run: |
           IFS=$'\n'
           for file in $(find 'Assets/images/Pieces of Intel' -name '*.png'); do
-            cp .github/ci-placeholder-image.png "$file"
+            cp .github/ci-placeholder-intel.png "$file"
           done
 
       - name: Cache Library
